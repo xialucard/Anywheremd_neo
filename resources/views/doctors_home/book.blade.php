@@ -1,0 +1,1273 @@
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card mb-3">
+        <div class="card-header">Basic Information</div>
+        <div class="card-body">
+          <img src="{{ !empty($datum->patient->profile_pic) ? asset('storage/px_files/' . $datum->patient->profile_pic) : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" class="img-thumbnail float-start w-25 h-25 m-2" alt="">
+          <p>
+            <strong>Name:</strong> {{ $datum->patient->name }} | 
+            <strong>Age:</strong> {{ floor((strtotime($datum->bookingDate) - strtotime($datum->patient->birthdate))/(60*60*24*365.25)) }} | 
+            <strong>Birthday:</strong> {{ $datum->patient->birthdate }} | 
+            <strong>Gender:</strong> {{ $datum->patient->gender }}<br>
+            <strong>Address:</strong> {{ $datum->patient->address }}<br>
+            <strong>Email:</strong> {{ $datum->patient->email }} | 
+            <strong>Mobile #:</strong> {{ $datum->patient->mobile_num }}<br>
+            <strong>Patient Type:</strong> {{ $datum->patient->patient_type }} | 
+            <strong>Patient Sub Type: </strong>{{ $datum->patient->patient_sub_type . ' ' . $datum->patient->referral_from }}<br>
+            <strong>Philhealth #: </strong>{{ $datum->patient->phil_num }}<br>
+            <strong>HMO:</strong> {{ $datum->patient->hmo_num }} | 
+            <strong>HMO #:</strong> {{ $datum->patient->hmo_num }}<br>
+          </p>  
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="card mb-3">
+        <div class="card-header">Booking History</div>
+        <div class="card-body table-responsive" style="max-height: 185.5px">
+          <table class="table table-bordered table-striped table-hover table-sm">
+            <thead class="table-{{ $bgColor }}">
+                <tr>
+                    <th class=""><i class="bi bi-gear"></i></th>
+                    <th>Date</th>
+                    <th>Doctor</th>
+                    <th>Booking Type</th>
+                </tr>
+            </thead>
+            <tbody>
+              @php
+                $bookings = $datum->patient->consultations()->where('doctor_id', $user->id)->where('id', '<', $datum->id)->orderByDesc('bookingDate')->get();
+              @endphp
+              @foreach($bookings as $ind=>$dat)
+                <tr>
+                  <td>
+                    <div class="d-sm-flex flex-sm-row">
+                      <div class="m-1"><a class="btn btn-{{ $bgColor }} btn-sm w-100" href="#" title="View" role="button" onclick="loadPrevBooking({{ $datum->id }}, {{ $ind }})"><i class="bi bi-binoculars"></i><span class="ps-1 d-sm-none">View</span></a></div>
+                    </div>
+                  </td>
+                  <td>{{ $dat->bookingDate }}</td>
+                  <td>Dr. {{ $dat->doctor->name }}</td>
+                  <td>{{ $dat->booking_type == '' ? 'Consultation' : $dat->booking_type }}</td>
+                </tr>
+              @endforeach
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="card mb-3">
+        <div class="card-header">Medical History</div>
+        <div class="card-body">
+          <p>
+            <strong>Past Medical History:</strong> {{ $datum->patient->pastMedicalHistory }}<br>
+            @if(is_array(json_decode($datum->patient->pastMedicalHistory)) && in_array('Cancer', json_decode($datum->patient->pastMedicalHistory)))
+            <strong>Cancer Details:</strong> {{ $datum->patient->pastMedicalHistoryCancer }}<br>
+            @endif
+            @if(is_array(json_decode($datum->patient->pastMedicalHistory)) && in_array('Others', json_decode($datum->patient->pastMedicalHistory)))
+            <strong>Others Details:</strong> {{ $datum->patient->pastMedicalHistoryOthers }}<br>
+            @endif
+            <strong>Past Surgical History and Date:</strong> {{ $datum->patient->pastSurgicalHistory }}<br>
+            <strong>Family History:</strong> {{ $datum->patient->pastFamilyHistory }}<br>
+            @if(is_array(json_decode($datum->patient->pastFamilyHistory)) && in_array('Cancer', json_decode($datum->patient->pastFamilyHistory)))
+            <strong>Cancer Details:</strong> {{ $datum->patient->pastFamilyHistoryCancer }}<br>
+            @endif
+            @if(is_array(json_decode($datum->patient->pastFamilyHistory)) && in_array('Others', json_decode($datum->patient->pastFamilyHistory)))
+            <strong>Others Details:</strong> {{ $datum->patient->pastFamilyHistoryOthers }}<br>
+            @endif
+            <strong>Past Medication:</strong> {{ $datum->patient->pastMedication }}<br>
+            <strong>Present Medication:</strong> {{ $datum->patient->presentMedication }}<br>
+            <strong>Alergies:</strong> {{ $datum->patient->allergies }}<br>
+            @if(isset($datum->patient->allergies) && is_array(json_decode($datum->patient->allergies)) && in_array('Food', json_decode($datum->patient->allergies)))
+            <strong>Food Alergies:</strong> {{ $datum->patient->allergiesFood }}<br>
+            @endif
+            @if(isset($datum->patient->allergies) && is_array(json_decode($datum->patient->allergies)) && in_array('Medicine', json_decode($datum->patient->allergies)))
+            <strong>Medicine Alergies:</strong> {{ $datum->patient->allergiesMedicine }}<br>
+            @endif
+            @if(isset($datum->patient->allergies) && is_array(json_decode($datum->patient->allergies)) && in_array('Others', json_decode($datum->patient->allergies)))
+            <strong>Other Alergies:</strong> {{ $datum->patient->allergiesOthers }}<br>
+            @endif
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-6">
+      @if(isset($bookings[0]))
+      <div class="card mb-3">
+        <div class="card-header">Past Patient's Chart (<span id="prevBookingDater">{{ $bookings[0]->bookingDate }}</span>)</div>
+        <div class="card-body">
+          <div class="card mb-3">
+            <div class="card-header">Vitals</div>
+            <div class="card-body">
+              <p id="prevVitaler">
+                <strong>Temp:</strong> {{ $bookings[0]->temp }}C | 
+                <strong>Height:</strong> {{ $bookings[0]->height }}cm | 
+                <strong>Weight:</strong> {{ $bookings[0]->weight }}kg | 
+                <strong>BMI:</strong> {{ number_format($bookings[0]->weight/(($bookings[0]->height/100)*($bookings[0]->height/100)), 0) }}<br>
+                <strong>BP:</strong> {{ $bookings[0]->bpS }}/{{ $bookings[0]->bpD }} | 
+                <strong>O2 Sat:</strong> {{ $bookings[0]->o2 }}% | 
+                <strong>Heart Rate:</strong> {{ $bookings[0]->heart }}beats/min
+              </p>
+            </div>
+          </div>
+          <div class="card mb-3">
+            <div class="card-header">Eye Examination Information</div>
+            <div class="card-body">
+              <p id="prevEyer">
+                <strong>AR OD:</strong> {{ $bookings[0]->arod_sphere != 'No Target' ? $bookings[0]->arod_sphere . ' - ' . $bookings[0]->arod_cylinder . ' x ' . $bookings[0]->arod_axis : $bookings[0]->arod_sphere }} | 
+                <strong>AR OS:</strong> {{ $bookings[0]->aros_sphere != 'No Target' ? $bookings[0]->aros_sphere . ' - ' . $bookings[0]->aros_cylinder . ' x ' . $bookings[0]->aros_axis : $bookings[0]->aros_sphere }}<br>
+                <strong>VA OD:</strong> {{ $bookings[0]->vaod_num != 'NA' ? $bookings[0]->vaod_num . ' / ' . $bookings[0]->vaod_den : $bookings[0]->vaod_num }} | 
+                <strong>VA OD w/ Correction:</strong> {{ $bookings[0]->vaodcor_num != 'NA' ? $bookings[0]->vaodcor_num . ' / ' . $bookings[0]->vaodcor_den : $bookings[0]->vaodcor_num }}<br>
+                <strong>VA OS:</strong> {{ $bookings[0]->vaos_num != 'NA' ? $bookings[0]->vaos_num . ' / ' . $bookings[0]->vaos_den : $bookings[0]->vaos_num }} | 
+                <strong>VA OS w/ Correction:</strong> {{ $bookings[0]->vaoscor_num != 'NA' ? $bookings[0]->vaoscor_num . ' / ' . $bookings[0]->vaoscor_den : $bookings[0]->vaoscor_num }}<br>
+                <strong>Pinhole OD:</strong> {{ $bookings[0]->pinod_num != 'NA' ? $bookings[0]->pinod_num . ' / ' . $bookings[0]->pinod_den : $bookings[0]->pinod_num }} | 
+                <strong>Pinhole OD w/ Correction:</strong> {{ $bookings[0]->pinodcor_num != 'NA' ? $bookings[0]->pinodcor_num . ' / ' . $bookings[0]->pinodcor_den : $bookings[0]->pinodcor_num }}<br>
+                <strong>Pinhole OS:</strong> {{ $bookings[0]->pinos_num != 'NA' ? $bookings[0]->pinos_num . ' / ' . $bookings[0]->pinos_den : $bookings[0]->pinos_num }} | 
+                <strong>Pinhole OS w/ Correction:</strong> {{ $bookings[0]->pinoscor_num != 'NA' ? $bookings[0]->pinoscor_num . ' / ' . $bookings[0]->pinoscor_den : $bookings[0]->pinoscor_num }}<br>
+                <strong>Jaeger OU:</strong> {{ $bookings[0]->jae_ou }} | 
+                <strong>Jaeger OD:</strong> {{ $bookings[0]->jae_od }} | 
+                <strong>Jaeger OS:</strong> {{ $bookings[0]->jae_os }} <br>
+                <strong>IOP OD:</strong> {{ $bookings[0]->iopod }} | 
+                <strong>IOP OS:</strong> {{ $bookings[0]->iopos }}
+              </p>
+            </div>
+          </div>
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a class="nav-link active" id="soapPrevLink" href="#" onclick="
+                $('#soapPrevLink').addClass('active');  
+                $('#labPrevLink').removeClass('active');  
+                $('#presPrevLink').removeClass('active');  
+                $('#medPrevLink').removeClass('active');  
+                $('#admitPrevLink').removeClass('active');
+                $('#soapPrevDiv').show();  
+                $('#labPrevDiv').hide();  
+                $('#presPrevDiv').hide();  
+                $('#medPrevDiv').hide();  
+                $('#admitPrevDiv').hide();
+                $('#soapCurLink').addClass('active');  
+                $('#labCurLink').removeClass('active');  
+                $('#presCurLink').removeClass('active');  
+                $('#medCurLink').removeClass('active');  
+                $('#admitCurLink').removeClass('active');
+                $('#soapCurDiv').show();  
+                $('#labCurDiv').hide();  
+                $('#presCurDiv').hide();  
+                $('#medCurDiv').hide();  
+                $('#admitCurDiv').hide();
+              ">SOAP</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="labPrevLink" href="#" onclick="
+                $('#soapPrevLink').removeClass('active');
+                $('#labPrevLink').addClass('active');  
+                $('#presPrevLink').removeClass('active');  
+                $('#medPrevLink').removeClass('active');  
+                $('#admitPrevLink').removeClass('active');
+                $('#soapPrevDiv').hide();  
+                $('#labPrevDiv').show();  
+                $('#presPrevDiv').hide();  
+                $('#medPrevDiv').hide();  
+                $('#admitPrevDiv').hide();
+                $('#soapCurLink').removeClass('active');
+                $('#labCurLink').addClass('active');  
+                $('#presCurLink').removeClass('active');  
+                $('#medPCurLink').removeClass('active');  
+                $('#admitCurLink').removeClass('active');
+                $('#soapCurDiv').hide();  
+                $('#labCurDiv').show();  
+                $('#presCurDiv').hide();  
+                $('#medCurDiv').hide();  
+                $('#admitCurDiv').hide();
+              ">File Uploads</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="presPrevLink" href="#" onclick="
+                $('#soapPrevLink').removeClass('active');
+                $('#labPrevLink').removeClass('active');  
+                $('#presPrevLink').addClass('active');  
+                $('#medPrevLink').removeClass('active');  
+                $('#admitPrevLink').removeClass('active');
+                $('#soapPrevDiv').hide();  
+                $('#labPrevDiv').hide();  
+                $('#presPrevDiv').show();  
+                $('#medPrevDiv').hide();  
+                $('#admitPrevDiv').hide();
+                $('#soapCurLink').removeClass('active');
+                $('#labCurLink').removeClass('active');  
+                $('#presCurLink').addClass('active');  
+                $('#medCurLink').removeClass('active');  
+                $('#admitCurLink').removeClass('active');
+                $('#soapCurDiv').hide();  
+                $('#labCurDiv').hide();  
+                $('#presCurDiv').show();  
+                $('#medCurDiv').hide();  
+                $('#admitCurDiv').hide();
+              ">E-Prescription</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="medPrevLink" href="#" onclick="
+                $('#soapPrevLink').removeClass('active');
+                $('#labPrevLink').removeClass('active');  
+                $('#presPrevLink').removeClass('active');  
+                $('#medPrevLink').addClass('active');  
+                $('#admitPrevLink').removeClass('active');
+                $('#soapPrevDiv').hide();  
+                $('#labPrevDiv').hide();  
+                $('#presPrevDiv').hide();  
+                $('#medPrevDiv').show();  
+                $('#admitPrevDiv').hide();
+                $('#soapCurLink').removeClass('active');
+                $('#labCurLink').removeClass('active');  
+                $('#presCurLink').removeClass('active');  
+                $('#medCurLink').addClass('active');  
+                $('#admitCurLink').removeClass('active');
+                $('#soapCurDiv').hide();  
+                $('#labCurDiv').hide();  
+                $('#presCurDiv').hide();  
+                $('#medCurDiv').show();  
+                $('#admitCurDiv').hide();
+              ">Med Cert</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="admitPrevLink" href="#" onclick="
+                $('#soapPrevLink').removeClass('active');
+                $('#labPrevLink').removeClass('active');  
+                $('#presPrevLink').removeClass('active');  
+                $('#medPrevLink').removeClass('active');
+                $('#admitPrevLink').addClass('active'); 
+                $('#soapPrevDiv').hide();  
+                $('#labPrevDiv').hide();  
+                $('#presPrevDiv').hide();  
+                $('#medPrevDiv').hide(); 
+                $('#admitPrevDiv').show();  
+                $('#soapCurLink').removeClass('active');
+                $('#labCurLink').removeClass('active');  
+                $('#presCurLink').removeClass('active');  
+                $('#medCurLink').removeClass('active');
+                $('#admitCurLink').addClass('active'); 
+                $('#soapCurDiv').hide();  
+                $('#labCurDiv').hide();  
+                $('#presCurDiv').hide();  
+                $('#medCurDiv').hide(); 
+                $('#admitCurDiv').show();  
+              ">Admitting Orders</a>
+            </li>
+          </ul>
+          <div id="soapPrevDiv" class="container border border-1 border-top-0 mb-3 p-3">
+            <div class="card mb-3">
+              <div class="card-header">Previous Procedure</div>
+              <div class="card-body" style="height: 1in; max-height: 1in">
+                <p>{{ $bookings[0]->procedure_details }}</p>
+              </div>
+            </div>
+            <div class="card mb-3">
+              <div class="card-header">Previous Patient's Complaint</div>
+              <div class="card-body" style="height: 1in; max-height: 1in">
+                <p>{{ $bookings[0]->complain }}</p>
+                <small class="text-muted">{{ $bookings[0]->duration }} day/s</small>
+              </div>
+            </div>
+            <div class="card mb-3">
+              <div class="card-header">Previous Doctor's Notes</div>
+              <div class="card-body">
+                @if(sizeof($bookings) == 1)
+                <div class="card mb-3">
+                  <div class="card-header">History of Present Illness</div>
+                  <div class="card-body">
+                    <small class="text-muted">Helper</small>
+                    <div class="input-group input-group-small flex-nowrap">
+                      <select class="form-select" placeholder="" disabled>
+                        <option value=""></option>
+                      </select>
+                      <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
+                    </div>
+                    <small class="text-muted">Content</small>
+                    <textarea class="form-control" name="{{ $viewFolder }}[docNotesHPI]" id="{{ $viewFolder }}_docNotesHPI" rows=3 disabled>{{ $bookings[0]->docNotesHPI }}</textarea>
+                    <small class="text-muted">Helper Save/Edit</small>
+                    <div class="input-group input-group-small mb-3 flex-nowrap">
+                      <div class="input-group-text">
+                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                      </div>
+                      <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesHPITitle" name="{{ $viewFolder }}[docNotesHPITitle]" disabled>
+                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                    </div>
+                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[docNotesHPIEdit]" id="{{ $viewFolder }}_docNotesHPIEdit" rows=3 disabled></textarea>
+                  </div>
+                </div>
+                @else
+                <div class="card mb-3">
+                  <div class="card-header">Previous Subject's Complaints</div>
+                  <div class="card-body">
+                    <small class="text-muted">Helper</small>
+                    <div class="input-group input-group-small flex-nowrap">
+                      <select class="form-select" placeholder="" disabled>
+                        <option value=""></option>
+                      </select>
+                      <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
+                    </div>
+                    <small class="text-muted">Content</small>
+                    <textarea class="form-control" name="{{ $viewFolder }}[docNotesSubject]" id="{{ $viewFolder }}_docNotesSubject" rows=3 disabled>{{ $bookings[0]->docNotesSubject }}</textarea>
+                    <small class="text-muted">Helper Save/Edit</small>
+                    <div class="input-group input-group-small mb-3 flex-nowrap">
+                      <div class="input-group-text">
+                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                      </div>
+                      <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesSubjectTitle" name="{{ $viewFolder }}[docNotesSubjectTitle]" disabled>
+                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                    </div>
+                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[ddocNotesSubjectEdit]" id="{{ $viewFolder }}_docNotesSubjectEdit" rows=3 disabled></textarea>
+                  </div>
+                </div>
+                @endif
+                <div class="card mb-3">
+                  <div class="card-header">Previous Objective Findings</div>
+                  <div class="card-body">
+                    <small class="text-muted">Helper</small>
+                    <div class="input-group input-group-small flex-nowrap">
+                      <select class="form-select" placeholder="" disabled>
+                        <option value=""></option>
+                      </select>
+                      <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
+                    </div>
+                    <small class="text-muted">Content</small>
+                    <textarea class="form-control" name="{{ $viewFolder }}[docNotes]" id="{{ $viewFolder }}_docNotes" rows=3 disabled>{{ $bookings[0]->docNotes }}</textarea>
+                    <small class="text-muted">Helper Save/Edit</small>
+                    <div class="input-group input-group-small mb-3 flex-nowrap">
+                      <div class="input-group-text">
+                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                      </div>
+                      <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesTitle" name="{{ $viewFolder }}[docNotesTitle]" disabled>
+                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                    </div>
+                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[_docNotesEdit]" id="{{ $viewFolder }}_docNotesEdit" rows=3 disabled></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card mb-3">
+              <div class="card-header">Previous Assessment</div>
+              <div class="card-body">
+                <div class="form-floating mb-3">
+                  <select class="form-select" name="{{ $viewFolder }}[icd_code]" id="{{ $viewFolder }}_icd_code" placeholder="" disabled>
+                    <option value=""></option>
+                  </select>
+                  <label for="{{ $viewFolder }}_icd_code">Previous Primary Diagnosis</label>
+                  <small id="help_{{ $viewFolder }}_icd_code" class="text-muted"></small>
+                </div>
+                <div class="card mb-3">
+                  <div class="card-header">Previous Secondary Diagnosis</div>
+                  <div class="card-body">
+                    <small class="text-muted">Helper</small>
+                    <div class="input-group input-group-small flex-nowrap">
+                      <select class="form-select" placeholder="" disabled>
+                        <option value=""></option>
+                      </select>
+                      <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
+                    </div>
+                    <small class="text-muted">Content</small>
+                    <textarea class="form-control" name="{{ $viewFolder }}[assessment]" id="{{ $viewFolder }}_assessment" rows=3 disabled>{{ $bookings[0]->assessment }}</textarea>
+                    <small class="text-muted">Helper Save/Edit</small>
+                    <div class="input-group input-group-small mb-3 flex-nowrap">
+                      <div class="input-group-text">
+                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                      </div>
+                      <input type="text" class="form-control" id="{{ $viewFolder }}_assessmentTitle" name="{{ $viewFolder }}[assessmentTitle]" disabled>
+                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                    </div>
+                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[_assessmentEdit]" id="{{ $viewFolder }}_assessmentEdit" rows=3 disabled></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card mb-3">
+              <div class="card-header">Previous Plan</div>
+              <div class="card-body">
+                <div class="card mb-3">
+                  <div class="card-header">Previous Medical Therapeutics</div>
+                  <div class="card-body">
+                    <small class="text-muted">Helper</small>
+                    <div class="input-group input-group-small flex-nowrap">
+                      <select class="form-select" placeholder="" disabled>
+                        <option value=""></option>
+                      </select>
+                      <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
+                    </div>
+                    <small class="text-muted">Content</small>
+                    <textarea class="form-control" name="{{ $viewFolder }}[planMed]" id="{{ $viewFolder }}_planMed" rows=3 disabled>{{ $bookings[0]->planMed }}</textarea>
+                    <small class="text-muted">Helper Save/Edit</small>
+                    <div class="input-group input-group-small mb-3 flex-nowrap">
+                      <div class="input-group-text">
+                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                      </div>
+                      <input type="text" class="form-control" id="{{ $viewFolder }}_planMedTitle" name="{{ $viewFolder }}[planMedTitle]" disabled>
+                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                    </div>
+                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planMedEdit]" id="{{ $viewFolder }}_planMedEdit" rows=3 disabled></textarea>
+                  </div>
+                </div>
+                <div class="card mb-3">
+                  <div class="card-header">Previous Diagnostics and Surgery</div>
+                  <div class="card-body">
+                    <small class="text-muted">Helper</small>
+                    <div class="input-group input-group-small flex-nowrap">
+                      <select class="form-select" placeholder="" disabled>
+                        <option value=""></option>
+                      </select>
+                      <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
+                    </div>
+                    <small class="text-muted">Content</small>
+                    <textarea class="form-control" name="{{ $viewFolder }}[plan]" id="{{ $viewFolder }}_plan" rows=3 disabled>{{ $bookings[0]->plan }}</textarea>
+                    <small class="text-muted">Helper Save/Edit</small>
+                    <div class="input-group input-group-small mb-3 flex-nowrap">
+                      <div class="input-group-text">
+                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                      </div>
+                      <input type="text" class="form-control" id="{{ $viewFolder }}_planTitle" name="{{ $viewFolder }}[planTitle]" disabled>
+                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                    </div>
+                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planEdit]" id="{{ $viewFolder }}_planEdit" rows=3 disabled></textarea>
+                  </div>
+                </div>
+                <div class="card mb-3">
+                  <div class="card-header">Previous Remarks</div>
+                  <div class="card-body">
+                    <small class="text-muted">Helper</small>
+                    <div class="input-group input-group-small flex-nowrap">
+                      <select class="form-select" placeholder="" disabled>
+                        <option value=""></option>
+                      </select>
+                      <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
+                    </div>
+                    <small class="text-muted">Content</small>
+                    <textarea class="form-control" name="{{ $viewFolder }}[planRem]" id="{{ $viewFolder }}_planRem" rows=3 disabled>{{ $bookings[0]->planRem }}</textarea>
+                    <small class="text-muted">Helper Save/Edit</small>
+                    <div class="input-group input-group-small mb-3 flex-nowrap">
+                      <div class="input-group-text">
+                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                      </div>
+                      <input type="text" class="form-control" id="{{ $viewFolder }}_planRemTitle" name="{{ $viewFolder }}[planRemTitle]" disabled>
+                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                    </div>
+                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planRemEdit]" id="{{ $viewFolder }}_planRemEdit" rows=3 disabled></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="labPrevDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
+            <div id="carouselPrev" class="carousel carousel-dark slide" data-bs-ride="true">
+              <div class="carousel-indicators" id="labPrevCarouselInd">
+                @if(!empty($bookings[0]->consultation_files[0]->file_link))
+                  @foreach($bookings[0]->consultation_files as $ind=>$file)
+                <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
+                  @endforeach
+                @else
+                <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                @endif
+              </div>
+              <div class="carousel-inner" id="labPrevCarouselInner">
+                @if(!empty($bookings[0]->consultation_files[0]->file_link))
+                  @foreach($bookings[0]->consultation_files as $ind=>$file)
+                <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
+                  <img src="{{ asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
+                </div>
+                  @endforeach
+                @else
+                <div class="carousel-item active">
+                  <img src="https://mdbootstrap.com/img/Photos/Others/placeholder.jpg" class="d-block w-100" alt="">
+                </div>
+                @endif
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselPrev" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselPrev" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
+          </div>
+          <div id="presPrevDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
+            <div class="card mb-3">
+              <div class="card-header">Previous Prescription Preview</div>
+              <div class="card-body">
+                <iframe id="iframePrevPresc" src="{{ file_exists(public_path('storage/prescription_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf')) ? asset('storage/prescription_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
+                <small class="form-text text-muted">To print or download go to Tools</small>
+              </div>
+            </div>
+          </div>
+          <div id="medPrevDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
+            <div class="card mb-3">
+              <div class="card-header">Previous Med Cert Preview</div>
+              <div class="card-body">
+                <iframe id="iframePrevMedCert" src="{{ file_exists(public_path('storage/med_cert_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf')) ? asset('storage/med_cert_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
+                <small class="form-text text-muted">To print or download go to Tools</small>
+              </div>
+            </div>
+          </div>
+          <div id="admitPrevDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
+            <div class="card mb-3">
+              <div class="card-header">Previous Admitting Orders Preview</div>
+              <div class="card-body">
+                <iframe id="iframePrevAdmitting" src="{{ file_exists(public_path('storage/admitting_order_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf')) ? asset('storage/admitting_order_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
+                <small class="form-text text-muted">To print or download go to Tools</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      @endif
+    </div>
+    
+    <div class="col-lg-6">
+      <div class="card mb-3">
+        <div class="card-header">Current Patient's Chart ({{ $datum->bookingDate }})</div>
+        <div class="card-body">
+          <div class="card mb-3">
+            <div class="card-header">Vitals</div>
+            <div class="card-body">
+              <p>
+                <strong>Temp:</strong> {{ $datum->temp }}C | 
+                <strong>Height:</strong> {{ $datum->height }}cm | 
+                <strong>Weight:</strong> {{ $datum->weight }}kg | 
+                <strong>BMI:</strong> {{ number_format($datum->weight/(($datum->height/100)*($datum->height/100)), 0) }}<br>
+                <strong>BP:</strong> {{ $datum->bpS }}/{{ $datum->bpD }} | 
+                <strong>O2 Sat:</strong> {{ $datum->o2 }}% | 
+                <strong>Heart Rate:</strong> {{ $datum->heart }}beats/min
+              </p>
+            </div>
+          </div>
+          <div class="card mb-3">
+            <div class="card-header">Eye Examination Information</div>
+            <div class="card-body">
+              <p>
+                <strong>AR OD:</strong> {{ $datum->arod_sphere != 'No Target' ? $datum->arod_sphere . ' - ' . $datum->arod_cylinder . ' x ' . $datum->arod_axis : $datum->arod_sphere }} | 
+                <strong>AR OS:</strong> {{ $datum->aros_sphere != 'No Target' ? $datum->aros_sphere . ' - ' . $datum->aros_cylinder . ' x ' . $datum->aros_axis : $datum->aros_sphere }}<br>
+                <strong>VA OD:</strong> {{ $datum->vaod_num != 'NA' ? $datum->vaod_num . ' / ' . $datum->vaod_den : $datum->vaod_num }} | 
+                <strong>VA OD w/ Correction:</strong> {{ $datum->vaodcor_num != 'NA' ? $datum->vaodcor_num . ' / ' . $datum->vaodcor_den : $datum->vaodcor_num }}<br>
+                <strong>VA OS:</strong> {{ $datum->vaos_num != 'NA' ? $datum->vaos_num . ' / ' . $datum->vaos_den : $datum->vaos_num }} | 
+                <strong>VA OS w/ Correction:</strong> {{ $datum->vaoscor_num != 'NA' ? $datum->vaoscor_num . ' / ' . $datum->vaoscor_den : $datum->vaoscor_num }}<br>
+                <strong>Pinhole OD:</strong> {{ $datum->pinod_num != 'NA' ? $datum->pinod_num . ' / ' . $datum->pinod_den : $datum->pinod_num }} | 
+                <strong>Pinhole OD w/ Correction:</strong> {{ $datum->pinodcor_num != 'NA' ? $datum->pinodcor_num . ' / ' . $datum->pinodcor_den : $datum->pinodcor_num }}<br>
+                <strong>Pinhole OS:</strong> {{ $datum->pinos_num != 'NA' ? $datum->pinos_num . ' / ' . $datum->pinos_den : $datum->pinos_num }} | 
+                <strong>Pinhole OS w/ Correction:</strong> {{ $datum->pinoscor_num != 'NA' ? $datum->pinoscor_num . ' / ' . $datum->pinoscor_den : $datum->pinoscor_num }}<br>
+                <strong>Jaeger OU:</strong> {{ $datum->jae_ou }} | 
+                <strong>Jaeger OD:</strong> {{ $datum->jae_od }} | 
+                <strong>Jaeger OS:</strong> {{ $datum->jae_os }} <br>
+                <strong>IOP OD:</strong> {{ $datum->iopod }} | 
+                <strong>IOP OS:</strong> {{ $datum->iopos }} 
+              </p>
+            </div>
+          </div>
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a class="nav-link active" id="soapCurLink" href="#" onclick="
+                $('#soapCurLink').addClass('active');  
+                $('#labCurLink').removeClass('active');  
+                $('#presCurLink').removeClass('active');  
+                $('#medCurLink').removeClass('active');  
+                $('#admitCurLink').removeClass('active');
+                $('#soapCurDiv').show();  
+                $('#labCurDiv').hide();  
+                $('#presCurDiv').hide();  
+                $('#medCurDiv').hide();  
+                $('#admitCurDiv').hide();
+                $('#soapPrevLink').addClass('active');  
+                $('#labPrevLink').removeClass('active');  
+                $('#presPrevLink').removeClass('active');  
+                $('#medPrevLink').removeClass('active');  
+                $('#admitPrevLink').removeClass('active');
+                $('#soapPrevDiv').show();  
+                $('#labPrevDiv').hide();  
+                $('#presPrevDiv').hide();  
+                $('#medPrevDiv').hide();  
+                $('#admitPrevDiv').hide();
+              ">SOAP</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="labCurLink" href="#" onclick="
+                $('#soapCurLink').removeClass('active');
+                $('#labCurLink').addClass('active');  
+                $('#presCurLink').removeClass('active');  
+                $('#medCurLink').removeClass('active');  
+                $('#admitCurLink').removeClass('active');
+                $('#soapCurDiv').hide();  
+                $('#labCurDiv').show();  
+                $('#presCurDiv').hide();  
+                $('#medCurDiv').hide();  
+                $('#admitCurDiv').hide();
+                $('#soapPrevLink').removeClass('active');
+                $('#labPrevLink').addClass('active');  
+                $('#presPrevLink').removeClass('active');  
+                $('#medPrevLink').removeClass('active');  
+                $('#admitPrevLink').removeClass('active');
+                $('#soapPrevDiv').hide();  
+                $('#labPrevDiv').show();  
+                $('#presPrevDiv').hide();  
+                $('#medPrevDiv').hide();  
+                $('#admitPrevDiv').hide();
+              ">File Uploads</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="presCurLink" href="#" onclick="
+                $('#soapCurLink').removeClass('active');
+                $('#labCurLink').removeClass('active');  
+                $('#presCurLink').addClass('active');  
+                $('#medCurLink').removeClass('active');  
+                $('#admitCurLink').removeClass('active');
+                $('#soapCurDiv').hide();  
+                $('#labCurDiv').hide();  
+                $('#presCurDiv').show();  
+                $('#medCurDiv').hide();  
+                $('#admitCurDiv').hide();
+                $('#soapPrevLink').removeClass('active');
+                $('#labPrevLink').removeClass('active');  
+                $('#presPrevLink').addClass('active');  
+                $('#medPrevLink').removeClass('active');  
+                $('#admitPrevLink').removeClass('active');
+                $('#soapPrevDiv').hide();  
+                $('#labPrevDiv').hide();  
+                $('#presPrevDiv').show();  
+                $('#medPrevDiv').hide();  
+                $('#admitPrevDiv').hide();
+              ">E-Prescription</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="medCurLink" href="#" onclick="
+                $('#soapCurLink').removeClass('active');
+                $('#labCurLink').removeClass('active');  
+                $('#presCurLink').removeClass('active');  
+                $('#medCurLink').addClass('active');  
+                $('#admitCurLink').removeClass('active');
+                $('#soapCurDiv').hide();  
+                $('#labCurDiv').hide();  
+                $('#presCurDiv').hide();  
+                $('#medCurDiv').show();  
+                $('#admitCurDiv').hide();
+                $('#soapPrevLink').removeClass('active');
+                $('#labPrevLink').removeClass('active');  
+                $('#presPrevLink').removeClass('active');  
+                $('#medPrevLink').addClass('active');  
+                $('#admitPrevLink').removeClass('active');
+                $('#soapPrevDiv').hide();  
+                $('#labPrevDiv').hide();  
+                $('#presPrevDiv').hide();  
+                $('#medPrevDiv').show();  
+                $('#admitPrevDiv').hide();
+              ">Med Cert</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="admitCurLink" href="#" onclick="
+                $('#soapCurLink').removeClass('active');
+                $('#labCurLink').removeClass('active');  
+                $('#presCurLink').removeClass('active');  
+                $('#medCurLink').removeClass('active');
+                $('#admitCurLink').addClass('active'); 
+                $('#soapCurDiv').hide();  
+                $('#labCurDiv').hide();  
+                $('#presCurDiv').hide();  
+                $('#medCurDiv').hide(); 
+                $('#admitCurDiv').show();  
+                $('#soapPrevLink').removeClass('active');
+                $('#labPrevLink').removeClass('active');  
+                $('#presPrevLink').removeClass('active');  
+                $('#medPrevLink').removeClass('active');
+                $('#admitPrevLink').addClass('active'); 
+                $('#soapPrevDiv').hide();  
+                $('#labPrevDiv').hide();  
+                $('#presPrevDiv').hide();  
+                $('#medPrevDiv').hide(); 
+                $('#admitPrevDiv').show();  
+              ">Admitting Orders</a>
+            </li>
+          </ul>
+          <div id="soapCurDiv" class="container border border-1 border-top-0 mb-3 p-3">
+            <div class="card mb-3">
+              <div class="card-header">Procedure</div>
+              <div class="card-body" style="height: 1in; max-height: 1in">
+                <p>{{ $datum->procedure_details }}</p>
+              </div>
+            </div>
+            <div class="card mb-3">
+              <div class="card-header">Patient's Complaint</div>
+              <div class="card-body" style="height: 1in; max-height: 1in">
+                <p>{{ $datum->complain }}</p>
+                <small class="text-muted">{{ $datum->duration }} day/s</small>
+              </div>
+            </div>
+            <div class="card mb-3">
+              <div class="card-header">Doctor's Notes</div>
+              <div class="card-body">
+                @if(!isset($bookings[0]))
+                <div class="card mb-3">
+                  <div class="card-header">History of Present Illness</div>
+                  <div class="card-body">
+                    <small class="text-muted">Helper</small>
+                    <div class="input-group input-group-small flex-nowrap">
+                      <select class="form-select" placeholder="">
+                        <option value=""></option>
+                      </select>
+                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Delete Helper</button>
+                    </div>
+                    <small class="text-muted">Content</small>
+                    <textarea class="form-control" name="{{ $viewFolder }}[docNotesHPI]" id="{{ $viewFolder }}_docNotesHPI" rows=3>{{ isset($datum->docNotesHPI) ? $datum->docNotesHPI : '' }}</textarea>
+                    <small class="text-muted">Helper Save/Edit</small>
+                    <div class="input-group input-group-small mb-3 flex-nowrap">
+                      <div class="input-group-text">
+                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                      </div>
+                      <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesHPITitle" name="{{ $viewFolder }}[docNotesHPITitle]" disabled>
+                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                    </div>
+                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[docNotesHPIEdit]" id="{{ $viewFolder }}_docNotesHPIEdit" rows=3 disabled></textarea>
+                  </div>
+                </div>
+                @else
+                <div class="card mb-3">
+                  <div class="card-header">Subject's Complaints</div>
+                  <div class="card-body">
+                    <small class="text-muted">Helper</small>
+                    <div class="input-group input-group-small flex-nowrap">
+                      <select class="form-select" placeholder="">
+                        <option value=""></option>
+                      </select>
+                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Delete Helper</button>
+                    </div>
+                    <small class="text-muted">Content</small>
+                    <textarea class="form-control" name="{{ $viewFolder }}[docNotesSubject]" id="{{ $viewFolder }}_docNotesSubject" rows=3>{{ isset($datum->docNotesSubject) ? $datum->docNotesSubject : '' }}</textarea>
+                    <small class="text-muted">Helper Save/Edit</small>
+                    <div class="input-group input-group-small mb-3 flex-nowrap">
+                      <div class="input-group-text">
+                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                      </div>
+                      <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesSubjectTitle" name="{{ $viewFolder }}[docNotesSubjectTitle]" disabled>
+                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                    </div>
+                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[ddocNotesSubjectEdit]" id="{{ $viewFolder }}_docNotesSubjectEdit" rows=3 disabled></textarea>
+                  </div>
+                </div>
+                @endif
+                <div class="card mb-3">
+                  <div class="card-header">Objective Findings</div>
+                  <div class="card-body">
+                    <small class="text-muted">Helper</small>
+                    <div class="input-group input-group-small flex-nowrap">
+                      <select class="form-select" placeholder="">
+                        <option value=""></option>
+                      </select>
+                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Delete Helper</button>
+                    </div>
+                    <small class="text-muted">Content</small>
+                    <textarea class="form-control" name="{{ $viewFolder }}[docNotes]" id="{{ $viewFolder }}docNotes" rows=3>{{ isset($datum->docNotes) ? $datum->docNotes : '' }}</textarea>
+                    <small class="text-muted">Helper Save/Edit</small>
+                    <div class="input-group input-group-small mb-3 flex-nowrap">
+                      <div class="input-group-text">
+                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                      </div>
+                      <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesTitle" name="{{ $viewFolder }}[docNotesTitle]" disabled>
+                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                    </div>
+                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[_docNotesEdit]" id="{{ $viewFolder }}_docNotesEdit" rows=3 disabled></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card mb-3">
+              <div class="card-header">Assessment</div>
+              <div class="card-body">
+                <div class="form-floating mb-3">
+                  <select class="form-select" name="{{ $viewFolder }}[icd_code]" id="{{ $viewFolder }}_icd_code" placeholder="">
+                    <option value=""></option>
+                  </select>
+                  <label for="{{ $viewFolder }}_icd_code">Primary Diagnosis</label>
+                  <small id="help_{{ $viewFolder }}_icd_code" class="text-muted"></small>
+                </div>
+                <div class="card mb-3">
+                  <div class="card-header">Secondary Diagnosis</div>
+                  <div class="card-body">
+                    <small class="text-muted">Helper</small>
+                    <div class="input-group input-group-small flex-nowrap">
+                      <select class="form-select" placeholder="">
+                        <option value=""></option>
+                      </select>
+                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Delete Helper</button>
+                    </div>
+                    <small class="text-muted">Content</small>
+                    <textarea class="form-control" name="{{ $viewFolder }}[assessment]" id="{{ $viewFolder }}_assessment" rows=3>{{ isset($datum->assessment) ? $datum->assessment : '' }}</textarea>
+                    <small class="text-muted">Helper Save/Edit</small>
+                    <div class="input-group input-group-small mb-3 flex-nowrap">
+                      <div class="input-group-text">
+                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                      </div>
+                      <input type="text" class="form-control" id="{{ $viewFolder }}_assessmentTitle" name="{{ $viewFolder }}[assessmentTitle]" disabled>
+                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                    </div>
+                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[_assessmentEdit]" id="{{ $viewFolder }}_assessmentEdit" rows=3 disabled></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card mb-3">
+              <div class="card-header">Plan</div>
+              <div class="card-body">
+                <div class="card mb-3">
+                  <div class="card-header">Medical Therapeutics</div>
+                  <div class="card-body">
+                    <small class="text-muted">Helper</small>
+                    <div class="input-group input-group-small flex-nowrap">
+                      <select class="form-select" placeholder="">
+                        <option value=""></option>
+                      </select>
+                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Delete Helper</button>
+                    </div>
+                    <small class="text-muted">Content</small>
+                    <textarea class="form-control" name="{{ $viewFolder }}[planMed]" id="{{ $viewFolder }}_planMed" rows=3>{{ isset($datum->planMed) ? $datum->planMed : '' }}</textarea>
+                    <small class="text-muted">Helper Save/Edit</small>
+                    <div class="input-group input-group-small mb-3 flex-nowrap">
+                      <div class="input-group-text">
+                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                      </div>
+                      <input type="text" class="form-control" id="{{ $viewFolder }}_planMedTitle" name="{{ $viewFolder }}[planMedTitle]" disabled>
+                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                    </div>
+                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planMedEdit]" id="{{ $viewFolder }}_planMedEdit" rows=3 disabled></textarea>
+                  </div>
+                </div>
+                <div class="card mb-3">
+                  <div class="card-header">Diagnostics and Surgery</div>
+                  <div class="card-body">
+                    <small class="text-muted">Helper</small>
+                    <div class="input-group input-group-small flex-nowrap">
+                      <select class="form-select" placeholder="">
+                        <option value=""></option>
+                      </select>
+                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Delete Helper</button>
+                    </div>
+                    <small class="text-muted">Content</small>
+                    <textarea class="form-control" name="{{ $viewFolder }}[plan]" id="{{ $viewFolder }}_plan" rows=3>{{ isset($datum->plan) ? $datum->plan : '' }}</textarea>
+                    <small class="text-muted">Helper Save/Edit</small>
+                    <div class="input-group input-group-small mb-3 flex-nowrap">
+                      <div class="input-group-text">
+                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                      </div>
+                      <input type="text" class="form-control" id="{{ $viewFolder }}_planTitle" name="{{ $viewFolder }}[planTitle]" disabled>
+                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                    </div>
+                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planEdit]" id="{{ $viewFolder }}_planEdit" rows=3 disabled></textarea>
+                  </div>
+                </div>
+                <div class="card mb-3">
+                  <div class="card-header">Remarks</div>
+                  <div class="card-body">
+                    <small class="text-muted">Helper</small>
+                    <div class="input-group input-group-small flex-nowrap">
+                      <select class="form-select" placeholder="">
+                        <option value=""></option>
+                      </select>
+                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Delete Helper</button>
+                    </div>
+                    <small class="text-muted">Content</small>
+                    <textarea class="form-control" name="{{ $viewFolder }}[planRem]" id="{{ $viewFolder }}_planRem" rows=3>{{ isset($datum->planRem) ? $datum->planRem : '' }}</textarea>
+                    <small class="text-muted">Helper Save/Edit</small>
+                    <div class="input-group input-group-small mb-3 flex-nowrap">
+                      <div class="input-group-text">
+                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                      </div>
+                      <input type="text" class="form-control" id="{{ $viewFolder }}_planRemTitle" name="{{ $viewFolder }}[planRemTitle]" disabled>
+                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                    </div>
+                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planRemEdit]" id="{{ $viewFolder }}_planRemEdit" rows=3 disabled></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="labCurDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
+            <div id="carouselCur" class="carousel carousel-dark slide" data-bs-ride="true">
+              <div class="carousel-indicators">
+                @if(!empty($datum->consultation_files[0]->file_link))
+                  @foreach($datum->consultation_files as $ind=>$file)
+                <button type="button" data-bs-target="#carouselCur" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
+                  @endforeach
+                @else
+                <button type="button" data-bs-target="#carouselCur" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                @endif
+              </div>
+              <div class="carousel-inner">
+                @if(!empty($datum->consultation_files[0]->file_link))
+                  @foreach($datum->consultation_files as $ind=>$file)
+                <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
+                  <img src="{{ asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
+                </div>  
+                  @endforeach
+                @else
+                <div class="carousel-item active">
+                  <img src="https://mdbootstrap.com/img/Photos/Others/placeholder.jpg" class="d-block w-100" alt="">
+                </div>
+                @endif
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselCur" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselCur" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
+          </div>
+          <div id="presCurDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
+            <div class="card mb-3">
+              <div class="card-header">Prescription View</div>
+              <div class="card-body">
+                <iframe id="iframePresc" src="{{ file_exists(public_path('storage/prescription_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf')) ? asset('storage/prescription_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
+                <small class="form-text text-muted">To print or download check the upper right part</small>
+              </div>
+              <div class="card-footer">
+                <button id="createPDFButPresc" type="button" class="btn btn-{{ $bgColor }} btn-sm" {{ $datum->prescription == '' ? 'disabled' : '' }} onclick="
+                  $.ajax({
+                    type: 'POST',
+                    data: $('#bookMod').serialize(),
+                    url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
+                    success:
+                    function (){
+                        $.ajax({
+                          type: 'GET',
+                          url: '{{ Route::has($viewFolder . '.pdfPrescription') ? route($viewFolder . '.pdfPrescription', $datum->id) : '' }}',
+                          success:
+                          function (data){
+                            $('#iframePresc').attr('src', data);
+                          }
+                        });
+                    }
+                  });
+
+                ">Create PDF</button>
+              </div>
+            </div>
+            <div class="form-floating mb-3">
+              <textarea class="form-control" name="{{ $viewFolder }}[Doctor][sub_header_1]" id="{{ $viewFolder }}_sub_header_1" rows=3>{{ isset($datum->doctor->sub_header_1) ? $datum->doctor->sub_header_1 : '' }}</textarea>
+              <label for="{{ $viewFolder }}_sub_header_1" class="form-label">MD Specialty/sub-specialty</label>
+              <small id="help_{{ $viewFolder }}_sub_header_1" class="text-muted"></small>
+            </div>
+            <div class="form-floating mb-3">
+              <textarea class="form-control" name="{{ $viewFolder }}[Doctor][sub_header_2]" id="{{ $viewFolder }}_sub_header_2" rows=3>{{ isset($datum->doctor->sub_header_2) ? $datum->doctor->sub_header_2 : '' }}</textarea>
+              <label for="{{ $viewFolder }}_sub_header_2" class="form-label">MD Clinic and Clinic Address:</label>
+              <small id="help_{{ $viewFolder }}_sub_header_2" class="text-muted"></small>
+            </div>
+            <div class="card mb-3">
+              <div class="card-header">Prescription</div>
+              <div class="card-body">
+                <small class="text-muted">Helper</small>
+                <div class="input-group input-group-small flex-nowrap">
+                  <select class="form-select" placeholder="">
+                    <option value=""></option>
+                  </select>
+                  <button class="btn btn-outline-secondary" type="button" id="button-addon2">Delete Helper</button>
+                </div>
+                <small class="text-muted">Content</small>
+                <textarea class="form-control" name="{{ $viewFolder }}[prescription]" id="{{ $viewFolder }}_prescription" rows=3 onblur="
+                  if($(this).val() == ''){
+                    $('#createPDFButPresc').prop('disabled', true);
+                  }else{
+                    $('#createPDFButPresc').prop('disabled', false);
+                  }
+                ">{{ isset($datum->prescription) ? $datum->prescription : '' }}</textarea>
+                <small class="text-muted">Helper Save/Edit</small>
+                <div class="input-group input-group-small mb-3 flex-nowrap">
+                  <div class="input-group-text">
+                    <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                  </div>
+                  <input type="text" class="form-control" name="{{ $viewFolder }}[prescriptionTitle]" disabled>
+                  <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                </div>
+                <textarea class="form-control mb-2" name="{{ $viewFolder }}[prescriptionEdit]" id="{{ $viewFolder }}_prescriptionEdit" rows=3 disabled></textarea>
+              </div>
+            </div>
+          </div>
+          <div id="medCurDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
+            <div class="card mb-3">
+              <div class="card-header">Med Cert View</div>
+              <div class="card-body">
+                <iframe id="iframeMedCert" src="{{ file_exists(public_path('storage/med_cert_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf')) ? asset('storage/med_cert_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
+                <small class="form-text text-muted">To print or download check the upper right part</small>
+              </div>
+              <div class="card-footer">
+                <button id="createPDFButMedCert" type="button" class="btn btn-{{ $bgColor }} btn-sm" {{ ($datum->findings == '' || $datum->diagnosis == '' || $datum->recommendations == '') ? 'disabled' : '' }} onclick="
+                  $.ajax({
+                    type: 'POST',
+                    data: $('#bookMod').serialize(),
+                    url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
+                    success:
+                    function (){
+                        $.ajax({
+                          type: 'GET',
+                          url: '{{ Route::has($viewFolder . '.pdfMedCert') ? route($viewFolder . '.pdfMedCert', $datum->id) : '' }}',
+                          success:
+                          function (data){
+                            $('#iframeMedCert').attr('src', data);
+                          }
+                        });
+                    }
+                  });
+
+                ">Create PDF</button>
+              </div>
+            </div>
+            <div class="form-floating mb-3">
+              <textarea class="form-control" name="{{ $viewFolder }}[findings]" id="{{ $viewFolder }}_findings" rows=3 onblur="
+                  if($('#{{ $viewFolder }}_findings').val() == '' || $('#{{ $viewFolder }}_diagnosis').val() == '' || $('#{{ $viewFolder }}_recommendations').val() == ''){
+                    $('#createPDFButMedCert').prop('disabled', true);
+                  }else{
+                    $('#createPDFButMedCert').prop('disabled', false);
+                  }
+                ">{{ isset($datum->findings) ? $datum->findings : '' }}</textarea>
+              <label for="{{ $viewFolder }}_findings" class="form-label">Findings</label>
+              <small id="help_{{ $viewFolder }}_findings" class="text-muted"></small>
+            </div>
+            <div class="form-floating mb-3">
+              <textarea class="form-control" name="{{ $viewFolder }}[diagnosis]" id="{{ $viewFolder }}_diagnosis" rows=3 onblur="
+                  if($('#{{ $viewFolder }}_findings').val() == '' || $('#{{ $viewFolder }}_diagnosis').val() == '' || $('#{{ $viewFolder }}_recommendations').val() == ''){
+                    $('#createPDFButMedCert').prop('disabled', true);
+                  }else{
+                    $('#createPDFButMedCert').prop('disabled', false);
+                  }
+                ">{{ isset($datum->diagnosis) ? $datum->diagnosis : '' }}</textarea>
+              <label for="{{ $viewFolder }}_diagnosis" class="form-label">Diagnosis</label>
+              <small id="help_{{ $viewFolder }}_diagnosis" class="text-muted"></small>
+            </div>
+            <div class="form-floating mb-3">
+              <textarea class="form-control" name="{{ $viewFolder }}[recommendations]" id="{{ $viewFolder }}_recommendations" rows=3 onblur="
+                  if($('#{{ $viewFolder }}_findings').val() == '' || $('#{{ $viewFolder }}_diagnosis').val() == '' || $('#{{ $viewFolder }}_recommendations').val() == ''){
+                    $('#createPDFButMedCert').prop('disabled', true);
+                  }else{
+                    $('#createPDFButMedCert').prop('disabled', false);
+                  }
+                ">{{ isset($datum->recommendations) ? $datum->recommendations : '' }}</textarea>
+              <label for="{{ $viewFolder }}_recommendations" class="form-label">Recommendations</label>
+              <small id="help_{{ $viewFolder }}_recommendations" class="text-muted"></small>
+            </div>
+          </div>
+          <div id="admitCurDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
+            <div class="card mb-3">
+              <div class="card-header">Admitting Orders Preview</div>
+              <div class="card-body">
+                <iframe id="iframeAdmitting" src="{{ file_exists(public_path('storage/admitting_order_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf')) ? asset('storage/admitting_order_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
+                <small class="form-text text-muted">To print or download check the upper right part</small>
+              </div>
+              <div class="card-footer">
+                <button id="createPDFButAddmitting" type="button" class="btn btn-{{ $bgColor }} btn-sm" {{ ($datum->procedure_ao == '' || $datum->admittingOrder == '') ? 'disabled' : '' }} onclick="
+                  $.ajax({
+                    type: 'POST',
+                    data: $('#bookMod').serialize(),
+                    url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
+                    success:
+                    function (data){
+                        $.ajax({
+                          type: 'GET',
+                          url: '{{ Route::has($viewFolder . '.pdfAdmitting') ? route($viewFolder . '.pdfAdmitting', $datum->id) : '' }}',
+                          success:
+                          function (data){
+                            $('#iframeAdmitting').attr('src', data);
+                            // var iFrame = $('#iframeAdmitting');
+                            // iFrame.load(data);
+                            // $('#iframeAdmitting').attr('src', $('#iframeAdmitting').attr('src'));
+                          }
+                        });
+                    }
+                  });
+                ">Create PDF</button>
+              </div>
+            </div>
+            <div class="form-floating mb-3">
+              <input class="form-control" type="date" name="{{ $viewFolder }}[con_date_ao]" id="{{ $viewFolder }}_con_date_ao" value="{{ isset($datum->con_date_ao) ? $datum->con_date_ao : '' }}" placeholder="">
+              <label for="{{ $viewFolder }}_con_date_ao" class="form-label">Contemplated Date of Procedure</label>
+              <small id="help_{{ $viewFolder }}_con_date_ao" class="text-muted"></small>
+            </div>
+            <div class="card mb-3">
+              <div class="card-header">Procedure</div>
+              <div class="card-body">
+                <small class="text-muted">Helper</small>
+                <div class="input-group input-group-small flex-nowrap">
+                  <select class="form-select" id="{{ $viewFolder }}_procedure_aoSelect" placeholder="">
+                    <option value=""></option>
+                  </select>
+                  <button class="btn btn-outline-secondary" type="button" id="button-addon2">Delete Helper</button>
+                </div>
+                <small class="text-muted">Content</small>
+                <textarea class="form-control" name="{{ $viewFolder }}[procedure_ao]" id="{{ $viewFolder }}_procedure_ao" rows=3 onblur="
+                    if(($('#{{ $viewFolder }}_procedure_ao').val() || $('#{{ $viewFolder }}_admittingOrder').val()) == ''){
+                      $('#createPDFButAddmitting').prop('disabled', true);
+                    }else{
+                      $('#createPDFButAddmitting').prop('disabled', false);
+                    }
+                  ">{{ isset($datum->procedure_ao) ? $datum->procedure_ao : '' }}</textarea>
+                <small class="text-muted">Helper Save/Edit</small>
+                <div class="input-group input-group-small mb-3 flex-nowrap">
+                  <div class="input-group-text">
+                    <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                  </div>
+                  <input type="text" class="form-control" name="{{ $viewFolder }}[_procedure_aoTitle]" disabled>
+                  <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                </div>
+                <textarea class="form-control mb-2" name="{{ $viewFolder }}[procedure_aoEdit]" id="{{ $viewFolder }}_procedure_aoEdit" rows=3 disabled></textarea>
+              </div>
+            </div>
+            <div class="form-floating mb-3">
+              <select class="form-select" name="{{ $viewFolder }}[anesthesia_type_ao]" id="{{ $viewFolder }}_anesthesia_type_ao" placeholder="">
+                <option value="None" {{ (isset($datum->anesthesia_type_ao) && $datum->anesthesia_type_ao == 'None') ? 'selected' : ''}}>None</option>
+                <option value="Regional Block" {{ (isset($datum->anesthesia_type_ao) && $datum->anesthesia_type_ao == 'Regional Block') ? 'selected' : ''}}>Regional Block</option>
+                <option value="IV Sedation" {{ (isset($datum->anesthesia_type_ao) && $datum->anesthesia_type_ao == 'IV Sedation') ? 'selected' : ''}}>IV Sedation</option>
+                <option value="General Anesthesia" {{ (isset($datum->anesthesia_type_ao) && $datum->anesthesia_type_ao == 'General Anesthesia') ? 'selected' : ''}}>General Anesthesia</option>
+              </select>
+              <label for="{{ $viewFolder }}_anesthesia_type_ao">Anesthesia Type</label>
+              <small id="help_{{ $viewFolder }}_anesthesia_type_ao" class="text-muted"></small>
+            </div>
+            <div class="form-floating mb-3">
+              <input class="form-control" type="text" name="{{ $viewFolder }}[anesthesiologist_ao]" id="{{ $viewFolder }}_anesthesiologist_ao" placeholder="" value="{{ isset($datum->anesthesiologist_ao) ? $datum->anesthesiologist_ao : '' }}">
+              <label for="{{ $viewFolder }}_anesthesiologist_ao" class="form-label">Anesthesiologist</label>
+              <small id="help_{{ $viewFolder }}_anesthesiologist_ao" class="text-muted"></small>
+            </div>
+            <div class="card mb-3">
+              <div class="card-header">Admitting Details</div>
+              <div class="card-body">
+                <small class="text-muted">Helper</small>
+                <div class="input-group input-group-small flex-nowrap">
+                  <select class="form-select" id="{{ $viewFolder }}_admittingOrderSelect" placeholder="">
+                    <option value=""></option>
+                  </select>
+                  <button class="btn btn-outline-secondary" type="button" id="button-addon2">Delete Helper</button>
+                </div>
+                <small class="text-muted">Content</small>
+                <textarea class="form-control" name="{{ $viewFolder }}[admittingOrder]" id="{{ $viewFolder }}_admittingOrder" rows=3 onblur="
+                    if(($('#{{ $viewFolder }}_procedure_ao').val() || $('#{{ $viewFolder }}_admittingOrder').val()) == ''){
+                      $('#createPDFButAddmitting').prop('disabled', true);
+                    }else{
+                      $('#createPDFButAddmitting').prop('disabled', false);
+                    }
+                  ">{{ isset($datum->admittingOrder) ? $datum->admittingOrder : '' }}</textarea>
+                <small class="text-muted">Helper Save/Edit</small>
+                <div class="input-group input-group-small mb-3 flex-nowrap">
+                  <div class="input-group-text">
+                    <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                  </div>
+                  <input type="text" class="form-control" name="{{ $viewFolder }}[admittingOrderTitle]" disabled>
+                  <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                </div>
+                <textarea class="form-control mb-2" name="{{ $viewFolder }}[admittingOrderEdit]" id="{{ $viewFolder }}_admittingOrderEdit" rows=3 disabled></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+<script>
+  function loadPrevBooking(consultation_id, index){
+    $.ajax({
+      type: 'GET',
+      url: '{{ Route::has($viewFolder . '.getPrevBookingInfo') ? route($viewFolder . '.getPrevBookingInfo') : ''}}/' + consultation_id + '/' + index,
+      success:
+        function(data, status){
+          bookingObj = jQuery.parseJSON(data);
+          $('#prevBookingDater').text(bookingObj.consultation.bookingDate);
+          vitalStr = '<strong>Temp:</strong> ' + bookingObj.consultation.temp + 'C | <strong>Height:</strong> ' + bookingObj.consultation.height + 'cm | <strong>Weight:</strong> ' + bookingObj.consultation.weight + 'kg | <strong>BMI:</strong> ' + Math.round(bookingObj.consultation.weight/((bookingObj.consultation.height/100)*(bookingObj.consultation.height/100))) + '<br><strong>BP:</strong> ' + bookingObj.consultation.bpS + '/' + bookingObj.consultation.bpD + ' | <strong>O2 Sat:</strong> ' + bookingObj.consultation.o2 + '% | <strong>Heart Rate:</strong> ' + bookingObj.consultation.heart + 'beats/min';
+          $('#prevVitaler').html(vitalStr);
+          eyeStr = '';
+          if(bookingObj.consultation.arod_sphere == 'No Target')
+            eyeStr += '<strong>AR OD:</strong> ' + bookingObj.consultation.arod_sphere + ' | ';
+          else
+            eyeStr += '<strong>AR OD:</strong> ' + bookingObj.consultation.arod_sphere + ' - ' + bookingObj.consultation.arod_cylinder + ' x ' + bookingObj.consultation.arod_axis + ' | ';
+          
+          if(bookingObj.consultation.aros_sphere == 'No Target')
+            eyeStr += '<strong>AR OS:</strong> ' + bookingObj.consultation.aros_sphere + ' <br> ';
+          else
+            eyeStr += '<strong>AR OS:</strong> ' + bookingObj.consultation.aros_sphere + ' - ' + bookingObj.consultation.aros_cylinder + ' x ' + bookingObj.consultation.aros_axis + ' <br> ';
+          
+          if(bookingObj.consultation.vaod_num == 'NA')
+            eyeStr += '<strong>VA OD:</strong> ' + bookingObj.consultation.vaod_num + ' | ';
+          else
+            eyeStr += '<strong>VA OD:</strong> ' + bookingObj.consultation.vaod_num + ' / ' + bookingObj.consultation.vaod_den + ' | ';
+          
+          if(bookingObj.consultation.vaodcor_num == 'NA')
+            eyeStr += '<strong>VA OD w/ Correction:</strong> ' + bookingObj.consultation.vaodcor_num + ' <br> ';
+          else
+            eyeStr += '<strong>VA OD w/ Correction:</strong> ' + bookingObj.consultation.vaodcor_num + ' / ' + bookingObj.consultation.vaodcor_den + ' <br> ';
+          
+          if(bookingObj.consultation.vaos_num == 'NA')
+            eyeStr += '<strong>VA OS:</strong> ' + bookingObj.consultation.vaos_num + ' | ';
+          else
+            eyeStr += '<strong>VA OS:</strong> ' + bookingObj.consultation.vaos_num + ' / ' + bookingObj.consultation.vaos_den + ' | ';
+
+          if(bookingObj.consultation.vaoscor_num == 'NA')
+            eyeStr += '<strong>VA OS w/ Correction:</strong> ' + bookingObj.consultation.vaoscor_num + ' <br> ';
+          else
+            eyeStr += '<strong>VA OS w/ Correction:</strong> ' + bookingObj.consultation.vaoscor_num + ' / ' + bookingObj.consultation.vaoscor_den + ' <br> ';
+          
+          if(bookingObj.consultation.pinod_num == 'NA')
+            eyeStr += '<strong>Pinhole OD:</strong> ' + bookingObj.consultation.pinod_num + ' | ';
+          else
+            eyeStr += '<strong>Pinhole OD:</strong> ' + bookingObj.consultation.pinod_num + ' / ' + bookingObj.consultation.pinod_den + ' | ';
+          
+          if(bookingObj.consultation.pinodcor_num == 'NA')
+            eyeStr += '<strong>Pinhole OD w/ Correction:</strong> ' + bookingObj.consultation.pinodcor_num + ' <br> ';
+          else
+            eyeStr += '<strong>Pinhole OD w/ Correction:</strong> ' + bookingObj.consultation.pinodcor_num + ' / ' + bookingObj.consultation.pinodcor_den + ' <br> ';
+          
+          if(bookingObj.consultation.pinos_num == 'NA')
+            eyeStr += '<strong>Pinhole OS:</strong> ' + bookingObj.consultation.pinos_num + ' | ';
+          else
+            eyeStr += '<strong>Pinhole OS:</strong> ' + bookingObj.consultation.pinos_num + ' / ' + bookingObj.consultation.pinos_den + ' | ';
+          
+          if(bookingObj.consultation.pinodcor_num == 'NA')
+            eyeStr += '<strong>Pinhole OS w/ Correction:</strong> ' + bookingObj.consultation.pinoscor_num + ' <br> ';
+          else
+            eyeStr += '<strong>Pinhole OS w/ Correction:</strong> ' + bookingObj.consultation.pinoscor_num + ' / ' + bookingObj.consultation.pinoscor_den + ' <br> ';
+          
+          eyeStr += '<strong>Jaeger OU:</strong> ' + bookingObj.consultation.jae_ou + ' | ';
+          eyeStr += '<strong>Jaeger OD:</strong> ' + bookingObj.consultation.jae_od + ' | ';
+          eyeStr += '<strong>Jaeger OS:</strong> ' + bookingObj.consultation.jae_os + ' <br> ';
+          eyeStr += '<strong>IOP OD:</strong> ' + bookingObj.consultation.iopod + ' | ';
+          eyeStr += '<strong>IOP OS:</strong> ' + bookingObj.consultation.iopos;
+          $('#prevEyer').html(eyeStr);
+          $('#{{ $viewFolder }}_docNotesHPI').val(bookingObj.consultation.docNotesHPI);
+          $('#{{ $viewFolder }}_docNotesSubject').val(bookingObj.consultation.docNotesSubject);
+          $('#{{ $viewFolder }}_docNotes').val(bookingObj.consultation.docNotes);
+          $('#{{ $viewFolder }}_assessment').val(bookingObj.consultation.assessment);
+          $('#iframePrevPresc').attr('src', bookingObj.consultation.iframePrevPrescSrc);
+          $('#iframePrevMedCert').attr('src', bookingObj.consultation.iframePrevMedCertSrc);
+          $('#iframePrevAdmitting').attr('src', bookingObj.consultation.iframePrevAdmittingSrc);
+
+          if(bookingObj.consultation_files !== undefined){
+            inner = '';
+            indicator = '';
+            bookingObj.consultation_files.forEach(function(item, index){
+              if(index == 0){
+                indicator = '<button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="' + index + '" class="active" aria-current="true" aria-label="Slide ' + (index+1) + '"></button>'
+                inner = '<div class="carousel-item active"><img src="' + item.file_link + '" class="d-block w-100" alt=""></div>';
+              }else{
+                indicator += '<button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="' + index + '" aria-label="Slide ' + (index+1) + '"></button>'
+                inner += '<div class="carousel-item active"><img src="' + item.file_link + '" class="d-block w-100" alt=""></div>';
+              }
+            });
+            $('#labPrevCarouselInd').html(indicator);
+            $('#labPrevCarouselInner').html(inner);
+          }else{
+            $('#labPrevCarouselInd').html('<button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>');
+            $('#labPrevCarouselInner').html('<div class="carousel-item active"><img src="https://mdbootstrap.com/img/Photos/Others/placeholder.jpg" class="d-block w-100" alt=""></div>');
+          }
+        }
+    });
+  }
+</script>
