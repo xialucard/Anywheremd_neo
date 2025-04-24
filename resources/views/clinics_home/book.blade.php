@@ -528,7 +528,7 @@
                     @endfor
                   </select>
                 </div>
-                <label for="{{ $viewFolder }}_vaod_num">VA OD</label>
+                <label for="{{ $viewFolder }}_vaod_num">UCVA OD</label>
                 <div class="input-group mb-3 flex-nowrap">
                   <select class="form-select" name="{{ $viewFolder }}[vaod_num]" id="{{ $viewFolder }}_vaod_num" placeholder="" onchange="
                     if($(this).val() == 'NA'){
@@ -575,7 +575,7 @@
                     @endfor
                   </select>
                 </div>
-                <label for="{{ $viewFolder }}_vaodcor_num">VA OD w/ Correction</label>
+                <label for="{{ $viewFolder }}_vaodcor_num">UCVA OD w/ Correction</label>
                 <div class="input-group mb-3 flex-nowrap">
                   <select class="form-select" name="{{ $viewFolder }}[vaodcor_num]" id="{{ $viewFolder }}_vaodcor_num" placeholder="" onchange="
                     if($(this).val() == 'NA'){
@@ -622,7 +622,7 @@
                     @endfor
                   </select>
                 </div>
-                <label for="{{ $viewFolder }}_vaos_num">VA OS</label>
+                <label for="{{ $viewFolder }}_vaos_num">UCVA OS</label>
                 <div class="input-group mb-3 flex-nowrap">
                   <select class="form-select" name="{{ $viewFolder }}[vaos_num]" id="{{ $viewFolder }}_vaos_num" placeholder="" onchange="
                     if($(this).val() == 'NA'){
@@ -669,7 +669,7 @@
                     @endfor
                   </select>
                 </div>
-                <label for="{{ $viewFolder }}_vaoscor_num">VA OS w/ Correction</label>
+                <label for="{{ $viewFolder }}_vaoscor_num">UCVA OS w/ Correction</label>
                 <div class="input-group mb-3 flex-nowrap">
                   <select class="form-select" name="{{ $viewFolder }}[vaoscor_num]" id="{{ $viewFolder }}_vaoscor_num" placeholder="" onchange="
                     if($(this).val() == 'NA'){
@@ -716,7 +716,7 @@
                     @endfor
                   </select>
                 </div>
-                <label for="{{ $viewFolder }}_pinod_num">Pinhole OD</label>
+                <label for="{{ $viewFolder }}_pinod_num">BCVA OD</label>
                 <div class="input-group mb-3 flex-nowrap">
                   <select class="form-select" name="{{ $viewFolder }}[pinod_num]" id="{{ $viewFolder }}_pinod_num" placeholder="" onchange="
                     if($(this).val() == 'NA'){
@@ -765,7 +765,7 @@
                     @endfor
                   </select>
                 </div>
-                <label for="{{ $viewFolder }}_pinodcor_num">Pinhole OD w/ Correction</label>
+                <label for="{{ $viewFolder }}_pinodcor_num">BCVA OD w/ Correction</label>
                 <div class="input-group mb-3 flex-nowrap">
                   <select class="form-select" name="{{ $viewFolder }}[pinodcor_num]" id="{{ $viewFolder }}_pinodcor_num" placeholder="" onchange="
                     if($(this).val() == 'NA'){
@@ -814,7 +814,7 @@
                     @endfor
                   </select>
                 </div>
-                <label for="{{ $viewFolder }}_pinos_num">Pinhole OS</label>
+                <label for="{{ $viewFolder }}_pinos_num">BCVA OS</label>
                 <div class="input-group mb-3 flex-nowrap">
                   <select class="form-select" name="{{ $viewFolder }}[pinos_num]" id="{{ $viewFolder }}_pinos_num" placeholder="" onchange="
                     if($(this).val() == 'NA'){
@@ -863,7 +863,7 @@
                     @endfor
                   </select>
                 </div>
-                <label for="{{ $viewFolder }}_pinoscor_num">Pinhole OS w/ Correction</label>
+                <label for="{{ $viewFolder }}_pinoscor_num">BCVA OS w/ Correction</label>
                 <div class="input-group mb-3 flex-nowrap">
                   <select class="form-select" name="{{ $viewFolder }}[pinoscor_num]" id="{{ $viewFolder }}_pinoscor_num" placeholder="" onchange="
                     if($(this).val() == 'NA'){
