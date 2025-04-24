@@ -257,7 +257,7 @@
           </div>
           <div class="input-group mb-3">
             <div class="form-floating">
-              <input class="form-control" type="txt" name="{{ $viewFolder }}[duration]" min=1 id="{{ $viewFolder }}_duration" placeholder="" value="{{ !empty($datum->duration) ? $datum->duration : '' }}" required>
+              <input class="form-control" type="text" name="{{ $viewFolder }}[duration]" id="{{ $viewFolder }}_duration" placeholder="" value="{{ !empty($datum->duration) ? $datum->duration : '' }}" required>
               <label for="{{ $viewFolder }}_duration" class="form-label">Duration of Complaint</label>
               <small id="help_{{ $viewFolder }}_duration" class="text-muted"></small>
             </div>
