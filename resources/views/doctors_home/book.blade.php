@@ -35,6 +35,7 @@
                     <th class=""><i class="bi bi-gear"></i></th>
                     <th>Date</th>
                     <th>Booking Type</th>
+                    <th>Procedure Details</th>
                 </tr>
             </thead>
             <tbody>
@@ -50,6 +51,7 @@
                   </td>
                   <td>{{ $dat->bookingDate }}</td>
                   <td>{{ $dat->booking_type == '' ? 'Consultation' : $dat->booking_type }}</td>
+                  <td>{{ $dat->procedure_details }}</td>
                 </tr>
               @endforeach
             </tbody>
