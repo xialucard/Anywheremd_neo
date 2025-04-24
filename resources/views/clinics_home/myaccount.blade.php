@@ -21,12 +21,12 @@
     <div class="form-floating mb-3">
       <input class="form-control" type="tel" pattern="[0-9]{4}-[0-9]{4}" name="{{ $viewFolder }}[tel]" id="{{ $viewFolder }}_tel" placeholder="0000-0000" value="{{ !empty($datum->clinic->tel) ? $datum->clinic->tel : ''  }}" required>
       <label for="{{ $viewFolder }}_tel" class="form-label">Tel #</label>
-      <small id="help_{{ $viewFolder }}_tel" class="text-muted"></small>
+      <small id="help_{{ $viewFolder }}_tel" class="text-muted">Format: 0000-0000</small>
     </div>
     <div class="form-floating mb-3">
       <input class="form-control" type="tel" pattern="[0-9]{4}-[0-9]{3}-[0-9]{4}" name="{{ $viewFolder }}[mobile_no]" id="{{ $viewFolder }}_mobile_no" placeholder="0900-000-0000" value="{{ !empty($datum->clinic->mobile_no) ? $datum->clinic->mobile_no : ''  }}" required>
       <label for="{{ $viewFolder }}_mobile_no" class="form-label">Mobile #</label>
-      <small id="help_{{ $viewFolder }}_mobile_no" class="text-muted"></small>
+      <small id="help_{{ $viewFolder }}_mobile_no" class="text-muted">Format: 0900-000-0000</small>
     </div>
     <div class="form-floating mb-3">
       <input class="form-control" type="email" name="{{ $viewFolder }}[email]" id="{{ $viewFolder }}_email" placeholder="" value="{{ !empty($datum->clinic->email) ? $datum->clinic->email : ''  }}" required>

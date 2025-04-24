@@ -1107,7 +1107,7 @@
                 <div class="form-floating mb-3">
                   <input class="form-control" type="tel" pattern="[0-9]{4}-[0-9]{3}-[0-9]{4}" name="{{ $viewFolder }}[Patient][mobile_no]" id="{{ $viewFolder }}_mobile_no" placeholder="0900-000-0000" value="{{ !empty($datum->patient->mobile_no) ? $datum->patient->mobile_no : '' }}" required>
                   <label for="{{ $viewFolder }}_mobile_no" class="form-label">Mobile #</label>
-                  <small id="help_{{ $viewFolder }}_mobile_no" class="text-muted"></small>
+                  <small id="help_{{ $viewFolder }}_mobile_no" class="text-muted">Format: 0900-000-0000</small>
                 </div>
                 <div class="input-group mb-3 flex-nowrap">
                   <span class="input-group-text">Patient Type</span>
