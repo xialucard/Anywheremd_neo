@@ -120,20 +120,20 @@
             <div class="card-header">Eye Examination Information</div>
             <div class="card-body">
               <p id="prevEyer">
-                <strong>AR OD:</strong> {{ $bookings[0]->arod_sphere != 'No Target' ? $bookings[0]->arod_sphere . ' - ' . $bookings[0]->arod_cylinder . ' x ' . $bookings[0]->arod_axis : $bookings[0]->arod_sphere }} | 
+                <strong>AR OD:</strong> {{ $bookings[0]->arod_sphere != 'No Target' ? $bookings[0]->arod_sphere . ' - ' . $bookings[0]->arod_cylinder . ' x ' . $bookings[0]->arod_axis : $bookings[0]->arod_sphere }}  |  
                 <strong>AR OS:</strong> {{ $bookings[0]->aros_sphere != 'No Target' ? $bookings[0]->aros_sphere . ' - ' . $bookings[0]->aros_cylinder . ' x ' . $bookings[0]->aros_axis : $bookings[0]->aros_sphere }}<br>
-                <strong>VA OD:</strong> {{ $bookings[0]->vaod_num != 'NA' ? $bookings[0]->vaod_num . ' / ' . $bookings[0]->vaod_den : $bookings[0]->vaod_num }} | 
+                <strong>VA OD:</strong> {{ $bookings[0]->vaod_num != 'NA' ? $bookings[0]->vaod_num . ' / ' . $bookings[0]->vaod_den : $bookings[0]->vaod_num }}  |  
                 <strong>VA OD w/ Correction:</strong> {{ $bookings[0]->vaodcor_num != 'NA' ? $bookings[0]->vaodcor_num . ' / ' . $bookings[0]->vaodcor_den : $bookings[0]->vaodcor_num }}<br>
-                <strong>VA OS:</strong> {{ $bookings[0]->vaos_num != 'NA' ? $bookings[0]->vaos_num . ' / ' . $bookings[0]->vaos_den : $bookings[0]->vaos_num }} | 
+                <strong>VA OS:</strong> {{ $bookings[0]->vaos_num != 'NA' ? $bookings[0]->vaos_num . ' / ' . $bookings[0]->vaos_den : $bookings[0]->vaos_num }}  |  
                 <strong>VA OS w/ Correction:</strong> {{ $bookings[0]->vaoscor_num != 'NA' ? $bookings[0]->vaoscor_num . ' / ' . $bookings[0]->vaoscor_den : $bookings[0]->vaoscor_num }}<br>
-                <strong>Pinhole OD:</strong> {{ $bookings[0]->pinod_num != 'NA' ? $bookings[0]->pinod_num . ' / ' . $bookings[0]->pinod_den : $bookings[0]->pinod_num }} | 
+                <strong>Pinhole OD:</strong> {{ $bookings[0]->pinod_num != 'NA' ? $bookings[0]->pinod_num . ' / ' . $bookings[0]->pinod_den : $bookings[0]->pinod_num }}  |  
                 <strong>Pinhole OD w/ Correction:</strong> {{ $bookings[0]->pinodcor_num != 'NA' ? $bookings[0]->pinodcor_num . ' / ' . $bookings[0]->pinodcor_den : $bookings[0]->pinodcor_num }}<br>
-                <strong>Pinhole OS:</strong> {{ $bookings[0]->pinos_num != 'NA' ? $bookings[0]->pinos_num . ' / ' . $bookings[0]->pinos_den : $bookings[0]->pinos_num }} | 
+                <strong>Pinhole OS:</strong> {{ $bookings[0]->pinos_num != 'NA' ? $bookings[0]->pinos_num . ' / ' . $bookings[0]->pinos_den : $bookings[0]->pinos_num }}  |  
                 <strong>Pinhole OS w/ Correction:</strong> {{ $bookings[0]->pinoscor_num != 'NA' ? $bookings[0]->pinoscor_num . ' / ' . $bookings[0]->pinoscor_den : $bookings[0]->pinoscor_num }}<br>
-                <strong>Jaeger OU:</strong> {{ $bookings[0]->jae_ou }} | 
-                <strong>Jaeger OD:</strong> {{ $bookings[0]->jae_od }} | 
+                <strong>Jaeger OU:</strong> {{ $bookings[0]->jae_ou }}  |  
+                <strong>Jaeger OD:</strong> {{ $bookings[0]->jae_od }}  |  
                 <strong>Jaeger OS:</strong> {{ $bookings[0]->jae_os }} <br>
-                <strong>IOP OD:</strong> {{ $bookings[0]->iopod }} | 
+                <strong>IOP OD:</strong> {{ $bookings[0]->iopod }}  |  
                 <strong>IOP OS:</strong> {{ $bookings[0]->iopos }}
               </p>
             </div>
@@ -549,20 +549,20 @@
             <div class="card-header">Eye Examination Information</div>
             <div class="card-body">
               <p>
-                <strong>AR OD:</strong> {{ $datum->arod_sphere != 'No Target' ? $datum->arod_sphere . ' - ' . $datum->arod_cylinder . ' x ' . $datum->arod_axis : $datum->arod_sphere }} | 
+                <strong>AR OD:</strong> {{ $datum->arod_sphere != 'No Target' ? $datum->arod_sphere . ' - ' . $datum->arod_cylinder . ' x ' . $datum->arod_axis : $datum->arod_sphere }}  |  
                 <strong>AR OS:</strong> {{ $datum->aros_sphere != 'No Target' ? $datum->aros_sphere . ' - ' . $datum->aros_cylinder . ' x ' . $datum->aros_axis : $datum->aros_sphere }}<br>
-                <strong>VA OD:</strong> {{ $datum->vaod_num != 'NA' ? $datum->vaod_num . ' / ' . $datum->vaod_den : $datum->vaod_num }} | 
+                <strong>VA OD:</strong> {{ $datum->vaod_num != 'NA' ? $datum->vaod_num . ' / ' . $datum->vaod_den : $datum->vaod_num }}  |  
                 <strong>VA OD w/ Correction:</strong> {{ $datum->vaodcor_num != 'NA' ? $datum->vaodcor_num . ' / ' . $datum->vaodcor_den : $datum->vaodcor_num }}<br>
-                <strong>VA OS:</strong> {{ $datum->vaos_num != 'NA' ? $datum->vaos_num . ' / ' . $datum->vaos_den : $datum->vaos_num }} | 
+                <strong>VA OS:</strong> {{ $datum->vaos_num != 'NA' ? $datum->vaos_num . ' / ' . $datum->vaos_den : $datum->vaos_num }}  |  
                 <strong>VA OS w/ Correction:</strong> {{ $datum->vaoscor_num != 'NA' ? $datum->vaoscor_num . ' / ' . $datum->vaoscor_den : $datum->vaoscor_num }}<br>
-                <strong>Pinhole OD:</strong> {{ $datum->pinod_num != 'NA' ? $datum->pinod_num . ' / ' . $datum->pinod_den : $datum->pinod_num }} | 
+                <strong>Pinhole OD:</strong> {{ $datum->pinod_num != 'NA' ? $datum->pinod_num . ' / ' . $datum->pinod_den : $datum->pinod_num }}  |  
                 <strong>Pinhole OD w/ Correction:</strong> {{ $datum->pinodcor_num != 'NA' ? $datum->pinodcor_num . ' / ' . $datum->pinodcor_den : $datum->pinodcor_num }}<br>
-                <strong>Pinhole OS:</strong> {{ $datum->pinos_num != 'NA' ? $datum->pinos_num . ' / ' . $datum->pinos_den : $datum->pinos_num }} | 
+                <strong>Pinhole OS:</strong> {{ $datum->pinos_num != 'NA' ? $datum->pinos_num . ' / ' . $datum->pinos_den : $datum->pinos_num }}  |  
                 <strong>Pinhole OS w/ Correction:</strong> {{ $datum->pinoscor_num != 'NA' ? $datum->pinoscor_num . ' / ' . $datum->pinoscor_den : $datum->pinoscor_num }}<br>
-                <strong>Jaeger OU:</strong> {{ $datum->jae_ou }} | 
-                <strong>Jaeger OD:</strong> {{ $datum->jae_od }} | 
+                <strong>Jaeger OU:</strong> {{ $datum->jae_ou }}  |  
+                <strong>Jaeger OD:</strong> {{ $datum->jae_od }}  |  
                 <strong>Jaeger OS:</strong> {{ $datum->jae_os }} <br>
-                <strong>IOP OD:</strong> {{ $datum->iopod }} | 
+                <strong>IOP OD:</strong> {{ $datum->iopod }}  |  
                 <strong>IOP OS:</strong> {{ $datum->iopos }} 
               </p>
             </div>
@@ -1186,9 +1186,9 @@
           $('#prevVitaler').html(vitalStr);
           eyeStr = '';
           if(bookingObj.consultation.arod_sphere == 'No Target')
-            eyeStr += '<strong>AR OD:</strong> ' + bookingObj.consultation.arod_sphere + ' | ';
+            eyeStr += '<strong>AR OD:</strong> ' + bookingObj.consultation.arod_sphere + '  |  ';
           else
-            eyeStr += '<strong>AR OD:</strong> ' + bookingObj.consultation.arod_sphere + ' - ' + bookingObj.consultation.arod_cylinder + ' x ' + bookingObj.consultation.arod_axis + ' | ';
+            eyeStr += '<strong>AR OD:</strong> ' + bookingObj.consultation.arod_sphere + ' - ' + bookingObj.consultation.arod_cylinder + ' x ' + bookingObj.consultation.arod_axis + '  |  ';
           
           if(bookingObj.consultation.aros_sphere == 'No Target')
             eyeStr += '<strong>AR OS:</strong> ' + bookingObj.consultation.aros_sphere + ' <br> ';
@@ -1196,9 +1196,9 @@
             eyeStr += '<strong>AR OS:</strong> ' + bookingObj.consultation.aros_sphere + ' - ' + bookingObj.consultation.aros_cylinder + ' x ' + bookingObj.consultation.aros_axis + ' <br> ';
           
           if(bookingObj.consultation.vaod_num == 'NA')
-            eyeStr += '<strong>VA OD:</strong> ' + bookingObj.consultation.vaod_num + ' | ';
+            eyeStr += '<strong>VA OD:</strong> ' + bookingObj.consultation.vaod_num + '  |  ';
           else
-            eyeStr += '<strong>VA OD:</strong> ' + bookingObj.consultation.vaod_num + ' / ' + bookingObj.consultation.vaod_den + ' | ';
+            eyeStr += '<strong>VA OD:</strong> ' + bookingObj.consultation.vaod_num + ' / ' + bookingObj.consultation.vaod_den + '  |  ';
           
           if(bookingObj.consultation.vaodcor_num == 'NA')
             eyeStr += '<strong>VA OD w/ Correction:</strong> ' + bookingObj.consultation.vaodcor_num + ' <br> ';
@@ -1206,9 +1206,9 @@
             eyeStr += '<strong>VA OD w/ Correction:</strong> ' + bookingObj.consultation.vaodcor_num + ' / ' + bookingObj.consultation.vaodcor_den + ' <br> ';
           
           if(bookingObj.consultation.vaos_num == 'NA')
-            eyeStr += '<strong>VA OS:</strong> ' + bookingObj.consultation.vaos_num + ' | ';
+            eyeStr += '<strong>VA OS:</strong> ' + bookingObj.consultation.vaos_num + '  |  ';
           else
-            eyeStr += '<strong>VA OS:</strong> ' + bookingObj.consultation.vaos_num + ' / ' + bookingObj.consultation.vaos_den + ' | ';
+            eyeStr += '<strong>VA OS:</strong> ' + bookingObj.consultation.vaos_num + ' / ' + bookingObj.consultation.vaos_den + '  |  ';
 
           if(bookingObj.consultation.vaoscor_num == 'NA')
             eyeStr += '<strong>VA OS w/ Correction:</strong> ' + bookingObj.consultation.vaoscor_num + ' <br> ';
@@ -1216,9 +1216,9 @@
             eyeStr += '<strong>VA OS w/ Correction:</strong> ' + bookingObj.consultation.vaoscor_num + ' / ' + bookingObj.consultation.vaoscor_den + ' <br> ';
           
           if(bookingObj.consultation.pinod_num == 'NA')
-            eyeStr += '<strong>Pinhole OD:</strong> ' + bookingObj.consultation.pinod_num + ' | ';
+            eyeStr += '<strong>Pinhole OD:</strong> ' + bookingObj.consultation.pinod_num + '  |  ';
           else
-            eyeStr += '<strong>Pinhole OD:</strong> ' + bookingObj.consultation.pinod_num + ' / ' + bookingObj.consultation.pinod_den + ' | ';
+            eyeStr += '<strong>Pinhole OD:</strong> ' + bookingObj.consultation.pinod_num + ' / ' + bookingObj.consultation.pinod_den + '  |  ';
           
           if(bookingObj.consultation.pinodcor_num == 'NA')
             eyeStr += '<strong>Pinhole OD w/ Correction:</strong> ' + bookingObj.consultation.pinodcor_num + ' <br> ';
@@ -1226,19 +1226,19 @@
             eyeStr += '<strong>Pinhole OD w/ Correction:</strong> ' + bookingObj.consultation.pinodcor_num + ' / ' + bookingObj.consultation.pinodcor_den + ' <br> ';
           
           if(bookingObj.consultation.pinos_num == 'NA')
-            eyeStr += '<strong>Pinhole OS:</strong> ' + bookingObj.consultation.pinos_num + ' | ';
+            eyeStr += '<strong>Pinhole OS:</strong> ' + bookingObj.consultation.pinos_num + '  |  ';
           else
-            eyeStr += '<strong>Pinhole OS:</strong> ' + bookingObj.consultation.pinos_num + ' / ' + bookingObj.consultation.pinos_den + ' | ';
+            eyeStr += '<strong>Pinhole OS:</strong> ' + bookingObj.consultation.pinos_num + ' / ' + bookingObj.consultation.pinos_den + '  |  ';
           
           if(bookingObj.consultation.pinodcor_num == 'NA')
             eyeStr += '<strong>Pinhole OS w/ Correction:</strong> ' + bookingObj.consultation.pinoscor_num + ' <br> ';
           else
             eyeStr += '<strong>Pinhole OS w/ Correction:</strong> ' + bookingObj.consultation.pinoscor_num + ' / ' + bookingObj.consultation.pinoscor_den + ' <br> ';
           
-          eyeStr += '<strong>Jaeger OU:</strong> ' + bookingObj.consultation.jae_ou + ' | ';
-          eyeStr += '<strong>Jaeger OD:</strong> ' + bookingObj.consultation.jae_od + ' | ';
+          eyeStr += '<strong>Jaeger OU:</strong> ' + bookingObj.consultation.jae_ou + '  |  ';
+          eyeStr += '<strong>Jaeger OD:</strong> ' + bookingObj.consultation.jae_od + '  |  ';
           eyeStr += '<strong>Jaeger OS:</strong> ' + bookingObj.consultation.jae_os + ' <br> ';
-          eyeStr += '<strong>IOP OD:</strong> ' + bookingObj.consultation.iopod + ' | ';
+          eyeStr += '<strong>IOP OD:</strong> ' + bookingObj.consultation.iopod + '  |  ';
           eyeStr += '<strong>IOP OS:</strong> ' + bookingObj.consultation.iopos;
           $('#prevEyer').html(eyeStr);
           $('#{{ $viewFolder }}_docNotesHPI').val(bookingObj.consultation.docNotesHPI);
