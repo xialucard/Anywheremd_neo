@@ -101,7 +101,7 @@ class DoctorsHomeController extends Controller
 
     public function storeSchedule(Request $request)
     {
-        dd($request);
+        // dd($request);
         $user = Auth::user();
         unset($params);
         $params = $request[$this->viewFolder];
