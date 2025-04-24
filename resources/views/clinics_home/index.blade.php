@@ -283,7 +283,7 @@
                                                 <th>Booking #</th>
                                                 <th class="">Doctor</th>
                                                 <th class="">Patient</th>
-                                            @if($booking_type == 'Diagnostics' || $booking_type == 'Laser' || $booking_type == 'Surgery')
+                                            @if(isset($booking_type) && ($booking_type == 'Diagnostics' || $booking_type == 'Laser' || $booking_type == 'Surgery'))
                                                 <th class="">Procedure</th>
                                             @else
                                                 <th class="">Complaint</th>
@@ -299,7 +299,7 @@
                                                 <td>{{ $dat->id }}</td>
                                                 <td class="">Dr. {{ $dat->doctor->name }}</td>
                                                 <td class="">{{ $dat->patient->name }}</td>
-                                            @if($booking_type == 'Diagnostics' || $booking_type == 'Laser' || $booking_type == 'Surgery')
+                                            @if(isset($booking_type) && ($booking_type == 'Diagnostics' || $booking_type == 'Laser' || $booking_type == 'Surgery'))
                                                 <td class="">{{ $dat->procedure_details }}</td>
                                             @else
                                                 <td class="">{{ $dat->complain }}</td>

@@ -1100,12 +1100,12 @@
                   <small id="help_{{ $viewFolder }}_address" class="text-muted"></small>
                 </div>
                 <div class="form-floating mb-3">
-                  <input class="form-control" type="email" name="{{ $viewFolder }}[Patient][email]" id="{{ $viewFolder }}_email" placeholder="" value="{{ !empty($datum->patient->email) ? $datum->patient->email : '' }}" required>
+                  <input class="form-control" type="email" name="{{ $viewFolder }}[Patient][email]" id="{{ $viewFolder }}_email" placeholder="" value="{{ !empty($datum->patient->email) ? $datum->patient->email : '' }}">
                   <label for="{{ $viewFolder }}_email" class="form-label">Email</label>
                   <small id="help_{{ $viewFolder }}_email" class="text-muted"></small>
                 </div>
                 <div class="form-floating mb-3">
-                  <input class="form-control" type="tel" pattern="[0-9]{4}-[0-9]{3}-[0-9]{4}" name="{{ $viewFolder }}[Patient][mobile_no]" id="{{ $viewFolder }}_mobile_no" placeholder="" value="{{ !empty($datum->patient->mobile_no) ? $datum->patient->mobile_no : '' }}" required>
+                  <input class="form-control" type="tel" pattern="[0-9]{4}-[0-9]{3}-[0-9]{4}" name="{{ $viewFolder }}[Patient][mobile_no]" id="{{ $viewFolder }}_mobile_no" placeholder="0900-000-0000" value="{{ !empty($datum->patient->mobile_no) ? $datum->patient->mobile_no : '' }}" required>
                   <label for="{{ $viewFolder }}_mobile_no" class="form-label">Mobile #</label>
                   <small id="help_{{ $viewFolder }}_mobile_no" class="text-muted"></small>
                 </div>
