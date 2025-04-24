@@ -34,7 +34,6 @@
                 <tr>
                     <th class=""><i class="bi bi-gear"></i></th>
                     <th>Date</th>
-                    <th>Doctor</th>
                     <th>Booking Type</th>
                 </tr>
             </thead>
@@ -50,7 +49,6 @@
                     </div>
                   </td>
                   <td>{{ $dat->bookingDate }}</td>
-                  <td>Dr. {{ $dat->doctor->name }}</td>
                   <td>{{ $dat->booking_type == '' ? 'Consultation' : $dat->booking_type }}</td>
                 </tr>
               @endforeach
@@ -106,13 +104,13 @@
             <div class="card-header">Vitals</div>
             <div class="card-body">
               <p id="prevVitaler">
-                <strong>Temp:</strong> {{ $bookings[0]->temp }}C | 
-                <strong>Height:</strong> {{ $bookings[0]->height }}cm | 
-                <strong>Weight:</strong> {{ $bookings[0]->weight }}kg | 
-                <strong>BMI:</strong> {{ number_format($bookings[0]->weight/(($bookings[0]->height/100)*($bookings[0]->height/100)), 0) }}<br>
-                <strong>BP:</strong> {{ $bookings[0]->bpS }}/{{ $bookings[0]->bpD }} | 
-                <strong>O2 Sat:</strong> {{ $bookings[0]->o2 }}% | 
-                <strong>Heart Rate:</strong> {{ $bookings[0]->heart }}beats/min
+                <strong>Temp:</strong> <span class="text-primary">{{ $bookings[0]->temp }}C</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                <strong>Height:</strong> <span class="text-primary">{{ $bookings[0]->height }}cm</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                <strong>Weight:</strong> <span class="text-primary">{{ $bookings[0]->weight }}kg</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                <strong>BMI:</strong> <span class="text-primary">{{ number_format($bookings[0]->weight/(($bookings[0]->height/100)*($bookings[0]->height/100)), 0) }}</span><br>
+                <strong>BP:</strong> <span class="text-primary">{{ $bookings[0]->bpS }}/{{ $bookings[0]->bpD }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                <strong>O2 Sat:</strong> <span class="text-primary">{{ $bookings[0]->o2 }}%</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                <strong>Heart Rate:</strong> <span class="text-primary">{{ $bookings[0]->heart }}beats/min</span>
               </p>
             </div>
           </div>
@@ -120,21 +118,21 @@
             <div class="card-header">Eye Examination Information</div>
             <div class="card-body">
               <p id="prevEyer">
-                <strong>AR OD:</strong> {{ $bookings[0]->arod_sphere != 'No Target' ? $bookings[0]->arod_sphere . ' - ' . $bookings[0]->arod_cylinder . ' x ' . $bookings[0]->arod_axis : $bookings[0]->arod_sphere }}&nbsp;&nbsp;<strong>|</strong>&nbsp;&nbsp;
-                <strong>AR OS:</strong> {{ $bookings[0]->aros_sphere != 'No Target' ? $bookings[0]->aros_sphere . ' - ' . $bookings[0]->aros_cylinder . ' x ' . $bookings[0]->aros_axis : $bookings[0]->aros_sphere }}<br>
-                <strong>VA OD:</strong> {{ $bookings[0]->vaod_num != 'NA' ? $bookings[0]->vaod_num . ' / ' . $bookings[0]->vaod_den : $bookings[0]->vaod_num }}&nbsp;&nbsp;<strong>|</strong>&nbsp;&nbsp;
-                <strong>VA OD w/ Correction:</strong> {{ $bookings[0]->vaodcor_num != 'NA' ? $bookings[0]->vaodcor_num . ' / ' . $bookings[0]->vaodcor_den : $bookings[0]->vaodcor_num }}<br>
-                <strong>VA OS:</strong> {{ $bookings[0]->vaos_num != 'NA' ? $bookings[0]->vaos_num . ' / ' . $bookings[0]->vaos_den : $bookings[0]->vaos_num }}&nbsp;&nbsp;<strong>|</strong>&nbsp;&nbsp;
-                <strong>VA OS w/ Correction:</strong> {{ $bookings[0]->vaoscor_num != 'NA' ? $bookings[0]->vaoscor_num . ' / ' . $bookings[0]->vaoscor_den : $bookings[0]->vaoscor_num }}<br>
-                <strong>Pinhole OD:</strong> {{ $bookings[0]->pinod_num != 'NA' ? $bookings[0]->pinod_num . ' / ' . $bookings[0]->pinod_den : $bookings[0]->pinod_num }}&nbsp;&nbsp;<strong>|</strong>&nbsp;&nbsp;
-                <strong>Pinhole OD w/ Correction:</strong> {{ $bookings[0]->pinodcor_num != 'NA' ? $bookings[0]->pinodcor_num . ' / ' . $bookings[0]->pinodcor_den : $bookings[0]->pinodcor_num }}<br>
-                <strong>Pinhole OS:</strong> {{ $bookings[0]->pinos_num != 'NA' ? $bookings[0]->pinos_num . ' / ' . $bookings[0]->pinos_den : $bookings[0]->pinos_num }}&nbsp;&nbsp;<strong>|</strong>&nbsp;&nbsp;
-                <strong>Pinhole OS w/ Correction:</strong> {{ $bookings[0]->pinoscor_num != 'NA' ? $bookings[0]->pinoscor_num . ' / ' . $bookings[0]->pinoscor_den : $bookings[0]->pinoscor_num }}<br>
-                <strong>Jaeger OU:</strong> {{ $bookings[0]->jae_ou }}&nbsp;&nbsp;<strong>|</strong>&nbsp;&nbsp;
-                <strong>Jaeger OD:</strong> {{ $bookings[0]->jae_od }}&nbsp;&nbsp;<strong>|</strong>&nbsp;&nbsp;
-                <strong>Jaeger OS:</strong> {{ $bookings[0]->jae_os }} <br>
-                <strong>IOP OD:</strong> {{ $bookings[0]->iopod }}&nbsp;&nbsp;<strong>|</strong>&nbsp;&nbsp;
-                <strong>IOP OS:</strong> {{ $bookings[0]->iopos }}
+                <strong>AR OD:</strong> <span class="text-primary">{{ $bookings[0]->arod_sphere != 'No Target' ? $bookings[0]->arod_sphere . ' - ' . $bookings[0]->arod_cylinder . ' x ' . $bookings[0]->arod_axis : $bookings[0]->arod_sphere }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                <strong>AR OS:</strong> <span class="text-primary">{{ $bookings[0]->aros_sphere != 'No Target' ? $bookings[0]->aros_sphere . ' - ' . $bookings[0]->aros_cylinder . ' x ' . $bookings[0]->aros_axis : $bookings[0]->aros_sphere }}</span><br>
+                <strong>VA OD:</strong> <span class="text-primary">{{ $bookings[0]->vaod_num != 'NA' ? $bookings[0]->vaod_num . ' / ' . $bookings[0]->vaod_den : $bookings[0]->vaod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                <strong>VA OD w/ Correction:</strong> <span class="text-primary">{{ $bookings[0]->vaodcor_num != 'NA' ? $bookings[0]->vaodcor_num . ' / ' . $bookings[0]->vaodcor_den : $bookings[0]->vaodcor_num }}</span><br>
+                <strong>VA OS:</strong> <span class="text-primary">{{ $bookings[0]->vaos_num != 'NA' ? $bookings[0]->vaos_num . ' / ' . $bookings[0]->vaos_den : $bookings[0]->vaos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                <strong>VA OS w/ Correction:</strong> <span class="text-primary">{{ $bookings[0]->vaoscor_num != 'NA' ? $bookings[0]->vaoscor_num . ' / ' . $bookings[0]->vaoscor_den : $bookings[0]->vaoscor_num }}</span><br>
+                <strong>Pinhole OD:</strong> <span class="text-primary">{{ $bookings[0]->pinod_num != 'NA' ? $bookings[0]->pinod_num . ' / ' . $bookings[0]->pinod_den : $bookings[0]->pinod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                <strong>Pinhole OD w/ Correction:</strong> <span class="text-primary">{{ $bookings[0]->pinodcor_num != 'NA' ? $bookings[0]->pinodcor_num . ' / ' . $bookings[0]->pinodcor_den : $bookings[0]->pinodcor_num }}</span><br>
+                <strong>Pinhole OS:</strong> <span class="text-primary">{{ $bookings[0]->pinos_num != 'NA' ? $bookings[0]->pinos_num . ' / ' . $bookings[0]->pinos_den : $bookings[0]->pinos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                <strong>Pinhole OS w/ Correction:</strong> <span class="text-primary">{{ $bookings[0]->pinoscor_num != 'NA' ? $bookings[0]->pinoscor_num . ' / ' . $bookings[0]->pinoscor_den : $bookings[0]->pinoscor_num }}</span><br>
+                <strong>Jaeger OU:</strong> <span class="text-primary">{{ $bookings[0]->jae_ou }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                <strong>Jaeger OD:</strong> <span class="text-primary">{{ $bookings[0]->jae_od }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                <strong>Jaeger OS:</strong> <span class="text-primary">{{ $bookings[0]->jae_os }}</span><br>
+                <strong>IOP OD:</strong> <span class="text-primary">{{ $bookings[0]->iopod }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                <strong>IOP OS:</strong> <span class="text-primary">{{ $bookings[0]->iopos }}</span>
               </p>
             </div>
           </div>
@@ -535,13 +533,13 @@
             <div class="card-header">Vitals</div>
             <div class="card-body">
               <p>
-                <strong>Temp:</strong> {{ $datum->temp }}C | 
-                <strong>Height:</strong> {{ $datum->height }}cm | 
-                <strong>Weight:</strong> {{ $datum->weight }}kg | 
-                <strong>BMI:</strong> {{ number_format($datum->weight/(($datum->height/100)*($datum->height/100)), 0) }}<br>
-                <strong>BP:</strong> {{ $datum->bpS }}/{{ $datum->bpD }} | 
-                <strong>O2 Sat:</strong> {{ $datum->o2 }}% | 
-                <strong>Heart Rate:</strong> {{ $datum->heart }}beats/min
+                <strong>Temp:</strong> <span class="text-primary">{{ $datum->temp }}C</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                <strong>Height:</strong> <span class="text-primary">{{ $datum->height }}cm</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                <strong>Weight:</strong> <span class="text-primary">{{ $datum->weight }}kg</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                <strong>BMI:</strong> <span class="text-primary">{{ number_format($datum->weight/(($datum->height/100)*($datum->height/100)), 0) }}</span><br>
+                <strong>BP:</strong> <span class="text-primary">{{ $datum->bpS }}/{{ $datum->bpD }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                <strong>O2 Sat:</strong> <span class="text-primary">{{ $datum->o2 }}%</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                <strong>Heart Rate:</strong> <span class="text-primary">{{ $datum->heart }}beats/min</span>
               </p>
             </div>
           </div>
@@ -549,21 +547,21 @@
             <div class="card-header">Eye Examination Information</div>
             <div class="card-body">
               <p>
-                <strong>AR OD:</strong> {{ $datum->arod_sphere != 'No Target' ? $datum->arod_sphere . ' - ' . $datum->arod_cylinder . ' x ' . $datum->arod_axis : $datum->arod_sphere }}&nbsp;&nbsp;<strong>|</strong>&nbsp;&nbsp;
-                <strong>AR OS:</strong> {{ $datum->aros_sphere != 'No Target' ? $datum->aros_sphere . ' - ' . $datum->aros_cylinder . ' x ' . $datum->aros_axis : $datum->aros_sphere }}<br>
-                <strong>VA OD:</strong> {{ $datum->vaod_num != 'NA' ? $datum->vaod_num . ' / ' . $datum->vaod_den : $datum->vaod_num }}&nbsp;&nbsp;<strong>|</strong>&nbsp;&nbsp;
-                <strong>VA OD w/ Correction:</strong> {{ $datum->vaodcor_num != 'NA' ? $datum->vaodcor_num . ' / ' . $datum->vaodcor_den : $datum->vaodcor_num }}<br>
-                <strong>VA OS:</strong> {{ $datum->vaos_num != 'NA' ? $datum->vaos_num . ' / ' . $datum->vaos_den : $datum->vaos_num }}&nbsp;&nbsp;<strong>|</strong>&nbsp;&nbsp;
-                <strong>VA OS w/ Correction:</strong> {{ $datum->vaoscor_num != 'NA' ? $datum->vaoscor_num . ' / ' . $datum->vaoscor_den : $datum->vaoscor_num }}<br>
-                <strong>Pinhole OD:</strong> {{ $datum->pinod_num != 'NA' ? $datum->pinod_num . ' / ' . $datum->pinod_den : $datum->pinod_num }}&nbsp;&nbsp;<strong>|</strong>&nbsp;&nbsp;
-                <strong>Pinhole OD w/ Correction:</strong> {{ $datum->pinodcor_num != 'NA' ? $datum->pinodcor_num . ' / ' . $datum->pinodcor_den : $datum->pinodcor_num }}<br>
-                <strong>Pinhole OS:</strong> {{ $datum->pinos_num != 'NA' ? $datum->pinos_num . ' / ' . $datum->pinos_den : $datum->pinos_num }}&nbsp;&nbsp;<strong>|</strong>&nbsp;&nbsp;
-                <strong>Pinhole OS w/ Correction:</strong> {{ $datum->pinoscor_num != 'NA' ? $datum->pinoscor_num . ' / ' . $datum->pinoscor_den : $datum->pinoscor_num }}<br>
-                <strong>Jaeger OU:</strong> {{ $datum->jae_ou }}&nbsp;&nbsp;<strong>|</strong>&nbsp;&nbsp;
-                <strong>Jaeger OD:</strong> {{ $datum->jae_od }}&nbsp;&nbsp;<strong>|</strong>&nbsp;&nbsp;
-                <strong>Jaeger OS:</strong> {{ $datum->jae_os }} <br>
-                <strong>IOP OD:</strong> {{ $datum->iopod }}&nbsp;&nbsp;<strong>|</strong>&nbsp;&nbsp;
-                <strong>IOP OS:</strong> {{ $datum->iopos }} 
+                <strong>AR OD:</strong> <span class="text-primary">{{ $datum->arod_sphere != 'No Target' ? $datum->arod_sphere . ' - ' . $datum->arod_cylinder . ' x ' . $datum->arod_axis : $datum->arod_sphere }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                <strong>AR OS:</strong> <span class="text-primary">{{ $datum->aros_sphere != 'No Target' ? $datum->aros_sphere . ' - ' . $datum->aros_cylinder . ' x ' . $datum->aros_axis : $datum->aros_sphere }}</span><br>
+                <strong>VA OD:</strong> <span class="text-primary">{{ $datum->vaod_num != 'NA' ? $datum->vaod_num . ' / ' . $datum->vaod_den : $datum->vaod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                <strong>VA OD w/ Correction:</strong> <span class="text-primary">{{ $datum->vaodcor_num != 'NA' ? $datum->vaodcor_num . ' / ' . $datum->vaodcor_den : $datum->vaodcor_num }}</span><br>
+                <strong>VA OS:</strong> <span class="text-primary">{{ $datum->vaos_num != 'NA' ? $datum->vaos_num . ' / ' . $datum->vaos_den : $datum->vaos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                <strong>VA OS w/ Correction:</strong> <span class="text-primary">{{ $datum->vaoscor_num != 'NA' ? $datum->vaoscor_num . ' / ' . $datum->vaoscor_den : $datum->vaoscor_num }}</span><br>
+                <strong>Pinhole OD:</strong> <span class="text-primary">{{ $datum->pinod_num != 'NA' ? $datum->pinod_num . ' / ' . $datum->pinod_den : $datum->pinod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                <strong>Pinhole OD w/ Correction:</strong> <span class="text-primary">{{ $datum->pinodcor_num != 'NA' ? $datum->pinodcor_num . ' / ' . $datum->pinodcor_den : $datum->pinodcor_num }}</span><br>
+                <strong>Pinhole OS:</strong> <span class="text-primary">{{ $datum->pinos_num != 'NA' ? $datum->pinos_num . ' / ' . $datum->pinos_den : $datum->pinos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                <strong>Pinhole OS w/ Correction:</strong> <span class="text-primary">{{ $datum->pinoscor_num != 'NA' ? $datum->pinoscor_num . ' / ' . $datum->pinoscor_den : $datum->pinoscor_num }}</span><br>
+                <strong>Jaeger OU:</strong> <span class="text-primary">{{ $datum->jae_ou }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                <strong>Jaeger OD:</strong> <span class="text-primary">{{ $datum->jae_od }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                <strong>Jaeger OS:</strong> <span class="text-primary">{{ $datum->jae_os }}</span><br>
+                <strong>IOP OD:</strong> <span class="text-primary">{{ $datum->iopod }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                <strong>IOP OS:</strong> <span class="text-primary">{{ $datum->iopos }}</span>
               </p>
             </div>
           </div>
@@ -1186,60 +1184,60 @@
           $('#prevVitaler').html(vitalStr);
           eyeStr = '';
           if(bookingObj.consultation.arod_sphere == 'No Target')
-            eyeStr += '<strong>AR OD:</strong> ' + bookingObj.consultation.arod_sphere + '&nbsp;&nbsp;<strong>|</strong>&nbsp;&nbsp;';
+            eyeStr += '<strong>AR OD:</strong> <span class="text-primary">' + bookingObj.consultation.arod_sphere + '</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;';
           else
-            eyeStr += '<strong>AR OD:</strong> ' + bookingObj.consultation.arod_sphere + ' - ' + bookingObj.consultation.arod_cylinder + ' x ' + bookingObj.consultation.arod_axis + '&nbsp;&nbsp;<strong>|</strong>&nbsp;&nbsp;';
+            eyeStr += '<strong>AR OD:</strong> <span class="text-primary">' + bookingObj.consultation.arod_sphere + ' - ' + bookingObj.consultation.arod_cylinder + ' x ' + bookingObj.consultation.arod_axis + '</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;';
           
           if(bookingObj.consultation.aros_sphere == 'No Target')
-            eyeStr += '<strong>AR OS:</strong> ' + bookingObj.consultation.aros_sphere + ' <br> ';
+            eyeStr += '<strong>AR OS:</strong> <span class="text-primary">' + bookingObj.consultation.aros_sphere + '</span><br> ';
           else
-            eyeStr += '<strong>AR OS:</strong> ' + bookingObj.consultation.aros_sphere + ' - ' + bookingObj.consultation.aros_cylinder + ' x ' + bookingObj.consultation.aros_axis + ' <br> ';
+            eyeStr += '<strong>AR OS:</strong> <span class="text-primary">' + bookingObj.consultation.aros_sphere + ' - ' + bookingObj.consultation.aros_cylinder + ' x ' + bookingObj.consultation.aros_axis + '</span><br> ';
           
           if(bookingObj.consultation.vaod_num == 'NA')
-            eyeStr += '<strong>VA OD:</strong> ' + bookingObj.consultation.vaod_num + '&nbsp;&nbsp;<strong>|</strong>&nbsp;&nbsp;';
+            eyeStr += '<strong>VA OD:</strong> <span class="text-primary">' + bookingObj.consultation.vaod_num + '</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;';
           else
-            eyeStr += '<strong>VA OD:</strong> ' + bookingObj.consultation.vaod_num + ' / ' + bookingObj.consultation.vaod_den + '&nbsp;&nbsp;<strong>|</strong>&nbsp;&nbsp;';
+            eyeStr += '<strong>VA OD:</strong> <span class="text-primary">' + bookingObj.consultation.vaod_num + ' / ' + bookingObj.consultation.vaod_den + '</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;';
           
           if(bookingObj.consultation.vaodcor_num == 'NA')
-            eyeStr += '<strong>VA OD w/ Correction:</strong> ' + bookingObj.consultation.vaodcor_num + ' <br> ';
+            eyeStr += '<strong>VA OD w/ Correction:</strong> <span class="text-primary">' + bookingObj.consultation.vaodcor_num + '</span><br> ';
           else
-            eyeStr += '<strong>VA OD w/ Correction:</strong> ' + bookingObj.consultation.vaodcor_num + ' / ' + bookingObj.consultation.vaodcor_den + ' <br> ';
+            eyeStr += '<strong>VA OD w/ Correction:</strong> <span class="text-primary">' + bookingObj.consultation.vaodcor_num + ' / ' + bookingObj.consultation.vaodcor_den + '</span><br> ';
           
           if(bookingObj.consultation.vaos_num == 'NA')
-            eyeStr += '<strong>VA OS:</strong> ' + bookingObj.consultation.vaos_num + '&nbsp;&nbsp;<strong>|</strong>&nbsp;&nbsp;';
+            eyeStr += '<strong>VA OS:</strong> <span class="text-primary">' + bookingObj.consultation.vaos_num + '</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;';
           else
-            eyeStr += '<strong>VA OS:</strong> ' + bookingObj.consultation.vaos_num + ' / ' + bookingObj.consultation.vaos_den + '&nbsp;&nbsp;<strong>|</strong>&nbsp;&nbsp;';
+            eyeStr += '<strong>VA OS:</strong> <span class="text-primary">' + bookingObj.consultation.vaos_num + ' / ' + bookingObj.consultation.vaos_den + '</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;';
 
           if(bookingObj.consultation.vaoscor_num == 'NA')
-            eyeStr += '<strong>VA OS w/ Correction:</strong> ' + bookingObj.consultation.vaoscor_num + ' <br> ';
+            eyeStr += '<strong>VA OS w/ Correction:</strong> <span class="text-primary">' + bookingObj.consultation.vaoscor_num + '</span><br> ';
           else
-            eyeStr += '<strong>VA OS w/ Correction:</strong> ' + bookingObj.consultation.vaoscor_num + ' / ' + bookingObj.consultation.vaoscor_den + ' <br> ';
+            eyeStr += '<strong>VA OS w/ Correction:</strong> <span class="text-primary">' + bookingObj.consultation.vaoscor_num + ' / ' + bookingObj.consultation.vaoscor_den + '</span><br> ';
           
           if(bookingObj.consultation.pinod_num == 'NA')
-            eyeStr += '<strong>Pinhole OD:</strong> ' + bookingObj.consultation.pinod_num + '&nbsp;&nbsp;<strong>|</strong>&nbsp;&nbsp;';
+            eyeStr += '<strong>Pinhole OD:</strong> <span class="text-primary">' + bookingObj.consultation.pinod_num + '</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;';
           else
-            eyeStr += '<strong>Pinhole OD:</strong> ' + bookingObj.consultation.pinod_num + ' / ' + bookingObj.consultation.pinod_den + '&nbsp;&nbsp;<strong>|</strong>&nbsp;&nbsp;';
+            eyeStr += '<strong>Pinhole OD:</strong> <span class="text-primary">' + bookingObj.consultation.pinod_num + ' / ' + bookingObj.consultation.pinod_den + '</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;';
           
           if(bookingObj.consultation.pinodcor_num == 'NA')
-            eyeStr += '<strong>Pinhole OD w/ Correction:</strong> ' + bookingObj.consultation.pinodcor_num + ' <br> ';
+            eyeStr += '<strong>Pinhole OD w/ Correction:</strong> <span class="text-primary">' + bookingObj.consultation.pinodcor_num + '</span><br> ';
           else
-            eyeStr += '<strong>Pinhole OD w/ Correction:</strong> ' + bookingObj.consultation.pinodcor_num + ' / ' + bookingObj.consultation.pinodcor_den + ' <br> ';
+            eyeStr += '<strong>Pinhole OD w/ Correction:</strong> <span class="text-primary">' + bookingObj.consultation.pinodcor_num + ' / ' + bookingObj.consultation.pinodcor_den + '</span><br> ';
           
           if(bookingObj.consultation.pinos_num == 'NA')
-            eyeStr += '<strong>Pinhole OS:</strong> ' + bookingObj.consultation.pinos_num + '&nbsp;&nbsp;<strong>|</strong>&nbsp;&nbsp;';
+            eyeStr += '<strong>Pinhole OS:</strong> <span class="text-primary">' + bookingObj.consultation.pinos_num + '</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;';
           else
-            eyeStr += '<strong>Pinhole OS:</strong> ' + bookingObj.consultation.pinos_num + ' / ' + bookingObj.consultation.pinos_den + '&nbsp;&nbsp;<strong>|</strong>&nbsp;&nbsp;';
+            eyeStr += '<strong>Pinhole OS:</strong> <span class="text-primary">' + bookingObj.consultation.pinos_num + ' / ' + bookingObj.consultation.pinos_den + '</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;';
           
           if(bookingObj.consultation.pinodcor_num == 'NA')
-            eyeStr += '<strong>Pinhole OS w/ Correction:</strong> ' + bookingObj.consultation.pinoscor_num + ' <br> ';
+            eyeStr += '<strong>Pinhole OS w/ Correction:</strong> <span class="text-primary">' + bookingObj.consultation.pinoscor_num + '</span><br> ';
           else
-            eyeStr += '<strong>Pinhole OS w/ Correction:</strong> ' + bookingObj.consultation.pinoscor_num + ' / ' + bookingObj.consultation.pinoscor_den + ' <br> ';
+            eyeStr += '<strong>Pinhole OS w/ Correction:</strong> <span class="text-primary">' + bookingObj.consultation.pinoscor_num + ' / ' + bookingObj.consultation.pinoscor_den + '</span><br> ';
           
-          eyeStr += '<strong>Jaeger OU:</strong> ' + bookingObj.consultation.jae_ou + '&nbsp;&nbsp;<strong>|</strong>&nbsp;&nbsp;';
-          eyeStr += '<strong>Jaeger OD:</strong> ' + bookingObj.consultation.jae_od + '&nbsp;&nbsp;<strong>|</strong>&nbsp;&nbsp;';
-          eyeStr += '<strong>Jaeger OS:</strong> ' + bookingObj.consultation.jae_os + ' <br> ';
-          eyeStr += '<strong>IOP OD:</strong> ' + bookingObj.consultation.iopod + '&nbsp;&nbsp;<strong>|</strong>&nbsp;&nbsp;';
-          eyeStr += '<strong>IOP OS:</strong> ' + bookingObj.consultation.iopos;
+          eyeStr += '<strong>Jaeger OU:</strong> <span class="text-primary">' + bookingObj.consultation.jae_ou + '</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;';
+          eyeStr += '<strong>Jaeger OD:</strong> <span class="text-primary">' + bookingObj.consultation.jae_od + '</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;';
+          eyeStr += '<strong>Jaeger OS:</strong> <span class="text-primary">' + bookingObj.consultation.jae_os + '</span><br> ';
+          eyeStr += '<strong>IOP OD:</strong> <span class="text-primary">' + bookingObj.consultation.iopod + '</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;';
+          eyeStr += '<strong>IOP OS:</strong> <span class="text-primary">' + bookingObj.consultation.iopos + '</span>';
           $('#prevEyer').html(eyeStr);
           $('#{{ $viewFolder }}_docNotesHPI').val(bookingObj.consultation.docNotesHPI);
           $('#{{ $viewFolder }}_docNotesSubject').val(bookingObj.consultation.docNotesSubject);
