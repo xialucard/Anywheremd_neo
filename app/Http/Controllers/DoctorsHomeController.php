@@ -222,7 +222,7 @@ class DoctorsHomeController extends Controller
                 'dateBooking' => $datum->bookingDate,
                 'patients'=>$patients, 
                 'viewFolder' => $this->viewFolder, 
-                'modalSize' => 'modal-xl'
+                'modalSize' => 'modal-fullscreen'
             ]);
     }
 
