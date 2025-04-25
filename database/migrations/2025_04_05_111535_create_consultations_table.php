@@ -13,10 +13,13 @@ return new class extends Migration
     {
         Schema::create('consultations', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('consultation_parent_id')->nullable();
+            $table->unsignedBigInteger('advance_booking_id')->nullable();
             $table->unsignedBigInteger('clinic_id');
             $table->unsignedBigInteger('patient_id');
             $table->unsignedBigInteger('client_id');
             $table->unsignedBigInteger('doctor_id');
+            $table->float('fee', 8, 2);
             $table->date('bookingDate');
             $table->enum('booking_type', ['', 'Surgery', 'Laser', 'Diagnostics', 'Dialysis', 'Laboratory']);
             $table->text('procedure_details')->nullable();
@@ -79,6 +82,8 @@ return new class extends Migration
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->integer('active')->default(1);
+            $table->foreign('consultation_parent_id')->references('id')->on('consultations');
+            $table->foreign('advance_booking_id')->references('id')->on('consultations');
             $table->foreign('clinic_id')->references('id')->on('clinics');
             $table->foreign('patient_id')->references('id')->on('patients');
             $table->foreign('client_id')->references('id')->on('users');

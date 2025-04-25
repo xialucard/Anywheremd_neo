@@ -1,12 +1,21 @@
 <datalist id="patientNameList">
-@foreach($patients as $patient)
-  <option patient_id="{{ $patient->id }}" value="{{ $patient->name }}">
+@foreach($patients as $pat)
+  <option patient_id="{{ $pat->id }}" value="{{ $pat->name }}">
 @endforeach
 </datalist>
+@if(isset($user))
+<datalist id="doctorClinicNameList">
+  @foreach($user->clinic->affiliated_doctors->sortBy('name') as $doc)
+    @foreach($doc->doctor->affiliated_clinics->sortBy('name') as $clin)
+    <option doctor_id="{{ $doc->doctor->id }}" clinic_id={{ $clin->clinic->id }} value="{{ $clin->clinic->name . ' - Dr. ' . $doc->doctor->name }}">
+    @endforeach
+  @endforeach
+</datalist>
+@endif
 <div class="container">
   <div class="row">
     <div class="col-lg-4 mb-3">
-      <div class="card h-100">
+      <div class="card mb-3">
         <div class="card-header">Booking Info</div>
         <div class="card-body">
           <div class="form-floating mb-3">
@@ -307,6 +316,12 @@
           </div>
         </div>
       </div>
+      {{-- <div class="card">
+        <div class="card-header">Refer a Doctor</div>
+        <div class="card-body">
+          <input class="form-control" list="doctorClinicNameList" id="{{ $viewFolder }}_referal">
+        </div>
+      </div> --}}
     </div>
     <div class="col-lg-8">
       <ul class="nav nav-tabs">
@@ -531,7 +546,7 @@
                 <label for="{{ $viewFolder }}_vaod_num">UCVA OD</label>
                 <div class="input-group mb-3 flex-nowrap">
                   <select class="form-select" name="{{ $viewFolder }}[vaod_num]" id="{{ $viewFolder }}_vaod_num" placeholder="" onchange="
-                    if($(this).val() == 'NA'){
+                    if($(this).val() == 'CF' || $(this).val() == 'HM' || $(this).val() == 'GLP' || $(this).val() == 'PLP' || $(this).val() == 'NLP' || $(this).val() == 'NA'){
                       $('#{{ $viewFolder }}_vaod_den').prop('disabled', true);
                     }else{
                       $('#{{ $viewFolder }}_vaod_den').prop('disabled', false);
@@ -549,7 +564,7 @@
                     <option value="NA" {{ isset($datum->id) && $datum->vaod_num == 'NA' ? 'selected' : '' }}>NA</option>
                   </select>
                   <span class="input-group-text">/</span>
-                  <select class="form-select" name="{{ $viewFolder }}[vaod_den]" id="{{ $viewFolder }}_vaod_den" placeholder="" {{ isset($datum->id) && $datum->vaod_num == 'NA' ? 'disabled' : '' }}>
+                  <select class="form-select" name="{{ $viewFolder }}[vaod_den]" id="{{ $viewFolder }}_vaod_den" placeholder="" {{ isset($datum->id) && ($datum->vaod_num == 'CF' || $datum->vaod_num == 'HM' || $datum->vaod_num == 'GLP' || $datum->vaod_num == 'PLP' || $datum->vaod_num == 'NLP' || $datum->vaod_num == 'NA') ? 'disabled' : '' }}>
                     <option value="" {{ isset($datum->id) && $datum->vaod_den == '' ? 'selected' : '' }}>-</option>
                     @php
                       $limit = 30;
@@ -578,7 +593,7 @@
                 <label for="{{ $viewFolder }}_vaodcor_num">UCVA OD w/ Correction</label>
                 <div class="input-group mb-3 flex-nowrap">
                   <select class="form-select" name="{{ $viewFolder }}[vaodcor_num]" id="{{ $viewFolder }}_vaodcor_num" placeholder="" onchange="
-                    if($(this).val() == 'NA'){
+                    if($(this).val() == 'CF' || $(this).val() == 'HM' || $(this).val() == 'GLP' || $(this).val() == 'PLP' || $(this).val() == 'NLP' || $(this).val() == 'NA'){
                       $('#{{ $viewFolder }}_vaodcor_den').prop('disabled', true);
                     }else{
                       $('#{{ $viewFolder }}_vaodcor_den').prop('disabled', false);
@@ -596,7 +611,7 @@
                     <option value="NA" {{ isset($datum->id) && $datum->vaodcor_num == 'NA' ? 'selected' : '' }}>NA</option>
                   </select>
                   <span class="input-group-text">/</span>
-                  <select class="form-select" name="{{ $viewFolder }}[vaodcor_den]" id="{{ $viewFolder }}_vaodcor_den" placeholder="" {{ isset($datum->id) && $datum->vaodcor_num == 'NA' ? 'disabled' : '' }}>
+                  <select class="form-select" name="{{ $viewFolder }}[vaodcor_den]" id="{{ $viewFolder }}_vaodcor_den" placeholder="" {{ isset($datum->id) && ($datum->vaodcor_num == 'CF' || $datum->vaodcor_num == 'HM' || $datum->vaodcor_num == 'GLP' || $datum->vaodcor_num == 'PLP' || $datum->vaodcor_num == 'NLP' || $datum->vaodcor_num == 'NA') ? 'disabled' : '' }}>
                     <option value="" {{ isset($datum->id) && $datum->vaodcor_den == '' ? 'selected' : '' }}>-</option>
                     @php
                       $limit = 30;
@@ -625,7 +640,7 @@
                 <label for="{{ $viewFolder }}_vaos_num">UCVA OS</label>
                 <div class="input-group mb-3 flex-nowrap">
                   <select class="form-select" name="{{ $viewFolder }}[vaos_num]" id="{{ $viewFolder }}_vaos_num" placeholder="" onchange="
-                    if($(this).val() == 'NA'){
+                    if($(this).val() == 'CF' || $(this).val() == 'HM' || $(this).val() == 'GLP' || $(this).val() == 'PLP' || $(this).val() == 'NLP' || $(this).val() == 'NA'){
                       $('#{{ $viewFolder }}_vaos_den').prop('disabled', true);
                     }else{
                       $('#{{ $viewFolder }}_vaos_den').prop('disabled', false);
@@ -643,7 +658,7 @@
                     <option value="NA" {{ isset($datum->id) && $datum->vaos_num == 'NA' ? 'selected' : '' }}>NA</option>
                   </select>
                   <span class="input-group-text">/</span>
-                  <select class="form-select" name="{{ $viewFolder }}[vaos_den]" id="{{ $viewFolder }}_vaos_den" placeholder=""  {{ isset($datum->id) && $datum->vaos_num == 'NA' ? 'disabled' : '' }}>
+                  <select class="form-select" name="{{ $viewFolder }}[vaos_den]" id="{{ $viewFolder }}_vaos_den" placeholder=""  {{ isset($datum->id) && ($datum->vaos_num == 'CF' || $datum->vaos_num == 'HM' || $datum->vaos_num == 'GLP' || $datum->vaos_num == 'PLP' || $datum->vaos_num == 'NLP' || $datum->vaos_num == 'NA') ? 'disabled' : '' }}>
                     <option value="" {{ isset($datum->id) && $datum->vaos_den == '' ? 'selected' : '' }}>-</option>
                     @php
                       $limit = 30;
@@ -672,7 +687,7 @@
                 <label for="{{ $viewFolder }}_vaoscor_num">UCVA OS w/ Correction</label>
                 <div class="input-group mb-3 flex-nowrap">
                   <select class="form-select" name="{{ $viewFolder }}[vaoscor_num]" id="{{ $viewFolder }}_vaoscor_num" placeholder="" onchange="
-                    if($(this).val() == 'NA'){
+                    if($(this).val() == 'CF' || $(this).val() == 'HM' || $(this).val() == 'GLP' || $(this).val() == 'PLP' || $(this).val() == 'NLP' || $(this).val() == 'NA'){
                       $('#{{ $viewFolder }}_vaoscor_den').prop('disabled', true);
                     }else{
                       $('#{{ $viewFolder }}_vaoscor_den').prop('disabled', false);
@@ -690,7 +705,7 @@
                     <option value="NA" {{ isset($datum->id) && $datum->vaoscor_num == 'NA' ? 'selected' : '' }}>NA</option>
                   </select>
                   <span class="input-group-text">/</span>
-                  <select class="form-select" name="{{ $viewFolder }}[vaoscor_den]" id="{{ $viewFolder }}_vaoscor_den" placeholder="" {{ isset($datum->id) && $datum->vaoscor_num == 'NA' ? 'disabled' : '' }}>
+                  <select class="form-select" name="{{ $viewFolder }}[vaoscor_den]" id="{{ $viewFolder }}_vaoscor_den" placeholder="" {{ isset($datum->id) && ($datum->vaoscor_num == 'CF' || $datum->vaoscor_num == 'HM' || $datum->vaoscor_num == 'GLP' || $datum->vaoscor_num == 'PLP' || $datum->vaoscor_num == 'NLP' || $datum->vaoscor_num == 'NA') ? 'disabled' : '' }}>
                     <option value="" {{ isset($datum->id) && $datum->vaoscor_den == '' ? 'selected' : '' }}>-</option>
                     @php
                       $limit = 30;
@@ -719,7 +734,7 @@
                 <label for="{{ $viewFolder }}_pinod_num">BCVA OD</label>
                 <div class="input-group mb-3 flex-nowrap">
                   <select class="form-select" name="{{ $viewFolder }}[pinod_num]" id="{{ $viewFolder }}_pinod_num" placeholder="" onchange="
-                    if($(this).val() == 'NA'){
+                    if($(this).val() == 'CF' || $(this).val() == 'HM' || $(this).val() == 'GLP' || $(this).val() == 'PLP' || $(this).val() == 'NLP' || $(this).val() == 'NA'){
                       $('#{{ $viewFolder }}_pinod_den').prop('disabled', true);
                     }else{
                       $('#{{ $viewFolder }}_pinod_den').prop('disabled', false);
@@ -739,7 +754,7 @@
                     <option value="NA">NA</option> --}}
                   </select>
                   <span class="input-group-text">/</span>
-                  <select class="form-select" name="{{ $viewFolder }}[pinod_den]" id="{{ $viewFolder }}_pinod_den" placeholder="" {{ isset($datum->id) && $datum->pinod_num == 'NA' ? 'disabled' : '' }}>
+                  <select class="form-select" name="{{ $viewFolder }}[pinod_den]" id="{{ $viewFolder }}_pinod_den" placeholder="" {{ isset($datum->id) && ($datum->pinod_num == 'CF' || $datum->pinod_num == 'HM' || $datum->pinod_num == 'GLP' || $datum->pinod_num == 'PLP' || $datum->pinod_num == 'NLP' || $datum->pinod_num == 'NA') ? 'disabled' : '' }}>
                     <option value="" {{ isset($datum->id) && $datum->pinod_den == '' ? 'selected' : '' }}>-</option>
                     @php
                       $limit = 30;
@@ -768,7 +783,7 @@
                 <label for="{{ $viewFolder }}_pinodcor_num">BCVA OD w/ Correction</label>
                 <div class="input-group mb-3 flex-nowrap">
                   <select class="form-select" name="{{ $viewFolder }}[pinodcor_num]" id="{{ $viewFolder }}_pinodcor_num" placeholder="" onchange="
-                    if($(this).val() == 'NA'){
+                    if($(this).val() == 'CF' || $(this).val() == 'HM' || $(this).val() == 'GLP' || $(this).val() == 'PLP' || $(this).val() == 'NLP' || $(this).val() == 'NA'){
                       $('#{{ $viewFolder }}_pinodcor_den').prop('disabled', true);
                     }else{
                       $('#{{ $viewFolder }}_pinodcor_den').prop('disabled', false);
@@ -780,15 +795,15 @@
                     @endfor
                     <option value="CF" {{ isset($datum->id) && $datum->pinodcor_num == 'CF' ? 'selected' : '' }}>CF</option>
                     <option value="HM" {{ isset($datum->id) && $datum->pinodcor_num == 'HM' ? 'selected' : '' }}>HM</option>
-                    <option value="GLP {{ isset($datum->id) && $datum->pinodcor_num == 'GLP' ? 'selected' : '' }}">GLP</option>
+                    <option value="GLP" {{ isset($datum->id) && $datum->pinodcor_num == 'GLP' ? 'selected' : '' }}>GLP</option>
                     <option value="PLP" {{ isset($datum->id) && $datum->pinodcor_num == 'PLP' ? 'selected' : '' }}>PLP</option>
-                    <option value="NLP {{ isset($datum->id) && $datum->pinodcor_num == 'NLP' ? 'selected' : '' }}">NLP</option>
+                    <option value="NLP" {{ isset($datum->id) && $datum->pinodcor_num == 'NLP' ? 'selected' : '' }}>NLP</option>
                     <option value="NA" {{ isset($datum->id) && $datum->pinodcor_num == 'NA' ? 'selected' : '' }}>NA</option>
                     {{-- <option value="NIWPH">NIWPH</option>
                     <option value="NA">NA</option> --}}
                   </select>
                   <span class="input-group-text">/</span>
-                  <select class="form-select" name="{{ $viewFolder }}[pinodcor_den]" id="{{ $viewFolder }}_pinodcor_den" placeholder="" {{ isset($datum->id) && $datum->pinodcor_num == 'NA' ? 'disabled' : '' }}>
+                  <select class="form-select" name="{{ $viewFolder }}[pinodcor_den]" id="{{ $viewFolder }}_pinodcor_den" placeholder="" {{ isset($datum->id) && ($datum->pinodcor_num == 'CF' || $datum->pinodcor_num == 'HM' || $datum->pinodcor_num == 'GLP' || $datum->pinodcor_num == 'PLP' || $datum->pinodcor_num == 'NLP' || $datum->pinodcor_num == 'NA') ? 'disabled' : '' }}>
                     <option value="" {{ isset($datum->id) && $datum->pinodcor_den == '' ? 'selected' : '' }}>-</option>
                     @php
                       $limit = 30;
@@ -817,7 +832,7 @@
                 <label for="{{ $viewFolder }}_pinos_num">BCVA OS</label>
                 <div class="input-group mb-3 flex-nowrap">
                   <select class="form-select" name="{{ $viewFolder }}[pinos_num]" id="{{ $viewFolder }}_pinos_num" placeholder="" onchange="
-                    if($(this).val() == 'NA'){
+                    if($(this).val() == 'CF' || $(this).val() == 'HM' || $(this).val() == 'GLP' || $(this).val() == 'PLP' || $(this).val() == 'NLP' || $(this).val() == 'NA'){
                       $('#{{ $viewFolder }}_pinos_den').prop('disabled', true);
                     }else{
                       $('#{{ $viewFolder }}_pinos_den').prop('disabled', false);
@@ -837,7 +852,7 @@
                     <option value="NA">NA</option> --}}
                   </select>
                   <span class="input-group-text">/</span>
-                  <select class="form-select" name="{{ $viewFolder }}[pinos_den]" id="{{ $viewFolder }}_pinos_den" placeholder="" {{ isset($datum->id) && $datum->pinos_num == 'NA' ? 'disabled' : '' }}>
+                  <select class="form-select" name="{{ $viewFolder }}[pinos_den]" id="{{ $viewFolder }}_pinos_den" placeholder="" {{ isset($datum->id) && ($datum->pinos_num == 'CF' || $datum->pinos_num == 'HM' || $datum->pinos_num == 'GLP' || $datum->pinos_num == 'PLP' || $datum->pinos_num == 'NLP' || $datum->pinos_num == 'NA') ? 'disabled' : '' }}>
                     <option value="" {{ isset($datum->id) && $datum->pinos_den == '' ? 'selected' : '' }}>-</option>
                     @php
                       $limit = 30;
@@ -866,7 +881,7 @@
                 <label for="{{ $viewFolder }}_pinoscor_num">BCVA OS w/ Correction</label>
                 <div class="input-group mb-3 flex-nowrap">
                   <select class="form-select" name="{{ $viewFolder }}[pinoscor_num]" id="{{ $viewFolder }}_pinoscor_num" placeholder="" onchange="
-                    if($(this).val() == 'NA'){
+                    if($(this).val() == 'CF' || $(this).val() == 'HM' || $(this).val() == 'GLP' || $(this).val() == 'PLP' || $(this).val() == 'NLP' || $(this).val() == 'NA'){
                       $('#{{ $viewFolder }}_pinoscor_den').prop('disabled', true);
                     }else{
                       $('#{{ $viewFolder }}_pinoscor_den').prop('disabled', false);
@@ -886,7 +901,7 @@
                     <option value="NA">NA</option> --}}
                   </select>
                   <span class="input-group-text">/</span>
-                  <select class="form-select" name="{{ $viewFolder }}[pinoscor_den]" id="{{ $viewFolder }}_pinoscor_den" placeholder="" {{ isset($datum->id) && $datum->pinoscor_num == 'NA' ? 'disabled' : '' }}>
+                  <select class="form-select" name="{{ $viewFolder }}[pinoscor_den]" id="{{ $viewFolder }}_pinoscor_den" placeholder="" {{ isset($datum->id) &&  ($datum->pinoscor_num == 'CF' || $datum->pinoscor_num == 'HM' || $datum->pinoscor_num == 'GLP' || $datum->pinoscor_num == 'PLP' || $datum->pinoscor_num == 'NLP' || $datum->pinoscor_num == 'NA') ? 'disabled' : '' }}>
                     <option value="" {{ isset($datum->id) && $datum->pinoscor_den == '' ? 'selected' : '' }}>-</option>
                     @php
                       $limit = 30;
