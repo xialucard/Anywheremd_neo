@@ -42,7 +42,8 @@
                 @endphp
                 <div class="modal-footer">
                 @if(stristr($inputFormHeader, 'Booking') && $modalSize == 'modal-fullscreen')
-                    <button type="submit" name="{{ $viewFolder }}[Submit]" value="Pause" onclick="
+                    <input type="hidden" class="form-control" id="{{ $viewFolder }}_submit_type" name="{{ $viewFolder }}[submit_type]" value="">
+                    <button type="submit" onclick="
                         event.preventDefault(); 
                         // $('#{{ $viewFolder }}_docNotes').removeAttr('required');
                         // $('#{{ $viewFolder }}_docNotesSubject').removeAttr('required');
@@ -53,9 +54,10 @@
                         // // $('#{{ $viewFolder }}_findings').removeAttr('required');
                         // $('#{{ $viewFolder }}_diagnosis').removeAttr('required');
                         // $('#{{ $viewFolder }}_recommendations').removeAttr('required');
+                        $('#{{ $viewFolder }}_submit_type').val('Pause');
                         $('#{{ $formId }}').submit();
                         " class="btn btn-{{ $bgColor }}">Pause</button>
-                    <button type="submit" name="{{ $viewFolder }}[Submit]" value="End" onclick="
+                    <button type="submit" onclick="
                         // event.preventDefault();
                         // $('#{{ $viewFolder }}_docNotes').attr('required');
                         // $('#{{ $viewFolder }}_docNotesSubject').attr('required', true);
@@ -67,6 +69,7 @@
                         // $('#{{ $viewFolder }}_diagnosis').attr('required', true);
                         // $('#{{ $viewFolder }}_recommendations').attr('required', true)
                         // $('#{{ $formId }}').submit();
+                        $('#{{ $viewFolder }}_submit_type').val('');
                         " class="btn btn-danger">End</button>
                 @else
                     <button type="submit" class="btn btn-{{ $bgColor }}">Submit</button>

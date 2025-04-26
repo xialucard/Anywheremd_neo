@@ -228,13 +228,14 @@ class DoctorsHomeController extends Controller
 
     public function update(Request $request, Consultation $doctors_home)
     {
-        dd($request);
         $user = Auth::user();
         unset($params);
         $params = $request->input($this->viewFolder);
         // dd($params);
         $doctor = $params['Doctor'];
         unset($params['Doctor']);
+        if($params['submit_type'] == "")
+            $params['status'] = "Done";
         $doctor['updated_by'] = $user->id;
         $doctors_home->doctor->update($doctor);
         $params['updated_by'] = $user->id;

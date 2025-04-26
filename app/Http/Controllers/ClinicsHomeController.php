@@ -201,6 +201,7 @@ class ClinicsHomeController extends Controller
         $params['bookingDate'] = date('Y-m-d', strtotime($params['bookingDate']));
         if(is_null($params['booking_type']))
             $params['booking_type'] = '';
+        $params['status'] = "Confirmed";
         $params['patient_id'] = $patientObj->id;
         $params['client_id'] = $user->id;
         $params['created_by'] = $user->id;
