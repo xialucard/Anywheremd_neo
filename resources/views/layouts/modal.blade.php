@@ -41,7 +41,36 @@
                     }
                 @endphp
                 <div class="modal-footer">
+                @if(stristr($inputFormHeader, 'Booking') && $modalSize == 'modal-fullscreen')
+                    <button type="submit" name="{{ $viewFolder }}[Submit]" value="Pause" onclick="
+                        event.preventDefault(); 
+                        // $('#{{ $viewFolder }}_docNotes').removeAttr('required');
+                        // $('#{{ $viewFolder }}_docNotesSubject').removeAttr('required');
+                        // $('#{{ $viewFolder }}_assessment').removeAttr('required');
+                        // $('#{{ $viewFolder }}_plan').removeAttr('required');
+                        // $('#{{ $viewFolder }}_planMed').removeAttr('required');
+                        // $('#{{ $viewFolder }}_planRem').removeAttr('required');
+                        // // $('#{{ $viewFolder }}_findings').removeAttr('required');
+                        // $('#{{ $viewFolder }}_diagnosis').removeAttr('required');
+                        // $('#{{ $viewFolder }}_recommendations').removeAttr('required');
+                        $('#{{ $formId }}').submit();
+                        " class="btn btn-{{ $bgColor }}">Pause</button>
+                    <button type="submit" name="{{ $viewFolder }}[Submit]" value="End" onclick="
+                        // event.preventDefault();
+                        // $('#{{ $viewFolder }}_docNotes').attr('required');
+                        // $('#{{ $viewFolder }}_docNotesSubject').attr('required', true);
+                        // $('#{{ $viewFolder }}_assessment').attr('required', true);
+                        // $('#{{ $viewFolder }}_plan').attr('required', true);
+                        // $('#{{ $viewFolder }}_planMed').attr('required', true);
+                        // $('#{{ $viewFolder }}_planRem').attr('required', true);
+                        // $('#{{ $viewFolder }}_findings').attr('required', true);
+                        // $('#{{ $viewFolder }}_diagnosis').attr('required', true);
+                        // $('#{{ $viewFolder }}_recommendations').attr('required', true)
+                        // $('#{{ $formId }}').submit();
+                        " class="btn btn-danger">End</button>
+                @else
                     <button type="submit" class="btn btn-{{ $bgColor }}">Submit</button>
+                @endif
                     <button type="button" class="btn btn-{{ $bgColor }} modalForm-close" data-bs-dismiss="modal">Close</button>
                 </div> 
         

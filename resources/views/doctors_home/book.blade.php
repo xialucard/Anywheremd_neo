@@ -289,7 +289,7 @@
                       <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
                     </div>
                     <small class="text-muted">Content</small>
-                    <textarea class="form-control" name="{{ $viewFolder }}[docNotesHPI]" id="{{ $viewFolder }}_docNotesHPI" rows=3 disabled>{{ $bookings[0]->docNotesHPI }}</textarea>
+                    <textarea class="form-control" name="{{ $viewFolder }}[docNotesHPI]" id="{{ $viewFolder }}_prev_docNotesHPI" rows=3 disabled>{{ $bookings[0]->docNotesHPI }}</textarea>
                     <small class="text-muted">Helper Save/Edit</small>
                     <div class="input-group input-group-small mb-3 flex-nowrap">
                       <div class="input-group-text">
@@ -313,7 +313,7 @@
                       <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
                     </div>
                     <small class="text-muted">Content</small>
-                    <textarea class="form-control" name="{{ $viewFolder }}[docNotesSubject]" id="{{ $viewFolder }}_docNotesSubject" rows=3 disabled>{{ $bookings[0]->docNotesSubject }}</textarea>
+                    <textarea class="form-control" name="{{ $viewFolder }}[docNotesSubject]" id="{{ $viewFolder }}_prev_docNotesSubject" rows=3 disabled>{{ $bookings[0]->docNotesSubject }}</textarea>
                     <small class="text-muted">Helper Save/Edit</small>
                     <div class="input-group input-group-small mb-3 flex-nowrap">
                       <div class="input-group-text">
@@ -337,7 +337,7 @@
                       <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
                     </div>
                     <small class="text-muted">Content</small>
-                    <textarea class="form-control" name="{{ $viewFolder }}[docNotes]" id="{{ $viewFolder }}_docNotes" rows=3 disabled>{{ $bookings[0]->docNotes }}</textarea>
+                    <textarea class="form-control" name="{{ $viewFolder }}[docNotes]" id="{{ $viewFolder }}_prev_docNotes" rows=3 disabled>{{ $bookings[0]->docNotes }}</textarea>
                     <small class="text-muted">Helper Save/Edit</small>
                     <div class="input-group input-group-small mb-3 flex-nowrap">
                       <div class="input-group-text">
@@ -372,7 +372,7 @@
                       <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
                     </div>
                     <small class="text-muted">Content</small>
-                    <textarea class="form-control" name="{{ $viewFolder }}[assessment]" id="{{ $viewFolder }}_assessment" rows=3 disabled>{{ $bookings[0]->assessment }}</textarea>
+                    <textarea class="form-control" name="{{ $viewFolder }}[assessment]" id="{{ $viewFolder }}_prev_assessment" rows=3 disabled>{{ $bookings[0]->assessment }}</textarea>
                     <small class="text-muted">Helper Save/Edit</small>
                     <div class="input-group input-group-small mb-3 flex-nowrap">
                       <div class="input-group-text">
@@ -400,7 +400,7 @@
                       <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
                     </div>
                     <small class="text-muted">Content</small>
-                    <textarea class="form-control" name="{{ $viewFolder }}[planMed]" id="{{ $viewFolder }}_planMed" rows=3 disabled>{{ $bookings[0]->planMed }}</textarea>
+                    <textarea class="form-control" name="{{ $viewFolder }}[planMed]" id="{{ $viewFolder }}_prev_planMed" rows=3 disabled>{{ $bookings[0]->planMed }}</textarea>
                     <small class="text-muted">Helper Save/Edit</small>
                     <div class="input-group input-group-small mb-3 flex-nowrap">
                       <div class="input-group-text">
@@ -423,7 +423,7 @@
                       <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
                     </div>
                     <small class="text-muted">Content</small>
-                    <textarea class="form-control" name="{{ $viewFolder }}[plan]" id="{{ $viewFolder }}_plan" rows=3 disabled>{{ $bookings[0]->plan }}</textarea>
+                    <textarea class="form-control" name="{{ $viewFolder }}[plan]" id="{{ $viewFolder }}_prev_plan" rows=3 disabled>{{ $bookings[0]->plan }}</textarea>
                     <small class="text-muted">Helper Save/Edit</small>
                     <div class="input-group input-group-small mb-3 flex-nowrap">
                       <div class="input-group-text">
@@ -446,7 +446,7 @@
                       <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
                     </div>
                     <small class="text-muted">Content</small>
-                    <textarea class="form-control" name="{{ $viewFolder }}[planRem]" id="{{ $viewFolder }}_planRem" rows=3 disabled>{{ $bookings[0]->planRem }}</textarea>
+                    <textarea class="form-control" name="{{ $viewFolder }}[planRem]" id="{{ $viewFolder }}_prev_planRem" rows=3 disabled>{{ $bookings[0]->planRem }}</textarea>
                     <small class="text-muted">Helper Save/Edit</small>
                     <div class="input-group input-group-small mb-3 flex-nowrap">
                       <div class="input-group-text">
@@ -718,7 +718,7 @@
                       <button class="btn btn-outline-secondary" type="button" id="button-addon2">Delete Helper</button>
                     </div>
                     <small class="text-muted">Content</small>
-                    <textarea class="form-control" name="{{ $viewFolder }}[docNotesHPI]" id="{{ $viewFolder }}_docNotesHPI" rows=3>{{ isset($datum->docNotesHPI) ? $datum->docNotesHPI : '' }}</textarea>
+                    <textarea class="form-control" name="{{ $viewFolder }}[docNotesHPI]" id="{{ $viewFolder }}_docNotesHPI" rows=3 required>{{ isset($datum->docNotesHPI) ? $datum->docNotesHPI : '' }}</textarea>
                     <small class="text-muted">Helper Save/Edit</small>
                     <div class="input-group input-group-small mb-3 flex-nowrap">
                       <div class="input-group-text">
@@ -742,7 +742,7 @@
                       <button class="btn btn-outline-secondary" type="button" id="button-addon2">Delete Helper</button>
                     </div>
                     <small class="text-muted">Content</small>
-                    <textarea class="form-control" name="{{ $viewFolder }}[docNotesSubject]" id="{{ $viewFolder }}_docNotesSubject" rows=3>{{ isset($datum->docNotesSubject) ? $datum->docNotesSubject : '' }}</textarea>
+                    <textarea class="form-control" name="{{ $viewFolder }}[docNotesSubject]" id="{{ $viewFolder }}_docNotesSubject" rows=3 required>{{ isset($datum->docNotesSubject) ? $datum->docNotesSubject : '' }}</textarea>
                     <small class="text-muted">Helper Save/Edit</small>
                     <div class="input-group input-group-small mb-3 flex-nowrap">
                       <div class="input-group-text">
@@ -766,7 +766,7 @@
                       <button class="btn btn-outline-secondary" type="button" id="button-addon2">Delete Helper</button>
                     </div>
                     <small class="text-muted">Content</small>
-                    <textarea class="form-control" name="{{ $viewFolder }}[docNotes]" id="{{ $viewFolder }}docNotes" rows=3>{{ isset($datum->docNotes) ? $datum->docNotes : '' }}</textarea>
+                    <textarea class="form-control" name="{{ $viewFolder }}[docNotes]" id="{{ $viewFolder }}_docNotes" rows=3 required>{{ isset($datum->docNotes) ? $datum->docNotes : '' }}</textarea>
                     <small class="text-muted">Helper Save/Edit</small>
                     <div class="input-group input-group-small mb-3 flex-nowrap">
                       <div class="input-group-text">
@@ -801,7 +801,7 @@
                       <button class="btn btn-outline-secondary" type="button" id="button-addon2">Delete Helper</button>
                     </div>
                     <small class="text-muted">Content</small>
-                    <textarea class="form-control" name="{{ $viewFolder }}[assessment]" id="{{ $viewFolder }}_assessment" rows=3>{{ isset($datum->assessment) ? $datum->assessment : '' }}</textarea>
+                    <textarea class="form-control" name="{{ $viewFolder }}[assessment]" id="{{ $viewFolder }}_assessment" rows=3 required>{{ isset($datum->assessment) ? $datum->assessment : '' }}</textarea>
                     <small class="text-muted">Helper Save/Edit</small>
                     <div class="input-group input-group-small mb-3 flex-nowrap">
                       <div class="input-group-text">
@@ -829,7 +829,7 @@
                       <button class="btn btn-outline-secondary" type="button" id="button-addon2">Delete Helper</button>
                     </div>
                     <small class="text-muted">Content</small>
-                    <textarea class="form-control" name="{{ $viewFolder }}[planMed]" id="{{ $viewFolder }}_planMed" rows=3>{{ isset($datum->planMed) ? $datum->planMed : '' }}</textarea>
+                    <textarea class="form-control" name="{{ $viewFolder }}[planMed]" id="{{ $viewFolder }}_planMed" rows=3 required>{{ isset($datum->planMed) ? $datum->planMed : '' }}</textarea>
                     <small class="text-muted">Helper Save/Edit</small>
                     <div class="input-group input-group-small mb-3 flex-nowrap">
                       <div class="input-group-text">
@@ -852,7 +852,7 @@
                       <button class="btn btn-outline-secondary" type="button" id="button-addon2">Delete Helper</button>
                     </div>
                     <small class="text-muted">Content</small>
-                    <textarea class="form-control" name="{{ $viewFolder }}[plan]" id="{{ $viewFolder }}_plan" rows=3>{{ isset($datum->plan) ? $datum->plan : '' }}</textarea>
+                    <textarea class="form-control" name="{{ $viewFolder }}[plan]" id="{{ $viewFolder }}_plan" rows=3 required>{{ isset($datum->plan) ? $datum->plan : '' }}</textarea>
                     <small class="text-muted">Helper Save/Edit</small>
                     <div class="input-group input-group-small mb-3 flex-nowrap">
                       <div class="input-group-text">
@@ -875,7 +875,7 @@
                       <button class="btn btn-outline-secondary" type="button" id="button-addon2">Delete Helper</button>
                     </div>
                     <small class="text-muted">Content</small>
-                    <textarea class="form-control" name="{{ $viewFolder }}[planRem]" id="{{ $viewFolder }}_planRem" rows=3>{{ isset($datum->planRem) ? $datum->planRem : '' }}</textarea>
+                    <textarea class="form-control" name="{{ $viewFolder }}[planRem]" id="{{ $viewFolder }}_planRem" rows=3 required>{{ isset($datum->planRem) ? $datum->planRem : '' }}</textarea>
                     <small class="text-muted">Helper Save/Edit</small>
                     <div class="input-group input-group-small mb-3 flex-nowrap">
                       <div class="input-group-text">
@@ -1241,10 +1241,16 @@
           eyeStr += '<strong>IOP OD:</strong> <span class="text-primary">' + bookingObj.consultation.iopod + '</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;';
           eyeStr += '<strong>IOP OS:</strong> <span class="text-primary">' + bookingObj.consultation.iopos + '</span>';
           $('#prevEyer').html(eyeStr);
-          $('#{{ $viewFolder }}_docNotesHPI').val(bookingObj.consultation.docNotesHPI);
-          $('#{{ $viewFolder }}_docNotesSubject').val(bookingObj.consultation.docNotesSubject);
-          $('#{{ $viewFolder }}_docNotes').val(bookingObj.consultation.docNotes);
-          $('#{{ $viewFolder }}_assessment').val(bookingObj.consultation.assessment);
+          $('#{{ $viewFolder }}_prev_docNotesHPI').val(bookingObj.consultation.docNotesHPI);
+          $('#{{ $viewFolder }}_prev_docNotesSubject').val(bookingObj.consultation.docNotesSubject);
+          $('#{{ $viewFolder }}_prev_docNotes').val(bookingObj.consultation.docNotes);
+          $('#{{ $viewFolder }}_prev_assessment').val(bookingObj.consultation.assessment);
+          $('#{{ $viewFolder }}_prev_plan').val(bookingObj.consultation.plan);
+          $('#{{ $viewFolder }}_prev_planMed').val(bookingObj.consultation.planMed);
+          $('#{{ $viewFolder }}_prev_planRem').val(bookingObj.consultation.planRem);
+          // $('#{{ $viewFolder }}_findings').val(bookingObj.consultation.findings);
+          // $('#{{ $viewFolder }}_diagnosis').val(bookingObj.consultation.diagnosis);
+          // $('#{{ $viewFolder }}_recommendations').val(bookingObj.consultation.recommendations);
           $('#iframePrevPresc').attr('src', bookingObj.consultation.iframePrevPrescSrc);
           $('#iframePrevMedCert').attr('src', bookingObj.consultation.iframePrevMedCertSrc);
           $('#iframePrevAdmitting').attr('src', bookingObj.consultation.iframePrevAdmittingSrc);
