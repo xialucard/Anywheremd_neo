@@ -181,6 +181,13 @@
                                                                     &nbsp;
                                                                 @endif
                                                                 </div>
+                                                                <div>
+                                                                    @if(!empty($user->clinic->bookings()->where('bookingDate', $yr . '-' . $mon . '-' . $i)->get()[0]))
+                                                                    <i class="bi bi-list-ol"></i> {{ sizeof($user->clinic->bookings()->where('bookingDate', $yr . '-' . $mon . '-' . $i)->get()) }}
+                                                                    @else
+                                                                    &nbsp;
+                                                                    @endif
+                                                                </div>
                                                             </div>
                                                         @can($viewFolder . '.index')
                                                             @if(!empty($user->clinic->schedules()->whereIn('doctor_id', $doctor_list_id)->where('dateSched', $yr . '-' . $mon . '-' . $i)->get()[0]))
@@ -191,6 +198,7 @@
                                                     @else
                                                     <div>
                                                         <div>{{ $i }}</div>
+                                                        <div>&nbsp;</div>
                                                         <div>&nbsp;</div>
                                                     </div>
                                                     @endif
@@ -221,6 +229,13 @@
                                                                     &nbsp;
                                                                 @endif
                                                                 </div>
+                                                                <div>
+                                                                    @if(!empty($user->clinic->bookings()->where('bookingDate', $yr . '-' . $mon . '-' . $i)->get()[0]))
+                                                                    <i class="bi bi-list-ol"></i> {{ sizeof($user->clinic->bookings()->where('bookingDate', $yr . '-' . $mon . '-' . $i)->get()) }}
+                                                                    @else
+                                                                    &nbsp;
+                                                                    @endif
+                                                                </div>
                                                             </div>
                                                         @can($viewFolder . '.index')
                                                             @if(!empty($user->clinic->schedules()->whereIn('doctor_id', $doctor_list_id)->where('dateSched', $yr . '-' . $mon . '-' . $i)->get()[0]))
@@ -230,6 +245,7 @@
                                                     @else
                                                     <div>
                                                         <div>{{ $i }}</div>
+                                                        <div>&nbsp;</div>
                                                         <div>&nbsp;</div>
                                                     </div>
                                                     @endif

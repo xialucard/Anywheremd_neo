@@ -116,7 +116,7 @@
                                                         @endcan
                                                             <div>
                                                                 <div>{{ $i }}</div>
-                                                                <div>&nbsp;</div>
+                                                                <div><i class="bi bi-list-ol"></i></div>
                                                             </div>
                                                         @can($viewFolder . '.index')
                                                             @if(!empty($user->schedules()->where('dateSched', $yr . '-' . $mon . '-' . $i)->get()[0]))
@@ -150,7 +150,13 @@
                                                         @endcan
                                                             <div>
                                                                 <div>{{ $i }}</div>
-                                                                <div>&nbsp;</div>
+                                                                <div>
+                                                                    @if(!empty($user->bookings()->where('bookingDate', $yr . '-' . $mon . '-' . $i)->get()[0]))
+                                                                    <i class="bi bi-list-ol"></i> {{ sizeof($user->bookings()->where('bookingDate', $yr . '-' . $mon . '-' . $i)->get()) }}
+                                                                    @else
+                                                                    &nbsp;
+                                                                    @endif
+                                                                </div>
                                                             </div>
                                                         @can($viewFolder . '.index')
                                                             @if(!empty($user->schedules()->where('dateSched', $yr . '-' . $mon . '-' . $i)->get()[0]))

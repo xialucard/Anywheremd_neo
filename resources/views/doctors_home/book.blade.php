@@ -40,7 +40,7 @@
             </thead>
             <tbody>
               @php
-                $bookings = $datum->patient->consultations()->where('doctor_id', $user->id)->where('id', '<', $datum->id)->orderByDesc('bookingDate')->get();
+                $bookings = $datum->patient->consultations()->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->where('status', 'Done')->orderByDesc('bookingDate')->get();
               @endphp
               @foreach($bookings as $ind=>$dat)
                 <tr>
