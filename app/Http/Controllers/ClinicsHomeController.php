@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\AffiliatedDoctor;
+use App\Models\Clinic;
 use App\Models\Consultation;
 use App\Models\ConsultationFile;
 use App\Models\Patient;
@@ -219,18 +220,22 @@ class ClinicsHomeController extends Controller
         $user = Auth::user();
         unset($params);
         $params = $request->input($this->viewFolder);
+        // dd($params);
+        $userInputedDetails = $params['user'];
+        unset($params['user']);
         $params['updated_by'] = $user->id;
-        if($params['passwordOld'] != ''){
-            if (Hash::check($params['passwordOld'], $user->getAuthPassword())) {
-                $params['password'] = Hash::make($params['passwordNew']);
+        if($userInputedDetails['passwordOld'] != ''){
+            if (Hash::check($userInputedDetails['passwordOld'], $user->getAuthPassword())) {
+                $userInputedDetails['password'] = Hash::make($userInputedDetails['passwordNew']);
                 // dd($params);
-                $user->update($params);
+                $user->update($userInputedDetails);
+                $clinics_home->clinic->update($params);
                 return redirect()->route($this->viewFolder . '.index')->with('message', 'Your account is updated.');
             }else{
                 return redirect()->route($this->viewFolder . '.index')->with('message', 'Invalid old password.');
             }
         }else{
-            $clinics_home->update($params);
+            $clinics_home->clinic->update($params);
             return redirect()->route($this->viewFolder . '.index')->with('message', 'Your account is updated.');
         }
         

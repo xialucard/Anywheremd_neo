@@ -186,12 +186,28 @@
       <small id="help_{{ $viewFolder }}_password-old" class="text-muted"></small>
     </div>
     <div class="form-floating mb-3">
-      <input class="form-control" type="password" name="{{ $viewFolder }}[passwordNew]" id="{{ $viewFolder }}_password-new" placeholder="">
+      <input class="form-control" type="password" name="{{ $viewFolder }}[user][passwordNew]" id="{{ $viewFolder }}_password-new" onblur="
+            if($('#{{ $viewFolder }}_password-new').val() != $('#{{ $viewFolder }}_password-reinput').val()){
+              $('#submitButton').prop('disabled', true);
+              $('#help_{{ $viewFolder }}_password-reinput').text('New password and reinput password not match.');
+            }else{
+              $('#submitButton').prop('disabled', false);
+              $('#help_{{ $viewFolder }}_password-reinput').text('');
+            }
+          " placeholder="">
       <label for="{{ $viewFolder }}_password-new" class="form-label">New Password</label>
       <small id="help_{{ $viewFolder }}_password-new" class="text-muted"></small>
     </div>
     <div class="form-floating mb-3">
-      <input class="form-control" type="password" name="{{ $viewFolder }}[passwordReinput]" id="{{ $viewFolder }}_password-reinput" placeholder="">
+      <input class="form-control" type="password" name="{{ $viewFolder }}[user][passwordReinput]" id="{{ $viewFolder }}_password-reinput" onblur="
+            if($('#{{ $viewFolder }}_password-new').val() != $('#{{ $viewFolder }}_password-reinput').val()){
+              $('#submitButton').prop('disabled', true);
+              $('#help_{{ $viewFolder }}_password-reinput').text('New password and reinput password not match.');
+            }else{
+              $('#submitButton').prop('disabled', false);
+              $('#help_{{ $viewFolder }}_password-reinput').text('');
+            }
+          " placeholder="">
       <label for="{{ $viewFolder }}_password-reinput" class="form-label">Reinput Password</label>
       <small id="help_{{ $viewFolder }}_password-reinput" class="text-muted"></small>
     </div>

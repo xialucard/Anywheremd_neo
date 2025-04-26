@@ -17,6 +17,7 @@ class Clinic extends Model
         'mobile_no',
         'email',
         'website_link',
+        'max_num_booking',
         'corporation',
         'user_id',
         'created_by',

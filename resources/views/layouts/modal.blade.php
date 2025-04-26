@@ -72,7 +72,7 @@
                         $('#{{ $viewFolder }}_submit_type').val('');
                         " class="btn btn-danger">End</button>
                 @else
-                    <button type="submit" class="btn btn-{{ $bgColor }}">Submit</button>
+                    <button type="submit" id="submitButton" class="btn btn-{{ $bgColor }}">Submit</button>
                 @endif
                     <button type="button" class="btn btn-{{ $bgColor }} modalForm-close" data-bs-dismiss="modal">Close</button>
                 </div> 
