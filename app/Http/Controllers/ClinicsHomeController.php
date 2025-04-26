@@ -9,6 +9,7 @@ use App\Models\Consultation;
 use App\Models\ConsultationFile;
 use App\Models\Patient;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class ClinicsHomeController extends Controller
 {
@@ -211,6 +212,29 @@ class ClinicsHomeController extends Controller
         $params['updated_by'] = $user->id;
         Consultation::create($params);
         return redirect()->route($this->viewFolder . '.index')->with('message', "Booking successfully saved.");
+    }
+
+    public function updateMyAccount(User $clinics_home, Request $request)
+    {
+        $user = Auth::user();
+        unset($params);
+        $params = $request->input($this->viewFolder);
+        $params['updated_by'] = $user->id;
+        if($params['passwordOld'] != ''){
+            if (Hash::check($params['passwordOld'], $user->getAuthPassword())) {
+                $params['password'] = Hash::make($params['passwordNew']);
+                // dd($params);
+                $user->update($params);
+                return redirect()->route($this->viewFolder . '.index')->with('message', 'Your account is updated.');
+            }else{
+                return redirect()->route($this->viewFolder . '.index')->with('message', 'Invalid old password.');
+            }
+        }else{
+            $clinics_home->update($params);
+            return redirect()->route($this->viewFolder . '.index')->with('message', 'Your account is updated.');
+        }
+        
+        
     }
 
     public function edit(Consultation $clinics_home, Request $request)

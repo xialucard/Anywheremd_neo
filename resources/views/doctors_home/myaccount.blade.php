@@ -169,7 +169,7 @@
       <small id="help_{{ $viewFolder }}_hAffiliation" class="text-muted"></small>
     </div>
     <div class="form-floating mb-3">
-      <input class="form-control" type="number" name="{{ $viewFolder }}[fee]" id="{{ $viewFolder }}_fee" placeholder="" value="" required>
+      <input class="form-control" type="number" name="{{ $viewFolder }}[fee]" id="{{ $viewFolder }}_fee" placeholder="" value="{{ !empty($datum->fee) ? $datum->fee : ''  }}" required>
       <label for="{{ $viewFolder }}_fee" class="form-label">Fee</label>
       <small id="help_{{ $viewFolder }}_fee" class="text-muted"></small>
     </div>

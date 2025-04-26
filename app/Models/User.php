@@ -46,6 +46,7 @@ class User extends Authenticatable
         'residencySchool',
         'subSchool',
         'hAffiliation',
+        'fee',
         'sub_header_1',
         'sub_header_2',
     ];

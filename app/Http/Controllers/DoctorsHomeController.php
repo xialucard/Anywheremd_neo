@@ -8,8 +8,10 @@ use App\Models\Consultation;
 use Illuminate\Http\Request;
 use App\Models\ScheduleConso;
 use App\Models\AffiliatedDoctor;
+use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class DoctorsHomeController extends Controller
@@ -191,6 +193,29 @@ class DoctorsHomeController extends Controller
         
 
         return redirect()->route($this->viewFolder . '.index')->with('message', 'Affiliated clinic updated.');
+    }
+
+    public function updateMyAccount(User $doctors_home, Request $request)
+    {
+        $user = Auth::user();
+        unset($params);
+        $params = $request->input($this->viewFolder);
+        $params['updated_by'] = $user->id;
+        if($params['passwordOld'] != ''){
+            if (Hash::check($params['passwordOld'], $user->getAuthPassword())) {
+                $params['password'] = Hash::make($params['passwordNew']);
+                // dd($params);
+                $user->update($params);
+                return redirect()->route($this->viewFolder . '.index')->with('message', 'Your account is updated.');
+            }else{
+                return redirect()->route($this->viewFolder . '.index')->with('message', 'Invalid old password.');
+            }
+        }else{
+            $doctors_home->update($params);
+            return redirect()->route($this->viewFolder . '.index')->with('message', 'Your account is updated.');
+        }
+        
+        
     }
 
     public function edit(Consultation $doctors_home, Request $request)

@@ -135,6 +135,7 @@ class DoctorsController extends Controller
         $request->validated();
         unset($params);
         $params = $request->input($this->viewFolder);
+        
         if(!empty($request->doctors['prc_pic'])){
             $prc_pic = 'prc_pic_' . time() . '.' . $request->doctors['prc_pic']->extension();
             $request->doctors['prc_pic']->storeAs('public/doctor_files', $prc_pic);
