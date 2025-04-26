@@ -109,7 +109,7 @@
                 <strong>Temp:</strong> <span class="text-primary">{{ $bookings[0]->temp }}C</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
                 <strong>Height:</strong> <span class="text-primary">{{ $bookings[0]->height }}cm</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
                 <strong>Weight:</strong> <span class="text-primary">{{ $bookings[0]->weight }}kg</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                <strong>BMI:</strong> <span class="text-primary">{{ number_format($bookings[0]->weight/(($bookings[0]->height/100)*($bookings[0]->height/100)), 0) }}</span><br>
+                <strong>BMI:</strong> <span class="text-primary">{{ (isset($bookings[0]->height) && $bookings[0]->height != 0) ? number_format($bookings[0]->weight/(($bookings[0]->height/100)*($bookings[0]->height/100)), 0) : '' }}</span><br>
                 <strong>BP:</strong> <span class="text-primary">{{ $bookings[0]->bpS }}/{{ $bookings[0]->bpD }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
                 <strong>O2 Sat:</strong> <span class="text-primary">{{ $bookings[0]->o2 }}%</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
                 <strong>Heart Rate:</strong> <span class="text-primary">{{ $bookings[0]->heart }}beats/min</span>

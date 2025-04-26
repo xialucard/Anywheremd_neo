@@ -193,14 +193,17 @@ class ClinicsHomeController extends Controller
             $patient['allergies'] = json_encode($patient['allergies']);
         $patient['created_by'] = $user->id;
         $patient['updated_by'] = $user->id;
-        if(!isset($params['patient_id'])){
+        if(isset($params['patient_id'])){
             $patientObj = Patient::find($params['patient_id']);
             $patientObj->update($patient);
-        }else
+        }else{
             $patientObj = Patient::create($patient);
+        }
         $params['bookingDate'] = date('Y-m-d', strtotime($params['bookingDate']));
         if(is_null($params['booking_type']))
             $params['booking_type'] = '';
+        $doctorObj = User::find($params['doctor_id']);
+        $params['fee'] = $doctorObj->fee;
         $params['status'] = "Confirmed";
         $params['patient_id'] = $patientObj->id;
         $params['client_id'] = $user->id;

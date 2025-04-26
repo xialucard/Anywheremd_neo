@@ -1012,6 +1012,7 @@
                 <strong>Specialty:</strong> {{ $doctor->specialty }}<br>
                 <strong>Sub Specialty:</strong> {{ $doctor->specialty }}<br>
                 <strong>Hospital Affiliation:</strong> {{ $doctor->hAffiliation }}<br>
+                <strong>Fee:</strong> P{{ isset($datum->fee) ? number_format($datum->fee, 2) : number_format($doctor->fee, 2) }}<br>
               </p>  
             </div>
           </div>

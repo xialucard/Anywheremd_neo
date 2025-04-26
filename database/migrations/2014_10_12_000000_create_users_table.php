@@ -39,7 +39,7 @@ class CreateUsersTable extends Migration
             $table->string('subSchool')->nullable();
             $table->string('hAffiliation')->nullable();
             $table->integer('bank_id')->nullable();
-            $table->integer('fee')->nullable();
+            $table->float('fee', 8, 2)->nullable();
             $table->integer('ave_consultation_duration')->nullable();
             $table->text('sub_header_1')->nullable();
             $table->text('sub_header_2')->nullable();
