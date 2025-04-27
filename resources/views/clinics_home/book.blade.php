@@ -325,10 +325,16 @@
         </div>
       </div>
       @if(isset($datum->id) && !isset($datum->consultation_parent_id))
+      @php
+        unset($referedDoctorArr);
+        foreach($datum->consultation_referals as $consultation_referal){
+          $referedDoctorArr[$consultation_referal->id] = $consultation_referal->bookingDate . ' | ' . $consultation_referal->clinic_id . ' - ' . $consultation_referal->clinic->name . ' | ' . $consultation_referal->doctor_id . ' - ' . $consultation_referal->doctor->name;
+        }
+      @endphp
       <div class="card">
         <div class="card-header">Refer a Doctor</div>
         <div class="card-body">
-          <input class="form-control flexdatalist" list="doctorClinicNameList" id="{{ $viewFolder }}_referal" name="{{ $viewFolder }}[referal]" autocomplete="off">
+          <input class="form-control flexdatalist" list="doctorClinicNameList" id="{{ $viewFolder }}_referal" name="{{ $viewFolder }}[referal]" value="{{ implode(',', $referedDoctorArr) }}" autocomplete="off">
         </div>
       </div>
       @endif

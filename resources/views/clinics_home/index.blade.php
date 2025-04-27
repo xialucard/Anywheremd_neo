@@ -296,7 +296,7 @@
                                         <thead class="table-{{ $bgColor }}">
                                             <tr>
                                                 <th class=""><i class="bi bi-gear"></i></th>
-                                            @if($booking_type == 'Referral')
+                                            @if(!empty($booking_type) && $booking_type == 'Referral')
                                                 <th>Parent Booking #</th>
                                             @endif
                                                 <th>Booking #</th>
@@ -313,7 +313,7 @@
                                         @if(isset($booking_type_arr))    
                                             @if(!empty($yr))
                                                 @php
-                                                    if($booking_type == 'Referral'){
+                                                    if(!empty($booking_type) && $booking_type == 'Referral'){
                                                         $bookingArr = $user->clinic->bookings()->whereNotNull('consultation_parent_id', )->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->get();
                                                     }else{
                                                         $bookingArr = $user->clinic->bookings()->where('booking_type', $booking_type == 'Consultation' ? '' : $booking_type)->whereNull('consultation_parent_id')->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->get();

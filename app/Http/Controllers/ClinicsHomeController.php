@@ -283,33 +283,8 @@ class ClinicsHomeController extends Controller
         $user = Auth::user();
         unset($params);
         $params = $request->input($this->viewFolder);
-        if(isset($params['referal'])){
-            $referalExp = explode(',', $params['referal']);
-            foreach($referalExp as $refDet){
-                $refDetExp = explode(" | ", $refDet);
-                $clinicExp = explode(" - ", $refDetExp[1]);
-                $doctorExp = explode(" - ", $refDetExp[2]);
-                $bookingReplication = $clinics_home->replicate();
-                $bookingReplication['bookingDate'] = $refDetExp[0];
-                $bookingReplication['clinic_id'] = $clinicExp[0];
-                $bookingReplication['doctor_id'] = $doctorExp[0];
-                $bookingReplication['consultation_parent_id'] = $clinics_home->id;
-                $bookingReplication['created_by'] = $user->id;
-                $bookingReplication['updated_by'] = $user->id;
-                $bookingReplication->save();
-                // $consultationFilesObj = ConsultationFile::where('consultation_id', $clinics_home->id)->get();
-                // foreach($consultationFilesObj as $consultationFile){
-                //     unset($consultationFileArr);
-                //     $consultationFileArr['consultation_id'] = $bookingReplication->id;
-                //     $consultationFileArr['file_link'] = $consultationFile->file_link;
-                //     $consultationFileArr['file_type'] = $consultationFile->file_type;
-                //     $consultationFileArr['created_by'] = $user->id;
-                //     $consultationFileArr['updated_by'] = $user->id;
-                //     ConsultationFile::create($consultationFileArr);
-                // }
-            }
-            unset($params['referal']);
-        }
+        $referralEntry = $params['referal'];
+        unset($params['referal']);
         $patient = $params['Patient'];
         if(!empty($request->clinics_home['Patient']['profile_pic'])){
             $profile_pic = 'profile_pic_' . time() . '.' . $request->clinics_home['Patient']['profile_pic']->extension();
@@ -406,6 +381,65 @@ class ClinicsHomeController extends Controller
         $params['client_id'] = $user->id;
         $params['updated_by'] = $user->id;
         $clinics_home->update($params);
+
+        if(isset($referralEntry)){
+            $referalExp = explode(',', $referralEntry);
+            unset($params['referal']);
+            unset($referralIDArr);
+            foreach($referalExp as $refDet){
+                $refDetExp = explode(" | ", $refDet);
+                $clinicExp = explode(" - ", $refDetExp[1]);
+                $doctorExp = explode(" - ", $refDetExp[2]);
+                
+                $doctorObj = User::find($doctorExp[0]);
+                
+                $consultationReferralObj = $clinics_home->consultation_referals()
+                            ->where('bookingDate', $refDetExp[0])
+                            ->where('clinic_id', $clinicExp[0])
+                            ->where('doctor_id', $doctorExp[0])
+                            ->get();
+                
+                // print "<pre>";
+                // print_r($consultationReferralObj[0]->id);
+                // print "</pre>";
+                // exit();
+                if(!isset($consultationReferralObj[0]->id)){
+                    
+                    $bookingReplication = $clinics_home->replicate();
+                    $bookingReplication['bookingDate'] = $refDetExp[0];
+                    $bookingReplication['clinic_id'] = $clinicExp[0];
+                    $bookingReplication['doctor_id'] = $doctorExp[0];
+                    $bookingReplication['consultation_parent_id'] = $clinics_home->id;
+                    $bookingReplication['fee'] = $doctorObj->fee;
+                    $bookingReplication['created_by'] = $user->id;
+                    $bookingReplication['updated_by'] = $user->id;
+                    $bookingReplication->save();
+                    $referralIDArr[$bookingReplication->id] = $bookingReplication->id;
+                }else{
+                    $referralIDArr[$consultationReferralObj[0]->id] = $consultationReferralObj[0]->id;
+                    if(is_null($params['booking_type']))
+                        $params['booking_type'] = '';
+                    $params['bookingDate'] = $refDetExp[0];
+                    $params['clinic_id'] = $clinicExp[0];
+                    $params['doctor_id'] = $doctorExp[0];
+                    $params['fee'] = $doctorObj->fee;
+                    $params['updated_by'] = $user->id;
+                    $consultationReferralObj[0]->update($params);
+                }
+                
+                // $consultationFilesObj = ConsultationFile::where('consultation_id', $clinics_home->id)->get();
+                // foreach($consultationFilesObj as $consultationFile){
+                //     unset($consultationFileArr);
+                //     $consultationFileArr['consultation_id'] = $bookingReplication->id;
+                //     $consultationFileArr['file_link'] = $consultationFile->file_link;
+                //     $consultationFileArr['file_type'] = $consultationFile->file_type;
+                //     $consultationFileArr['created_by'] = $user->id;
+                //     $consultationFileArr['updated_by'] = $user->id;
+                //     ConsultationFile::create($consultationFileArr);
+                // }
+            }
+            $clinics_home->consultation_referals()->whereNotIn('id', $referralIDArr)->delete();
+        }
         
         return redirect()->route($this->viewFolder . '.index')->with('message', 'Entry has been updated.');
     }
