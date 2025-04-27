@@ -120,4 +120,14 @@ class Consultation extends Model
         return $this->hasMany(ConsultationFile::class, 'consultation_id');
     }
 
+    public function consultation_referals()
+    {
+        return $this->hasMany(Consultation::class, 'consultation_parent_id');
+    }
+
+    public function parent_consultation()
+    {
+        return $this->belongsTo(Consultation::class, 'consultation_parent_id');
+    }
+
 }

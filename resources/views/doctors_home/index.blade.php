@@ -221,7 +221,15 @@
                                         </thead>
                                         <tbody>
                                         @if(isset($booking_type_arr))
-                                            @foreach($user->bookings()->where('booking_type', $booking_type == 'Consultation' ? '' : $booking_type)->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->get() as $dat)
+                                            @php
+                                                if($booking_type == 'Referral'){
+                                                    $bookingArr = $user->bookings()->whereNotNull('consultation_parent_id', )->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->get();
+                                                }else{
+                                                    $bookingArr = $user->bookings()->where('booking_type', $booking_type == 'Consultation' ? '' : $booking_type)->whereNull('consultation_parent_id')->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->get();
+                                                }
+                                            @endphp
+                                            @foreach($bookingArr as $dat)
+                                            {{-- @foreach($user->bookings()->where('booking_type', $booking_type == 'Consultation' ? '' : $booking_type)->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->get() as $dat) --}}
                                             <tr>
                                                 <td>@include($viewFolder . '.tableOptions')</td>
                                                 <td>{{ $dat->id }}</td>

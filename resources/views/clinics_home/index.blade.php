@@ -296,6 +296,9 @@
                                         <thead class="table-{{ $bgColor }}">
                                             <tr>
                                                 <th class=""><i class="bi bi-gear"></i></th>
+                                            @if($booking_type == 'Referral')
+                                                <th>Parent Booking #</th>
+                                            @endif
                                                 <th>Booking #</th>
                                                 <th class="">Doctor</th>
                                                 <th class="">Patient</th>
@@ -309,9 +312,19 @@
                                         <tbody>
                                         @if(isset($booking_type_arr))    
                                             @if(!empty($yr))
-                                                @foreach($user->clinic->bookings()->where('booking_type', $booking_type == 'Consultation' ? '' : $booking_type)->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->get() as $dat)
+                                                @php
+                                                    if($booking_type == 'Referral'){
+                                                        $bookingArr = $user->clinic->bookings()->whereNotNull('consultation_parent_id', )->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->get();
+                                                    }else{
+                                                        $bookingArr = $user->clinic->bookings()->where('booking_type', $booking_type == 'Consultation' ? '' : $booking_type)->whereNull('consultation_parent_id')->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->get();
+                                                    }
+                                                @endphp
+                                                @foreach($bookingArr as $dat)
                                             <tr>
                                                 <td>@include($viewFolder . '.tableOptions')</td>
+                                            @if($booking_type == 'Referral')
+                                                <td>{{ $dat->consultation_parent_id }}</td>
+                                            @endif
                                                 <td>{{ $dat->id }}</td>
                                                 <td class="">Dr. {{ $dat->doctor->name }}</td>
                                                 <td class="">{{ $dat->patient->name }}</td>

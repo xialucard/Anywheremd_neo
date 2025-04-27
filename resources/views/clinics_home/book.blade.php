@@ -1,13 +1,21 @@
+@php
+  if(isset($datum->parent_consultation)){
+    $referal_conso = $datum;
+    $datum = $datum->parent_consultation;
+  }
+@endphp
 <datalist id="patientNameList">
 @foreach($patients as $pat)
-  <option patient_id="{{ $pat->id }}" value="{{ $pat->name }}">
+  <option patient_id="{{ $pat->id }}" value="{{ $pat->name }}">{{ $pat->name }}</option>
 @endforeach
 </datalist>
-@if(isset($user))
+@if(isset($user) && isset($datum->id))
 <datalist id="doctorClinicNameList">
   @foreach($user->clinic->affiliated_doctors->sortBy('name') as $doc)
     @foreach($doc->doctor->affiliated_clinics->sortBy('name') as $clin)
-    <option doctor_id="{{ $doc->doctor->id }}" clinic_id={{ $clin->clinic->id }} value="{{ $clin->clinic->name . ' - Dr. ' . $doc->doctor->name }}">
+      @foreach($doc->doctor->schedules()->where('dateSched', '>=', $datum->bookingDate)->where('clinic_id', $clin->clinic->id)->orderBy('dateSched', 'asc')->get()->unique('dateSched') as $sched)
+    <option value="{{ $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->doctor->id . ' - Dr. ' . $doc->doctor->name }}">{{ $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->doctor->id . ' - Dr. ' . $doc->doctor->name }}</option>
+      @endforeach
     @endforeach
   @endforeach
 </datalist>
@@ -309,19 +317,21 @@
               <option value="Philhealth" {{ isset($datum->payment_mode) && $datum->payment_mode == 'Philhealth' ? 'selected' : '' }}>Philhealth</option>
               <option value="HMO" {{ isset($datum->payment_mode) && $datum->payment_mode == 'HMO' ? 'selected' : '' }}>HMO</option>
               <option value="Charity" {{ isset($datum->payment_mode) && $datum->payment_mode == 'Charity' ? 'selected' : '' }}>Charity</option>
-              <option value="Cash" {{ isset($datum->payment_mode) && $datum->payment_mode == 'Cash' ? 'selected' : '' }}>Cash</option>
+              <option value="Cash" {{ (isset($datum->payment_mode) && $datum->payment_mode == 'Cash') || !isset($datum->payment_mode) ? 'selected' : '' }}>Cash</option>
             </select>
             <label for="{{ $viewFolder }}_payment_mode">Payment Mode</label>
             <small id="help_{{ $viewFolder }}_payment_mode" class="text-muted"></small>
           </div>
         </div>
       </div>
-      {{-- <div class="card">
+      @if(isset($datum->id) && !isset($datum->consultation_parent_id))
+      <div class="card">
         <div class="card-header">Refer a Doctor</div>
         <div class="card-body">
-          <input class="form-control" list="doctorClinicNameList" id="{{ $viewFolder }}_referal">
+          <input class="form-control flexdatalist" list="doctorClinicNameList" id="{{ $viewFolder }}_referal" name="{{ $viewFolder }}[referal]" autocomplete="off">
         </div>
-      </div> --}}
+      </div>
+      @endif
     </div>
     <div class="col-lg-8">
       <ul class="nav nav-tabs">
@@ -1426,6 +1436,13 @@
               for (b = (new ClipboardEvent("")).clipboardData || new DataTransfer; c--;) b.items.add(file[c])
               return b.files
           }
+  });
+
+  $('.flexdatalist').flexdatalist({
+      selectionRequired: 1,
+      searchContain:true,
+      multiple:true,
+      minLength: 1
   });
 
   </script>

@@ -59,6 +59,8 @@ class ClinicsHomeController extends Controller
         unset($booking_type_arr);
         
         foreach($user->clinic->bookings()->distinct('booking_type')->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->get() as $in=>$booking){
+            if($booking->consultation_parent_id != "")
+                $booking_type_arr['Referral'] = 'Referral';
             if($booking->booking_type == '')
                 $booking_type_arr['Consultation'] = 'Consultation';
             else
@@ -278,10 +280,36 @@ class ClinicsHomeController extends Controller
 
     public function update(Request $request, Consultation $clinics_home)
     {
-        // dd($request->clinics_home);
         $user = Auth::user();
         unset($params);
         $params = $request->input($this->viewFolder);
+        if(isset($params['referal'])){
+            $referalExp = explode(',', $params['referal']);
+            foreach($referalExp as $refDet){
+                $refDetExp = explode(" | ", $refDet);
+                $clinicExp = explode(" - ", $refDetExp[1]);
+                $doctorExp = explode(" - ", $refDetExp[2]);
+                $bookingReplication = $clinics_home->replicate();
+                $bookingReplication['bookingDate'] = $refDetExp[0];
+                $bookingReplication['clinic_id'] = $clinicExp[0];
+                $bookingReplication['doctor_id'] = $doctorExp[0];
+                $bookingReplication['consultation_parent_id'] = $clinics_home->id;
+                $bookingReplication['created_by'] = $user->id;
+                $bookingReplication['updated_by'] = $user->id;
+                $bookingReplication->save();
+                // $consultationFilesObj = ConsultationFile::where('consultation_id', $clinics_home->id)->get();
+                // foreach($consultationFilesObj as $consultationFile){
+                //     unset($consultationFileArr);
+                //     $consultationFileArr['consultation_id'] = $bookingReplication->id;
+                //     $consultationFileArr['file_link'] = $consultationFile->file_link;
+                //     $consultationFileArr['file_type'] = $consultationFile->file_type;
+                //     $consultationFileArr['created_by'] = $user->id;
+                //     $consultationFileArr['updated_by'] = $user->id;
+                //     ConsultationFile::create($consultationFileArr);
+                // }
+            }
+            unset($params['referal']);
+        }
         $patient = $params['Patient'];
         if(!empty($request->clinics_home['Patient']['profile_pic'])){
             $profile_pic = 'profile_pic_' . time() . '.' . $request->clinics_home['Patient']['profile_pic']->extension();

@@ -43,10 +43,15 @@ class DoctorsHomeController extends Controller
         unset($booking_type_arr);
         
         foreach($user->bookings()->distinct('booking_type')->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->get() as $in=>$booking){
-            if($booking->booking_type == '')
-                $booking_type_arr['Consultation'] = 'Consultation';
-            else
-                $booking_type_arr[$booking->booking_type] = $booking->booking_type;
+            if($booking->consultation_parent_id != "")
+                $booking_type_arr['Referral'] = 'Referral';
+            else{
+                if($booking->booking_type == '')
+                    $booking_type_arr['Consultation'] = 'Consultation';
+                else
+                    $booking_type_arr[$booking->booking_type] = $booking->booking_type;
+            }
+            
         }
         if(isset($booking_type_arr))
             ksort($booking_type_arr);

@@ -1,4 +1,9 @@
-
+@php
+  if(isset($datum->parent_consultation)){
+    $referal_conso = $datum;
+    $datum = $datum->parent_consultation;
+  }
+@endphp
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
