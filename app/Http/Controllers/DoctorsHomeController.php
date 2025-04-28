@@ -8,6 +8,7 @@ use App\Models\Consultation;
 use Illuminate\Http\Request;
 use App\Models\ScheduleConso;
 use App\Models\AffiliatedDoctor;
+use App\Models\ConsultationFile;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
@@ -261,8 +262,10 @@ class DoctorsHomeController extends Controller
         $user = Auth::user();
         unset($params);
         $params = $request->input($this->viewFolder);
+        
         if(isset($params['referral_id'])){
             $consultationObj = Consultation::find($params['referral_id']);
+            
             unset($paramsRef);
             $paramsRef['docNotesSubject'] = $params['docNotesSubject'];
             unset($params['docNotesSubject']);
@@ -279,17 +282,48 @@ class DoctorsHomeController extends Controller
             $paramsRef['planRem'] = $params['planRem'];
             unset($params['planRem']);
             $consultationObj->update($paramsRef);
+            if(!empty($request->doctors_home['ConsultationFile']['files'])){
+                foreach($request->doctors_home['ConsultationFile']['files'] as $ind => $file){
+                    unset($parFile);
+                    $file_name = $doctors_home->id . '_consultation_' . date('ymdhis') . $ind . '.' . $file->extension();
+                    $file->storeAs('public/consultation_files', $file_name);
+                    $parFile['consultation_id'] = $doctors_home->consultation_parent_id;
+                    $parFile['file_link'] = 'storage/consultation_files/' . $file_name;
+                    $parFile['file_type'] = $file->getMimeType();
+                    $parFile['created_by'] = $user->id;
+                    $parFile['updated_by'] = $user->id;
+                    ConsultationFile::create($parFile);
+                }
+            }
         }else{
-            $doctor = $params['Doctor'];
-            unset($params['Doctor']);
-            if($params['submit_type'] == "")
-                $params['status'] = "Done";
-            $doctor['updated_by'] = $user->id;
-            $doctors_home->doctor->update($doctor);
+            if(!empty($request->doctors_home['ConsultationFile']['files'])){
+                foreach($request->doctors_home['ConsultationFile']['files'] as $ind => $file){
+                    unset($parFile);
+                    $file_name = $doctors_home->id . '_consultation_' . date('ymdhis') . $ind . '.' . $file->extension();
+                    $file->storeAs('public/consultation_files', $file_name);
+                    $parFile['consultation_id'] = $doctors_home->id;
+                    $parFile['file_link'] = 'storage/consultation_files/' . $file_name;
+                    $parFile['file_type'] = $file->getMimeType();
+                    $parFile['created_by'] = $user->id;
+                    $parFile['updated_by'] = $user->id;
+                    ConsultationFile::create($parFile);
+                }
+            }
+            if(isset($params['Doctor'])){
+                $doctor = $params['Doctor'];
+                unset($params['Doctor']);
+                if($params['submit_type'] == "" && !isset($params['referral_id']))
+                    $params['status'] = "Done";
+            
+                $doctor['updated_by'] = $user->id;
+                $doctors_home->doctor->update($doctor);
+            }
+            unset($params['referral_id']);
             $params['updated_by'] = $user->id;
             $doctors_home->update($params);
-            // dd($params);
         }
+        
+        
         
         
         return redirect()->route($this->viewFolder . '.index')->with('message', 'Entry has been updated.');

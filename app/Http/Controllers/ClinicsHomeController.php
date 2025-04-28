@@ -305,8 +305,8 @@ class ClinicsHomeController extends Controller
                 $parFile['consultation_id'] = $clinics_home->id;
                 $parFile['file_link'] = 'storage/consultation_files/' . $file_name;
                 $parFile['file_type'] = $file->getMimeType();
-                $params['created_by'] = $user->id;
-                $params['updated_by'] = $user->id;
+                $parFile['created_by'] = $user->id;
+                $parFile['updated_by'] = $user->id;
                 ConsultationFile::create($parFile);
             }
         }
