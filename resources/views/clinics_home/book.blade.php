@@ -229,7 +229,7 @@
               });
               
             " {{ isset($datum->id) ? 'disabled' : '' }}>
-            <input type="hidden" class="form-control" id="{{ $viewFolder }}_patient_id" name="{{ $viewFolder }}[patient_id]" value="{{ !empty($doctor->id) ? $doctor->id : '' }}">
+            <input type="hidden" class="form-control" id="{{ $viewFolder }}_patient_id" name="{{ $viewFolder }}[patient_id]" value="{{ !empty($datum->patient_id) ? $datum->patient_id : '' }}">
             <label for="{{ $viewFolder }}_name" class="form-label">Patient's Name</label>
             <small id="help_{{ $viewFolder }}_name" class="text-muted">Please leave this blank if the patient's name is not in the list.</small>
           </div>
