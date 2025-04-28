@@ -217,6 +217,7 @@
                                                 <th>Booking #</th>
                                                 <th class="">Patient Name</th>
                                                 <th class="">Complaint</th>
+                                                <th class="">Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -235,6 +236,7 @@
                                                 <td>{{ $dat->id }}</td>
                                                 <td class="">{{ $dat->patient->name }}</td>
                                                 <td class="">{{ $dat->complain }}</td>
+                                                <td class="">{{ $dat->status }}</td>
                                             </tr>
                                             @endforeach
                                         @endif

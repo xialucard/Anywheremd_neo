@@ -1,4 +1,5 @@
 @php
+  unset($referal_conso);
   if(isset($datum->parent_consultation)){
     $referal_conso = $datum;
     $datum = $datum->parent_consultation;
@@ -45,7 +46,7 @@
             </thead>
             <tbody>
               @php
-                $bookings = $datum->patient->consultations()->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->where('status', 'Done')->orderByDesc('bookingDate')->get();
+                $bookings = $datum->patient->consultations()->where('doctor_id', $user->id)->where('bookingDate', '<=', $datum->bookingDate)->where('status', 'Done')->orderByDesc('bookingDate')->get();
               @endphp
               @foreach($bookings as $ind=>$dat)
                 <tr>
@@ -279,6 +280,11 @@
                 <small class="text-muted">{{ $bookings[0]->duration }} day/s</small>
               </div>
             </div>
+            <ul class="nav nav-pills mb-3">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">{{ $user->name == $bookings[0]->doctor->name ? 'Yours' : 'Dr. ' . Str::substr($bookings[0]->doctor->f_name, 0, 1) . '. ' . $bookings[0]->doctor->l_name }}</a>
+              </li>
+            </ul>
             <div class="card mb-3">
               <div class="card-header">Previous Doctor's Notes</div>
               <div class="card-body">
@@ -621,6 +627,7 @@
                 $('#admitPrevDiv').hide();
               ">File Uploads</a>
             </li>
+            @if($user->id == $datum->doctor->id)
             <li class="nav-item">
               <a class="nav-link" id="presCurLink" href="#" onclick="
                 $('#soapCurLink').removeClass('active');
@@ -693,6 +700,7 @@
                 $('#admitPrevDiv').show();  
               ">Admitting Orders</a>
             </li>
+            @endif
           </ul>
           <div id="soapCurDiv" class="container border border-1 border-top-0 mb-3 p-3">
             <div class="card mb-3">
@@ -708,192 +716,419 @@
                 <small class="text-muted">{{ $datum->duration }} day/s</small>
               </div>
             </div>
-            <div class="card mb-3">
-              <div class="card-header">Doctor's Notes</div>
-              <div class="card-body">
-                @if(!isset($bookings[0]))
-                <div class="card mb-3">
-                  <div class="card-header">History of Present Illness</div>
-                  <div class="card-body">
-                    <small class="text-muted">Helper</small>
-                    <div class="input-group input-group-small flex-nowrap">
-                      <select class="form-select" placeholder="">
-                        <option value=""></option>
-                      </select>
-                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Delete Helper</button>
-                    </div>
-                    <small class="text-muted">Content</small>
-                    <textarea class="form-control" name="{{ $viewFolder }}[docNotesHPI]" id="{{ $viewFolder }}_docNotesHPI" rows=3 required>{{ isset($datum->docNotesHPI) ? $datum->docNotesHPI : '' }}</textarea>
-                    <small class="text-muted">Helper Save/Edit</small>
-                    <div class="input-group input-group-small mb-3 flex-nowrap">
-                      <div class="input-group-text">
-                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+            <ul class="nav nav-pills mb-3">
+              <li class="nav-item">
+                <a class="nav-link docNotesLink active" href="#" onclick="
+                    $('.docNotesLink').each(function(){
+                      $(this).removeClass('active');
+                    });
+                    $(this).addClass('active');
+                    $('.docNotesDiv').each(function(){
+                      $(this).hide();
+                    });
+                    $('#{{ $viewFolder }}_SOAP_{{ $datum->id }}').show();
+                  ">{{  $user->id == $datum->doctor->id ? 'Yours' : 'Dr. ' . Str::substr($datum->doctor->f_name, 0, 1) . '. ' . $datum->doctor->l_name }}</a>
+              </li>
+              @if(isset($datum->consultation_referals[0]->id))
+                @foreach($datum->consultation_referals as $cr)
+              <li class="nav-item">
+                <a class="nav-link docNotesLink" id="{{ $viewFolder }}_doctorLink_{{ $cr->id }}" href="#"  onclick="
+                  $('.docNotesLink').each(function(){
+                    $(this).removeClass('active');
+                  });
+                  $(this).addClass('active');
+                  $('.docNotesDiv').each(function(){
+                      $(this).hide();
+                    });
+                    $('#{{ $viewFolder }}_SOAP_{{ $cr->id }}').show();
+                ">{{ $user->name == $cr->doctor->name ? 'Yours' : 'Dr. ' . Str::substr($cr->doctor->f_name, 0, 1) . '. ' . $cr->doctor->l_name }}</a>
+              </li>
+                @endforeach
+              @endif
+            </ul>
+            <div class="docNotesDiv" id="{{ $viewFolder }}_SOAP_{{ $datum->id }}">
+              <div class="card mb-3">
+                <div class="card-header">Doctor's Notes</div>
+                <div class="card-body">
+                  @if(!isset($bookings[0]))
+                  <div class="card mb-3">
+                    <div class="card-header">History of Present Illness</div>
+                    <div class="card-body">
+                      <small class="text-muted">Helper</small>
+                      <div class="input-group input-group-small flex-nowrap">
+                        <select class="form-select" placeholder="" {{ $user->id == $datum->doctor->id ? '' : 'disabled' }}>
+                          <option value=""></option>
+                        </select>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ $user->id == $datum->doctor->id ? '' : 'disabled' }}>Delete Helper</button>
                       </div>
-                      <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesHPITitle" name="{{ $viewFolder }}[docNotesHPITitle]" disabled>
-                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                      <small class="text-muted">Content</small>
+                      <textarea class="form-control" name="{{ $viewFolder }}[docNotesHPI]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_docNotesHPI" @endif rows=3 {{ $user->id == $datum->doctor->id ? 'required' : 'disabled' }}>{{ isset($datum->docNotesHPI) ? $datum->docNotesHPI : '' }}</textarea>
+                      <small class="text-muted">Helper Save/Edit</small>
+                      <div class="input-group input-group-small mb-3 flex-nowrap">
+                        <div class="input-group-text">
+                          <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                        </div>
+                        <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesHPITitle" name="{{ $viewFolder }}[docNotesHPITitle]" disabled>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                      </div>
+                      <textarea class="form-control mb-2" name="{{ $viewFolder }}[docNotesHPIEdit]" id="{{ $viewFolder }}_docNotesHPIEdit" rows=3 disabled></textarea>
                     </div>
-                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[docNotesHPIEdit]" id="{{ $viewFolder }}_docNotesHPIEdit" rows=3 disabled></textarea>
+                  </div>
+                  @else
+                  <div class="card mb-3">
+                    <div class="card-header">Subject's Complaints</div>
+                    <div class="card-body">
+                      <small class="text-muted">Helper</small>
+                      <div class="input-group input-group-small flex-nowrap">
+                        <select class="form-select" placeholder="" {{ $user->id == $datum->doctor->id ? '' : 'disabled' }}>
+                          <option value=""></option>
+                        </select>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ $user->id == $datum->doctor->id ? '' : 'disabled' }}>Delete Helper</button>
+                      </div>
+                      <small class="text-muted">Content</small>
+                      <textarea class="form-control" name="{{ $viewFolder }}[docNotesSubject]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_docNotesSubject" @endif rows=3 {{ $user->id == $datum->doctor->id ? 'required' : 'disabled' }}>{{ isset($datum->docNotesSubject) ? $datum->docNotesSubject : '' }}</textarea>
+                      <small class="text-muted">Helper Save/Edit</small>
+                      <div class="input-group input-group-small mb-3 flex-nowrap">
+                        <div class="input-group-text">
+                          <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                        </div>
+                        <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesSubjectTitle" name="{{ $viewFolder }}[docNotesSubjectTitle]" disabled>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                      </div>
+                      <textarea class="form-control mb-2" name="{{ $viewFolder }}[ddocNotesSubjectEdit]" id="{{ $viewFolder }}_docNotesSubjectEdit" rows=3 disabled></textarea>
+                    </div>
+                  </div>
+                  @endif
+                  <div class="card mb-3">
+                    <div class="card-header">Objective Findings</div>
+                    <div class="card-body">
+                      <small class="text-muted">Helper</small>
+                      <div class="input-group input-group-small flex-nowrap">
+                        <select class="form-select" placeholder="" {{ $user->id == $datum->doctor->id ? '' : 'disabled' }}>
+                          <option value=""></option>
+                        </select>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ $user->id == $datum->doctor->id ? '' : 'disabled' }}>Delete Helper</button>
+                      </div>
+                      <small class="text-muted">Content</small>
+                      <textarea class="form-control" name="{{ $viewFolder }}[docNotes]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_docNotes" @endif rows=3 {{ $user->id == $datum->doctor->id ? 'required' : 'disabled' }}>{{ isset($datum->docNotes) ? $datum->docNotes : '' }}</textarea>
+                      <small class="text-muted">Helper Save/Edit</small>
+                      <div class="input-group input-group-small mb-3 flex-nowrap">
+                        <div class="input-group-text">
+                          <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                        </div>
+                        <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesTitle" name="{{ $viewFolder }}[docNotesTitle]" disabled>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                      </div>
+                      <textarea class="form-control mb-2" name="{{ $viewFolder }}[_docNotesEdit]" id="{{ $viewFolder }}_docNotesEdit" rows=3 disabled></textarea>
+                    </div>
                   </div>
                 </div>
-                @else
-                <div class="card mb-3">
-                  <div class="card-header">Subject's Complaints</div>
-                  <div class="card-body">
-                    <small class="text-muted">Helper</small>
-                    <div class="input-group input-group-small flex-nowrap">
-                      <select class="form-select" placeholder="">
-                        <option value=""></option>
-                      </select>
-                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Delete Helper</button>
-                    </div>
-                    <small class="text-muted">Content</small>
-                    <textarea class="form-control" name="{{ $viewFolder }}[docNotesSubject]" id="{{ $viewFolder }}_docNotesSubject" rows=3 required>{{ isset($datum->docNotesSubject) ? $datum->docNotesSubject : '' }}</textarea>
-                    <small class="text-muted">Helper Save/Edit</small>
-                    <div class="input-group input-group-small mb-3 flex-nowrap">
-                      <div class="input-group-text">
-                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+              </div>
+              <div class="card mb-3">
+                <div class="card-header">Assessment</div>
+                <div class="card-body">
+                  <div class="form-floating mb-3">
+                    <select class="form-select" name="{{ $viewFolder }}[icd_code]" id="{{ $viewFolder }}_icd_code" placeholder="" {{ $user->id == $datum->doctor->id ? '' : 'disabled' }}>
+                      <option value=""></option>
+                    </select>
+                    <label for="{{ $viewFolder }}_icd_code">Primary Diagnosis</label>
+                    <small id="help_{{ $viewFolder }}_icd_code" class="text-muted"></small>
+                  </div>
+                  <div class="card mb-3">
+                    <div class="card-header">Secondary Diagnosis</div>
+                    <div class="card-body">
+                      <small class="text-muted">Helper</small>
+                      <div class="input-group input-group-small flex-nowrap">
+                        <select class="form-select" placeholder="" {{ $user->id == $datum->doctor->id ? '' : 'disabled' }}>
+                          <option value=""></option>
+                        </select>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ $user->id == $datum->doctor->id ? '' : 'disabled' }}>Delete Helper</button>
                       </div>
-                      <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesSubjectTitle" name="{{ $viewFolder }}[docNotesSubjectTitle]" disabled>
-                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                      <small class="text-muted">Content</small>
+                      <textarea class="form-control" name="{{ $viewFolder }}[assessment]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_assessment" @endif rows=3 {{ $user->id == $datum->doctor->id ? 'required' : 'disabled' }}>{{ isset($datum->assessment) ? $datum->assessment : '' }}</textarea>
+                      <small class="text-muted">Helper Save/Edit</small>
+                      <div class="input-group input-group-small mb-3 flex-nowrap">
+                        <div class="input-group-text">
+                          <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                        </div>
+                        <input type="text" class="form-control" id="{{ $viewFolder }}_assessmentTitle" name="{{ $viewFolder }}[assessmentTitle]" disabled>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                      </div>
+                      <textarea class="form-control mb-2" name="{{ $viewFolder }}[_assessmentEdit]" id="{{ $viewFolder }}_assessmentEdit" rows=3 disabled></textarea>
                     </div>
-                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[ddocNotesSubjectEdit]" id="{{ $viewFolder }}_docNotesSubjectEdit" rows=3 disabled></textarea>
                   </div>
                 </div>
+              </div>
+              <div class="card mb-3">
+                <div class="card-header">Plan</div>
+                <div class="card-body">
+                  <div class="card mb-3">
+                    <div class="card-header">Medical Therapeutics</div>
+                    <div class="card-body">
+                      <small class="text-muted">Helper</small>
+                      <div class="input-group input-group-small flex-nowrap">
+                        <select class="form-select" placeholder="" {{ $user->id == $datum->doctor->id ? '' : 'disabled' }}>
+                          <option value=""></option>
+                        </select>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ $user->id == $datum->doctor->id ? '' : 'disabled' }}>Delete Helper</button>
+                      </div>
+                      <small class="text-muted">Content</small>
+                      <textarea class="form-control" name="{{ $viewFolder }}[planMed]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_planMed" @endif rows=3 {{ $user->id == $datum->doctor->id ? 'required' : 'disabled' }}>{{ isset($datum->planMed) ? $datum->planMed : '' }}</textarea>
+                      <small class="text-muted">Helper Save/Edit</small>
+                      <div class="input-group input-group-small mb-3 flex-nowrap">
+                        <div class="input-group-text">
+                          <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                        </div>
+                        <input type="text" class="form-control" id="{{ $viewFolder }}_planMedTitle" name="{{ $viewFolder }}[planMedTitle]" disabled>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                      </div>
+                      <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planMedEdit]" id="{{ $viewFolder }}_planMedEdit" rows=3 disabled></textarea>
+                    </div>
+                  </div>
+                  <div class="card mb-3">
+                    <div class="card-header">Diagnostics and Surgery</div>
+                    <div class="card-body">
+                      <small class="text-muted">Helper</small>
+                      <div class="input-group input-group-small flex-nowrap">
+                        <select class="form-select" placeholder="" {{ $user->id == $datum->doctor->id ? '' : 'disabled' }}>
+                          <option value=""></option>
+                        </select>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ $user->id == $datum->doctor->id ? '' : 'disabled' }}>Delete Helper</button>
+                      </div>
+                      <small class="text-muted">Content</small>
+                      <textarea class="form-control" name="{{ $viewFolder }}[plan]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_plan" @endif rows=3 {{ $user->id == $datum->doctor->id ? 'required' : 'disabled' }}>{{ isset($datum->plan) ? $datum->plan : '' }}</textarea>
+                      <small class="text-muted">Helper Save/Edit</small>
+                      <div class="input-group input-group-small mb-3 flex-nowrap">
+                        <div class="input-group-text">
+                          <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                        </div>
+                        <input type="text" class="form-control" id="{{ $viewFolder }}_planTitle" name="{{ $viewFolder }}[planTitle]" disabled>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                      </div>
+                      <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planEdit]" id="{{ $viewFolder }}_planEdit" rows=3 disabled></textarea>
+                    </div>
+                  </div>
+                  <div class="card mb-3">
+                    <div class="card-header">Remarks</div>
+                    <div class="card-body">
+                      <small class="text-muted">Helper</small>
+                      <div class="input-group input-group-small flex-nowrap">
+                        <select class="form-select" placeholder="" {{ $user->id == $datum->doctor->id ? '' : 'disabled' }}>
+                          <option value=""></option>
+                        </select>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ $user->id == $datum->doctor->id ? '' : 'disabled' }}>Delete Helper</button>
+                      </div>
+                      <small class="text-muted">Content</small>
+                      <textarea class="form-control" name="{{ $viewFolder }}[planRem]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_planRem" @endif rows=3 {{ $user->id == $datum->doctor->id ? 'required' : 'disabled' }}>{{ isset($datum->planRem) ? $datum->planRem : '' }}</textarea>
+                      <small class="text-muted">Helper Save/Edit</small>
+                      <div class="input-group input-group-small mb-3 flex-nowrap">
+                        <div class="input-group-text">
+                          <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                        </div>
+                        <input type="text" class="form-control" id="{{ $viewFolder }}_planRemTitle" name="{{ $viewFolder }}[planRemTitle]" disabled>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                      </div>
+                      <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planRemEdit]" id="{{ $viewFolder }}_planRemEdit" rows=3 disabled></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            @if(isset($datum->consultation_referals[0]->id))
+              @foreach($datum->consultation_referals as $cr)
+                @if($user->id == $cr->doctor->id)  
+            <input type="hidden" class="form-control" id="{{ $viewFolder }}_referral_id" name="{{ $viewFolder }}[referral_id]" value="{{ $cr->id }}">
                 @endif
-                <div class="card mb-3">
-                  <div class="card-header">Objective Findings</div>
-                  <div class="card-body">
-                    <small class="text-muted">Helper</small>
-                    <div class="input-group input-group-small flex-nowrap">
-                      <select class="form-select" placeholder="">
-                        <option value=""></option>
-                      </select>
-                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Delete Helper</button>
-                    </div>
-                    <small class="text-muted">Content</small>
-                    <textarea class="form-control" name="{{ $viewFolder }}[docNotes]" id="{{ $viewFolder }}_docNotes" rows=3 required>{{ isset($datum->docNotes) ? $datum->docNotes : '' }}</textarea>
-                    <small class="text-muted">Helper Save/Edit</small>
-                    <div class="input-group input-group-small mb-3 flex-nowrap">
-                      <div class="input-group-text">
-                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+            <div class="docNotesDiv" id="{{ $viewFolder }}_SOAP_{{ $cr->id }}" style="display:none" >
+              <div class="card mb-3">
+                <div class="card-header">Doctor's Notes</div>
+                <div class="card-body">
+                  @if(!isset($bookings[0]))
+                  <div class="card mb-3">
+                    <div class="card-header">History of Present Illness</div>
+                    <div class="card-body">
+                      <small class="text-muted">Helper</small>
+                      <div class="input-group input-group-small flex-nowrap">
+                        <select class="form-select" placeholder="" {{ $user->id == $cr->doctor->id ? '' : 'disabled' }}>
+                          <option value=""></option>
+                        </select>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ $user->id == $cr->doctor->id ? '' : 'disabled' }}>Delete Helper</button>
                       </div>
-                      <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesTitle" name="{{ $viewFolder }}[docNotesTitle]" disabled>
-                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                      <small class="text-muted">Content</small>
+                      <textarea class="form-control" name="{{ $viewFolder }}[docNotesHPI]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_docNotesHPI" @endif rows=3 {{ $user->id == $cr->doctor->id ? 'required' : 'disabled' }}>{{ isset($cr->docNotesHPI) ? $cr->docNotesHPI : '' }}</textarea>
+                      <small class="text-muted">Helper Save/Edit</small>
+                      <div class="input-group input-group-small mb-3 flex-nowrap">
+                        <div class="input-group-text">
+                          <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                        </div>
+                        <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesHPITitle" name="{{ $viewFolder }}[docNotesHPITitle]" disabled>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                      </div>
+                      <textarea class="form-control mb-2" name="{{ $viewFolder }}[docNotesHPIEdit]" id="{{ $viewFolder }}_docNotesHPIEdit" rows=3 disabled></textarea>
                     </div>
-                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[_docNotesEdit]" id="{{ $viewFolder }}_docNotesEdit" rows=3 disabled></textarea>
+                  </div>
+                  @else
+                  <div class="card mb-3">
+                    <div class="card-header">Subject's Complaints</div>
+                    <div class="card-body">
+                      <small class="text-muted">Helper</small>
+                      <div class="input-group input-group-small flex-nowrap">
+                        <select class="form-select" placeholder="" {{ $user->id == $cr->doctor->id ? '' : 'disabled' }}>
+                          <option value=""></option>
+                        </select>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ $user->id == $cr->doctor->id ? '' : 'disabled' }}>Delete Helper</button>
+                      </div>
+                      <small class="text-muted">Content</small>
+                      <textarea class="form-control" name="{{ $viewFolder }}[docNotesSubject]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_docNotesSubject" @endif rows=3 {{ $user->id == $cr->doctor->id ? 'required' : 'disabled' }}>{{ isset($cr->docNotesSubject) ? $cr->docNotesSubject : '' }}</textarea>
+                      <small class="text-muted">Helper Save/Edit</small>
+                      <div class="input-group input-group-small mb-3 flex-nowrap">
+                        <div class="input-group-text">
+                          <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                        </div>
+                        <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesSubjectTitle" name="{{ $viewFolder }}[docNotesSubjectTitle]" disabled>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                      </div>
+                      <textarea class="form-control mb-2" name="{{ $viewFolder }}[ddocNotesSubjectEdit]" id="{{ $viewFolder }}_docNotesSubjectEdit" rows=3 disabled></textarea>
+                    </div>
+                  </div>
+                  @endif
+                  <div class="card mb-3">
+                    <div class="card-header">Objective Findings</div>
+                    <div class="card-body">
+                      <small class="text-muted">Helper</small>
+                      <div class="input-group input-group-small flex-nowrap">
+                        <select class="form-select" placeholder="" {{ $user->id == $cr->doctor->id ? '' : 'disabled' }}>
+                          <option value=""></option>
+                        </select>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ $user->id == $cr->doctor->id ? '' : 'disabled' }}>Delete Helper</button>
+                      </div>
+                      <small class="text-muted">Content</small>
+                      <textarea class="form-control" name="{{ $viewFolder }}[docNotes]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_docNotes" @endif rows=3 {{ $user->id == $cr->doctor->id ? 'required' : 'disabled' }}>{{ isset($cr->docNotes) ? $cr->docNotes : '' }}</textarea>
+                      <small class="text-muted">Helper Save/Edit</small>
+                      <div class="input-group input-group-small mb-3 flex-nowrap">
+                        <div class="input-group-text">
+                          <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                        </div>
+                        <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesTitle" name="{{ $viewFolder }}[docNotesTitle]" disabled>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                      </div>
+                      <textarea class="form-control mb-2" name="{{ $viewFolder }}[_docNotesEdit]" id="{{ $viewFolder }}_docNotesEdit" rows=3 disabled></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card mb-3">
+                <div class="card-header">Assessment</div>
+                <div class="card-body">
+                  <div class="form-floating mb-3">
+                    <select class="form-select" name="{{ $viewFolder }}[icd_code]" id="{{ $viewFolder }}_icd_code" placeholder="" {{ $user->id == $cr->doctor->id ? '' : 'disabled' }}>
+                      <option value=""></option>
+                    </select>
+                    <label for="{{ $viewFolder }}_icd_code">Primary Diagnosis</label>
+                    <small id="help_{{ $viewFolder }}_icd_code" class="text-muted"></small>
+                  </div>
+                  <div class="card mb-3">
+                    <div class="card-header">Secondary Diagnosis</div>
+                    <div class="card-body">
+                      <small class="text-muted">Helper</small>
+                      <div class="input-group input-group-small flex-nowrap">
+                        <select class="form-select" placeholder="" {{ $user->id == $cr->doctor->id ? '' : 'disabled' }}>
+                          <option value=""></option>
+                        </select>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ $user->id == $cr->doctor->id ? '' : 'disabled' }}>Delete Helper</button>
+                      </div>
+                      <small class="text-muted">Content</small>
+                      <textarea class="form-control" name="{{ $viewFolder }}[assessment]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_assessment" @endif rows=3 {{ $user->id == $cr->doctor->id ? 'required' : 'disabled' }}>{{ isset($cr->assessment) ? $cr->assessment : '' }}</textarea>
+                      <small class="text-muted">Helper Save/Edit</small>
+                      <div class="input-group input-group-small mb-3 flex-nowrap">
+                        <div class="input-group-text">
+                          <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                        </div>
+                        <input type="text" class="form-control" id="{{ $viewFolder }}_assessmentTitle" name="{{ $viewFolder }}[assessmentTitle]" disabled>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                      </div>
+                      <textarea class="form-control mb-2" name="{{ $viewFolder }}[_assessmentEdit]" id="{{ $viewFolder }}_assessmentEdit" rows=3 disabled></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card mb-3">
+                <div class="card-header">Plan</div>
+                <div class="card-body">
+                  <div class="card mb-3">
+                    <div class="card-header">Medical Therapeutics</div>
+                    <div class="card-body">
+                      <small class="text-muted">Helper</small>
+                      <div class="input-group input-group-small flex-nowrap">
+                        <select class="form-select" placeholder="" {{ $user->id == $cr->doctor->id ? '' : 'disabled' }}>
+                          <option value=""></option>
+                        </select>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ $user->id == $cr->doctor->id ? '' : 'disabled' }}>Delete Helper</button>
+                      </div>
+                      <small class="text-muted">Content</small>
+                      <textarea class="form-control" name="{{ $viewFolder }}[planMed]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_planMed" @endif rows=3 {{ $user->id == $cr->doctor->id ? 'required' : 'disabled' }}>{{ isset($cr->planMed) ? $cr->planMed : '' }}</textarea>
+                      <small class="text-muted">Helper Save/Edit</small>
+                      <div class="input-group input-group-small mb-3 flex-nowrap">
+                        <div class="input-group-text">
+                          <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                        </div>
+                        <input type="text" class="form-control" id="{{ $viewFolder }}_planMedTitle" name="{{ $viewFolder }}[planMedTitle]" disabled>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                      </div>
+                      <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planMedEdit]" id="{{ $viewFolder }}_planMedEdit" rows=3 disabled></textarea>
+                    </div>
+                  </div>
+                  <div class="card mb-3">
+                    <div class="card-header">Diagnostics and Surgery</div>
+                    <div class="card-body">
+                      <small class="text-muted">Helper</small>
+                      <div class="input-group input-group-small flex-nowrap">
+                        <select class="form-select" placeholder="" {{ $user->id == $cr->doctor->id ? '' : 'disabled' }}>
+                          <option value=""></option>
+                        </select>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ $user->id == $cr->doctor->id ? '' : 'disabled' }}>Delete Helper</button>
+                      </div>
+                      <small class="text-muted">Content</small>
+                      <textarea class="form-control" name="{{ $viewFolder }}[plan]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_plan" @endif rows=3 {{ $user->id == $cr->doctor->id ? 'required' : 'disabled' }}>{{ isset($cr->plan) ? $cr->plan : '' }}</textarea>
+                      <small class="text-muted">Helper Save/Edit</small>
+                      <div class="input-group input-group-small mb-3 flex-nowrap">
+                        <div class="input-group-text">
+                          <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                        </div>
+                        <input type="text" class="form-control" id="{{ $viewFolder }}_planTitle" name="{{ $viewFolder }}[planTitle]" disabled>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                      </div>
+                      <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planEdit]" id="{{ $viewFolder }}_planEdit" rows=3 disabled></textarea>
+                    </div>
+                  </div>
+                  <div class="card mb-3">
+                    <div class="card-header">Remarks</div>
+                    <div class="card-body">
+                      <small class="text-muted">Helper</small>
+                      <div class="input-group input-group-small flex-nowrap">
+                        <select class="form-select" placeholder="" {{ $user->id == $cr->doctor->id ? '' : 'disabled' }}>
+                          <option value=""></option>
+                        </select>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ $user->id == $cr->doctor->id ? '' : 'disabled' }}>Delete Helper</button>
+                      </div>
+                      <small class="text-muted">Content</small>
+                      <textarea class="form-control" name="{{ $viewFolder }}[planRem]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_planRem" @endif rows=3 {{ $user->id == $cr->doctor->id ? 'required' : 'disabled' }}>{{ isset($cr->planRem) ? $cr->planRem : '' }}</textarea>
+                      <small class="text-muted">Helper Save/Edit</small>
+                      <div class="input-group input-group-small mb-3 flex-nowrap">
+                        <div class="input-group-text">
+                          <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                        </div>
+                        <input type="text" class="form-control" id="{{ $viewFolder }}_planRemTitle" name="{{ $viewFolder }}[planRemTitle]" disabled>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                      </div>
+                      <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planRemEdit]" id="{{ $viewFolder }}_planRemEdit" rows=3 disabled></textarea>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="card mb-3">
-              <div class="card-header">Assessment</div>
-              <div class="card-body">
-                <div class="form-floating mb-3">
-                  <select class="form-select" name="{{ $viewFolder }}[icd_code]" id="{{ $viewFolder }}_icd_code" placeholder="">
-                    <option value=""></option>
-                  </select>
-                  <label for="{{ $viewFolder }}_icd_code">Primary Diagnosis</label>
-                  <small id="help_{{ $viewFolder }}_icd_code" class="text-muted"></small>
-                </div>
-                <div class="card mb-3">
-                  <div class="card-header">Secondary Diagnosis</div>
-                  <div class="card-body">
-                    <small class="text-muted">Helper</small>
-                    <div class="input-group input-group-small flex-nowrap">
-                      <select class="form-select" placeholder="">
-                        <option value=""></option>
-                      </select>
-                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Delete Helper</button>
-                    </div>
-                    <small class="text-muted">Content</small>
-                    <textarea class="form-control" name="{{ $viewFolder }}[assessment]" id="{{ $viewFolder }}_assessment" rows=3 required>{{ isset($datum->assessment) ? $datum->assessment : '' }}</textarea>
-                    <small class="text-muted">Helper Save/Edit</small>
-                    <div class="input-group input-group-small mb-3 flex-nowrap">
-                      <div class="input-group-text">
-                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
-                      </div>
-                      <input type="text" class="form-control" id="{{ $viewFolder }}_assessmentTitle" name="{{ $viewFolder }}[assessmentTitle]" disabled>
-                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
-                    </div>
-                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[_assessmentEdit]" id="{{ $viewFolder }}_assessmentEdit" rows=3 disabled></textarea>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="card mb-3">
-              <div class="card-header">Plan</div>
-              <div class="card-body">
-                <div class="card mb-3">
-                  <div class="card-header">Medical Therapeutics</div>
-                  <div class="card-body">
-                    <small class="text-muted">Helper</small>
-                    <div class="input-group input-group-small flex-nowrap">
-                      <select class="form-select" placeholder="">
-                        <option value=""></option>
-                      </select>
-                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Delete Helper</button>
-                    </div>
-                    <small class="text-muted">Content</small>
-                    <textarea class="form-control" name="{{ $viewFolder }}[planMed]" id="{{ $viewFolder }}_planMed" rows=3 required>{{ isset($datum->planMed) ? $datum->planMed : '' }}</textarea>
-                    <small class="text-muted">Helper Save/Edit</small>
-                    <div class="input-group input-group-small mb-3 flex-nowrap">
-                      <div class="input-group-text">
-                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
-                      </div>
-                      <input type="text" class="form-control" id="{{ $viewFolder }}_planMedTitle" name="{{ $viewFolder }}[planMedTitle]" disabled>
-                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
-                    </div>
-                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planMedEdit]" id="{{ $viewFolder }}_planMedEdit" rows=3 disabled></textarea>
-                  </div>
-                </div>
-                <div class="card mb-3">
-                  <div class="card-header">Diagnostics and Surgery</div>
-                  <div class="card-body">
-                    <small class="text-muted">Helper</small>
-                    <div class="input-group input-group-small flex-nowrap">
-                      <select class="form-select" placeholder="">
-                        <option value=""></option>
-                      </select>
-                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Delete Helper</button>
-                    </div>
-                    <small class="text-muted">Content</small>
-                    <textarea class="form-control" name="{{ $viewFolder }}[plan]" id="{{ $viewFolder }}_plan" rows=3 required>{{ isset($datum->plan) ? $datum->plan : '' }}</textarea>
-                    <small class="text-muted">Helper Save/Edit</small>
-                    <div class="input-group input-group-small mb-3 flex-nowrap">
-                      <div class="input-group-text">
-                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
-                      </div>
-                      <input type="text" class="form-control" id="{{ $viewFolder }}_planTitle" name="{{ $viewFolder }}[planTitle]" disabled>
-                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
-                    </div>
-                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planEdit]" id="{{ $viewFolder }}_planEdit" rows=3 disabled></textarea>
-                  </div>
-                </div>
-                <div class="card mb-3">
-                  <div class="card-header">Remarks</div>
-                  <div class="card-body">
-                    <small class="text-muted">Helper</small>
-                    <div class="input-group input-group-small flex-nowrap">
-                      <select class="form-select" placeholder="">
-                        <option value=""></option>
-                      </select>
-                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Delete Helper</button>
-                    </div>
-                    <small class="text-muted">Content</small>
-                    <textarea class="form-control" name="{{ $viewFolder }}[planRem]" id="{{ $viewFolder }}_planRem" rows=3 required>{{ isset($datum->planRem) ? $datum->planRem : '' }}</textarea>
-                    <small class="text-muted">Helper Save/Edit</small>
-                    <div class="input-group input-group-small mb-3 flex-nowrap">
-                      <div class="input-group-text">
-                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
-                      </div>
-                      <input type="text" class="form-control" id="{{ $viewFolder }}_planRemTitle" name="{{ $viewFolder }}[planRemTitle]" disabled>
-                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
-                    </div>
-                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planRemEdit]" id="{{ $viewFolder }}_planRemEdit" rows=3 disabled></textarea>
-                  </div>
-                </div>
-              </div>
-            </div>
+              @endforeach
+            @endif
           </div>
           <div id="labCurDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
             <div id="carouselCur" class="carousel carousel-dark slide" data-bs-ride="true">
@@ -929,6 +1164,7 @@
               </button>
             </div>
           </div>
+          @if($user->id == $datum->doctor->id)
           <div id="presCurDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
             <div class="card mb-3">
               <div class="card-header">Prescription View</div>
@@ -1171,6 +1407,7 @@
               </div>
             </div>
           </div>
+          @endif
         </div>
       </div>
     </div>

@@ -137,7 +137,8 @@ class ClinicsHomeController extends Controller
         }
         
 
-        return redirect()->route($this->viewFolder . '.index')->with('message', "Approved doctor's affiliation request.");
+        // return redirect()->route($this->viewFolder . '.index')->with('message', "Approved doctor's affiliation request.");
+        return redirect()->back()->with('message', "Approved doctor's affiliation request.");
     }
 
     public function book(Request $request)
@@ -215,6 +216,7 @@ class ClinicsHomeController extends Controller
         $params['updated_by'] = $user->id;
         Consultation::create($params);
         return redirect()->route($this->viewFolder . '.index')->with('message', "Booking successfully saved.");
+        // return redirect()->back()->with('message', "Booking successfully saved.");
     }
 
     public function updateMyAccount(User $clinics_home, Request $request)
@@ -232,13 +234,16 @@ class ClinicsHomeController extends Controller
                 // dd($params);
                 $user->update($userInputedDetails);
                 $clinics_home->clinic->update($params);
-                return redirect()->route($this->viewFolder . '.index')->with('message', 'Your account is updated.');
+                // return redirect()->route($this->viewFolder . '.index')->with('message', 'Your account is updated.');
+                return redirect()->back()->with('message', 'Your account is updated.');
             }else{
-                return redirect()->route($this->viewFolder . '.index')->with('message', 'Invalid old password.');
+                // return redirect()->route($this->viewFolder . '.index')->with('message', 'Invalid old password.');
+                return redirect()->back()->with('message', 'Invalid old password.');
             }
         }else{
             $clinics_home->clinic->update($params);
-            return redirect()->route($this->viewFolder . '.index')->with('message', 'Your account is updated.');
+            // return redirect()->route($this->viewFolder . '.index')->with('message', 'Your account is updated.');
+            return redirect()->back()->with('message', 'Your account is updated.');
         }
         
         
@@ -442,12 +447,14 @@ class ClinicsHomeController extends Controller
         }
         
         return redirect()->route($this->viewFolder . '.index')->with('message', 'Entry has been updated.');
+        // return redirect()->back()->with('message', 'Entry has been updated.');
     }
 
     public function destroy($id)
     {
         Consultation::destroy($id);
-        return redirect()->route($this->viewFolder . '.index')->with('message', 'Entry has been deleted.');
+        // return redirect()->route($this->viewFolder . '.index')->with('message', 'Entry has been deleted.');
+        return redirect()->back()->with('message', 'Entry has been deleted.');
     }
 
     function getPatientInfo(?int $patient_id){

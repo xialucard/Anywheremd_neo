@@ -261,16 +261,36 @@ class DoctorsHomeController extends Controller
         $user = Auth::user();
         unset($params);
         $params = $request->input($this->viewFolder);
-        // dd($params);
-        $doctor = $params['Doctor'];
-        unset($params['Doctor']);
-        if($params['submit_type'] == "")
-            $params['status'] = "Done";
-        $doctor['updated_by'] = $user->id;
-        $doctors_home->doctor->update($doctor);
-        $params['updated_by'] = $user->id;
-        $doctors_home->update($params);
-        // dd($params);
+        if(isset($params['referral_id'])){
+            $consultationObj = Consultation::find($params['referral_id']);
+            unset($paramsRef);
+            $paramsRef['docNotesSubject'] = $params['docNotesSubject'];
+            unset($params['docNotesSubject']);
+            $paramsRef['docNotes'] = $params['docNotes'];
+            unset($params['docNotes']);
+            $paramsRef['icd_code'] = $params['icd_code'];
+            unset($params['icd_code']);
+            $paramsRef['assessment'] = $params['assessment'];
+            unset($params['assessment']);
+            $paramsRef['planMed'] = $params['planMed'];
+            unset($params['planMed']);
+            $paramsRef['plan'] = $params['plan'];
+            unset($params['plan']);
+            $paramsRef['planRem'] = $params['planRem'];
+            unset($params['planRem']);
+            $consultationObj->update($paramsRef);
+        }else{
+            $doctor = $params['Doctor'];
+            unset($params['Doctor']);
+            if($params['submit_type'] == "")
+                $params['status'] = "Done";
+            $doctor['updated_by'] = $user->id;
+            $doctors_home->doctor->update($doctor);
+            $params['updated_by'] = $user->id;
+            $doctors_home->update($params);
+            // dd($params);
+        }
+        
         
         return redirect()->route($this->viewFolder . '.index')->with('message', 'Entry has been updated.');
     }
@@ -278,7 +298,8 @@ class DoctorsHomeController extends Controller
     public function destroy($id)
     {
         Consultation::destroy($id);
-        return redirect()->route($this->viewFolder . '.index')->with('message', 'Entry has been deleted.');
+        // return redirect()->route($this->viewFolder . '.index')->with('message', 'Entry has been deleted.');
+        return redirect()->back()->with('message', 'Entry has been deleted.');
     }
 
     private function getData($search_query = null)

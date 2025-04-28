@@ -306,6 +306,7 @@
                                                 <th class="">Procedure</th>
                                             @else
                                                 <th class="">Complaint</th>
+                                                <th class="">Status</th>
                                             @endif
                                             </tr>
                                         </thead>
@@ -332,6 +333,7 @@
                                                 <td class="">{{ $dat->procedure_details }}</td>
                                             @else
                                                 <td class="">{{ $dat->complain }}</td>
+                                                <td class="">{{ $dat->status }}</td>
                                             @endif
                                             </tr>
                                                 @endforeach

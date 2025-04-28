@@ -57,6 +57,7 @@
                         $('#{{ $viewFolder }}_submit_type').val('Pause');
                         $('#{{ $formId }}').submit();
                         " class="btn btn-{{ $bgColor }}">Pause</button>
+                    {{-- @if(isset($datum->consultation_referals[0]->id)) --}}
                     <button type="submit" onclick="
                         // event.preventDefault();
                         // $('#{{ $viewFolder }}_docNotes').attr('required');
@@ -71,6 +72,7 @@
                         // $('#{{ $formId }}').submit();
                         $('#{{ $viewFolder }}_submit_type').val('');
                         " class="btn btn-danger">End</button>
+                    {{-- @endif --}}
                 @else
                     <button type="submit" id="submitButton" class="btn btn-{{ $bgColor }}">Submit</button>
                 @endif
