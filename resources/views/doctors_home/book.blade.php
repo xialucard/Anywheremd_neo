@@ -1131,7 +1131,7 @@
             @endif
           </div>
           <div id="labCurDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
-            <div id="carouselCur" class="carousel carousel-dark slide" data-bs-ride="true">
+            <div id="carouselCur" class="carousel carousel-dark slide mb-3" data-bs-ride="true">
               <div class="carousel-indicators">
                 @if(!empty($datum->consultation_files[0]->file_link))
                   @foreach($datum->consultation_files as $ind=>$file)
@@ -1163,6 +1163,21 @@
                 <span class="visually-hidden">Next</span>
               </button>
             </div>
+            <div class="mb-3">
+              <label for="formFileMultiple" class="form-label">Upload file/s</label>
+              <input class="form-control" type="file" id="{{ $viewFolder }}_files" name="{{ $viewFolder }}[ConsultationFile][files][]" accept="image/png, image/gif, image/jpeg" multiple>
+            </div>
+            <div class="row" id="image_preview_saved">
+              @if(isset($datum->consultation_files))
+                @foreach($datum->consultation_files as $ind => $file)
+                @php
+                  $exAr = explode('/', $file->file_link);
+                @endphp
+              <div class='img-div' id='img-div-save{{ $ind }}'><img src='{{ asset($file->file_link) }}' class='img-thumbnail' title='{{ $exAr[sizeof($exAr)-1] }}'><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
+                @endforeach
+              @endif
+            </div>
+            <div class="row" id="image_preview"></div>
           </div>
           @if($user->id == $datum->doctor->id)
           <div id="presCurDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
@@ -1518,4 +1533,53 @@
         }
     });
   }
+
+  $(document).ready(function() {
+    var fileArr = [];
+    $("#{{ $viewFolder }}_files").change(function(){
+        // check if fileArr length is greater than 0
+        if (fileArr.length > 0) fileArr = [];
+      
+          $('#image_preview').html("");
+          var total_file = document.getElementById("{{ $viewFolder }}_files").files;
+          if (!total_file.length) return;
+          for (var i = 0; i < total_file.length; i++) {
+            if (total_file[i].size > 1048576) {
+              return false;
+            } else {
+              fileArr.push(total_file[i]);
+              $('#image_preview').append("<div class='img-div' id='img-div"+i+"'><img src='"+URL.createObjectURL(event.target.files[i])+"' class='img-thumbnail' title='"+total_file[i].name+"'><div class='middle'><button id='action-icon' value='img-div"+i+"' class='btn btn-danger' role='"+total_file[i].name+"'><i class='bi bi-trash'></i></button></div></div>");
+            }
+          }
+    });
+    
+    $('body').on('click', '#action-icon', function(evt){
+        var divName = this.value;
+        var fileName = $(this).attr('role');
+        if($(this).attr('saved') != ''){
+          $.ajax({
+            type: 'GET',
+            url: '{{ Route::has($viewFolder . '.deleteUploadedFile') ? route($viewFolder . '.deleteUploadedFile') : ''}}/' + $(this).attr('saved')
+          });
+        }
+          
+        $(`#${divName}`).remove();
+      
+        for (var i = 0; i < fileArr.length; i++) {
+          if (fileArr[i].name === fileName) {
+            fileArr.splice(i, 1);
+          }
+        }
+      document.getElementById('{{ $viewFolder }}_files').files = FileListItem(fileArr);
+        evt.preventDefault();
+    });
+    
+    function FileListItem(file) {
+              file = [].slice.call(Array.isArray(file) ? file : arguments)
+              for (var c, b = c = file.length, d = !0; b-- && d;) d = file[b] instanceof File
+              if (!d) throw new TypeError("expected argument to FileList is File or array of File objects")
+              for (b = (new ClipboardEvent("")).clipboardData || new DataTransfer; c--;) b.items.add(file[c])
+              return b.files
+          }
+  });
 </script>
