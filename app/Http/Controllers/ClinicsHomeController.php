@@ -199,7 +199,7 @@ class ClinicsHomeController extends Controller
         $patient['created_by'] = $user->id;
         $patient['updated_by'] = $user->id;
         // dd($params);
-        if($patient['patient_id'] != ''){
+        if($params['patient_id'] != ''){
             $patientObj = Patient::find($params['patient_id']);
             $patientObj->update($patient);
         }else{
