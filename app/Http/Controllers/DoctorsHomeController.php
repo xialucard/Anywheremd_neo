@@ -267,7 +267,10 @@ class DoctorsHomeController extends Controller
             $consultationObj = Consultation::find($params['referral_id']);
             
             unset($paramsRef);
-            $paramsRef['docNotesSubject'] = $params['docNotesSubject'];
+            if(isset($params['docNotesHPI']))
+                $paramsRef['docNotesHPI'] = $params['docNotesHPI'];
+            if(isset($params['docNotesSubject']))
+                $paramsRef['docNotesSubject'] = $params['docNotesSubject'];
             unset($params['docNotesSubject']);
             $paramsRef['docNotes'] = $params['docNotes'];
             unset($params['docNotes']);
