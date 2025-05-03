@@ -110,11 +110,6 @@ class Consultation extends Model
         return $this->belongsTo(Patient::class, 'patient_id');
     }
 
-    public function hmo()
-    {
-        return $this->belongsTo(HealthOrganization::class, 'hmo');
-    }
-
     public function consultation_files()
     {
         return $this->hasMany(ConsultationFile::class, 'consultation_id');

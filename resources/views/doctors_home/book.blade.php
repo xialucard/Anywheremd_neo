@@ -23,7 +23,7 @@
             <strong>Patient Type:</strong> {{ $datum->patient->patient_type }} | 
             <strong>Patient Sub Type: </strong>{{ $datum->patient->patient_sub_type . ' ' . $datum->patient->referral_from }}<br>
             <strong>Philhealth #: </strong>{{ $datum->patient->phil_num }}<br>
-            <strong>HMO:</strong> {{ $datum->patient->hmo_num }} | 
+            <strong>HMO:</strong> {{ $datum->patient->hmo }} | 
             <strong>HMO #:</strong> {{ $datum->patient->hmo_num }}<br>
           </p>  
         </div>

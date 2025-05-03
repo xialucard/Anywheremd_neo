@@ -1117,6 +1117,9 @@
                 <div class="form-floating mb-3">
                   <select class="form-select" name="{{ $viewFolder }}[Patient][hmo]" id="{{ $viewFolder }}_hmo" placeholder="" {{ isset($datum->payment_mode) && ($datum->payment_mode == 'Both' || $datum->payment_mode == 'Both Cash' || $datum->payment_mode == 'HMO') ? '' : 'disabled' }}>
                     <option value=""></option>
+                  @foreach($hmos as $hmo)
+                    <option value="{{ $hmo->id }}" {{ $hmo->id == $datum->patient->hmo ? 'selected' : '' }}>{{ $hmo->name }}</option>
+                  @endforeach
                   </select>
                   <label for="{{ $viewFolder }}_hmo">HMO</label>
                   <small id="help_{{ $viewFolder }}_hmo" class="text-muted"></small>

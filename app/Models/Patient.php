@@ -18,7 +18,7 @@ class Patient extends Model
         'name',
         'gender',
         'birthdate',
-        'philnum',
+        'phil_num',
         'hmo',
         'hmo_num',
         'address',
@@ -59,6 +59,11 @@ class Patient extends Model
     public function client()
     {
         return $this->belongsTo(User::class, 'client_id');
+    }
+
+    public function hmo()
+    {
+        return $this->belongsTo(HealthOrganization::class, 'hmo');
     }
 
     public function consultations()

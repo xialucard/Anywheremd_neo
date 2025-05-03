@@ -8,6 +8,7 @@ use App\Models\AffiliatedDoctor;
 use App\Models\Clinic;
 use App\Models\Consultation;
 use App\Models\ConsultationFile;
+use App\Models\HealthOrganization;
 use App\Models\Patient;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -153,6 +154,7 @@ class ClinicsHomeController extends Controller
         $datum =  (object)['id' => null, 'created_at' => null, 'updated_at' => null];
         $doctor =  User::find($request->input($this->viewFolder)['doctor_id']);
         $patients = $user->patients->sortBy('name');
+        $hmos = HealthOrganization::all()->sortBy('name');
         return view($this->viewFolder . '.index', [
                 'moduleList' => $this->moduleList(), 
                 'moduleActive' => $this->module, 
@@ -171,7 +173,8 @@ class ClinicsHomeController extends Controller
                 'modalSize' => 'modal-xl', 
                 'modal' => true,
                 'dateBooking' => $request->input($this->viewFolder)['dateSched'],
-                'patients'=>$patients
+                'patients'=>$patients,
+                'hmos'=>$hmos
             ]);
     }
 
@@ -259,6 +262,7 @@ class ClinicsHomeController extends Controller
         $mon = null;
         $dayNum = null;
         $patients = $user->patients->sortBy('name');
+        $hmos = HealthOrganization::all()->sortBy('name');
         return view($this->viewFolder . '.index', [
                 'moduleList' => $this->moduleList(), 
                 'moduleActive' => $this->module, 
@@ -279,6 +283,7 @@ class ClinicsHomeController extends Controller
                 'modal' => true,
                 'dateBooking' => $datum->bookingDate,
                 'patients'=>$patients, 
+                'hmos'=>$hmos, 
                 'viewFolder' => $this->viewFolder, 
                 'modalSize' => 'modal-xl'
             ]);
