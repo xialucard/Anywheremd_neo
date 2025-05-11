@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ClinicFormRequest;
 use App\Models\Clinic;
+use App\Models\Patient;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,7 +31,26 @@ class ClinicsController extends Controller
     {
         $data = $this->getData($request->input());
         $datum = (object)['id' => null, 'created_at' => null, 'updated_at' => null];
+        // migration code //
+        foreach (Clinic::whereNotNull(['user_id'])->get()     as $clinic) {
+            User::where('id', $clinic->user_id)->update(['clinic_id' => $clinic->id]);
+        }
+        // print '<pre>';
+        // print_r(Patient::where('active', 1));
+        // print '</pre>';
+        foreach (Patient::where('active', 1)->skip(20000)->take(10000)->get() as $patient) {
+            $pastMedicalHistoryCommaArr = explode(',', $patient->pastMedicalHistoryComma);
+            $pastFamilyHistoryCommaArr = explode(',', $patient->pastFamilyHistoryComma);
+            $pastAllergiesCommaArr = explode(',', $patient->allergiesComma);
+            $patient->update([
+                'pastMedicalHistory' => json_encode($pastMedicalHistoryCommaArr),
+                'pastFamilyHistory' => json_encode($pastFamilyHistoryCommaArr),
+                'pastAllergies' => json_encode($pastAllergiesCommaArr)
+            ]);
+
+        }
         
+        ///////////////////
         return view($this->viewFolder . '.index', ['moduleList' => $this->moduleList(), 'moduleActive' => $this->module, 'data' => $data, 'datum' => $datum, 'selectItems' => $this->selectItems(), 'inputFormHeader' => 'Input New ' . $this->model, 'formAction' => 'store', 'viewFolder' => $this->viewFolder, 'modalSize' => $this->modalSize]);
     }
 

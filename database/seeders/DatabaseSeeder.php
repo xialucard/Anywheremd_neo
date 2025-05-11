@@ -21,10 +21,10 @@ class DatabaseSeeder extends Seeder
         /**
          * Seed Role
          */
-        Role::create(['name' => 'Admin', 'internal' => 1]);
-        Role::create(['name' => 'Clinic Admin', 'internal' => 0]);
-        Role::create(['name' => 'Doctor', 'internal' => 0]);
-        Role::create(['name' => 'Client', 'internal' => 0]);
+        Role::create(['id' => 2, 'name' => 'Admin', 'internal' => 1]);
+        Role::create(['id' => 10, 'name' => 'Clinic Admin', 'internal' => 0]);
+        Role::create(['id' => 8, 'name' => 'Doctor', 'internal' => 0]);
+        Role::create(['id' => 9, 'name' => 'Client', 'internal' => 0]);
 
         /**
          * Seed User

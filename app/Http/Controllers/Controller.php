@@ -15,6 +15,7 @@ class Controller extends BaseController
 
     public $docSpecs = array(
         "Internal Medicine"=>array(
+                " ",
                 "Cardiology",
                 "Endocrinology",
                 "Neurosurgery",
@@ -30,6 +31,7 @@ class Controller extends BaseController
                 "Allergology"
             ), 
         "Surgery"=>array(
+                " ",
                 "General Surgery",
                 "Cardiothoracic Surgery",
                 "Neurosurgery",
@@ -42,6 +44,7 @@ class Controller extends BaseController
                 "Onco-surgery"
             ), 
         "Ophthalmology"=>array(
+                " ",
                 "Comprehensive Ophthalmology",
                 "Cataract and Refractive",
                 "Cornea and Anterior Segment",
@@ -54,18 +57,21 @@ class Controller extends BaseController
                 "Ophthalmic Oncology"
             ), 
         "Otorhinolaryngology (ENT)"=>array(
+                " ",
                 "Oral and Maxillofacial Surgery",
                 "Head and Neck Surgery",
                 "Ear Microsurgery"
             ), 
         "Arthritis Clinic"=>array(), 
         "Orthopedics"=>array(
+                " ",
                 "General Orthopedics",
                 "Pediatric Orthopedics",
                 "Spine Surgery",
                 "Hand Surgery"
             ),
         "Obstetrics and Gynecology"=>array(
+                " ",
                 "Gynecology Oncology",
                 "Family Planning",
                 "Obstetric and Gynecologic Infectious Diseases",
@@ -76,6 +82,7 @@ class Controller extends BaseController
                 "Obstetric and Gynecology Ultrasound"
             ), 
         "Pediatrics"=>array(
+                " ",
                 "General Pediatrics",
                 "Neonatology",
                 "Cardiology",
@@ -89,6 +96,7 @@ class Controller extends BaseController
             ), 
         "Psychology"=>array(),
         "Dermatology"=>array(
+                " ",
                 "Blistering Disease Clinic",
                 "Multidisciplinary Cutaneous Lymphoma Clinic",
                 "Mohs and Dermatologic Surgery",
@@ -107,6 +115,7 @@ class Controller extends BaseController
                 "Skin Allergies and Contact Dermatitis Clinic"
             ),
         "Psychiatry"=>array(
+                " ",
                 "Clinical Neurophysiology",
                 "Forensic Psychiatry",
                 "Addiction Psychiatry",

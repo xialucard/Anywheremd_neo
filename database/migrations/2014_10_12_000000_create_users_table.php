@@ -17,11 +17,11 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('profile_pic')->nullable();
             $table->string('f_name');
-            $table->string('m_name');
+            $table->string('m_name')->nullable();
             $table->string('l_name');
             $table->string('name');
             $table->enum('gender', ['Male', 'Female']);
-            $table->enum('user_type', ['Doctor', 'Clinic', 'Patient', 'Internal'])->default('Internal');
+            $table->enum('user_type', ['Doctor', 'Clinic', 'Client', 'Internal'])->default('Internal');
             $table->date('dob')->nullable();
             $table->text('address')->nullable();
             $table->string('tel')->nullable();
@@ -37,7 +37,7 @@ class CreateUsersTable extends Migration
             $table->date('medgraddate')->nullable();
             $table->string('residencySchool')->nullable();
             $table->string('subSchool')->nullable();
-            $table->string('hAffiliation')->nullable();
+            $table->text('hAffiliation')->nullable();
             $table->integer('bank_id')->nullable();
             $table->float('fee', 8, 2)->nullable();
             $table->integer('ave_consultation_duration')->nullable();

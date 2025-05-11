@@ -246,8 +246,10 @@ class ClinicsHomeController extends Controller
             }
         }else{
             $clinics_home->clinic->update($params);
-            // return redirect()->route($this->viewFolder . '.index')->with('message', 'Your account is updated.');
-            return redirect()->back()->with('message', 'Your account is updated.');
+            $userInputedDetails['name'] = $userInputedDetails['f_name'] . ' ' . $userInputedDetails['m_name'] . ' ' . $userInputedDetails['l_name'];
+            $user->update($userInputedDetails);
+            return redirect()->route($this->viewFolder . '.index')->with('message', 'Your account is updated.');
+            // return redirect()->back()->with('message', 'Your account is updated.');
         }
         
         
@@ -283,7 +285,6 @@ class ClinicsHomeController extends Controller
                 'modal' => true,
                 'dateBooking' => $datum->bookingDate,
                 'patients'=>$patients, 
-                'hmos'=>$hmos, 
                 'viewFolder' => $this->viewFolder, 
                 'modalSize' => 'modal-xl'
             ]);

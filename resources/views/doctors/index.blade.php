@@ -16,17 +16,21 @@
                     <table class="table table-bordered table-striped table-hover table-sm">
                         <thead class="table-dark">
                             <tr>
-                                <th class="w-25"><i class="bi bi-gear"></i></th>
-                                <th>@sortablelink('id')</th>
-                                <th class="w-50">@sortablelink('name')</th>
+                                <th class="w-10"><i class="bi bi-gear"></i></th>
+                                {{-- <th>@sortablelink('id')</th> --}}
+                                <th>@sortablelink('name')</th>
+                                <th>Email</th>
+                                <th>Specialty</th>
                             </tr>
                         </thead>
                         <tbody>
                         @foreach ($data as $dat)
                             <tr>
                                 <td>@include($viewFolder . '.tableOptions')</td>
-                                <td>{{ $dat->id }}</td>
+                                {{-- <td>{{ $dat->id }}</td> --}}
                                 <td>{{ $dat->name }}</td>
+                                <td>{{ $dat->email }}</td>
+                                <td>{{ $dat->specialty }}</td>
                             </tr>
                         @endforeach
                         </tbody>

@@ -217,7 +217,8 @@ class DoctorsHomeController extends Controller
                 return redirect()->route($this->viewFolder . '.index')->with('message', 'Invalid old password.');
             }
         }else{
-            $doctors_home->update($params);
+            $params['name'] = $params['f_name'] . ' ' . $params['m_name'] . ' ' . $params['l_name'];
+            $user->update($params);
             return redirect()->route($this->viewFolder . '.index')->with('message', 'Your account is updated.');
         }
         

@@ -88,8 +88,7 @@
       @php
           ksort($selectItems['specialty']);
       @endphp
-      <select class="form-select" name="{{ $viewFolder }}[specialty]" id="{{ $viewFolder }}_specialty" placeholder="" required>
-        <option></option>
+      <select class="form-select" name="{{ $viewFolder }}[specialty]" id="{{ $viewFolder }}_specialty" placeholder="Select One" required>
         @foreach ($selectItems['specialty'] as $ind => $item)
           @if (!empty($item[0]))
         <optgroup label="{{ $ind }}">
@@ -97,7 +96,7 @@
                 sort($item);
             @endphp
             @foreach ($item as $itemSub)
-            <option value="{{ $itemSub }}" {{ (!empty($datum->specialty) && $datum->specialty == $itemSub) ? 'selected' : '' }}>{{ $itemSub }}</option>
+            <option value="{{ $itemSub != ' ' ? $ind . ' - ' . $itemSub : $ind }}" {{ (!empty($datum->specialty) && $datum->specialty == ($itemSub != ' ' ? $ind . ' - ' . $itemSub : $ind)) ? 'selected' : '' }}>{{ $itemSub != ' ' ? $ind . ' - ' . $itemSub : $ind }}</option>
             @endforeach
         </optgroup>
           @else
