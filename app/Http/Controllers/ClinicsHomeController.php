@@ -285,6 +285,7 @@ class ClinicsHomeController extends Controller
                 'modal' => true,
                 'dateBooking' => $datum->bookingDate,
                 'patients'=>$patients, 
+                'hmos'=>$hmos, 
                 'viewFolder' => $this->viewFolder, 
                 'modalSize' => 'modal-xl'
             ]);

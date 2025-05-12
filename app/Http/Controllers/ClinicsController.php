@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ClinicFormRequest;
 use App\Models\Clinic;
+use App\Models\Consultation;
 use App\Models\Patient;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -32,22 +33,41 @@ class ClinicsController extends Controller
         $data = $this->getData($request->input());
         $datum = (object)['id' => null, 'created_at' => null, 'updated_at' => null];
         // migration code //
-        foreach (Clinic::whereNotNull(['user_id'])->get()     as $clinic) {
-            User::where('id', $clinic->user_id)->update(['clinic_id' => $clinic->id]);
-        }
-        // print '<pre>';
-        // print_r(Patient::where('active', 1));
-        // print '</pre>';
-        foreach (Patient::where('active', 1)->skip(20000)->take(10000)->get() as $patient) {
-            $pastMedicalHistoryCommaArr = explode(',', $patient->pastMedicalHistoryComma);
-            $pastFamilyHistoryCommaArr = explode(',', $patient->pastFamilyHistoryComma);
-            $pastAllergiesCommaArr = explode(',', $patient->allergiesComma);
-            $patient->update([
-                'pastMedicalHistory' => json_encode($pastMedicalHistoryCommaArr),
-                'pastFamilyHistory' => json_encode($pastFamilyHistoryCommaArr),
-                'pastAllergies' => json_encode($pastAllergiesCommaArr)
-            ]);
+        // foreach (Clinic::whereNotNull(['user_id'])->get()     as $clinic) {
+        //     User::where('id', $clinic->user_id)->update(['clinic_id' => $clinic->id]);
+        // }
+        // foreach (Patient::where('active', 1)->skip(30000)->take(10000)->get() as $patient) {
+        //     $pastMedicalHistoryCommaArr = explode(',', $patient->pastMedicalHistoryComma);
+        //     $pastFamilyHistoryCommaArr = explode(',', $patient->pastFamilyHistoryComma);
+        //     $pastAllergiesCommaArr = explode(',', $patient->allergiesComma);
+        //     $patient->update([
+        //         'pastMedicalHistory' => json_encode($pastMedicalHistoryCommaArr),
+        //         'pastFamilyHistory' => json_encode($pastFamilyHistoryCommaArr),
+        //         'pastAllergies' => json_encode($pastAllergiesCommaArr)
+        //     ]);
+        // }
 
+        foreach(Consultation::whereNotNull(['bpOld'])->where('bpOld', 'like', '%/%')->orderBy('id', 'ASC')->skip(70000)->take(10000)->get() as $consult){
+            if($consult->bpOld != ""){
+                $bpOld = str_replace('//', '/', $consult->bpOld);
+                $bpOldExp = explode("/", $bpOld);
+                if(is_numeric($bpOldExp[0])){
+                    $bpOld2Exp = explode(" ",$bpOldExp[1]);
+                    if(!is_numeric($bpOld2Exp[0])){
+                        $bpOld2Exp[0] = str_replace('mmhg', '', $bpOld2Exp[0]);
+                    }
+                    if(!is_numeric($bpOld2Exp[0])){
+                        $bpOld2Exp[0] = str_replace('mmHg', '', $bpOld2Exp[0]);
+                    }
+                    if(is_numeric($bpOld2Exp[0])){
+                        $consult->update([
+                            'bpS' => trim($bpOldExp[0]),
+                            'bpD' => trim($bpOld2Exp[0])
+                        ]);
+                    }
+                } 
+            }
+            
         }
         
         ///////////////////

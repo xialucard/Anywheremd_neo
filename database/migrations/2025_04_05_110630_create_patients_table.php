@@ -29,7 +29,7 @@ return new class extends Migration
             $table->string('email', 255)->nullable();
             $table->string('mobile_no', 255)->nullable();
             $table->enum('patient_type', ['Private', 'In House'])->nullable();
-            $table->enum('patient_sub_type', ['Non Walk-in', 'Walk-in Social Media', 'Walk-in Mainstream Media', 'Walk-in Signage', 'Walk-in Referral From'])->nullable();
+            $table->enum('patient_sub_type', ['Non Walk-in', 'Walk-in','Walk-in Social Media', 'Walk-in Mainstream Media', 'Walk-in Signage', 'Walk-in Referral From'])->nullable();
             $table->string('referral_from', 255)->nullable();
             $table->text('med_history')->nullable();
             $table->json('pastMedicalHistory')->nullable();
