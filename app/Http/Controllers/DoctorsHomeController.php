@@ -406,8 +406,8 @@ class DoctorsHomeController extends Controller
     private function selectItems()
     {
         $user = Auth::user();
-        $selectItems['affiliated_clinics'] = $user->affiliated_clinics;
-        $selectItems['clinics'] = Clinic::orderBy('name', 'asc')->get();
+        $selectItems['affiliated_clinics'] = $user->affiliated_clinics->where('active', 1);
+        $selectItems['clinics'] = Clinic::where('active', 1)->orderBy('name', 'asc')->get();
         return $selectItems;
     }
 

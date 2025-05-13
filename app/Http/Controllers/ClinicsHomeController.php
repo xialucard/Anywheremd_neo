@@ -499,7 +499,7 @@ class ClinicsHomeController extends Controller
 
     private function selectItems()
     {
-        $selectItems['doctors'] = User::where('user_type', 'Doctor')->orderBy('name', 'asc')->get();
+        $selectItems['doctors'] = User::where('user_type', 'Doctor')->where('active', 1)->orderBy('name', 'asc')->get();
         return $selectItems;
     }
     

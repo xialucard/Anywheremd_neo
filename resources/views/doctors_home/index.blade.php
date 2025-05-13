@@ -214,6 +214,7 @@
                                         <thead class="table-{{ $bgColor }}">
                                             <tr>
                                                 <th class=""><i class="bi bi-gear"></i></th>
+                                                <th>Profile Pic</th>
                                                 <th>Booking #</th>
                                                 <th class="">Patient Name</th>
                                                 <th class="">Complaint</th>
@@ -233,6 +234,7 @@
                                             {{-- @foreach($user->bookings()->where('booking_type', $booking_type == 'Consultation' ? '' : $booking_type)->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->get() as $dat) --}}
                                             <tr>
                                                 <td>@include($viewFolder . '.tableOptions')</td>
+                                                <td class="text-center"><img src="{{ !empty($dat->patient->profile_pic) ? asset('storage/px_files/' . $dat->patient->profile_pic) : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="70px"></td>
                                                 <td>{{ $dat->id }}</td>
                                                 <td class="">{{ $dat->patient->name }}</td>
                                                 <td class="">{{ $dat->complain }}</td>

@@ -299,6 +299,7 @@
                                             @if(!empty($booking_type) && $booking_type == 'Referral')
                                                 <th>Parent Booking #</th>
                                             @endif
+                                                <th>Profile Pic</th>
                                                 <th>Booking #</th>
                                                 <th class="">Doctor</th>
                                                 <th class="">Patient</th>
@@ -323,6 +324,7 @@
                                                 @foreach($bookingArr as $dat)
                                             <tr>
                                                 <td>@include($viewFolder . '.tableOptions')</td>
+                                                <td class="text-center"><img src="{{ !empty($dat->patient->profile_pic) ? asset('storage/px_files/' . $dat->patient->profile_pic) : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="70px"></td>
                                             @if($booking_type == 'Referral')
                                                 <td>{{ $dat->consultation_parent_id }}</td>
                                             @endif

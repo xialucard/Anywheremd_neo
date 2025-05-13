@@ -277,7 +277,7 @@
               <div class="card-header">Previous Patient's Complaint</div>
               <div class="card-body" style="height: 1in; max-height: 1in">
                 <p>{{ $bookings[0]->complain }}</p>
-                <small class="text-muted">{{ $bookings[0]->duration }} day/s</small>
+                <small class="text-muted">{{ $bookings[0]->duration }}</small>
               </div>
             </div>
             <ul class="nav nav-pills mb-3">
@@ -713,7 +713,7 @@
               <div class="card-header">Patient's Complaint</div>
               <div class="card-body" style="height: 1in; max-height: 1in">
                 <p>{{ $datum->complain }}</p>
-                <small class="text-muted">{{ $datum->duration }} day/s</small>
+                <small class="text-muted">{{ $datum->duration }}</small>
               </div>
             </div>
             <ul class="nav nav-pills mb-3">

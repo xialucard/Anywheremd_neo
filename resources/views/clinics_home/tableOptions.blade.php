@@ -13,12 +13,12 @@
     <div class="m-1"><a class="btn btn-{{ $bgColor }} btn-sm w-100" href="{{ route($viewFolder . '.show', [$dat->id, !empty(parse_url(Request::fullUrl())['query']) ? parse_url(Request::fullUrl())['query'] : '']) }}" title="View" role="button"><i class="bi bi-binoculars"></i><span class="ps-1 d-sm-none">View</span></a></div>
         @endcan
     @endif
-    @if (Route::has($viewFolder . '.edit') && !isset($dat->consultation_parent_id))
+    @if (Route::has($viewFolder . '.edit') && (!isset($dat->consultation_parent_id) || $dat->status != 'Done'))
         @can($viewFolder . '.edit')
     <div class="m-1"><a class="btn btn-{{ $bgColor }} btn-sm w-100" href="{{ route($viewFolder . '.edit', [$dat->id, !empty(parse_url(Request::fullUrl())['query']) ? parse_url(Request::fullUrl())['query'] : '']) }}" title="Edit" role="button"><i class="bi bi-pencil"></i><span class="ps-1 d-sm-none">Edit</span></a></div>
         @endcan
     @endif
-    @if (Route::has($viewFolder . '.destroy'))
+    @if (Route::has($viewFolder . '.destroy') && $dat->status != 'Done')
         @can($viewFolder . '.destroy')
     <form action="{{ route($viewFolder . '.destroy', $dat->id) }}" method="POST">
         @csrf
