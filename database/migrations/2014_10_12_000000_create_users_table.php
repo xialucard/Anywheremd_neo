@@ -44,7 +44,7 @@ class CreateUsersTable extends Migration
             $table->text('sub_header_1')->nullable();
             $table->text('sub_header_2')->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->unsignedBigInteger('created_by')->nullable();

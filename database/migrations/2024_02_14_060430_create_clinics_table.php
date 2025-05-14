@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('address')->nullable();
             $table->integer('clinic')->default(1);
+            $table->integer('user_id')->nullable();
             $table->string('tel')->nullable();
             $table->string('mobile_no')->nullable();
             $table->string('email')->nullable();

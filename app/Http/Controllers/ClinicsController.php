@@ -33,7 +33,7 @@ class ClinicsController extends Controller
         $data = $this->getData($request->input());
         $datum = (object)['id' => null, 'created_at' => null, 'updated_at' => null];
         // migration code //
-        // foreach (Clinic::whereNotNull(['user_id'])->get()     as $clinic) {
+        // foreach (Clinic::whereNotNull(['user_id'])->get() as $clinic) {
         //     User::where('id', $clinic->user_id)->update(['clinic_id' => $clinic->id]);
         // }
         // foreach (Patient::where('active', 1)->skip(30000)->take(10000)->get() as $patient) {

@@ -31,7 +31,7 @@ return new class extends Migration
             $table->string('weight', 255)->nullable();
             $table->integer('bpS')->nullable();
             $table->integer('bpD')->nullable();
-            $table->integer('bpOld')->nullable();
+            $table->string('bpOld', 255)->nullable();
             $table->integer('o2')->nullable();
             $table->string('heart', 255)->nullable();
             $table->string('arod_sphere', 255)->nullable();
