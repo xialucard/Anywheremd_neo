@@ -55,6 +55,7 @@
                       <div class="m-1"><a class="btn btn-{{ $bgColor }} btn-sm w-100" href="#" title="View" role="button" onclick="loadPrevBooking({{ $dat->id }}, {{ $ind }})"><i class="bi bi-binoculars"></i><span class="ps-1 d-sm-none">View</span></a></div>
                     </div>
                   </td>
+                  <td>{{ $dat->id }}</td>
                   <td>{{ $dat->bookingDate }}</td>
                   <td>{{ $dat->booking_type == '' ? 'Consultation' : $dat->booking_type }}</td>
                   {{-- <td>{{ $dat->patient->name }}</td> --}}
