@@ -234,7 +234,7 @@
                                             {{-- @foreach($user->bookings()->where('booking_type', $booking_type == 'Consultation' ? '' : $booking_type)->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->get() as $dat) --}}
                                             <tr>
                                                 <td>@include($viewFolder . '.tableOptions')</td>
-                                                <td class="text-center"><img src="{{ !empty($dat->patient->profile_pic) ? asset('storage/px_files/' . $dat->patient->profile_pic) : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="70px"></td>
+                                                <td class="text-center"><img src="{{ !empty($dat->patient->profile_pic) ? (stristr($dat->patient->profile_pic, 'uploads') ? asset('storage/' . $dat->patient->profile_pic) : asset('storage/px_files/' . $dat->patient->profile_pic)) : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="70px"></td>
                                                 <td>{{ $dat->id }}</td>
                                                 <td class="">{{ $dat->patient->name }}</td>
                                                 <td class="">{{ $dat->complain }}</td>
