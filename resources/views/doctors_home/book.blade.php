@@ -11,7 +11,7 @@
       <div class="card mb-3">
         <div class="card-header">Basic Information</div>
         <div class="card-body">
-          <img src="{{ !empty($datum->patient->profile_pic) ? (stristr($dat->patient->profile_pic, 'uploads') ? asset('storage/' . $dat->patient->profile_pic) : asset('storage/px_files/' . $dat->patient->profile_pic)) : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" class="img-thumbnail float-start w-25 h-25 m-2" alt="">
+          <img src="{{ !empty($datum->patient->profile_pic) ? (stristr($datum->patient->profile_pic, 'uploads') ? asset('storage/' . $datum->patient->profile_pic) : asset('storage/px_files/' . $datum->patient->profile_pic)) : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" class="img-thumbnail float-start w-25 h-25 m-2" alt="">
           <p>
             <strong>Name:</strong> {{ $datum->patient->name }} | 
             <strong>Age:</strong> {{ floor((strtotime($datum->bookingDate) - strtotime($datum->patient->birthdate))/(60*60*24*365.25)) }} | 
