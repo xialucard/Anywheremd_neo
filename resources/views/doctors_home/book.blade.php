@@ -487,7 +487,7 @@
                 @if(!empty($bookings[0]->consultation_files[0]->file_link))
                   @foreach($bookings[0]->consultation_files as $ind=>$file)
                 <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
-                  <img src="{{ asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
+                  <img src="{{stristr($file->file_link, 'uploada') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
                 </div>
                   @endforeach
                 @else
