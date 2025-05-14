@@ -56,10 +56,14 @@
                 success:
                   function(data, status){
                     patientObj = jQuery.parseJSON(data);
-                    if(patientObj.profile_pic !== null)
-                      $('#{{ $viewFolder }}_profileImage').attr('src', '{{ asset('storage/px_files/')}}/' + patientObj.profile_pic);
-                    else
+                    if(patientObj.profile_pic !== null){
+                      if(patientObj.profile_pic.contains('uploads'))
+                        $('#{{ $viewFolder }}_profileImage').attr('src', '{{ asset('storage/')}}/' + patientObj.profile_pic);
+                      else
+                        $('#{{ $viewFolder }}_profileImage').attr('src', '{{ asset('storage/px_files/')}}/' + patientObj.profile_pic);
+                    }else{
                       $('#{{ $viewFolder }}_profileImage').attr('src', 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg');
+                    }
                     $('#{{ $viewFolder }}_patient_id').val(patientObj.id);
                     $('#{{ $viewFolder }}_f_name').val(patientObj.f_name);
                     $('#{{ $viewFolder }}_m_name').val(patientObj.m_name);
