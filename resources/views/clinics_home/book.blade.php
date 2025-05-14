@@ -57,7 +57,8 @@
                   function(data, status){
                     patientObj = jQuery.parseJSON(data);
                     if(patientObj.profile_pic !== null){
-                      if(patientObj.profile_pic.contains('uploads'))
+                      prof_pic = patientObj.profile_pic;
+                      if(prof_pic.contains('uploads'))
                         $('#{{ $viewFolder }}_profileImage').attr('src', '{{ asset('storage/')}}/' + patientObj.profile_pic);
                       else
                         $('#{{ $viewFolder }}_profileImage').attr('src', '{{ asset('storage/px_files/')}}/' + patientObj.profile_pic);
