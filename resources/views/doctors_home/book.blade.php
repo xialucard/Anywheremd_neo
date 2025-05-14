@@ -57,6 +57,7 @@
                   </td>
                   <td>{{ $dat->bookingDate }}</td>
                   <td>{{ $dat->booking_type == '' ? 'Consultation' : $dat->booking_type }}</td>
+                  <td>{{ $dat->patient->name }}</td>
                   <td>{{ $dat->procedure_details }}</td>
                 </tr>
               @endforeach
