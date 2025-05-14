@@ -352,13 +352,22 @@ class DoctorsHomeController extends Controller
 
     function getPrevBookingInfo(Consultation $doctors_home, int $index){
         $user = Auth::user();
-        $prevBookingInfo = $doctors_home->patient->consultations()->where('doctor_id', $user->id)->where('id', '<', $doctors_home->id)->orderByDesc('bookingDate')->get();
-        $prevBookingArr['consultation'] = $prevBookingInfo[$index];
-        $prevBookingArr['consultation']['iframePrevPrescSrc'] = file_exists(public_path('storage/prescription_files/' . $prevBookingInfo[$index]->id . '_' . $prevBookingInfo[$index]->patient->l_name . '.pdf')) ? asset('storage/prescription_files/' . $prevBookingInfo[$index]->id . '_' . $prevBookingInfo[$index]->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg';
-        $prevBookingArr['consultation']['iframePrevMedCertSrc'] = file_exists(public_path('storage/med_cert_files/' . $prevBookingInfo[$index]->id . '_' . $prevBookingInfo[$index]->patient->l_name . '.pdf')) ? asset('storage/med_cert_files/' . $prevBookingInfo[$index]->id . '_' . $prevBookingInfo[$index]->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg';
-        $prevBookingArr['consultation']['iframePrevAdmittingSrc'] = file_exists(public_path('storage/admitting_files/' . $prevBookingInfo[$index]->id . '_' . $prevBookingInfo[$index]->patient->l_name . '.pdf')) ? asset('storage/med_cert_files/' . $prevBookingInfo[$index]->id . '_' . $prevBookingInfo[$index]->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg';
-        $prevBookingArr['patient'] = $prevBookingInfo[$index]->patient;
-        foreach($prevBookingInfo[$index]->consultation_files as $ind=>$consultation_file){
+        // $prevBookingInfo = $doctors_home->patient->consultations()->where('doctor_id', $user->id)->where('id', '<', $doctors_home->id)->orderByDesc('bookingDate')->get();
+        // $prevBookingArr['consultation'] = $prevBookingInfo[$index];
+        // $prevBookingArr['consultation']['iframePrevPrescSrc'] = file_exists(public_path('storage/prescription_files/' . $prevBookingInfo[$index]->id . '_' . $prevBookingInfo[$index]->patient->l_name . '.pdf')) ? asset('storage/prescription_files/' . $prevBookingInfo[$index]->id . '_' . $prevBookingInfo[$index]->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg';
+        // $prevBookingArr['consultation']['iframePrevMedCertSrc'] = file_exists(public_path('storage/med_cert_files/' . $prevBookingInfo[$index]->id . '_' . $prevBookingInfo[$index]->patient->l_name . '.pdf')) ? asset('storage/med_cert_files/' . $prevBookingInfo[$index]->id . '_' . $prevBookingInfo[$index]->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg';
+        // $prevBookingArr['consultation']['iframePrevAdmittingSrc'] = file_exists(public_path('storage/admitting_files/' . $prevBookingInfo[$index]->id . '_' . $prevBookingInfo[$index]->patient->l_name . '.pdf')) ? asset('storage/med_cert_files/' . $prevBookingInfo[$index]->id . '_' . $prevBookingInfo[$index]->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg';
+        // $prevBookingArr['patient'] = $prevBookingInfo[$index]->patient;
+        // foreach($prevBookingInfo[$index]->consultation_files as $ind=>$consultation_file){
+        //     $prevBookingArr['consultation_files'][$ind]['file_link'] = asset($consultation_file->file_link);
+        // }
+
+        $prevBookingArr['consultation'] = $doctors_home;
+        $prevBookingArr['consultation']['iframePrevPrescSrc'] = file_exists(public_path('storage/prescription_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf')) ? asset('storage/prescription_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg';
+        $prevBookingArr['consultation']['iframePrevMedCertSrc'] = file_exists(public_path('storage/med_cert_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf')) ? asset('storage/med_cert_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg';
+        $prevBookingArr['consultation']['iframePrevAdmittingSrc'] = file_exists(public_path('storage/admitting_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf')) ? asset('storage/med_cert_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg';
+        $prevBookingArr['patient'] = $doctors_home->patient;
+        foreach($doctors_home->consultation_files as $ind=>$consultation_file){
             $prevBookingArr['consultation_files'][$ind]['file_link'] = asset($consultation_file->file_link);
         }
         
