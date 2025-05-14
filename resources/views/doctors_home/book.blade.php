@@ -1516,6 +1516,8 @@
             inner = '';
             indicator = '';
             bookingObj.consultation_files.forEach(function(item, index){
+              if(item.file_link.includes('uploads'))
+                item.file_link = 'storage/' + item.file_link;
               if(index == 0){
                 indicator = '<button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="' + index + '" class="active" aria-current="true" aria-label="Slide ' + (index+1) + '"></button>'
                 inner = '<div class="carousel-item active"><img src="' + item.file_link + '" class="d-block w-100" alt=""></div>';
