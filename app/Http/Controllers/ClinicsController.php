@@ -47,28 +47,28 @@ class ClinicsController extends Controller
         //     ]);
         // }
 
-        foreach(Consultation::whereNotNull(['bpOld'])->where('bpOld', 'like', '%/%')->orderBy('id', 'ASC')->skip(80000)->take(10000)->get() as $consult){
-            if($consult->bpOld != ""){
-                $bpOld = str_replace('//', '/', $consult->bpOld);
-                $bpOldExp = explode("/", $bpOld);
-                if(is_numeric($bpOldExp[0])){
-                    $bpOld2Exp = explode(" ",$bpOldExp[1]);
-                    if(!is_numeric($bpOld2Exp[0])){
-                        $bpOld2Exp[0] = str_replace('mmhg', '', $bpOld2Exp[0]);
-                    }
-                    if(!is_numeric($bpOld2Exp[0])){
-                        $bpOld2Exp[0] = str_replace('mmHg', '', $bpOld2Exp[0]);
-                    }
-                    if(is_numeric($bpOld2Exp[0])){
-                        $consult->update([
-                            'bpS' => trim($bpOldExp[0]),
-                            'bpD' => trim($bpOld2Exp[0])
-                        ]);
-                    }
-                } 
-            }
+        // foreach(Consultation::whereNotNull(['bpOld'])->where('bpOld', 'like', '%/%')->orderBy('id', 'ASC')->skip(80000)->take(10000)->get() as $consult){
+        //     if($consult->bpOld != ""){
+        //         $bpOld = str_replace('//', '/', $consult->bpOld);
+        //         $bpOldExp = explode("/", $bpOld);
+        //         if(is_numeric($bpOldExp[0])){
+        //             $bpOld2Exp = explode(" ",$bpOldExp[1]);
+        //             if(!is_numeric($bpOld2Exp[0])){
+        //                 $bpOld2Exp[0] = str_replace('mmhg', '', $bpOld2Exp[0]);
+        //             }
+        //             if(!is_numeric($bpOld2Exp[0])){
+        //                 $bpOld2Exp[0] = str_replace('mmHg', '', $bpOld2Exp[0]);
+        //             }
+        //             if(is_numeric($bpOld2Exp[0])){
+        //                 $consult->update([
+        //                     'bpS' => trim($bpOldExp[0]),
+        //                     'bpD' => trim($bpOld2Exp[0])
+        //                 ]);
+        //             }
+        //         } 
+        //     }
             
-        }
+        // }
         
         ///////////////////
         return view($this->viewFolder . '.index', ['moduleList' => $this->moduleList(), 'moduleActive' => $this->module, 'data' => $data, 'datum' => $datum, 'selectItems' => $this->selectItems(), 'inputFormHeader' => 'Input New ' . $this->model, 'formAction' => 'store', 'viewFolder' => $this->viewFolder, 'modalSize' => $this->modalSize]);

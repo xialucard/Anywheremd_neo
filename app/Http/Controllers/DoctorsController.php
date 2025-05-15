@@ -31,15 +31,15 @@ class DoctorsController extends Controller
         $data = $this->getData($request->input());
         $datum = (object)['id' => null, 'created_at' => null, 'updated_at' => null];
         // migration code //
-        User::where('id', '<>', 1)->update(['password' => Hash::make($this->defaultPassword)]);
-        foreach (User::all() as $usr) {
-            if($usr->user_type == 'Clinic')
-                $usr->assignRole('Clinic Admin');
-            elseif($usr->user_type == 'Internal')
-                $usr->assignRole('Admin');
-            else
-                $usr->assignRole($usr->user_type);
-        }
+        // User::where('id', '<>', 1)->update(['password' => Hash::make($this->defaultPassword)]);
+        // foreach (User::all() as $usr) {
+        //     if($usr->user_type == 'Clinic')
+        //         $usr->assignRole('Clinic Admin');
+        //     elseif($usr->user_type == 'Internal')
+        //         $usr->assignRole('Admin');
+        //     else
+        //         $usr->assignRole($usr->user_type);
+        // }
         ///////////////
         return view($this->viewFolder . '.index', ['moduleList' => $this->moduleList(), 'moduleActive' => $this->module, 'data' => $data, 'datum' => $datum, 'selectItems' => $this->selectItems(), 'inputFormHeader' => 'Input New ' . $this->model, 'formAction' => 'store', 'viewFolder' => $this->viewFolder, 'modalSize' => $this->modalSize]);
     }
