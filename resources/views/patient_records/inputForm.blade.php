@@ -794,9 +794,7 @@
     @if(stristr($inputFormHeader, 'View'))
     
     $(function(){
-      $(".carouselBut button").each(function {
-          $(this).attr("disabled", false)
-      });
+      $(".carouselBut button").attr("disabled", false);
         
     });
     @endif
