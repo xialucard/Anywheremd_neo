@@ -791,12 +791,6 @@
         return b.files
     }
 
-    // @if(stristr($inputFormHeader, 'View'))
     
-    // $(function(){
-    //   $(".carouselBut button").attr("disabled", false);
-        
-    // });
-    // @endif
   });
 </script>
