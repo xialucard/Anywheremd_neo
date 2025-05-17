@@ -298,7 +298,7 @@
             <div class="card mb-3">
               <div class="card-header">Doctor's Notes</div>
               <div class="card-body">
-                @if(sizeof($bookings) == 1)
+                {{-- @if(sizeof($bookings) == 1) --}}
                 <div class="card mb-3">
                   <div class="card-header">History of Present Illness</div>
                   <div class="card-body">
@@ -322,7 +322,7 @@
                     <textarea class="form-control mb-2" name="{{ $viewFolder }}[docNotesHPIEdit]" id="{{ $viewFolder }}_docNotesHPIEdit" rows=3 disabled></textarea>
                   </div>
                 </div>
-                @else
+                {{-- @else --}}
                 <div class="card mb-3">
                   <div class="card-header">Subject's Complaints</div>
                   <div class="card-body">
