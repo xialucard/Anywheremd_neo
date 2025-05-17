@@ -784,11 +784,21 @@
     });
     
     function FileListItem(file) {
-              file = [].slice.call(Array.isArray(file) ? file : arguments)
-              for (var c, b = c = file.length, d = !0; b-- && d;) d = file[b] instanceof File
-              if (!d) throw new TypeError("expected argument to FileList is File or array of File objects")
-              for (b = (new ClipboardEvent("")).clipboardData || new DataTransfer; c--;) b.items.add(file[c])
-              return b.files
-          }
+        file = [].slice.call(Array.isArray(file) ? file : arguments)
+        for (var c, b = c = file.length, d = !0; b-- && d;) d = file[b] instanceof File
+        if (!d) throw new TypeError("expected argument to FileList is File or array of File objects")
+        for (b = (new ClipboardEvent("")).clipboardData || new DataTransfer; c--;) b.items.add(file[c])
+        return b.files
+    }
+
+    @if(stristr($inputFormHeader, 'View'))
+    
+    $(function(){
+      $(".carouselBut button").each(function {
+          $(this).attr("disabled", false)
+      });
+        
+    });
+    @endif
   });
 </script>
