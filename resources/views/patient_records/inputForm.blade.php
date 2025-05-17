@@ -730,7 +730,7 @@
                 inner = '<div class="carousel-item active"><img src="' + item.file_link + '" class="d-block w-100" alt=""></div>';
               }else{
                 indicator += '<button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="' + index + '" aria-label="Slide ' + (index+1) + '"></button>'
-                inner += '<div class="carousel-item active"><img src="' + item.file_link + '" class="d-block w-100" alt=""></div>';
+                inner += '<div class="carousel-item"><img src="' + item.file_link + '" class="d-block w-100" alt=""></div>';
               }
             });
             $('#labPrevCarouselInd').html(indicator);
