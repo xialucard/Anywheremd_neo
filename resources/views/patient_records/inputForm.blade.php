@@ -346,7 +346,7 @@
                     <textarea class="form-control mb-2" name="{{ $viewFolder }}[ddocNotesSubjectEdit]" id="{{ $viewFolder }}_docNotesSubjectEdit" rows=3 disabled></textarea>
                   </div>
                 </div>
-                @endif
+                {{-- @endif --}}
                 <div class="card mb-3">
                   <div class="card-header">Objective Findings</div>
                   <div class="card-body">
