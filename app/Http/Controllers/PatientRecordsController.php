@@ -34,6 +34,9 @@ class PatientRecordsController extends Controller
         if(!empty($request->input()))
             $data = $this->getData($request->input());
         $datum = (object)['id' => null, 'created_at' => null, 'updated_at' => null];
+
+        $patients = $user->patients->sortBy('name');
+
         return view($this->viewFolder . '.index', [
             'moduleList' => $this->moduleList(), 
             'moduleActive' => $this->module, 
@@ -44,7 +47,8 @@ class PatientRecordsController extends Controller
             'formAction' => 'store', 
             'viewFolder' => $this->viewFolder, 
             'modalSize' => $this->modalSize,
-            'user' => $user
+            'user' => $user,
+            'patients' => $patients
         ]);
     }
 

@@ -5,6 +5,13 @@
     $datum = $datum->parent_consultation;
   }
 @endphp
+
+<datalist id="patientNameList">
+@foreach($patients as $pat)
+  <option patient_id="{{ $pat->id }}" value="{{ $pat->name }}">{{ $pat->name }}</option>
+@endforeach
+</datalist>
+
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
