@@ -791,12 +791,12 @@
         return b.files
     }
 
-    @if(stristr($inputFormHeader, 'View'))
+    // @if(stristr($inputFormHeader, 'View'))
     
-    $(function(){
-      $(".carouselBut button").attr("disabled", false);
+    // $(function(){
+    //   $(".carouselBut button").attr("disabled", false);
         
-    });
-    @endif
+    // });
+    // @endif
   });
 </script>

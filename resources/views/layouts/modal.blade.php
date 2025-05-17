@@ -113,9 +113,7 @@
         $(".modal-footer button").attr("disabled", true);
         $(".form-floating a").addClass("disabled");
         $(".modalForm-close").attr("disabled", false);
-        // $(".carouselBut button").each(function {
-        //     $(this).attr("disabled", false)
-        // });
+        $(".carouselBut button").attr("disabled", false);
         
     });
     @endif
