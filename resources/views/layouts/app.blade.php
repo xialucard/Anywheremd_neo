@@ -72,17 +72,17 @@
 </head>
 <body>
     @php
-        $bgColor = 'navbar-dark bg-dark';
+        $bgColorMain = 'navbar-dark bg-dark';
         if(!empty(Auth::user()->user_type)){
             if(Auth::user()->user_type == 'Doctor')
-                $bgColor = 'navbar-light bg-warning';
+                $bgColorMain = 'navbar-light bg-warning';
             if(Auth::user()->user_type == 'Clinic')
-                $bgColor = 'navbar-dark bg-primary';
+                $bgColorMain = 'navbar-dark bg-primary';
         }
             
     @endphp
     <div id="app">
-        <nav class="navbar fixed-top z-index-1 navbar-expand-lg {{ $bgColor }}">
+        <nav class="navbar fixed-top z-index-1 navbar-expand-lg {{ $bgColorMain }}">
             @if (session()->has('message'))
             <div id="divFlashMessage" class="alert alert-primary mt-5 w-auto z-index-1 position-absolute top-0 start-50 translate-middle">
                 <i class="bi bi-info-circle-fill"></i>&nbsp;{{ session()->get('message') }}

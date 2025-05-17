@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Kyslik\ColumnSortable\Sortable;
 
 class Patient extends Model
 {
-    use HasFactory;
+    use HasFactory, Sortable;
 
     protected $fillable = [
         'client_id',
@@ -45,6 +46,8 @@ class Patient extends Model
         'created_by',
         'updated_by'
     ];
+
+    public $sortable = ['id', 'name'];
 
     public function creator()
     {

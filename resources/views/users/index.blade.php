@@ -1,5 +1,14 @@
 @extends('layouts.app')
 @section('content')
+@php
+    $bgColor = 'dark';
+    if(!empty(Auth::user()->user_type)){
+        if(Auth::user()->user_type == 'Doctor')
+            $bgColor = 'warning';
+        if(Auth::user()->user_type == 'Clinic')
+            $bgColor = 'primary';
+    }
+@endphp
 <datalist id="roleList">
     @foreach ($selectItems['roles'] as $ind => $item)
     <option value="{{ $item->name }}">{{ $item->name }}</option>

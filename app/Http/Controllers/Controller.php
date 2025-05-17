@@ -152,6 +152,7 @@ class Controller extends BaseController
     public function moduleList()
     {
         $moduleArr['Dashboard'] = array('link' => '/');
+        $moduleArr["Patient's Records"] = array('link' => '/patient_records');
         $moduleArr['Setup'] = array(
                 'sub' => array(
                         'Clinics' => array('link' => 'clinics.index'),

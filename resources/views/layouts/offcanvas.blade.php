@@ -8,7 +8,7 @@
             @include($viewFolder . '.search')
             
             <div class="btn-group" role="group">
-                <button type="submit" class="btn btn-dark">Search</button>
+                <button type="submit" class="btn btn-{{ $bgColor }}">Search</button>
                 <button type="reset" class="btn btn-secondary">Reset</button>
             </div>
         </form>

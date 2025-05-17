@@ -1,5 +1,14 @@
 @extends('layouts.app')
 @section('content')
+@php
+    $bgColor = 'dark';
+    if(!empty(Auth::user()->user_type)){
+        if(Auth::user()->user_type == 'Doctor')
+            $bgColor = 'warning';
+        if(Auth::user()->user_type == 'Clinic')
+            $bgColor = 'primary';
+    }
+@endphp
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">

@@ -10,6 +10,7 @@ use App\Http\Controllers\ClinicsController;
 use App\Http\Controllers\DoctorsController;
 use App\Http\Controllers\ClinicsHomeController;
 use App\Http\Controllers\DoctorsHomeController;
+use App\Http\Controllers\PatientRecordsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,6 +58,7 @@ Route::group(['middleware' => ['auth', 'permission']], function() {
     Route::resource('users', UsersController::class);
     Route::resource('clinics', ClinicsController::class);
     Route::resource('doctors', DoctorsController::class);
+    Route::resource('patient_records', PatientRecordsController::class)->only('index', 'show');
 });
 
 
