@@ -120,14 +120,19 @@ class Consultation extends Model
         return $this->hasMany(AnesthesiaFile::class, 'consultation_id');
     }
 
-    public function nurse_files()
-    {
-        return $this->hasMany(NurseFile::class, 'consultation_id');
-    }
-
     public function prescription_files()
     {
         return $this->hasMany(PrescriptionFile::class, 'consultation_id');
+    }
+
+    public function doctor_files()
+    {
+        return $this->hasMany(DoctorFile::class, 'consultation_id');
+    }
+
+    public function nurse_files()
+    {
+        return $this->hasMany(NurseFile::class, 'consultation_id');
     }
 
     public function consultation_referals()
