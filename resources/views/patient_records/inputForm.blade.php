@@ -500,7 +500,7 @@
                   @php
                     $key = true;
                   @endphp
-                <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=carouselBut active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
+                <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=carouselBut active aria-current=true' : 'class=carouselBut' }} aria-label="Slide {{ $ind+1 }}"></button>
                   @endforeach
                 @endif
                 @if(!empty($bookings[0]->anesthesia_files[0]->file_link))
@@ -509,7 +509,7 @@
                     $ind++;
                     $key = true;
                   @endphp
-                <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=carouselBut active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
+                <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=carouselBut active aria-current=true' : 'class=carouselBut' }} aria-label="Slide {{ $ind+1 }}"></button>
                   @endforeach
                 @endif
                 @if(!empty($bookings[0]->doctor_files[0]->file_link))
@@ -518,7 +518,7 @@
                     $ind++;
                     $key = true;
                   @endphp
-                <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=carouselBut active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
+                <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=carouselBut active aria-current=true' : 'class=carouselBut' }} aria-label="Slide {{ $ind+1 }}"></button>
                   @endforeach
                 @endif
                 @if(!empty($bookings[0]->prescription_files[0]->file_link))
@@ -527,7 +527,7 @@
                     $ind++;
                     $key = true;
                   @endphp
-                <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=carouselBut active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
+                <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=carouselBut active aria-current=true' : 'class=carouselBut' }} aria-label="Slide {{ $ind+1 }}"></button>
                   @endforeach
                 @endif
                 @if(!$key)
