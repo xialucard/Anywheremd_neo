@@ -791,6 +791,14 @@
         return b.files
     }
 
-   
+    @if(stristr($inputFormHeader, 'View'))
+    
+    $(function(){
+      $(".carouselBut button").each(function {
+          $(this).attr("disabled", false)
+      });
+        
+    });
+    @endif
   });
 </script>
