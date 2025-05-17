@@ -113,8 +113,7 @@
         $(".modal-footer button").attr("disabled", true);
         $(".form-floating a").addClass("disabled");
         $(".modalForm-close").attr("disabled", false);
-        $("#labPrevCarouselInd button").attr("disabled", false);
-        $("#labPrevCarouselInner button").attr("disabled", false);
+        $("#carouselPrev button").attr("disabled", false);
     });
     @endif
 
