@@ -500,7 +500,7 @@
                   @php
                     $key = true;
                   @endphp
-                <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=carouselBut active aria-current=true' : 'class=carouselBut' }} aria-label="Slide {{ $ind+1 }}"></button>
+                <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
                   @endforeach
                 @endif
                 @if(!empty($bookings[0]->anesthesia_files[0]->file_link))
@@ -509,7 +509,7 @@
                     $ind++;
                     $key = true;
                   @endphp
-                <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=carouselBut active aria-current=true' : 'class=carouselBut' }} aria-label="Slide {{ $ind+1 }}"></button>
+                <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
                   @endforeach
                 @endif
                 @if(!empty($bookings[0]->doctor_files[0]->file_link))
@@ -518,7 +518,7 @@
                     $ind++;
                     $key = true;
                   @endphp
-                <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=carouselBut active aria-current=true' : 'class=carouselBut' }} aria-label="Slide {{ $ind+1 }}"></button>
+                <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
                   @endforeach
                 @endif
                 @if(!empty($bookings[0]->prescription_files[0]->file_link))
@@ -527,7 +527,7 @@
                     $ind++;
                     $key = true;
                   @endphp
-                <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=carouselBut active aria-current=true' : 'class=carouselBut' }} aria-label="Slide {{ $ind+1 }}"></button>
+                <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
                   @endforeach
                 @endif
                 @if(!$key)
@@ -726,10 +726,10 @@
               if(item.file_link.includes('uploads'))
                 item.file_link = item.file_link.replace('uploads', 'storage/uploads');
               if(index == 0){
-                indicator = '<button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="' + index + '" class="carouselBut active" aria-current="true" aria-label="Slide ' + (index+1) + '"></button>'
+                indicator = '<button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="' + index + '" class="active" aria-current="true" aria-label="Slide ' + (index+1) + '"></button>'
                 inner = '<div class="carousel-item active"><img src="' + item.file_link + '" class="d-block w-100" alt=""></div>';
               }else{
-                indicator += '<button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="' + index + '" class="carouselBut" aria-label="Slide ' + (index+1) + '"></button>'
+                indicator += '<button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="' + index + '" aria-label="Slide ' + (index+1) + '"></button>'
                 inner += '<div class="carousel-item"><img src="' + item.file_link + '" class="d-block w-100" alt=""></div>';
               }
             });
