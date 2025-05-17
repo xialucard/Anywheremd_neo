@@ -66,6 +66,7 @@ class PatientRecordsController extends Controller
             $data = $this->getData($request->input());
         $datum = $patient_record;
         
+        $patients = $user->patients->sortBy('name');
        
         return view($this->viewFolder . '.index', [
             'moduleList' => $this->moduleList(), 
@@ -77,7 +78,8 @@ class PatientRecordsController extends Controller
             'formAction' => 'update', 
             'viewFolder' => $this->viewFolder, 
             'modalSize' => $this->modalSize,
-            'user' => $user
+            'user' => $user,
+            'patients' => $patients
         ]);
     }
 
