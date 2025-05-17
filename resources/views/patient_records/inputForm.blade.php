@@ -278,13 +278,13 @@
           </ul>
           <div id="soapPrevDiv" class="container border border-1 border-top-0 mb-3 p-3">
             <div class="card mb-3">
-              <div class="card-header">Previous Procedure</div>
+              <div class="card-header">Procedure</div>
               <div class="card-body" style="height: 1in; max-height: 1in">
                 <p>{{ $bookings[0]->procedure_details }}</p>
               </div>
             </div>
             <div class="card mb-3">
-              <div class="card-header">Previous Patient's Complaint</div>
+              <div class="card-header">Patient's Complaint</div>
               <div class="card-body" style="height: 1in; max-height: 1in">
                 <p>{{ $bookings[0]->complain }}</p>
                 <small class="text-muted">{{ $bookings[0]->duration }}</small>
@@ -296,7 +296,7 @@
               </li>
             </ul>
             <div class="card mb-3">
-              <div class="card-header">Previous Doctor's Notes</div>
+              <div class="card-header">Doctor's Notes</div>
               <div class="card-body">
                 @if(sizeof($bookings) == 1)
                 <div class="card mb-3">
@@ -324,7 +324,7 @@
                 </div>
                 @else
                 <div class="card mb-3">
-                  <div class="card-header">Previous Subject's Complaints</div>
+                  <div class="card-header">Subject's Complaints</div>
                   <div class="card-body">
                     <small class="text-muted">Helper</small>
                     <div class="input-group input-group-small flex-nowrap">
@@ -348,7 +348,7 @@
                 </div>
                 @endif
                 <div class="card mb-3">
-                  <div class="card-header">Previous Objective Findings</div>
+                  <div class="card-header">Objective Findings</div>
                   <div class="card-body">
                     <small class="text-muted">Helper</small>
                     <div class="input-group input-group-small flex-nowrap">
@@ -373,17 +373,17 @@
               </div>
             </div>
             <div class="card mb-3">
-              <div class="card-header">Previous Assessment</div>
+              <div class="card-header">Assessment</div>
               <div class="card-body">
                 <div class="form-floating mb-3">
                   <select class="form-select" name="{{ $viewFolder }}[icd_code]" id="{{ $viewFolder }}_icd_code" placeholder="" disabled>
                     <option value=""></option>
                   </select>
-                  <label for="{{ $viewFolder }}_icd_code">Previous Primary Diagnosis</label>
+                  <label for="{{ $viewFolder }}_icd_code">Primary Diagnosis</label>
                   <small id="help_{{ $viewFolder }}_icd_code" class="text-muted"></small>
                 </div>
                 <div class="card mb-3">
-                  <div class="card-header">Previous Secondary Diagnosis</div>
+                  <div class="card-header">Secondary Diagnosis</div>
                   <div class="card-body">
                     <small class="text-muted">Helper</small>
                     <div class="input-group input-group-small flex-nowrap">
@@ -408,10 +408,10 @@
               </div>
             </div>
             <div class="card mb-3">
-              <div class="card-header">Previous Plan</div>
+              <div class="card-header">Plan</div>
               <div class="card-body">
                 <div class="card mb-3">
-                  <div class="card-header">Previous Medical Therapeutics</div>
+                  <div class="card-header">Medical Therapeutics</div>
                   <div class="card-body">
                     <small class="text-muted">Helper</small>
                     <div class="input-group input-group-small flex-nowrap">
@@ -434,7 +434,7 @@
                   </div>
                 </div>
                 <div class="card mb-3">
-                  <div class="card-header">Previous Diagnostics and Surgery</div>
+                  <div class="card-header">Diagnostics and Surgery</div>
                   <div class="card-body">
                     <small class="text-muted">Helper</small>
                     <div class="input-group input-group-small flex-nowrap">
@@ -457,7 +457,7 @@
                   </div>
                 </div>
                 <div class="card mb-3">
-                  <div class="card-header">Previous Remarks</div>
+                  <div class="card-header">Remarks</div>
                   <div class="card-body">
                     <small class="text-muted">Helper</small>
                     <div class="input-group input-group-small flex-nowrap">
@@ -518,7 +518,7 @@
           </div>
           <div id="presPrevDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
             <div class="card mb-3">
-              <div class="card-header">Previous Prescription Preview</div>
+              <div class="card-header">Prescription Preview</div>
               <div class="card-body">
                 <iframe id="iframePrevPresc" src="{{ file_exists(public_path('storage/prescription_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf')) ? asset('storage/prescription_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
                 <small class="form-text text-muted">To print or download go to Tools</small>
@@ -527,7 +527,7 @@
           </div>
           <div id="medPrevDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
             <div class="card mb-3">
-              <div class="card-header">Previous Med Cert Preview</div>
+              <div class="card-header">Med Cert Preview</div>
               <div class="card-body">
                 <iframe id="iframePrevMedCert" src="{{ file_exists(public_path('storage/med_cert_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf')) ? asset('storage/med_cert_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
                 <small class="form-text text-muted">To print or download go to Tools</small>
@@ -536,7 +536,7 @@
           </div>
           <div id="admitPrevDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
             <div class="card mb-3">
-              <div class="card-header">Previous Admitting Orders Preview</div>
+              <div class="card-header">Admitting Orders Preview</div>
               <div class="card-body">
                 <iframe id="iframePrevAdmitting" src="{{ file_exists(public_path('storage/admitting_order_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf')) ? asset('storage/admitting_order_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
                 <small class="form-text text-muted">To print or download go to Tools</small>
