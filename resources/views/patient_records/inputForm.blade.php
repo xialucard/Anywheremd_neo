@@ -559,7 +559,7 @@
                 </div>
                   @endforeach
                 @endif
-                @if(!empty($bookings[0]->anesthesia_files[0]->file_link))
+                @if(!empty($bookings[0]->doctor_files[0]->file_link))
                   @foreach($bookings[0]->doctor_files as $file)
                   @php
                     $ind++;
@@ -570,7 +570,7 @@
                 </div>
                   @endforeach
                 @endif
-                @if(!empty($bookings[0]->anesthesia_files[0]->file_link))
+                @if(!empty($bookings[0]->prescription_files[0]->file_link))
                   @foreach($bookings[0]->prescription_files as $file)
                   @php
                     $ind++;

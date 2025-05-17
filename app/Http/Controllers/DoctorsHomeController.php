@@ -370,6 +370,18 @@ class DoctorsHomeController extends Controller
         foreach($doctors_home->consultation_files as $ind=>$consultation_file){
             $prevBookingArr['consultation_files'][$ind]['file_link'] = asset($consultation_file->file_link);
         }
+        foreach($doctors_home->anesthesia_files as $consultation_file){
+            $ind++;
+            $prevBookingArr['consultation_files'][$ind]['file_link'] = asset($consultation_file->file_link);
+        }
+        foreach($doctors_home->doctor_files as $consultation_file){
+            $ind++;
+            $prevBookingArr['consultation_files'][$ind]['file_link'] = asset($consultation_file->file_link);
+        }
+        foreach($doctors_home->prescription_files as $consultation_file){
+            $ind++;
+            $prevBookingArr['consultation_files'][$ind]['file_link'] = asset($consultation_file->file_link);
+        }
         
         
         return json_encode($prevBookingArr);
