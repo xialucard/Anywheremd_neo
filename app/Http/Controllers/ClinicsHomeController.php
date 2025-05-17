@@ -85,6 +85,7 @@ class ClinicsHomeController extends Controller
                 'moduleList' => $this->moduleList(), 
                 'moduleActive' => $this->module, 
                 'viewFolder' => $this->viewFolder, 
+                'selectItems' => $this->selectItems(),
                 'yr'=>$yr, 
                 'mon'=>$mon, 
                 'dayNum'=>$dayNum,
@@ -96,7 +97,6 @@ class ClinicsHomeController extends Controller
                 'booking_type_arr'=>$booking_type_arr,
                 'schedules'=>$schedules,
                 'schedulesMon'=>$schedulesMon,
-                'patients'=>$patients
             ]);
         }
     }
@@ -153,8 +153,6 @@ class ClinicsHomeController extends Controller
         $dayNum = null;
         $datum =  (object)['id' => null, 'created_at' => null, 'updated_at' => null];
         $doctor =  User::find($request->input($this->viewFolder)['doctor_id']);
-        $patients = $user->patients->sortBy('name');
-        $hmos = HealthOrganization::all()->sortBy('name');
         return view($this->viewFolder . '.index', [
                 'moduleList' => $this->moduleList(), 
                 'moduleActive' => $this->module, 
@@ -173,8 +171,6 @@ class ClinicsHomeController extends Controller
                 'modalSize' => 'modal-xl', 
                 'modal' => true,
                 'dateBooking' => $request->input($this->viewFolder)['dateSched'],
-                'patients'=>$patients,
-                'hmos'=>$hmos
             ]);
     }
 
@@ -257,18 +253,16 @@ class ClinicsHomeController extends Controller
 
     public function edit(Consultation $clinics_home, Request $request)
     {
-        $data = $this->getData($request->input());
+        // $data = $this->getData($request->input());
         $user = Auth::user();
         $datum = $clinics_home;
         $yr = null;
         $mon = null;
         $dayNum = null;
-        $patients = $user->patients->sortBy('name');
-        $hmos = HealthOrganization::all()->sortBy('name');
         return view($this->viewFolder . '.index', [
                 'moduleList' => $this->moduleList(), 
                 'moduleActive' => $this->module, 
-                'data' => $data, 
+                // 'data' => $data, 
                 'datum' => $datum, 
                 'inputFormHeader' => 'Edit Booking', 
                 'formId' => 'bookMod',
@@ -284,8 +278,6 @@ class ClinicsHomeController extends Controller
                 'modalSize' => 'modal-xl', 
                 'modal' => true,
                 'dateBooking' => $datum->bookingDate,
-                'patients'=>$patients, 
-                'hmos'=>$hmos, 
                 'viewFolder' => $this->viewFolder, 
                 'modalSize' => 'modal-xl'
             ]);
@@ -499,7 +491,10 @@ class ClinicsHomeController extends Controller
 
     private function selectItems()
     {
+        $user = Auth::user();
         $selectItems['doctors'] = User::where('user_type', 'Doctor')->where('active', 1)->orderBy('name', 'asc')->get();
+        $selectItems['patients'] = $user->patients->sortBy('name');
+        $selectItems['hmos'] = HealthOrganization::all()->sortBy('name');
         return $selectItems;
     }
     

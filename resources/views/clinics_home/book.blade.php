@@ -5,7 +5,7 @@
   }
 @endphp
 <datalist id="patientNameList">
-@foreach($patients as $pat)
+@foreach($selectItems['patients'] as $pat)
   <option patient_id="{{ $pat->id }}" value="{{ $pat->name }}">{{ $pat->name }}</option>
 @endforeach
 </datalist>
@@ -246,6 +246,7 @@
                   $('#{{ $viewFolder }}_procedure_details').prop('disabled', true);
                   $('#{{ $viewFolder }}_procedure_details').prop('required', false);
                 }
+              @if(isset($datum->id))
                 if($(this).val() == 'Dialysis'){
                   $('#{{ $viewFolder }}_post_weight').prop('disabled', false);
                   $('#{{ $viewFolder }}_post_weight').prop('required', true);
@@ -253,6 +254,7 @@
                   $('#{{ $viewFolder }}_post_weight').prop('disabled', true);
                   $('#{{ $viewFolder }}_post_weight').prop('required', false);
                 }
+              @endif
               ">
               <option value="" {{ isset($datum->booking_type) && $datum->booking_type == '' ? 'selected' : '' }}>Consultation</option>
               <optgroup label="Procedure">
@@ -457,7 +459,7 @@
                 </div>
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="number" name="{{ $viewFolder }}[post_weight]" min=1 id="{{ $viewFolder }}_post_weight" value="{{ isset($datum->post_weight) ? $datum->post_weight : '' }}" placeholder="" disabled>
+                    <input class="form-control" type="number" name="{{ $viewFolder }}[post_weight]" min=1 id="{{ $viewFolder }}_post_weight" value="{{ isset($datum->post_weight) ? $datum->post_weight : '' }}" placeholder="" {{ isset($datum->booking_type) && $datum->booking_type != 'Dialysis' ? 'disabled' : ''}}>
                     <label for="{{ $viewFolder }}_post_weight" class="form-label">(Post HD)/Weight</label>
                     <small id="help_{{ $viewFolder }}_post_weight" class="text-muted"></small>
                   </div>
@@ -465,7 +467,7 @@
                 </div>
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="number" name="{{ $viewFolder }}[bmi]" min=1 id="{{ $viewFolder }}_bmi" value="{{ isset($datum->height) ? $datum->height/(($datum->weight/100)*($datum->weight/100)) : '' }}" placeholder="" disabled>
+                    <input class="form-control" type="number" name="{{ $viewFolder }}[bmi]" min=1 id="{{ $viewFolder }}_bmi" value="{{ isset($datum->weight) ? $datum->weight/(($datum->height/100)*($datum->height/100)) : '' }}" placeholder="" disabled>
                     <label for="{{ $viewFolder }}_bmi" class="form-label">BMI</label>
                     <small id="help_{{ $viewFolder }}_bmi" class="text-muted"></small>
                   </div>
@@ -1121,7 +1123,7 @@
                 <div class="form-floating mb-3">
                   <select class="form-select" name="{{ $viewFolder }}[Patient][hmo]" id="{{ $viewFolder }}_hmo" placeholder="" {{ isset($datum->payment_mode) && ($datum->payment_mode == 'Both' || $datum->payment_mode == 'Both Cash' || $datum->payment_mode == 'HMO') ? '' : 'disabled' }}>
                     <option value=""></option>
-                  @foreach($hmos as $hmo)
+                  @foreach($selectItems['hmos'] as $hmo)
                     <option value="{{ $hmo->id }}" {{ !empty($datum->patient->hmo) && $hmo->id == $datum->patient->hmo ? 'selected' : '' }}>{{ $hmo->name }}</option>
                   @endforeach
                   </select>
