@@ -34,7 +34,7 @@ class PatientRecordsController extends Controller
         if(!empty($request->input()))
             $data = $this->getData($request->input());
         $datum = (object)['id' => null, 'created_at' => null, 'updated_at' => null];
-
+        
         $patients = $user->patients->sortBy('name');
 
         return view($this->viewFolder . '.index', [
@@ -116,8 +116,20 @@ class PatientRecordsController extends Controller
 
     private function selectItems()
     {
+        $user = Auth::user();
         $selectItems = null;
         $selectItems['specialty'] = $this->docSpecs;
+        if($user->user_type == 'Clinic')
+            $selectItems['patients'] = $user->patients->sortBy('name');
+        elseif($user->user_type == 'Doctor'){
+            foreach($user->bookings()->distinct('patient_id')->get() as $booking){
+                if(isset($booking->patient->name)){
+                    $selectItems['patients'][$booking->patient->name] = $booking->patient;
+                    
+                }
+            }
+
+        }
         return $selectItems;
     }
 }
