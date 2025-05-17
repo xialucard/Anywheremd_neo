@@ -287,14 +287,14 @@
             <div class="card mb-3">
               <div class="card-header">Procedure</div>
               <div class="card-body" style="height: 1in; max-height: 1in">
-                <p>{{ $bookings[0]->procedure_details }}</p>
+                <p id="prevProcDet">{{ $bookings[0]->procedure_details }}</p>
               </div>
             </div>
             <div class="card mb-3">
               <div class="card-header">Patient's Complaint</div>
               <div class="card-body" style="height: 1in; max-height: 1in">
-                <p>{{ $bookings[0]->complain }}</p>
-                <small class="text-muted">{{ $bookings[0]->duration }}</small>
+                <p id="prevPatComp">{{ $bookings[0]->complain }}</p>
+                <small class="text-muted" id="prevPatCompDur">{{ $bookings[0]->duration }}</small>
               </div>
             </div>
             <ul class="nav nav-pills mb-3">
@@ -571,6 +571,9 @@
           $('#prevBookingDater').text(bookingObj.consultation.bookingDate);
           vitalStr = '<strong>Temp:</strong> ' + bookingObj.consultation.temp + 'C | <strong>Height:</strong> ' + bookingObj.consultation.height + 'cm | <strong>Weight:</strong> ' + bookingObj.consultation.weight + 'kg | <strong>BMI:</strong> ' + Math.round(bookingObj.consultation.weight/((bookingObj.consultation.height/100)*(bookingObj.consultation.height/100))) + '<br><strong>BP:</strong> ' + bookingObj.consultation.bpS + '/' + bookingObj.consultation.bpD + ' | <strong>O2 Sat:</strong> ' + bookingObj.consultation.o2 + '% | <strong>Heart Rate:</strong> ' + bookingObj.consultation.heart + 'beats/min';
           $('#prevVitaler').html(vitalStr);
+          $('#prevProcDet').html(bookingObj.consultation.procedure_details);
+          $('#prevPatComp').html(bookingObj.consultation.complains);
+          $('#prevPatCompDur').html(bookingObj.consultation.duration);
           eyeStr = '';
           if(bookingObj.consultation.arod_sphere == 'No Target')
             eyeStr += '<strong>AR OD:</strong> <span class="text-primary">' + bookingObj.consultation.arod_sphere + '</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;';

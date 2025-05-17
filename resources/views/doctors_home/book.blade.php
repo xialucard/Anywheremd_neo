@@ -289,7 +289,7 @@
             <div class="card mb-3">
               <div class="card-header">Previous Doctor's Notes</div>
               <div class="card-body">
-                @if(sizeof($bookings) == 1)
+                {{-- @if(sizeof($bookings) == 1) --}}
                 <div class="card mb-3">
                   <div class="card-header">History of Present Illness</div>
                   <div class="card-body">
@@ -313,7 +313,7 @@
                     <textarea class="form-control mb-2" name="{{ $viewFolder }}[docNotesHPIEdit]" id="{{ $viewFolder }}_docNotesHPIEdit" rows=3 disabled></textarea>
                   </div>
                 </div>
-                @else
+                {{-- @else --}}
                 <div class="card mb-3">
                   <div class="card-header">Previous Subject's Complaints</div>
                   <div class="card-body">
@@ -337,7 +337,7 @@
                     <textarea class="form-control mb-2" name="{{ $viewFolder }}[ddocNotesSubjectEdit]" id="{{ $viewFolder }}_docNotesSubjectEdit" rows=3 disabled></textarea>
                   </div>
                 </div>
-                @endif
+                {{-- @endif --}}
                 <div class="card mb-3">
                   <div class="card-header">Previous Objective Findings</div>
                   <div class="card-body">
@@ -751,19 +751,19 @@
               <div class="card mb-3">
                 <div class="card-header">Doctor's Notes</div>
                 <div class="card-body">
-                  @if(!isset($bookings[0]))
+                  {{-- @if(!isset($bookings[0])) --}}
                   <div class="card mb-3">
                     <div class="card-header">History of Present Illness</div>
                     <div class="card-body">
                       <small class="text-muted">Helper</small>
                       <div class="input-group input-group-small flex-nowrap">
-                        <select class="form-select" placeholder="" {{ $user->id == $datum->doctor->id ? '' : 'disabled' }}>
+                        <select class="form-select" placeholder="" {{ $user->id == $datum->doctor->id && !isset($bookings[0]) ? '' : 'disabled' }}>
                           <option value=""></option>
                         </select>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ $user->id == $datum->doctor->id ? '' : 'disabled' }}>Delete Helper</button>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ $user->id == $datum->doctor->id && !isset($bookings[0]) ? '' : 'disabled' }}>Delete Helper</button>
                       </div>
                       <small class="text-muted">Content</small>
-                      <textarea class="form-control" name="{{ $viewFolder }}[docNotesHPI]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_docNotesHPI" @endif rows=3 {{ $user->id == $datum->doctor->id ? 'required' : 'disabled' }}>{{ isset($datum->docNotesHPI) ? $datum->docNotesHPI : '' }}</textarea>
+                      <textarea class="form-control" name="{{ $viewFolder }}[docNotesHPI]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_docNotesHPI" @endif rows=3 {{ $user->id == $datum->doctor->id && !isset($bookings[0]) ? 'required' : 'disabled' }}>{{ isset($datum->docNotesHPI) ? $datum->docNotesHPI : '' }}</textarea>
                       <small class="text-muted">Helper Save/Edit</small>
                       <div class="input-group input-group-small mb-3 flex-nowrap">
                         <div class="input-group-text">
@@ -775,19 +775,19 @@
                       <textarea class="form-control mb-2" name="{{ $viewFolder }}[docNotesHPIEdit]" id="{{ $viewFolder }}_docNotesHPIEdit" rows=3 disabled></textarea>
                     </div>
                   </div>
-                  @else
+                  {{-- @else --}}
                   <div class="card mb-3">
                     <div class="card-header">Subject's Complaints</div>
                     <div class="card-body">
                       <small class="text-muted">Helper</small>
                       <div class="input-group input-group-small flex-nowrap">
-                        <select class="form-select" placeholder="" {{ $user->id == $datum->doctor->id ? '' : 'disabled' }}>
+                        <select class="form-select" placeholder="" {{ $user->id == $datum->doctor->id && isset($bookings[0]) ? '' : 'disabled' }}>
                           <option value=""></option>
                         </select>
                         <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ $user->id == $datum->doctor->id ? '' : 'disabled' }}>Delete Helper</button>
                       </div>
                       <small class="text-muted">Content</small>
-                      <textarea class="form-control" name="{{ $viewFolder }}[docNotesSubject]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_docNotesSubject" @endif rows=3 {{ $user->id == $datum->doctor->id ? 'required' : 'disabled' }}>{{ isset($datum->docNotesSubject) ? $datum->docNotesSubject : '' }}</textarea>
+                      <textarea class="form-control" name="{{ $viewFolder }}[docNotesSubject]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_docNotesSubject" @endif rows=3 {{ $user->id == $datum->doctor->id && isset($bookings[0]) ? 'required' : 'disabled' }}>{{ isset($datum->docNotesSubject) ? $datum->docNotesSubject : '' }}</textarea>
                       <small class="text-muted">Helper Save/Edit</small>
                       <div class="input-group input-group-small mb-3 flex-nowrap">
                         <div class="input-group-text">
@@ -799,7 +799,7 @@
                       <textarea class="form-control mb-2" name="{{ $viewFolder }}[ddocNotesSubjectEdit]" id="{{ $viewFolder }}_docNotesSubjectEdit" rows=3 disabled></textarea>
                     </div>
                   </div>
-                  @endif
+                  {{-- @endif --}}
                   <div class="card mb-3">
                     <div class="card-header">Objective Findings</div>
                     <div class="card-body">
@@ -1442,6 +1442,9 @@
           $('#prevBookingDater').text(bookingObj.consultation.bookingDate);
           vitalStr = '<strong>Temp:</strong> ' + bookingObj.consultation.temp + 'C | <strong>Height:</strong> ' + bookingObj.consultation.height + 'cm | <strong>Weight:</strong> ' + bookingObj.consultation.weight + 'kg | <strong>BMI:</strong> ' + Math.round(bookingObj.consultation.weight/((bookingObj.consultation.height/100)*(bookingObj.consultation.height/100))) + '<br><strong>BP:</strong> ' + bookingObj.consultation.bpS + '/' + bookingObj.consultation.bpD + ' | <strong>O2 Sat:</strong> ' + bookingObj.consultation.o2 + '% | <strong>Heart Rate:</strong> ' + bookingObj.consultation.heart + 'beats/min';
           $('#prevVitaler').html(vitalStr);
+          $('#prevProcDet').html(bookingObj.consultation.procedure_details);
+          $('#prevPatComp').html(bookingObj.consultation.complains);
+          $('#prevPatCompDur').html(bookingObj.consultation.duration);
           eyeStr = '';
           if(bookingObj.consultation.arod_sphere == 'No Target')
             eyeStr += '<strong>AR OD:</strong> <span class="text-primary">' + bookingObj.consultation.arod_sphere + '</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;';
