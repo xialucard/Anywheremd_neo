@@ -98,7 +98,7 @@ return new class extends Migration
             $table->index('client_id');
             $table->index('doctor_id');
             $table->index('booking_type');
-            $table->index('icd_code');
+            // $table->index('icd_code');
             $table->index('status');
             $table->index('created_by');
             $table->index('updated_by');

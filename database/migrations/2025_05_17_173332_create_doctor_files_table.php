@@ -23,6 +23,9 @@ return new class extends Migration
             $table->foreign('consultation_id')->references('id')->on('consultations')->onDelete('cascade');
             $table->foreign('created_by')->references('id')->on('users');
             $table->foreign('updated_by')->references('id')->on('users');
+            $table->index('consultation_id');
+            $table->index('created_by');
+            $table->index('updated_by');
         });
     }
 

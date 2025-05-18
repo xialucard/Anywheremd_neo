@@ -57,6 +57,9 @@ return new class extends Migration
             $table->foreign('client_id')->references('id')->on('users');
             $table->foreign('created_by')->references('id')->on('users');
             $table->foreign('updated_by')->references('id')->on('users');
+            $table->index('client_id');
+            $table->index('created_by');
+            $table->index('updated_by');
         });
     }
 

@@ -28,6 +28,10 @@ return new class extends Migration
             $table->foreign('doctor_id')->references('id')->on('users');
             $table->foreign('created_by')->references('id')->on('users');
             $table->foreign('updated_by')->references('id')->on('users');
+            $table->index('clinic_id');
+            $table->index('doctor_id');
+            $table->index('created_by');
+            $table->index('updated_by');
         });
     }
 

@@ -4,12 +4,12 @@
     $datum = $datum->parent_consultation;
   }
 @endphp
-<datalist id="patientNameList">
+{{-- <datalist id="patientNameList">
 @foreach($selectItems['patients'] as $pat)
   <option patient_id="{{ $pat->id }}" value="{{ $pat->name }}">{{ $pat->name }}</option>
 @endforeach
-</datalist>
-@if(isset($user) && isset($datum->id))
+</datalist> --}}
+{{-- @if(isset($user) && isset($datum->id))
 <datalist id="doctorClinicNameList">
   @foreach($user->clinic->affiliated_doctors->sortBy('name') as $doc)
     @foreach($doc->doctor->affiliated_clinics->sortBy('name') as $clin)
@@ -19,7 +19,7 @@
     @endforeach
   @endforeach
 </datalist>
-@endif
+@endif --}}
 <div class="container">
   <div class="row">
     <div class="col-lg-4 mb-3">
@@ -467,7 +467,7 @@
                 </div>
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="number" name="{{ $viewFolder }}[bmi]" min=1 id="{{ $viewFolder }}_bmi" value="{{ isset($datum->weight) ? $datum->weight/(($datum->height/100)*($datum->height/100)) : '' }}" placeholder="" disabled>
+                    <input class="form-control" type="number" name="{{ $viewFolder }}[bmi]" min=1 id="{{ $viewFolder }}_bmi" value="{{ !empty($datum->height) ? (int)$datum->weight/(((int)$datum->height/100)*((int)$datum->height/100)) : '' }}" placeholder="" disabled>
                     <label for="{{ $viewFolder }}_bmi" class="form-label">BMI</label>
                     <small id="help_{{ $viewFolder }}_bmi" class="text-muted"></small>
                   </div>

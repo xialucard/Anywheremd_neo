@@ -20,6 +20,8 @@ return new class extends Migration
             $table->integer('active')->default(1);
             $table->foreign('created_by')->references('id')->on('users');
             $table->foreign('updated_by')->references('id')->on('users');
+            $table->index('created_by');
+            $table->index('updated_by');
         });
     }
 

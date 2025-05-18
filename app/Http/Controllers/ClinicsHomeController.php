@@ -97,6 +97,7 @@ class ClinicsHomeController extends Controller
                 'booking_type_arr'=>$booking_type_arr,
                 'schedules'=>$schedules,
                 'schedulesMon'=>$schedulesMon,
+                'user' => $user
             ]);
         }
     }
@@ -279,7 +280,8 @@ class ClinicsHomeController extends Controller
                 'modal' => true,
                 'dateBooking' => $datum->bookingDate,
                 'viewFolder' => $this->viewFolder, 
-                'modalSize' => 'modal-xl'
+                'modalSize' => 'modal-xl',
+                'users' => $user
             ]);
     }
 
@@ -493,7 +495,7 @@ class ClinicsHomeController extends Controller
     {
         $user = Auth::user();
         $selectItems['doctors'] = User::where('user_type', 'Doctor')->where('active', 1)->orderBy('name', 'asc')->get();
-        $selectItems['patients'] = $user->patients->sortBy('name');
+        // $selectItems['patients'] = $user->patients->sortBy('name');
         $selectItems['hmos'] = HealthOrganization::all()->sortBy('name');
         return $selectItems;
     }
