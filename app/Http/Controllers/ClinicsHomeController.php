@@ -44,19 +44,30 @@ class ClinicsHomeController extends Controller
         }elseif(!isset($dayNum)){
             $dayNum = 1;
         }
+
+        unset($doctorArr);
+        foreach($user->clinic->schedules()->where('dateSched', $yr . '-' . str_pad($mon, 2, 0, STR_PAD_LEFT) . '-' . $dayNum)->get('doctor_id') as $doc){
+            $doctorArr[$doc->doctor_id] = $doc->doctor_id;
+        }
+        unset($doctorArrMon);
+        foreach($user->clinic->schedules()->whereYear('dateSched', $yr)->whereMonth('dateSched', $mon)->get('doctor_id') as $doc){
+            $doctorArrMon[$doc->doctor_id] = $doc->doctor_id;
+        }
+        
         if(isset($doctor_id)){
-            $schedules = User::whereIn('id', $user->clinic->schedules()->where('dateSched', $yr . '-' . str_pad($mon, 2, 0, STR_PAD_LEFT) . '-' . $dayNum)->get('doctor_id'))->where('id', $doctor_id);
+            $schedules = User::whereIn('id', $doctorArr)->where('id', $doctor_id);
             if(!empty($schedules->get()[0]->specialty))
                 $specialty = $schedules->get()[0]->specialty;
-            $schedulesMon = User::whereIn('id', $user->clinic->schedules()->whereYear('dateSched', $yr)->whereMonth('dateSched', $mon)->get('doctor_id'))->where('id', $doctor_id);
+            $schedulesMon = User::whereIn('id', $doctorArrMon)->where('id', $doctor_id);
         }elseif(isset($specialty)){
-            $schedules = User::whereIn('id', $user->clinic->schedules()->where('dateSched', $yr . '-' . str_pad($mon, 2, 0, STR_PAD_LEFT) . '-' . $dayNum)->get('doctor_id'))->where('specialty', $specialty);
-            $schedulesMon = User::whereIn('id', $user->clinic->schedules()->whereYear('dateSched', $yr)->whereMonth('dateSched', $mon)->get('doctor_id'))->where('specialty', $specialty);
+            $schedules = User::whereIn('id', $doctorArr)->where('specialty', $specialty);
+            $schedulesMon = User::whereIn('id', $doctorArrMon)->where('specialty', $specialty);
         }else{
-            $schedules = User::whereIn('id', $user->clinic->schedules()->where('dateSched', $yr . '-' . str_pad($mon, 2, 0, STR_PAD_LEFT) . '-' . $dayNum)->get('doctor_id'));
-            $schedulesMon = User::whereIn('id', $user->clinic->schedules()->whereYear('dateSched', $yr)->whereMonth('dateSched', $mon)->get('doctor_id'));
+            $schedules = User::whereIn('id', $doctorArr);
+            $schedulesMon = User::whereIn('id', $doctorArrMon);
         }
-
+        $doctor_list_id = $schedulesMon->get('id');
+        
         unset($booking_type_arr);
         
         foreach($user->clinic->bookings()->distinct('booking_type')->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->get() as $in=>$booking){
@@ -76,8 +87,26 @@ class ClinicsHomeController extends Controller
 
         if(!isset($booking_type_arr))
             $booking_type_arr = null;
+        
+        
+        unset($calendarArr);
+        foreach($user->clinic->schedules()->whereIn('doctor_id', $doctor_list_id)->whereYear('dateSched', $yr)->whereMonth('dateSched', $mon)->get() as $sched){
+            if(!isset($calendarArr[date('d', strtotime($sched->dateSched))][$sched->doctor_id]))
+                $calendarArr[date('d', strtotime($sched->dateSched))][$sched->doctor_id] = 1;
+            else
+                $calendarArr[date('d', strtotime($sched->dateSched))][$sched->doctor_id] += 1;
+        }
+        unset($bookingArr);
+        foreach($user->clinic->bookings()->whereYear('bookingDate', $yr)->whereMonth('bookingDate', $mon)->get() as $booking){
+            if(!isset($bookingArr[date('d', strtotime($booking->bookingDate))]))
+                $bookingArr[date('d', strtotime($booking->bookingDate))] = 1;
+            else
+                $bookingArr[date('d', strtotime($booking->bookingDate))] += 1;
+        }
+        // print "<pre>";
+        // print_r($bookingArr);
+        // print "</pre>";
 
-        $patients = $user->patients->sortBy('name');
         if($user->active == 2)
             return redirect()->route('home.myaccount')->with("Incomplete Form", "Please fullfill the form first. Make sure you also change the old password.");
         else{
@@ -97,6 +126,8 @@ class ClinicsHomeController extends Controller
                 'booking_type_arr'=>$booking_type_arr,
                 'schedules'=>$schedules,
                 'schedulesMon'=>$schedulesMon,
+                'bookingArr'=>$bookingArr,
+                'calendarArr'=>$calendarArr,
                 'user' => $user
             ]);
         }

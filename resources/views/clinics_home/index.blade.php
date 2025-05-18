@@ -26,12 +26,12 @@
                         if(!empty($schedules)){
                             if($dayNumSet){
                                 $doctor_list = $schedules->get(['id', 'name', 'specialty'])->sortBy('name');
-                                $specialty_list = $schedules->get('specialty')->sortBy('specialty');
+                                $specialty_list = $schedules->distinct()->get('specialty')->sortBy('specialty');
                             }else{
                                 $doctor_list = $schedules->get(['id', 'name', 'specialty'])->sortBy('name');
-                                $specialty_list = $schedules->get('specialty')->sortBy('specialty');
+                                $specialty_list = $schedules->distinct()->get('specialty')->sortBy('specialty');
                             }
-                            $doctor_list_id = $schedulesMon->get('id');
+                            // $doctor_list_id = $schedulesMon->get('id');
                         }
                         
                         
@@ -168,29 +168,35 @@
                                                 <td class="{{ $border }} {{ $textColor }}">
                                                     @if(strtotime($yr . '-' . $mon . '-' . $i) >= strtotime(' - 3 days'))
                                                         @can($viewFolder . '.index')
-                                                            @if(!empty($user->clinic->schedules()->whereIn('doctor_id', $doctor_list_id)->where('dateSched', $yr . '-' . $mon . '-' . $i)->get()[0]))
-                                                        <a href="{{ route($viewFolder . '.index') . '/' . $yr . '/' . $mon . '/' . $i  . '/NULL/' . $specialty  . '/' . $doctor_id }}" class="link-{{ $bgColor }} link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
+                                                            {{-- @if(!empty($user->clinic->schedules()->whereIn('doctor_id', $doctor_list_id)->where('dateSched', $yr . '-' . $mon . '-' . $i)->get()[0])) --}}
+                                                            @if(isset($calendarArr[$i]) && sizeof($calendarArr[$i])>0)
+                                                        <a href="{{ route($viewFolder . '.index') . '/' . $yr . '/' . $mon . '/' . $i . '/NULL/' . $specialty  . '/' . $doctor_id }}" class="link-{{ $bgColor }} link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
                                                             @endif
                                                         @endcan
                                                             <div>
                                                                 <div>{{ $i }}</div>
                                                                 <div>
-                                                                @if(!empty($user->clinic->schedules()->whereIn('doctor_id', $doctor_list_id)->where('dateSched', $yr . '-' . $mon . '-' . $i)->distinct()->get('doctor_id')[0]))    
-                                                                    <i class="bi bi-person-check"></i> {{ !empty($user->clinic->schedules()->where('dateSched', $yr . '-' . $mon . '-' . $i)->distinct()->get('doctor_id')[0]) ? sizeof($user->clinic->schedules()->where('dateSched', $yr . '-' . $mon . '-' . $i)->distinct()->get('doctor_id')) : 0 }}
+                                                                {{-- @if(!empty($user->clinic->schedules()->whereIn('doctor_id', $doctor_list_id)->where('dateSched', $yr . '-' . $mon . '-' . $i)->distinct()->get('doctor_id')[0]))     --}}
+                                                                @if(isset($calendarArr[$i]) && sizeof($calendarArr[$i])>0)
+                                                                    {{-- <i class="bi bi-person-check"></i> {{ !empty($user->clinic->schedules()->where('dateSched', $yr . '-' . $mon . '-' . $i)->distinct()->get('doctor_id')[0]) ? sizeof($user->clinic->schedules()->where('dateSched', $yr . '-' . $mon . '-' . $i)->distinct()->get('doctor_id')) : 0 }} --}}
+                                                                    <i class="bi bi-person-check"></i> {{ sizeof($calendarArr[$i])>0 ? sizeof($calendarArr[$i]) : 0 }}
                                                                 @else
                                                                     &nbsp;
                                                                 @endif
                                                                 </div>
                                                                 <div>
-                                                                    @if(!empty($user->clinic->bookings()->where('bookingDate', $yr . '-' . $mon . '-' . $i)->get()[0]))
-                                                                    <i class="bi bi-list-ol"></i> {{ sizeof($user->clinic->bookings()->where('bookingDate', $yr . '-' . $mon . '-' . $i)->get()) }}
+                                                                    {{-- @if(!empty($user->clinic->bookings()->where('bookingDate', $yr . '-' . $mon . '-' . $i)->get()[0])) --}}
+                                                                    @if(isset($bookingArr[$i]) && $bookingArr[$i]>0)
+                                                                    {{-- <i class="bi bi-list-ol"></i> {{ sizeof($user->clinic->bookings()->where('bookingDate', $yr . '-' . $mon . '-' . $i)->get()) }} --}}
+                                                                    <i class="bi bi-list-ol"></i> {{ $bookingArr[$i] }}
                                                                     @else
                                                                     &nbsp;
                                                                     @endif
                                                                 </div>
                                                             </div>
                                                         @can($viewFolder . '.index')
-                                                            @if(!empty($user->clinic->schedules()->whereIn('doctor_id', $doctor_list_id)->where('dateSched', $yr . '-' . $mon . '-' . $i)->get()[0]))
+                                                            {{-- @if(!empty($user->clinic->schedules()->whereIn('doctor_id', $doctor_list_id)->where('dateSched', $yr . '-' . $mon . '-' . $i)->get()[0])) --}}
+                                                            @if(isset($calendarArr[$i]) && sizeof($calendarArr[$i])>0)
                                                         </a>
                                                             @endif
                                                         @endcan
@@ -216,29 +222,35 @@
                                                 <td class="{{ $border }} {{ $textColor }}">
                                                     @if(strtotime($yr . '-' . $mon . '-' . $i) >= strtotime('-3 days'))
                                                         @can($viewFolder . '.index')
-                                                            @if(!empty($user->clinic->schedules()->whereIn('doctor_id', $doctor_list_id)->where('dateSched', $yr . '-' . $mon . '-' . $i)->get()[0]))
+                                                            {{-- @if(!empty($user->clinic->schedules()->whereIn('doctor_id', $doctor_list_id)->where('dateSched', $yr . '-' . $mon . '-' . $i)->get()[0])) --}}
+                                                            @if(isset($calendarArr[$i]) && sizeof($calendarArr[$i])>0)
                                                         <a href="{{ route($viewFolder . '.index') . '/' . $yr . '/' . $mon . '/' . $i . '/NULL/' . $specialty  . '/' . $doctor_id }}" class="link-{{ $bgColor }} link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
                                                             @endif
                                                         @endcan
                                                             <div>
                                                                 <div>{{ $i }}</div>
                                                                 <div>
-                                                                @if(!empty($user->clinic->schedules()->whereIn('doctor_id', $doctor_list_id)->where('dateSched', $yr . '-' . $mon . '-' . $i)->distinct()->get('doctor_id')[0]))    
-                                                                    <i class="bi bi-person-check"></i> {{ !empty($user->clinic->schedules()->where('dateSched', $yr . '-' . $mon . '-' . $i)->distinct()->get('doctor_id')[0]) ? sizeof($user->clinic->schedules()->where('dateSched', $yr . '-' . $mon . '-' . $i)->distinct()->get('doctor_id')) : 0 }}
+                                                                {{-- @if(!empty($user->clinic->schedules()->whereIn('doctor_id', $doctor_list_id)->where('dateSched', $yr . '-' . $mon . '-' . $i)->distinct()->get('doctor_id')[0]))     --}}
+                                                                @if(isset($calendarArr[$i]) && sizeof($calendarArr[$i])>0)
+                                                                    {{-- <i class="bi bi-person-check"></i> {{ !empty($user->clinic->schedules()->where('dateSched', $yr . '-' . $mon . '-' . $i)->distinct()->get('doctor_id')[0]) ? sizeof($user->clinic->schedules()->where('dateSched', $yr . '-' . $mon . '-' . $i)->distinct()->get('doctor_id')) : 0 }} --}}
+                                                                    <i class="bi bi-person-check"></i> {{ sizeof($calendarArr[$i])>0 ? sizeof($calendarArr[$i]) : 0 }}
                                                                 @else
                                                                     &nbsp;
                                                                 @endif
                                                                 </div>
                                                                 <div>
-                                                                    @if(!empty($user->clinic->bookings()->where('bookingDate', $yr . '-' . $mon . '-' . $i)->get()[0]))
-                                                                    <i class="bi bi-list-ol"></i> {{ sizeof($user->clinic->bookings()->where('bookingDate', $yr . '-' . $mon . '-' . $i)->get()) }}
+                                                                    {{-- @if(!empty($user->clinic->bookings()->where('bookingDate', $yr . '-' . $mon . '-' . $i)->get()[0])) --}}
+                                                                    @if(isset($bookingArr[$i]) && $bookingArr[$i]>0)
+                                                                    {{-- <i class="bi bi-list-ol"></i> {{ sizeof($user->clinic->bookings()->where('bookingDate', $yr . '-' . $mon . '-' . $i)->get()) }} --}}
+                                                                    <i class="bi bi-list-ol"></i> {{ $bookingArr[$i] }}
                                                                     @else
                                                                     &nbsp;
                                                                     @endif
                                                                 </div>
                                                             </div>
                                                         @can($viewFolder . '.index')
-                                                            @if(!empty($user->clinic->schedules()->whereIn('doctor_id', $doctor_list_id)->where('dateSched', $yr . '-' . $mon . '-' . $i)->get()[0]))
+                                                            {{-- @if(!empty($user->clinic->schedules()->whereIn('doctor_id', $doctor_list_id)->where('dateSched', $yr . '-' . $mon . '-' . $i)->get()[0])) --}}
+                                                            @if(isset($calendarArr[$i]) && sizeof($calendarArr[$i])>0)
                                                         </a>
                                                             @endif
                                                         @endcan

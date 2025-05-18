@@ -5,17 +5,19 @@
   }
 @endphp
 <datalist id="patientNameList"></datalist>
-{{-- @if(isset($user) && isset($datum->id))
+@if(isset($user) && isset($datum->id))
 <datalist id="doctorClinicNameList">
   @foreach($user->clinic->affiliated_doctors->sortBy('name') as $doc)
     @foreach($doc->doctor->affiliated_clinics->sortBy('name') as $clin)
+      @if(isset($clin->clinic->id))
       @foreach($doc->doctor->schedules()->where('dateSched', '>=', $datum->bookingDate)->where('clinic_id', $clin->clinic->id)->orderBy('dateSched', 'asc')->get()->unique('dateSched') as $sched)
     <option value="{{ $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->doctor->id . ' - Dr. ' . $doc->doctor->name }}">{{ $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->doctor->id . ' - Dr. ' . $doc->doctor->name }}</option>
       @endforeach
+      @endif
     @endforeach
   @endforeach
 </datalist>
-@endif --}}
+@endif
 <div class="container">
   <div class="row">
     <div class="col-lg-4 mb-3">
