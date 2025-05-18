@@ -271,14 +271,14 @@
             <div class="card mb-3">
               <div class="card-header">Previous Procedure</div>
               <div class="card-body" style="height: 1in; max-height: 1in">
-                <p>{{ $bookings[0]->procedure_details }}</p>
+                <p id="prevProcDet">{{ $bookings[0]->procedure_details }}</p>
               </div>
             </div>
             <div class="card mb-3">
               <div class="card-header">Previous Patient's Complaint</div>
               <div class="card-body" style="height: 1in; max-height: 1in">
-                <p>{{ $bookings[0]->complain }}</p>
-                <small class="text-muted">{{ $bookings[0]->duration }}</small>
+                <p id="prevPatComp">{{ $bookings[0]->complain }}</p>
+                <small class="text-muted" id="prevPatCompDur">{{ $bookings[0]->duration }}</small>
               </div>
             </div>
             <ul class="nav nav-pills mb-3">
