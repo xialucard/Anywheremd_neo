@@ -6,11 +6,7 @@
   }
 @endphp
 
-<datalist id="patientNameList">
-@foreach($selectItems['patients'] as $pat)
-  <option patient_id="{{ $pat->id }}" value="{{ $pat->name }}">{{ $pat->name }}</option>
-@endforeach
-</datalist>
+<datalist id="patientNameList"></datalist>
 
 <div class="container">
   <div class="row">

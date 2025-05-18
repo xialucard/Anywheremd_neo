@@ -4,11 +4,7 @@
     $datum = $datum->parent_consultation;
   }
 @endphp
-{{-- <datalist id="patientNameList">
-@foreach($selectItems['patients'] as $pat)
-  <option patient_id="{{ $pat->id }}" value="{{ $pat->name }}">{{ $pat->name }}</option>
-@endforeach
-</datalist> --}}
+<datalist id="patientNameList"></datalist>
 {{-- @if(isset($user) && isset($datum->id))
 <datalist id="doctorClinicNameList">
   @foreach($user->clinic->affiliated_doctors->sortBy('name') as $doc)
@@ -32,207 +28,7 @@
             <small id="help_{{ $viewFolder }}_bookingDate" class="text-muted"></small>
           </div>
           <div class="form-floating mb-3">
-            <input class="form-control" list="patientNameList" id="{{ $viewFolder }}_name" value="{{ isset($datum->patient->name) ? $datum->patient->name : '' }}" placeholder="" autocomplete="off" onchange="
-              if($(this).val() == ''){
-                $('#consoDocDiv').show();  
-                $('#consoPatientDiv').hide();  
-                $('#patInfoLink').removeClass('active');
-                $('#docInfoLink').addClass('active');
-                $('#bookMod').trigger('reset');
-                $('#{{ $viewFolder }}_profileImage').attr('src', 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg');
-              }else{
-                $('#consoDocDiv').hide();  
-                $('#consoPatientDiv').show();
-                $('#patInfoLink').addClass('active');
-                $('#docInfoLink').removeClass('active');
-              }
-              var val = $(this).val();
-              var list_patient_id = $('#patientNameList option').filter(function() {
-                  return $(this).val() == val;
-              }).attr('patient_id');
-              $.ajax({
-                type: 'GET',
-                url: '{{ Route::has($viewFolder . '.getPatientInfo') ? route($viewFolder . '.getPatientInfo') : ''}}/' + list_patient_id,
-                success:
-                  function(data, status){
-                    patientObj = jQuery.parseJSON(data);
-                    if(patientObj.profile_pic !== null){
-                      if(patientObj.profile_pic.includes('uploads'))
-                        $('#{{ $viewFolder }}_profileImage').attr('src', '{{ asset('storage/')}}/' + patientObj.profile_pic);
-                      else
-                        $('#{{ $viewFolder }}_profileImage').attr('src', '{{ asset('storage/px_files/')}}/' + patientObj.profile_pic);
-                    }else{
-                      $('#{{ $viewFolder }}_profileImage').attr('src', 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg');
-                    }
-                    $('#{{ $viewFolder }}_patient_id').val(patientObj.id);
-                    $('#{{ $viewFolder }}_f_name').val(patientObj.f_name);
-                    $('#{{ $viewFolder }}_m_name').val(patientObj.m_name);
-                    $('#{{ $viewFolder }}_l_name').val(patientObj.l_name);
-                    if(patientObj.gender == 'male'){
-                      $('#{{ $viewFolder }}_gender_male').prop('checked', true);
-                      $('#{{ $viewFolder }}_gender_female').prop('checked', false);
-                    }
-                    if(patientObj.gender == 'female'){
-                      $('#{{ $viewFolder }}_gender_male').prop('checked', false);
-                      $('#{{ $viewFolder }}_gender_female').prop('checked', true);
-                    }
-                    $('#{{ $viewFolder }}_birthdate').val(patientObj.birthdate);
-                    $('#{{ $viewFolder }}_phil_num').val(patientObj.phil_num);
-                    $('#{{ $viewFolder }}_hmo_num').val(patientObj.hmo_num);
-                    $('#{{ $viewFolder }}_address').val(patientObj.address);
-                    $('#{{ $viewFolder }}_email').val(patientObj.email);
-                    $('#{{ $viewFolder }}_mobile_no').val(patientObj.mobile_no);
-                    if(patientObj.patient_type == 'Private'){
-                      $('#{{ $viewFolder }}_patient_type_private').prop('checked', true);
-                      $('#{{ $viewFolder }}_patient_type_in_house').prop('checked', false);
-                    }
-                    if(patientObj.patient_type == 'In House'){
-                      $('#{{ $viewFolder }}_patient_type_private').prop('checked', false);
-                      $('#{{ $viewFolder }}_patient_type_in_house').prop('checked', true);
-                    }
-                    
-                    
-                    $('#{{ $viewFolder }}_patient_sub_type').val(patientObj.patient_sub_type).change();
-
-                    if(patientObj.patient_sub_type == 'Walk-in Referral From'){
-                      $('#{{ $viewFolder }}_referral_from').prop('disabled', false);
-                    }else{
-                      $('#{{ $viewFolder }}_referral_from').prop('disabled', true);
-                    }
-                    $('#{{ $viewFolder }}_referral_from').val(patientObj.referral_from).change();
-
-                    if(jQuery.inArray('Diabetes', JSON.parse(patientObj.pastMedicalHistory)) !== -1){
-                      $('#{{ $viewFolder }}_past_med_history_diabetes').prop('checked', true);
-                    }else{
-                      $('#{{ $viewFolder }}_past_med_history_diabetes').prop('checked', false);
-                    }
-                    if(jQuery.inArray('Hypertension', JSON.parse(patientObj.pastMedicalHistory)) !== -1){
-                      $('#{{ $viewFolder }}_past_med_history_hypertension').prop('checked', true);
-                    }else{
-                      $('#{{ $viewFolder }}_past_med_history_hypertension').prop('checked', false);
-                    }
-                    if(jQuery.inArray('Heart Disease', JSON.parse(patientObj.pastMedicalHistory)) !== -1){
-                      $('#{{ $viewFolder }}_past_med_history_heart').prop('checked', true);
-                    }else{
-                      $('#{{ $viewFolder }}_past_med_history_heart').prop('checked', false);
-                    }
-                    if(jQuery.inArray('Thyroid Disease', JSON.parse(patientObj.pastMedicalHistory)) !== -1){
-                      $('#{{ $viewFolder }}_past_med_history_thyroid').prop('checked', true);
-                    }else{
-                      $('#{{ $viewFolder }}_past_med_history_thyroid').prop('checked', false);
-                    }
-                    if(jQuery.inArray('Trauma, Accident', JSON.parse(patientObj.pastMedicalHistory)) !== -1){
-                      $('#{{ $viewFolder }}_past_med_history_trauma').prop('checked', true);
-                    }else{
-                      $('#{{ $viewFolder }}_past_med_history_trauma').prop('checked', false);
-                    }
-                    if(jQuery.inArray('Asthma', JSON.parse(patientObj.pastMedicalHistory)) !== -1){
-                      $('#{{ $viewFolder }}_past_med_history_asthma').prop('checked', true);
-                    }else{
-                      $('#{{ $viewFolder }}_past_med_history_asthma').prop('checked', false);
-                    }
-                    if(jQuery.inArray('Cancer', JSON.parse(patientObj.pastMedicalHistory)) !== -1){
-                      $('#{{ $viewFolder }}_past_med_history_cancer').prop('checked', true);
-                      $('#{{ $viewFolder }}_past_med_history_cancer_text').prop('disabled', false);
-                      $('#{{ $viewFolder }}_past_med_history_cancer_text').val(patientObj.pastMedicalHistoryCancer);
-                    }else{
-                      $('#{{ $viewFolder }}_past_med_history_cancer').prop('checked', false);
-                      $('#{{ $viewFolder }}_past_med_history_cancer_text').prop('disabled', true);
-                       $('#{{ $viewFolder }}_past_med_history_cancer_text').val('');
-                    }
-                    if(jQuery.inArray('Others', JSON.parse(patientObj.pastMedicalHistory)) !== -1){
-                      $('#{{ $viewFolder }}_past_med_history_other').prop('checked', true);
-                      $('#{{ $viewFolder }}_past_med_history_other_text').prop('disabled', false);
-                      $('#{{ $viewFolder }}_past_med_history_other_text').val(patientObj.pastMedicalHistoryOthers);
-                    }else{
-                      $('#{{ $viewFolder }}_past_med_history_other').prop('checked', false);
-                      $('#{{ $viewFolder }}_past_med_history_other_text').prop('disabled', true);
-                       $('#{{ $viewFolder }}_past_med_history_other_text').val('');
-                    }
-                    $('#{{ $viewFolder }}_pastSurgicalHistory').val(patientObj.pastSurgicalHistory);
-                    if(jQuery.inArray('Diabetes', JSON.parse(patientObj.pastFamilyHistory)) !== -1){
-                      $('#{{ $viewFolder }}_past_family_history_diabetes').prop('checked', true);
-                    }else{
-                      $('#{{ $viewFolder }}_past_family_history_diabetes').prop('checked', false);
-                    }
-                    if(jQuery.inArray('Hypertension', JSON.parse(patientObj.pastFamilyHistory)) !== -1){
-                      $('#{{ $viewFolder }}_past_family_history_hypertension').prop('checked', true);
-                    }else{
-                      $('#{{ $viewFolder }}_past_family_history_hypertension').prop('checked', false);
-                    }
-                    if(jQuery.inArray('Heart Disease', JSON.parse(patientObj.pastFamilyHistory)) !== -1){
-                      $('#{{ $viewFolder }}_past_family_history_heart').prop('checked', true);
-                    }else{
-                      $('#{{ $viewFolder }}_past_family_history_heart').prop('checked', false);
-                    }
-                    if(jQuery.inArray('Thyroid Disease', JSON.parse(patientObj.pastFamilyHistory)) !== -1){
-                      $('#{{ $viewFolder }}_past_family_history_thyroid').prop('checked', true);
-                    }else{
-                      $('#{{ $viewFolder }}_past_family_history_thyroid').prop('checked', false);
-                    }
-                    if(jQuery.inArray('Trauma, Accident', JSON.parse(patientObj.pastFamilyHistory)) !== -1){
-                      $('#{{ $viewFolder }}_past_family_history_trauma').prop('checked', true);
-                    }else{
-                      $('#{{ $viewFolder }}_past_family_history_trauma').prop('checked', false);
-                    }
-                    if(jQuery.inArray('Asthma', JSON.parse(patientObj.pastFamilyHistory)) !== -1){
-                      $('#{{ $viewFolder }}_past_family_history_asthma').prop('checked', true);
-                    }else{
-                      $('#{{ $viewFolder }}_past_family_history_asthma').prop('checked', false);
-                    }
-                    if(jQuery.inArray('Cancer', JSON.parse(patientObj.pastFamilyHistory)) !== -1){
-                      $('#{{ $viewFolder }}_past_family_history_cancer').prop('checked', true);
-                      $('#{{ $viewFolder }}_past_family_history_cancer_text').prop('disabled', false);
-                      $('#{{ $viewFolder }}_past_family_history_cancer_text').val(patientObj.pastFamilyHistoryCancer);
-                    }else{
-                      $('#{{ $viewFolder }}_past_family_history_cancer').prop('checked', false);
-                      $('#{{ $viewFolder }}_past_family_history_cancer_text').prop('disabled', true);
-                       $('#{{ $viewFolder }}_past_family_history_cancer_text').val('');
-                    }
-                    if(jQuery.inArray('Others', JSON.parse(patientObj.pastFamilyHistory)) !== -1){
-                      $('#{{ $viewFolder }}_past_family_history_other').prop('checked', true);
-                      $('#{{ $viewFolder }}_past_family_history_other_text').prop('disabled', false);
-                      $('#{{ $viewFolder }}_past_family_history_other_text').val(patientObj.pastFamilyHistoryOthers);
-                    }else{
-                      $('#{{ $viewFolder }}_past_family_history_other').prop('checked', false);
-                      $('#{{ $viewFolder }}_past_family_history_other_text').prop('disabled', true);
-                       $('#{{ $viewFolder }}_past_family_history_other_text').val('');
-                    }
-                    $('#{{ $viewFolder }}_pastMedication').val(patientObj.pastMedication);
-                    $('#{{ $viewFolder }}_presentMedication').val(patientObj.presentMedication);
-                    if(jQuery.inArray('Food', JSON.parse(patientObj.allergies)) !== -1){
-                      $('#{{ $viewFolder }}_allergies_food').prop('checked', true);
-                      $('#{{ $viewFolder }}_allergies_food_text').prop('disabled', false);
-                      $('#{{ $viewFolder }}_allergies_food_text').val(patientObj.pastFamilyHistoryCancer);
-                    }else{
-                      $('#{{ $viewFolder }}_allergies_food').prop('checked', false);
-                      $('#{{ $viewFolder }}_allergies_food_text').prop('disabled', true);
-                      $('#{{ $viewFolder }}_allergies_food_text').val('');
-                    }
-                    if(jQuery.inArray('Medicine', JSON.parse(patientObj.allergies)) !== -1){
-                      $('#{{ $viewFolder }}_allergies_medicine').prop('checked', true);
-                      $('#{{ $viewFolder }}_allergies_medicine_text').prop('disabled', false);
-                      $('#{{ $viewFolder }}_allergies_medicine_text').val(patientObj.pastFamilyHistoryCancer);
-                    }else{
-                      $('#{{ $viewFolder }}_allergies_medicine').prop('checked', false);
-                      $('#{{ $viewFolder }}_allergies_medicine_text').prop('disabled', true);
-                      $('#{{ $viewFolder }}_allergies_medicine_text').val('');
-                    }
-                    if(jQuery.inArray('Others', JSON.parse(patientObj.allergies)) !== -1){
-                      $('#{{ $viewFolder }}_allergies_others').prop('checked', true);
-                      $('#{{ $viewFolder }}_allergies_others_text').prop('disabled', false);
-                      $('#{{ $viewFolder }}_allergies_others_text').val(patientObj.pastFamilyHistoryCancer);
-                    }else{
-                      $('#{{ $viewFolder }}_allergies_others').prop('checked', false);
-                      $('#{{ $viewFolder }}_allergies_others_text').prop('disabled', true);
-                      $('#{{ $viewFolder }}_allergies_others_text').val('');
-                    }
-                    $('#{{ $viewFolder }}_vaccination').val(patientObj.vaccination);
-                    $('#{{ $viewFolder }}_medHistoryOthers').val(patientObj.medHistoryOthers);
-                  }
-              });
-              
-            " {{ isset($datum->id) ? 'disabled' : '' }}>
+            <input class="form-control" list="patientNameList" id="{{ $viewFolder }}_name" value="{{ isset($datum->patient->name) ? $datum->patient->name : '' }}" placeholder="" autocomplete="off" {{ isset($datum->id) ? 'disabled' : '' }}>
             <input type="hidden" class="form-control" id="{{ $viewFolder }}_patient_id" name="{{ $viewFolder }}[patient_id]" value="{{ !empty($datum->patient_id) ? $datum->patient_id : '' }}">
             <label for="{{ $viewFolder }}_name" class="form-label">Patient's Name</label>
             <small id="help_{{ $viewFolder }}_name" class="text-muted">Please leave this blank if the patient's name is not in the list.</small>
@@ -1404,6 +1200,14 @@
     }
   }
 
+  function FileListItem(file) {
+    file = [].slice.call(Array.isArray(file) ? file : arguments)
+    for (var c, b = c = file.length, d = !0; b-- && d;) d = file[b] instanceof File
+    if (!d) throw new TypeError("expected argument to FileList is File or array of File objects")
+    for (b = (new ClipboardEvent("")).clipboardData || new DataTransfer; c--;) b.items.add(file[c])
+    return b.files
+  }
+
   $(document).ready(function() {
     var fileArr = [];
     $("#{{ $viewFolder }}_files").change(function(){
@@ -1421,6 +1225,224 @@
               $('#image_preview').append("<div class='img-div' id='img-div"+i+"'><img src='"+URL.createObjectURL(event.target.files[i])+"' class='img-thumbnail' title='"+total_file[i].name+"'><div class='middle'><button id='action-icon' value='img-div"+i+"' class='btn btn-danger' role='"+total_file[i].name+"'><i class='bi bi-trash'></i></button></div></div>");
             }
           }
+    });
+
+    $("#{{ $viewFolder }}_name").on("input", function () {
+      val = $(this).val();
+      $.ajax({
+        type: 'GET',
+        url: '{{ Route::has($viewFolder . '.getPatientList') ? route($viewFolder . '.getPatientList') : ''}}/' + val,
+        success: function(data){
+          patientsObj = jQuery.parseJSON(data);
+          var options = "";
+          patientsObj.forEach(function (item, index){
+              options  += '<option patient_id="' + item.id + '" value="' + item.name + '">' + item.name + '</option>';
+          });
+          $("#patientNameList").html(options);
+        }
+      });
+    });
+
+    $("#{{ $viewFolder }}_name").on("change", function () {
+      
+      if($(this).val() == ''){
+        $('#consoDocDiv').show();  
+        $('#consoPatientDiv').hide();  
+        $('#patInfoLink').removeClass('active');
+        $('#docInfoLink').addClass('active');
+        $('#bookMod').trigger('reset');
+        $('#{{ $viewFolder }}_profileImage').attr('src', 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg');
+      }else{
+        $('#consoDocDiv').hide();  
+        $('#consoPatientDiv').show();
+        $('#patInfoLink').addClass('active');
+        $('#docInfoLink').removeClass('active');
+      }
+      var val = $(this).val();
+      var list_patient_id = $('#patientNameList option').filter(function() {
+          return $(this).val() == val;
+      }).attr('patient_id');
+      $.ajax({
+        type: 'GET',
+        url: '{{ Route::has($viewFolder . '.getPatientInfo') ? route($viewFolder . '.getPatientInfo') : ''}}/' + list_patient_id,
+        success:
+          function(data, status){
+            patientObj = jQuery.parseJSON(data);
+            if(patientObj.profile_pic !== null){
+              if(patientObj.profile_pic.includes('uploads'))
+                $('#{{ $viewFolder }}_profileImage').attr('src', '{{ asset('storage/')}}/' + patientObj.profile_pic);
+              else
+                $('#{{ $viewFolder }}_profileImage').attr('src', '{{ asset('storage/px_files/')}}/' + patientObj.profile_pic);
+            }else{
+              $('#{{ $viewFolder }}_profileImage').attr('src', 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg');
+            }
+            $('#{{ $viewFolder }}_patient_id').val(patientObj.id);
+            $('#{{ $viewFolder }}_f_name').val(patientObj.f_name);
+            $('#{{ $viewFolder }}_m_name').val(patientObj.m_name);
+            $('#{{ $viewFolder }}_l_name').val(patientObj.l_name);
+            if(patientObj.gender == 'male'){
+              $('#{{ $viewFolder }}_gender_male').prop('checked', true);
+              $('#{{ $viewFolder }}_gender_female').prop('checked', false);
+            }
+            if(patientObj.gender == 'female'){
+              $('#{{ $viewFolder }}_gender_male').prop('checked', false);
+              $('#{{ $viewFolder }}_gender_female').prop('checked', true);
+            }
+            $('#{{ $viewFolder }}_birthdate').val(patientObj.birthdate);
+            $('#{{ $viewFolder }}_phil_num').val(patientObj.phil_num);
+            $('#{{ $viewFolder }}_hmo_num').val(patientObj.hmo_num);
+            $('#{{ $viewFolder }}_address').val(patientObj.address);
+            $('#{{ $viewFolder }}_email').val(patientObj.email);
+            $('#{{ $viewFolder }}_mobile_no').val(patientObj.mobile_no);
+            if(patientObj.patient_type == 'Private'){
+              $('#{{ $viewFolder }}_patient_type_private').prop('checked', true);
+              $('#{{ $viewFolder }}_patient_type_in_house').prop('checked', false);
+            }
+            if(patientObj.patient_type == 'In House'){
+              $('#{{ $viewFolder }}_patient_type_private').prop('checked', false);
+              $('#{{ $viewFolder }}_patient_type_in_house').prop('checked', true);
+            }
+            
+            
+            $('#{{ $viewFolder }}_patient_sub_type').val(patientObj.patient_sub_type).change();
+
+            if(patientObj.patient_sub_type == 'Walk-in Referral From'){
+              $('#{{ $viewFolder }}_referral_from').prop('disabled', false);
+            }else{
+              $('#{{ $viewFolder }}_referral_from').prop('disabled', true);
+            }
+            $('#{{ $viewFolder }}_referral_from').val(patientObj.referral_from).change();
+
+            if(jQuery.inArray('Diabetes', JSON.parse(patientObj.pastMedicalHistory)) !== -1){
+              $('#{{ $viewFolder }}_past_med_history_diabetes').prop('checked', true);
+            }else{
+              $('#{{ $viewFolder }}_past_med_history_diabetes').prop('checked', false);
+            }
+            if(jQuery.inArray('Hypertension', JSON.parse(patientObj.pastMedicalHistory)) !== -1){
+              $('#{{ $viewFolder }}_past_med_history_hypertension').prop('checked', true);
+            }else{
+              $('#{{ $viewFolder }}_past_med_history_hypertension').prop('checked', false);
+            }
+            if(jQuery.inArray('Heart Disease', JSON.parse(patientObj.pastMedicalHistory)) !== -1){
+              $('#{{ $viewFolder }}_past_med_history_heart').prop('checked', true);
+            }else{
+              $('#{{ $viewFolder }}_past_med_history_heart').prop('checked', false);
+            }
+            if(jQuery.inArray('Thyroid Disease', JSON.parse(patientObj.pastMedicalHistory)) !== -1){
+              $('#{{ $viewFolder }}_past_med_history_thyroid').prop('checked', true);
+            }else{
+              $('#{{ $viewFolder }}_past_med_history_thyroid').prop('checked', false);
+            }
+            if(jQuery.inArray('Trauma, Accident', JSON.parse(patientObj.pastMedicalHistory)) !== -1){
+              $('#{{ $viewFolder }}_past_med_history_trauma').prop('checked', true);
+            }else{
+              $('#{{ $viewFolder }}_past_med_history_trauma').prop('checked', false);
+            }
+            if(jQuery.inArray('Asthma', JSON.parse(patientObj.pastMedicalHistory)) !== -1){
+              $('#{{ $viewFolder }}_past_med_history_asthma').prop('checked', true);
+            }else{
+              $('#{{ $viewFolder }}_past_med_history_asthma').prop('checked', false);
+            }
+            if(jQuery.inArray('Cancer', JSON.parse(patientObj.pastMedicalHistory)) !== -1){
+              $('#{{ $viewFolder }}_past_med_history_cancer').prop('checked', true);
+              $('#{{ $viewFolder }}_past_med_history_cancer_text').prop('disabled', false);
+              $('#{{ $viewFolder }}_past_med_history_cancer_text').val(patientObj.pastMedicalHistoryCancer);
+            }else{
+              $('#{{ $viewFolder }}_past_med_history_cancer').prop('checked', false);
+              $('#{{ $viewFolder }}_past_med_history_cancer_text').prop('disabled', true);
+                $('#{{ $viewFolder }}_past_med_history_cancer_text').val('');
+            }
+            if(jQuery.inArray('Others', JSON.parse(patientObj.pastMedicalHistory)) !== -1){
+              $('#{{ $viewFolder }}_past_med_history_other').prop('checked', true);
+              $('#{{ $viewFolder }}_past_med_history_other_text').prop('disabled', false);
+              $('#{{ $viewFolder }}_past_med_history_other_text').val(patientObj.pastMedicalHistoryOthers);
+            }else{
+              $('#{{ $viewFolder }}_past_med_history_other').prop('checked', false);
+              $('#{{ $viewFolder }}_past_med_history_other_text').prop('disabled', true);
+                $('#{{ $viewFolder }}_past_med_history_other_text').val('');
+            }
+            $('#{{ $viewFolder }}_pastSurgicalHistory').val(patientObj.pastSurgicalHistory);
+            if(jQuery.inArray('Diabetes', JSON.parse(patientObj.pastFamilyHistory)) !== -1){
+              $('#{{ $viewFolder }}_past_family_history_diabetes').prop('checked', true);
+            }else{
+              $('#{{ $viewFolder }}_past_family_history_diabetes').prop('checked', false);
+            }
+            if(jQuery.inArray('Hypertension', JSON.parse(patientObj.pastFamilyHistory)) !== -1){
+              $('#{{ $viewFolder }}_past_family_history_hypertension').prop('checked', true);
+            }else{
+              $('#{{ $viewFolder }}_past_family_history_hypertension').prop('checked', false);
+            }
+            if(jQuery.inArray('Heart Disease', JSON.parse(patientObj.pastFamilyHistory)) !== -1){
+              $('#{{ $viewFolder }}_past_family_history_heart').prop('checked', true);
+            }else{
+              $('#{{ $viewFolder }}_past_family_history_heart').prop('checked', false);
+            }
+            if(jQuery.inArray('Thyroid Disease', JSON.parse(patientObj.pastFamilyHistory)) !== -1){
+              $('#{{ $viewFolder }}_past_family_history_thyroid').prop('checked', true);
+            }else{
+              $('#{{ $viewFolder }}_past_family_history_thyroid').prop('checked', false);
+            }
+            if(jQuery.inArray('Trauma, Accident', JSON.parse(patientObj.pastFamilyHistory)) !== -1){
+              $('#{{ $viewFolder }}_past_family_history_trauma').prop('checked', true);
+            }else{
+              $('#{{ $viewFolder }}_past_family_history_trauma').prop('checked', false);
+            }
+            if(jQuery.inArray('Asthma', JSON.parse(patientObj.pastFamilyHistory)) !== -1){
+              $('#{{ $viewFolder }}_past_family_history_asthma').prop('checked', true);
+            }else{
+              $('#{{ $viewFolder }}_past_family_history_asthma').prop('checked', false);
+            }
+            if(jQuery.inArray('Cancer', JSON.parse(patientObj.pastFamilyHistory)) !== -1){
+              $('#{{ $viewFolder }}_past_family_history_cancer').prop('checked', true);
+              $('#{{ $viewFolder }}_past_family_history_cancer_text').prop('disabled', false);
+              $('#{{ $viewFolder }}_past_family_history_cancer_text').val(patientObj.pastFamilyHistoryCancer);
+            }else{
+              $('#{{ $viewFolder }}_past_family_history_cancer').prop('checked', false);
+              $('#{{ $viewFolder }}_past_family_history_cancer_text').prop('disabled', true);
+                $('#{{ $viewFolder }}_past_family_history_cancer_text').val('');
+            }
+            if(jQuery.inArray('Others', JSON.parse(patientObj.pastFamilyHistory)) !== -1){
+              $('#{{ $viewFolder }}_past_family_history_other').prop('checked', true);
+              $('#{{ $viewFolder }}_past_family_history_other_text').prop('disabled', false);
+              $('#{{ $viewFolder }}_past_family_history_other_text').val(patientObj.pastFamilyHistoryOthers);
+            }else{
+              $('#{{ $viewFolder }}_past_family_history_other').prop('checked', false);
+              $('#{{ $viewFolder }}_past_family_history_other_text').prop('disabled', true);
+                $('#{{ $viewFolder }}_past_family_history_other_text').val('');
+            }
+            $('#{{ $viewFolder }}_pastMedication').val(patientObj.pastMedication);
+            $('#{{ $viewFolder }}_presentMedication').val(patientObj.presentMedication);
+            if(jQuery.inArray('Food', JSON.parse(patientObj.allergies)) !== -1){
+              $('#{{ $viewFolder }}_allergies_food').prop('checked', true);
+              $('#{{ $viewFolder }}_allergies_food_text').prop('disabled', false);
+              $('#{{ $viewFolder }}_allergies_food_text').val(patientObj.pastFamilyHistoryCancer);
+            }else{
+              $('#{{ $viewFolder }}_allergies_food').prop('checked', false);
+              $('#{{ $viewFolder }}_allergies_food_text').prop('disabled', true);
+              $('#{{ $viewFolder }}_allergies_food_text').val('');
+            }
+            if(jQuery.inArray('Medicine', JSON.parse(patientObj.allergies)) !== -1){
+              $('#{{ $viewFolder }}_allergies_medicine').prop('checked', true);
+              $('#{{ $viewFolder }}_allergies_medicine_text').prop('disabled', false);
+              $('#{{ $viewFolder }}_allergies_medicine_text').val(patientObj.pastFamilyHistoryCancer);
+            }else{
+              $('#{{ $viewFolder }}_allergies_medicine').prop('checked', false);
+              $('#{{ $viewFolder }}_allergies_medicine_text').prop('disabled', true);
+              $('#{{ $viewFolder }}_allergies_medicine_text').val('');
+            }
+            if(jQuery.inArray('Others', JSON.parse(patientObj.allergies)) !== -1){
+              $('#{{ $viewFolder }}_allergies_others').prop('checked', true);
+              $('#{{ $viewFolder }}_allergies_others_text').prop('disabled', false);
+              $('#{{ $viewFolder }}_allergies_others_text').val(patientObj.pastFamilyHistoryCancer);
+            }else{
+              $('#{{ $viewFolder }}_allergies_others').prop('checked', false);
+              $('#{{ $viewFolder }}_allergies_others_text').prop('disabled', true);
+              $('#{{ $viewFolder }}_allergies_others_text').val('');
+            }
+            $('#{{ $viewFolder }}_vaccination').val(patientObj.vaccination);
+            $('#{{ $viewFolder }}_medHistoryOthers').val(patientObj.medHistoryOthers);
+          }
+      });
     });
     
     $('body').on('click', '#action-icon', function(evt){
@@ -1444,13 +1466,7 @@
         evt.preventDefault();
     });
     
-    function FileListItem(file) {
-              file = [].slice.call(Array.isArray(file) ? file : arguments)
-              for (var c, b = c = file.length, d = !0; b-- && d;) d = file[b] instanceof File
-              if (!d) throw new TypeError("expected argument to FileList is File or array of File objects")
-              for (b = (new ClipboardEvent("")).clipboardData || new DataTransfer; c--;) b.items.add(file[c])
-              return b.files
-          }
+    
   });
 
   $('.flexdatalist').flexdatalist({

@@ -468,6 +468,23 @@ class ClinicsHomeController extends Controller
         ConsultationFile::destroy($id);
     }
 
+    function getPatientList($patient_name){
+        $user = Auth::user();
+        if($user->user_type == 'Clinic'){
+            $patients = Patient::where('name', 'like', "%{$patient_name}%")->where('client_id', $user->id)->get();
+        }elseif($user->user_type == 'Doctor'){
+            unset($patientsId);
+            foreach($user->bookings()->distinct('patient_id')->get() as $booking){
+                if($booking->patient_id != '')
+                    $patientsId[$booking->patient_id] = $booking->patient_id;
+            }
+            $patients = Patient::where('name', 'like', "%{$patient_name}%")->whereIn('id', $patientsId)->get();
+        }else{
+            $patients = Patient::where('name', 'like', "%{$patient_name}%")->get();
+        }
+        return json_encode($patients);
+    }
+
     private function getData($search_query = null)
     {
         $condition = $this->queryBuilder('consultations', !empty($search_query['clinics_home']) ? $search_query['clinics_home'] : '');
