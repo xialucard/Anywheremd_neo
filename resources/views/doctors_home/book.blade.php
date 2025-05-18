@@ -476,22 +476,96 @@
           <div id="labPrevDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
             <div id="carouselPrev" class="carousel carousel-dark slide" data-bs-ride="true">
               <div class="carousel-indicators" id="labPrevCarouselInd">
+                @php
+                  $key = false;
+                @endphp
                 @if(!empty($bookings[0]->consultation_files[0]->file_link))
                   @foreach($bookings[0]->consultation_files as $ind=>$file)
+                  @php
+                    $key = true;
+                  @endphp
                 <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
                   @endforeach
-                @else
+                @endif
+                @if(!empty($bookings[0]->anesthesia_files[0]->file_link))
+                  @foreach($bookings[0]->anesthesia_files as $file)
+                  @php
+                    $ind++;
+                    $key = true;
+                  @endphp
+                <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
+                  @endforeach
+                @endif
+                @if(!empty($bookings[0]->doctor_files[0]->file_link))
+                  @foreach($bookings[0]->doctor_files as $file)
+                  @php
+                    $ind++;
+                    $key = true;
+                  @endphp
+                <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
+                  @endforeach
+                @endif
+                @if(!empty($bookings[0]->prescription_files[0]->file_link))
+                  @foreach($bookings[0]->prescription_files as $file)
+                  @php
+                    $ind++;
+                    $key = true;
+                  @endphp
+                <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
+                  @endforeach
+                @endif
+                @if(!$key)
                 <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                 @endif
               </div>
               <div class="carousel-inner" id="labPrevCarouselInner">
+                @php
+                  $key = false;
+                @endphp
                 @if(!empty($bookings[0]->consultation_files[0]->file_link))
                   @foreach($bookings[0]->consultation_files as $ind=>$file)
+                  @php
+                    $key = true;
+                  @endphp
                 <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
-                  <img src="{{stristr($file->file_link, 'uploada') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
+                  <img src="{{stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
                 </div>
                   @endforeach
-                @else
+                @endif
+                @if(!empty($bookings[0]->anesthesia_files[0]->file_link))
+                  @foreach($bookings[0]->anesthesia_files as $file)
+                  @php
+                    $ind++;
+                    $key = true;
+                  @endphp
+                <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
+                  <img src="{{stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
+                </div>
+                  @endforeach
+                @endif
+                @if(!empty($bookings[0]->doctor_files[0]->file_link))
+                  @foreach($bookings[0]->doctor_files as $file)
+                  @php
+                    $ind++;
+                    $key = true;
+                  @endphp
+                <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
+                  <img src="{{stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
+                </div>
+                  @endforeach
+                @endif
+                @if(!empty($bookings[0]->prescription_files[0]->file_link))
+                  @foreach($bookings[0]->prescription_files as $file)
+                  @php
+                    $ind++;
+                    $key = true;
+                  @endphp
+                <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
+                  <img src="{{stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
+                </div>
+                  @endforeach
+                @endif
+                @if(!$key)
                 <div class="carousel-item active">
                   <img src="https://mdbootstrap.com/img/Photos/Others/placeholder.jpg" class="d-block w-100" alt="">
                 </div>
