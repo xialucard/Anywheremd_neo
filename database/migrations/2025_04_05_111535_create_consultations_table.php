@@ -91,6 +91,16 @@ return new class extends Migration
             $table->foreign('doctor_id')->references('id')->on('users');
             $table->foreign('created_by')->references('id')->on('users');
             $table->foreign('updated_by')->references('id')->on('users');
+            $table->index('consultation_parent_id');
+            $table->index('advance_booking_id');
+            $table->index('clinic_id');
+            $table->index('patient_id');
+            $table->index('client_id');
+            $table->index('doctor_id');
+            $table->index('booking_type');
+            $table->index('status');
+            $table->index('created_by');
+            $table->index('updated_by');
         });
     }
 

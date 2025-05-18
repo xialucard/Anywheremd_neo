@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('schedule_consos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('clinic_id');
+            $table->unsignedBigInteger('clinic_id')->nullable();
             $table->unsignedBigInteger('doctor_id');
             $table->date('date_from');
             $table->date('date_to');

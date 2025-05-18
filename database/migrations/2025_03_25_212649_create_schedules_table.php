@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('schedules', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('schedule_conso_id');
-            $table->unsignedBigInteger('clinic_id');
+            $table->unsignedBigInteger('clinic_id')->nullable();
             $table->unsignedBigInteger('doctor_id');
             $table->date('dateSched');
             $table->string('timeslot', 255)->nullable();
