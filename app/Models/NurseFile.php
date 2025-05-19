@@ -9,6 +9,14 @@ class NurseFile extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'consultation_id',
+        'file_link',
+        'file_type',
+        'created_by',
+        'updated_by',
+    ];
+
     public function creator()
     {
         return $this->belongsTo(User::class, 'created_by');

@@ -151,11 +151,13 @@
             $('#consoDocDiv').hide();  
             $('#consoPatientDiv').hide();
             $('#consoPatUploadDiv').hide();
+            $('#consoNurseUploadDiv').hide();
             $('#consoPatBookChartDiv').show();
             $(this).addClass('active');
             $('#docInfoLink').removeClass('active');
             $('#patInfoLink').removeClass('active');
             $('#patUploadLink').removeClass('active');
+            $('#nurseUploadLink').removeClass('active');
           ">Patient's Booking Chart</a>
         </li>
         <li class="nav-item">
@@ -164,11 +166,27 @@
             $('#consoPatientDiv').hide();
             $('#consoPatBookChartDiv').hide();
             $('#consoPatUploadDiv').show();
+            $('#consoNurseUploadDiv').hide();
             $(this).addClass('active');
             $('#docInfoLink').removeClass('active');
             $('#patInfoLink').removeClass('active');
             $('#patBookChartLink').removeClass('active');
+            $('#nurseUploadLink').removeClass('active');
           ">File Uploads</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"  href="#" id="nurseUploadLink" onclick="
+            $('#consoDocDiv').hide();  
+            $('#consoPatientDiv').hide();
+            $('#consoPatBookChartDiv').hide();
+            $('#consoPatUploadDiv').hide();
+            $('#consoNurseUploadDiv').show();
+            $(this).addClass('active');
+            $('#docInfoLink').removeClass('active');
+            $('#patInfoLink').removeClass('active');
+            $('#patBookChartLink').removeClass('active');
+            $('#patUploadLink').removeClass('active');
+          ">Nurse's File Uploads</a>
         </li>
         @endif
         <li class="nav-item">
@@ -176,11 +194,13 @@
             $('#consoDocDiv').hide();  
             $('#consoPatBookChartDiv').hide();  
             $('#consoPatUploadDiv').hide();
+            $('#consoNurseUploadDiv').hide();
             $('#consoPatientDiv').show();
             $(this).addClass('active');
             $('#docInfoLink').removeClass('active');
             $('#patBookChartLink').removeClass('active');
             $('#patUploadLink').removeClass('active');
+            $('#nurseUploadLink').removeClass('active');
           ">Patient's Info</a>
         </li>
         <li class="nav-item">
@@ -188,17 +208,19 @@
           $('#consoPatientDiv').hide();  
           $('#consoPatBookChartDiv').hide(); 
           $('#consoPatUploadDiv').hide();
+          $('#consoNurseUploadDiv').hide();
           $('#consoDocDiv').show();  
           $(this).addClass('active');
           $('#patInfoLink').removeClass('active');
           $('#patBookChartLink').removeClass('active');
           $('#patUploadLink').removeClass('active');
+          $('#nurseUploadLink').removeClass('active');
         ">Doctor's Info</a>
         </li>
       </ul>
       <div id="consoPatUploadDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
         <div class="mb-3">
-          <label for="formFileMultiple" class="form-label">Upload file/s</label>
+          <label for="formFileMultiple" class="form-label">File Upload/s</label>
           <input class="form-control" type="file" id="{{ $viewFolder }}_files" name="{{ $viewFolder }}[ConsultationFile][files][]" accept="image/png, image/gif, image/jpeg" multiple>
         </div>
         <div class="row" id="image_preview_saved">
@@ -212,6 +234,23 @@
           @endif
         </div>
         <div class="row" id="image_preview"></div>
+      </div>
+      <div id="consoNurseUploadDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
+        <div class="mb-3">
+          <label for="formFileMultiple" class="form-label">Nurse File Upload/s</label>
+          <input class="form-control" type="file" id="{{ $viewFolder }}_nurse_files" name="{{ $viewFolder }}[NurseFile][files][]" accept="image/png, image/gif, image/jpeg" multiple>
+        </div>
+        <div class="row" id="image_preview_saved_nurse">
+          @if(isset($datum->nurse_files))
+            @foreach($datum->nurse_files as $ind => $file)
+            @php
+              $exAr = explode('/', $file->file_link);
+            @endphp
+          <div class='img-div' id='img-div-nurse-save{{ $ind }}'><img src='{{ asset($file->file_link) }}' class='img-thumbnail' title='{{ $exAr[sizeof($exAr)-1] }}'><div class='middle'><button id='action-icon-nurse' value='img-div-nurse-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
+            @endforeach
+          @endif
+        </div>
+        <div class="row" id="image_preview_nurse"></div>
       </div>
       <div id="consoPatBookChartDiv" style="{{ !isset($datum->id) ? 'display:none' : '' }}" class="container border border-1 border-top-0 mb-3 p-3">
         <div class="row">
@@ -1229,6 +1268,23 @@
           }
     });
 
+    $("#{{ $viewFolder }}_nurse_files").change(function(){
+        // check if fileArr length is greater than 0
+        if (fileArr.length > 0) fileArr = [];
+      
+          $('#image_preview_nurse').html("");
+          var total_file = document.getElementById("{{ $viewFolder }}_nurse_files").files;
+          if (!total_file.length) return;
+          for (var i = 0; i < total_file.length; i++) {
+            if (total_file[i].size > 1048576) {
+              return false;
+            } else {
+              fileArr.push(total_file[i]);
+              $('#image_preview_nurse').append("<div class='img-div' id='img-div-nurse"+i+"'><img src='"+URL.createObjectURL(event.target.files[i])+"' class='img-thumbnail' title='"+total_file[i].name+"'><div class='middle'><button id='action-icon-nurse' value='img-div-nurse"+i+"' class='btn btn-danger' role='"+total_file[i].name+"'><i class='bi bi-trash'></i></button></div></div>");
+            }
+          }
+    });
+
     $("#{{ $viewFolder }}_name").on("input", function () {
       val = $(this).val();
       $.ajax({
@@ -1465,6 +1521,27 @@
           }
         }
       document.getElementById('{{ $viewFolder }}_files').files = FileListItem(fileArr);
+        evt.preventDefault();
+    });
+
+    $('body').on('click', '#action-icon-nurse', function(evt){
+        var divName = this.value;
+        var fileName = $(this).attr('role');
+        if($(this).attr('saved') != ''){
+          $.ajax({
+            type: 'GET',
+            url: '{{ Route::has($viewFolder . '.deleteUploadedNurseFile') ? route($viewFolder . '.deleteUploadedNurseFile') : ''}}/' + $(this).attr('saved')
+          });
+        }
+          
+        $(`#${divName}`).remove();
+      
+        for (var i = 0; i < fileArr.length; i++) {
+          if (fileArr[i].name === fileName) {
+            fileArr.splice(i, 1);
+          }
+        }
+      document.getElementById('{{ $viewFolder }}_nurse_files').files = FileListItem(fileArr);
         evt.preventDefault();
     });
     

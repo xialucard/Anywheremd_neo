@@ -9,6 +9,7 @@ use App\Models\Clinic;
 use App\Models\Consultation;
 use App\Models\ConsultationFile;
 use App\Models\HealthOrganization;
+use App\Models\NurseFile;
 use App\Models\Patient;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -355,6 +356,19 @@ class ClinicsHomeController extends Controller
                 ConsultationFile::create($parFile);
             }
         }
+        if(!empty($request->clinics_home['NurseFile']['files'])){
+            foreach($request->clinics_home['NurseFile']['files'] as $ind => $file){
+                unset($parFile);
+                $file_name = $clinics_home->id . '_consultation_' . date('ymdhis') . $ind . '.' . $file->extension();
+                $file->storeAs('public/nurse_files', $file_name);
+                $parFile['consultation_id'] = $clinics_home->id;
+                $parFile['file_link'] = 'storage/nurse_files/' . $file_name;
+                $parFile['file_type'] = $file->getMimeType();
+                $parFile['created_by'] = $user->id;
+                $parFile['updated_by'] = $user->id;
+                NurseFile::create($parFile);
+            }
+        }
         unset($params['Patient']);
         $patient['client_id'] = $user->id;
         $patient['name'] = $patient['f_name'] . " " . $patient['m_name'] . " " . $patient['l_name'];
@@ -510,6 +524,10 @@ class ClinicsHomeController extends Controller
 
     function deleteUploadedFile(?int $id){
         ConsultationFile::destroy($id);
+    }
+
+    function deleteUploadedNurseFile(?int $id){
+        NurseFile::destroy($id);
     }
 
     function getPatientList($patient_name){
