@@ -36,7 +36,7 @@ class ClinicsController extends Controller
         // foreach (Clinic::whereNotNull(['user_id'])->get() as $clinic) {
         //     User::where('id', $clinic->user_id)->update(['clinic_id' => $clinic->id]);
         // }
-        // foreach (Patient::where('active', 1)->skip(30000)->take(10000)->get() as $patient) {
+        // foreach (Patient::where('active', 1)->skip(40000)->take(10000)->get() as $patient) {
         //     $pastMedicalHistoryCommaArr = explode(',', $patient->pastMedicalHistoryComma);
         //     $pastFamilyHistoryCommaArr = explode(',', $patient->pastFamilyHistoryComma);
         //     $pastAllergiesCommaArr = explode(',', $patient->allergiesComma);

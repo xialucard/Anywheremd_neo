@@ -53,20 +53,31 @@ class ClinicsHomeController extends Controller
         foreach($user->clinic->schedules()->whereYear('dateSched', $yr)->whereMonth('dateSched', $mon)->get('doctor_id') as $doc){
             $doctorArrMon[$doc->doctor_id] = $doc->doctor_id;
         }
+
+        $schedules = null;
+        $schedulesMon = null;
         
         if(isset($doctor_id)){
-            $schedules = User::whereIn('id', $doctorArr)->where('id', $doctor_id);
-            if(!empty($schedules->get()[0]->specialty))
-                $specialty = $schedules->get()[0]->specialty;
-            $schedulesMon = User::whereIn('id', $doctorArrMon)->where('id', $doctor_id);
+            if(isset($doctorArr)){
+                $schedules = User::whereIn('id', $doctorArr)->where('id', $doctor_id);
+                if(!empty($schedules->get()[0]->specialty))
+                    $specialty = $schedules->get()[0]->specialty;
+            }
+            if(isset($doctorArrMon))
+                $schedulesMon = User::whereIn('id', $doctorArrMon)->where('id', $doctor_id);
         }elseif(isset($specialty)){
-            $schedules = User::whereIn('id', $doctorArr)->where('specialty', $specialty);
-            $schedulesMon = User::whereIn('id', $doctorArrMon)->where('specialty', $specialty);
+            if(isset($doctorArr))
+                $schedules = User::whereIn('id', $doctorArr)->where('specialty', $specialty);
+            if(isset($doctorArrMon))
+                $schedulesMon = User::whereIn('id', $doctorArrMon)->where('specialty', $specialty);
         }else{
-            $schedules = User::whereIn('id', $doctorArr);
-            $schedulesMon = User::whereIn('id', $doctorArrMon);
+            if(isset($doctorArr))
+                $schedules = User::whereIn('id', $doctorArr);
+            if(isset($doctorArrMon))
+                $schedulesMon = User::whereIn('id', $doctorArrMon);
         }
-        $doctor_list_id = $schedulesMon->get('id');
+        if(!is_null($schedulesMon))
+            $doctor_list_id = $schedulesMon->get('id');
         
         unset($booking_type_arr);
         
@@ -89,12 +100,14 @@ class ClinicsHomeController extends Controller
             $booking_type_arr = null;
         
         
-        unset($calendarArr);
-        foreach($user->clinic->schedules()->whereIn('doctor_id', $doctor_list_id)->whereYear('dateSched', $yr)->whereMonth('dateSched', $mon)->get() as $sched){
-            if(!isset($calendarArr[date('d', strtotime($sched->dateSched))][$sched->doctor_id]))
-                $calendarArr[date('d', strtotime($sched->dateSched))][$sched->doctor_id] = 1;
-            else
-                $calendarArr[date('d', strtotime($sched->dateSched))][$sched->doctor_id] += 1;
+        $calendarArr = null;
+        if(!is_null($schedulesMon)){
+            foreach($user->clinic->schedules()->whereIn('doctor_id', $doctor_list_id)->whereYear('dateSched', $yr)->whereMonth('dateSched', $mon)->get() as $sched){
+                if(!isset($calendarArr[date('d', strtotime($sched->dateSched))][$sched->doctor_id]))
+                    $calendarArr[date('d', strtotime($sched->dateSched))][$sched->doctor_id] = 1;
+                else
+                    $calendarArr[date('d', strtotime($sched->dateSched))][$sched->doctor_id] += 1;
+            }
         }
         unset($bookingArr);
         foreach($user->clinic->bookings()->whereYear('bookingDate', $yr)->whereMonth('bookingDate', $mon)->get() as $booking){
