@@ -110,20 +110,25 @@
                                                 <td class="{{ $border }} {{ $textColor }}">
                                                     @if(strtotime($yr . '-' . $mon . '-' . $i) >= strtotime('-3 days'))
                                                         @can($viewFolder . '.index')
-                                                            @if(!empty($user->schedules()->where('dateSched', $yr . '-' . $mon . '-' . $i)->get()[0]))
+                                                            @if(isset($calendarArr[$i]) && $calendarArr[$i]>0)
                                                         <a href="{{ route($viewFolder . '.index') . '/' . $yr . '/' . $mon . '/' . $i }}" class="link-{{ $bgColor }} link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
                                                             @endif
                                                         @endcan
                                                             <div>
                                                                 <div>{{ $i }}</div>
-                                                                <div><i class="bi bi-list-ol"></i></div>
+                                                                <div>
+                                                                    @if(isset($bookingArr[$i]) && $bookingArr[$i]>0)
+                                                                    <i class="bi bi-list-ol"></i> {{ $bookingArr[$i] }}
+                                                                    @else
+                                                                    &nbsp;
+                                                                    @endif
+                                                                </div>
                                                             </div>
                                                         @can($viewFolder . '.index')
-                                                            @if(!empty($user->schedules()->where('dateSched', $yr . '-' . $mon . '-' . $i)->get()[0]))
+                                                           @if(isset($calendarArr[$i]) && $calendarArr[$i]>0)
                                                         </a>
                                                             @endif
                                                         @endcan
-                                                        
                                                     @else
                                                     <div>
                                                         <div>{{ $i }}</div>
@@ -144,22 +149,22 @@
                                                 <td class="{{ $border }} {{ $textColor }}">
                                                     @if(strtotime($yr . '-' . $mon . '-' . $i) >= strtotime('-3 days'))
                                                         @can($viewFolder . '.index')
-                                                            @if(!empty($user->schedules()->where('dateSched', $yr . '-' . $mon . '-' . $i)->get()[0]))
+                                                            @if(isset($calendarArr[$i]) && $calendarArr[$i]>0)
                                                         <a href="{{ route($viewFolder . '.index') . '/' . $yr . '/' . $mon . '/' . $i }}" class="link-{{ $bgColor }} link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
                                                             @endif
                                                         @endcan
                                                             <div>
                                                                 <div>{{ $i }}</div>
                                                                 <div>
-                                                                    @if(!empty($user->bookings()->where('bookingDate', $yr . '-' . $mon . '-' . $i)->get()[0]))
-                                                                    <i class="bi bi-list-ol"></i> {{ sizeof($user->bookings()->where('bookingDate', $yr . '-' . $mon . '-' . $i)->get()) }}
+                                                                    @if(isset($bookingArr[$i]) && $bookingArr[$i]>0)
+                                                                    <i class="bi bi-list-ol"></i> {{ $bookingArr[$i] }}
                                                                     @else
                                                                     &nbsp;
                                                                     @endif
                                                                 </div>
                                                             </div>
                                                         @can($viewFolder . '.index')
-                                                            @if(!empty($user->schedules()->where('dateSched', $yr . '-' . $mon . '-' . $i)->get()[0]))
+                                                           @if(isset($calendarArr[$i]) && $calendarArr[$i]>0)
                                                         </a>
                                                             @endif
                                                         @endcan

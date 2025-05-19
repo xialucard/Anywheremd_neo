@@ -41,8 +41,8 @@ class DoctorsHomeController extends Controller
             $dayNum = 1;
         }
 
-        unset($booking_type_arr);
         
+        unset($booking_type_arr);
         foreach($user->bookings()->distinct('booking_type')->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->get() as $in=>$booking){
             if($booking->consultation_parent_id != "")
                 $booking_type_arr['Referral'] = 'Referral';
@@ -62,6 +62,24 @@ class DoctorsHomeController extends Controller
         if(!isset($booking_type_arr))
             $booking_type_arr = null;
 
+        $calendarArr = null;
+        if(isset($user->schedules()->whereYear('dateSched', $yr)->whereMonth('dateSched', $mon)->get()[0])){
+            foreach($user->schedules()->whereYear('dateSched', $yr)->whereMonth('dateSched', $mon)->get() as $sched){
+                if(!isset($calendarArr[date('d', strtotime($sched->dateSched))]))
+                    $calendarArr[date('d', strtotime($sched->dateSched))] = 1;
+                else
+                    $calendarArr[date('d', strtotime($sched->dateSched))] += 1;
+            }
+        }
+
+        unset($bookingArr);
+        foreach($user->bookings()->whereYear('bookingDate', $yr)->whereMonth('bookingDate', $mon)->get() as $booking){
+            if(!isset($bookingArr[date('d', strtotime($booking->bookingDate))]))
+                $bookingArr[date('d', strtotime($booking->bookingDate))] = 1;
+            else
+                $bookingArr[date('d', strtotime($booking->bookingDate))] += 1;
+        }
+
         if($user->active == 2)
             return redirect()->route('home.myaccount')->with("Incomplete Form", "Please fullfill the form first. Make sure you also change the old password.");
         else{
@@ -74,7 +92,9 @@ class DoctorsHomeController extends Controller
                 'yr'=>$yr, 
                 'mon'=>$mon, 
                 'dayNum'=>$dayNum,
-                'user'=>$user
+                'user'=>$user,
+                'calendarArr'=>$calendarArr,
+                'bookingArr'=>$bookingArr
             ]);
         }
             
