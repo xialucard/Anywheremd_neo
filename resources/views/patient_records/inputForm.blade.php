@@ -327,7 +327,7 @@
                 </div>
                 {{-- @else --}}
                 <div class="card mb-3">
-                  <div class="card-header">Subject's Complaints</div>
+                  <div class="card-header">Subjective Complaints</div>
                   <div class="card-body">
                     <small class="text-muted">Helper</small>
                     <div class="input-group input-group-small flex-nowrap">
