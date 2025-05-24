@@ -635,8 +635,8 @@
             <div class="card-header">Eye Examination Information</div>
             <div class="card-body">
               <p>
-                <strong>AR OD:</strong> <span class="text-primary">{{ $datum->arod_sphere != 'No Target' ? $datum->arod_sphere . ' - ' . $datum->arod_cylinder . ' x ' . $datum->arod_axis : $datum->arod_sphere }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                <strong>AR OS:</strong> <span class="text-primary">{{ $datum->aros_sphere != 'No Target' ? $datum->aros_sphere . ' - ' . $datum->aros_cylinder . ' x ' . $datum->aros_axis : $datum->aros_sphere }}</span><br>
+                <strong>AR OD:</strong> <span class="text-primary">{{ $datum->arod_sphere != 'No Target' ? $datum->arod_sphere . ' - ' . $datum->arod_cylinder . ' x ' . $datum->arod_axis : 'No Refraction Possible' }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                <strong>AR OS:</strong> <span class="text-primary">{{ $datum->aros_sphere != 'No Target' ? $datum->aros_sphere . ' - ' . $datum->aros_cylinder . ' x ' . $datum->aros_axis : 'No Refraction Possible' }}</span><br>
                 <strong>UCVA OD:</strong> <span class="text-primary">{{ is_int($datum->vaod_num) ? $datum->vaod_num . ' / ' . $datum->vaod_den : $datum->vaod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
                 <strong>UCVA OD w/ Correction:</strong> <span class="text-primary">{{ is_int($datum->vaodcor_num) ? $datum->vaodcor_num . ' / ' . $datum->vaodcor_den : $datum->vaodcor_num }}</span><br>
                 <strong>UCVA OS:</strong> <span class="text-primary">{{ is_int($datum->vaos_num) ? $datum->vaos_num . ' / ' . $datum->vaos_den : $datum->vaos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
