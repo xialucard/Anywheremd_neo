@@ -94,7 +94,8 @@ class DoctorsHomeController extends Controller
                 'dayNum'=>$dayNum,
                 'user'=>$user,
                 'calendarArr'=>$calendarArr,
-                'bookingArr'=>$bookingArr
+                'bookingArr'=>$bookingArr,
+                'inputFormHeader' => 'Booking',
             ]);
         }
             

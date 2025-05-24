@@ -46,6 +46,9 @@ class ClinicsHomeController extends Controller
             $dayNum = 1;
         }
 
+        // $condition = $this->queryBuilder('consultations', !empty($_GET['clinics_home']) ? $_GET['clinics_home'] : '');
+        // dd($condition);
+
         unset($doctorArr);
         foreach($user->clinic->schedules()->where('dateSched', $yr . '-' . str_pad($mon, 2, 0, STR_PAD_LEFT) . '-' . $dayNum)->get('doctor_id') as $doc){
             $doctorArr[$doc->doctor_id] = $doc->doctor_id;
@@ -82,7 +85,21 @@ class ClinicsHomeController extends Controller
         
         unset($booking_type_arr);
         
-        foreach($user->clinic->bookings()->distinct('booking_type')->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->get() as $in=>$booking){
+        $patientArr = null;
+        if(isset($_GET['clinics_home']['Patient']['name']) && $_GET['clinics_home']['Patient']['name'] != ''){
+            $patientRes = Patient::where('name', 'like', "%{$_GET['clinics_home']['Patient']['name']}%")->get();
+            foreach($patientRes as $patArr){
+                $patientArr[$patArr->id] = $patArr->id;
+            }
+        }
+        if(!is_null($patientArr)){
+            $bookings = $user->clinic->bookings()->distinct('booking_type')->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->whereIn('patient_id', $patientArr)->get();
+        }else{
+            $bookings = $user->clinic->bookings()->distinct('booking_type')->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->get();
+        }
+
+        
+        foreach($bookings as $in=>$booking){
             if($booking->consultation_parent_id != "")
                 $booking_type_arr['Referral'] = 'Referral';
             if($booking->booking_type == '')
@@ -110,8 +127,18 @@ class ClinicsHomeController extends Controller
                     $calendarArr[date('d', strtotime($sched->dateSched))][$sched->doctor_id] += 1;
             }
         }
+
+        if(!is_null($patientArr)){
+            $bookingsMon = $user->clinic->bookings()->whereYear('bookingDate', $yr)->whereMonth('bookingDate', $mon)->whereIn('patient_id', $patientArr)->get();
+        }else{
+            $bookingsMon = $user->clinic->bookings()->whereYear('bookingDate', $yr)->whereMonth('bookingDate', $mon)->get();
+        }
+        // print "<pre>";
+        // print_r($bookingsMon);
+        // print "</pre>";
+        
         unset($bookingArr);
-        foreach($user->clinic->bookings()->whereYear('bookingDate', $yr)->whereMonth('bookingDate', $mon)->get() as $booking){
+        foreach($bookingsMon as $booking){
             if(!isset($bookingArr[date('d', strtotime($booking->bookingDate))]))
                 $bookingArr[date('d', strtotime($booking->bookingDate))] = 1;
             else
@@ -142,7 +169,9 @@ class ClinicsHomeController extends Controller
                 'schedulesMon'=>$schedulesMon,
                 'bookingArr'=>$bookingArr,
                 'calendarArr'=>$calendarArr,
-                'user' => $user
+                'user' => $user,
+                'inputFormHeader' => 'Booking',
+                'patientArr' => $patientArr
             ]);
         }
     }
@@ -159,7 +188,7 @@ class ClinicsHomeController extends Controller
                 'moduleList' => $this->moduleList(), 
                 'moduleActive' => $this->module, 
                 'datum' => $datum, 
-                'inputFormHeader' => 'Manage  Affiliated Doctors', 
+                'inputFormHeader' => 'Manage Affiliated Doctors', 
                 'formAction' => 'storeDoctor', 
                 'viewFolder' => $this->viewFolder, 
                 'action'=> 'manageDoctor', 
@@ -295,6 +324,39 @@ class ClinicsHomeController extends Controller
         }
         
         
+    }
+
+    public function show(Consultation $clinics_home, Request $request)
+    {
+        //dd($clinics_home);
+        $user = Auth::user();
+        $datum = $clinics_home;
+        $yr = null;
+        $mon = null;
+        $dayNum = null;
+        return view($this->viewFolder . '.index', [
+                'moduleList' => $this->moduleList(), 
+                'moduleActive' => $this->module, 
+                // 'data' => $data, 
+                'datum' => $datum, 
+                'inputFormHeader' => 'View Booking', 
+                'formId' => 'bookMod',
+                'formAction' => 'update', 
+                'viewFolder' => $this->viewFolder, 
+                'action'=> 'book', 
+                'selectItems' => $this->selectItems(),
+                'user' => $user,
+                'doctor' => $datum->doctor,
+                'yr' => $yr, 
+                'mon' => $mon, 
+                'dayNum' => $dayNum, 
+                'modalSize' => 'modal-xl', 
+                'modal' => true,
+                'dateBooking' => $datum->bookingDate,
+                'viewFolder' => $this->viewFolder, 
+                'modalSize' => 'modal-xl',
+                'users' => $user
+            ]);
     }
 
     public function edit(Consultation $clinics_home, Request $request)

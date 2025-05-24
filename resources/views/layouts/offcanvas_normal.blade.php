@@ -4,7 +4,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <form action="{{ route($viewFolder . '.index', [$yr, $mon, $dayNum, $booking_type]) }}" method="GET">
+        <form action="{{ route($viewFolder . '.index') }}" method="GET">
             @include($viewFolder . '.search')
             
             <div class="btn-group" role="group">

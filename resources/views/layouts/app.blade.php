@@ -182,8 +182,13 @@
     @auth
         @isset($formAction)
             @include('layouts.modal')
-            @include('layouts.offcanvas')
         @endisset
+        @if(stristr(Route::currentRouteName(), 'clinics_home'))
+            @include('layouts.offcanvas')
+        @else
+            @include('layouts.offcanvas_normal')
+        @endif
+           
     @endauth
     {{-- @livewireScripts --}}
 </body>

@@ -34,7 +34,7 @@ Auth::routes();
 Route::group(['middleware' => ['auth', 'permission']], function() {
     Route::resource('home', HomeController::class)->only(['index', 'show']);
     Route::get('myaccount', [HomeController::class, 'myaccount'])->name('home.myaccount');
-    Route::resource('clinics_home', ClinicsHomeController::class)->only(['edit', 'update', 'destroy']);
+    Route::resource('clinics_home', ClinicsHomeController::class)->only(['show', 'edit', 'update', 'destroy']);
     Route::get('/clinics_home/getPatientList/{patient_id?}', [ClinicsHomeController::class, 'getPatientList'])->name('clinics_home.getPatientList');
     Route::get('/clinics_home/getPatientInfo/{patient_id?}', [ClinicsHomeController::class, 'getPatientInfo'])->name('clinics_home.getPatientInfo');
     Route::get('/clinics_home/deleteUploadedFile/{id?}', [ClinicsHomeController::class, 'deleteUploadedFile'])->name('clinics_home.deleteUploadedFile');

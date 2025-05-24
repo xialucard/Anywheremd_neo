@@ -1,6 +1,8 @@
 @extends('layouts.app')
 @section('content')
 
+<datalist id="patientNameList"></datalist>
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
@@ -88,6 +90,7 @@
                                         @can($viewFolder . '.manageDoctor')
                                         <span class="input-group-text"><a type="submit" class="btn btn-sm" href="{{ route($viewFolder . '.manageDoctor') }}" title="Manage Doctor" role="button"><i class="bi bi-person-heart"></i></a></span>
                                         @endcan
+                                        <span class="input-group-text"><a class="btn btn-sm" href="#" title="Search Booking" data-bs-toggle="offcanvas" data-bs-target="#searchPane" href="#" role="button"><i class="bi bi-search"></i></a></span>
                                     </div>
                                     @if(isset($specialty_list[0]))
                                     <div class="input-group mb-3">
@@ -170,7 +173,7 @@
                                                         @can($viewFolder . '.index')
                                                             {{-- @if(!empty($user->clinic->schedules()->whereIn('doctor_id', $doctor_list_id)->where('dateSched', $yr . '-' . $mon . '-' . $i)->get()[0])) --}}
                                                             @if(isset($calendarArr[$i]) && sizeof($calendarArr[$i])>0)
-                                                        <a href="{{ route($viewFolder . '.index') . '/' . $yr . '/' . $mon . '/' . $i . '/NULL/' . $specialty  . '/' . $doctor_id }}" class="link-{{ $bgColor }} link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
+                                                        <a href="{{ route($viewFolder . '.index', [$yr, $mon, $i, $booking_type, $specialty, $doctor_id]) }}" class="link-{{ $bgColor }} link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
                                                             @endif
                                                         @endcan
                                                             <div>
@@ -224,7 +227,7 @@
                                                         @can($viewFolder . '.index')
                                                             {{-- @if(!empty($user->clinic->schedules()->whereIn('doctor_id', $doctor_list_id)->where('dateSched', $yr . '-' . $mon . '-' . $i)->get()[0])) --}}
                                                             @if(isset($calendarArr[$i]) && sizeof($calendarArr[$i])>0)
-                                                        <a href="{{ route($viewFolder . '.index') . '/' . $yr . '/' . $mon . '/' . $i . '/NULL/' . $specialty  . '/' . $doctor_id }}" class="link-{{ $bgColor }} link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
+                                                        <a href="{{ route($viewFolder . '.index', [$yr, $mon, $i, $booking_type, $specialty, $doctor_id]) }}" class="link-{{ $bgColor }} link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
                                                             @endif
                                                         @endcan
                                                             <div>
@@ -328,9 +331,15 @@
                                             @if(!empty($yr))
                                                 @php
                                                     if(!empty($booking_type) && $booking_type == 'Referral'){
-                                                        $bookingArr = $user->clinic->bookings()->whereNotNull('consultation_parent_id', )->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->get();
+                                                        if(!is_null($patientArr))
+                                                            $bookingArr = $user->clinic->bookings()->whereNotNull('consultation_parent_id', )->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->whereIn('patient_id', $patientArr)->get();
+                                                        else
+                                                            $bookingArr = $user->clinic->bookings()->whereNotNull('consultation_parent_id', )->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->get();
                                                     }else{
-                                                        $bookingArr = $user->clinic->bookings()->where('booking_type', $booking_type == 'Consultation' ? '' : $booking_type)->whereNull('consultation_parent_id')->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->get();
+                                                        if(!is_null($patientArr))
+                                                            $bookingArr = $user->clinic->bookings()->where('booking_type', $booking_type == 'Consultation' ? '' : $booking_type)->whereNull('consultation_parent_id')->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->whereIn('patient_id', $patientArr)->get();
+                                                        else
+                                                            $bookingArr = $user->clinic->bookings()->where('booking_type', $booking_type == 'Consultation' ? '' : $booking_type)->whereNull('consultation_parent_id')->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->get();
                                                     }
                                                 @endphp
                                                 @foreach($bookingArr as $dat)
