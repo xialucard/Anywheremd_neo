@@ -343,6 +343,8 @@ class ClinicsHomeController extends Controller
         // dd($params);
         $userInputedDetails = $params['user'];
         unset($params['user']);
+        $referer = $params['referer'];
+        unset($params['referer']);
         $params['updated_by'] = $user->id;
         if($userInputedDetails['passwordOld'] != ''){
             if (Hash::check($userInputedDetails['passwordOld'], $user->getAuthPassword())) {
@@ -360,7 +362,8 @@ class ClinicsHomeController extends Controller
             $clinics_home->clinic->update($params);
             $userInputedDetails['name'] = $userInputedDetails['f_name'] . ' ' . $userInputedDetails['m_name'] . ' ' . $userInputedDetails['l_name'];
             $user->update($userInputedDetails);
-            return redirect()->route($this->viewFolder . '.index')->with('message', 'Your account is updated.');
+            return redirect()->to($referer)->with('message', 'Your account is updated.');
+            // return redirect()->route($this->viewFolder . '.index')->with('message', 'Your account is updated.');
             // return redirect()->back()->with('message', 'Your account is updated.');
         }
         
@@ -439,11 +442,14 @@ class ClinicsHomeController extends Controller
 
     public function update(Request $request, Consultation $clinics_home)
     {
+        // dd($clinics_home);
         $user = Auth::user();
         unset($params);
         $params = $request->input($this->viewFolder);
         $referralEntry = $params['referal'];
         unset($params['referal']);
+        $referer = $params['referer'];
+        unset($params['referer']);
         $patient = $params['Patient'];
         if(!empty($request->clinics_home['Patient']['profile_pic'])){
             $profile_pic = 'profile_pic_' . time() . '.' . $request->clinics_home['Patient']['profile_pic']->extension();
@@ -613,7 +619,8 @@ class ClinicsHomeController extends Controller
             $clinics_home->consultation_referals()->whereNotIn('id', $referralIDArr)->delete();
         }
         
-        return redirect()->route($this->viewFolder . '.index')->with('message', 'Entry has been updated.');
+        return redirect()->to($referer)->with('message', 'Entry has been updated.');
+        // return redirect()->route($this->viewFolder . '.index')->with('message', 'Entry has been updated.');
         // return redirect()->back()->with('message', 'Entry has been updated.');
     }
 

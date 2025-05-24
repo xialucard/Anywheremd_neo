@@ -1639,7 +1639,7 @@
         if($(this).attr('saved') != ''){
           $.ajax({
             type: 'GET',
-            url: '{{ Route::has($viewFolder . '.deleteUploadedFile') ? route($viewFolder . '.deleteUploadedFile') : ''}}/' + $(this).attr('saved')
+            url: '{{ Route::has('clinics_home.deleteUploadedFile') ? route('clinics_home.deleteUploadedFile') : ''}}/' + $(this).attr('saved')
           });
         }
           
