@@ -335,8 +335,8 @@ class ClinicsHomeController extends Controller
 
     public function show(Consultation $clinics_home, Request $request)
     {
-        //dd($clinics_home);
-        $user = Auth::user();
+        // dd($clinics_home);
+        // $user = Auth::user();
         $datum = $clinics_home;
         $yr = null;
         $mon = null;
@@ -362,7 +362,7 @@ class ClinicsHomeController extends Controller
                 'dateBooking' => $datum->bookingDate,
                 'viewFolder' => $this->viewFolder, 
                 'modalSize' => 'modal-xl',
-                'users' => $user,
+                // 'users' => $user,
                 'booking_type' => $datum->booking_type
             ]);
     }
@@ -370,7 +370,7 @@ class ClinicsHomeController extends Controller
     public function edit(Consultation $clinics_home, Request $request)
     {
         // $data = $this->getData($request->input());
-        $user = Auth::user();
+        // $user = Auth::user();
         $datum = $clinics_home;
         $yr = null;
         $mon = null;
@@ -386,7 +386,7 @@ class ClinicsHomeController extends Controller
                 'viewFolder' => $this->viewFolder, 
                 'action'=> 'book', 
                 'selectItems' => $this->selectItems(),
-                'user' => $user,
+                // 'user' => $user,
                 'doctor' => $datum->doctor,
                 'yr' => $yr, 
                 'mon' => $mon, 
@@ -396,7 +396,7 @@ class ClinicsHomeController extends Controller
                 'dateBooking' => $datum->bookingDate,
                 'viewFolder' => $this->viewFolder, 
                 'modalSize' => 'modal-xl',
-                'users' => $user,
+                // 'users' => $user,
                 'booking_type' => $datum->booking_type
             ]);
     }
@@ -643,8 +643,8 @@ class ClinicsHomeController extends Controller
 
     private function selectItems()
     {
-        $user = Auth::user();
-        $selectItems['doctors'] = User::where('user_type', 'Doctor')->where('active', 1)->orderBy('name', 'asc')->get();
+        // $user = Auth::user();
+        // $selectItems['doctors'] = User::where('user_type', 'Doctor')->where('active', 1)->orderBy('name', 'asc')->get();
         // $selectItems['patients'] = $user->patients->sortBy('name');
         $selectItems['hmos'] = HealthOrganization::all()->sortBy('name');
         return $selectItems;
