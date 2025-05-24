@@ -192,7 +192,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-8">
-                                <h3>Booking List</h3>
+                                <h3>Booking List ( {{ date('F d, Y', strtotime($yr. '-' . $mon . '-' . $dayNum)) }} )</h3>
                                 @if(isset($booking_type_arr))
                                 <ul class="nav nav-tabs">
                                     @if(!empty($yr))
