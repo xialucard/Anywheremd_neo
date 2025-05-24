@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\AffiliatedDoctor;
-use App\Models\Clinic;
 use App\Models\Consultation;
 use App\Models\ConsultationFile;
 use App\Models\HealthOrganization;
@@ -30,8 +29,14 @@ class ClinicsHomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(?int $yr = null, ?int $mon = null, ?int $dayNum = null, ?string $booking_type = null, ?string $specialty = null, ?int $doctor_id = null)
+    public function index(Request $request, ?int $yr = null, ?int $mon = null, ?int $dayNum = null, ?string $booking_type = null, ?string $specialty = null, ?int $doctor_id = null)
     {
+        // print_r(urldecode(explode('?', $request->fullUrl())[1]));
+        // exit();
+        $urlQuery = null;
+        if(stristr('?', $request->fullUrl()))
+            $urlQuery = urldecode(explode('?', $request->fullUrl())[1]);
+
         $user = Auth::user();
         if(!isset($yr))
             $yr = date('Y');
@@ -45,9 +50,6 @@ class ClinicsHomeController extends Controller
         }elseif(!isset($dayNum)){
             $dayNum = 1;
         }
-
-        // $condition = $this->queryBuilder('consultations', !empty($_GET['clinics_home']) ? $_GET['clinics_home'] : '');
-        // dd($condition);
 
         unset($doctorArr);
         foreach($user->clinic->schedules()->where('dateSched', $yr . '-' . str_pad($mon, 2, 0, STR_PAD_LEFT) . '-' . $dayNum)->get('doctor_id') as $doc){
@@ -85,14 +87,28 @@ class ClinicsHomeController extends Controller
         
         
         $patientArr = null;
-        if(isset($_GET['clinics_home']['Patient']['name']) && $_GET['clinics_home']['Patient']['name'] != ''){
-            $patientRes = Patient::where('name', 'like', "%{$_GET['clinics_home']['Patient']['name']}%")->get();
+        if(isset($request->input()['clinics_home']['Patient']['name']) && $request->input()['clinics_home']['Patient']['name'] != ''){
+            $patientRes = Patient::where('name', 'like', "%{$request->input()['clinics_home']['Patient']['name']}%")->get();
             foreach($patientRes as $patArr){
                 $patientArr[$patArr->id] = $patArr->id;
             }
         }
-        if(!is_null($patientArr)){
+
+        $doctorArr = null;
+        if(isset($request->input()['clinics_home']['Doctor']['name']) && $request->input()['clinics_home']['Doctor']['name'] != ''){
+            $doctorRes = User::where('name', 'like', "%{$request->input()['clinics_home']['Doctor']['name']}%")->get();
+            foreach($doctorRes as $docArr){
+                $doctorArr[$docArr->id] = $docArr->id;
+            }
+        }
+
+
+        if(!is_null($patientArr) && !is_null($doctorArr)){
+            $bookings = $user->clinic->bookings()->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->whereIn('patient_id', $patientArr)->whereIn('doctor_id', $doctorArr)->get();
+        }elseif(!is_null($patientArr)){
             $bookings = $user->clinic->bookings()->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->whereIn('patient_id', $patientArr)->get();
+        }elseif(!is_null($doctorArr)){
+            $bookings = $user->clinic->bookings()->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->whereIn('doctor_id', $doctorArr)->get();
         }else{
             $bookings = $user->clinic->bookings()->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->get();
         }
@@ -134,8 +150,12 @@ class ClinicsHomeController extends Controller
             }
         }
 
-        if(!is_null($patientArr)){
+        if(!is_null($patientArr) && !is_null($doctorArr)){
+            $bookingsMon = $user->clinic->bookings()->whereYear('bookingDate', $yr)->whereMonth('bookingDate', $mon)->whereIn('patient_id', $patientArr)->whereIn('doctor_id', $doctorArr)->get();
+        }elseif(!is_null($patientArr)){
             $bookingsMon = $user->clinic->bookings()->whereYear('bookingDate', $yr)->whereMonth('bookingDate', $mon)->whereIn('patient_id', $patientArr)->get();
+        }elseif(!is_null($doctorArr)){
+            $bookingsMon = $user->clinic->bookings()->whereYear('bookingDate', $yr)->whereMonth('bookingDate', $mon)->whereIn('doctor_id', $doctorArr)->get();
         }else{
             $bookingsMon = $user->clinic->bookings()->whereYear('bookingDate', $yr)->whereMonth('bookingDate', $mon)->get();
         }
@@ -177,7 +197,9 @@ class ClinicsHomeController extends Controller
                 'calendarArr'=>$calendarArr,
                 'user' => $user,
                 'inputFormHeader' => 'Booking',
-                'patientArr' => $patientArr
+                'patientArr' => $patientArr,
+                'doctorArr' => $doctorArr,
+                'urlQuery' => $urlQuery
             ]);
         }
     }
