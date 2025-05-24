@@ -43,6 +43,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        
         $user = Auth::user();
         if($user->user_type == "Doctor")
             return redirect('doctors_home');  
@@ -51,11 +52,21 @@ class HomeController extends Controller
 
         $datum = (object)['id' => null, 'created_at' => null, 'updated_at' => null];
         
-        return view($this->viewFolder . '.index', ['moduleList' => $this->moduleList(), 'datum' => $datum, 'moduleActive' => $this->module, 'inputFormHeader' => 'Test', 'formAction' => 'update', 'viewFolder' => $this->viewFolder, 'modalSize' => $this->modalSize]);
+        return view($this->viewFolder . '.index', [
+            'moduleList' => $this->moduleList(), 
+            'datum' => $datum, 
+            'moduleActive' => $this->module, 
+            'inputFormHeader' => 'Test', 
+            'formAction' => 'update', 
+            'viewFolder' => $this->viewFolder, 
+            'modalSize' => $this->modalSize]);
     }
 
     public function myaccount(Request $request)
     {
+        $urlQuery = null;
+        if(stristr('?', $request->fullUrl()))
+            $urlQuery = urldecode(explode('?', $request->fullUrl())[1]);
         $data = null;
         $user = Auth::user();
         $datum = $user;
@@ -114,7 +125,10 @@ class HomeController extends Controller
                 'dayNum'=>$dayNum,
                 'user'=>$user,
                 'modalSize' => $this->modalSize,
-                'modal' => true
+                'modal' => true,
+                'patientArr' => null,
+                'doctorArr' => null,
+                'urlQuery' => $urlQuery
             ])->withErrors(!empty($errors) ? $errors : null);
         }elseif($user->user_type == 'Clinic'){
             $viewFolder = 'clinics_home';
@@ -173,7 +187,10 @@ class HomeController extends Controller
                 'modalSize' => $this->modalSize,
                 'schedules'=>$schedules,
                 'schedulesMon'=>$schedulesMon,
-                'patients'=>$patients
+                'patients'=>$patients,
+                'patientArr' => null,
+                'doctorArr' => null,
+                'urlQuery' => $urlQuery
             ])->withErrors(!empty($errors) ? $errors : null);
         }else{
             $viewFolder = 'home';
@@ -188,7 +205,11 @@ class HomeController extends Controller
                 'action'=>'myaccount',
                 'formAction' => 'update', 
                 'viewFolder' => $viewFolder, 
-                'modalSize' => $this->modalSize])->withErrors(!empty($errors) ? $errors : null);
+                'modalSize' => $this->modalSize,
+                'patientArr' => null,
+                'doctorArr' => null,
+                'urlQuery' => $urlQuery
+                ])->withErrors(!empty($errors) ? $errors : null);
         }
         
     }

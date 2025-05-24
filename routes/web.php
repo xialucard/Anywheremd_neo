@@ -35,6 +35,7 @@ Route::group(['middleware' => ['auth', 'permission']], function() {
     Route::resource('home', HomeController::class)->only(['index', 'show']);
     Route::get('myaccount', [HomeController::class, 'myaccount'])->name('home.myaccount');
     Route::resource('clinics_home', ClinicsHomeController::class)->only(['show', 'edit', 'update', 'destroy']);
+    Route::get('/clinics_home/manageDoctor/{clinics_home?}', [ClinicsHomeController::class, 'manageDoctor'])->name('clinics_home.manageDoctor');
     Route::get('/clinics_home/getPatientList/{patient_id?}', [ClinicsHomeController::class, 'getPatientList'])->name('clinics_home.getPatientList');
     Route::get('/clinics_home/getPatientInfo/{patient_id?}', [ClinicsHomeController::class, 'getPatientInfo'])->name('clinics_home.getPatientInfo');
     Route::get('/clinics_home/deleteUploadedFile/{id?}', [ClinicsHomeController::class, 'deleteUploadedFile'])->name('clinics_home.deleteUploadedFile');
@@ -43,7 +44,6 @@ Route::group(['middleware' => ['auth', 'permission']], function() {
     Route::patch('/clinics_home/{clinics_home}/updateMyAccount', [ClinicsHomeController::class, 'updateMyAccount'])->name('clinics_home.updateMyAccount');
     Route::post('/clinics_home/storeBook', [ClinicsHomeController::class, 'storeBook'])->name('clinics_home.storeBook');
     Route::post('/clinics_home/storeDoctor', [ClinicsHomeController::class, 'storeDoctor'])->name('clinics_home.storeDoctor');
-    Route::get('/clinics_home/manageDoctor', [ClinicsHomeController::class, 'manageDoctor'])->name('clinics_home.manageDoctor');
     Route::get('/clinics_home/{yr?}/{mon?}/{dayNum?}/{booking_type?}/{specialty?}/{doctor_id?}', [ClinicsHomeController::class, 'index'])->name('clinics_home.index');
     Route::resource('doctors_home', DoctorsHomeController::class)->only(['show', 'edit', 'update', 'destroy']);
     Route::get('/doctors_home/getPrevBookingInfo/{doctors_home?}/{index?}', [DoctorsHomeController::class, 'getPrevBookingInfo'])->name('doctors_home.getPrevBookingInfo');

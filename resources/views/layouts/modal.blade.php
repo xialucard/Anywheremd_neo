@@ -30,6 +30,9 @@
                     </div>
                     
                     @include(!isset($action) ? $viewFolder . '.inputForm' : $viewFolder . '.' . $action)
+                    @if(isset($referer))
+                    <input type="hidden" class="form-control" name="{{ $viewFolder }}[referer]" value="{{ $referer }}">
+                    @endif
                 </div>
                 @php
                     $bgColor = 'dark';
@@ -94,7 +97,7 @@
     const myModalActive = document.querySelector('#inputFormModal')
 
     myModalActive.addEventListener("hidden.bs.modal", function () {
-        window.location = "{{ route($viewFolder . '.index') }}";
+        window.location = "{{ isset($referer) ? $referer : route($viewFolder . '.index') }}";
     });
     
     @if(stristr($inputFormHeader, 'View'))

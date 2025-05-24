@@ -280,7 +280,8 @@ class DoctorsHomeController extends Controller
                 'dateBooking' => $datum->bookingDate,
                 'patients'=>$patients, 
                 'viewFolder' => $this->viewFolder, 
-                'modalSize' => 'modal-fullscreen'
+                'modalSize' => 'modal-fullscreen',
+                'referer' => urldecode($request->headers->get('referer'))
             ]);
     }
 
@@ -313,7 +314,8 @@ class DoctorsHomeController extends Controller
                 'dateBooking' => $datum->bookingDate,
                 'patients'=>$patients, 
                 'viewFolder' => $this->viewFolder, 
-                'modalSize' => 'modal-fullscreen'
+                'modalSize' => 'modal-fullscreen',
+                'referer' => urldecode($request->headers->get('referer'))
             ]);
     }
 
@@ -322,6 +324,8 @@ class DoctorsHomeController extends Controller
         $user = Auth::user();
         unset($params);
         $params = $request->input($this->viewFolder);
+        $referer = $params['referer'];
+        unset($params['referer']);
         
         if(isset($params['referral_id'])){
             $consultationObj = Consultation::find($params['referral_id']);
@@ -388,8 +392,8 @@ class DoctorsHomeController extends Controller
         
         
         
-        
-        return redirect()->route($this->viewFolder . '.index')->with('message', 'Entry has been updated.');
+        return redirect()->to($referer)->with('message', "Entry has been updated.");
+        // return redirect()->route($this->viewFolder . '.index')->with('message', 'Entry has been updated.');
     }
 
     public function destroy($id)

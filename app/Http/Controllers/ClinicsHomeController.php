@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\AffiliatedDoctor;
+use App\Models\Clinic;
 use App\Models\Consultation;
 use App\Models\ConsultationFile;
 use App\Models\HealthOrganization;
@@ -124,6 +125,11 @@ class ClinicsHomeController extends Controller
                 $booking_type_arr[$booking->booking_type] += 1;
             }
         }
+        foreach($booking_type_arr as $booking_type => $count){
+            if($count == 0)
+                unset($booking_type_arr[$booking_type]);
+        }
+        
         if(isset($booking_type_arr))
             ksort($booking_type_arr);
         if((!isset($booking_type) || $booking_type == 'NULL') && isset($booking_type_arr)){
@@ -136,7 +142,7 @@ class ClinicsHomeController extends Controller
             $booking_type = 'Consultation';
         
         
-        if(!isset($booking_type_arr))
+        if(sizeof($booking_type_arr) == 0)
             $booking_type_arr = null;
         
         
@@ -204,7 +210,7 @@ class ClinicsHomeController extends Controller
         }
     }
 
-    public function manageDoctor()
+    public function manageDoctor(Clinic $clinics_home, Request $request)
     {
         $user = Auth::user();
         
@@ -226,7 +232,8 @@ class ClinicsHomeController extends Controller
                 'mon' => $mon, 
                 'dayNum' => $dayNum, 
                 'modalSize' => $this->modalSize, 
-                'modal' => true
+                'modal' => true,
+                'referer' => urldecode($request->headers->get('referer'))
             ]);
     }
 
@@ -239,8 +246,9 @@ class ClinicsHomeController extends Controller
                             ->whereIn('doctor_id', $request->input($this->viewFolder)['doctor_id'])
                             ->update(['active' => 1]);
         }
-        
-
+        $referer = $params['referer'];
+        unset($params['referer']);
+        return redirect()->to($referer)->with('message', "Approved doctor's affiliation request.");
         // return redirect()->route($this->viewFolder . '.index')->with('message', "Approved doctor's affiliation request.");
         return redirect()->back()->with('message', "Approved doctor's affiliation request.");
     }
@@ -274,7 +282,8 @@ class ClinicsHomeController extends Controller
                 'modalSize' => 'modal-xl', 
                 'modal' => true,
                 'dateBooking' => $request->input($this->viewFolder)['dateSched'],
-                'booking_type' => null
+                'booking_type' => null,
+                'referer' => urldecode($request->headers->get('referer'))
             ]);
     }
 
@@ -284,6 +293,8 @@ class ClinicsHomeController extends Controller
         unset($params);
         $params = $request->input($this->viewFolder);
         $patient = $params['Patient'];
+        $referer = $params['referer'];
+        unset($params['referer']);
         if(!empty($request->clinics_home['Patient']['profile_pic'])){
             $profile_pic = 'profile_pic_' . time() . '.' . $request->clinics_home['Patient']['profile_pic']->extension();
             $request->clinics_home['Patient']['profile_pic']->storeAs('public/px_files', $profile_pic);
@@ -319,7 +330,8 @@ class ClinicsHomeController extends Controller
         $params['created_by'] = $user->id;
         $params['updated_by'] = $user->id;
         Consultation::create($params);
-        return redirect()->route($this->viewFolder . '.index')->with('message', "Booking successfully saved.");
+        return redirect()->to($referer)->with('message', "Booking successfully saved.");
+        // return redirect()->route($this->viewFolder . '.index')->with('message', "Booking successfully saved.");
         // return redirect()->back()->with('message', "Booking successfully saved.");
     }
 
@@ -385,7 +397,8 @@ class ClinicsHomeController extends Controller
                 'viewFolder' => $this->viewFolder, 
                 'modalSize' => 'modal-xl',
                 // 'users' => $user,
-                'booking_type' => $datum->booking_type
+                'booking_type' => $datum->booking_type,
+                'referer' => urldecode($request->headers->get('referer'))
             ]);
     }
 
@@ -419,7 +432,8 @@ class ClinicsHomeController extends Controller
                 'viewFolder' => $this->viewFolder, 
                 'modalSize' => 'modal-xl',
                 // 'users' => $user,
-                'booking_type' => $datum->booking_type
+                'booking_type' => $datum->booking_type,
+                'referer' => urldecode($request->headers->get('referer'))
             ]);
     }
 
@@ -666,7 +680,7 @@ class ClinicsHomeController extends Controller
     private function selectItems()
     {
         // $user = Auth::user();
-        // $selectItems['doctors'] = User::where('user_type', 'Doctor')->where('active', 1)->orderBy('name', 'asc')->get();
+        $selectItems['doctors'] = User::where('user_type', 'Doctor')->where('active', 1)->orderBy('name', 'asc')->get();
         // $selectItems['patients'] = $user->patients->sortBy('name');
         $selectItems['hmos'] = HealthOrganization::all()->sortBy('name');
         return $selectItems;
