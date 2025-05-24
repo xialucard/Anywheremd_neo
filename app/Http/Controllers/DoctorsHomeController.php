@@ -129,7 +129,8 @@ class DoctorsHomeController extends Controller
             'dayNum'=>$dayNum, 
             'modalSize' => $this->modalSize, 
             'modal' => true,
-            'user' => $user
+            'user' => $user,
+            'referer' => urldecode($request->headers->get('referer'))
         ]);
     }
 
@@ -147,6 +148,8 @@ class DoctorsHomeController extends Controller
         $params['days'] = json_encode($params['days']);
         $params['created_by'] = $user->id;
         $params['updated_by'] = $user->id;
+        $referer = $params['referer'];
+        unset($params['referer']);
         // dd($params);
         $sc = ScheduleConso::create($params);
 
@@ -177,11 +180,11 @@ class DoctorsHomeController extends Controller
             }
             
         }
-        
-        return redirect()->route($this->viewFolder . '.index')->with('message', 'Doctor schedule saved.');
+        return redirect()->to($referer)->with('message', "Doctor schedule saved.");
+        // return redirect()->route($this->viewFolder . '.index')->with('message', 'Doctor schedule saved.');
     }
 
-    public function manageClinic()
+    public function manageClinic(Request $request)
     {
         $user = Auth::user();
         
@@ -203,7 +206,8 @@ class DoctorsHomeController extends Controller
                 'mon' => $mon, 
                 'dayNum' => $dayNum, 
                 'modalSize' => $this->modalSize, 
-                'modal' => true
+                'modal' => true,
+                'referer' => urldecode($request->headers->get('referer'))
             ]);
     }
 
@@ -222,9 +226,10 @@ class DoctorsHomeController extends Controller
                 AffiliatedDoctor::create($params);
             }
         }
-        
+        $referer = $request->input($this->viewFolder)['referer'];
+        return redirect()->to($referer)->with('message', "Affiliated clinic updated.");
 
-        return redirect()->route($this->viewFolder . '.index')->with('message', 'Affiliated clinic updated.');
+        // return redirect()->route($this->viewFolder . '.index')->with('message', 'Affiliated clinic updated.');
     }
 
     public function updateMyAccount(User $doctors_home, Request $request)

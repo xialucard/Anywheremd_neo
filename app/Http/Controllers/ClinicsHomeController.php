@@ -233,6 +233,7 @@ class ClinicsHomeController extends Controller
                 'dayNum' => $dayNum, 
                 'modalSize' => $this->modalSize, 
                 'modal' => true,
+                'booking_type' => null,
                 'referer' => urldecode($request->headers->get('referer'))
             ]);
     }
@@ -246,11 +247,10 @@ class ClinicsHomeController extends Controller
                             ->whereIn('doctor_id', $request->input($this->viewFolder)['doctor_id'])
                             ->update(['active' => 1]);
         }
-        $referer = $params['referer'];
-        unset($params['referer']);
+        $referer = $request->input($this->viewFolder)['referer'];
         return redirect()->to($referer)->with('message', "Approved doctor's affiliation request.");
         // return redirect()->route($this->viewFolder . '.index')->with('message', "Approved doctor's affiliation request.");
-        return redirect()->back()->with('message', "Approved doctor's affiliation request.");
+        // return redirect()->back()->with('message', "Approved doctor's affiliation request.");
     }
 
     public function book(Request $request)
