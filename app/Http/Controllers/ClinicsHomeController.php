@@ -352,7 +352,7 @@ class ClinicsHomeController extends Controller
                 'viewFolder' => $this->viewFolder, 
                 'action'=> 'book', 
                 'selectItems' => $this->selectItems(),
-                'user' => $user,
+                // 'user' => $user,
                 'doctor' => $datum->doctor,
                 'yr' => $yr, 
                 'mon' => $mon, 
