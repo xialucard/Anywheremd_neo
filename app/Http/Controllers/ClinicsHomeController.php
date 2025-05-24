@@ -252,6 +252,7 @@ class ClinicsHomeController extends Controller
                 'modalSize' => 'modal-xl', 
                 'modal' => true,
                 'dateBooking' => $request->input($this->viewFolder)['dateSched'],
+                'booking_type' => null
             ]);
     }
 
