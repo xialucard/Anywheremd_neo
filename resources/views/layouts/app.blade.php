@@ -93,7 +93,12 @@
             @endif
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Anywhere MD') }} {{ !empty(Auth::user()->user_type) ? '(' . Auth::user()->user_type . ')' : '' }}
+                    @if(!empty(Auth::user()->user_type) && Auth::user()->user_type == "Doctor")
+                    <img src="{{ asset('storage/Anywheremd_logo.png') }}" width="200px">
+                    @else
+                    <img src="{{ asset('storage/Anywheremd_white_logo.png') }}" width="200px">
+                    @endif
+                    {{-- {{ config('app.name', 'Anywhere MD') }} {{ !empty(Auth::user()->user_type) ? '(' . Auth::user()->user_type . ')' : '' }} --}}
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -167,8 +172,10 @@
                 </div>
             </div>
         </nav>
-
         <main class="py-4">
+            <br>
+            <br>
+            <br>
             @yield('content')
         </main>
     </div>

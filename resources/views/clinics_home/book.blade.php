@@ -264,7 +264,7 @@
                     <label for="{{ $viewFolder }}_temp" class="form-label">Temperature</label>
                     <small id="help_{{ $viewFolder }}_temp" class="text-muted"></small>
                   </div>
-                  <span class="input-group-text">Celcius</span>
+                  <span class="input-group-text">C</span>
                 </div>
                 <div class="input-group mb-3">
                   <div class="form-floating">
@@ -329,7 +329,7 @@
                     <label for="{{ $viewFolder }}_heart" class="form-label">Heart/Pulse Rate</label>
                     <small id="help_{{ $viewFolder }}_heart" class="text-muted"></small>
                   </div>
-                  <span class="input-group-text">per minute</span>
+                  <span class="input-group-text">BPM</span>
                 </div>
               </div>
             </div>
@@ -353,7 +353,7 @@
                     @for($i = -20; $i<=20; $i+=.25)
                     <option value="{{ $i }}" {{ isset($datum->id) && $datum->arod_sphere == $i ? 'selected' : ''  }}>{{ number_format($i, 2) }}</option>
                     @endfor
-                    <option value="No Target" {{ isset($datum->id) && $datum->arod_sphere == 'No Target' ? 'selected' : ''  }}>No Target</option>
+                    <option value="No Target" {{ isset($datum->id) && $datum->arod_sphere == 'No Target' ? 'selected' : ''  }}>No Refraction Possible</option>
                   </select>
                   <span class="input-group-text">-</span>
                   <select class="form-select" name="{{ $viewFolder }}[arod_cylinder]" id="{{ $viewFolder }}_arod_cylinder" placeholder=""  {{ isset($datum->id) && $datum->arod_sphere == 'No Target' ? 'disabled' : ''  }}>
@@ -385,7 +385,7 @@
                     @for($i = -20; $i<=20; $i+=.25)
                     <option value="{{ $i }}" {{ isset($datum->id) && $datum->aros_sphere == '' ? $i : '' }}>{{ number_format($i, 2) }}</option>
                     @endfor
-                    <option value="No Target" {{ isset($datum->id) && $datum->aros_sphere == 'No Target' ? 'selected' : '' }}>No Target</option>
+                    <option value="No Target" {{ isset($datum->id) && $datum->aros_sphere == 'No Target' ? 'selected' : '' }}>No Refraction Possible</option>
                   </select>
                   <span class="input-group-text">-</span>
                   <select class="form-select" name="{{ $viewFolder }}[aros_cylinder]" id="{{ $viewFolder }}_aros_cylinder" placeholder=""  {{ isset($datum->id) && $datum->aros_sphere == 'No Target' ? 'disabled' : '' }}>
