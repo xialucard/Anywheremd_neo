@@ -173,7 +173,7 @@
                                                         @can($viewFolder . '.index')
                                                             {{-- @if(!empty($user->clinic->schedules()->whereIn('doctor_id', $doctor_list_id)->where('dateSched', $yr . '-' . $mon . '-' . $i)->get()[0])) --}}
                                                             @if(isset($calendarArr[$i]) && sizeof($calendarArr[$i])>0)
-                                                        <a href="{{ route($viewFolder . '.index', [$yr, $mon, $i, $booking_type, $specialty, $doctor_id]) }}" class="link-{{ $bgColor }} link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
+                                                        <a href="{{ route($viewFolder . '.index', [$yr, $mon, $i, $booking_type]) }}" class="link-{{ $bgColor }} link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
                                                             @endif
                                                         @endcan
                                                             <div>
@@ -227,7 +227,7 @@
                                                         @can($viewFolder . '.index')
                                                             {{-- @if(!empty($user->clinic->schedules()->whereIn('doctor_id', $doctor_list_id)->where('dateSched', $yr . '-' . $mon . '-' . $i)->get()[0])) --}}
                                                             @if(isset($calendarArr[$i]) && sizeof($calendarArr[$i])>0)
-                                                        <a href="{{ route($viewFolder . '.index', [$yr, $mon, $i, $booking_type, $specialty, $doctor_id]) }}" class="link-{{ $bgColor }} link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
+                                                        <a href="{{ route($viewFolder . '.index', [$yr, $mon, $i, $booking_type]) }}" class="link-{{ $bgColor }} link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
                                                             @endif
                                                         @endcan
                                                             <div>
