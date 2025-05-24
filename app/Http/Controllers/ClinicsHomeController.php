@@ -100,17 +100,13 @@ class ClinicsHomeController extends Controller
         $booking_type_arr = array('Diagnostics' => 0, 'Dialysis' => 0, 'Surgery' => 0, 'Laser' => 0, 'Laboratory' => 0, 'Referral' => 0, 'Consultation' => 0);
         foreach($bookings as $in=>$booking){
             if($booking->consultation_parent_id != ""){
-                
-                    $booking_type_arr['Referral'] += 1;
+                $booking_type_arr['Referral'] += 1;
             }
             if($booking->booking_type == ''){
-                
-                    $booking_type_arr['Consultation'] += 1;
+                $booking_type_arr['Consultation'] += 1;
             }else{
-                
-                    $booking_type_arr[$booking->booking_type] += 1;
+                $booking_type_arr[$booking->booking_type] += 1;
             }
-                
         }
         if(isset($booking_type_arr))
             ksort($booking_type_arr);
@@ -365,7 +361,8 @@ class ClinicsHomeController extends Controller
                 'dateBooking' => $datum->bookingDate,
                 'viewFolder' => $this->viewFolder, 
                 'modalSize' => 'modal-xl',
-                'users' => $user
+                'users' => $user,
+                'booking_type' => $datum->booking_type
             ]);
     }
 
@@ -398,7 +395,8 @@ class ClinicsHomeController extends Controller
                 'dateBooking' => $datum->bookingDate,
                 'viewFolder' => $this->viewFolder, 
                 'modalSize' => 'modal-xl',
-                'users' => $user
+                'users' => $user,
+                'booking_type' => $datum->booking_type
             ]);
     }
 
