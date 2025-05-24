@@ -94,9 +94,9 @@
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     @if(!empty(Auth::user()->user_type) && Auth::user()->user_type == "Doctor")
-                    <img src="{{ asset('storage/Anywheremd_logo.png') }}" width="200px">
+                    <img src="{{ asset('storage/site/Anywheremd_logo.png') }}" width="200px">
                     @else
-                    <img src="{{ asset('storage/Anywheremd_white_logo.png') }}" width="200px">
+                    <img src="{{ asset('storage/site/Anywheremd_white_logo.png') }}" width="200px">
                     @endif
                     {{-- {{ config('app.name', 'Anywhere MD') }} {{ !empty(Auth::user()->user_type) ? '(' . Auth::user()->user_type . ')' : '' }} --}}
                 </a>
