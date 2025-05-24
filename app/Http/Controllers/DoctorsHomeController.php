@@ -42,22 +42,27 @@ class DoctorsHomeController extends Controller
         }
 
         
-        unset($booking_type_arr);
+        $booking_type_arr = array('Diagnostics' => 0, 'Dialysis' => 0, 'Surgery' => 0, 'Laser' => 0, 'Laboratory' => 0, 'Referral' => 0, 'Consultation' => 0);
         foreach($user->bookings()->distinct('booking_type')->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->get() as $in=>$booking){
-            if($booking->consultation_parent_id != "")
-                $booking_type_arr['Referral'] = 'Referral';
-            else{
-                if($booking->booking_type == '')
-                    $booking_type_arr['Consultation'] = 'Consultation';
-                else
-                    $booking_type_arr[$booking->booking_type] = $booking->booking_type;
+            if($booking->consultation_parent_id != ""){
+                $booking_type_arr['Referral'] += 1;
             }
-            
+            if($booking->booking_type == ''){
+                $booking_type_arr['Consultation'] += 1;
+            }else{
+                $booking_type_arr[$booking->booking_type] += 1;
+            }
         }
         if(isset($booking_type_arr))
             ksort($booking_type_arr);
-        if(!isset($booking_type) && isset($booking_type_arr))
-            $booking_type = reset($booking_type_arr);
+        if((!isset($booking_type) || $booking_type == 'NULL') && isset($booking_type_arr)){
+            foreach($booking_type_arr as $booking_type => $count){
+                if($count > 0)
+                    break;
+            }
+        }
+        elseif((!isset($booking_type) || $booking_type == 'NULL') && !isset($booking_type_arr))
+            $booking_type = 'Consultation';
 
         if(!isset($booking_type_arr))
             $booking_type_arr = null;

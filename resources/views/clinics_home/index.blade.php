@@ -287,18 +287,18 @@
                                 <ul class="nav nav-tabs">
                                     @if(!empty($yr))
                                         @foreach($booking_type_arr as $in=>$booking)
+                                            @if($booking > 0)
                                     <li class="nav-item">
                                         @php
-                                            
                                             $li_active = "";
-                                            
-                                            if(in_array($booking_type, $booking_type_arr) && $booking == $booking_type)
+                                            if($in == $booking_type)
                                                 $li_active = "active";
-                                            elseif(!in_array($booking_type, $booking_type_arr) && $in == 0)
-                                                $li_active = "active";
+                                            // elseif(!in_array($booking_type, $booking_type_arr))
+                                            //     $li_active = "active";
                                         @endphp
-                                        <a class="nav-link {{ $li_active }}" aria-current="page" href="{{ route($viewFolder . '.index') . '/' . $yr . '/' . $mon . '/' . $dayNum . '/' . $booking . '/' . $specialty . '/' . $doctor_id}}">{{ $booking }}</a>
+                                        <a class="nav-link {{ $li_active }}" aria-current="page" href="{{ route($viewFolder . '.index') . '/' . $yr . '/' . $mon . '/' . $dayNum . '/' . $in . '/' . $specialty . '/' . $doctor_id}}">{{ $in }} <span class="badge text-bg-{{ $bgColor }}">{{ $booking }}</span></a>
                                     </li>
+                                            @endif
                                         @endforeach
                                     @endif
                                 </ul>
