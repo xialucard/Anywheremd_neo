@@ -246,6 +246,39 @@ class DoctorsHomeController extends Controller
         
     }
 
+    public function show(Consultation $doctors_home, Request $request)
+    {
+        $data = $this->getData($request->input());
+        $user = Auth::user();
+        $datum = $doctors_home;
+        $yr = null;
+        $mon = null;
+        $dayNum = null;
+        $patients = $user->patients->sortBy('name');
+        return view($this->viewFolder . '.index', [
+                'moduleList' => $this->moduleList(), 
+                'moduleActive' => $this->module, 
+                'data' => $data, 
+                'datum' => $datum, 
+                'inputFormHeader' => ($datum->booking_type == '' ? 'Consultation' : $datum->booking_type) . ' Booking', 
+                'formId' => 'bookMod',
+                'formAction' => 'update', 
+                'viewFolder' => $this->viewFolder, 
+                'action'=> 'book', 
+                'selectItems' => $this->selectItems(),
+                'user' => $user,
+                'doctor' => $datum->doctor,
+                'yr' => $yr, 
+                'mon' => $mon, 
+                'dayNum' => $dayNum, 
+                'modal' => true,
+                'dateBooking' => $datum->bookingDate,
+                'patients'=>$patients, 
+                'viewFolder' => $this->viewFolder, 
+                'modalSize' => 'modal-fullscreen'
+            ]);
+    }
+
     public function edit(Consultation $doctors_home, Request $request)
     {
         $data = $this->getData($request->input());
