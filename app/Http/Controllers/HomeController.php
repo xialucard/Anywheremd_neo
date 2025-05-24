@@ -128,7 +128,8 @@ class HomeController extends Controller
                 'modal' => true,
                 'patientArr' => null,
                 'doctorArr' => null,
-                'urlQuery' => $urlQuery
+                'urlQuery' => $urlQuery,
+                'referer' => urldecode($request->headers->get('referer'))
             ])->withErrors(!empty($errors) ? $errors : null);
         }elseif($user->user_type == 'Clinic'){
             $viewFolder = 'clinics_home';
@@ -190,7 +191,8 @@ class HomeController extends Controller
                 'patients'=>$patients,
                 'patientArr' => null,
                 'doctorArr' => null,
-                'urlQuery' => $urlQuery
+                'urlQuery' => $urlQuery,
+                'referer' => urldecode($request->headers->get('referer'))
             ])->withErrors(!empty($errors) ? $errors : null);
         }else{
             $viewFolder = 'home';
@@ -208,7 +210,8 @@ class HomeController extends Controller
                 'modalSize' => $this->modalSize,
                 'patientArr' => null,
                 'doctorArr' => null,
-                'urlQuery' => $urlQuery
+                'urlQuery' => $urlQuery,
+                'referer' => urldecode($request->headers->get('referer'))
                 ])->withErrors(!empty($errors) ? $errors : null);
         }
         

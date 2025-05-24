@@ -261,6 +261,7 @@ class DoctorsHomeController extends Controller
         $data = $this->getData($request->input());
         $user = Auth::user();
         $datum = $doctors_home;
+        // dd($datum);
         $yr = null;
         $mon = null;
         $dayNum = null;
@@ -270,7 +271,7 @@ class DoctorsHomeController extends Controller
                 'moduleActive' => $this->module, 
                 'data' => $data, 
                 'datum' => $datum, 
-                'inputFormHeader' => ($datum->booking_type == '' ? 'Consultation' : $datum->booking_type) . ' Booking', 
+                'inputFormHeader' => 'View ' . ($datum->booking_type == '' ? 'Consultation' : $datum->booking_type) . ' Booking', 
                 'formId' => 'bookMod',
                 'formAction' => 'update', 
                 'viewFolder' => $this->viewFolder, 

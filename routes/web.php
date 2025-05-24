@@ -47,9 +47,9 @@ Route::group(['middleware' => ['auth', 'permission']], function() {
     Route::post('/clinics_home/storeDoctor', [ClinicsHomeController::class, 'storeDoctor'])->name('clinics_home.storeDoctor');
     Route::get('/clinics_home/{yr?}/{mon?}/{dayNum?}/{booking_type?}/{specialty?}/{doctor_id?}', [ClinicsHomeController::class, 'index'])->name('clinics_home.index');
     Route::resource('doctors_home', DoctorsHomeController::class)->only(['edit', 'update', 'destroy']);
-    Route::get('/doctors_home/show/{doctor_home}', [DoctorsHomeController::class, 'show'])->name('doctors_home.show');
+    Route::get('/doctors_home/show/{doctors_home}', [DoctorsHomeController::class, 'show'])->name('doctors_home.show');
     Route::get('/doctors_home/getPrevBookingInfo/{doctors_home?}/{index?}', [DoctorsHomeController::class, 'getPrevBookingInfo'])->name('doctors_home.getPrevBookingInfo');
-    Route::patch('/doctors_home/{doctor_home}/updateMyAccount', [DoctorsHomeController::class, 'updateMyAccount'])->name('doctors_home.updateMyAccount');
+    Route::patch('/doctors_home/{doctors_home}/updateMyAccount', [DoctorsHomeController::class, 'updateMyAccount'])->name('doctors_home.updateMyAccount');
     Route::post('/doctors_home/storeClinic', [DoctorsHomeController::class, 'storeClinic'])->name('doctors_home.storeClinic');
     Route::post('/doctors_home/storeSchedule', [DoctorsHomeController::class, 'storeSchedule'])->name('doctors_home.storeSchedule');
     Route::get('/doctors_home/manageSchedule', [DoctorsHomeController::class, 'manageSchedule'])->name('doctors_home.manageSchedule');
