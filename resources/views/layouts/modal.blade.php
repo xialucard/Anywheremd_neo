@@ -97,7 +97,7 @@
     const myModalActive = document.querySelector('#inputFormModal')
 
     myModalActive.addEventListener("hidden.bs.modal", function () {
-        window.location = "{{ isset($referer) ? $referer : route($viewFolder . '.index') }}";
+        window.location = "{!! isset($referer) ? $referer : route($viewFolder . '.index') !!}";
     });
     
     @if(stristr($inputFormHeader, 'View'))
