@@ -580,7 +580,7 @@
                 <span class="visually-hidden">Next</span>
               </button>
             </div>
-            <div class="mb-3">
+            <div class="my-3">
               <label for="formFileMultiple" class="form-label">Upload file/s</label>
               <input class="form-control" type="file" id="{{ $viewFolder }}_prev_files" name="{{ $viewFolder }}[ConsultationFile][files][]" accept="image/png, image/gif, image/jpeg" multiple disabled>
             </div>
