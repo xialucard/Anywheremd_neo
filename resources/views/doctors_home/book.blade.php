@@ -474,7 +474,7 @@
             </div>
           </div>
           <div id="labPrevDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
-            <div id="carouselPrev" class="carousel carousel-dark slide" data-bs-interval="false">
+            <div id="carouselPrev" class="carousel carousel-dark slide" data-bs-interval="false" style="max-height:300px">
               <div class="carousel-indicators" id="labPrevCarouselInd">
                 @php
                   $key = false;
