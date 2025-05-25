@@ -584,7 +584,7 @@
               <label for="formFileMultiple" class="form-label">Upload file/s</label>
               <input class="form-control" type="file" id="{{ $viewFolder }}_prev_files" name="{{ $viewFolder }}[ConsultationFile][files][]" accept="image/png, image/gif, image/jpeg" multiple disabled>
             </div>
-            <div class="row overflow-auto" id="image_preview_prev_saved" style="max-height:250px">
+            <div class="row overflow-auto" id="image_preview_prev_saved" style="max-height:500px">
               @if(isset($bookings[0]->consultation_files))
                 @foreach($bookings[0]->consultation_files as $ind => $file)
                 @php
@@ -1256,7 +1256,7 @@
               <label for="formFileMultiple" class="form-label">Upload file/s</label>
               <input class="form-control" type="file" id="{{ $viewFolder }}_files" name="{{ $viewFolder }}[ConsultationFile][files][]" accept="image/png, image/gif, image/jpeg" multiple>
             </div>
-            <div class="row" id="image_preview_saved">
+            <div class="row overflow-auto" id="image_preview_saved" style="max-height:500px">
               @if(isset($datum->consultation_files))
                 @foreach($datum->consultation_files as $ind => $file)
                 @php
