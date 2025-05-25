@@ -79,7 +79,8 @@ class PatientRecordsController extends Controller
             'viewFolder' => $this->viewFolder, 
             'modalSize' => $this->modalSize,
             'user' => $user,
-            'patients' => $patients
+            'patients' => $patients,
+            'referer' => urldecode($request->headers->get('referer'))
         ]);
     }
 
