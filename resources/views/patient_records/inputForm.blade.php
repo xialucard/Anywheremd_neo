@@ -84,6 +84,12 @@
                     <th>Date</th>
                     <th>Booking Type</th>
                     <th>Procedure Details</th>
+                    @if($user->user_type == 'Clinic')
+                    <th>Doctor's Name</th>
+                    @endif
+                    @if($user->user_type == 'Doctor')
+                    <th>Clinic</th>
+                    @endif
                 </tr>
             </thead>
             @if(isset($datum->id))
@@ -108,6 +114,12 @@
                   <td>{{ $dat->booking_type == '' ? 'Consultation' : $dat->booking_type }}</td>
                   {{-- <td>{{ $dat->patient->name }}</td> --}}
                   <td>{{ $dat->procedure_details }}</td>
+                  @if($user->user_type == 'Clinic')
+                  <td>{{ $dat->doctor->name }}</td>
+                  @endif
+                  @if($user->user_type == 'Doctor')
+                  <td>{{ $dat->clinic->name }}</td>
+                  @endif
                 </tr>
               @endforeach
             </tbody>
