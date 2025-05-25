@@ -226,6 +226,7 @@
                                                 <th class="">Patient Name</th>
                                                 <th class="">Complaint</th>
                                                 <th class="">Status</th>
+                                                <th class="">Clinic</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -246,6 +247,7 @@
                                                 <td class="">{{ $dat->patient->name }}</td>
                                                 <td class="">{{ $dat->complain }}</td>
                                                 <td class="">{{ $dat->status }}</td>
+                                                <td class="">{{ $dat->clinic->name }}</td>
                                             </tr>
                                             @endforeach
                                         @endif
