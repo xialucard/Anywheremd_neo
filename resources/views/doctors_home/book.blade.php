@@ -474,7 +474,7 @@
             </div>
           </div>
           <div id="labPrevDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
-            <div id="carouselPrev" class="carousel carousel-dark slide" data-bs-ride="true">
+            <div id="carouselPrev" class="carousel carousel-dark slide" data-bs-interval="false">
               <div class="carousel-indicators" id="labPrevCarouselInd">
                 @php
                   $key = false;
@@ -579,6 +579,20 @@
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
               </button>
+            </div>
+            <div class="mb-3">
+              <label for="formFileMultiple" class="form-label">Upload file/s</label>
+              <input class="form-control" type="file" id="{{ $viewFolder }}_prev_files" name="{{ $viewFolder }}[ConsultationFile][files][]" accept="image/png, image/gif, image/jpeg" multiple disabled>
+            </div>
+            <div class="row" id="image_preview_prev_saved">
+              @if(isset($bookings[0]->consultation_files))
+                @foreach($bookings[0]->consultation_files as $ind => $file)
+                @php
+                  $exAr = explode('/', $file->file_link);
+                @endphp
+              <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ asset($file->file_link) }}' class='img-thumbnail' title='{{ $exAr[sizeof($exAr)-1] }}'><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}' disabled><i class='bi bi-trash'></i></button></div></div>
+                @endforeach
+              @endif
             </div>
           </div>
           <div id="presPrevDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
@@ -1206,7 +1220,7 @@
             @endif
           </div>
           <div id="labCurDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
-            <div id="carouselCur" class="carousel carousel-dark slide mb-3" data-bs-ride="true">
+            <div id="carouselCur" class="carousel carousel-dark slide mb-3" data-bs-interval="false">
               <div class="carousel-indicators">
                 @if(!empty($datum->consultation_files[0]->file_link))
                   @foreach($datum->consultation_files as $ind=>$file)
@@ -1248,7 +1262,7 @@
                 @php
                   $exAr = explode('/', $file->file_link);
                 @endphp
-              <div class='img-div' id='img-div-save{{ $ind }}'><img src='{{ asset($file->file_link) }}' class='img-thumbnail' title='{{ $exAr[sizeof($exAr)-1] }}'><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
+              <div class='img-div' data-bs-target="#carouselCur" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ asset($file->file_link) }}' class='img-thumbnail' title='{{ $exAr[sizeof($exAr)-1] }}'><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
                 @endforeach
               @endif
             </div>
