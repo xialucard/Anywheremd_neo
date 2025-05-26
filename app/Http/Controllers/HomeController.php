@@ -18,9 +18,10 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-    }
+
+    // public function __construct()
+    // {
+    // }
 
     /**
      * Display the specified resource.
@@ -75,6 +76,9 @@ class HomeController extends Controller
         
         if($user->active == 2){
             $errors = ["Incomplete Form" => "Please fullfill the form first. Make sure you also change the old password."];
+        }elseif($user->approved == 0){
+            // dd($user->approved);
+            $errors = ["Pending Approval" => "Approval usually takes 24 hours. Please try again by that time."];
         }
 
         if(!isset($yr))
@@ -205,7 +209,8 @@ class HomeController extends Controller
                 'selectItems' => $this->selectItems(), 
                 'inputFormHeader' => 'My Account', 
                 'action'=>'myaccount',
-                'formAction' => 'update', 
+                'formAction' => 'update',
+                'user'=>$user,
                 'viewFolder' => $viewFolder, 
                 'modalSize' => $this->modalSize,
                 'patientArr' => null,

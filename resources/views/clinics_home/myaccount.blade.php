@@ -1,3 +1,4 @@
+@if(($user->approved == 0 && $user->active == 2) || ($user->approved == 1 && $user->active == 1))
 <div class="card mb-3">
   <div class="card-header">
     Clinic Contact Info
@@ -128,6 +129,7 @@
     @endif
   </div>
 </div>
+@endif
 
 
 

@@ -17,10 +17,10 @@ class PatientRecordsController extends Controller
     private $viewFolder = "patient_records";
     private $modalSize = "modal-fullscreen";
 
-    public function __construct()
-    {
-        //$this->middleware(['auth'])->only(['create', 'store', 'edit', 'update', 'destroy']);
-    }
+    // public function __construct()
+    // {
+    //     //$this->middleware(['auth'])->only(['create', 'store', 'edit', 'update', 'destroy']);
+    // }
     
     /**
      * Display a listing of the resource.
@@ -36,20 +36,25 @@ class PatientRecordsController extends Controller
         $datum = (object)['id' => null, 'created_at' => null, 'updated_at' => null];
         
         $patients = $user->patients->sortBy('name');
-
-        return view($this->viewFolder . '.index', [
-            'moduleList' => $this->moduleList(), 
-            'moduleActive' => $this->module, 
-            'data' => $data, 
-            'datum' => $datum, 
-            'selectItems' => $this->selectItems(), 
-            'inputFormHeader' => 'Input New ' . $this->model, 
-            'formAction' => 'store', 
-            'viewFolder' => $this->viewFolder, 
-            'modalSize' => $this->modalSize,
-            'user' => $user,
-            'patients' => $patients
-        ]);
+        if($user->active == 2)
+            return redirect()->route('home.myaccount')->with("Incomplete Form", "Please fullfill the form first. Make sure you also change the old password.");
+        elseif($user->approved == 0)
+            return redirect()->route('home.myaccount')->with("Incomplete Form", "Approval usually takes 24 hours. Please try again by that time.");
+        else{
+            return view($this->viewFolder . '.index', [
+                'moduleList' => $this->moduleList(), 
+                'moduleActive' => $this->module, 
+                'data' => $data, 
+                'datum' => $datum, 
+                'selectItems' => $this->selectItems(), 
+                'inputFormHeader' => 'Input New ' . $this->model, 
+                'formAction' => 'store', 
+                'viewFolder' => $this->viewFolder, 
+                'modalSize' => $this->modalSize,
+                'user' => $user,
+                'patients' => $patients
+            ]);
+        }
     }
 
     /**
@@ -67,21 +72,26 @@ class PatientRecordsController extends Controller
         $datum = $patient_record;
         
         $patients = $user->patients->sortBy('name');
-       
-        return view($this->viewFolder . '.index', [
-            'moduleList' => $this->moduleList(), 
-            'moduleActive' => $this->module, 
-            'data' => $data, 
-            'datum' => $datum, 
-            'selectItems' => $this->selectItems(), 
-            'inputFormHeader' => 'View ' . $this->model, 
-            'formAction' => 'update', 
-            'viewFolder' => $this->viewFolder, 
-            'modalSize' => $this->modalSize,
-            'user' => $user,
-            'patients' => $patients,
-            'referer' => urldecode($request->headers->get('referer'))
-        ]);
+        if($user->active == 2)
+            return redirect()->route('home.myaccount')->with("Incomplete Form", "Please fullfill the form first. Make sure you also change the old password.");
+        elseif($user->approved == 0)
+            return redirect()->route('home.myaccount')->with("Incomplete Form", "Approval usually takes 24 hours. Please try again by that time.");
+        else{
+            return view($this->viewFolder . '.index', [
+                'moduleList' => $this->moduleList(), 
+                'moduleActive' => $this->module, 
+                'data' => $data, 
+                'datum' => $datum, 
+                'selectItems' => $this->selectItems(), 
+                'inputFormHeader' => 'View ' . $this->model, 
+                'formAction' => 'update', 
+                'viewFolder' => $this->viewFolder, 
+                'modalSize' => $this->modalSize,
+                'user' => $user,
+                'patients' => $patients,
+                'referer' => urldecode($request->headers->get('referer'))
+            ]);
+        }
     }
 
     private function getData($search_query = null)

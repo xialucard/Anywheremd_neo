@@ -72,7 +72,7 @@
             <small id="help_{{ $viewFolder }}_procedure_details" class="text-muted"></small>
           </div>
           <div class="form-floating mb-3">
-            <textarea class="form-control" name="{{ $viewFolder }}[complain]" id="{{ $viewFolder }}" rows=3_complain required>{{ !empty($datum->complain) ? $datum->complain : '' }}</textarea>
+            <textarea class="form-control" name="{{ $viewFolder }}[complain]" id="{{ $viewFolder }}" rows=3 id="{{ $viewFolder }}_complain" required>{{ !empty($datum->complain) ? $datum->complain : '' }}</textarea>
             <label for="{{ $viewFolder }}_complain" class="form-label">Chief Complaint</label>
             <small id="help_{{ $viewFolder }}_complain" class="text-muted"></small>
           </div>
@@ -83,6 +83,11 @@
               <small id="help_{{ $viewFolder }}_duration" class="text-muted"></small>
             </div>
             {{-- <span class="input-group-text">day/s</span> --}}
+          </div>
+          <div class="form-floating mb-3">
+            <textarea class="form-control" name="{{ $viewFolder }}[others]" id="{{ $viewFolder }}" rows=3 id="{{ $viewFolder }}_others" required>{{ !empty($datum->others) ? $datum->others : '' }}</textarea>
+            <label for="{{ $viewFolder }}_others" class="form-label">Remarks</label>
+            <small id="help_{{ $viewFolder }}_others" class="text-muted"></small>
           </div>
           <div class="form-floating mb-3">
             <select class="form-select" name="{{ $viewFolder }}[payment_mode]" id="{{ $viewFolder }}_payment_mode" placeholder="" required onchange="

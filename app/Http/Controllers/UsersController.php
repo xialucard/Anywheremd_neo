@@ -16,10 +16,10 @@ class UsersController extends Controller
     private $viewFolder = "users";
     private $modalSize = "modal-md";
     
-    public function __construct()
-    {
-        //$this->middleware(['auth'])->only(['create', 'store', 'edit', 'update', 'destroy']);
-    }
+    // public function __construct()
+    // {
+    //     //$this->middleware(['auth'])->only(['create', 'store', 'edit', 'update', 'destroy']);
+    // }
     /**
      * Display a listing of the resource.
      *

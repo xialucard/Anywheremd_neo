@@ -190,6 +190,8 @@ class ClinicsHomeController extends Controller
 
         if($user->active == 2)
             return redirect()->route('home.myaccount')->with("Incomplete Form", "Please fullfill the form first. Make sure you also change the old password.");
+        elseif($user->approved == 0)
+            return redirect()->route('home.myaccount')->with("Incomplete Form", "Approval usually takes 24 hours. Please try again by that time.");
         else{
             return view($this->viewFolder . '.index', [
                 'moduleList' => $this->moduleList(), 
@@ -226,24 +228,30 @@ class ClinicsHomeController extends Controller
         $mon = null;
         $dayNum = null;
         $datum =  (object)['id' => null, 'created_at' => null, 'updated_at' => null];
-        return view($this->viewFolder . '.index', [
-                'moduleList' => $this->moduleList(), 
-                'moduleActive' => $this->module, 
-                'datum' => $datum, 
-                'inputFormHeader' => 'Manage Affiliated Doctors', 
-                'formAction' => 'storeDoctor', 
-                'viewFolder' => $this->viewFolder, 
-                'action'=> 'manageDoctor', 
-                'selectItems' => $this->selectItems(),
-                'user' => $user,
-                'yr' => $yr, 
-                'mon' => $mon, 
-                'dayNum' => $dayNum, 
-                'modalSize' => $this->modalSize, 
-                'modal' => true,
-                'booking_type' => null,
-                'referer' => urldecode($request->headers->get('referer'))
-            ]);
+        if($user->active == 2)
+            return redirect()->route('home.myaccount')->with("Incomplete Form", "Please fullfill the form first. Make sure you also change the old password.");
+        elseif($user->approved == 0)
+            return redirect()->route('home.myaccount')->with("Incomplete Form", "Approval usually takes 24 hours. Please try again by that time.");
+        else{
+            return view($this->viewFolder . '.index', [
+                    'moduleList' => $this->moduleList(), 
+                    'moduleActive' => $this->module, 
+                    'datum' => $datum, 
+                    'inputFormHeader' => 'Manage Affiliated Doctors', 
+                    'formAction' => 'storeDoctor', 
+                    'viewFolder' => $this->viewFolder, 
+                    'action'=> 'manageDoctor', 
+                    'selectItems' => $this->selectItems(),
+                    'user' => $user,
+                    'yr' => $yr, 
+                    'mon' => $mon, 
+                    'dayNum' => $dayNum, 
+                    'modalSize' => $this->modalSize, 
+                    'modal' => true,
+                    'booking_type' => null,
+                    'referer' => urldecode($request->headers->get('referer'))
+                ]);
+        }
     }
 
     public function storeDoctor(Request $request)
@@ -272,27 +280,33 @@ class ClinicsHomeController extends Controller
         $dayNum = null;
         $datum =  (object)['id' => null, 'created_at' => null, 'updated_at' => null];
         $doctor =  User::find($request->input($this->viewFolder)['doctor_id']);
-        return view($this->viewFolder . '.index', [
-                'moduleList' => $this->moduleList(), 
-                'moduleActive' => $this->module, 
-                'datum' => $datum, 
-                'inputFormHeader' => 'Add Booking', 
-                'formId' => 'bookMod',
-                'formAction' => 'storeBook',
-                'viewFolder' => $this->viewFolder, 
-                'action'=> 'book', 
-                'selectItems' => $this->selectItems(),
-                'user' => $user,
-                'doctor' => $doctor,
-                'yr' => $yr, 
-                'mon' => $mon, 
-                'dayNum' => $dayNum, 
-                'modalSize' => 'modal-xl', 
-                'modal' => true,
-                'dateBooking' => $request->input($this->viewFolder)['dateSched'],
-                'booking_type' => null,
-                'referer' => urldecode($request->headers->get('referer'))
-            ]);
+        if($user->active == 2)
+            return redirect()->route('home.myaccount')->with("Incomplete Form", "Please fullfill the form first. Make sure you also change the old password.");
+        elseif($user->approved == 0)
+            return redirect()->route('home.myaccount')->with("Incomplete Form", "Approval usually takes 24 hours. Please try again by that time.");
+        else{
+            return view($this->viewFolder . '.index', [
+                    'moduleList' => $this->moduleList(), 
+                    'moduleActive' => $this->module, 
+                    'datum' => $datum, 
+                    'inputFormHeader' => 'Add Booking', 
+                    'formId' => 'bookMod',
+                    'formAction' => 'storeBook',
+                    'viewFolder' => $this->viewFolder, 
+                    'action'=> 'book', 
+                    'selectItems' => $this->selectItems(),
+                    'user' => $user,
+                    'doctor' => $doctor,
+                    'yr' => $yr, 
+                    'mon' => $mon, 
+                    'dayNum' => $dayNum, 
+                    'modalSize' => 'modal-xl', 
+                    'modal' => true,
+                    'dateBooking' => $request->input($this->viewFolder)['dateSched'],
+                    'booking_type' => null,
+                    'referer' => urldecode($request->headers->get('referer'))
+                ]);
+        }
     }
 
     public function storeBook(Request $request)
@@ -381,36 +395,42 @@ class ClinicsHomeController extends Controller
     public function show(Consultation $clinics_home, Request $request)
     {
         // dd($clinics_home);
-        // $user = Auth::user();
+        $user = Auth::user();
         $datum = $clinics_home;
         $yr = null;
         $mon = null;
         $dayNum = null;
-        return view($this->viewFolder . '.index', [
-                'moduleList' => $this->moduleList(), 
-                'moduleActive' => $this->module, 
-                // 'data' => $data, 
-                'datum' => $datum, 
-                'inputFormHeader' => 'View Booking', 
-                'formId' => 'bookMod',
-                'formAction' => 'update', 
-                'viewFolder' => $this->viewFolder, 
-                'action'=> 'book', 
-                'selectItems' => $this->selectItems(),
-                // 'user' => $user,
-                'doctor' => $datum->doctor,
-                'yr' => $yr, 
-                'mon' => $mon, 
-                'dayNum' => $dayNum, 
-                'modalSize' => 'modal-xl', 
-                'modal' => true,
-                'dateBooking' => $datum->bookingDate,
-                'viewFolder' => $this->viewFolder, 
-                'modalSize' => 'modal-xl',
-                // 'users' => $user,
-                'booking_type' => $datum->booking_type,
-                'referer' => urldecode($request->headers->get('referer'))
-            ]);
+        if($user->active == 2)
+            return redirect()->route('home.myaccount')->with("Incomplete Form", "Please fullfill the form first. Make sure you also change the old password.");
+        elseif($user->approved == 0)
+            return redirect()->route('home.myaccount')->with("Incomplete Form", "Approval usually takes 24 hours. Please try again by that time.");
+        else{
+            return view($this->viewFolder . '.index', [
+                    'moduleList' => $this->moduleList(), 
+                    'moduleActive' => $this->module, 
+                    // 'data' => $data, 
+                    'datum' => $datum, 
+                    'inputFormHeader' => 'View Booking', 
+                    'formId' => 'bookMod',
+                    'formAction' => 'update', 
+                    'viewFolder' => $this->viewFolder, 
+                    'action'=> 'book', 
+                    'selectItems' => $this->selectItems(),
+                    // 'user' => $user,
+                    'doctor' => $datum->doctor,
+                    'yr' => $yr, 
+                    'mon' => $mon, 
+                    'dayNum' => $dayNum, 
+                    'modalSize' => 'modal-xl', 
+                    'modal' => true,
+                    'dateBooking' => $datum->bookingDate,
+                    'viewFolder' => $this->viewFolder, 
+                    'modalSize' => 'modal-xl',
+                    // 'users' => $user,
+                    'booking_type' => $datum->booking_type,
+                    'referer' => urldecode($request->headers->get('referer'))
+                ]);
+        }
     }
 
     public function edit(Consultation $clinics_home, Request $request)
@@ -421,30 +441,36 @@ class ClinicsHomeController extends Controller
         $yr = null;
         $mon = null;
         $dayNum = null;
-        return view($this->viewFolder . '.index', [
-                'moduleList' => $this->moduleList(), 
-                'moduleActive' => $this->module, 
-                // 'data' => $data, 
-                'datum' => $datum, 
-                'inputFormHeader' => 'Edit Booking', 
-                'formId' => 'bookMod',
-                'formAction' => 'update', 
-                'viewFolder' => $this->viewFolder, 
-                'action'=> 'book', 
-                'selectItems' => $this->selectItems(),
-                'user' => $user,
-                'doctor' => $datum->doctor,
-                'yr' => $yr, 
-                'mon' => $mon, 
-                'dayNum' => $dayNum, 
-                'modalSize' => 'modal-xl', 
-                'modal' => true,
-                'dateBooking' => $datum->bookingDate,
-                'viewFolder' => $this->viewFolder, 
-                'modalSize' => 'modal-xl',
-                'booking_type' => $datum->booking_type,
-                'referer' => urldecode($request->headers->get('referer'))
-            ]);
+        if($user->active == 2)
+            return redirect()->route('home.myaccount')->with("Incomplete Form", "Please fullfill the form first. Make sure you also change the old password.");
+        elseif($user->approved == 0)
+            return redirect()->route('home.myaccount')->with("Incomplete Form", "Approval usually takes 24 hours. Please try again by that time.");
+        else{
+            return view($this->viewFolder . '.index', [
+                    'moduleList' => $this->moduleList(), 
+                    'moduleActive' => $this->module, 
+                    // 'data' => $data, 
+                    'datum' => $datum, 
+                    'inputFormHeader' => 'Edit Booking', 
+                    'formId' => 'bookMod',
+                    'formAction' => 'update', 
+                    'viewFolder' => $this->viewFolder, 
+                    'action'=> 'book', 
+                    'selectItems' => $this->selectItems(),
+                    'user' => $user,
+                    'doctor' => $datum->doctor,
+                    'yr' => $yr, 
+                    'mon' => $mon, 
+                    'dayNum' => $dayNum, 
+                    'modalSize' => 'modal-xl', 
+                    'modal' => true,
+                    'dateBooking' => $datum->bookingDate,
+                    'viewFolder' => $this->viewFolder, 
+                    'modalSize' => 'modal-xl',
+                    'booking_type' => $datum->booking_type,
+                    'referer' => urldecode($request->headers->get('referer'))
+                ]);
+        }
     }
 
     public function update(Request $request, Consultation $clinics_home)
