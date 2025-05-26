@@ -416,7 +416,7 @@ class ClinicsHomeController extends Controller
     public function edit(Consultation $clinics_home, Request $request)
     {
         // $data = $this->getData($request->input());
-        // $user = Auth::user();
+        $user = Auth::user();
         $datum = $clinics_home;
         $yr = null;
         $mon = null;
@@ -432,7 +432,7 @@ class ClinicsHomeController extends Controller
                 'viewFolder' => $this->viewFolder, 
                 'action'=> 'book', 
                 'selectItems' => $this->selectItems(),
-                // 'user' => $user,
+                'user' => $user,
                 'doctor' => $datum->doctor,
                 'yr' => $yr, 
                 'mon' => $mon, 
@@ -442,7 +442,6 @@ class ClinicsHomeController extends Controller
                 'dateBooking' => $datum->bookingDate,
                 'viewFolder' => $this->viewFolder, 
                 'modalSize' => 'modal-xl',
-                // 'users' => $user,
                 'booking_type' => $datum->booking_type,
                 'referer' => urldecode($request->headers->get('referer'))
             ]);
