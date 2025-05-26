@@ -55,14 +55,14 @@ class ClinicsHomeController extends Controller
 
         unset($doctorArr);
         foreach(Schedule::where(function ($query) use ($user) {
-                    $query->where('clinic_id', $user->id)
+                    $query->where('clinic_id', $user->clinic_id)
                         ->orWhereNull('clinic_id');
                 })->where('dateSched', $yr . '-' . str_pad($mon, 2, 0, STR_PAD_LEFT) . '-' . $dayNum)->get('doctor_id') as $doc){
             $doctorArr[$doc->doctor_id] = $doc->doctor_id;
         }
         unset($doctorArrMon);
         foreach(Schedule::where(function ($query) use ($user) {
-                    $query->where('clinic_id', $user->id)
+                    $query->where('clinic_id', $user->clinic_id)
                         ->orWhereNull('clinic_id');
                 })->whereYear('dateSched', $yr)->whereMonth('dateSched', $mon)->get('doctor_id') as $doc){
             $doctorArrMon[$doc->doctor_id] = $doc->doctor_id;

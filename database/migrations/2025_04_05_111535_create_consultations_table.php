@@ -25,6 +25,7 @@ return new class extends Migration
             $table->text('procedure_details')->nullable();
             $table->text('complain')->nullable();
             $table->text('duration')->nullable();
+            $table->text('others')->nullable();
             $table->text('payment_mode')->nullable();
             $table->string('temp', 255)->nullable();
             $table->string('height', 255)->nullable();
