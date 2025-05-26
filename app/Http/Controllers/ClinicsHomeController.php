@@ -11,6 +11,7 @@ use App\Models\ConsultationFile;
 use App\Models\HealthOrganization;
 use App\Models\NurseFile;
 use App\Models\Patient;
+use App\Models\Schedule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -53,11 +54,17 @@ class ClinicsHomeController extends Controller
         }
 
         unset($doctorArr);
-        foreach($user->clinic->schedules()->where('dateSched', $yr . '-' . str_pad($mon, 2, 0, STR_PAD_LEFT) . '-' . $dayNum)->get('doctor_id') as $doc){
+        foreach(Schedule::where(function ($query) use ($user) {
+                    $query->where('clinic_id', $user->id)
+                        ->orWhereNull('clinic_id');
+                })->where('dateSched', $yr . '-' . str_pad($mon, 2, 0, STR_PAD_LEFT) . '-' . $dayNum)->get('doctor_id') as $doc){
             $doctorArr[$doc->doctor_id] = $doc->doctor_id;
         }
         unset($doctorArrMon);
-        foreach($user->clinic->schedules()->whereYear('dateSched', $yr)->whereMonth('dateSched', $mon)->get('doctor_id') as $doc){
+        foreach(Schedule::where(function ($query) use ($user) {
+                    $query->where('clinic_id', $user->id)
+                        ->orWhereNull('clinic_id');
+                })->whereYear('dateSched', $yr)->whereMonth('dateSched', $mon)->get('doctor_id') as $doc){
             $doctorArrMon[$doc->doctor_id] = $doc->doctor_id;
         }
 
