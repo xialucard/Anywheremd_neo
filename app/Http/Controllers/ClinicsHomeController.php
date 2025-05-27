@@ -144,7 +144,7 @@ class ClinicsHomeController extends Controller
                     break;
             }
             
-        }elseif((!isset($booking_type) || $booking_type == 'NULL') && !isset($booking_type_arr)){
+        }elseif((!isset($booking_type) || $booking_type == 'NULL' || $booking_type == '') && !isset($booking_type_arr)){
             
             $booking_type = 'Consultation';
         }
