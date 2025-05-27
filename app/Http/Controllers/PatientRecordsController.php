@@ -37,9 +37,9 @@ class PatientRecordsController extends Controller
         
         $patients = $user->patients->sortBy('name');
         if($user->active == 2)
-            return redirect()->route('home.myaccount')->with("Incomplete Form", "Please fullfill the form first. Make sure you also change the old password.");
+            return redirect()->route('home.myaccount')->with("Incomplete Form", $this->newUserMsg);
         elseif($user->approved == 0)
-            return redirect()->route('home.myaccount')->with("Incomplete Form", "Approval usually takes 24 hours. Please try again by that time.");
+            return redirect()->route('home.myaccount')->with("Incomplete Form", $this->notApproveMsg);
         else{
             return view($this->viewFolder . '.index', [
                 'moduleList' => $this->moduleList(), 
@@ -73,9 +73,9 @@ class PatientRecordsController extends Controller
         
         $patients = $user->patients->sortBy('name');
         if($user->active == 2)
-            return redirect()->route('home.myaccount')->with("Incomplete Form", "Please fullfill the form first. Make sure you also change the old password.");
+            return redirect()->route('home.myaccount')->with("Incomplete Form", $this->newUserMsg);
         elseif($user->approved == 0)
-            return redirect()->route('home.myaccount')->with("Incomplete Form", "Approval usually takes 24 hours. Please try again by that time.");
+            return redirect()->route('home.myaccount')->with("Incomplete Form", $this->notApproveMsg);
         else{
             return view($this->viewFolder . '.index', [
                 'moduleList' => $this->moduleList(), 
