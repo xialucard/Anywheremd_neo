@@ -382,6 +382,7 @@ class ClinicsHomeController extends Controller
                 // dd($params);
                 if($user->active == 2)
                     $userInputedDetails['active'] = 1;
+                $userInputedDetails['name'] = $userInputedDetails['f_name'] . ' ' . $userInputedDetails['m_name'] . ' ' . $userInputedDetails['l_name'];
                 $user->update($userInputedDetails);
                 $clinics_home->clinic->update($params);
                 return redirect()->route($this->viewFolder . '.index')->with('message', 'Your account is updated.');

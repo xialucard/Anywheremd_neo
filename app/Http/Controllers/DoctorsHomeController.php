@@ -258,6 +258,7 @@ class DoctorsHomeController extends Controller
                 // dd($params);
                 if($user->active == 2)
                     $params['active'] = 1;
+                $params['name'] = $params['f_name'] . ' ' . $params['m_name'] . ' ' . $params['l_name'];
                 $user->update($params);
                 return redirect()->route($this->viewFolder . '.index')->with('message', 'Your account is updated.');
             }else{
