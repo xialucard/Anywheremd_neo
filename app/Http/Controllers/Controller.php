@@ -13,6 +13,9 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     public $page = 15;
     public $defaultPassword = "r00tb33r";
+    public $newUserMsg = "For enhanced security, the new version of AnywhereMD requires you to re-submit your details and change your old password.";
+    public $notApproveMsg = "User still not approved. Approval usually takes 24 hours. Please try again by that time.";
+
 
     public $docSpecs = array(
         "Internal Medicine"=>array(
