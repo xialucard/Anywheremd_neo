@@ -206,7 +206,7 @@
                                             // elseif(!in_array($booking_type, $booking_type_arr))
                                             //     $li_active = "active";
                                         @endphp
-                                        <a class="nav-link {{ $li_active }}" aria-current="page" href="{{ route($viewFolder . '.index') . '/' . $yr . '/' . $mon . '/' . $dayNum . '/' . $booking}}">{{ $in }} <span class="badge text-bg-{{ $bgColor }}">{{ $booking }}</span></a>
+                                        <a class="nav-link {{ $li_active }}" aria-current="page" href="{{ route($viewFolder . '.index') . '/' . $yr . '/' . $mon . '/' . $dayNum . '/' . $booking_type }}">{{ $in }} <span class="badge text-bg-{{ $bgColor }}">{{ $booking }}</span></a>
                                     </li>
                                             @endif
                                         @endforeach
