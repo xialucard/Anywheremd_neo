@@ -252,6 +252,31 @@ class DoctorsHomeController extends Controller
         unset($params);
         $params = $request->input($this->viewFolder);
         $params['updated_by'] = $user->id;
+        if(!empty($request->doctors_home['prc_pic'])){
+            $prc_pic = 'prc_pic_' . time() . '.' . $request->doctors_home['prc_pic']->extension();
+            $request->doctors_home['prc_pic']->storeAs('public/doctor_files', $prc_pic);
+            $params['prc_pic'] = $prc_pic;
+        }
+        
+        if(!empty($request->doctors_home['profile_pic'])){
+            $profile_pic = 'profile_pic_' . time() . '.' . $request->doctors_home['profile_pic']->extension();
+            $request->doctors_home['profile_pic']->storeAs('public/doctor_files', $profile_pic);
+            $params['profile_pic'] = $profile_pic;
+            
+        }
+
+        if(!empty($request->doctors_home['diploma_pic'])){
+            $diploma_pic = 'diploma_pic_' . time() . '.' . $request->doctors_home['diploma_pic']->extension();
+            $request->doctors_home['diploma_pic']->storeAs('public/doctor_files', $diploma_pic);
+            $params['diploma_pic'] = $diploma_pic;
+        }
+
+        if(!empty($request->doctors_home['sig_pic'])){
+            $sig_pic = 'sig_pic' . time() . '.' . $request->doctors_home['sig_pic']->extension();
+            $request->doctors_home['sig_pic']->storeAs('public/doctor_files', $sig_pic);
+            $params['sig_pic'] = $sig_pic;
+        }
+        
         if($params['passwordOld'] != ''){
             if (Hash::check($params['passwordOld'], $user->getAuthPassword())) {
                 $params['password'] = Hash::make($params['passwordNew']);

@@ -51,6 +51,7 @@ class CreateUsersTable extends Migration
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->unsignedBigInteger('clinic_id')->nullable();
             $table->integer('approved')->default(0);
+            $table->string('sig_pic')->nullable();
             $table->integer('active')->default(1);
             $table->foreign('created_by')->references('id')->on('users');
             $table->foreign('updated_by')->references('id')->on('users');

@@ -50,6 +50,7 @@ class User extends Authenticatable
         'sub_header_1',
         'sub_header_2',
         'approved',
+        'sig_pic',
         'active'
     ];
 

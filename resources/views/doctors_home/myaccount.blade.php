@@ -6,7 +6,7 @@
   <div class="card-body">
     <div class="mb-3">
       <div class="mb-4 d-flex justify-content-center">
-          <img id="profileImage" src="{{ $datum->profile_pic == '' ? asset('storage/doctor_files/' . $datum->profile_pic) : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}"
+          <img id="profileImage" src="{{ $datum->profile_pic != '' ? asset('storage/doctor_files/' . $datum->profile_pic) : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}"
           alt="example placeholder" style="width: 300px;" />
       </div>
       <div class="d-flex justify-content-center">
@@ -111,7 +111,7 @@
     </div>
     <div class="mb-3">
       <div class="mb-4 d-flex justify-content-center">
-          <img id="prcImage" src="{{ $datum->prc_pic == '' ? asset('storage/doctor_files/' . $datum->prc_pic) : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}"
+          <img id="prcImage" src="{{ $datum->prc_pic != '' ? asset('storage/doctor_files/' . $datum->prc_pic) : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}"
           alt="example placeholder" style="width: 300px;" />
       </div>
       <div class="d-flex justify-content-center">
@@ -133,7 +133,7 @@
     </div>
     <div class="mb-3">
       <div class="mb-4 d-flex justify-content-center">
-          <img id="diplomaImage" src="{{ $datum->diploma_pic == '' ? asset('storage/doctor_files/' . $datum->diploma_pic) : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}"
+          <img id="diplomaImage" src="{{ $datum->diploma_pic != '' ? asset('storage/doctor_files/' . $datum->diploma_pic) : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}"
           alt="example placeholder" style="width: 300px;" />
       </div>
       <div class="d-flex justify-content-center">
@@ -172,6 +172,18 @@
       <input class="form-control" type="number" name="{{ $viewFolder }}[fee]" id="{{ $viewFolder }}_fee" placeholder="" value="{{ !empty($datum->fee) ? $datum->fee : ''  }}" required>
       <label for="{{ $viewFolder }}_fee" class="form-label">Fee</label>
       <small id="help_{{ $viewFolder }}_fee" class="text-muted"></small>
+    </div>
+    <div class="mb-3">
+      <div class="mb-4 d-flex justify-content-center">
+          <img id="sigImage" src="{{ $datum->sig_pic != '' ? (stristr($datum->sig_pic, 'uploads') ? asset('storage/' . $datum->sig_pic) : asset('storage/doctor_files/' . $datum->sig_pic)) : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}"
+          alt="example placeholder" style="width: 300px;" />
+      </div>
+      <div class="d-flex justify-content-center">
+          <div class="btn btn-{{ $bgColor }} btn-rounded">
+              <label class="form-label text-white m-1" for="{{ $viewFolder }}_sig_pic">Signature Pic</label>
+              <input type="file" class="form-control d-none" name="{{ $viewFolder }}[sig_pic]" id="{{ $viewFolder }}_sig_pic" onchange="displaySelectedImage(event, 'sigImage')" />
+          </div>
+      </div>
     </div>
   </div>
 </div>
