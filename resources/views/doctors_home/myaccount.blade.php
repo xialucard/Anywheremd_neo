@@ -6,7 +6,7 @@
   <div class="card-body">
     <div class="mb-3">
       <div class="mb-4 d-flex justify-content-center">
-          <img id="profileImage" src="{{ !empty($datum->profile_pic) ? asset('storage/doctor_files/' . $datum->profile_pic) : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}"
+          <img id="profileImage" src="{{ $datum->profile_pic == '' ? asset('storage/doctor_files/' . $datum->profile_pic) : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}"
           alt="example placeholder" style="width: 300px;" />
       </div>
       <div class="d-flex justify-content-center">
@@ -111,7 +111,7 @@
     </div>
     <div class="mb-3">
       <div class="mb-4 d-flex justify-content-center">
-          <img id="prcImage" src="{{ !empty($datum->prc_pic) ? asset('storage/doctor_files/' . $datum->prc_pic) : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}"
+          <img id="prcImage" src="{{ $datum->prc_pic == '' ? asset('storage/doctor_files/' . $datum->prc_pic) : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}"
           alt="example placeholder" style="width: 300px;" />
       </div>
       <div class="d-flex justify-content-center">
@@ -133,7 +133,7 @@
     </div>
     <div class="mb-3">
       <div class="mb-4 d-flex justify-content-center">
-          <img id="diplomaImage" src="{{ !empty($datum->diploma_pic) ? asset('storage/doctor_files/' . $datum->diploma_pic) : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}"
+          <img id="diplomaImage" src="{{ $datum->diploma_pic == '' ? asset('storage/doctor_files/' . $datum->diploma_pic) : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}"
           alt="example placeholder" style="width: 300px;" />
       </div>
       <div class="d-flex justify-content-center">
@@ -220,6 +220,22 @@
     @endif
   </div>
 </div>
+<script>
+  function displaySelectedImage(event, elementId) {
+    const selectedImage = document.getElementById(elementId);
+    const fileInput = event.target;
+
+    if (fileInput.files && fileInput.files[0]) {
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            selectedImage.src = e.target.result;
+        };
+
+        reader.readAsDataURL(fileInput.files[0]);
+    }
+  }
+</script>
 @endif
 
 
