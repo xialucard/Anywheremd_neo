@@ -34,6 +34,7 @@ class ClinicsHomeController extends Controller
     {
         // print_r(urldecode(explode('?', $request->fullUrl())[1]));
         // exit();
+
         $urlQuery = null;
         if(stristr('?', $request->fullUrl()))
             $urlQuery = urldecode(explode('?', $request->fullUrl())[1]);
@@ -130,9 +131,9 @@ class ClinicsHomeController extends Controller
                 $booking_type_arr[$booking->booking_type] += 1;
             }
         }
-        foreach($booking_type_arr as $booking_type => $count){
+        foreach($booking_type_arr as $booking_type_temp => $count){
             if($count == 0)
-                unset($booking_type_arr[$booking_type]);
+                unset($booking_type_arr[$booking_type_temp]);
         }
         
         if(isset($booking_type_arr))
@@ -142,13 +143,18 @@ class ClinicsHomeController extends Controller
                 if($count > 0)
                     break;
             }
-        }
-        elseif((!isset($booking_type) || $booking_type == 'NULL') && !isset($booking_type_arr))
+            
+        }elseif((!isset($booking_type) || $booking_type == 'NULL') && !isset($booking_type_arr)){
+            
             $booking_type = 'Consultation';
+        }
+            
         
         
         if(sizeof($booking_type_arr) == 0)
             $booking_type_arr = null;
+
+        
         
         
         $calendarArr = null;
