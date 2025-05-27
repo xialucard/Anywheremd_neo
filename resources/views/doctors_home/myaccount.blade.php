@@ -6,7 +6,7 @@
   <div class="card-body">
     <div class="mb-3">
       <div class="mb-4 d-flex justify-content-center">
-          <img id="profileImage" src="{{ $datum->profile_pic != '' ? asset('storage/doctor_files/' . $datum->profile_pic) : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}"
+          <img id="profileImage" src="{{ $datum->profile_pic != '' ? (stristr($datum->profile_pic, 'uploads') ? asset('storage/' . $datum->profile_pic) : asset('storage/doctor_files/' . $datum->profile_pic)) : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}"
           alt="example placeholder" style="width: 300px;" />
       </div>
       <div class="d-flex justify-content-center">
@@ -111,7 +111,7 @@
     </div>
     <div class="mb-3">
       <div class="mb-4 d-flex justify-content-center">
-          <img id="prcImage" src="{{ $datum->prc_pic != '' ? asset('storage/doctor_files/' . $datum->prc_pic) : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}"
+          <img id="prcImage" src="{{ $datum->prc_pic != '' ? (stristr($datum->prc_pic, 'uploads') ? asset('storage/' . $datum->prc_pic) : asset('storage/doctor_files/' . $datum->prc_pic)) : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}"
           alt="example placeholder" style="width: 300px;" />
       </div>
       <div class="d-flex justify-content-center">
@@ -133,7 +133,7 @@
     </div>
     <div class="mb-3">
       <div class="mb-4 d-flex justify-content-center">
-          <img id="diplomaImage" src="{{ $datum->diploma_pic != '' ? asset('storage/doctor_files/' . $datum->diploma_pic) : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}"
+          <img id="diplomaImage" src="{{ $datum->diploma_pic != '' ? (stristr($datum->diploma_pic, 'uploads') ? asset('storage/' . $datum->diploma_pic) : asset('storage/doctor_files/' . $datum->diploma_pic)) : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}"
           alt="example placeholder" style="width: 300px;" />
       </div>
       <div class="d-flex justify-content-center">
