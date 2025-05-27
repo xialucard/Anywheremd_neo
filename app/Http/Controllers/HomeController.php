@@ -75,10 +75,10 @@ class HomeController extends Controller
         $viewFolder = $this->viewFolder;
         
         if($user->active == 2){
-            $errors = ["Incomplete Form" => "Please fullfill the form first. Make sure you also change the old password."];
+            $errors = ["Incomplete Form" => $this->newUserMsg];
         }elseif($user->approved == 0){
             // dd($user->approved);
-            $errors = ["Pending Approval" => "Approval usually takes 24 hours. Please try again by that time."];
+            $errors = ["Pending Approval" => $this->notApproveMsg];
         }
 
         if(!isset($yr))
