@@ -1,4 +1,4 @@
-@if(($user->approved == 0 && $user->active == 2) || ($user->approved == 1 && $user->active == 1))
+@if(($user->active == 2) || ($user->approved == 1 && $user->active == 1))
 <div class="card mb-3">
   <div class="card-header">
     Personal Info
@@ -186,7 +186,7 @@
       <small id="help_{{ $viewFolder }}_password-old" class="text-muted"></small>
     </div>
     <div class="form-floating mb-3">
-      <input class="form-control" type="password" name="{{ $viewFolder }}[user][passwordNew]" id="{{ $viewFolder }}_password-new" onblur="
+      <input class="form-control" type="password" name="{{ $viewFolder }}[passwordNew]" id="{{ $viewFolder }}_password-new" onblur="
             if($('#{{ $viewFolder }}_password-new').val() != $('#{{ $viewFolder }}_password-reinput').val()){
               $('#submitButton').prop('disabled', true);
               $('#help_{{ $viewFolder }}_password-reinput').text('New password and reinput password not match.');
@@ -199,7 +199,7 @@
       <small id="help_{{ $viewFolder }}_password-new" class="text-muted"></small>
     </div>
     <div class="form-floating mb-3">
-      <input class="form-control" type="password" name="{{ $viewFolder }}[user][passwordReinput]" id="{{ $viewFolder }}_password-reinput" onblur="
+      <input class="form-control" type="password" name="{{ $viewFolder }}[passwordReinput]" id="{{ $viewFolder }}_password-reinput" onblur="
             if($('#{{ $viewFolder }}_password-new').val() != $('#{{ $viewFolder }}_password-reinput').val()){
               $('#submitButton').prop('disabled', true);
               $('#help_{{ $viewFolder }}_password-reinput').text('New password and reinput password not match.');

@@ -256,6 +256,8 @@ class DoctorsHomeController extends Controller
             if (Hash::check($params['passwordOld'], $user->getAuthPassword())) {
                 $params['password'] = Hash::make($params['passwordNew']);
                 // dd($params);
+                if($user->active == 2)
+                    $params['active'] = 1;
                 $user->update($params);
                 return redirect()->route($this->viewFolder . '.index')->with('message', 'Your account is updated.');
             }else{

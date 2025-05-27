@@ -378,13 +378,15 @@ class ClinicsHomeController extends Controller
             if (Hash::check($userInputedDetails['passwordOld'], $user->getAuthPassword())) {
                 $userInputedDetails['password'] = Hash::make($userInputedDetails['passwordNew']);
                 // dd($params);
+                if($user->active == 2)
+                    $userInputedDetails['active'] = 1;
                 $user->update($userInputedDetails);
                 $clinics_home->clinic->update($params);
-                // return redirect()->route($this->viewFolder . '.index')->with('message', 'Your account is updated.');
-                return redirect()->back()->with('message', 'Your account is updated.');
+                return redirect()->route($this->viewFolder . '.index')->with('message', 'Your account is updated.');
+                // return redirect()->back()->with('message', 'Your account is updated.');
             }else{
-                // return redirect()->route($this->viewFolder . '.index')->with('message', 'Invalid old password.');
-                return redirect()->back()->with('message', 'Invalid old password.');
+                return redirect()->route($this->viewFolder . '.index')->with('message', 'Invalid old password.');
+                // return redirect()->back()->with('message', 'Invalid old password.');
             }
         }else{
             $clinics_home->clinic->update($params);

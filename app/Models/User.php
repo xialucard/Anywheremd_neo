@@ -49,6 +49,8 @@ class User extends Authenticatable
         'fee',
         'sub_header_1',
         'sub_header_2',
+        'approved',
+        'active'
     ];
 
     /**

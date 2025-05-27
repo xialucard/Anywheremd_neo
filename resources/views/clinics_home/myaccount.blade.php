@@ -1,4 +1,4 @@
-@if(($user->approved == 0 && $user->active == 2) || ($user->approved == 1 && $user->active == 1))
+@if(($user->active == 2) || ($user->approved == 1 && $user->active == 1))
 <div class="card mb-3">
   <div class="card-header">
     Clinic Contact Info
@@ -75,7 +75,7 @@
     <div class="form-floating mb-3">
       <input class="form-control" type="tel" pattern="[0-9]{4}-[0-9]{3}-[0-9]{4}" name="{{ $viewFolder }}[user][mobile_no]" id="{{ $viewFolder }}_rep_mobile_no" placeholder="" value="{{ !empty($datum->mobile_no) ? $datum->mobile_no : ''  }}" required>
       <label for="{{ $viewFolder }}_rep_mobile_no" class="form-label">Mobile #</label>
-      <small id="help_{{ $viewFolder }}_rep_mobile_no" class="text-muted"></small>
+      <small id="help_{{ $viewFolder }}_rep_mobile_no" class="text-muted">Format: 0900-000-0000</small>
     </div>
     <div class="form-floating mb-3">
       <input class="form-control" type="email" name="{{ $viewFolder }}[user][email]" id="{{ $viewFolder }}_rep_email" placeholder="" value="{{ !empty($datum->email) ? $datum->email : ''  }}" {{ !empty($datum->users[0]->id) ? 'disabled' : 'required' }}>
