@@ -151,8 +151,10 @@ class ClinicsHomeController extends Controller
             
         
         
-        if(sizeof($booking_type_arr) == 0)
+        if(sizeof($booking_type_arr) == 0){
             $booking_type_arr = null;
+            $booking_type = 'Consultation';
+        }
 
         
         
