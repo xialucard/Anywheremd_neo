@@ -198,7 +198,7 @@ class DoctorsController extends Controller
     }
 
     private function queryBuilder($model, $search_query){
-        $condition[] = [$model . '.active', 1];
+        $condition[] = [$model . '.active', '<>', 0];
         $condition[] = [$model . '.user_type', 'Doctor'];
         if(!empty($search_query)){
             foreach($search_query as $colName => $searchDet){

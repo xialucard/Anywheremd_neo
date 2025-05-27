@@ -47,7 +47,7 @@ class ClinicsController extends Controller
         //     ]);
         // }
 
-        foreach(Consultation::whereNotNull(['bpOld'])->where('bpOld', 'like', '%/%')->orderBy('id', 'ASC')->skip(80000)->take(10000)->get() as $consult){
+        foreach(Consultation::whereNotNull(['bpOld'])->where('bpOld', 'like', '%/%')->orderBy('id', 'ASC')->skip(90000)->take(10000)->get() as $consult){
             if($consult->bpOld != ""){
                 $bpOld = str_replace('//', '/', $consult->bpOld);
                 $bpOldExp = explode("/", $bpOld);
