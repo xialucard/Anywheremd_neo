@@ -86,6 +86,7 @@
                     <th>Procedure Details</th>
                     @if($user->user_type == 'Clinic')
                     <th>Doctor's Name</th>
+                    <th>Remarks</th>
                     @endif
                     @if($user->user_type == 'Doctor')
                     <th>Clinic</th>
@@ -116,6 +117,7 @@
                   <td>{{ $dat->procedure_details }}</td>
                   @if($user->user_type == 'Clinic')
                   <td>{{ $dat->doctor->name }}</td>
+                  <td>{{ $dat->others }}</td>
                   @endif
                   @if($user->user_type == 'Doctor')
                   <td>{{ $dat->clinic->name }}</td>
