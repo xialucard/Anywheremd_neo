@@ -92,6 +92,7 @@
                     @if($user->user_type == 'Doctor')
                     <th>Clinic</th>
                     @endif
+                    <th>Status</th>
                 </tr>
             </thead>
             @if(isset($datum->id))
@@ -123,6 +124,7 @@
                   @if($user->user_type == 'Doctor')
                   <td>{{ $dat->clinic->name }}</td>
                   @endif
+                  <td>{{ $dat->status }}</td>
                 </tr>
               @endforeach
             </tbody>
