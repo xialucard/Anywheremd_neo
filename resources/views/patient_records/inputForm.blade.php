@@ -22,7 +22,8 @@
             <strong>Gender:</strong> {{ !empty($datum->gender) ? $datum->gender : '' }}<br>
             <strong>Address:</strong> {{ !empty($datum->address) ? $datum->address : '' }}<br>
             <strong>Email:</strong> {{ !empty($datum->email) ? $datum->email : '' }} | 
-            <strong>Mobile #:</strong> {{ !empty($datum->mobile_num) ? $datum->mobile_num : '' }}<br>
+            <strong>Tel #:</strong> {{ !empty($datum->tel) ? $datum->tel : '' }} | 
+            <strong>Mobile #:</strong> {{ !empty($datum->mobile_no) ? $datum->mobile_no : '' }}<br>
             <strong>Patient Type:</strong> {{ !empty($datum->patient_type) ? $datum->patient_type : '' }} | 
             <strong>Patient Sub Type: </strong>{{ !empty($datum->patient_sub_type) ? $datum->patient_sub_type . ' ' . $datum->referral_from : '' }}<br>
             <strong>Philhealth #: </strong>{{ !empty($datum->phil_num) ? $datum->phil_num : '' }}<br>
