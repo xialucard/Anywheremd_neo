@@ -1308,12 +1308,13 @@
               </div>
               <div class="card-footer">
                 <button id="createPDFButPresc" type="button" class="btn btn-{{ $bgColor }} btn-sm" {{ $datum->prescription == '' ? 'disabled' : '' }} onclick="
-                  // $.ajax({
-                  //   type: 'POST',
-                  //   data: $('#bookMod').serialize(),
-                  //   url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
-                  //   success:
-                  //   function (){
+                  $('#doctors_home_submit_type').val('Pause');
+                  $.ajax({
+                    type: 'POST',
+                    data: $('#bookMod').serialize(),
+                    url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
+                    success:
+                    function (){
                         $.ajax({
                           type: 'GET',
                           url: '{{ Route::has($viewFolder . '.pdfPrescription') ? route($viewFolder . '.pdfPrescription', $datum->id) : '' }}',
@@ -1322,8 +1323,8 @@
                             $('#iframePresc').attr('src', data);
                           }
                         });
-                  //   }
-                  // });
+                    }
+                  });
 
                 ">Create PDF</button>
               </div>
@@ -1377,12 +1378,13 @@
               </div>
               <div class="card-footer">
                 <button id="createPDFButMedCert" type="button" class="btn btn-{{ $bgColor }} btn-sm" {{ ($datum->findings == '' || $datum->diagnosis == '' || $datum->recommendations == '') ? 'disabled' : '' }} onclick="
-                  // $.ajax({
-                  //   type: 'POST',
-                  //   data: $('#bookMod').serialize(),
-                  //   url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
-                  //   success:
-                  //   function (){
+                  $('#doctors_home_submit_type').val('Pause');
+                  $.ajax({
+                    type: 'POST',
+                    data: $('#bookMod').serialize(),
+                    url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
+                    success:
+                    function (){
                         $.ajax({
                           type: 'GET',
                           url: '{{ Route::has($viewFolder . '.pdfMedCert') ? route($viewFolder . '.pdfMedCert', $datum->id) : '' }}',
@@ -1391,8 +1393,8 @@
                             $('#iframeMedCert').attr('src', data);
                           }
                         });
-                  //   }
-                  // });
+                    }
+                  });
 
                 ">Create PDF</button>
               </div>
@@ -1440,12 +1442,13 @@
               </div>
               <div class="card-footer">
                 <button id="createPDFButAddmitting" type="button" class="btn btn-{{ $bgColor }} btn-sm" {{ ($datum->procedure_ao == '' || $datum->admittingOrder == '') ? 'disabled' : '' }} onclick="
-                  // $.ajax({
-                  //   type: 'POST',
-                  //   data: $('#bookMod').serialize(),
-                  //   url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
-                  //   success:
-                  //   function (data){
+                  $('#doctors_home_submit_type').val('Pause');
+                  $.ajax({
+                    type: 'POST',
+                    data: $('#bookMod').serialize(),
+                    url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
+                    success:
+                    function (data){
                         $.ajax({
                           type: 'GET',
                           url: '{{ Route::has($viewFolder . '.pdfAdmitting') ? route($viewFolder . '.pdfAdmitting', $datum->id) : '' }}',
@@ -1457,8 +1460,8 @@
                             // $('#iframeAdmitting').attr('src', $('#iframeAdmitting').attr('src'));
                           }
                         });
-                  //   }
-                  // });
+                    }
+                  });
                 ">Create PDF</button>
               </div>
             </div>
