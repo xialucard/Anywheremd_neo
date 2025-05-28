@@ -100,7 +100,7 @@
         I certify that this information is generated from the Electronic Medical Records system in my clinic and by generating this form, my signature is hereby affixed.
     </p>
     <div class="position-absolute top-100 start-100 text-end mt-5">
-        <img src="/var/www/php56/anywheremd/app/webroot/{{ public_path('storage/') . $datum->doctor->sig_pic }}" style="width:1in"><br>
+        {{-- <img src="/var/www/php56/anywheremd/app/webroot/{{ public_path('storage/') . $datum->doctor->sig_pic }}" style="width:1in"><br> --}}
         {{ str_pad("", strlen($datum->doctor->name), "_", STR_PAD_LEFT) }}<br>
         Dr. {{ $datum->doctor->name }}<br>
         PRC#: {{ $datum->doctor->prc_number }}
