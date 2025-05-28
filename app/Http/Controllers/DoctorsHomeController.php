@@ -46,7 +46,7 @@ class DoctorsHomeController extends Controller
         // print "<br>";
         // print "<br>";
         // print "<br>";
-        // print(public_path());
+        // print(public_path('storage/uploads/sig_pics'));
         
         $booking_type_arr = array('Diagnostics' => 0, 'Dialysis' => 0, 'Surgery' => 0, 'Laser' => 0, 'Laboratory' => 0, 'Referral' => 0, 'Consultation' => 0);
         foreach($user->bookings()->distinct('booking_type')->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->get() as $in=>$booking){
@@ -516,7 +516,7 @@ class DoctorsHomeController extends Controller
     }
 
     function pdfPrescription(Consultation $doctors_home){
-        $pdf = Pdf::setOptions(['defaultFont' => 'sans-serif', 'chroot' => public_path('storage/' . $doctors_home->doctor->sig_pic)])->loadView($this->viewFolder . '.pdfPrescription', ['datum' => $doctors_home]);
+        $pdf = Pdf::setOptions(['defaultFont' => 'sans-serif', 'chroot' => public_path('public')])->loadView($this->viewFolder . '.pdfPrescription', ['datum' => $doctors_home]);
         // $pdf->getDomPDF()->setHttpContext(
         //     stream_context_create([
         //         'ssl' => [
