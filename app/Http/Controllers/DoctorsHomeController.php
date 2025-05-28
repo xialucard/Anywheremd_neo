@@ -534,6 +534,15 @@ class DoctorsHomeController extends Controller
 
     function pdfMedCert(Consultation $doctors_home){
         $pdf = Pdf::loadView($this->viewFolder . '.pdfMedCert', ['datum' => $doctors_home])->setOptions(['defaultFont' => 'sans-serif', 'chroot' => '/var/www/php83/Anywheremd_neo# cd /var/www/php56/anywheremd/app/webroot/uploads/' . $doctors_home->doctor->sig_pic]);
+        $pdf->getDomPDF()->setHttpContext(
+            stream_context_create([
+                'ssl' => [
+                    'allow_self_signed'=> TRUE,
+                    'verify_peer' => FALSE,
+                    'verify_peer_name' => FALSE,
+                ]
+            ])
+        );
         Storage::put('public/med_cert_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf', $pdf->output());
         $src = asset('storage/med_cert_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf');
         return $src;
