@@ -126,6 +126,7 @@
               </p>
             </div>
           </div>
+          @if(stristr($datum->doctor->specialty, 'Ophtha'))
           <div class="card mb-3">
             <div class="card-header">Eye Examination Information</div>
             <div class="card-body">
@@ -148,6 +149,7 @@
               </p>
             </div>
           </div>
+          @endif
           <ul class="nav nav-tabs">
             <li class="nav-item">
               <a class="nav-link active" id="soapPrevLink" href="#" onclick="
@@ -674,6 +676,7 @@
               </p>
             </div>
           </div>
+          @if(stristr($datum->doctor->specialty, 'Ophtha'))
           <div class="card mb-3">
             <div class="card-header">Eye Examination Information</div>
             <div class="card-body">
@@ -696,6 +699,7 @@
               </p>
             </div>
           </div>
+          @endif
           <ul class="nav nav-tabs">
             <li class="nav-item">
               <a class="nav-link active" id="soapCurLink" href="#" onclick="

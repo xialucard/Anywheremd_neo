@@ -259,7 +259,7 @@
       </div>
       <div id="consoPatBookChartDiv" style="{{ !isset($datum->id) ? 'display:none' : '' }}" class="container border border-1 border-top-0 mb-3 p-3">
         <div class="row">
-          <div class="col-lg-4">
+          <div class="col-lg-{{ stristr($datum->doctor->specialty, 'Ophtha') ? 4 : 12 }}">
             <div class="card mb-3">
               <div class="card-header">Vitals</div>
               <div class="card-body">
@@ -339,6 +339,7 @@
               </div>
             </div>
           </div>
+          @if(stristr($datum->doctor->specialty, 'Ophtha'))
           <div class="col-lg-8">
             <div class="card mb-3">
               <div class="card-header">Eye Examination Information</div>
@@ -851,6 +852,7 @@
               </div>
             </div>
           </div>
+          @endif
         </div>
         <div class="row">
           <div class="col-lg-12">
