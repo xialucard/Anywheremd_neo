@@ -516,7 +516,7 @@ class DoctorsHomeController extends Controller
     }
 
     function pdfPrescription(Consultation $doctors_home){
-        $pdf = Pdf::setOptions(['defaultFont' => 'sans-serif', 'chroot' => [public_path('storage/rx.jpg'), public_path('storage/' . $doctors_home->doctor->sig_pic)]])->loadView($this->viewFolder . '.pdfPrescription', ['datum' => $doctors_home]);
+        $pdf = Pdf::setOptions(['defaultFont' => 'sans-serif', 'chroot' => public_path('storage/' . $doctors_home->doctor->sig_pic)])->loadView($this->viewFolder . '.pdfPrescription', ['datum' => $doctors_home]);
         // $pdf->getDomPDF()->setHttpContext(
         //     stream_context_create([
         //         'ssl' => [
