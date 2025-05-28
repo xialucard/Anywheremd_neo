@@ -69,7 +69,7 @@
     @endphp
     <p>{!!html_entity_decode($datum->prescription)!!}</p>
     <div class="position-absolute top-100 start-100 text-end mt-5">
-        <img src="{{ public_path('storage/') . $datum->doctor->sig_pic }}" style="width:2in">
+        <img src="{{ public_path('storage/') . $datum->doctor->sig_pic }}" style="width:.5in"><br>
         {{ str_pad("", strlen($datum->doctor->name), "_", STR_PAD_LEFT) }}<br>
         Dr. {{ $datum->doctor->name }}<br>
         PRC#: {{ $datum->doctor->prc_number }}<br>
