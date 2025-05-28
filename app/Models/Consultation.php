@@ -21,6 +21,7 @@ class Consultation extends Model
         'procedure_details',
         'complain',
         'duration',
+        'others',
         'payment_mode',
         'temp',
         'height',
