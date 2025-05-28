@@ -533,7 +533,7 @@ class DoctorsHomeController extends Controller
     }
 
     function pdfMedCert(Consultation $doctors_home){
-        $pdf = Pdf::loadView($this->viewFolder . '.pdfMedCert', ['datum' => $doctors_home])->setOptions(['defaultFont' => 'sans-serif', 'chroot' => '/var/www/php56/anywheremd/app/webroot/' . $doctors_home->doctor->sig_pic]);
+        $pdf = Pdf::setOptions(['defaultFont' => 'sans-serif', 'chroot' => '/var/www/php56/anywheremd/app/webroot/' . $doctors_home->doctor->sig_pic])->loadView($this->viewFolder . '.pdfMedCert', ['datum' => $doctors_home]);
         $pdf->getDomPDF()->setHttpContext(
             stream_context_create([
                 'ssl' => [
