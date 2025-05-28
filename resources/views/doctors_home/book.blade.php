@@ -879,7 +879,7 @@
                         <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ $user->id == $datum->doctor->id && !isset($bookings[0]) ? '' : 'disabled' }}>Delete Helper</button>
                       </div>
                       <small class="text-muted">Content</small>
-                      <textarea class="form-control" name="{{ $viewFolder }}[docNotesHPI]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_docNotesHPI" @endif rows=3 {{ $user->id == $datum->doctor->id && !isset($bookings[0]) ? 'required' : 'disabled' }}>{{ isset($datum->docNotesHPI) ? $datum->docNotesHPI : '' }}</textarea>
+                      <textarea class="form-control" name="{{ $viewFolder }}[docNotesHPI]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_docNotesHPI" @endif rows=3 {{ $user->id == $datum->doctor->id && !isset($bookings[0]) ? 'required' : '' }}>{{ isset($datum->docNotesHPI) ? $datum->docNotesHPI : '' }}</textarea>
                       <small class="text-muted">Helper Save/Edit</small>
                       <div class="input-group input-group-small mb-3 flex-nowrap">
                         <div class="input-group-text">
@@ -903,7 +903,7 @@
                         <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ $user->id == $datum->doctor->id ? '' : 'disabled' }}>Delete Helper</button>
                       </div>
                       <small class="text-muted">Content</small>
-                      <textarea class="form-control" name="{{ $viewFolder }}[docNotesSubject]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_docNotesSubject" @endif rows=3 {{ $user->id == $datum->doctor->id && isset($bookings[0]) ? 'required' : 'disabled' }}>{{ isset($datum->docNotesSubject) ? $datum->docNotesSubject : '' }}</textarea>
+                      <textarea class="form-control" name="{{ $viewFolder }}[docNotesSubject]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_docNotesSubject" @endif rows=3 {{ $user->id == $datum->doctor->id && isset($bookings[0]) ? 'required' : '' }}>{{ isset($datum->docNotesSubject) ? $datum->docNotesSubject : '' }}</textarea>
                       <small class="text-muted">Helper Save/Edit</small>
                       <div class="input-group input-group-small mb-3 flex-nowrap">
                         <div class="input-group-text">
