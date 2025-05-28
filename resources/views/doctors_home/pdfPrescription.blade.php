@@ -58,12 +58,12 @@
 
 </head>
 <body>
-    <h2 class="text-center m-0 mb-1">{{ $datum->doctor->name }} M.D.</h2>
+    <h3 class="text-center m-0 mb-1">{{ $datum->doctor->name }} M.D.</h3>
     <p class="text-center m-0 mb-1 p-0">{{ $datum->doctor->sub_header_1 }}</p>
     <p class="text-center m-0 mb-3 p-0">{{ $datum->doctor->sub_header_2 }}</p>
-    <p><strong>PX: Name:</strong> {{ $datum->patient->name }}</p>
+    <p><strong>Name:</strong> {{ $datum->patient->name }}</p>
     <p><strong>Age:</strong> {{ floor((strtotime($datum->bookingDate) - strtotime($datum->patient->birthdate))/(60*60*24*365.25)) }}</p>
-    <img src="{{ asset('storage/rx.jpg') }}" class="img-thumbnail float-start w-50 h-50 m-2">
+    <img src="{{ public_path('img/rx.jpg') }}" style="width:2in">
     @php
         $datum->prescription = nl2br($datum->prescription);
     @endphp

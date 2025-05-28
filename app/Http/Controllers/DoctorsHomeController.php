@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\ScheduleConso;
 use App\Models\AffiliatedDoctor;
 use App\Models\ConsultationFile;
+use App\Models\IcdCode;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
@@ -41,6 +42,11 @@ class DoctorsHomeController extends Controller
             $dayNum = 1;
         }
 
+        // print "<br>";
+        // print "<br>";
+        // print "<br>";
+        // print "<br>";
+        // print(public_path());
         
         $booking_type_arr = array('Diagnostics' => 0, 'Dialysis' => 0, 'Surgery' => 0, 'Laser' => 0, 'Laboratory' => 0, 'Referral' => 0, 'Consultation' => 0);
         foreach($user->bookings()->distinct('booking_type')->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->get() as $in=>$booking){
@@ -510,7 +516,16 @@ class DoctorsHomeController extends Controller
     }
 
     function pdfPrescription(Consultation $doctors_home){
-        $pdf = Pdf::loadView($this->viewFolder . '.pdfPrescription', ['datum' => $doctors_home])->setOptions(['defaultFont' => 'sans-serif']);
+        $pdf = Pdf::setOptions(['defaultFont' => 'sans-serif', 'chroot' => public_path('img/rx.jpg')])->loadView($this->viewFolder . '.pdfPrescription', ['datum' => $doctors_home]);
+        // $pdf->getDomPDF()->setHttpContext(
+        //     stream_context_create([
+        //         'ssl' => [
+        //             'allow_self_signed'=> TRUE,
+        //             'verify_peer' => FALSE,
+        //             'verify_peer_name' => FALSE,
+        //         ]
+        //     ])
+        // );
         Storage::put('public/prescription_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf', $pdf->output());
         $src = asset('storage/prescription_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf');
         return $src;
@@ -531,6 +546,11 @@ class DoctorsHomeController extends Controller
         $src = asset('storage/admitting_order_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf');
         return $src;
         // return redirect()->route($this->viewFolder . '.index')->with('message', 'Admitting Order PDF is created.');
+    }
+
+    function getIcdCode(?int $patient_id){
+        $icd_code = IcdCode::find($patient_id);
+        return json_encode($icd_code);
     }
 
     private function queryBuilder($model, $search_query){

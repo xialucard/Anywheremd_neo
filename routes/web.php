@@ -53,6 +53,7 @@ Route::group(['middleware' => ['auth', 'permission']], function() {
     Route::post('/doctors_home/storeSchedule', [DoctorsHomeController::class, 'storeSchedule'])->name('doctors_home.storeSchedule');
     Route::get('/doctors_home/manageSchedule', [DoctorsHomeController::class, 'manageSchedule'])->name('doctors_home.manageSchedule');
     Route::get('/doctors_home/manageClinic', [DoctorsHomeController::class, 'manageClinic'])->name('doctors_home.manageClinic');
+    Route::get('/doctors_home/getIcdCode/{icd_code?}', [DoctorsHomeController::class, 'getIcdCode'])->name('doctors_home.getIcdCode');
     Route::get('doctors_home/{doctors_home}/pdfPrescription', [DoctorsHomeController::class, 'pdfPrescription'])->name('doctors_home.pdfPrescription');
     Route::get('doctors_home/{doctors_home}/pdfMedCert', [DoctorsHomeController::class, 'pdfMedCert'])->name('doctors_home.pdfMedCert');
     Route::get('doctors_home/{doctors_home}/pdfAdmitting', [DoctorsHomeController::class, 'pdfAdmitting'])->name('doctors_home.pdfAdmitting');

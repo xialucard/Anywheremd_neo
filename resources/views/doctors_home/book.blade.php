@@ -5,6 +5,9 @@
     $datum = $datum->parent_consultation;
   }
 @endphp
+
+<datalist id="icdCodeList"></datalist>
+
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
@@ -367,9 +370,10 @@
               <div class="card-header">Previous Assessment</div>
               <div class="card-body">
                 <div class="form-floating mb-3">
-                  <select class="form-select" name="{{ $viewFolder }}[icd_code]" id="{{ $viewFolder }}_icd_code" placeholder="" disabled>
+                  {{-- <select class="form-select" name="{{ $viewFolder }}[icd_code]" id="{{ $viewFolder }}_icd_code" placeholder="" disabled>
                     <option value=""></option>
-                  </select>
+                  </select> --}}
+                  <input class="form-control" list="icdCodeList" id="{{ $viewFolder }}_icd_code" name="{{ $viewFolder }}[icd_code]" value="{{ isset($referedDoctorArr) ? implode(',', $referedDoctorArr) : '' }}" autocomplete="off">
                   <label for="{{ $viewFolder }}_icd_code">Previous Primary Diagnosis</label>
                   <small id="help_{{ $viewFolder }}_icd_code" class="text-muted"></small>
                 </div>
@@ -941,9 +945,10 @@
                 <div class="card-header">Assessment</div>
                 <div class="card-body">
                   <div class="form-floating mb-3">
-                    <select class="form-select" name="{{ $viewFolder }}[icd_code]" id="{{ $viewFolder }}_icd_code" placeholder="" {{ $user->id == $datum->doctor->id ? '' : 'disabled' }}>
+                    {{-- <select class="form-select" name="{{ $viewFolder }}[icd_code]" id="{{ $viewFolder }}_icd_code" placeholder="" {{ $user->id == $datum->doctor->id ? '' : 'disabled' }}>
                       <option value=""></option>
-                    </select>
+                    </select> --}}
+                    <input class="form-control" list="icdCodeList" id="{{ $viewFolder }}_icd_code" name="{{ $viewFolder }}[icd_code]" value="{{ isset($referedDoctorArr) ? implode(',', $referedDoctorArr) : '' }}" autocomplete="off">
                     <label for="{{ $viewFolder }}_icd_code">Primary Diagnosis</label>
                     <small id="help_{{ $viewFolder }}_icd_code" class="text-muted"></small>
                   </div>
@@ -1134,9 +1139,10 @@
                 <div class="card-header">Assessment</div>
                 <div class="card-body">
                   <div class="form-floating mb-3">
-                    <select class="form-select" name="{{ $viewFolder }}[icd_code]" id="{{ $viewFolder }}_icd_code" placeholder="" {{ $user->id == $cr->doctor->id ? '' : 'disabled' }}>
+                    {{-- <select class="form-select" name="{{ $viewFolder }}[icd_code]" id="{{ $viewFolder }}_icd_code" placeholder="" {{ $user->id == $cr->doctor->id ? '' : 'disabled' }}>
                       <option value=""></option>
-                    </select>
+                    </select> --}}
+                    <input class="form-control" list="icdCodeList" id="{{ $viewFolder }}_icd_code" name="{{ $viewFolder }}[icd_code]" value="{{ isset($referedDoctorArr) ? implode(',', $referedDoctorArr) : '' }}" autocomplete="off">
                     <label for="{{ $viewFolder }}_icd_code">Primary Diagnosis</label>
                     <small id="help_{{ $viewFolder }}_icd_code" class="text-muted"></small>
                   </div>
@@ -1302,12 +1308,12 @@
               </div>
               <div class="card-footer">
                 <button id="createPDFButPresc" type="button" class="btn btn-{{ $bgColor }} btn-sm" {{ $datum->prescription == '' ? 'disabled' : '' }} onclick="
-                  $.ajax({
-                    type: 'POST',
-                    data: $('#bookMod').serialize(),
-                    url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
-                    success:
-                    function (){
+                  // $.ajax({
+                  //   type: 'POST',
+                  //   data: $('#bookMod').serialize(),
+                  //   url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
+                  //   success:
+                  //   function (){
                         $.ajax({
                           type: 'GET',
                           url: '{{ Route::has($viewFolder . '.pdfPrescription') ? route($viewFolder . '.pdfPrescription', $datum->id) : '' }}',
@@ -1316,8 +1322,8 @@
                             $('#iframePresc').attr('src', data);
                           }
                         });
-                    }
-                  });
+                  //   }
+                  // });
 
                 ">Create PDF</button>
               </div>
@@ -1371,12 +1377,12 @@
               </div>
               <div class="card-footer">
                 <button id="createPDFButMedCert" type="button" class="btn btn-{{ $bgColor }} btn-sm" {{ ($datum->findings == '' || $datum->diagnosis == '' || $datum->recommendations == '') ? 'disabled' : '' }} onclick="
-                  $.ajax({
-                    type: 'POST',
-                    data: $('#bookMod').serialize(),
-                    url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
-                    success:
-                    function (){
+                  // $.ajax({
+                  //   type: 'POST',
+                  //   data: $('#bookMod').serialize(),
+                  //   url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
+                  //   success:
+                  //   function (){
                         $.ajax({
                           type: 'GET',
                           url: '{{ Route::has($viewFolder . '.pdfMedCert') ? route($viewFolder . '.pdfMedCert', $datum->id) : '' }}',
@@ -1385,8 +1391,8 @@
                             $('#iframeMedCert').attr('src', data);
                           }
                         });
-                    }
-                  });
+                  //   }
+                  // });
 
                 ">Create PDF</button>
               </div>
@@ -1434,12 +1440,12 @@
               </div>
               <div class="card-footer">
                 <button id="createPDFButAddmitting" type="button" class="btn btn-{{ $bgColor }} btn-sm" {{ ($datum->procedure_ao == '' || $datum->admittingOrder == '') ? 'disabled' : '' }} onclick="
-                  $.ajax({
-                    type: 'POST',
-                    data: $('#bookMod').serialize(),
-                    url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
-                    success:
-                    function (data){
+                  // $.ajax({
+                  //   type: 'POST',
+                  //   data: $('#bookMod').serialize(),
+                  //   url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
+                  //   success:
+                  //   function (data){
                         $.ajax({
                           type: 'GET',
                           url: '{{ Route::has($viewFolder . '.pdfAdmitting') ? route($viewFolder . '.pdfAdmitting', $datum->id) : '' }}',
@@ -1451,8 +1457,8 @@
                             // $('#iframeAdmitting').attr('src', $('#iframeAdmitting').attr('src'));
                           }
                         });
-                    }
-                  });
+                  //   }
+                  // });
                 ">Create PDF</button>
               </div>
             </div>
@@ -1704,4 +1710,20 @@
               return b.files
           }
   });
+  $("#{{ $viewFolder }}_icd_code").on("input", function () {
+      val = $(this).val();
+      $.ajax({
+        type: 'GET',
+        url: '{{ Route::has('doctors_home.getIcdCode') ? route('doctors_home.getIcdCode') : ''}}/' + val,
+        success: function(data){
+          icdCodeObj = jQuery.parseJSON(data);
+          var options = "";
+          icdCodeObj.forEach(function (item, index){
+              options  += '<option value="' + item.icd_code + '">' + item.details + '</option>';
+          });
+          $("#icdCodeList").html(options);
+        }
+      });
+    });
+
 </script>
