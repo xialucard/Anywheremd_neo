@@ -98,11 +98,11 @@
             <tbody>
               @php
                 if($user->user_type == 'Clinic')
-                  $bookings = $datum->consultations()->where('client_id', $user->id)->where('status', 'Done')->orderByDesc('bookingDate')->get();
+                  $bookings = $datum->consultations()->where('client_id', $user->id)->orderByDesc('bookingDate')->get();
                 elseif($user->user_type == 'Doctor')
-                  $bookings = $datum->consultations()->where('doctor_id', $user->id)->where('status', 'Done')->orderByDesc('bookingDate')->get();
+                  $bookings = $datum->consultations()->where('doctor_id', $user->id)->orderByDesc('bookingDate')->get();
                 else
-                  $bookings = $datum->consultations()->where('status', 'Done')->orderByDesc('bookingDate')->get();
+                  $bookings = $datum->consultations()->orderByDesc('bookingDate')->get();
                 print_r($user->user_type);
               @endphp
               @foreach($bookings as $ind=>$dat)

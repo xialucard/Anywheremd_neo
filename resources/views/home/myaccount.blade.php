@@ -1,4 +1,4 @@
-@if(($user->approved == 0 && $user->active == 2) || ($user->approved == 1 && $user->active == 1))
+@if(($user->active == 2) || ($user->approved == 1 && $user->active == 1))
 <div class="form-floating mb-3">
   <input class="form-control" type="text" name="{{ $viewFolder }}[f_name]" id="{{ $viewFolder }}_f_name" placeholder="" value="{{ $datum->f_name }}" required>
   <label for="{{ $viewFolder }}_f_name" class="form-label">First Name</label>
