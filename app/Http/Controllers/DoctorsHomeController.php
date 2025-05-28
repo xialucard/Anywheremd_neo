@@ -276,7 +276,7 @@ class DoctorsHomeController extends Controller
             $request->doctors_home['sig_pic']->storeAs('public/doctor_files', $sig_pic);
             $params['sig_pic'] = $sig_pic;
         }
-        
+
         if($params['passwordOld'] != ''){
             if (Hash::check($params['passwordOld'], $user->getAuthPassword())) {
                 $params['password'] = Hash::make($params['passwordNew']);
@@ -486,9 +486,9 @@ class DoctorsHomeController extends Controller
         // }
 
         $prevBookingArr['consultation'] = $doctors_home;
-        $prevBookingArr['consultation']['iframePrevPrescSrc'] = file_exists(public_path('storage/prescription_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf')) ? asset('storage/prescription_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg';
-        $prevBookingArr['consultation']['iframePrevMedCertSrc'] = file_exists(public_path('storage/med_cert_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf')) ? asset('storage/med_cert_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg';
-        $prevBookingArr['consultation']['iframePrevAdmittingSrc'] = file_exists(public_path('storage/admitting_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf')) ? asset('storage/med_cert_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg';
+        $prevBookingArr['consultation']['iframePrevPrescSrc'] = file_exists(public_path('storage/prescription_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf')) ? asset('storage/prescription_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf') : (file_exists(public_path('storage/uploads/prescription_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf')) ? asset('storage//uploads/prescription_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg');
+        $prevBookingArr['consultation']['iframePrevMedCertSrc'] = file_exists(public_path('storage/med_cert_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf')) ? asset('storage/med_cert_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf') : (file_exists(public_path('storage/uploads/med_cert_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf')) ? asset('storage//uploads/med_cert_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg');
+        $prevBookingArr['consultation']['iframePrevAdmittingSrc'] = file_exists(public_path('storage/admitting_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf')) ? asset('storage/med_cert_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf') : (file_exists(public_path('storage/uploads/admitting_order_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf')) ? asset('storage//uploads/admitting_order_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg');
         $prevBookingArr['patient'] = $doctors_home->patient;
         foreach($doctors_home->consultation_files as $ind=>$consultation_file){
             $prevBookingArr['consultation_files'][$ind]['file_link'] = asset($consultation_file->file_link);
@@ -505,8 +505,7 @@ class DoctorsHomeController extends Controller
             $ind++;
             $prevBookingArr['consultation_files'][$ind]['file_link'] = asset($consultation_file->file_link);
         }
-        
-        
+
         return json_encode($prevBookingArr);
     }
 
