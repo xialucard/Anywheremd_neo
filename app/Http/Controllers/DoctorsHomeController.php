@@ -533,7 +533,7 @@ class DoctorsHomeController extends Controller
     }
 
     function pdfMedCert(Consultation $doctors_home){
-        $pdf = Pdf::loadView($this->viewFolder . '.pdfMedCert', ['datum' => $doctors_home])->setOptions(['defaultFont' => 'sans-serif', 'chroot' => public_path('storage/' . $doctors_home->doctor->sig_pid)]);
+        $pdf = Pdf::loadView($this->viewFolder . '.pdfMedCert', ['datum' => $doctors_home])->setOptions(['defaultFont' => 'sans-serif', 'chroot' => public_path('storage')]);
         Storage::put('public/med_cert_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf', $pdf->output());
         $src = asset('storage/med_cert_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf');
         return $src;
