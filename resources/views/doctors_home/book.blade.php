@@ -34,7 +34,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-6 d-sm-none d-md-block">
       <div class="card mb-3">
         <div class="card-header">Booking History</div>
         <div class="card-body table-responsive" style="max-height: 185.5px">
@@ -107,7 +107,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-6 d-sm-none d-md-block">
       @if(isset($bookings[0]))
       <div class="card mb-3">
         <div class="card-header">Past Patient's Chart (<span id="prevBookingDater">{{ $bookings[0]->bookingDate }}</span>)</div>
