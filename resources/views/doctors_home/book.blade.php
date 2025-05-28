@@ -478,6 +478,7 @@
             </div>
           </div>
           <div id="labPrevDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
+            <h5>Image Viewer</h5>
             <div id="carouselPrev" class="carousel carousel-dark slide" data-bs-interval="false">
               <div class="carousel-indicators" id="labPrevCarouselInd">
                 @php
@@ -585,7 +586,7 @@
               </button>
             </div>
             <div class="my-3">
-              <label for="formFileMultiple" class="form-label">Upload file/s</label>
+              <label for="formFileMultiple" class="form-label">Uploaded Images/Files</label>
               <input class="form-control" type="file" id="{{ $viewFolder }}_prev_files" name="{{ $viewFolder }}[ConsultationFile][files][]" accept="image/png, image/gif, image/jpeg" multiple disabled>
             </div>
             <div class="row overflow-auto" id="image_preview_prev_saved" style="max-height:500px">
@@ -1250,6 +1251,7 @@
             @endif
           </div>
           <div id="labCurDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
+            <h5>Image Viewer</h5>
             <div id="carouselCur" class="carousel carousel-dark slide mb-3" data-bs-interval="false">
               <div class="carousel-indicators">
                 @if(!empty($datum->consultation_files[0]->file_link))
@@ -1283,7 +1285,7 @@
               </button>
             </div>
             <div class="mb-3">
-              <label for="formFileMultiple" class="form-label">Upload file/s</label>
+              <label for="formFileMultiple" class="form-label">Uploaded Images/Files</label>
               <input class="form-control" type="file" id="{{ $viewFolder }}_files" name="{{ $viewFolder }}[ConsultationFile][files][]" accept="image/png, image/gif, image/jpeg" multiple>
             </div>
             <div class="row overflow-auto" id="image_preview_saved" style="max-height:500px">
