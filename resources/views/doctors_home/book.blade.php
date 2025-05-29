@@ -674,7 +674,7 @@
                 <strong>Temp:</strong> <span class="text-primary">{{ $datum->temp }}C</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
                 <strong>Height:</strong> <span class="text-primary">{{ $datum->height }}cm</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
                 <strong>Weight:</strong> <span class="text-primary">{{ $datum->weight }}kg</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                <strong>BMI:</strong> <span class="text-primary">{{ number_format($datum->weight/(($datum->height/100)*($datum->height/100)), 0) }}</span><br>
+                <strong>BMI:</strong> <span class="text-primary">{{ isset($datum->height) ? number_format($datum->weight/(($datum->height/100)*($datum->height/100)), 0) : '' }}</span><br>
                 <strong>BP:</strong> <span class="text-primary">{{ $datum->bpS }}/{{ $datum->bpD }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
                 <strong>O2 Sat:</strong> <span class="text-primary">{{ $datum->o2 }}%</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
                 <strong>Heart Rate:</strong> <span class="text-primary">{{ $datum->heart }}beats/min</span>
