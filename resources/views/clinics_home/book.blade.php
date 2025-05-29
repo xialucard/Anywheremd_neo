@@ -13,7 +13,7 @@
       @php
         unset($dateArr);
       @endphp
-      @foreach($doc->doctor->schedules()->where('dateSched', '>=', $datum->bookingDate)->where('dateSched', '<', date('y-m-d', strtotime($datum->bookingDate. ' 30 days')))->orderBy('dateSched', 'asc')->get() as $sched)
+      @foreach($doc->doctor->schedules()->where('dateSched', '>=', $datum->bookingDate)->where('dateSched', '<', date('y-m-d', strtotime($datum->bookingDate. ' + 30 days')))->orderBy('dateSched', 'asc')->get() as $sched)
         @if(!isset($dateArr[$datum->bookingDate]))
         @php
           $dateArr[$datum->bookingDate] = $datum->bookingDate;
