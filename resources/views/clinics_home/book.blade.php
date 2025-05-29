@@ -389,7 +389,7 @@
                   ">
                     <option value="" {{ isset($datum->id) && $datum->aros_sphere == '' ? 'selected' : '' }}>-</option>
                     @for($i = -20; $i<=20; $i+=.25)
-                    <option value="{{ $i }}" {{ isset($datum->id) && $datum->aros_sphere == '' ? $i : '' }}>{{ number_format($i, 2) }}</option>
+                    <option value="{{ $i }}" {{ isset($datum->id) && $datum->aros_sphere == $i ? 'selected' : '' }}>{{ number_format($i, 2) }}</option>
                     @endfor
                     <option value="No Target" {{ isset($datum->id) && $datum->aros_sphere == 'No Target' ? 'selected' : '' }}>No Refraction Possible</option>
                   </select>

@@ -670,6 +670,7 @@ class ClinicsHomeController extends Controller
         }
         
         return redirect()->to($referer)->with('message', 'Entry has been updated.');
+        
         // return redirect()->route($this->viewFolder . '.index')->with('message', 'Entry has been updated.');
         // return redirect()->back()->with('message', 'Entry has been updated.');
     }
