@@ -10,8 +10,16 @@
   @foreach($user->clinic->affiliated_doctors->sortBy('name') as $doc)
     @foreach($doc->doctor->affiliated_clinics->sortBy('name') as $clin)
       @if(isset($clin->clinic->id))
-      @foreach($doc->doctor->schedules()->where('dateSched', '>=', $datum->bookingDate)->orderBy('dateSched', 'asc')->get()->unique('dateSched') as $sched)
+      @php
+        unset($dateArr);
+      @endphp
+      @foreach($doc->doctor->schedules()->where('dateSched', '>=', $datum->bookingDate)->where('dateSched', '<', date('y-m-d', strtotime($datum->bookingDate. ' 30 days')))->orderBy('dateSched', 'asc')->get() as $sched)
+        @if(!isset($dateArr[$datum->bookingDate]))
+        @php
+          $dateArr[$datum->bookingDate] = $datum->bookingDate;
+        @endphp
     <option value="{{ $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->doctor->id . ' - Dr. ' . $doc->doctor->name }}">{{ $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->doctor->id . ' - Dr. ' . $doc->doctor->name }}</option>
+        @endif
       @endforeach
       @endif
     @endforeach
