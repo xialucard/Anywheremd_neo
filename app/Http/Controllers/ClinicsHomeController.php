@@ -490,6 +490,7 @@ class ClinicsHomeController extends Controller
         $user = Auth::user();
         unset($params);
         $params = $request->input($this->viewFolder);
+        
         $referralEntry = $params['referal'];
         unset($params['referal']);
         $referer = $params['referer'];
@@ -602,6 +603,11 @@ class ClinicsHomeController extends Controller
         $params['patient_id'] = $clinics_home->patient->id;
         $params['client_id'] = $user->id;
         $params['updated_by'] = $user->id;
+        // print "<pre>";
+        // print_r($params);
+        // print "</pre>";
+        // exit();
+        
         $clinics_home->update($params);
 
         if(isset($referralEntry)){
