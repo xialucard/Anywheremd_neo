@@ -185,7 +185,7 @@ class ClinicsHomeController extends Controller
         // print_r($bookingsMon);
         // print "</pre>";
         
-        unset($bookingArr);
+        $bookingArr = null;
         foreach($bookingsMon as $booking){
             if(!isset($bookingArr[date('d', strtotime($booking->bookingDate))]))
                 $bookingArr[date('d', strtotime($booking->bookingDate))] = 1;
