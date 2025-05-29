@@ -168,11 +168,13 @@ class ClinicsHomeController extends Controller
         if(!is_null($schedulesMon)){
             foreach($user->clinic->affiliated_doctors()->get() as $docObj){
                 $docRes = User::find($docObj->doctor_id);
-                foreach($docRes->schedules()->whereYear('dateSched', $yr)->whereMonth('dateSched', $mon)->get() as $sched){
-                    if(!isset($calendarArr[date('d', strtotime($sched->dateSched))][$sched->doctor_id]))
-                        $calendarArr[date('d', strtotime($sched->dateSched))][$sched->doctor_id] = 1;
-                    else
-                        $calendarArr[date('d', strtotime($sched->dateSched))][$sched->doctor_id] += 1;
+                if(isset($docRes)){
+                    foreach($docRes->schedules()->whereYear('dateSched', $yr)->whereMonth('dateSched', $mon)->get() as $sched){
+                        if(!isset($calendarArr[date('d', strtotime($sched->dateSched))][$sched->doctor_id]))
+                            $calendarArr[date('d', strtotime($sched->dateSched))][$sched->doctor_id] = 1;
+                        else
+                            $calendarArr[date('d', strtotime($sched->dateSched))][$sched->doctor_id] += 1;
+                    }    
                 }
             }
         }
