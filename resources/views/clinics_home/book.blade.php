@@ -357,7 +357,7 @@
                     ">
                     <option value="" {{ isset($datum->id) && $datum->arod_sphere == '' ? 'selected' : ''  }}>-</option>
                     @for($i = -20; $i<=20; $i+=.25)
-                    <option value="{{ $i }}" {{ isset($datum->id) && $datum->arod_sphere == $i ? 'selected' : ''  }}>{{ number_format($i, 2) }}</option>
+                    <option value="{{ $i }}" {{ isset($datum->id) && $datum->arod_sphere == $i ? 'selected' : ''  }}>{{ ( $i>0 ? '+' : '') . number_format($i, 2) }}</option>
                     @endfor
                     <option value="No Target" {{ isset($datum->id) && $datum->arod_sphere == 'No Target' ? 'selected' : ''  }}>No Refraction Possible</option>
                   </select>
@@ -365,7 +365,7 @@
                   <select class="form-select" name="{{ $viewFolder }}[arod_cylinder]" id="{{ $viewFolder }}_arod_cylinder" placeholder=""  {{ isset($datum->id) && $datum->arod_sphere == 'No Target' ? 'disabled' : ''  }}>
                     <option value="" {{ isset($datum->id) && $datum->arod_cylinder == null ? 'selected' : ''  }}>-</option>
                     @for($i = -15; $i<=15; $i+=.25)
-                    <option value="{{ $i }}" {{ isset($datum->id) && $datum->arod_cylinder == $i ? 'selected' : ''  }}>{{ number_format($i, 2) }}</option>
+                    <option value="{{ $i }}" {{ isset($datum->id) && $datum->arod_cylinder == $i ? 'selected' : ''  }}>{{ ( $i>0 ? '+' : '') . number_format($i, 2) }}</option>
                     @endfor
                   </select>
                   <span class="input-group-text">x</span>
@@ -389,7 +389,7 @@
                   ">
                     <option value="" {{ isset($datum->id) && $datum->aros_sphere == '' ? 'selected' : '' }}>-</option>
                     @for($i = -20; $i<=20; $i+=.25)
-                    <option value="{{ $i }}" {{ isset($datum->id) && $datum->aros_sphere == $i ? 'selected' : '' }}>{{ number_format($i, 2) }}</option>
+                    <option value="{{ $i }}" {{ isset($datum->id) && $datum->aros_sphere == $i ? 'selected' : '' }}>{{ ( $i>0 ? '+' : '') . number_format($i, 2) }}</option>
                     @endfor
                     <option value="No Target" {{ isset($datum->id) && $datum->aros_sphere == 'No Target' ? 'selected' : '' }}>No Refraction Possible</option>
                   </select>
@@ -397,7 +397,7 @@
                   <select class="form-select" name="{{ $viewFolder }}[aros_cylinder]" id="{{ $viewFolder }}_aros_cylinder" placeholder=""  {{ isset($datum->id) && $datum->aros_sphere == 'No Target' ? 'disabled' : '' }}>
                     <option value=""  {{ isset($datum->id) && $datum->aros_cylinder == '' ? 'selected' : '' }}>-</option>
                     @for($i = -15; $i<=15; $i+=.25)
-                    <option value="{{ $i }}" {{ isset($datum->id) && $datum->aros_cylinder == $i ? 'selected' : '' }}>{{ number_format($i, 2) }}</option>
+                    <option value="{{ $i }}" {{ isset($datum->id) && $datum->aros_cylinder == $i ? 'selected' : '' }}>{{ ( $i>0 ? '+' : '') . number_format($i, 2) }}</option>
                     @endfor
                   </select>
                   <span class="input-group-text">x</span>
