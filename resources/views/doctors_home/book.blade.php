@@ -597,6 +597,9 @@
               <input class="form-control" type="file" id="{{ $viewFolder }}_prev_files" name="{{ $viewFolder }}[ConsultationFile][files][]" accept="image/png, image/gif, image/jpeg" multiple disabled>
             </div>
             <div class="row overflow-auto" id="image_preview_prev_saved" style="max-height:500px">
+              @php
+                $ind = 0;
+              @endphp
               @if(isset($bookings[0]->consultation_files))
                 @foreach($bookings[0]->consultation_files as $ind => $file)
                 @php
