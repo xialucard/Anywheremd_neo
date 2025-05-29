@@ -567,36 +567,36 @@ class ClinicsHomeController extends Controller
         $params['bookingDate'] = date('Y-m-d', strtotime($params['bookingDate']));
         if(is_null($params['booking_type']))
             $params['booking_type'] = '';
-        if($params['arod_sphere'] == 'No Target'){
+        if(isset($params['arod_sphere']) && $params['arod_sphere'] == 'No Target'){
             $params['arod_cylinder'] = null;
             $params['arod_axis'] = null;
         }
-        if($params['aros_sphere'] == 'No Target'){
+        if(isset($params['aros_sphere']) && $params['aros_sphere'] == 'No Target'){
             $params['aros_cylinder'] = null;
             $params['aros_axis'] = null;
         }
-        if($params['vaod_num'] == 'NA'){
+        if(isset($params['vaod_num']) && $params['vaod_num'] == 'NA'){
             $params['vaod_den'] = null;
         }
-        if($params['vaodcor_num'] == 'NA'){
+        if(isset($params['vaodcor_num']) && $params['vaodcor_num'] == 'NA'){
             $params['vaodcor_den'] = null;
         }
-        if($params['vaos_num'] == 'NA'){
+        if(isset($params['vaos_num']) && $params['vaos_num'] == 'NA'){
             $params['vaos_den'] = null;
         }
-        if($params['vaoscor_num'] == 'NA'){
+        if(isset($params['vaoscor_num']) && $params['vaoscor_num'] == 'NA'){
             $params['vaoscor_den'] = null;
         }
-        if($params['pinod_num'] == 'NA'){
+        if(isset($params['pinod_num']) && $params['pinod_num'] == 'NA'){
             $params['pinod_den'] = null;
         }
-        if($params['pinodcor_num'] == 'NA'){
+        if(isset($params['pinodcor_num']) && $params['pinodcor_num'] == 'NA'){
             $params['pinodcor_den'] = null;
         }
-        if($params['pinos_num'] == 'NA'){
+        if(isset($params['pinos_num']) && $params['pinos_num'] == 'NA'){
             $params['pinos_den'] = null;
         }
-        if($params['pinoscor_num'] == 'NA'){
+        if(isset($params['pinoscor_num']) && $params['pinoscor_num'] == 'NA'){
             $params['pinoscor_den'] = null;
         }    
         
