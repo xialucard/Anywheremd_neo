@@ -91,15 +91,15 @@
             @endif
             <strong>Past Medication:</strong> {{ $datum->patient->pastMedication }}<br>
             <strong>Present Medication:</strong> {{ $datum->patient->presentMedication }}<br>
-            <strong>Alergies:</strong> {{ $datum->patient->allergies }}<br>
+            <strong>Allergies:</strong> {{ $datum->patient->allergies }}<br>
             @if(isset($datum->patient->allergies) && is_array(json_decode($datum->patient->allergies)) && in_array('Food', json_decode($datum->patient->allergies)))
-            <strong>Food Alergies:</strong> {{ $datum->patient->allergiesFood }}<br>
+            <strong>Food Allergies:</strong> {{ $datum->patient->allergiesFood }}<br>
             @endif
             @if(isset($datum->patient->allergies) && is_array(json_decode($datum->patient->allergies)) && in_array('Medicine', json_decode($datum->patient->allergies)))
-            <strong>Medicine Alergies:</strong> {{ $datum->patient->allergiesMedicine }}<br>
+            <strong>Medicine Allergies:</strong> {{ $datum->patient->allergiesMedicine }}<br>
             @endif
             @if(isset($datum->patient->allergies) && is_array(json_decode($datum->patient->allergies)) && in_array('Others', json_decode($datum->patient->allergies)))
-            <strong>Other Alergies:</strong> {{ $datum->patient->allergiesOthers }}<br>
+            <strong>Other Allergies:</strong> {{ $datum->patient->allergiesOthers }}<br>
             @endif
           </p>
         </div>

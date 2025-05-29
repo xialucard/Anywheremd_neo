@@ -57,15 +57,15 @@
             @endif
             <strong>Past Medication:</strong> {{ !empty($datum->pastMedication) ? $datum->pastMedication : '' }}<br>
             <strong>Present Medication:</strong> {{ !empty($datum->presentMedication) ? $datum->presentMedication : '' }}<br>
-            <strong>Alergies:</strong> {{ !empty($datum->allergies) ? $datum->allergies : '' }}<br>
+            <strong>Allergies:</strong> {{ !empty($datum->allergies) ? $datum->allergies : '' }}<br>
             @if(isset($datum->allergies) && is_array(json_decode($datum->allergies)) && in_array('Food', json_decode($datum->allergies)))
-            <strong>Food Alergies:</strong> {{ !empty($datum->allergiesFood) ? $datum->allergiesFood : ''}}<br>
+            <strong>Food Allergies:</strong> {{ !empty($datum->allergiesFood) ? $datum->allergiesFood : ''}}<br>
             @endif
             @if(isset($datum->allergies) && is_array(json_decode($datum->allergies)) && in_array('Medicine', json_decode($datum->allergies)))
-            <strong>Medicine Alergies:</strong> {{ !empty($datum->allergiesMedicine) ? $datum->patient->allergiesMedicine : '' }}<br>
+            <strong>Medicine Allergies:</strong> {{ !empty($datum->allergiesMedicine) ? $datum->patient->allergiesMedicine : '' }}<br>
             @endif
             @if(isset($datum->allergies) && is_array(json_decode($datum->allergies)) && in_array('Others', json_decode($datum->allergies)))
-            <strong>Other Alergies:</strong> {{ !empty($datum->allergiesOthers) ? $datum->allergiesOthers : '' }}<br>
+            <strong>Other Allergies:</strong> {{ !empty($datum->allergiesOthers) ? $datum->allergiesOthers : '' }}<br>
             @endif
           </p>
         </div>
