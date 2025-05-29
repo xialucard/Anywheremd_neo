@@ -609,14 +609,15 @@
                 @endforeach
               @endif
               @if(isset($bookings[0]->anesthesia_files))
-              @php
+              {{-- @php
                 print "<pre>";
                 print_r($bookings[0]->anesthesia_files);
                 print "</pre>";
-              @endphp
+              @endphp --}}
                 @foreach($bookings[0]->anesthesia_files as $file)
                 @php
                   $ind++;
+                  $exAr = explode('/', $file->file_link);
                 @endphp
               <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail' ><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}' disabled><i class='bi bi-trash'></i></button></div></div>
                 @endforeach
@@ -625,6 +626,7 @@
                 @foreach($bookings[0]->doctor_files as $file)
                 @php
                   $ind++;
+                  $exAr = explode('/', $file->file_link);
                 @endphp
               <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail' ><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}' disabled><i class='bi bi-trash'></i></button></div></div>
                 @endforeach
@@ -633,6 +635,7 @@
                 @foreach($bookings[0]->prescription_files as $file)
                 @php
                   $ind++;
+                  $exAr = explode('/', $file->file_link);
                 @endphp
               <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail' ><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}' disabled><i class='bi bi-trash'></i></button></div></div>
                 @endforeach
