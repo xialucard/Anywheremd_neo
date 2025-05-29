@@ -10,7 +10,7 @@
   @foreach($user->clinic->affiliated_doctors->sortBy('name') as $doc)
     @foreach($doc->doctor->affiliated_clinics->sortBy('name') as $clin)
       @if(isset($clin->clinic->id))
-      @foreach($doc->doctor->schedules()->where('dateSched', '>=', $datum->bookingDate)->where('clinic_id', $clin->clinic->id)->orderBy('dateSched', 'asc')->get()->unique('dateSched') as $sched)
+      @foreach($doc->doctor->schedules()->where('dateSched', '>=', $datum->bookingDate)->orderBy('dateSched', 'asc')->get()->unique('dateSched') as $sched)
     <option value="{{ $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->doctor->id . ' - Dr. ' . $doc->doctor->name }}">{{ $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->doctor->id . ' - Dr. ' . $doc->doctor->name }}</option>
       @endforeach
       @endif
@@ -273,7 +273,7 @@
                 </div>
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="number" name="{{ $viewFolder }}[height]" min=1 id="{{ $viewFolder }}_height" value="{{ isset($datum->height) ? $datum->height : '' }}" placeholder="" {{ isset($datum->id) ? 'required' : '' }} onblur="
+                    <input class="form-control" type="number" name="{{ $viewFolder }}[height]" min=1 step=.1 id="{{ $viewFolder }}_height" value="{{ isset($datum->height) ? $datum->height : '' }}" placeholder="" {{ isset($datum->id) ? 'required' : '' }} onblur="
                         if($(this).val() != '' && $('#{{ $viewFolder }}_weight').val() != ''){
                           $('#{{ $viewFolder }}_bmi').val($('#{{ $viewFolder }}_weight').val()/(($(this).val()/100)*($(this).val()/100)));
                         }else{
@@ -287,7 +287,7 @@
                 </div>
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="number" name="{{ $viewFolder }}[weight]" min=1 id="{{ $viewFolder }}_weight" value="{{ isset($datum->weight) ? $datum->weight : '' }}" placeholder="" {{ isset($datum->id) ? 'required' : '' }} onblur="
+                    <input class="form-control" type="number" name="{{ $viewFolder }}[weight]" min=1 step=.1 id="{{ $viewFolder }}_weight" value="{{ isset($datum->weight) ? $datum->weight : '' }}" placeholder="" {{ isset($datum->id) ? 'required' : '' }} onblur="
                       if($(this).val() != '' && $('#{{ $viewFolder }}_height').val() != ''){
                         $('#{{ $viewFolder }}_bmi').val($(this).val()/(($('#{{ $viewFolder }}_height').val()/100)*($('#{{ $viewFolder }}_height').val()/100)));
                       }else{
