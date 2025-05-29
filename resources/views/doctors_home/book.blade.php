@@ -609,11 +609,6 @@
                 @endforeach
               @endif
               @if(isset($bookings[0]->anesthesia_files))
-              {{-- @php
-                print "<pre>";
-                print_r($bookings[0]->anesthesia_files);
-                print "</pre>";
-              @endphp --}}
                 @foreach($bookings[0]->anesthesia_files as $file)
                 @php
                   $ind++;
