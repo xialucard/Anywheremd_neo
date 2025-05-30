@@ -72,8 +72,8 @@
             <li>{!!html_entity_decode($datum->findings)!!}</li>
             <li>Refraction:
                 <ul>
-                    <li>OD: {{ $datum->arod_sphere == 'No Target' ? $datum->arod_sphere : $datum->arod_sphere . ' = ' . $datum->arod_cylinder . ' x ' . $datum->arod_axis }}</li>
-                    <li>OS: {{ $datum->aros_sphere == 'No Target' ? $datum->aros_sphere : $datum->aros_sphere . ' = ' . $datum->aros_cylinder . ' x ' . $datum->aros_axis }}</li>
+                    <li>OD: {{ $datum->arod_sphere == 'No Target' ? 'No Refraction Possible' : ($datum->arod_sphere>0 ? '+' . $datum->arod_sphere : $datum->arod_sphere) . ' = ' . ($datum->arod_cylinder>0 ? '+' . $datum->arod_cylinder : $datum->arod_cylinder) . ' x ' . $datum->arod_axis }}</li>
+                    <li>OS: {{ $datum->aros_sphere == 'No Target' ? 'No Refraction Possible' : ($datum->aros_sphere>0 ? '+' . $datum->aros_sphere : $datum->aros_sphere) . ' = ' . ($datum->aros_cylinder>0 ? '+' . $datum->aros_cylinder : $datum->aros_cylinder) . ' x ' . $datum->aros_axis }}</li>
                 </ul>
             </li>
             <li>UCVA:
