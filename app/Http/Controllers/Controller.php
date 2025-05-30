@@ -55,8 +55,8 @@ class Controller extends BaseController
                 "Glaucoma",
                 "Retina and Vitreous",
                 "Uveitis",
-                "Pedia Ophthalmology/Strabismus",
-                "Oculoplastic/Orbit",
+                "Pedia Ophthalmology or Strabismus",
+                "Oculoplastic or Orbit",
                 "Neuro Ophthalmology",
                 "Ophthalmic Oncology"
             ), 
