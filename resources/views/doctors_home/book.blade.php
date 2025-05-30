@@ -1587,7 +1587,7 @@
           if(bookingObj.consultation.arod_sphere == 'No Target')
             eyeStr += '<strong>AR OD:</strong> <span class="text-primary">No Refraction Possible</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;';
           else
-            eyeStr += '<strong>AR OD:</strong> <span class="text-primary">' + (bookingObj.consultation.arod_sphere > 0 ? '+' : '') + bookingObj.consultation.arod_sphere + ' - ' + (bookingObj.consultation.arod_cylinder > 0 ? '+' : '') + bookingObj.consultation.arod_cylinder + ' x ' + bookingObj.consultation.arod_axis + '</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;';
+            eyeStr += '<strong>AR OD:</strong> <span class="text-primary">' + bookingObj.consultation.arod_sphere + ' - ' + bookingObj.consultation.arod_cylinder + ' x ' + bookingObj.consultation.arod_axis + '</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;';
           
           if(bookingObj.consultation.aros_sphere == 'No Target')
             eyeStr += '<strong>AR OS:</strong> <span class="text-primary">No Refraction Possible</span><br> ';
