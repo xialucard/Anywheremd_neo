@@ -27,7 +27,7 @@
             <strong>Gender:</strong> {{ $datum->patient->gender }}<br>
             <strong>Address:</strong> {{ $datum->patient->address }}<br>
             <strong>Email:</strong> {{ $datum->patient->email }} | 
-            <strong>Mobile #:</strong> {{ $datum->patient->mobile_num }}<br>
+            <strong>Mobile #:</strong> {{ $datum->patient->mobile_no }}<br>
             <strong>Patient Type:</strong> {{ $datum->patient->patient_type }} | 
             <strong>Patient Sub Type: </strong>{{ $datum->patient->patient_sub_type . ' ' . $datum->patient->referral_from }}<br>
             <strong>Philhealth #: </strong>{{ $datum->patient->phil_num }}<br>
@@ -279,7 +279,7 @@
           </ul>
           <div id="soapPrevDiv" class="container border border-1 border-top-0 mb-3 p-3">
             <div class="card mb-3">
-              <div class="card-header">Previous Procedure</div>
+              <div class="card-header">Previous Scheduled Procedure</div>
               <div class="card-body" style="height: 1in; max-height: 1in">
                 <p id="prevProcDet">{{ $bookings[0]->procedure_details }}</p>
               </div>
@@ -837,7 +837,7 @@
           </ul>
           <div id="soapCurDiv" class="container border border-1 border-top-0 mb-3 p-3">
             <div class="card mb-3">
-              <div class="card-header">Procedure</div>
+              <div class="card-header">Scheduled Procedure</div>
               <div class="card-body" style="height: 1in; max-height: 1in">
                 <p>{{ $datum->procedure_details }}</p>
               </div>
