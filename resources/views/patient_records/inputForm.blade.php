@@ -85,11 +85,11 @@
                     <th>Date</th>
                     <th>Booking Type</th>
                     <th>Procedure Details</th>
-                    @if($user->user_type == 'Clinic')
+                    @if($user->user_type != 'Doctor')
                     <th>Doctor's Name</th>
                     <th>Remarks</th>
                     @endif
-                    @if($user->user_type == 'Doctor')
+                    @if($user->user_type != 'Clinic')
                     <th>Clinic</th>
                     @endif
                     <th>Status</th>
