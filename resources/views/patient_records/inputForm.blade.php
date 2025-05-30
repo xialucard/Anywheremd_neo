@@ -117,11 +117,11 @@
                   <td>{{ $dat->booking_type == '' ? 'Consultation' : $dat->booking_type }}</td>
                   {{-- <td>{{ $dat->patient->name }}</td> --}}
                   <td>{{ $dat->procedure_details }}</td>
-                  @if($user->user_type == 'Clinic')
+                  @if($user->user_type != 'Doctor')
                   <td>{{ $dat->doctor->name }}</td>
                   <td>{{ $dat->others }}</td>
                   @endif
-                  @if($user->user_type == 'Doctor')
+                  @if($user->user_type != 'Clinic')
                   <td>{{ $dat->clinic->name }}</td>
                   @endif
                   <td>{{ $dat->status }}</td>
