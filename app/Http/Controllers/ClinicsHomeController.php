@@ -705,7 +705,7 @@ class ClinicsHomeController extends Controller
     function getPatientList($patient_name){
         $user = Auth::user();
         if($user->user_type == 'Clinic'){
-            $patients = Patient::where('name', 'like', "%{$patient_name}%")->where('client_id', $user->id)->get();
+            $patients = Patient::where('name', 'like', "%{$patient_name}%")->where('client_id', $user->clinic_id)->get();
         }elseif($user->user_type == 'Doctor'){
             unset($patientsId);
             foreach($user->bookings()->distinct('patient_id')->get() as $booking){
