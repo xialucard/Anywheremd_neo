@@ -15,6 +15,9 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+// use Spatie\LaravelPdf\Facades\Pdf;
+
+use function Spatie\LaravelPdf\Support\pdf;
 
 class DoctorsHomeController extends Controller
 {
@@ -516,6 +519,7 @@ class DoctorsHomeController extends Controller
     }
 
     function pdfPrescription(Consultation $doctors_home){
+        // Pdf::view($this->viewFolder . '.pdfPrescription', ['datum' => $doctors_home])->save('public/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf');
         $pdf = Pdf::setOptions(['defaultFont' => 'sans-serif', 'chroot' => public_path('img/rx.jpg')])->loadView($this->viewFolder . '.pdfPrescription', ['datum' => $doctors_home]);
         // $pdf->getDomPDF()->setHttpContext(
         //     stream_context_create([
