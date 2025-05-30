@@ -15,7 +15,6 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
-// use Spatie\LaravelPdf\Facades\Pdf;
 
 class DoctorsHomeController extends Controller
 {
@@ -517,8 +516,16 @@ class DoctorsHomeController extends Controller
     }
 
     function pdfPrescription(Consultation $doctors_home){
-        $pdf = Pdf::setOptions(['defaultFont' => 'sans-serif'])->loadView($this->viewFolder . '.pdfPrescription', ['datum' => $doctors_home]);
-        
+        $pdf = Pdf::setOptions(['defaultFont' => 'sans-serif', 'chroot' => public_path('img/rx.jpg')])->loadView($this->viewFolder . '.pdfPrescription', ['datum' => $doctors_home]);
+        // $pdf->getDomPDF()->setHttpContext(
+        //     stream_context_create([
+        //         'ssl' => [
+        //             'allow_self_signed'=> TRUE,
+        //             'verify_peer' => FALSE,
+        //             'verify_peer_name' => FALSE,
+        //         ]
+        //     ])
+        // );
         Storage::put('public/prescription_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf', $pdf->output());
         $src = asset('storage/prescription_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf');
         return $src;
@@ -526,8 +533,16 @@ class DoctorsHomeController extends Controller
     }
 
     function pdfMedCert(Consultation $doctors_home){
-        $pdf = Pdf::setOptions(['defaultFont' => 'sans-serif'])->loadView($this->viewFolder . '.pdfMedCert', ['datum' => $doctors_home]);
-        
+        $pdf = Pdf::setOptions(['defaultFont' => 'sans-serif', 'chroot' => '/var/www/php56/anywheremd/app/webroot/' . $doctors_home->doctor->sig_pic])->loadView($this->viewFolder . '.pdfMedCert', ['datum' => $doctors_home]);
+        $pdf->getDomPDF()->setHttpContext(
+            stream_context_create([
+                'ssl' => [
+                    'allow_self_signed'=> TRUE,
+                    'verify_peer' => FALSE,
+                    'verify_peer_name' => FALSE,
+                ]
+            ])
+        );
         Storage::put('public/med_cert_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf', $pdf->output());
         $src = asset('storage/med_cert_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf');
         return $src;
