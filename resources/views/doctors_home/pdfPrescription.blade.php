@@ -63,13 +63,13 @@
     <p class="text-center m-0 mb-3 p-0">{{ $datum->doctor->sub_header_2 }}</p>
     <p><strong>Name:</strong> {{ $datum->patient->name }}</p>
     <p><strong>Age:</strong> {{ floor((strtotime($datum->bookingDate) - strtotime($datum->patient->birthdate))/(60*60*24*365.25)) }}</p>
-    <img src="{{ public_path('img/rx.jpg') }}" style="width:2in">
+    <img src="{{ asset('img/rx.jpg') }}" style="width:2in">
     @php
         $datum->prescription = nl2br($datum->prescription);
     @endphp
     <p>{!!html_entity_decode($datum->prescription)!!}</p>
     <div class="position-absolute top-100 start-100 text-end mt-5">
-        {{-- <img src="{{ public_path('storage/') . $datum->doctor->sig_pic }}" style="width:1.5in"><br> --}}
+        <img src="{{ stristr($datum->doctor->sig_pic, 'uploads') ? asset('storage/' . $datum->doctor->sig_pic) : asset('storage/' . $datum->doctor->sig_pic) }}" style="width:1in"><br>
         {{ str_pad("", strlen($datum->doctor->name), "_", STR_PAD_LEFT) }}<br>
         Dr. {{ $datum->doctor->name }}<br>
         PRC#: {{ $datum->doctor->prc_number }}<br>
