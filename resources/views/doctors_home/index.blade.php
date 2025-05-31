@@ -235,7 +235,13 @@
                                                 if($booking_type == 'Referral'){
                                                     $bookingArr = $user->bookings()->whereNotNull('consultation_parent_id', )->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->get();
                                                 }else{
-                                                    $bookingArr = $user->bookings()->where('booking_type', $booking_type == 'Consultation' ? '' : $booking_type)->whereNull('consultation_parent_id')->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->get();
+                                                    if($booking_type == 'Consultation')
+                                                        $bookingArr = $user->bookings()->where(function($query) {
+                                                                                            $query->where('booking_type')
+                                                                                                ->orWhere('booking_type', '');
+                                                                                        })->whereNull('consultation_parent_id')->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->get();
+                                                    else
+                                                        $bookingArr = $user->bookings()->where('booking_type', $booking_type)->whereNull('consultation_parent_id')->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->get();
                                                 }
                                             @endphp
                                             @foreach($bookingArr as $dat)
