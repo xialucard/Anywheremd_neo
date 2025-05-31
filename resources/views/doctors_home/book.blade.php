@@ -11,7 +11,328 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
-      <div class="card mb-3">
+      <div class="row">
+        <div class="col-lg-6"> 
+          <div class="card mb-3">
+            <div class="card-header">Patient's Basic Info</div>
+            <div class="card-body">
+              <div class="mb-4 d-flex justify-content-center">
+                <img id="{{ $viewFolder }}_profileImage" src="{{ !empty($datum->patient->profile_pic) ? (stristr($datum->patient->profile_pic, 'uploads') ? asset('storage/' . $datum->patient->profile_pic) : asset('storage/px_files/' . $datum->patient->profile_pic)) : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" alt="example placeholder" style="width: 300px;" />
+              </div>
+              <div class="d-flex justify-content-center mb-3">
+                <div class="btn btn-{{ $bgColor }} btn-rounded">
+                  <label class="form-label text-white m-1" for="{{ $viewFolder }}_profile_pic">Profile Pic</label>
+                  <input type="file" class="form-control d-none" name="{{ $viewFolder }}[Patient][profile_pic]" id="{{ $viewFolder }}_profile_pic" onchange="displaySelectedImage(event, '{{ $viewFolder }}_profileImage')">
+                </div>
+              </div>
+              <div class="form-floating mb-3">
+                <input class="form-control" type="text" name="{{ $viewFolder }}[Patient][f_name]" id="{{ $viewFolder }}_f_name" placeholder="" value="{{ !empty($datum->patient->f_name) ? $datum->patient->f_name : '' }}" required>
+                <label for="{{ $viewFolder }}_f_name" class="form-label">First Name</label>
+                <small id="help_{{ $viewFolder }}_f_name" class="text-muted"></small>
+              </div>
+              <div class="form-floating mb-3">
+                <input class="form-control" type="text" name="{{ $viewFolder }}[Patient][m_name]" id="{{ $viewFolder }}_m_name" placeholder="" value="{{ !empty($datum->patient->m_name) ? $datum->patient->m_name : '' }}" required>
+                <label for="{{ $viewFolder }}_m_name" class="form-label">Middle Name</label>
+                <small id="help_{{ $viewFolder }}_m_name" class="text-muted"></small>
+              </div>
+              <div class="form-floating mb-3">
+                <input class="form-control" type="text" name="{{ $viewFolder }}[Patient][l_name]" id="{{ $viewFolder }}_l_name" placeholder="" value="{{ !empty($datum->patient->l_name) ? $datum->patient->l_name : '' }}" required>
+                <label for="{{ $viewFolder }}_l_name" class="form-label">Last Name</label>
+                <small id="help_{{ $viewFolder }}_l_name" class="text-muted"></small>
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text">Gender</span>
+                <div class="input-group-text">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="{{ $viewFolder }}[Patient][gender]" value="male" id="{{ $viewFolder }}_gender_male" {{ isset($datum->patient->gender) && $datum->patient->gender == 'male' ? 'checked' : '' }}>
+                    <label class="form-check-label" for="{{ $viewFolder }}_gender_male">Male</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="{{ $viewFolder }}[Patient][gender]" value="female" id="{{ $viewFolder }}_gender_female" {{ isset($datum->patient->gender) && $datum->patient->gender == 'female' ? 'checked' : '' }}>
+                    <label class="form-check-label" for="{{ $viewFolder }}_gender_female">Female</label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-floating mb-3">
+                <input class="form-control" type="date" name="{{ $viewFolder }}[Patient][birthdate]" id="{{ $viewFolder }}_birthdate" placeholder="" value="{{ !empty($datum->patient->birthdate) ? $datum->patient->birthdate : '' }}" required>
+                <label for="{{ $viewFolder }}_birthdate" class="form-label">Birth Date</label>
+                <small id="help_{{ $viewFolder }}_birthdate" class="text-muted"></small>
+              </div>
+              <div class="form-floating mb-3">
+                <input class="form-control" type="text" name="{{ $viewFolder }}[Patient][phil_num]" id="{{ $viewFolder }}_phil_num" placeholder="" value="{{ !empty($datum->patient->phil_num) ? $datum->patient->phil_num : '' }}" {{ isset($datum->payment_mode) && ($datum->payment_mode == 'Both' || $datum->payment_mode == 'Both Cash' || $datum->payment_mode == 'Philhealth') ? '' : '' }}>
+                <label for="{{ $viewFolder }}_phil_num" class="form-label">Philhealth #</label>
+                <small id="help_{{ $viewFolder }}_phil_num" class="text-muted"></small>
+              </div>
+              <div class="form-floating mb-3">
+                <select class="form-select" name="{{ $viewFolder }}[Patient][hmo]" id="{{ $viewFolder }}_hmo" placeholder="" {{ isset($datum->payment_mode) && ($datum->payment_mode == 'Both' || $datum->payment_mode == 'Both Cash' || $datum->payment_mode == 'HMO') ? '' : '' }}>
+                  <option value=""></option>
+                @foreach($selectItems['hmos'] as $hmo)
+                  <option value="{{ $hmo->id }}" {{ !empty($datum->patient->hmo) && $hmo->id == $datum->patient->hmo ? 'selected' : '' }}>{{ $hmo->name }}</option>
+                @endforeach
+                </select>
+                <label for="{{ $viewFolder }}_hmo">HMO</label>
+                <small id="help_{{ $viewFolder }}_hmo" class="text-muted"></small>
+              </div>
+              <div class="form-floating mb-3">
+                <input class="form-control" type="text" name="{{ $viewFolder }}[Patient][hmo_num]" id="{{ $viewFolder }}_hmo_num" placeholder="" value="{{ !empty($datum->patient->hmo_num) ? $datum->patient->hmo_num : '' }}" {{ isset($datum->payment_mode) && ($datum->payment_mode == 'Both' || $datum->payment_mode == 'Both Cash' || $datum->payment_mode == 'HMO') ? '' : '' }}>
+                <label for="{{ $viewFolder }}_hmo_num" class="form-label">HMO #</label>
+                <small id="help_{{ $viewFolder }}_hmo_num" class="text-muted"></small>
+              </div>
+              <div class="form-floating mb-3">
+                <textarea class="form-control" name="{{ $viewFolder }}[Patient][address]" id="{{ $viewFolder }}_address" rows=3 required>{{ !empty($datum->patient->address) ? $datum->patient->address : '' }}</textarea>
+                <label for="{{ $viewFolder }}_address" class="form-label">Address</label>
+                <small id="help_{{ $viewFolder }}_address" class="text-muted"></small>
+              </div>
+              <div class="form-floating mb-3">
+                <input class="form-control" type="email" name="{{ $viewFolder }}[Patient][email]" id="{{ $viewFolder }}_email" placeholder="" value="{{ !empty($datum->patient->email) ? $datum->patient->email : '' }}">
+                <label for="{{ $viewFolder }}_email" class="form-label">Email</label>
+                <small id="help_{{ $viewFolder }}_email" class="text-muted"></small>
+              </div>
+              <div class="form-floating mb-3">
+                <input class="form-control" type="tel" pattern="[0-9]{4}-[0-9]{3}-[0-9]{4}" name="{{ $viewFolder }}[Patient][mobile_no]" id="{{ $viewFolder }}_mobile_no" placeholder="0900-000-0000" value="{{ !empty($datum->patient->mobile_no) ? $datum->patient->mobile_no : '' }}" required>
+                <label for="{{ $viewFolder }}_mobile_no" class="form-label">Mobile #</label>
+                <small id="help_{{ $viewFolder }}_mobile_no" class="text-muted">Format: 0900-000-0000</small>
+              </div>
+              <div class="input-group mb-3 flex-nowrap">
+                <span class="input-group-text">Patient Type</span>
+                <div class="input-group-text">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="{{ $viewFolder }}[Patient][patient_type]" value="Private" id="{{ $viewFolder }}_patient_type_private" {{ isset($datum->patient->patient_type) && $datum->patient->patient_type == 'Private' ? 'checked' : '' }}>
+                    <label class="form-check-label" for="{{ $viewFolder }}_patient_type_private">Private</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="{{ $viewFolder }}[Patient][patient_type]" value="In House" id="{{ $viewFolder }}_patient_type_in_house" {{ isset($datum->patient->patient_type) && $datum->patient->patient_type == 'In House' ? 'checked' : '' }}>
+                    <label class="form-check-label" for="{{ $viewFolder }}_patient_type_in_house">In House</label>
+                  </div>
+                </div>
+              </div>
+              <label for="{{ $viewFolder }}_patient_sub_type">Patient Sub Type</label>
+              <div class="input-group mb-3 flex-nowrap">
+                <select class="form-select" name="{{ $viewFolder }}[Patient][patient_sub_type]" id="{{ $viewFolder }}_patient_sub_type" placeholder="" required onchange="
+                    if($(this).val() == 'Walk-in Referral From'){
+                      $('#{{ $viewFolder }}_referral_from').prop('disabled', false);
+                      $('#{{ $viewFolder }}_referral_from').prop('required', true);
+                    }else{
+                      $('#{{ $viewFolder }}_referral_from').prop('disabled', true);
+                      $('#{{ $viewFolder }}_referral_from').prop('required', false);
+                      $('#{{ $viewFolder }}_referral_from').val('');
+                    }
+                  ">
+                  <option value="Non Walk-in" {{ isset($datum->patient->patient_sub_type) && $datum->patient->patient_sub_type == 'Non Walk-in' ? 'selected' : '' }}>Non Walk-in</option>
+                  <optgroup label="Walk-in">
+                    <option value="Walk-in Social Media" {{ isset($datum->patient->patient_sub_type) && $datum->patient->patient_sub_type == 'Walk-in Social Media' ? 'selected' : '' }}>Social Media</option>
+                    <option value="Walk-in Mainstream Media" {{ isset($datum->patient->patient_sub_type) && $datum->patient->patient_sub_type == 'Walk-in Mainstream Media' ? 'selected' : '' }}>Mainstream Media</option>
+                    <option value="Walk-in Signage" {{ isset($datum->patient->patient_sub_type) && $datum->patient->patient_sub_type == 'Walk-in Signage' ? 'selected' : '' }}>Signage</option>
+                    <option value="Walk-in Referral From" {{ isset($datum->patient->patient_sub_type) && $datum->patient->patient_sub_type == 'Walk-in Referral From' ? 'selected' : '' }}>Referral From</option>
+                  </optgroup>
+                </select>
+                <select class="form-select" name="{{ $viewFolder }}[Patient][referral_from]" id="{{ $viewFolder }}_referral_from" placeholder="" {{ isset($datum->patient->referral_from) && $datum->patient->patient_sub_type == 'Walk-in Referral From' ? '' : 'disabled' }}>
+                  <option {{ isset($datum->patient->referral_from) && $datum->patient->referral_from == '' ? 'selected' : '' }}></option>
+                  <option value="Friend or Relative" {{ isset($datum->patient->referral_from) && $datum->patient->referral_from == 'Friend or Relative' ? 'selected' : '' }}>Friend or Relative</option>
+                  <option value="Doctor" {{ isset($datum->patient->referral_from) && $datum->patient->referral_from == 'Doctor' ? 'selected' : '' }}>Doctor</option>
+                  <option value="Private Institution/Corporation" {{ isset($datum->patient->referral_from) && $datum->patient->referral_from == 'Private Institution/Corporation' ? 'selected' : '' }}>Private Institution/Corporation</option>
+                  <option value="Government Institution" {{ isset($datum->patient->referral_from) && $datum->patient->referral_from == 'Government Institution' ? 'selected' : '' }}>Government Institution</option>
+                  <option value="HMO" {{ isset($datum->patient->referral_from) && $datum->patient->referral_from == 'HMO' ? 'selected' : '' }}>HMO</option>
+                  <option value="Charity Institution" {{ isset($datum->patient->referral_from) && $datum->patient->referral_from == 'Charity Institution' ? 'selected' : '' }}>Charity Institution</option>
+                </select>
+              </div>
+              <div class="form-floating mb-3">
+                <textarea class="form-control" name="{{ $viewFolder }}[Patient][notes]" id="{{ $viewFolder }}_notes" rows=3 required>{{ !empty($datum->patient->notes) ? $datum->patient->notes : '' }}</textarea>
+                <label for="{{ $viewFolder }}_notes" class="form-label">Notes</label>
+                <small id="help_{{ $viewFolder }}_notes" class="text-muted">Add notes following this format: yyyy-mm-dd - details. The latest on the top.</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="card mb-3">
+            <div class="card-header">Patient's Medical History</div>
+            <div class="card-body">
+              <label>Past Medical History</label>
+              <div class="container ml-5 mb-3">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[Patient][pastMedicalHistory][]" value="Diabetes" id="{{ $viewFolder }}_past_med_history_diabetes" {{ (isset($datum->patient->pastMedicalHistory) && is_array(json_decode($datum->patient->pastMedicalHistory)) && in_array('Diabetes', json_decode($datum->patient->pastMedicalHistory))) ? 'checked' : '' }}>
+                  <label class="form-check-label" for="{{ $viewFolder }}_past_med_history_diabetes">Diabetes</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[Patient][pastMedicalHistory][]" value="Hypertension" id="{{ $viewFolder }}_past_med_history_hypertension" {{ (isset($datum->patient->pastMedicalHistory) && is_array(json_decode($datum->patient->pastMedicalHistory)) && in_array('Hypertension', json_decode($datum->patient->pastMedicalHistory))) ? 'checked' : '' }}>
+                  <label class="form-check-label" for="{{ $viewFolder }}_past_med_history_hypertension">Hypertension</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[Patient][pastMedicalHistory][]" value="Heart Disease" id="{{ $viewFolder }}_past_med_history_heart" {{ (isset($datum->patient->pastMedicalHistory) && is_array(json_decode($datum->patient->pastMedicalHistory)) && in_array('Heart Disease', json_decode($datum->patient->pastMedicalHistory))) ? 'checked' : '' }}>
+                  <label class="form-check-label" for="{{ $viewFolder }}_past_med_history_heart">Heart Disease</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[Patient][pastMedicalHistory][]" value="Thyroid Disease" id="{{ $viewFolder }}_past_med_history_thyroid" {{ (isset($datum->patient->pastMedicalHistory) && is_array(json_decode($datum->patient->pastMedicalHistory)) && in_array('Thyroid Disease', json_decode($datum->patient->pastMedicalHistory))) ? 'checked' : '' }}>
+                  <label class="form-check-label" for="{{ $viewFolder }}_past_med_history_thyroid">Thyroid Disease</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[Patient][pastMedicalHistory][]" value="Trauma, Accident" id="{{ $viewFolder }}_past_med_history_trauma" {{ (isset($datum->patient->pastMedicalHistory) && is_array(json_decode($datum->patient->pastMedicalHistory)) && in_array('Trauma, Accident', json_decode($datum->patient->pastMedicalHistory))) ? 'checked' : '' }}>
+                  <label class="form-check-label" for="{{ $viewFolder }}_past_med_history_trauma">Trauma, Accident</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[Patient][pastMedicalHistory][]" value="Asthma" id="{{ $viewFolder }}_past_med_history_asthma" {{ (isset($datum->patient->pastMedicalHistory) && is_array(json_decode($datum->patient->pastMedicalHistory)) && in_array('Asthma', json_decode($datum->patient->pastMedicalHistory))) ? 'checked' : '' }}>
+                  <label class="form-check-label" for="{{ $viewFolder }}_past_med_history_asthma">Asthma</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[Patient][pastMedicalHistory][]" value="Cancer" id="{{ $viewFolder }}_past_med_history_cancer" {{ (isset($datum->patient->pastMedicalHistory) && is_array(json_decode($datum->patient->pastMedicalHistory)) && in_array('Cancer', json_decode($datum->patient->pastMedicalHistory))) ? 'checked' : '' }} onchange="
+                      if($(this).prop('checked')){
+                        $('#{{ $viewFolder }}_past_med_history_cancer_text').prop('disabled', false);
+                        $('#{{ $viewFolder }}_past_med_history_cancer_text').prop('required', true);
+                      }else{
+                        $('#{{ $viewFolder }}_past_med_history_cancer_text').prop('disabled', true);
+                        $('#{{ $viewFolder }}_past_med_history_cancer_text').prop('required', false);
+                        $('#{{ $viewFolder }}_past_med_history_cancer_text').val('');
+                      }
+                    ">
+                  <label class="form-check-label" for="{{ $viewFolder }}_past_med_history_cancer">Cancer</label>
+                </div>
+                <textarea class="form-control" name="{{ $viewFolder }}[Patient][pastMedicalHistoryCancer]" id="{{ $viewFolder }}_past_med_history_cancer_text" rows=3 {{ (isset($datum->patient->pastMedicalHistory) && is_array(json_decode($datum->patient->pastMedicalHistory)) && in_array('Cancer', json_decode($datum->patient->pastMedicalHistory))) ? '' : 'diasabled' }}>{{ isset($datum->patient->pastMedicalHistoryCancer) ? $datum->patient->pastMedicalHistoryCancer : '' }}</textarea>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[Patient][pastMedicalHistory][]" value="Others" id="{{ $viewFolder }}_past_med_history_other" {{ (isset($datum->patient->pastMedicalHistory) && is_array(json_decode($datum->patient->pastMedicalHistory)) && in_array('Others', json_decode($datum->patient->pastMedicalHistory))) ? 'checked' : '' }} onchange="
+                  if($(this).prop('checked')){
+                    $('#{{ $viewFolder }}_past_med_history_other_text').prop('disabled', false);
+                    $('#{{ $viewFolder }}_past_med_history_other_text').prop('required', true);
+                  }else{
+                    $('#{{ $viewFolder }}_past_med_history_other_text').prop('disabled', true);
+                    $('#{{ $viewFolder }}_past_med_history_other_text').prop('required', false);
+                    $('#{{ $viewFolder }}_past_med_history_other_text').val('');
+                  }
+                ">
+                  <label class="form-check-label" for="{{ $viewFolder }}_past_med_history_other">Others</label>
+                </div>
+                <textarea class="form-control" name="{{ $viewFolder }}[Patient][pastMedicalHistoryOthers]" id="{{ $viewFolder }}_past_med_history_other_text" rows=3 {{ (isset($datum->patient->pastMedicalHistory) && is_array(json_decode($datum->patient->pastMedicalHistory)) && in_array('Others', json_decode($datum->patient->pastMedicalHistory))) ? '' : 'disabled' }}>{{ isset($datum->patient->pastMedicalHistoryOthers) ? $datum->patient->pastMedicalHistoryOthers : '' }}</textarea>
+              </div>
+              <div class="form-floating mb-3">
+                <textarea class="form-control" name="{{ $viewFolder }}[Patient][pastSurgicalHistory]" id="{{ $viewFolder }}_pastSurgicalHistory" rows=3>{{ isset($datum->patient->pastSurgicalHistory) ? $datum->patient->pastSurgicalHistory : '' }}</textarea>
+                <label for="{{ $viewFolder }}_pastSurgicalHistory" class="form-label">Past surgical History and Date</label>
+                <small id="help_{{ $viewFolder }}_pastSurgicalHistory" class="text-muted"></small>
+              </div>
+              <label>Family History</label>
+              <div class="container ml-5 mb-3">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[Patient][pastFamilyHistory][]" value="Diabetes" id="{{ $viewFolder }}_past_family_history_diabetes" {{ (isset($datum->patient->pastFamilyHistory) && is_array(json_decode($datum->patient->pastFamilyHistory)) && in_array('Diabetes', json_decode($datum->patient->pastFamilyHistory))) ? 'checked' : '' }}>
+                  <label class="form-check-label" for="{{ $viewFolder }}_past_family_history_diabetes">Diabetes</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[Patient][pastFamilyHistory][]" value="Hypertension" id="{{ $viewFolder }}_past_family_history_hypertension" {{ (isset($datum->patient->pastFamilyHistory) && is_array(json_decode($datum->patient->pastFamilyHistory)) && in_array('Hypertension', json_decode($datum->patient->pastFamilyHistory))) ? 'checked' : '' }}>
+                  <label class="form-check-label" for="{{ $viewFolder }}_past_family_history_hypertension">Hypertension</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[Patient][pastFamilyHistory][]" value="Heart Disease" id="{{ $viewFolder }}_past_family_history_heart" {{ (isset($datum->patient->pastFamilyHistory) && is_array(json_decode($datum->patient->pastFamilyHistory)) && in_array('Heart Disease', json_decode($datum->patient->pastFamilyHistory))) ? 'checked' : '' }}>
+                  <label class="form-check-label" for="{{ $viewFolder }}_past_family_history_heart">Heart Disease</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[Patient][pastFamilyHistory][]" value="Thyroid Disease" id="{{ $viewFolder }}_past_family_history_thyroid" {{ (isset($datum->patient->pastFamilyHistory) && is_array(json_decode($datum->patient->pastFamilyHistory)) && in_array('Thyroid Disease', json_decode($datum->patient->pastFamilyHistory))) ? 'checked' : '' }}>
+                  <label class="form-check-label" for="{{ $viewFolder }}_past_family_history_thyroid">Thyroid Disease</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[Patient][pastFamilyHistory][]" value="Trauma, Accident" id="{{ $viewFolder }}_past_family_history_trauma" {{ (isset($datum->patient->pastFamilyHistory) && is_array(json_decode($datum->patient->pastFamilyHistory)) && in_array('Trauma, Accident', json_decode($datum->patient->pastFamilyHistory))) ? 'checked' : '' }}>
+                  <label class="form-check-label" for="{{ $viewFolder }}_past_family_history_trauma">Trauma, Accident</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[Patient][pastFamilyHistory][]" value="Asthma" id="{{ $viewFolder }}_past_family_history_asthma" {{ (isset($datum->patient->pastFamilyHistory) && is_array(json_decode($datum->patient->pastFamilyHistory)) && in_array('Asthma', json_decode($datum->patient->pastFamilyHistory))) ? 'checked' : '' }}>
+                  <label class="form-check-label" for="{{ $viewFolder }}_past_family_history_asthma">Asthma</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[Patient][pastFamilyHistory][]" value="Cancer" id="{{ $viewFolder }}_past_family_history_cancer" {{ (isset($datum->patient->pastFamilyHistory) && is_array(json_decode($datum->patient->pastFamilyHistory)) && in_array('Cancer', json_decode($datum->patient->pastFamilyHistory))) ? 'checked' : '' }} onchange="
+                  if($(this).prop('checked')){
+                    $('#{{ $viewFolder }}_past_family_history_cancer_text').prop('disabled', false);
+                    $('#{{ $viewFolder }}_past_family_history_cancer_text').prop('required', true);
+                  }else{
+                    $('#{{ $viewFolder }}_past_family_history_cancer_text').prop('disabled', true);
+                    $('#{{ $viewFolder }}_past_family_history_cancer_text').prop('required', false);
+                    $('#{{ $viewFolder }}_past_family_history_cancer_text').val('');
+                  }
+                ">
+                  <label class="form-check-label" for="{{ $viewFolder }}_past_family_history_cancer">Cancer</label>
+                </div>
+                <textarea class="form-control" name="{{ $viewFolder }}[Patient][pastFamilyHistoryCancer]" id="{{ $viewFolder }}_past_family_history_cancer_text" rows=3 {{ (isset($datum->patient->pastFamilyHistory) && is_array(json_decode($datum->patient->pastFamilyHistory)) && in_array('Cancer', json_decode($datum->patient->pastFamilyHistory))) ? '' : 'disabled' }}>{{ isset($datum->patient->pastFamilyHistoryCancer) ? $datum->patient->pastFamilyHistoryCancer : '' }}</textarea>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[Patient][pastFamilyHistory][]" value="Others" id="{{ $viewFolder }}_past_family_history_other" {{ (isset($datum->patient->pastFamilyHistory) && is_array(json_decode($datum->patient->pastFamilyHistory)) && in_array('Others', json_decode($datum->patient->pastFamilyHistory))) ? 'checked' : '' }} onchange="
+                  if($(this).prop('checked')){
+                    $('#{{ $viewFolder }}_past_family_history_other_text').prop('disabled', false);
+                    $('#{{ $viewFolder }}_past_family_history_other_text').prop('required', true);
+                  }else{
+                    $('#{{ $viewFolder }}_past_family_history_other_text').prop('disabled', true);
+                    $('#{{ $viewFolder }}_past_family_history_other_text').prop('required', false);
+                    $('#{{ $viewFolder }}_past_family_history_other_text').val('');
+                  }
+                ">
+                  <label class="form-check-label" for="{{ $viewFolder }}_past_family_history_other">Others</label>
+                </div>
+                <textarea class="form-control" name="{{ $viewFolder }}[Patient][pastFamilyHistoryOthers]" id="{{ $viewFolder }}_past_family_history_other_text" rows=3 {{ (isset($datum->patient->pastFamilyHistory) && is_array(json_decode($datum->patient->pastFamilyHistory)) && in_array('Others', json_decode($datum->patient->pastFamilyHistory))) ? '' : 'disabled' }}>{{ isset($datum->patient->pastFamilyHistoryOthers) ? $datum->patient->pastFamilyHistoryOthers : '' }}</textarea>
+              </div>
+              <div class="form-floating mb-3">
+                <textarea class="form-control" name="{{ $viewFolder }}[Patient][pastMedication]" id="{{ $viewFolder }}_pastMedication" rows=3>{{ isset($datum->patient->pastMedication) ? $datum->patient->pastMedication : '' }}</textarea>
+                <label for="{{ $viewFolder }}_pastMedication" class="form-label">Past Medication</label>
+                <small id="help_{{ $viewFolder }}_pastMedication" class="text-muted"></small>
+              </div>
+              <div class="form-floating mb-3">
+                <textarea class="form-control" name="{{ $viewFolder }}[Patient][presentMedication]" id="{{ $viewFolder }}_presentMedication" rows=3>{{ isset($datum->patient->presentMedication) ? $datum->patient->presentMedication : ''}}</textarea>
+                <label for="{{ $viewFolder }}_presentMedication" class="form-label">Present Medication</label>
+                <small id="help_{{ $viewFolder }}_presentMedication" class="text-muted"></small>
+              </div>
+              <label>Allergies</label>
+              <div class="container ml-5 mb-3">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[Patient][allergies][]" value="Food" id="{{ $viewFolder }}_allergies_food" {{ (isset($datum->patient->allergies) && is_array(json_decode($datum->patient->allergies)) && in_array('Food', json_decode($datum->patient->allergies))) ? 'checked' : '' }} onchange="
+                  if($(this).prop('checked')){
+                    $('#{{ $viewFolder }}_allergies_food_text').prop('disabled', false);
+                    $('#{{ $viewFolder }}_allergies_food_text').prop('required', true);
+                  }else{
+                    $('#{{ $viewFolder }}_allergies_food_text').prop('disabled', true);
+                    $('#{{ $viewFolder }}_allergies_food_text').prop('required', false);
+                    $('#{{ $viewFolder }}_allergies_food_text').val('');
+                  }
+                ">
+                  <label class="form-check-label" for="{{ $viewFolder }}_allergies_food">Food</label>
+                </div>
+                <textarea class="form-control" name="{{ $viewFolder }}[Patient][allergiesFood]" id="{{ $viewFolder }}_allergies_food_text" rows=3 {{ (isset($datum->patient->allergies) && is_array(json_decode($datum->patient->allergies)) && in_array('Food', json_decode($datum->patient->allergies))) ? '' : 'disabled' }}>{{ isset($datum->patient->allergiesFood) ? $datum->patient->allergiesFood : '' }}</textarea>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[Patient][allergies][]" value="Medicine" id="{{ $viewFolder }}_allergies_medicine" {{ (isset($datum->patient->allergies) && is_array(json_decode($datum->patient->allergies)) && in_array('Medicine', json_decode($datum->patient->allergies))) ? 'checked' : '' }} onchange="
+                  if($(this).prop('checked')){
+                    $('#{{ $viewFolder }}_allergies_medicine_text').prop('disabled', false);
+                    $('#{{ $viewFolder }}_allergies_medicine_text').prop('required', true);
+                  }else{
+                    $('#{{ $viewFolder }}_allergies_medicine_text').prop('disabled', true);
+                    $('#{{ $viewFolder }}_allergies_medicine_text').prop('required', false);
+                    $('#{{ $viewFolder }}_allergies_medicine_text').val('');
+                  }
+                ">
+                  <label class="form-check-label" for="{{ $viewFolder }}_allergies_medicine">Medicine</label>
+                </div>
+                <textarea class="form-control" name="{{ $viewFolder }}[Patient][allergiesMedicine]" id="{{ $viewFolder }}_allergies_medicine_text" rows=3 {{ (isset($datum->patient->allergies) && is_array(json_decode($datum->patient->allergies)) && in_array('Medicine', json_decode($datum->patient->allergies))) ? '' : 'disabled' }}>{{ isset($datum->patient->allergiesMedicine) ? $datum->patient->allergiesMedicine : '' }}</textarea>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[Patient][allergies][]" value="Others" id="{{ $viewFolder }}_allergies_others" {{ (isset($datum->patient->allergies) && is_array(json_decode($datum->patient->allergies)) && in_array('Others', json_decode($datum->patient->allergies))) ? 'checked' : '' }} onchange="
+                  if($(this).prop('checked')){
+                    $('#{{ $viewFolder }}_allergies_others_text').prop('disabled', false);
+                    $('#{{ $viewFolder }}_allergies_others_text').prop('required', true);
+                  }else{
+                    $('#{{ $viewFolder }}_allergies_others_text').prop('disabled', true);
+                    $('#{{ $viewFolder }}_allergies_others_text').prop('required', false);
+                    $('#{{ $viewFolder }}_allergies_others_text').val('');
+                  }
+                ">
+                  <label class="form-check-label" for="{{ $viewFolder }}_allergies_others">Others</label>
+                </div>
+                <textarea class="form-control" name="{{ $viewFolder }}[Patient][allergiesOthers]" id="{{ $viewFolder }}_allergies_others_text" rows=3 {{ (isset($datum->patient->allergies) && is_array(json_decode($datum->patient->allergies)) && in_array('Others', json_decode($datum->patient->allergies))) ? '' : 'disabled' }}>{{ isset($datum->patient->allergiesOthers) ? $datum->patient->allergiesOthers : '' }}</textarea>
+              </div>
+              <div class="form-floating mb-3">
+                <textarea class="form-control" name="{{ $viewFolder }}[Patient][vaccination]" id="{{ $viewFolder }}_vaccination" rows=3>{{ isset($datum->patient->vaccination) ? $datum->patient->vaccination : '' }}</textarea>
+                <label for="{{ $viewFolder }}_vaccination" class="form-label">Vaccination History</label>
+                <small id="help_{{ $viewFolder }}_vaccination" class="text-muted"></small>
+              </div>
+              <div class="form-floating mb-3">
+                <textarea class="form-control" name="{{ $viewFolder }}[Patient][medHistoryOthers]" id="{{ $viewFolder }}_medHistoryOthers" rows=3>{{ isset($datum->patient->medHistoryOthers) ? $datum->patient->medHistoryOthers : '' }}</textarea>
+                <label for="{{ $viewFolder }}_medHistoryOthers" class="form-label">Other Information</label>
+                <small id="help_{{ $viewFolder }}_medHistoryOthers" class="text-muted"></small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {{-- <div class="card mb-3">
         <div class="card-header">Basic Information</div>
         <div class="card-body">
           <img src="{{ !empty($datum->patient->profile_pic) ? (stristr($datum->patient->profile_pic, 'uploads') ? asset('storage/' . $datum->patient->profile_pic) : asset('storage/px_files/' . $datum->patient->profile_pic)) : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" class="img-thumbnail float-start w-25 h-25 m-2" alt="">
@@ -35,11 +356,11 @@
             <strong>HMO #:</strong> {{ $datum->patient->hmo_num }}<br>
           </p>  
         </div>
-      </div>
+      </div> --}}
     </div>
   </div>
   <div class="row">
-    <div class="col-lg-6 d-none d-md-block">
+    <div class="col-lg-12 d-none d-md-block">
       <div class="card mb-3">
         <div class="card-header">Booking History</div>
         <div class="card-body table-responsive" style="max-height: 185.5px">
@@ -74,7 +395,7 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-6">
+    {{-- <div class="col-lg-6">
       <div class="card mb-3">
         <div class="card-header">Medical History</div>
         <div class="card-body">
@@ -109,7 +430,7 @@
           </p>
         </div>
       </div>
-    </div>
+    </div> --}}
   </div>
   <div class="row">
     <div class="col-lg-6 d-none d-md-block">

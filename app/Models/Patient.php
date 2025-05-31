@@ -27,6 +27,7 @@ class Patient extends Model
         'mobile_no',
         'patient_type',
         'patient_sub_type',
+        'notes',
         'referral_from',
         'pastMedicalHistory',
         'pastMedicalHistoryCancer',

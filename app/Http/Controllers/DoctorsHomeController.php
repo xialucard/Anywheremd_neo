@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\ScheduleConso;
 use App\Models\AffiliatedDoctor;
 use App\Models\ConsultationFile;
+use App\Models\HealthOrganization;
 use App\Models\IcdCode;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -392,6 +393,12 @@ class DoctorsHomeController extends Controller
         $user = Auth::user();
         unset($params);
         $params = $request->input($this->viewFolder);
+        unset($patient);
+        $patient = $params['Patient'];
+        if(isset($patient)){
+            $doctors_home->patient->update($patient);
+        }
+        
         $referer = $params['referer'];
         unset($params['referer']);
         
@@ -583,6 +590,7 @@ class DoctorsHomeController extends Controller
         $user = Auth::user();
         $selectItems['affiliated_clinics'] = $user->affiliated_clinics->where('active', 1);
         $selectItems['clinics'] = Clinic::where('active', 1)->orderBy('name', 'asc')->get();
+        $selectItems['hmos'] = HealthOrganization::all()->sortBy('name');
         return $selectItems;
     }
 
