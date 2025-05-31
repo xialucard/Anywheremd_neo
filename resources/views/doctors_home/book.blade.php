@@ -16,9 +16,9 @@
           <div class="card mb-3">
             <div class="card-header">Patient's Basic Info</div>
             <div class="card-body">
-              {{-- <div class="mb-4 d-flex justify-content-center"> --}}
+              <div class="mb-4 d-flex justify-content-center">
                 <img id="{{ $viewFolder }}_profileImage" src="{{ !empty($datum->patient->profile_pic) ? (stristr($datum->patient->profile_pic, 'uploads') ? asset('storage/' . $datum->patient->profile_pic) : asset('storage/px_files/' . $datum->patient->profile_pic)) : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" alt="example placeholder" class="img-thumbnail float-start w-25 h-25 m-2" />
-              {{-- </div> --}}
+              </div>
               <div class="d-flex justify-content-center mb-3">
                 <div class="btn btn-{{ $bgColor }} btn-rounded">
                   <label class="form-label text-white m-1" for="{{ $viewFolder }}_profile_pic">Profile Pic</label>
