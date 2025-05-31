@@ -393,6 +393,10 @@ class DoctorsHomeController extends Controller
         $user = Auth::user();
         unset($params);
         $params = $request->input($this->viewFolder);
+        // print "<pre>";
+        // print_r($params);
+        // print "</pre>";
+        // exit();
         unset($patient);
         $patient = $params['Patient'];
         if(isset($patient)){
