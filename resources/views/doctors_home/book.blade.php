@@ -16,8 +16,9 @@
           <div class="card mb-3">
             <div class="card-header">Patient's Basic Info</div>
             <div class="card-body">
-              <div class="mb-4 d-flex justify-content-center">
-                <img id="{{ $viewFolder }}_profileImage" src="{{ !empty($datum->patient->profile_pic) ? (stristr($datum->patient->profile_pic, 'uploads') ? asset('storage/' . $datum->patient->profile_pic) : asset('storage/px_files/' . $datum->patient->profile_pic)) : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" alt="example placeholder" class="img-thumbnail float-start w-25 h-25 m-2" />
+              {{-- <div class="mb-4 d-flex justify-content-center"> --}}
+              <div class="mb-4 float-start">
+                <img id="{{ $viewFolder }}_profileImage" src="{{ !empty($datum->patient->profile_pic) ? (stristr($datum->patient->profile_pic, 'uploads') ? asset('storage/' . $datum->patient->profile_pic) : asset('storage/px_files/' . $datum->patient->profile_pic)) : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" alt="example placeholder" class="img-thumbnail w-25 h-25 m-2" />
               </div>
               <div class="d-flex justify-content-center mb-3">
                 <div class="btn btn-{{ $bgColor }} btn-rounded">
@@ -137,7 +138,7 @@
                 </select>
               </div>
               <div class="form-floating mb-3">
-                <textarea class="form-control" name="{{ $viewFolder }}[Patient][notes]" id="{{ $viewFolder }}_notes" rows=3 required>{{ !empty($datum->patient->notes) ? $datum->patient->notes : '' }}</textarea>
+                <textarea class="form-control" name="{{ $viewFolder }}[Patient][notes]" id="{{ $viewFolder }}_notes" rows=3>{{ !empty($datum->patient->notes) ? $datum->patient->notes : '' }}</textarea>
                 <label for="{{ $viewFolder }}_notes" class="form-label">Notes</label>
                 <small id="help_{{ $viewFolder }}_notes" class="text-muted">Add notes following this format: yyyy-mm-dd - details. The latest on the top.</small>
               </div>
