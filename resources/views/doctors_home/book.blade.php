@@ -1,9 +1,11 @@
 @php
   unset($referal_conso);
   $clinicDat = $datum->clinic->id;
+  $key = false;
   if(isset($datum->parent_consultation)){
     $referal_conso = $datum;
     $datum = $datum->parent_consultation;
+    $key = true;
   }
   
 @endphp
@@ -1084,7 +1086,7 @@
                 $('#admitPrevDiv').hide();
               ">File Uploads</a>
             </li>
-            @if($user->id == $datum->doctor->id)
+            @if($user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id)
             <li class="nav-item">
               <a class="nav-link" id="presCurLink" href="#" onclick="
                 $('#soapCurLink').removeClass('active');
