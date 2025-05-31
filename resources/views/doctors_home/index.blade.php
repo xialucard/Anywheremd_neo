@@ -222,7 +222,7 @@
                                             <tr>
                                                 <th class=""><i class="bi bi-gear"></i></th>
                                                 <th>Profile Pic</th>
-                                                @if($booking_type == 'Referral')
+                                                 @if(isset($booking_type) && $booking_type == 'Referral')
                                                 <th>Parent Booking #</th>
                                                 @endif
                                                 <th class="">Booking #</th>
@@ -252,7 +252,7 @@
                                             <tr>
                                                 <td>@include($viewFolder . '.tableOptions')</td>
                                                 <td class="text-center"><img src="{{ !empty($dat->patient->profile_pic) ? (stristr($dat->patient->profile_pic, 'uploads') ? asset('storage/' . $dat->patient->profile_pic) : asset('storage/px_files/' . $dat->patient->profile_pic)) : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="70px"></td>
-                                                @if($booking_type == 'Referral')
+                                                @if(isset($booking_type) && $booking_type == 'Referral')
                                                 <td>{{ $dat->consultation_parent_id }}</td>
                                                 @endif
                                                 <td>{{ $dat->id }}</td>
