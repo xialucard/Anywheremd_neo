@@ -86,7 +86,7 @@ class DoctorsHomeController extends Controller
             }
         }
 
-        unset($bookingArr);
+        $bookingArr = null;
         foreach($user->bookings()->whereYear('bookingDate', $yr)->whereMonth('bookingDate', $mon)->get() as $booking){
             if(!isset($bookingArr[date('d', strtotime($booking->bookingDate))]))
                 $bookingArr[date('d', strtotime($booking->bookingDate))] = 1;
