@@ -866,7 +866,11 @@
                     $key = true;
                   @endphp
                 <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
+                  @if($file->file_type == 'application/pdf')
+                  <iframe src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" width="100%" height="373" style="border:1"></iframe>
+                  @else
                   <img src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
+                  @endif
                 </div>
                   @endforeach
                 @endif
@@ -877,7 +881,11 @@
                     $key = true;
                   @endphp
                 <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
+                  @if($file->file_type == 'application/pdf')
+                  <iframe src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" width="100%" height="373" style="border:1"></iframe>
+                  @else
                   <img src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
+                  @endif
                 </div>
                   @endforeach
                 @endif
@@ -888,7 +896,11 @@
                     $key = true;
                   @endphp
                 <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
+                  @if($file->file_type == 'application/pdf')
+                  <iframe src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" width="100%" height="373" style="border:1"></iframe>
+                  @else
                   <img src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
+                  @endif
                 </div>
                   @endforeach
                 @endif
@@ -899,7 +911,11 @@
                     $key = true;
                   @endphp
                 <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
+                  @if($file->file_type == 'application/pdf')
+                  <iframe src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" width="100%" height="373" style="border:1"></iframe>
+                  @else
                   <img src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
+                  @endif
                 </div>
                   @endforeach
                 @endif
@@ -931,7 +947,11 @@
                 @php
                   $exAr = explode('/', $file->file_link);
                 @endphp
-              <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail' ><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}' disabled><i class='bi bi-trash'></i></button></div></div>
+                @if($file->file_type == 'application/pdf')
+              <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'></iframe><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
+                @else
+              <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}' disabled><i class='bi bi-trash'></i></button></div></div>
+                @endif
                 @endforeach
               @endif
               @if(isset($bookings[0]->anesthesia_files))
@@ -940,7 +960,11 @@
                   $ind++;
                   $exAr = explode('/', $file->file_link);
                 @endphp
-              <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail' ><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}' disabled><i class='bi bi-trash'></i></button></div></div>
+                @if($file->file_type == 'application/pdf')
+              <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'></iframe><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
+                @else
+              <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}' disabled><i class='bi bi-trash'></i></button></div></div>
+                @endif
                 @endforeach
               @endif
               @if(isset($bookings[0]->doctor_files))
@@ -949,7 +973,11 @@
                   $ind++;
                   $exAr = explode('/', $file->file_link);
                 @endphp
-              <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail' ><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}' disabled><i class='bi bi-trash'></i></button></div></div>
+                @if($file->file_type == 'application/pdf')
+              <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'></iframe><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
+                @else
+              <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}' disabled><i class='bi bi-trash'></i></button></div></div>
+                @endif
                 @endforeach
               @endif
               @if(isset($bookings[0]->prescription_files))
@@ -958,7 +986,11 @@
                   $ind++;
                   $exAr = explode('/', $file->file_link);
                 @endphp
-              <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail' ><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}' disabled><i class='bi bi-trash'></i></button></div></div>
+                @if($file->file_type == 'application/pdf')
+              <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'></iframe><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
+                @else
+              <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}' disabled><i class='bi bi-trash'></i></button></div></div>
+                @endif
                 @endforeach
               @endif
             </div>
@@ -1608,11 +1640,16 @@
                 @if(!empty($datum->consultation_files[0]->file_link))
                   @foreach($datum->consultation_files as $ind=>$file)
                 <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
+                  @if($file->file_type == 'application/pdf')
+                  <iframe src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" width="100%" height="373" style="border:1"></iframe>
+                  @else
                   <img src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
+                  @endif
                 </div>  
                   @endforeach
                 @else
                 <div class="carousel-item active">
+                  {{-- <iframe src="{{ asset('MDR_030502009768.pdf') }}" width="100%" height="373" style="border:1"></iframe> --}}
                   <img src="https://mdbootstrap.com/img/Photos/Others/placeholder.jpg" class="d-block w-100" alt="">
                 </div>
                 @endif
@@ -1628,7 +1665,7 @@
             </div>
             <div class="mb-3">
               <label for="formFileMultiple" class="form-label">Uploaded Images/Files</label>
-              <input class="form-control" type="file" id="{{ $viewFolder }}_files" name="{{ $viewFolder }}[ConsultationFile][files][]" accept="image/png, image/gif, image/jpeg" multiple>
+              <input class="form-control" type="file" id="{{ $viewFolder }}_files" name="{{ $viewFolder }}[ConsultationFile][files][]" accept="image/*, .pdf" multiple>
             </div>
             <div class="row overflow-auto" id="image_preview_saved" style="max-height:500px">
               @if(isset($datum->consultation_files))
@@ -1636,7 +1673,11 @@
                 @php
                   $exAr = explode('/', $file->file_link);
                 @endphp
+                @if($file->file_type == 'application/pdf')
+              <div class='img-div' data-bs-target="#carouselCur" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail' title='{{ $exAr[sizeof($exAr)-1] }}'></iframe><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
+                @else
               <div class='img-div' data-bs-target="#carouselCur" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail' title='{{ $exAr[sizeof($exAr)-1] }}'><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
+                @endif
                 @endforeach
               @endif
             </div>
@@ -1986,16 +2027,30 @@
             indicator = '';
             grid = '';
             bookingObj.consultation_files.forEach(function(item, index){
-              if(item.file_link.includes('uploads'))
-                item.file_link = item.file_link.replace('uploads', 'storage/uploads');
-              if(index == 0){
-                indicator = '<button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="' + index + '" class="active" aria-current="true" aria-label="Slide ' + (index+1) + '"></button>'
-                inner = '<div class="carousel-item active"><img src="' + item.file_link + '" class="d-block w-100" alt=""></div>';
+              if(item.file_link.includes('.pdf')){
+                if(item.file_link.includes('uploads'))
+                  item.file_link = item.file_link.replace('uploads', 'storage/uploads');
+                if(index == 0){
+                  indicator = '<button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="' + index + '" class="active" aria-current="true" aria-label="Slide ' + (index+1) + '"></button>'
+                  inner = '<div class="carousel-item active"><iframe src="' + item.file_link + '" class="d-block w-100" alt=""></iframe></div>';
+                }else{
+                  indicator += '<button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="' + index + '" aria-label="Slide ' + (index+1) + '"></button>'
+                  inner += '<div class="carousel-item"><iframe src="' + item.file_link + '" class="d-block w-100" alt=""></iframe></div>';
+                }
+                grid += '<div class="img-div" data-bs-target="#carouselPrev" data-bs-slide-to="' + index + '" id="img-div-save' + index + '""><iframe src="' + item.file_link + '" class="img-thumbnail"></iframe><div class="middle"><button id="action-icon" value="img-div-save' + index + '" class="btn btn-danger" disabled><i class="bi bi-trash"></i></button></div></div>';
               }else{
-                indicator += '<button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="' + index + '" aria-label="Slide ' + (index+1) + '"></button>'
-                inner += '<div class="carousel-item"><img src="' + item.file_link + '" class="d-block w-100" alt=""></div>';
+                if(item.file_link.includes('uploads'))
+                  item.file_link = item.file_link.replace('uploads', 'storage/uploads');
+                if(index == 0){
+                  indicator = '<button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="' + index + '" class="active" aria-current="true" aria-label="Slide ' + (index+1) + '"></button>'
+                  inner = '<div class="carousel-item active"><img src="' + item.file_link + '" class="d-block w-100" alt=""></div>';
+                }else{
+                  indicator += '<button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="' + index + '" aria-label="Slide ' + (index+1) + '"></button>'
+                  inner += '<div class="carousel-item"><img src="' + item.file_link + '" class="d-block w-100" alt=""></div>';
+                }
+                grid += '<div class="img-div" data-bs-target="#carouselPrev" data-bs-slide-to="' + index + '" id="img-div-save' + index + '""><img src="' + item.file_link + '" class="img-thumbnail"><div class="middle"><button id="action-icon" value="img-div-save' + index + '" class="btn btn-danger" disabled><i class="bi bi-trash"></i></button></div></div>';
               }
-              grid += '<div class="img-div" data-bs-target="#carouselPrev" data-bs-slide-to="' + index + '" id="img-div-save' + index + '""><img src="' + item.file_link + '" class="img-thumbnail"><div class="middle"><button id="action-icon" value="img-div-save' + index + '" class="btn btn-danger" disabled><i class="bi bi-trash"></i></button></div></div>';
+              
             });
             $('#labPrevCarouselInd').html(indicator);
             $('#labPrevCarouselInner').html(inner);
@@ -2023,7 +2078,10 @@
               return false;
             } else {
               fileArr.push(total_file[i]);
-              $('#image_preview').append("<div class='img-div' id='img-div"+i+"'><img src='"+URL.createObjectURL(event.target.files[i])+"' class='img-thumbnail' title='"+total_file[i].name+"'><div class='middle'><button id='action-icon' value='img-div"+i+"' class='btn btn-danger' role='"+total_file[i].name+"'><i class='bi bi-trash'></i></button></div></div>");
+              if(total_file[i].name.split('.')[1] == 'pdf')
+                $('#image_preview').append("<div class='img-div' id='img-div"+i+"'><iframe src='"+URL.createObjectURL(event.target.files[i])+"' class='img-thumbnail' title='"+total_file[i].name+"'></iframe><div class='middle'><button id='action-icon' value='img-div"+i+"' class='btn btn-danger' role='"+total_file[i].name+"'><i class='bi bi-trash'></i></button></div></div>");
+              else
+                $('#image_preview').append("<div class='img-div' id='img-div"+i+"'><img src='"+URL.createObjectURL(event.target.files[i])+"' class='img-thumbnail' title='"+total_file[i].name+"'><div class='middle'><button id='action-icon' value='img-div"+i+"' class='btn btn-danger' role='"+total_file[i].name+"'><i class='bi bi-trash'></i></button></div></div>");
             }
           }
     });
