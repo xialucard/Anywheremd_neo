@@ -129,8 +129,7 @@ class ClinicsHomeController extends Controller
         foreach($bookings as $in=>$booking){
             if($booking->consultation_parent_id != ""){
                 $booking_type_arr['Referral'] += 1;
-            }
-            if($booking->booking_type == ''){
+            }elseif($booking->booking_type == ''){
                 $booking_type_arr['Consultation'] += 1;
             }else{
                 $booking_type_arr[$booking->booking_type] += 1;
