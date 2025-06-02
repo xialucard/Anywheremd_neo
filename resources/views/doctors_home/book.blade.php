@@ -1,13 +1,16 @@
 @php
   unset($referal_conso);
   $clinicDat = $datum->clinic->id;
+  $doctorDat = $datum->doctor->id;
   $key = false;
   if(isset($datum->parent_consultation)){
     $referal_conso = $datum;
     $datum = $datum->parent_consultation;
     $key = true;
   }
-  
+  // print($clinicDat) . '<br>';
+  // print($datum->doctor_id) . '<br>';
+  // print($user->id);
 @endphp
 
 <datalist id="icdCodeList"></datalist>
@@ -481,6 +484,11 @@
             </div>
           </div>
           @endif
+          <ul class="nav nav-pills mb-3">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">{{ $user->name == $bookings[0]->doctor->name ? 'Yours' : 'Dr. ' . Str::substr($bookings[0]->doctor->f_name, 0, 1) . '. ' . $bookings[0]->doctor->l_name }}</a>
+            </li>
+          </ul>
           <ul class="nav nav-tabs">
             <li class="nav-item">
               <a class="nav-link active" id="soapPrevLink" href="#" onclick="
@@ -617,11 +625,7 @@
                 <small class="text-muted" id="prevPatCompDur">{{ $bookings[0]->duration }}</small>
               </div>
             </div>
-            <ul class="nav nav-pills mb-3">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">{{ $user->name == $bookings[0]->doctor->name ? 'Yours' : 'Dr. ' . Str::substr($bookings[0]->doctor->f_name, 0, 1) . '. ' . $bookings[0]->doctor->l_name }}</a>
-              </li>
-            </ul>
+            
             <div class="card mb-3">
               <div class="card-header">Previous Doctor's Notes</div>
               <div class="card-body">
@@ -1069,6 +1073,135 @@
             </div>
           </div>
           @endif
+          <ul class="nav nav-pills mb-3">
+            <li class="nav-item">
+              <a class="nav-link docNotesLink active" href="#" onclick="
+                  $('.docNotesLink').each(function(){
+                    $(this).removeClass('active');
+                  });
+                  $(this).addClass('active');
+                  $('.docNotesDiv').each(function(){
+                    $(this).hide();
+                  });
+                  $('#{{ $viewFolder }}_SOAP_{{ $datum->id }}').show();
+                  $('#{{ $viewFolder }}_Presc_{{ $datum->id }}').show();
+                  $('#{{ $viewFolder }}_MedCert_{{ $datum->id }}').show();
+                  $('#{{ $viewFolder }}_Admitting_{{ $datum->id }}').show();
+
+                  
+
+                  @if($user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id)
+                  $('#{{ $viewFolder }}_prescription').prop('disabled', false);
+                  $('#{{ $viewFolder }}_prescriptionSelect').prop('disabled', false);
+                  $('#{{ $viewFolder }}_prescriptionHelperDelete').prop('disabled', false);
+                  $('#{{ $viewFolder }}_findings').prop('disabled', false);
+                  $('#{{ $viewFolder }}_diagnosis').prop('disabled', false);
+                  $('#{{ $viewFolder }}_recommendations').prop('disabled', false);
+                  $('#{{ $viewFolder }}_con_date_ao').prop('disabled', false);
+                  $('#{{ $viewFolder }}_procedure_ao').prop('disabled', false);
+                  $('#{{ $viewFolder }}_procedure_aoSelect').prop('disabled', false);
+                  $('#{{ $viewFolder }}_procedure_aoHelperDelete').prop('disabled', false);
+                  $('#{{ $viewFolder }}_anesthesia_type_ao').prop('disabled', false);
+                  $('#{{ $viewFolder }}_anesthesiologist_ao').prop('disabled', false);
+                  $('#{{ $viewFolder }}_admittingOrder').prop('disabled', false);
+                  $('#{{ $viewFolder }}_admittingOrderSelect').prop('disabled', false);
+                  $('#{{ $viewFolder }}_admittingOrderHelperDelete').prop('disabled', false);
+                  @else
+                  $('#{{ $viewFolder }}_prescription').prop('disabled', true);
+                  $('#{{ $viewFolder }}_prescriptionSelect').prop('disabled', true);
+                  $('#{{ $viewFolder }}_prescriptionHelperDelete').prop('disabled', true);
+                  $('#{{ $viewFolder }}_findings').prop('disabled', true);
+                  $('#{{ $viewFolder }}_diagnosis').prop('disabled', true);
+                  $('#{{ $viewFolder }}_recommendations').prop('disabled', true);
+                  $('#{{ $viewFolder }}_con_date_ao').prop('disabled', true);
+                  $('#{{ $viewFolder }}_procedure_ao').prop('disabled', true);
+                  $('#{{ $viewFolder }}_procedure_aoSelect').prop('disabled', true);
+                  $('#{{ $viewFolder }}_procedure_aoHelperDelete').prop('disabled', true);
+                  $('#{{ $viewFolder }}_anesthesia_type_ao').prop('disabled', true);
+                  $('#{{ $viewFolder }}_anesthesiologist_ao').prop('disabled', true);
+                  $('#{{ $viewFolder }}_admittingOrder').prop('disabled', true);
+                  $('#{{ $viewFolder }}_admittingOrderSelect').prop('disabled', true);
+                  $('#{{ $viewFolder }}_admittingOrderHelperDelete').prop('disabled', true);
+                  @endif
+                  $('#{{ $viewFolder }}_prescription').val('{{ $datum->prescription }}');
+                  $('#{{ $viewFolder }}_findings').val('{{ $datum->findings }}');
+                  $('#{{ $viewFolder }}_diagnosis').val('{{ $datum->diagnosis }}');
+                  $('#{{ $viewFolder }}_recommendations').val('{{ $datum->recommendations }}');
+                  $('#{{ $viewFolder }}_con_date_ao').val('{{ $datum->con_date_ao }}');
+                  $('#{{ $viewFolder }}_procedure_ao').val('{{ $datum->procedure_ao }}');
+                  $('#{{ $viewFolder }}_anesthesia_type_ao').val('{{ $datum->anesthesia_type_ao }}');
+                  $('#{{ $viewFolder }}_anesthesiologist_ao').val('{{ $datum->anesthesiologist_ao }}');
+                  $('#{{ $viewFolder }}_admittingOrder').val('{{ $datum->admittingOrder }}');
+                ">{{  $user->id == $datum->doctor->id ? 'Yours - ' . $datum->clinic->name : 'Dr. ' . Str::substr($datum->doctor->f_name, 0, 1) . '. ' . $datum->doctor->l_name . ' - ' . $datum->clinic->name}}</a>
+            </li>
+            
+            @if(isset($datum->consultation_referals[0]->id))
+              @foreach($datum->consultation_referals as $cr)
+            <li class="nav-item">
+              <a class="nav-link docNotesLink" id="{{ $viewFolder }}_doctorLink_{{ $cr->id }}" href="#"  onclick="
+                $('.docNotesLink').each(function(){
+                  $(this).removeClass('active');
+                });
+                $(this).addClass('active');
+                $('.docNotesDiv').each(function(){
+                    $(this).hide();
+                  });
+                  $('#{{ $viewFolder }}_SOAP_{{ $cr->id }}').show();
+                  $('#{{ $viewFolder }}_Presc_{{ $cr->id }}').show();
+                  $('#{{ $viewFolder }}_MedCert_{{ $cr->id }}').show();
+                  $('#{{ $viewFolder }}_Admitting_{{ $cr->id }}').show();
+
+                  
+
+                  @if($user->id == $cr->doctor->id && $clinicDat == $cr->clinic_id)
+                  $('#{{ $viewFolder }}_prescription').prop('disabled', false);
+                  $('#{{ $viewFolder }}_prescriptionSelect').prop('disabled', false);
+                  $('#{{ $viewFolder }}_prescriptionHelperDelete').prop('disabled', false);
+                  $('#{{ $viewFolder }}_findings').prop('disabled', false);
+                  $('#{{ $viewFolder }}_diagnosis').prop('disabled', false);
+                  $('#{{ $viewFolder }}_recommendations').prop('disabled', false);
+                  $('#{{ $viewFolder }}_con_date_ao').prop('disabled', false);
+                  $('#{{ $viewFolder }}_procedure_ao').prop('disabled', false);
+                  $('#{{ $viewFolder }}_procedure_aoSelect').prop('disabled', false);
+                  $('#{{ $viewFolder }}_procedure_aoHelperDelete').prop('disabled', false);
+                  $('#{{ $viewFolder }}_anesthesia_type_ao').prop('disabled', false);
+                  $('#{{ $viewFolder }}_anesthesiologist_ao').prop('disabled', false);
+                  $('#{{ $viewFolder }}_admittingOrder').prop('disabled', false);
+                  $('#{{ $viewFolder }}_admittingOrderSelect').prop('disabled', false);
+                  $('#{{ $viewFolder }}_admittingOrderHelperDelete').prop('disabled', false);
+                  @else
+                  $('#{{ $viewFolder }}_prescription').prop('disabled', true);
+                  $('#{{ $viewFolder }}_prescriptionSelect').prop('disabled', true);
+                  $('#{{ $viewFolder }}_prescriptionHelperDelete').prop('disabled', true);
+                  $('#{{ $viewFolder }}_findings').prop('disabled', true);
+                  $('#{{ $viewFolder }}_diagnosis').prop('disabled', true);
+                  $('#{{ $viewFolder }}_recommendations').prop('disabled', true);
+                  $('#{{ $viewFolder }}_con_date_ao').prop('disabled', true);
+                  $('#{{ $viewFolder }}_procedure_ao').prop('disabled', true);
+                  $('#{{ $viewFolder }}_procedure_aoSelect').prop('disabled', true);
+                  $('#{{ $viewFolder }}_procedure_aoHelperDelete').prop('disabled', true);
+                  $('#{{ $viewFolder }}_anesthesia_type_ao').prop('disabled', true);
+                  $('#{{ $viewFolder }}_anesthesiologist_ao').prop('disabled', true);
+                  $('#{{ $viewFolder }}_admittingOrder').prop('disabled', true);
+                  $('#{{ $viewFolder }}_admittingOrderSelect').prop('disabled', true);
+                  $('#{{ $viewFolder }}_admittingOrderHelperDelete').prop('disabled', true);
+                  @endif
+
+                  $('#{{ $viewFolder }}_prescription').val('{{ $cr->prescription }}');
+                  $('#{{ $viewFolder }}_findings').val('{{ $cr->findings }}');
+                  $('#{{ $viewFolder }}_diagnosis').val('{{ $cr->diagnosis }}');
+                  $('#{{ $viewFolder }}_recommendations').val('{{ $cr->recommendations }}');
+                  $('#{{ $viewFolder }}_con_date_ao').val('{{ $cr->con_date_ao }}');
+                  $('#{{ $viewFolder }}_procedure_ao').val('{{ $cr->procedure_ao }}');
+                  $('#{{ $viewFolder }}_anesthesia_type_ao').val('{{ $cr->anesthesia_type_ao }}');
+                  $('#{{ $viewFolder }}_anesthesiologist_ao').val('{{ $cr->anesthesiologist_ao }}');
+                  $('#{{ $viewFolder }}_admittingOrder').val('{{ $cr->admittingOrder }}');
+
+              ">{{ $user->name == $cr->doctor->name ? 'Yours - ' . $cr->clinic->name : 'Dr. ' . Str::substr($cr->doctor->f_name, 0, 1) . '. ' . $cr->doctor->l_name . ' - ' . $cr->clinic->name }}</a>
+            </li>
+              @endforeach
+            @endif
+          </ul>
           <ul class="nav nav-tabs">
             <li class="nav-item">
               <a class="nav-link active" id="soapCurLink" href="#" onclick="
@@ -1118,7 +1251,7 @@
                 $('#admitPrevDiv').hide();
               ">File Uploads</a>
             </li>
-            @if($user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id)
+            {{-- @if($user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id) --}}
             <li class="nav-item">
               <a class="nav-link" id="presCurLink" href="#" onclick="
                 $('#soapCurLink').removeClass('active');
@@ -1191,7 +1324,7 @@
                 $('#admitPrevDiv').show();  
               ">Admitting Orders</a>
             </li>
-            @endif
+            {{-- @endif --}}
           </ul>
           <div id="soapCurDiv" class="container border border-1 border-top-0 mb-3 p-3">
             <div class="card mb-3">
@@ -1207,37 +1340,7 @@
                 <small class="text-muted">{{ $datum->duration }}</small>
               </div>
             </div>
-            <ul class="nav nav-pills mb-3">
-              <li class="nav-item">
-                <a class="nav-link docNotesLink active" href="#" onclick="
-                    $('.docNotesLink').each(function(){
-                      $(this).removeClass('active');
-                    });
-                    $(this).addClass('active');
-                    $('.docNotesDiv').each(function(){
-                      $(this).hide();
-                    });
-                    $('#{{ $viewFolder }}_SOAP_{{ $datum->id }}').show();
-                  ">{{  $user->id == $datum->doctor->id ? 'Yours - ' . $datum->clinic->name : 'Dr. ' . Str::substr($datum->doctor->f_name, 0, 1) . '. ' . $datum->doctor->l_name . ' - ' . $datum->clinic->name}}</a>
-              </li>
-              
-              @if(isset($datum->consultation_referals[0]->id))
-                @foreach($datum->consultation_referals as $cr)
-              <li class="nav-item">
-                <a class="nav-link docNotesLink" id="{{ $viewFolder }}_doctorLink_{{ $cr->id }}" href="#"  onclick="
-                  $('.docNotesLink').each(function(){
-                    $(this).removeClass('active');
-                  });
-                  $(this).addClass('active');
-                  $('.docNotesDiv').each(function(){
-                      $(this).hide();
-                    });
-                    $('#{{ $viewFolder }}_SOAP_{{ $cr->id }}').show();
-                ">{{ $user->name == $cr->doctor->name ? 'Yours - ' . $cr->clinic->name : 'Dr. ' . Str::substr($cr->doctor->f_name, 0, 1) . '. ' . $cr->doctor->l_name . ' - ' . $cr->clinic->name }}</a>
-              </li>
-                @endforeach
-              @endif
-            </ul>
+            
             <div class="docNotesDiv" id="{{ $viewFolder }}_SOAP_{{ $datum->id }}">
               <div class="card mb-3">
                 <div class="card-header">Doctor's Notes</div>
@@ -1432,7 +1535,7 @@
                 @if($user->id == $cr->doctor->id && $clinicDat == $cr->clinic_id)  
             <input type="hidden" class="form-control" id="{{ $viewFolder }}_referral_id" name="{{ $viewFolder }}[referral_id]" value="{{ $cr->id }}">
                 @endif
-            <div class="docNotesDiv" id="{{ $viewFolder }}_SOAP_{{ $cr->id }}" style="display:none" >
+            <div class="docNotesDiv" id="{{ $viewFolder }}_SOAP_{{ $cr->id }}" style="display:none">
               <div class="card mb-3">
                 <div class="card-header">Doctor's Notes</div>
                 <div class="card-body">
@@ -1683,16 +1786,17 @@
             </div>
             <div class="row" id="image_preview"></div>
           </div>
-          @if($user->id == $datum->doctor->id)
+          {{-- @if($user->id == $datum->doctor->id) --}}
           <div id="presCurDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
-            <div class="card mb-3">
+            <div class="docNotesDiv card mb-3" id="{{ $viewFolder }}_Presc_{{ $datum->id }}">
               <div class="card-header">Prescription View</div>
               <div class="card-body">
-                <iframe id="iframePresc" src="{{ file_exists(public_path('storage/prescription_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf')) ? asset('storage/prescription_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
+                <iframe id="iframePresc{{ $datum->id }}" src="{{ file_exists(public_path('storage/prescription_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf')) ? asset('storage/prescription_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
                 <small class="form-text text-muted">To print or download check the upper right part</small>
               </div>
               <div class="card-footer">
-                <button id="createPDFButPresc" type="button" class="btn btn-{{ $bgColor }} btn-sm" {{ $datum->prescription == '' ? 'disabled' : '' }} onclick="
+                @if($user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id)
+                <button id="createPDFButPresc{{ $datum->id }}" type="button" class="createPDFButPresc btn btn-{{ $bgColor }} btn-sm" {{ $datum->prescription == '' ? 'disabled' : '' }} onclick="
                   $('#doctors_home_submit_type').val('Pause');
                   $.ajax({
                     type: 'POST',
@@ -1705,15 +1809,51 @@
                           url: '{{ Route::has($viewFolder . '.pdfPrescription') ? route($viewFolder . '.pdfPrescription', $datum->id) : '' }}',
                           success:
                           function (data){
-                            $('#iframePresc').attr('src', data);
+                            $('#iframePresc{{ $datum->id }}').attr('src', data);
                           }
                         });
                     }
                   });
 
                 ">Create PDF</button>
+                @endif
               </div>
             </div>
+            @if(isset($datum->consultation_referals[0]->id))
+              @foreach($datum->consultation_referals as $cr)
+            <div class="docNotesDiv card mb-3" id="{{ $viewFolder }}_Presc_{{ $cr->id }}" style="display:none">
+              <div class="card-header">Prescription View</div>
+              <div class="card-body">
+                <iframe id="iframePresc{{ $cr->id }}" src="{{ file_exists(public_path('storage/prescription_files/' . $cr->id . '_' . $cr->patient->l_name . '.pdf')) ? asset('storage/prescription_files/' . $cr->id . '_' . $cr->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
+                <small class="form-text text-muted">To print or download check the upper right part</small>
+              </div>
+              <div class="card-footer">
+                @if($user->id == $cr->doctor->id && $clinicDat == $cr->clinic_id)
+                <button id="createPDFButPresc{{ $cr->id }}" type="button" class="createPDFButPresc btn btn-{{ $bgColor }} btn-sm" {{ $cr->prescription == '' ? 'disabled' : '' }} onclick="
+                  $('#doctors_home_submit_type').val('Pause');
+                  $.ajax({
+                    type: 'POST',
+                    data: $('#bookMod').serialize(),
+                    url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
+                    success:
+                    function (){
+                        $.ajax({
+                          type: 'GET',
+                          url: '{{ Route::has($viewFolder . '.pdfPrescription') ? route($viewFolder . '.pdfPrescription', $cr->id) : '' }}',
+                          success:
+                          function (data){
+                            $('#iframePresc{{ $cr->id }}').attr('src', data);
+                          }
+                        });
+                    }
+                  });
+
+                ">Create PDF</button>
+                @endif
+              </div>
+            </div>
+              @endforeach
+            @endif
             <div class="form-floating mb-3">
               <textarea class="form-control" name="{{ $viewFolder }}[Doctor][sub_header_1]" id="{{ $viewFolder }}_sub_header_1" rows=3>{{ isset($datum->doctor->sub_header_1) ? $datum->doctor->sub_header_1 : '' }}</textarea>
               <label for="{{ $viewFolder }}_sub_header_1" class="form-label">MD Specialty/sub-specialty</label>
@@ -1729,17 +1869,21 @@
               <div class="card-body">
                 <small class="text-muted">Helper</small>
                 <div class="input-group input-group-small flex-nowrap">
-                  <select class="form-select" placeholder="">
+                  <select class="form-select" placeholder="" id="{{ $viewFolder }}_prescriptionSelect" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id ? '' : 'disabled' }}>
                     <option value=""></option>
                   </select>
-                  <button class="btn btn-outline-secondary" type="button" id="button-addon2">Delete Helper</button>
+                  <button class="btn btn-outline-secondary" type="button" id="{{ $viewFolder }}_prescriptionDeleteHelper" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id ? '' : 'disabled' }}>Delete Helper</button>
                 </div>
                 <small class="text-muted">Content</small>
-                <textarea class="form-control" name="{{ $viewFolder }}[prescription]" id="{{ $viewFolder }}_prescription" rows=3 onblur="
+                <textarea class="form-control" name="{{ $viewFolder }}[prescription]" id="{{ $viewFolder }}_prescription" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id ? '' : 'disabled' }} rows=3 onblur="
                   if($(this).val() == ''){
-                    $('#createPDFButPresc').prop('disabled', true);
+                    $('.createPDFButPresc').each(function(){
+                      $(this).prop('disabled', true);
+                    });
                   }else{
-                    $('#createPDFButPresc').prop('disabled', false);
+                    $('.createPDFButPresc').each(function(){
+                      $(this).prop('disabled', false);
+                    });
                   }
                 ">{{ isset($datum->prescription) ? $datum->prescription : '' }}</textarea>
                 <small class="text-muted">Helper Save/Edit</small>
@@ -1755,14 +1899,48 @@
             </div>
           </div>
           <div id="medCurDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
-            <div class="card mb-3">
+            <div class="docNotesDiv card mb-3" id="{{ $viewFolder }}_MedCert_{{ $datum->id }}">
               <div class="card-header">Med Cert View</div>
               <div class="card-body">
-                <iframe id="iframeMedCert" src="{{ file_exists(public_path('storage/med_cert_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf')) ? asset('storage/med_cert_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
+                <iframe id="iframeMedCert{{ $datum->id }}" src="{{ file_exists(public_path('storage/med_cert_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf')) ? asset('storage/med_cert_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
                 <small class="form-text text-muted">To print or download check the upper right part</small>
               </div>
               <div class="card-footer">
-                <button id="createPDFButMedCert" type="button" class="btn btn-{{ $bgColor }} btn-sm" {{ ($datum->findings == '' || $datum->diagnosis == '' || $datum->recommendations == '') ? 'disabled' : '' }} onclick="
+                @if($user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id)
+                <button id="createPDFButMedCert{{ $datum->id }}" type="button" class="createPDFButMedCert btn btn-{{ $bgColor }} btn-sm" {{ ($datum->findings == '' || $datum->diagnosis == '' || $datum->recommendations == '') ? 'disabled' : '' }} onclick="
+                  $('#doctors_home_submit_type').val('Pause');
+                  $.ajax({
+                    type: 'POST',
+                    data: $('#bookMod').serialize(),
+                    url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : '' }}',
+                    success:
+                    function (){
+                        $.ajax({
+                          type: 'GET',
+                          url: '{{ Route::has($viewFolder . '.pdfMedCert') ? route($viewFolder . '.pdfMedCert', $datum->id) : '' }}',
+                          success:
+                          function (data){
+                            $('#iframeMedCert{{ $datum->id }}').attr('src', data);
+                          }
+                        });
+                    }
+                  });
+
+                ">Create PDF</button>
+                @endif
+              </div>
+            </div>
+            @if(isset($datum->consultation_referals[0]->id))
+              @foreach($datum->consultation_referals as $cr)
+            <div class="docNotesDiv card mb-3" id="{{ $viewFolder }}_MedCert_{{ $cr->id }}" style="display:none">
+              <div class="card-header">Med Cert View</div>
+              <div class="card-body">
+                <iframe id="iframeMedCert{{ $cr->id }}" src="{{ file_exists(public_path('storage/med_cert_files/' . $cr->id . '_' . $cr->patient->l_name . '.pdf')) ? asset('storage/med_cert_files/' . $cr->id . '_' . $cr->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
+                <small class="form-text text-muted">To print or download check the upper right part</small>
+              </div>
+              <div class="card-footer">
+                @if($user->id == $cr->doctor->id && $clinicDat == $cr->clinic_id)
+                <button id="createPDFButMedCert{{ $cr->id }}" type="button" class="createPDFButMedCert btn btn-{{ $bgColor }} btn-sm" {{ ($cr->findings == '' || $cr->diagnosis == '' || $cr->recommendations == '') ? 'disabled' : '' }} onclick="
                   $('#doctors_home_submit_type').val('Pause');
                   $.ajax({
                     type: 'POST',
@@ -1772,46 +1950,61 @@
                     function (){
                         $.ajax({
                           type: 'GET',
-                          url: '{{ Route::has($viewFolder . '.pdfMedCert') ? route($viewFolder . '.pdfMedCert', $datum->id) : '' }}',
+                          url: '{{ Route::has($viewFolder . '.pdfMedCert') ? route($viewFolder . '.pdfMedCert', $cr->id) : '' }}',
                           success:
                           function (data){
-                            $('#iframeMedCert').attr('src', data);
+                            $('#iframeMedCert{{ $cr->id }}').attr('src', data);
                           }
                         });
                     }
                   });
 
                 ">Create PDF</button>
+                @endif
               </div>
             </div>
+              @endforeach
+            @endif
             <div class="form-floating mb-3">
-              <textarea class="form-control" name="{{ $viewFolder }}[findings]" id="{{ $viewFolder }}_findings" rows=3 onblur="
+              <textarea class="form-control" name="{{ $viewFolder }}[findings]" id="{{ $viewFolder }}_findings" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id ? '' : 'disabled' }} rows=3 onblur="
                   if($('#{{ $viewFolder }}_findings').val() == '' || $('#{{ $viewFolder }}_diagnosis').val() == '' || $('#{{ $viewFolder }}_recommendations').val() == ''){
-                    $('#createPDFButMedCert').prop('disabled', true);
+                    $('.createPDFButMedCert').each(function(){
+                      $(this).prop('disabled', true);
+                    });
                   }else{
-                    $('#createPDFButMedCert').prop('disabled', false);
+                    $('.createPDFButMedCert').each(function(){
+                      $(this).prop('disabled', false);
+                    });
                   }
                 ">{{ isset($datum->findings) ? $datum->findings : '' }}</textarea>
               <label for="{{ $viewFolder }}_findings" class="form-label">Findings</label>
               <small id="help_{{ $viewFolder }}_findings" class="text-muted"></small>
             </div>
             <div class="form-floating mb-3">
-              <textarea class="form-control" name="{{ $viewFolder }}[diagnosis]" id="{{ $viewFolder }}_diagnosis" rows=3 onblur="
+              <textarea class="form-control" name="{{ $viewFolder }}[diagnosis]" id="{{ $viewFolder }}_diagnosis" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id ? '' : 'disabled' }} rows=3 onblur="
                   if($('#{{ $viewFolder }}_findings').val() == '' || $('#{{ $viewFolder }}_diagnosis').val() == '' || $('#{{ $viewFolder }}_recommendations').val() == ''){
-                    $('#createPDFButMedCert').prop('disabled', true);
+                    $('.createPDFButMedCert').each(function(){
+                      $(this).prop('disabled', true);
+                    });
                   }else{
-                    $('#createPDFButMedCert').prop('disabled', false);
+                    $('.createPDFButMedCert').each(function(){
+                      $(this).prop('disabled', false);
+                    });
                   }
                 ">{{ isset($datum->diagnosis) ? $datum->diagnosis : '' }}</textarea>
               <label for="{{ $viewFolder }}_diagnosis" class="form-label">Diagnosis</label>
               <small id="help_{{ $viewFolder }}_diagnosis" class="text-muted"></small>
             </div>
             <div class="form-floating mb-3">
-              <textarea class="form-control" name="{{ $viewFolder }}[recommendations]" id="{{ $viewFolder }}_recommendations" rows=3 onblur="
+              <textarea class="form-control" name="{{ $viewFolder }}[recommendations]" id="{{ $viewFolder }}_recommendations" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id ? '' : 'disabled' }} rows=3 onblur="
                   if($('#{{ $viewFolder }}_findings').val() == '' || $('#{{ $viewFolder }}_diagnosis').val() == '' || $('#{{ $viewFolder }}_recommendations').val() == ''){
-                    $('#createPDFButMedCert').prop('disabled', true);
+                    $('.createPDFButMedCert').each(function(){
+                      $(this).prop('disabled', true);
+                    });
                   }else{
-                    $('#createPDFButMedCert').prop('disabled', false);
+                    $('.createPDFButMedCert').each(function(){
+                      $(this).prop('disabled', false);
+                    });
                   }
                 ">{{ isset($datum->recommendations) ? $datum->recommendations : '' }}</textarea>
               <label for="{{ $viewFolder }}_recommendations" class="form-label">Recommendations</label>
@@ -1819,14 +2012,15 @@
             </div>
           </div>
           <div id="admitCurDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
-            <div class="card mb-3">
+            <div class="docNotesDiv card mb-3" id="{{ $viewFolder }}_Admitting_{{ $datum->id }}">
               <div class="card-header">Admitting Orders Preview</div>
               <div class="card-body">
-                <iframe id="iframeAdmitting" src="{{ file_exists(public_path('storage/admitting_order_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf')) ? asset('storage/admitting_order_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
+                <iframe id="iframeAdmitting{{ $datum->id }}" src="{{ file_exists(public_path('storage/admitting_order_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf')) ? asset('storage/admitting_order_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
                 <small class="form-text text-muted">To print or download check the upper right part</small>
               </div>
               <div class="card-footer">
-                <button id="createPDFButAddmitting" type="button" class="btn btn-{{ $bgColor }} btn-sm" {{ ($datum->procedure_ao == '' || $datum->admittingOrder == '') ? 'disabled' : '' }} onclick="
+                @if($user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id)
+                <button id="createPDFButAddmitting{{ $datum->id }}" type="button" class="createPDFButAddmitting btn btn-{{ $bgColor }} btn-sm" {{ ($datum->procedure_ao == '' || $datum->admittingOrder == '') ? 'disabled' : '' }} onclick="
                   $('#doctors_home_submit_type').val('Pause');
                   $.ajax({
                     type: 'POST',
@@ -1839,7 +2033,7 @@
                           url: '{{ Route::has($viewFolder . '.pdfAdmitting') ? route($viewFolder . '.pdfAdmitting', $datum->id) : '' }}',
                           success:
                           function (data){
-                            $('#iframeAdmitting').attr('src', data);
+                            $('#iframeAdmitting{{ $datum->id }}').attr('src', data);
                             // var iFrame = $('#iframeAdmitting');
                             // iFrame.load(data);
                             // $('#iframeAdmitting').attr('src', $('#iframeAdmitting').attr('src'));
@@ -1848,10 +2042,48 @@
                     }
                   });
                 ">Create PDF</button>
+                @endif
               </div>
             </div>
+            @if(isset($datum->consultation_referals[0]->id))
+              @foreach($datum->consultation_referals as $cr)
+            <div class="docNotesDiv card mb-3" id="{{ $viewFolder }}_Admitting_{{ $cr->id }}" style="display:none">
+              <div class="card-header">Admitting Orders Preview</div>
+              <div class="card-body">
+                <iframe id="iframeAdmitting{{ $cr->id }}" src="{{ file_exists(public_path('storage/admitting_order_files/' . $cr->id . '_' . $cr->patient->l_name . '.pdf')) ? asset('storage/admitting_order_files/' . $cr->id . '_' . $cr->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
+                <small class="form-text text-muted">To print or download check the upper right part</small>
+              </div>
+              <div class="card-footer">
+                @if($user->id == $cr->doctor->id && $clinicDat == $cr->clinic_id)
+                <button id="createPDFButAddmitting{{ $cr->id }}" type="button" class="createPDFButAddmitting btn btn-{{ $bgColor }} btn-sm" {{ ($cr->procedure_ao == '' || $cr->admittingOrder == '') ? 'disabled' : '' }} onclick="
+                  $('#doctors_home_submit_type').val('Pause');
+                  $.ajax({
+                    type: 'POST',
+                    data: $('#bookMod').serialize(),
+                    url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
+                    success:
+                    function (data){
+                        $.ajax({
+                          type: 'GET',
+                          url: '{{ Route::has($viewFolder . '.pdfAdmitting') ? route($viewFolder . '.pdfAdmitting', $cr->id) : '' }}',
+                          success:
+                          function (data){
+                            $('#iframeAdmitting{{ $cr->id }}').attr('src', data);
+                            // var iFrame = $('#iframeAdmitting');
+                            // iFrame.load(data);
+                            // $('#iframeAdmitting').attr('src', $('#iframeAdmitting').attr('src'));
+                          }
+                        });
+                    }
+                  });
+                ">Create PDF</button>
+                @endif
+              </div>
+            </div>
+              @endforeach
+            @endif
             <div class="form-floating mb-3">
-              <input class="form-control" type="date" name="{{ $viewFolder }}[con_date_ao]" id="{{ $viewFolder }}_con_date_ao" value="{{ isset($datum->con_date_ao) ? $datum->con_date_ao : '' }}" placeholder="">
+              <input class="form-control" type="date" name="{{ $viewFolder }}[con_date_ao]" id="{{ $viewFolder }}_con_date_ao" value="{{ isset($datum->con_date_ao) ? $datum->con_date_ao : '' }}" placeholder="" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id ? '' : 'disabled' }}>
               <label for="{{ $viewFolder }}_con_date_ao" class="form-label">Contemplated Date of Procedure</label>
               <small id="help_{{ $viewFolder }}_con_date_ao" class="text-muted"></small>
             </div>
@@ -1860,17 +2092,21 @@
               <div class="card-body">
                 <small class="text-muted">Helper</small>
                 <div class="input-group input-group-small flex-nowrap">
-                  <select class="form-select" id="{{ $viewFolder }}_procedure_aoSelect" placeholder="">
+                  <select class="form-select" id="{{ $viewFolder }}_procedure_aoSelect" placeholder="" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id ? '' : 'disabled' }}>
                     <option value=""></option>
                   </select>
-                  <button class="btn btn-outline-secondary" type="button" id="button-addon2">Delete Helper</button>
+                  <button class="btn btn-outline-secondary" type="button" id="{{ $viewFolder }}_procedure_aoHelperDelete" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id ? '' : 'disabled' }}>Delete Helper</button>
                 </div>
                 <small class="text-muted">Content</small>
-                <textarea class="form-control" name="{{ $viewFolder }}[procedure_ao]" id="{{ $viewFolder }}_procedure_ao" rows=3 onblur="
+                <textarea class="form-control" name="{{ $viewFolder }}[procedure_ao]" id="{{ $viewFolder }}_procedure_ao" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id ? '' : 'disabled' }} rows=3 onblur="
                     if(($('#{{ $viewFolder }}_procedure_ao').val() || $('#{{ $viewFolder }}_admittingOrder').val()) == ''){
-                      $('#createPDFButAddmitting').prop('disabled', true);
+                        $('.createPDFButAddmitting').each(function(){
+                        $(this).prop('disabled', true);
+                      });
                     }else{
-                      $('#createPDFButAddmitting').prop('disabled', false);
+                      $('.createPDFButAddmitting').each(function(){
+                        $(this).prop('disabled', false);
+                      });
                     }
                   ">{{ isset($datum->procedure_ao) ? $datum->procedure_ao : '' }}</textarea>
                 <small class="text-muted">Helper Save/Edit</small>
@@ -1885,7 +2121,7 @@
               </div>
             </div>
             <div class="form-floating mb-3">
-              <select class="form-select" name="{{ $viewFolder }}[anesthesia_type_ao]" id="{{ $viewFolder }}_anesthesia_type_ao" placeholder="">
+              <select class="form-select" name="{{ $viewFolder }}[anesthesia_type_ao]" id="{{ $viewFolder }}_anesthesia_type_ao" placeholder="" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id ? '' : 'disabled' }}>
                 <option value="None" {{ (isset($datum->anesthesia_type_ao) && $datum->anesthesia_type_ao == 'None') ? 'selected' : ''}}>None</option>
                 <option value="Regional Block" {{ (isset($datum->anesthesia_type_ao) && $datum->anesthesia_type_ao == 'Regional Block') ? 'selected' : ''}}>Regional Block</option>
                 <option value="IV Sedation" {{ (isset($datum->anesthesia_type_ao) && $datum->anesthesia_type_ao == 'IV Sedation') ? 'selected' : ''}}>IV Sedation</option>
@@ -1895,7 +2131,7 @@
               <small id="help_{{ $viewFolder }}_anesthesia_type_ao" class="text-muted"></small>
             </div>
             <div class="form-floating mb-3">
-              <input class="form-control" type="text" name="{{ $viewFolder }}[anesthesiologist_ao]" id="{{ $viewFolder }}_anesthesiologist_ao" placeholder="" value="{{ isset($datum->anesthesiologist_ao) ? $datum->anesthesiologist_ao : '' }}">
+              <input class="form-control" type="text" name="{{ $viewFolder }}[anesthesiologist_ao]" id="{{ $viewFolder }}_anesthesiologist_ao" placeholder="" value="{{ isset($datum->anesthesiologist_ao) ? $datum->anesthesiologist_ao : '' }}" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id ? '' : 'disabled' }}>
               <label for="{{ $viewFolder }}_anesthesiologist_ao" class="form-label">Anesthesiologist</label>
               <small id="help_{{ $viewFolder }}_anesthesiologist_ao" class="text-muted"></small>
             </div>
@@ -1904,17 +2140,21 @@
               <div class="card-body">
                 <small class="text-muted">Helper</small>
                 <div class="input-group input-group-small flex-nowrap">
-                  <select class="form-select" id="{{ $viewFolder }}_admittingOrderSelect" placeholder="">
+                  <select class="form-select" id="{{ $viewFolder }}_admittingOrderSelect" placeholder="" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id ? '' : 'disabled' }}>
                     <option value=""></option>
                   </select>
-                  <button class="btn btn-outline-secondary" type="button" id="button-addon2">Delete Helper</button>
+                  <button class="btn btn-outline-secondary" type="button" id="{{ $viewFolder }}_admittingOrderHelperDelete" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id ? '' : 'disabled' }}>Delete Helper</button>
                 </div>
                 <small class="text-muted">Content</small>
-                <textarea class="form-control" name="{{ $viewFolder }}[admittingOrder]" id="{{ $viewFolder }}_admittingOrder" rows=3 onblur="
+                <textarea class="form-control" name="{{ $viewFolder }}[admittingOrder]" id="{{ $viewFolder }}_admittingOrder" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id ? '' : 'disabled' }} rows=3 onblur="
                     if(($('#{{ $viewFolder }}_procedure_ao').val() || $('#{{ $viewFolder }}_admittingOrder').val()) == ''){
-                      $('#createPDFButAddmitting').prop('disabled', true);
+                      $('.createPDFButAddmitting').each(function(){
+                        $(this).prop('disabled', true);
+                      });
                     }else{
-                      $('#createPDFButAddmitting').prop('disabled', false);
+                      $('.createPDFButAddmitting').each(function(){
+                        $(this).prop('disabled', false);
+                      });
                     }
                   ">{{ isset($datum->admittingOrder) ? $datum->admittingOrder : '' }}</textarea>
                 <small class="text-muted">Helper Save/Edit</small>
@@ -1929,7 +2169,7 @@
               </div>
             </div>
           </div>
-          @endif
+          {{-- @endif --}}
         </div>
       </div>
     </div>

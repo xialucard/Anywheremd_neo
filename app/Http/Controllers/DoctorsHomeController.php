@@ -427,6 +427,26 @@ class DoctorsHomeController extends Controller
             unset($params['plan']);
             $paramsRef['planRem'] = $params['planRem'];
             unset($params['planRem']);
+            $paramsRef['prescription'] = $params['prescription'];
+            unset($params['prescription']);
+            $paramsRef['findings'] = $params['findings'];
+            unset($params['findings']);
+            $paramsRef['diagnosis'] = $params['diagnosis'];
+            unset($params['diagnosis']);
+            $paramsRef['recommendations'] = $params['recommendations'];
+            unset($params['recommendations']);
+            $paramsRef['con_date_ao'] = $params['con_date_ao'];
+            unset($params['con_date_ao']);
+            $paramsRef['procedure_ao'] = $params['procedure_ao'];
+            unset($params['procedure_ao']);
+            if(isset($params['anesthesia_type_ao'])){
+                $paramsRef['anesthesia_type_ao'] = $params['anesthesia_type_ao'];
+                unset($params['anesthesia_type_ao']);
+            }
+            $paramsRef['anesthesiologist_ao'] = $params['anesthesiologist_ao'];
+            unset($params['anesthesiologist_ao']);
+            $paramsRef['admittingOrder'] = $params['admittingOrder'];
+            unset($params['admittingOrder']);
             $consultationObj->update($paramsRef);
             if(!empty($request->doctors_home['ConsultationFile']['files'])){
                 foreach($request->doctors_home['ConsultationFile']['files'] as $ind => $file){
@@ -440,6 +460,15 @@ class DoctorsHomeController extends Controller
                     $parFile['updated_by'] = $user->id;
                     ConsultationFile::create($parFile);
                 }
+            }
+            if(isset($params['Doctor'])){
+                $doctor = $params['Doctor'];
+                unset($params['Doctor']);
+                if($params['submit_type'] == "" && !isset($params['referral_id']))
+                    $params['status'] = "Done";
+            
+                $doctor['updated_by'] = $user->id;
+                $doctors_home->doctor->update($doctor);
             }
         }else{
             if(!empty($request->doctors_home['ConsultationFile']['files'])){
