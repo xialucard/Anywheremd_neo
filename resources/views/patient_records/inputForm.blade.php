@@ -556,9 +556,15 @@
                   @php
                     $key = true;
                   @endphp
+                  @if(!stristr($file->file_type, 'image'))
+                <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
+                  <iframe src="{{stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
+                </div>
+                  @else
                 <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
                   <img src="{{stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
                 </div>
+                  @endif
                   @endforeach
                 @endif
                 @if(!empty($bookings[0]->anesthesia_files[0]->file_link))
@@ -567,9 +573,15 @@
                     $ind++;
                     $key = true;
                   @endphp
+                  @if(!stristr($file->file_type, 'image'))
+                <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
+                  <iframe src="{{stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
+                </div>
+                  @else
                 <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
                   <img src="{{stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
                 </div>
+                  @endif
                   @endforeach
                 @endif
                 @if(!empty($bookings[0]->doctor_files[0]->file_link))
@@ -578,9 +590,15 @@
                     $ind++;
                     $key = true;
                   @endphp
+                  @if(!stristr($file->file_type, 'image'))
+                <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
+                  <iframe src="{{stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
+                </div>
+                  @else
                 <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
                   <img src="{{stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
                 </div>
+                  @endif
                   @endforeach
                 @endif
                 @if(!empty($bookings[0]->prescription_files[0]->file_link))
@@ -589,9 +607,15 @@
                     $ind++;
                     $key = true;
                   @endphp
+                  @if(!stristr($file->file_type, 'image'))
+                <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
+                  <iframe src="{{stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
+                </div>
+                  @else
                 <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
                   <img src="{{stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
                 </div>
+                  @endif
                   @endforeach
                 @endif
                 @if(!$key)
