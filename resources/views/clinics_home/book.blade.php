@@ -11,7 +11,7 @@
     unset($dateArr);
   @endphp
   @foreach($user->clinic->affiliated_doctors->sortBy('name') as $doc)
-    @if(isset($doc->doctor->affiliated_clinics->sortBy('name')))
+    @if($doc->doctor->affiliated_clinics->sortBy('name') !== null)
     @foreach($doc->doctor->affiliated_clinics->sortBy('name') as $clin)
       @foreach($doc->doctor->schedules()->whereBetween('dateSched', [$datum->bookingDate, date('Y-m-d', strtotime(' + 30 days'))])->orderBy('dateSched', 'asc')->get()->unique('dateSchdule') as $sched)
         @if(isset($clin->clinic->id))
