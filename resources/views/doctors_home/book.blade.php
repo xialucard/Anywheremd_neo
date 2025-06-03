@@ -21,10 +21,39 @@
       <div class="row">
         <div class="col-lg-6"> 
           <div class="card mb-3">
+            <div class="card-header">Basic Information</div>
+            <div class="card-body">
+              <img src="{{ !empty($datum->patient->profile_pic) ? (stristr($datum->patient->profile_pic, 'uploads') ? asset('storage/' . $datum->patient->profile_pic) : asset('storage/px_files/' . $datum->patient->profile_pic)) : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" class="img-thumbnail float-start w-25 h-25 m-2" alt="">
+              <p>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <strong>Name:</strong> {{ $datum->patient->name }} | 
+                <strong>Age:</strong> {{ floor((strtotime($datum->bookingDate) - strtotime($datum->patient->birthdate))/(60*60*24*365.25)) }} | 
+                <strong>Birthday:</strong> {{ $datum->patient->birthdate }} | 
+                <strong>Gender:</strong> {{ $datum->patient->gender }}<br>
+                <strong>Address:</strong> {{ $datum->patient->address }}<br>
+                <strong>Email:</strong> {{ $datum->patient->email }} | 
+                <strong>Mobile #:</strong> {{ $datum->patient->mobile_no }}<br>
+                <strong>Patient Type:</strong> {{ $datum->patient->patient_type }} | 
+                <strong>Patient Sub Type: </strong>{{ $datum->patient->patient_sub_type . ' ' . $datum->patient->referral_from }}<br>
+                <strong>Philhealth #: </strong>{{ $datum->patient->phil_num }}<br>
+                <strong>HMO:</strong> {{ $datum->patient->hmo }} | 
+                <strong>HMO #:</strong> {{ $datum->patient->hmo_num }}<br>
+              </p>
+              <div class="form-floating mb-3">
+                <textarea class="form-control" name="{{ $viewFolder }}[Patient][notes]" id="{{ $viewFolder }}_notes" rows=3>{{ !empty($datum->patient->notes) ? $datum->patient->notes : '' }}</textarea>
+                <label for="{{ $viewFolder }}_notes" class="form-label">Notes</label>
+                <small id="help_{{ $viewFolder }}_notes" class="text-muted">Add notes following this format: yyyy-mm-dd - details. The latest on the top.</small>
+              </div>
+            </div>
+          </div>
+          {{-- <div class="card mb-3">
             <div class="card-header">Patient's Basic Info</div>
             <div class="card-body">
               <div class="mb-4 d-flex justify-content-center">
-              {{-- <div class="mb-4 float-start"> --}}
                 <img id="{{ $viewFolder }}_profileImage" src="{{ !empty($datum->patient->profile_pic) ? (stristr($datum->patient->profile_pic, 'uploads') ? asset('storage/' . $datum->patient->profile_pic) : asset('storage/px_files/' . $datum->patient->profile_pic)) : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" alt="example placeholder" class="img-thumbnail w-25 h-25 m-2" />
               </div>
               <div class="d-flex justify-content-center mb-3">
@@ -62,9 +91,16 @@
                 </div>
               </div>
               <div class="form-floating mb-3">
-                <input class="form-control" type="date" name="{{ $viewFolder }}[Patient][birthdate]" id="{{ $viewFolder }}_birthdate" placeholder="" value="{{ !empty($datum->patient->birthdate) ? $datum->patient->birthdate : '' }}" required>
+                <input class="form-control" type="date" name="{{ $viewFolder }}[Patient][birthdate]" id="{{ $viewFolder }}_birthdate" placeholder="" value="{{ !empty($datum->patient->birthdate) ? $datum->patient->birthdate : '' }}" required onchange="
+                    $('{{ $viewFolder }}_age').val()
+                  "">
                 <label for="{{ $viewFolder }}_birthdate" class="form-label">Birth Date</label>
                 <small id="help_{{ $viewFolder }}_birthdate" class="text-muted"></small>
+              </div>
+              <div class="form-floating mb-3">
+                <input class="form-control" type="text" name="{{ $viewFolder }}[Patient][age]" id="{{ $viewFolder }}_age" placeholder="" value="{{ floor((strtotime($datum->bookingDate) - strtotime($datum->patient->birthdate))/(60*60*24*365.25)) }}" disabled>
+                <label for="{{ $viewFolder }}_age" class="form-label">Age</label>
+                <small id="help_{{ $viewFolder }}_age" class="text-muted"></small>
               </div>
               <div class="form-floating mb-3">
                 <input class="form-control" type="text" name="{{ $viewFolder }}[Patient][phil_num]" id="{{ $viewFolder }}_phil_num" placeholder="" value="{{ !empty($datum->patient->phil_num) ? $datum->patient->phil_num : '' }}" {{ isset($datum->payment_mode) && ($datum->payment_mode == 'Both' || $datum->payment_mode == 'Both Cash' || $datum->payment_mode == 'Philhealth') ? '' : '' }}>
@@ -150,7 +186,7 @@
                 <small id="help_{{ $viewFolder }}_notes" class="text-muted">Add notes following this format: yyyy-mm-dd - details. The latest on the top.</small>
               </div>
             </div>
-          </div>
+          </div> --}}
         </div>
         <div class="col-lg-6">
           <div class="card mb-3">
@@ -340,31 +376,7 @@
           </div>
         </div>
       </div>
-      {{-- <div class="card mb-3">
-        <div class="card-header">Basic Information</div>
-        <div class="card-body">
-          <img src="{{ !empty($datum->patient->profile_pic) ? (stristr($datum->patient->profile_pic, 'uploads') ? asset('storage/' . $datum->patient->profile_pic) : asset('storage/px_files/' . $datum->patient->profile_pic)) : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" class="img-thumbnail float-start w-25 h-25 m-2" alt="">
-          <p>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <strong>Name:</strong> {{ $datum->patient->name }} | 
-            <strong>Age:</strong> {{ floor((strtotime($datum->bookingDate) - strtotime($datum->patient->birthdate))/(60*60*24*365.25)) }} | 
-            <strong>Birthday:</strong> {{ $datum->patient->birthdate }} | 
-            <strong>Gender:</strong> {{ $datum->patient->gender }}<br>
-            <strong>Address:</strong> {{ $datum->patient->address }}<br>
-            <strong>Email:</strong> {{ $datum->patient->email }} | 
-            <strong>Mobile #:</strong> {{ $datum->patient->mobile_no }}<br>
-            <strong>Patient Type:</strong> {{ $datum->patient->patient_type }} | 
-            <strong>Patient Sub Type: </strong>{{ $datum->patient->patient_sub_type . ' ' . $datum->patient->referral_from }}<br>
-            <strong>Philhealth #: </strong>{{ $datum->patient->phil_num }}<br>
-            <strong>HMO:</strong> {{ $datum->patient->hmo }} | 
-            <strong>HMO #:</strong> {{ $datum->patient->hmo_num }}<br>
-          </p>  
-        </div>
-      </div> --}}
+      
     </div>
   </div>
   <div class="row">
