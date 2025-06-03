@@ -50,6 +50,39 @@
               </div>
             </div>
           </div>
+          <div class="card mb-3">
+            <div class="card-header">Booking History</div>
+            <div class="card-body table-responsive" style="max-height: 300px">
+              <table class="table table-bordered table-striped table-hover table-sm">
+                <thead class="table-{{ $bgColor }}">
+                    <tr>
+                        <th class=""><i class="bi bi-gear"></i></th>
+                        <th>Date</th>
+                        <th>Booking Type</th>
+                        <th>Procedure Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  @php
+                    $bookings = $datum->patient->consultations()->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->where('status', 'Done')->orderByDesc('bookingDate')->get();
+                  @endphp
+                  @foreach($bookings as $ind=>$dat)
+                    <tr>
+                      <td>
+                        <div class="d-sm-flex flex-sm-row">
+                          <div class="m-1"><a class="btn btn-{{ $bgColor }} btn-sm w-100" href="#" title="View" role="button" onclick="loadPrevBooking({{ $dat->id }}, {{ $ind }})"><i class="bi bi-binoculars"></i><span class="ps-1 d-sm-none">View</span></a></div>
+                        </div>
+                      </td>
+                      <td>{{ $dat->bookingDate }}</td>
+                      <td>{{ $dat->booking_type == '' ? 'Consultation' : $dat->booking_type }}</td>
+                      {{-- <td>{{ $dat->patient->name }}</td> --}}
+                      <td>{{ $dat->procedure_details }}</td>
+                    </tr>
+                  @endforeach
+                </tbody>
+              </table>
+            </div>
+          </div>
           {{-- <div class="card mb-3">
             <div class="card-header">Patient's Basic Info</div>
             <div class="card-body">
@@ -191,7 +224,7 @@
         <div class="col-lg-6">
           <div class="card mb-3">
             <div class="card-header">Patient's Medical History</div>
-            <div class="card-body">
+            <div class="card-body table-responsive" style="max-height: 760px">
               <label>Past Medical History</label>
               <div class="container ml-5 mb-3">
                 <div class="form-check">
@@ -381,39 +414,7 @@
   </div>
   <div class="row">
     <div class="col-lg-12 d-none d-md-block">
-      <div class="card mb-3">
-        <div class="card-header">Booking History</div>
-        <div class="card-body table-responsive" style="max-height: 185.5px">
-          <table class="table table-bordered table-striped table-hover table-sm">
-            <thead class="table-{{ $bgColor }}">
-                <tr>
-                    <th class=""><i class="bi bi-gear"></i></th>
-                    <th>Date</th>
-                    <th>Booking Type</th>
-                    <th>Procedure Details</th>
-                </tr>
-            </thead>
-            <tbody>
-              @php
-                $bookings = $datum->patient->consultations()->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->where('status', 'Done')->orderByDesc('bookingDate')->get();
-              @endphp
-              @foreach($bookings as $ind=>$dat)
-                <tr>
-                  <td>
-                    <div class="d-sm-flex flex-sm-row">
-                      <div class="m-1"><a class="btn btn-{{ $bgColor }} btn-sm w-100" href="#" title="View" role="button" onclick="loadPrevBooking({{ $dat->id }}, {{ $ind }})"><i class="bi bi-binoculars"></i><span class="ps-1 d-sm-none">View</span></a></div>
-                    </div>
-                  </td>
-                  <td>{{ $dat->bookingDate }}</td>
-                  <td>{{ $dat->booking_type == '' ? 'Consultation' : $dat->booking_type }}</td>
-                  {{-- <td>{{ $dat->patient->name }}</td> --}}
-                  <td>{{ $dat->procedure_details }}</td>
-                </tr>
-              @endforeach
-            </tbody>
-          </table>
-        </div>
-      </div>
+      
     </div>
     {{-- <div class="col-lg-6">
       <div class="card mb-3">
