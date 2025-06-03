@@ -1418,7 +1418,9 @@
                         <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id  ? '' : 'disabled' }}>Delete Helper</button>
                       </div>
                       <small class="text-muted">Content</small>
-                      <textarea class="form-control" name="{{ $viewFolder }}[docNotes]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_docNotes" @endif rows=3 {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id  ? 'required' : 'disabled' }}>{{ isset($datum->docNotes) ? $datum->docNotes : '' }}</textarea>
+                      <textarea class="form-control" name="{{ $viewFolder }}[docNotes]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_docNotes" @endif rows=3 {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id  ? 'required' : 'disabled' }} onchange="
+                        $('#{{ $viewFolder }}_findings').val($(this).val());
+                      ">{{ isset($datum->docNotes) ? $datum->docNotes : '' }}</textarea>
                       <small class="text-muted">Helper Save/Edit</small>
                       <div class="input-group input-group-small mb-3 flex-nowrap">
                         <div class="input-group-text">
@@ -1454,7 +1456,9 @@
                         <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id  ? '' : 'disabled' }}>Delete Helper</button>
                       </div>
                       <small class="text-muted">Content</small>
-                      <textarea class="form-control" name="{{ $viewFolder }}[assessment]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_assessment" @endif rows=3 {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id  ? 'required' : 'disabled' }}>{{ isset($datum->assessment) ? $datum->assessment : '' }}</textarea>
+                      <textarea class="form-control" name="{{ $viewFolder }}[assessment]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_assessment" @endif rows=3 {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id  ? 'required' : 'disabled' }} onchange="
+                        $('#{{ $viewFolder }}_diagnosis').val($(this).val());
+                      ">{{ isset($datum->assessment) ? $datum->assessment : '' }}</textarea>
                       <small class="text-muted">Helper Save/Edit</small>
                       <div class="input-group input-group-small mb-3 flex-nowrap">
                         <div class="input-group-text">
@@ -1612,7 +1616,9 @@
                         <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ $user->id == $cr->doctor->id && $clinicDat == $cr->clinic_id  ? '' : 'disabled' }}>Delete Helper</button>
                       </div>
                       <small class="text-muted">Content</small>
-                      <textarea class="form-control" name="{{ $viewFolder }}[docNotes]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_docNotes" @endif rows=3 {{ $user->id == $cr->doctor->id && $clinicDat == $cr->clinic_id  ? 'required' : 'disabled' }}>{{ isset($cr->docNotes) ? $cr->docNotes : '' }}</textarea>
+                      <textarea class="form-control" name="{{ $viewFolder }}[docNotes]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_docNotes" @endif rows=3 {{ $user->id == $cr->doctor->id && $clinicDat == $cr->clinic_id  ? 'required' : 'disabled' }} onchange="
+                        $('#{{ $viewFolder }}_findings').val($(this).val());
+                      ">{{ isset($cr->docNotes) ? $cr->docNotes : '' }}</textarea>
                       <small class="text-muted">Helper Save/Edit</small>
                       <div class="input-group input-group-small mb-3 flex-nowrap">
                         <div class="input-group-text">
@@ -1648,7 +1654,9 @@
                         <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ $user->id == $cr->doctor->id && $clinicDat == $cr->clinic_id  ? '' : 'disabled' }}>Delete Helper</button>
                       </div>
                       <small class="text-muted">Content</small>
-                      <textarea class="form-control" name="{{ $viewFolder }}[assessment]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_assessment" @endif rows=3 {{ $user->id == $cr->doctor->id && $clinicDat == $cr->clinic_id  ? 'required' : 'disabled' }}>{{ isset($cr->assessment) ? $cr->assessment : '' }}</textarea>
+                      <textarea class="form-control" name="{{ $viewFolder }}[assessment]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_assessment" @endif rows=3 {{ $user->id == $cr->doctor->id && $clinicDat == $cr->clinic_id  ? 'required' : 'disabled' }}  onchange="
+                        $('#{{ $viewFolder }}_diagnosis').val($(this).val());
+                      ">{{ isset($cr->assessment) ? $cr->assessment : '' }}</textarea>
                       <small class="text-muted">Helper Save/Edit</small>
                       <div class="input-group input-group-small mb-3 flex-nowrap">
                         <div class="input-group-text">
