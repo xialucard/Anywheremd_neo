@@ -236,7 +236,7 @@
       <div id="consoPatUploadDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
         <div class="mb-3">
           <label for="formFileMultiple" class="form-label">File Upload/s</label>
-          <input class="form-control" type="file" id="{{ $viewFolder }}_files" name="{{ $viewFolder }}[ConsultationFile][files][]" accept="image/png, image/gif, image/jpeg" multiple>
+          <input class="form-control" type="file" id="{{ $viewFolder }}_files" name="{{ $viewFolder }}[ConsultationFile][files][]" accept="image/*, .pdf" multiple>
         </div>
         <div class="row" id="image_preview_saved">
           @if(isset($datum->consultation_files))
@@ -253,7 +253,7 @@
       <div id="consoNurseUploadDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
         <div class="mb-3">
           <label for="formFileMultiple" class="form-label">Nurse File Upload/s</label>
-          <input class="form-control" type="file" id="{{ $viewFolder }}_nurse_files" name="{{ $viewFolder }}[NurseFile][files][]" accept="image/png, image/gif, image/jpeg" multiple>
+          <input class="form-control" type="file" id="{{ $viewFolder }}_nurse_files" name="{{ $viewFolder }}[NurseFile][files][]" accept="image/*, .pdf" multiple>
         </div>
         <div class="row" id="image_preview_saved_nurse">
           @if(isset($datum->nurse_files))
@@ -465,7 +465,7 @@
                     @endfor
                   </select>
                 </div>
-                <label for="{{ $viewFolder }}_vaodcor_num">UCVA OD w/ Correction</label>
+                <label for="{{ $viewFolder }}_vaodcor_num">UCVA OD Present Correction</label>
                 <div class="input-group mb-3 flex-nowrap">
                   <select class="form-select" name="{{ $viewFolder }}[vaodcor_num]" id="{{ $viewFolder }}_vaodcor_num" placeholder="" onchange="
                     if($(this).val() == 'CF' || $(this).val() == 'HM' || $(this).val() == 'GLP' || $(this).val() == 'PLP' || $(this).val() == 'NLP' || $(this).val() == 'NA'){
@@ -559,7 +559,7 @@
                     @endfor
                   </select>
                 </div>
-                <label for="{{ $viewFolder }}_vaoscor_num">UCVA OS w/ Correction</label>
+                <label for="{{ $viewFolder }}_vaoscor_num">UCVA OS Present Correction</label>
                 <div class="input-group mb-3 flex-nowrap">
                   <select class="form-select" name="{{ $viewFolder }}[vaoscor_num]" id="{{ $viewFolder }}_vaoscor_num" placeholder="" onchange="
                     if($(this).val() == 'CF' || $(this).val() == 'HM' || $(this).val() == 'GLP' || $(this).val() == 'PLP' || $(this).val() == 'NLP' || $(this).val() == 'NA'){
@@ -606,7 +606,7 @@
                     @endfor
                   </select>
                 </div>
-                <label for="{{ $viewFolder }}_pinod_num">BCVA OD</label>
+                <label for="{{ $viewFolder }}_pinod_num">VA OD Pinhole</label>
                 <div class="input-group mb-3 flex-nowrap">
                   <select class="form-select" name="{{ $viewFolder }}[pinod_num]" id="{{ $viewFolder }}_pinod_num" placeholder="" onchange="
                     if($(this).val() == 'CF' || $(this).val() == 'HM' || $(this).val() == 'GLP' || $(this).val() == 'PLP' || $(this).val() == 'NLP' || $(this).val() == 'NA'){
@@ -655,7 +655,7 @@
                     @endfor
                   </select>
                 </div>
-                <label for="{{ $viewFolder }}_pinodcor_num">BCVA OD w/ Correction</label>
+                <label for="{{ $viewFolder }}_pinodcor_num">BCVA OD</label>
                 <div class="input-group mb-3 flex-nowrap">
                   <select class="form-select" name="{{ $viewFolder }}[pinodcor_num]" id="{{ $viewFolder }}_pinodcor_num" placeholder="" onchange="
                     if($(this).val() == 'CF' || $(this).val() == 'HM' || $(this).val() == 'GLP' || $(this).val() == 'PLP' || $(this).val() == 'NLP' || $(this).val() == 'NA'){
@@ -704,7 +704,7 @@
                     @endfor
                   </select>
                 </div>
-                <label for="{{ $viewFolder }}_pinos_num">BCVA OS</label>
+                <label for="{{ $viewFolder }}_pinos_num">VA OS Pinhole</label>
                 <div class="input-group mb-3 flex-nowrap">
                   <select class="form-select" name="{{ $viewFolder }}[pinos_num]" id="{{ $viewFolder }}_pinos_num" placeholder="" onchange="
                     if($(this).val() == 'CF' || $(this).val() == 'HM' || $(this).val() == 'GLP' || $(this).val() == 'PLP' || $(this).val() == 'NLP' || $(this).val() == 'NA'){
@@ -753,7 +753,7 @@
                     @endfor
                   </select>
                 </div>
-                <label for="{{ $viewFolder }}_pinoscor_num">BCVA OS w/ Correction</label>
+                <label for="{{ $viewFolder }}_pinoscor_num">BCVA OS</label>
                 <div class="input-group mb-3 flex-nowrap">
                   <select class="form-select" name="{{ $viewFolder }}[pinoscor_num]" id="{{ $viewFolder }}_pinoscor_num" placeholder="" onchange="
                     if($(this).val() == 'CF' || $(this).val() == 'HM' || $(this).val() == 'GLP' || $(this).val() == 'PLP' || $(this).val() == 'NLP' || $(this).val() == 'NA'){
@@ -1296,6 +1296,7 @@
             if (total_file[i].size > 1048576) {
               return false;
             } else {
+
               fileArr.push(total_file[i]);
               $('#image_preview_nurse').append("<div class='img-div' id='img-div-nurse"+i+"'><img src='"+URL.createObjectURL(event.target.files[i])+"' class='img-thumbnail' title='"+total_file[i].name+"'><div class='middle'><button id='action-icon-nurse' value='img-div-nurse"+i+"' class='btn btn-danger' role='"+total_file[i].name+"'><i class='bi bi-trash'></i></button></div></div>");
             }
