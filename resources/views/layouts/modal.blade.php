@@ -97,11 +97,23 @@
     const myModalActive = document.querySelector('#inputFormModal')
 
     myModalActive.addEventListener("hidden.bs.modal", function () {
+        @if($viewFolder == "doctors_home" && !stristr($inputFormHeader, 'View'))
+        $('#doctors_home_submit_type').val('Pause');
+        $.ajax({
+            type: 'POST',
+            data: $('#bookMod').serialize(),
+            url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
+            success:
+                function (){
+                    window.location = "{!! isset($referer) ? $referer : route($viewFolder . '.index') !!}";
+                }
+        });
+        @else
         window.location = "{!! isset($referer) ? $referer : route($viewFolder . '.index') !!}";
+        @endif
     });
     
     @if(stristr($inputFormHeader, 'View'))
-    
     $(function(){
         $(".form-floating input").attr("disabled", true);
         $(".form-floating textarea").attr("disabled", true);
