@@ -318,6 +318,9 @@
                                                 
                                                 <th>Booking #</th>
                                                 <th class="">Doctor</th>
+                                            @if(!empty($booking_type) && $booking_type == 'Referral')
+                                                <th>Clinic</th>
+                                            @endif
                                                 <th class="">Patient</th>
                                             @if(isset($booking_type) && ($booking_type == 'Diagnostics' || $booking_type == 'Laser' || $booking_type == 'Surgery'))
                                                 <th class="">Procedure</th>
@@ -360,6 +363,9 @@
                                             @endif
                                                 <td>{{ $dat->id }}</td>
                                                 <td class="">Dr. {{ $dat->doctor->name }}</td>
+                                            @if($booking_type == 'Referral')
+                                                <td>{{ $dat->clinic->name }}</td>
+                                            @endif
                                                 <td class="">{{ $dat->patient->name }}</td>
                                             @if(isset($booking_type) && ($booking_type == 'Diagnostics' || $booking_type == 'Laser' || $booking_type == 'Surgery'))
                                                 <td class="">{{ $dat->procedure_details }}</td>
