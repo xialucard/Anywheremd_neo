@@ -36,8 +36,16 @@ class ClinicsHomeController extends Controller
         // exit();
 
         $urlQuery = null;
-        if(stristr('?', $request->fullUrl()))
+        if(stristr($request->fullUrl(), '?')){
+            // print "pumasok";
             $urlQuery = urldecode(explode('?', $request->fullUrl())[1]);
+        }
+            
+
+        // print "<pre>";
+        // print_r($request->fullUrl());
+        // print "</pre>";
+        // exit();
 
         $user = Auth::user();
         if(!isset($yr))
@@ -206,9 +214,7 @@ class ClinicsHomeController extends Controller
             else
                 $bookingArr[date('d', strtotime($booking->bookingDate))] += 1;
         }
-        print "<pre>";
-        print_r($urlQuery);
-        print "</pre>";
+        
 
         if($user->active == 2)
             return redirect()->route('home.myaccount')->with("Incomplete Form", $this->newUserMsg);
