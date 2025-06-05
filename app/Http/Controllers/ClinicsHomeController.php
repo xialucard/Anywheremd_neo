@@ -715,7 +715,7 @@ class ClinicsHomeController extends Controller
             $patients = Patient::where('name', 'like', "%{$patient_name}%")->whereIn('id', $patientsId)->orderBy('name')->get();
         }elseif($user->user_type == 'Doctor'){
             unset($patientsId);
-            foreach(Consultation::where('doctor_id', $user->id)->->get() as $booking){
+            foreach(Consultation::where('doctor_id', $user->id)->get() as $booking){
                 if($booking->patient_id != '')
                     $patientsId[$booking->patient_id] = $booking->patient_id;
             }
