@@ -706,7 +706,6 @@ class ClinicsHomeController extends Controller
         if($user->user_type == 'Clinic' && is_null($conso)){
             $patients = Patient::where('name', 'like', "%{$patient_name}%")->where('client_id', $user->id)->get();
         }elseif($user->user_type == 'Clinic'){
-            print "pumasok";
             unset($patientsId);
             foreach($user->clinic->bookings()->distinct('patient_id')->get() as $booking){
                 if($booking->patient_id != '')
