@@ -113,7 +113,7 @@ class PatientRecordsController extends Controller
         $user = Auth::user();
         $condition[] = [$model . '.active', 1];
         if($user->user_type != 'Internal' && $user->user_type != 'Doctor')
-            $condition[] = [$model . '.clinic_id', $user->clinic_id];
+            $condition[] = ['consultations.clinic_id', $user->clinic_id];
         elseif($user->user_type == 'Doctor')
             $condition[] = ['consultations.doctor_id', $user->id];
         if(!empty($search_query)){
