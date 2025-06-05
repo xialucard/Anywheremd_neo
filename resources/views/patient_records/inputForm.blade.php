@@ -83,6 +83,7 @@
                 <tr>
                     <th class=""><i class="bi bi-gear"></i></th>
                     <th>Date</th>
+                    <th>ID</th>
                     <th>Booking Type</th>
                     <th>Procedure Details</th>
                     @if($user->user_type != 'Doctor')
@@ -114,6 +115,7 @@
                     </div>
                   </td>
                   <td>{{ $dat->bookingDate }}</td>
+                  <td>{{ $dat->id }}</td>
                   <td>{{ $dat->booking_type == '' ? 'Consultation' : $dat->booking_type }}</td>
                   {{-- <td>{{ $dat->patient->name }}</td> --}}
                   <td>{{ $dat->procedure_details }}</td>
