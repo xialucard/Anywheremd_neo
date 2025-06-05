@@ -15,7 +15,7 @@
       val = $(this).val();
       $.ajax({
         type: 'GET',
-        url: '{{ Route::has('clinics_home.getPatientList') ? route('clinics_home.getPatientList') : ''}}/' + val,
+        url: '{{ Route::has('clinics_home.getPatientList') ? route('clinics_home.getPatientList') : ''}}/' + val + '/true',
         success: function(data){
           patientsObj = jQuery.parseJSON(data);
           var options = "";

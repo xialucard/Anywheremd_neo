@@ -130,16 +130,20 @@ class PatientRecordsController extends Controller
         $user = Auth::user();
         $selectItems = null;
         $selectItems['specialty'] = $this->docSpecs;
-        if($user->user_type == 'Clinic')
-            $selectItems['patients'] = $user->patients->sortBy('name');
-        elseif($user->user_type == 'Doctor'){
+        if($user->user_type == 'Clinic'){
+            foreach($user->clinic->bookings()->distinct('patient_id')->get() as $booking){
+                if(isset($booking->patient->name)){
+                    $selectItems['patients'][$booking->patient->name] = $booking->patient;
+                    
+                }
+            }
+        }elseif($user->user_type == 'Doctor'){
             foreach($user->bookings()->distinct('patient_id')->get() as $booking){
                 if(isset($booking->patient->name)){
                     $selectItems['patients'][$booking->patient->name] = $booking->patient;
                     
                 }
             }
-
         }
         return $selectItems;
     }
