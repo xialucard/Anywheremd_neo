@@ -701,17 +701,25 @@ class ClinicsHomeController extends Controller
         NurseFile::destroy($id);
     }
 
-    function getPatientList($patient_name){
+    function getPatientList($patient_name, $conso = null){
         $user = Auth::user();
-        if($user->user_type == 'Clinic'){
+        if($user->user_type == 'Clinic' && is_null($conso)){
             $patients = Patient::where('name', 'like', "%{$patient_name}%")->where('client_id', $user->id)->get();
+        }elseif($user->user_type == 'Clinic'){
+            print "pumasok";
+            unset($patientsId);
+            foreach($user->clinic->bookings()->distinct('patient_id')->get() as $booking){
+                if($booking->patient_id != '')
+                    $patientsId[$booking->patient_id] = $booking->patient_id;
+            }
+            $patients = Patient::where('name', 'like', "%{$patient_name}%")->whereIn('id', $patientsId)->orderBy('name')->get();
         }elseif($user->user_type == 'Doctor'){
             unset($patientsId);
             foreach($user->bookings()->distinct('patient_id')->get() as $booking){
                 if($booking->patient_id != '')
                     $patientsId[$booking->patient_id] = $booking->patient_id;
             }
-            $patients = Patient::where('name', 'like', "%{$patient_name}%")->whereIn('id', $patientsId)->get();
+            $patients = Patient::where('name', 'like', "%{$patient_name}%")->whereIn('id', $patientsId)->orderBy('name')->get();
         }else{
             $patients = Patient::where('name', 'like', "%{$patient_name}%")->get();
         }
