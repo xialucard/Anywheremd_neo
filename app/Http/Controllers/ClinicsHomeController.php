@@ -206,9 +206,9 @@ class ClinicsHomeController extends Controller
             else
                 $bookingArr[date('d', strtotime($booking->bookingDate))] += 1;
         }
-        // print "<pre>";
-        // print_r($bookingArr);
-        // print "</pre>";
+        print "<pre>";
+        print_r($urlQuery);
+        print "</pre>";
 
         if($user->active == 2)
             return redirect()->route('home.myaccount')->with("Incomplete Form", $this->newUserMsg);
