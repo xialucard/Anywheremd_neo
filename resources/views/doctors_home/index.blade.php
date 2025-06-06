@@ -108,7 +108,7 @@
                                                 <td>&nbsp;</td>
                                                     @else
                                                 <td class="{{ $border }} {{ $textColor }}">
-                                                    @if(strtotime($yr . '-' . $mon . '-' . $i) >= strtotime('-3 days'))
+                                                    @if(strtotime($yr . '-' . $mon . '-' . $i) >= strtotime('- 4 days'))
                                                         @can($viewFolder . '.index')
                                                             @if(isset($calendarArr[$i]) && $calendarArr[$i]>0)
                                                         <a href="{{ route($viewFolder . '.index') . '/' . $yr . '/' . $mon . '/' . $i }}" class="link-{{ $bgColor }} link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
@@ -147,7 +147,7 @@
                                                 @endforeach
                                             @else
                                                 <td class="{{ $border }} {{ $textColor }}">
-                                                    @if(strtotime($yr . '-' . $mon . '-' . $i) >= strtotime('-3 days'))
+                                                    @if(strtotime($yr . '-' . $mon . '-' . $i) >= strtotime('- 4 days'))
                                                         @can($viewFolder . '.index')
                                                             @if(isset($calendarArr[$i]) && $calendarArr[$i]>0)
                                                         <a href="{{ route($viewFolder . '.index') . '/' . $yr . '/' . $mon . '/' . $i }}" class="link-{{ $bgColor }} link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">

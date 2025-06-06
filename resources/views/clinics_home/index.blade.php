@@ -169,7 +169,7 @@
                                                 <td>&nbsp;</td>
                                                     @else
                                                 <td class="{{ $border }} {{ $textColor }}">
-                                                    @if(strtotime($yr . '-' . $mon . '-' . $i) >= strtotime(' - 3 days'))
+                                                    @if(strtotime($yr . '-' . $mon . '-' . $i) >= strtotime(' - 4 days'))
                                                         @can($viewFolder . '.index')
                                                             {{-- @if(!empty($user->clinic->schedules()->whereIn('doctor_id', $doctor_list_id)->where('dateSched', $yr . '-' . $mon . '-' . $i)->get()[0])) --}}
                                                             @if(isset($calendarArr[$i]) && sizeof($calendarArr[$i])>0)
@@ -223,7 +223,7 @@
                                                 @endforeach
                                             @else
                                                 <td class="{{ $border }} {{ $textColor }}">
-                                                    @if(strtotime($yr . '-' . $mon . '-' . $i) >= strtotime('-3 days'))
+                                                    @if(strtotime($yr . '-' . $mon . '-' . $i) >= strtotime('- 4 days'))
                                                         @can($viewFolder . '.index')
                                                             {{-- @if(!empty($user->clinic->schedules()->whereIn('doctor_id', $doctor_list_id)->where('dateSched', $yr . '-' . $mon . '-' . $i)->get()[0])) --}}
                                                             @if(isset($calendarArr[$i]) && sizeof($calendarArr[$i])>0)
