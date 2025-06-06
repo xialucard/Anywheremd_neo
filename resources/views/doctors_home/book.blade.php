@@ -1200,15 +1200,15 @@
                   $('#{{ $viewFolder }}_admittingOrderHelperDelete').prop('disabled', true);
                   @endif
 
-                  $('#{{ $viewFolder }}_prescription').val('{{ $cr->prescription }}');
-                  $('#{{ $viewFolder }}_findings').val('{{ $cr->findings }}');
-                  $('#{{ $viewFolder }}_diagnosis').val('{{ $cr->diagnosis }}');
-                  $('#{{ $viewFolder }}_recommendations').val('{{ $cr->recommendations }}');
-                  $('#{{ $viewFolder }}_con_date_ao').val('{{ $cr->con_date_ao }}');
-                  $('#{{ $viewFolder }}_procedure_ao').val('{{ $cr->procedure_ao }}');
-                  $('#{{ $viewFolder }}_anesthesia_type_ao').val('{{ $cr->anesthesia_type_ao }}');
-                  $('#{{ $viewFolder }}_anesthesiologist_ao').val('{{ $cr->anesthesiologist_ao }}');
-                  $('#{{ $viewFolder }}_admittingOrder').val('{{ $cr->admittingOrder }}');
+                  $('#{{ $viewFolder }}_prescription').val('{{ addslashes($cr->prescription) }}');
+                  $('#{{ $viewFolder }}_findings').val('{{ addslashes($cr->findings) }}');
+                  $('#{{ $viewFolder }}_diagnosis').val('{{ addslashes($cr->diagnosis) }}');
+                  $('#{{ $viewFolder }}_recommendations').val('{{ addslashes($cr->recommendations) }}');
+                  $('#{{ $viewFolder }}_con_date_ao').val('{{ addslashes($cr->con_date_ao) }}');
+                  $('#{{ $viewFolder }}_procedure_ao').val('{{ addslashes($cr->procedure_ao) }}');
+                  $('#{{ $viewFolder }}_anesthesia_type_ao').val('{{ addslashes($cr->anesthesia_type_ao) }}');
+                  $('#{{ $viewFolder }}_anesthesiologist_ao').val('{{ addslashes($cr->anesthesiologist_ao) }}');
+                  $('#{{ $viewFolder }}_admittingOrder').val('{{ addslashes($cr->admittingOrder) }}');
 
               ">{{ $user->name == $cr->doctor->name ? 'Yours - ' . $cr->clinic->name : 'Dr. ' . Str::substr($cr->doctor->f_name, 0, 1) . '. ' . $cr->doctor->l_name . ' - ' . $cr->clinic->name }}</a>
             </li>
