@@ -65,6 +65,7 @@
                 <tbody>
                   @php
                     $bookings = $datum->patient->consultations()->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->where('status', 'Done')->orderByDesc('bookingDate')->get();
+                    print_r($bookings->icd_code_obj)l
                   @endphp
                   @foreach($bookings as $ind=>$dat)
                     <tr>
