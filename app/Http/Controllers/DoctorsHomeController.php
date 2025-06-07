@@ -353,6 +353,7 @@ class DoctorsHomeController extends Controller
         $data = $this->getData($request->input());
         $user = Auth::user();
         $datum = $doctors_home;
+        // dd($datum->icd_code_obj);
         $yr = null;
         $mon = null;
         $dayNum = null;
@@ -417,8 +418,6 @@ class DoctorsHomeController extends Controller
             unset($params['docNotesSubject']);
             $paramsRef['docNotes'] = $params['docNotes'];
             unset($params['docNotes']);
-            $paramsRef['icd_code'] = $params['icd_code'];
-            unset($params['icd_code']);
             $paramsRef['assessment'] = $params['assessment'];
             unset($params['assessment']);
             $paramsRef['planMed'] = $params['planMed'];
@@ -427,26 +426,44 @@ class DoctorsHomeController extends Controller
             unset($params['plan']);
             $paramsRef['planRem'] = $params['planRem'];
             unset($params['planRem']);
-            $paramsRef['prescription'] = $params['prescription'];
-            unset($params['prescription']);
-            $paramsRef['findings'] = $params['findings'];
-            unset($params['findings']);
-            $paramsRef['diagnosis'] = $params['diagnosis'];
-            unset($params['diagnosis']);
-            $paramsRef['recommendations'] = $params['recommendations'];
-            unset($params['recommendations']);
-            $paramsRef['con_date_ao'] = $params['con_date_ao'];
-            unset($params['con_date_ao']);
-            $paramsRef['procedure_ao'] = $params['procedure_ao'];
-            unset($params['procedure_ao']);
+            if(isset($params['prescription'])){
+                $paramsRef['prescription'] = $params['prescription'];
+                unset($params['prescription']);
+            }
+            if(isset($params['findings'])){    
+                $paramsRef['findings'] = $params['findings'];
+                unset($params['findings']);
+            }
+            if(isset($params['diagnosis'])){ 
+                $paramsRef['diagnosis'] = $params['diagnosis'];
+                unset($params['diagnosis']);
+            }
+            if(isset($params['recommendations'])){ 
+                $paramsRef['recommendations'] = $params['recommendations'];
+                unset($params['recommendations']);
+            }
+            if(isset($params['con_date_ao'])){ 
+                $paramsRef['con_date_ao'] = $params['con_date_ao'];
+                unset($params['con_date_ao']);
+            }
+            if(isset($params['procedure_ao'])){ 
+                $paramsRef['procedure_ao'] = $params['procedure_ao'];
+                unset($params['procedure_ao']);
+            }
             if(isset($params['anesthesia_type_ao'])){
                 $paramsRef['anesthesia_type_ao'] = $params['anesthesia_type_ao'];
                 unset($params['anesthesia_type_ao']);
             }
-            $paramsRef['anesthesiologist_ao'] = $params['anesthesiologist_ao'];
-            unset($params['anesthesiologist_ao']);
-            $paramsRef['admittingOrder'] = $params['admittingOrder'];
-            unset($params['admittingOrder']);
+            if(isset($params['anesthesiologist_ao'])){ 
+                $paramsRef['anesthesiologist_ao'] = $params['anesthesiologist_ao'];
+                unset($params['anesthesiologist_ao']);
+            }
+            if(isset($params['admittingOrder'])){ 
+                $paramsRef['admittingOrder'] = $params['admittingOrder'];
+                unset($params['admittingOrder']);
+            }
+            if($params['icd_code'] != '')
+                $paramsRef['icd_code'] = explode(' - ', $params['icd_code'])[0];
             $consultationObj->update($paramsRef);
             if(!empty($request->doctors_home['ConsultationFile']['files'])){
                 foreach($request->doctors_home['ConsultationFile']['files'] as $ind => $file){
@@ -495,6 +512,9 @@ class DoctorsHomeController extends Controller
             }
             unset($params['referral_id']);
             $params['updated_by'] = $user->id;
+            if($params['icd_code'] != '')
+                $params['icd_code'] = explode(' - ', $params['icd_code'])[0];
+            // dd($params);
             $doctors_home->update($params);
         }
         
@@ -600,8 +620,8 @@ class DoctorsHomeController extends Controller
         // return redirect()->route($this->viewFolder . '.index')->with('message', 'Admitting Order PDF is created.');
     }
 
-    function getIcdCode(?int $patient_id){
-        $icd_code = IcdCode::find($patient_id);
+    function getIcdCode($icd_code){
+        $icd_code = IcdCode::where('icd_code', 'like', "%{$icd_code}%")->orWhere('details', 'like', "%{$icd_code}%")->get();
         return json_encode($icd_code);
     }
 

@@ -111,6 +111,11 @@ class Consultation extends Model
         return $this->belongsTo(Patient::class, 'patient_id');
     }
 
+    public function icd_code_obj()
+    {
+        return $this->belongsTo(IcdCode::class, 'icd_code', 'icd_code');
+    }
+
     public function consultation_files()
     {
         return $this->hasMany(ConsultationFile::class, 'consultation_id');

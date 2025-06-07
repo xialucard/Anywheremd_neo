@@ -723,7 +723,7 @@
                   {{-- <select class="form-select" name="{{ $viewFolder }}[icd_code]" id="{{ $viewFolder }}_icd_code" placeholder="" disabled>
                     <option value=""></option>
                   </select> --}}
-                  <input class="form-control" list="icdCodeList" id="{{ $viewFolder }}_icd_code" name="{{ $viewFolder }}[icd_code]" value="{{ isset($referedDoctorArr) ? implode(',', $referedDoctorArr) : '' }}" autocomplete="off">
+                  <input class="form-control" list="icdCodeList" id="{{ $viewFolder }}_prev_icd_code" name="{{ $viewFolder }}[icd_code]" value="{{ isset($bookings[0]->icd_code_obj->icd_code) ? $bookings[0]->icd_code_obj->icd_code . ' - ' . $bookings[0]->icd_code->details : '' }}" autocomplete="off" disabled>
                   <label for="{{ $viewFolder }}_icd_code">Previous Primary Diagnosis</label>
                   <small id="help_{{ $viewFolder }}_icd_code" class="text-muted"></small>
                 </div>
@@ -1458,7 +1458,7 @@
                     {{-- <select class="form-select" name="{{ $viewFolder }}[icd_code]" id="{{ $viewFolder }}_icd_code" placeholder="" {{ $user->id == $datum->doctor->id ? '' : 'disabled' }}>
                       <option value=""></option>
                     </select> --}}
-                    <input class="form-control" list="icdCodeList" id="{{ $viewFolder }}_icd_code" name="{{ $viewFolder }}[icd_code]" value="{{ isset($referedDoctorArr) ? implode(',', $referedDoctorArr) : '' }}" autocomplete="off">
+                    <input class="form-control" list="icdCodeList" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id  ? 'id=' . $viewFolder . '_icd_code' : '' }} name="{{ $viewFolder }}[icd_code]" value="{{ isset($datum->icd_code_obj->icd_code) ? $datum->icd_code_obj->icd_code . ' - ' . $datum->icd_code_obj->details : '' }}" autocomplete="off" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id  ? '' : 'disabled' }}>
                     <label for="{{ $viewFolder }}_icd_code">Primary Diagnosis</label>
                     <small id="help_{{ $viewFolder }}_icd_code" class="text-muted"></small>
                   </div>
@@ -1656,7 +1656,7 @@
                     {{-- <select class="form-select" name="{{ $viewFolder }}[icd_code]" id="{{ $viewFolder }}_icd_code" placeholder="" {{ $user->id == $cr->doctor->id ? '' : 'disabled' }}>
                       <option value=""></option>
                     </select> --}}
-                    <input class="form-control" list="icdCodeList" id="{{ $viewFolder }}_icd_code" name="{{ $viewFolder }}[icd_code]" value="{{ isset($referedDoctorArr) ? implode(',', $referedDoctorArr) : '' }}" autocomplete="off">
+                    <input class="form-control" list="icdCodeList" {{ $user->id == $cr->doctor->id && $clinicDat == $cr->clinic_id  ? 'id=' . $viewFolder . '_icd_code' : '' }} name="{{ $viewFolder }}[icd_code]" value="{{ isset($cr->icd_code_obj->icd_code) ? $cr->icd_code_obj->icd_code . ' - ' . $cr->icd_code_obj->details : '' }}" autocomplete="off" {{ $user->id == $cr->doctor->id && $clinicDat == $cr->clinic_id  ? '' : 'disabled' }}>
                     <label for="{{ $viewFolder }}_icd_code">Primary Diagnosis</label>
                     <small id="help_{{ $viewFolder }}_icd_code" class="text-muted"></small>
                   </div>
@@ -2385,15 +2385,8 @@
         evt.preventDefault();
     });
     
-    function FileListItem(file) {
-              file = [].slice.call(Array.isArray(file) ? file : arguments)
-              for (var c, b = c = file.length, d = !0; b-- && d;) d = file[b] instanceof File
-              if (!d) throw new TypeError("expected argument to FileList is File or array of File objects")
-              for (b = (new ClipboardEvent("")).clipboardData || new DataTransfer; c--;) b.items.add(file[c])
-              return b.files
-          }
-  });
-  $("#{{ $viewFolder }}_icd_code").on("input", function () {
+    
+    $("#{{ $viewFolder }}_icd_code").on("input", function () {
       val = $(this).val();
       $.ajax({
         type: 'GET',
@@ -2402,11 +2395,20 @@
           icdCodeObj = jQuery.parseJSON(data);
           var options = "";
           icdCodeObj.forEach(function (item, index){
-              options  += '<option value="' + item.icd_code + '">' + item.details + '</option>';
+              options  += '<option value="' + item.icd_code + ' - ' + item.details + '">' + item.icd_code + ' - ' + item.details + '</option>';
           });
           $("#icdCodeList").html(options);
         }
       });
     });
+  });
+
+  function FileListItem(file) {
+    file = [].slice.call(Array.isArray(file) ? file : arguments)
+    for (var c, b = c = file.length, d = !0; b-- && d;) d = file[b] instanceof File
+    if (!d) throw new TypeError("expected argument to FileList is File or array of File objects")
+    for (b = (new ClipboardEvent("")).clipboardData || new DataTransfer; c--;) b.items.add(file[c])
+    return b.files
+  }
 
 </script>
