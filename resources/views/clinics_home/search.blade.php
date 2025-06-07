@@ -4,7 +4,7 @@
     <small id="help_search_{{ $viewFolder }}_name" class="text-muted"></small>
 </div>
 <div class="form-floating mb-3">
-    <input type="text" name="{{ $viewFolder }}[Doctor][name]" id="search_{{ $viewFolder }}_doctor_name" class="form-control" placeholder="" aria-describedby="helpId">
+    <input type="text" list="doctorNameList" name="{{ $viewFolder }}[Doctor][name]" id="search_{{ $viewFolder }}_doctor_name" class="form-control" placeholder="" aria-describedby="helpId">
     <label for="search_{{ $viewFolder }}_doctor_name" class="form-label">{{ str_replace('Input New ', '', $inputFormHeader) }} Doctor's Name</label>
     <small id="help_search_{{ $viewFolder }}_doctor_name" class="text-muted"></small>
 </div>
@@ -28,22 +28,23 @@
             });
         }
     });
+
+    $("#search_{{ $viewFolder }}_doctor_name").on("input", function () {
+        val = $(this).val();
+        if(val.length >= 3){
+            $.ajax({
+                type: 'GET',
+                url: '{{ Route::has('clinics_home.getDoctorList') ? route('clinics_home.getDoctorList') : ''}}/' + val,
+                success: function(data){
+                patientsObj = jQuery.parseJSON(data);
+                var options = "";
+                patientsObj.forEach(function (item, index){
+                    options  += '<option patient_id="' + item.id + '" value="' + item.name + '">' + item.name + '</option>';
+                });
+                $("#doctorNameList").html(options);
+                }
+            });
+        }
+    });
 </script>
 
-{{-- <script>
-    $("#search_{{ $viewFolder }}_doctor_name").on("input", function () {
-      val = $(this).val();
-      $.ajax({
-        type: 'GET',
-        url: '{{ Route::has('clinics_home.getPatientList') ? route('clinics_home.getPatientList') : ''}}/' + val,
-        success: function(data){
-          patientsObj = jQuery.parseJSON(data);
-          var options = "";
-          patientsObj.forEach(function (item, index){
-              options  += '<option patient_id="' + item.id + '" value="' + item.name + '">' + item.name + '</option>';
-          });
-          $("#patientNameList").html(options);
-        }
-      });
-    });
-</script> --}}

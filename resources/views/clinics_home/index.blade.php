@@ -2,6 +2,7 @@
 @section('content')
 
 <datalist id="patientNameList"></datalist>
+<datalist id="doctorNameList"></datalist>
 
 <div class="container">
     <div class="row justify-content-center">

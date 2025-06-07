@@ -718,7 +718,7 @@ class ClinicsHomeController extends Controller
     function getPatientList($patient_name, $conso = null){
         $user = Auth::user();
         if($user->user_type == 'Clinic' && is_null($conso)){
-            $patients = Patient::where('name', 'like', "%{$patient_name}%")->where('client_id', $user->id)->get();
+            $patients = Patient::where('name', 'like', "%{$patient_name}%")->where('client_id', $user->id)->orderBy('name')->get();
         }elseif($user->user_type == 'Clinic'){
             unset($patientsId);
             // foreach($user->clinic->bookings()->distinct('patient_id')->get() as $booking){
@@ -726,18 +726,29 @@ class ClinicsHomeController extends Controller
                 if($booking->patient_id != '')
                     $patientsId[$booking->patient_id] = $booking->patient_id;
             }
-            $patients = Patient::where('name', 'like', "%{$patient_name}%")->whereIn('id', $patientsId)->orderBy('name')->get();
+            $patients = Patient::where('name', 'like', "%{$patient_name}%")->whereIn('id', $patientsId)->orderBy('name')->distinct()->get('name');
         }elseif($user->user_type == 'Doctor'){
             unset($patientsId);
             foreach(Consultation::where('doctor_id', $user->id)->get() as $booking){
                 if($booking->patient_id != '')
                     $patientsId[$booking->patient_id] = $booking->patient_id;
             }
-            $patients = Patient::where('name', 'like', "%{$patient_name}%")->whereIn('id', $patientsId)->orderBy('name')->get();
+            $patients = Patient::where('name', 'like', "%{$patient_name}%")->whereIn('id', $patientsId)->orderBy('name')->distinct()->get('name');
         }else{
-            $patients = Patient::where('name', 'like', "%{$patient_name}%")->get();
+            $patients = Patient::where('name', 'like', "%{$patient_name}%")->orderBy('name')->distinct()->get('name');
         }
         return json_encode($patients);
+    }
+
+    function getDoctorList($patient_name, $conso = null){
+        $user = Auth::user();
+        unset($doctorsId);
+        foreach(Consultation::where('clinic_id', $user->clinic_id)->get('doctor_id') as $booking){
+            if($booking->doctor_id != '')
+                $doctorsId[$booking->doctor_id] = $booking->doctor_id;
+        }
+        $doctors = User::where('name', 'like', "%{$patient_name}%")->whereIn('id', $doctorsId)->orderBy('name')->distinct()->get('name');
+        return json_encode($doctors);
     }
 
     private function getData($search_query = null)
