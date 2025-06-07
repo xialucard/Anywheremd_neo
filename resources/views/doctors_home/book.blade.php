@@ -1136,18 +1136,26 @@
                   $('#{{ $viewFolder }}_admittingOrderSelect').prop('disabled', true);
                   $('#{{ $viewFolder }}_admittingOrderHelperDelete').prop('disabled', true);
                   @endif
-                  $('#{{ $viewFolder }}_prescription').val('{{ $datum->prescription }}');
-                  $('#{{ $viewFolder }}_findings').val('{{ $datum->findings }}');
-                  $('#{{ $viewFolder }}_diagnosis').val('{{ $datum->diagnosis }}');
-                  $('#{{ $viewFolder }}_recommendations').val('{{ $datum->recommendations }}');
-                  $('#{{ $viewFolder }}_con_date_ao').val('{{ $datum->con_date_ao }}');
-                  $('#{{ $viewFolder }}_procedure_ao').val('{{ $datum->procedure_ao }}');
-                  $('#{{ $viewFolder }}_anesthesia_type_ao').val('{{ $datum->anesthesia_type_ao }}');
-                  $('#{{ $viewFolder }}_anesthesiologist_ao').val('{{ $datum->anesthesiologist_ao }}');
-                  $('#{{ $viewFolder }}_admittingOrder').val('{{ $datum->admittingOrder }}');
+                  $('#{{ $viewFolder }}_prescription').val($('#{{ $viewFolder }}_parent_prescription_hidden').val());
+                  $('#{{ $viewFolder }}_findings').val($('#{{ $viewFolder }}_parent_findings_hidden').val());
+                  $('#{{ $viewFolder }}_diagnosis').val($('#{{ $viewFolder }}_parent_diagnosis_hidden').val());
+                  $('#{{ $viewFolder }}_recommendations').val($('#{{ $viewFolder }}_parent_recommendations_hidden').val());
+                  $('#{{ $viewFolder }}_con_date_ao').val($('#{{ $viewFolder }}_parent_con_date_ao_hidden').val());
+                  $('#{{ $viewFolder }}_procedure_ao').val($('#{{ $viewFolder }}_parent_procedure_ao_hidden').val());
+                  $('#{{ $viewFolder }}_anesthesia_type_ao').val($('#{{ $viewFolder }}_parent_anesthesia_type_ao_hidden').val());
+                  $('#{{ $viewFolder }}_anesthesiologist_ao').val($('#{{ $viewFolder }}_parent_anesthesiologist_ao_hidden').val());
+                  $('#{{ $viewFolder }}_admittingOrder').val($('#{{ $viewFolder }}_parent_admittingOrder_hidden').val());
                 ">{{  $user->id == $datum->doctor->id ? 'Yours - ' . $datum->clinic->name : 'Dr. ' . Str::substr($datum->doctor->f_name, 0, 1) . '. ' . $datum->doctor->l_name . ' - ' . $datum->clinic->name}}</a>
             </li>
-            
+            <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_prescription_hidden" value="{{ addslashes($datum->prescription) }}">
+            <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_findings_hidden" value="{{ addslashes($datum->findings) }}">
+            <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_diagnosis_hidden" value="{{ addslashes($datum->diagnosis) }}">
+            <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_recommendations_hidden" value="{{ addslashes($datum->recommendations) }}">
+            <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_con_date_ao_hidden" value="{{ addslashes($datum->con_date_ao) }}">
+            <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_procedure_ao_hidden" value="{{ addslashes($datum->procedure_ao) }}">
+            <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_anesthesia_type_ao_hidden" value="{{ addslashes($datum->anesthesia_type_ao) }}">
+            <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_anesthesiologist_ao_hidden" value="{{ addslashes($datum->anesthesiologist_ao) }}">
+            <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_admittingOrder_hidden" value="{{ addslashes($datum->admittingOrder) }}">
             @if(isset($datum->consultation_referals[0]->id))
               @foreach($datum->consultation_referals as $cr)
             <li class="nav-item">
