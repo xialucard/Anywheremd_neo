@@ -9,17 +9,19 @@
 <script>
     $("#search_{{ $viewFolder }}_name").on("input", function () {
       val = $(this).val();
-      $.ajax({
-        type: 'GET',
-        url: '{{ Route::has('clinics_home.getPatientList') ? route('clinics_home.getPatientList') : ''}}/' + val + '/true',
-        success: function(data){
-          patientsObj = jQuery.parseJSON(data);
-          var options = "";
-          patientsObj.forEach(function (item, index){
-              options  += '<option patient_id="' + item.id + '" value="' + item.name + '">' + item.name + '</option>';
-          });
-          $("#patientNameList").html(options);
-        }
-      });
+      if(val.length >= 3){
+        $.ajax({
+          type: 'GET',
+          url: '{{ Route::has('clinics_home.getPatientList') ? route('clinics_home.getPatientList') : ''}}/' + val + '/true',
+          success: function(data){
+            patientsObj = jQuery.parseJSON(data);
+            var options = "";
+            patientsObj.forEach(function (item, index){
+                options  += '<option patient_id="' + item.id + '" value="' + item.name + '">' + item.name + '</option>';
+            });
+            $("#patientNameList").html(options);
+          }
+        });
+      }
     });
 </script>

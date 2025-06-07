@@ -2391,18 +2391,21 @@
     
     $("#{{ $viewFolder }}_icd_code").on("input", function () {
       val = $(this).val();
-      $.ajax({
-        type: 'GET',
-        url: '{{ Route::has('doctors_home.getIcdCode') ? route('doctors_home.getIcdCode') : ''}}/' + val,
-        success: function(data){
-          icdCodeObj = jQuery.parseJSON(data);
-          var options = "";
-          icdCodeObj.forEach(function (item, index){
-              options  += '<option value="' + item.icd_code + ' - ' + item.details + '">' + item.icd_code + ' - ' + item.details + '</option>';
-          });
-          $("#icdCodeList").html(options);
-        }
-      });
+      if(val.length > 3){
+        $.ajax({
+          type: 'GET',
+          url: '{{ Route::has('doctors_home.getIcdCode') ? route('doctors_home.getIcdCode') : ''}}/' + val,
+          success: function(data){
+            icdCodeObj = jQuery.parseJSON(data);
+            var options = "";
+            icdCodeObj.forEach(function (item, index){
+                options  += '<option value="' + item.icd_code + ' - ' + item.details + '">' + item.icd_code + ' - ' + item.details + '</option>';
+            });
+            $("#icdCodeList").html(options);
+          }
+        });
+      }
+      
     });
   });
 

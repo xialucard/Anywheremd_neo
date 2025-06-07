@@ -1305,18 +1305,20 @@
 
     $("#{{ $viewFolder }}_name").on("input", function () {
       val = $(this).val();
-      $.ajax({
-        type: 'GET',
-        url: '{{ Route::has($viewFolder . '.getPatientList') ? route($viewFolder . '.getPatientList') : ''}}/' + val,
-        success: function(data){
-          patientsObj = jQuery.parseJSON(data);
-          var options = "";
-          patientsObj.forEach(function (item, index){
-              options  += '<option patient_id="' + item.id + '" value="' + item.name + '">' + item.name + '</option>';
-          });
-          $("#patientNameList").html(options);
-        }
-      });
+      if(val.length >= 3){
+        $.ajax({
+          type: 'GET',
+          url: '{{ Route::has($viewFolder . '.getPatientList') ? route($viewFolder . '.getPatientList') : ''}}/' + val,
+          success: function(data){
+            patientsObj = jQuery.parseJSON(data);
+            var options = "";
+            patientsObj.forEach(function (item, index){
+                options  += '<option patient_id="' + item.id + '" value="' + item.name + '">' + item.name + '</option>';
+            });
+            $("#patientNameList").html(options);
+          }
+        });
+      }
     });
 
     $("#{{ $viewFolder }}_name").on("change", function () {
