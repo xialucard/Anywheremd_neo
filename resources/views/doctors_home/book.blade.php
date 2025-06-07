@@ -726,7 +726,7 @@
                   {{-- <select class="form-select" name="{{ $viewFolder }}[icd_code]" id="{{ $viewFolder }}_icd_code" placeholder="" disabled>
                     <option value=""></option>
                   </select> --}}
-                  <input class="form-control" list="icdCodeList" id="{{ $viewFolder }}_prev_icd_code" name="{{ $viewFolder }}[icd_code]" value="{{ isset($bookings[0]->icd_code_obj->icd_code) && isset($bookings[0]->icd_code_obj->details) ? $bookings[0]->icd_code_obj->icd_code . ' - ' . $bookings[0]->icd_code->details : '' }}" autocomplete="off" disabled>
+                  <input class="form-control" list="icdCodeList" id="{{ $viewFolder }}_prev_icd_code" name="{{ $viewFolder }}[icd_code]" value="{{ isset($bookings[0]->icd_code_obj) ? $bookings[0]->icd_code_obj->icd_code . ' - ' . $bookings[0]->icd_code->details : '' }}" autocomplete="off" disabled>
                   <label for="{{ $viewFolder }}_icd_code">Previous Primary Diagnosis</label>
                   <small id="help_{{ $viewFolder }}_icd_code" class="text-muted"></small>
                 </div>
