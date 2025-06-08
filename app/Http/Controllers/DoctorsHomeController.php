@@ -560,18 +560,22 @@ class DoctorsHomeController extends Controller
         $prevBookingArr['patient'] = $doctors_home->patient;
         foreach($doctors_home->consultation_files as $ind=>$consultation_file){
             $prevBookingArr['consultation_files'][$ind]['file_link'] = asset($consultation_file->file_link);
+            $prevBookingArr['consultation_files'][$ind]['id'] = $consultation_file->id;
         }
         foreach($doctors_home->anesthesia_files as $consultation_file){
             $ind++;
             $prevBookingArr['consultation_files'][$ind]['file_link'] = asset($consultation_file->file_link);
+            $prevBookingArr['consultation_files'][$ind]['id'] = $consultation_file->id;
         }
         foreach($doctors_home->doctor_files as $consultation_file){
             $ind++;
             $prevBookingArr['consultation_files'][$ind]['file_link'] = asset($consultation_file->file_link);
+            $prevBookingArr['consultation_files'][$ind]['id'] = $consultation_file->id;
         }
         foreach($doctors_home->prescription_files as $consultation_file){
             $ind++;
             $prevBookingArr['consultation_files'][$ind]['file_link'] = asset($consultation_file->file_link);
+            $prevBookingArr['consultation_files'][$ind]['id'] = $consultation_file->id;
         }
 
         return json_encode($prevBookingArr);

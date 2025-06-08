@@ -1771,7 +1771,7 @@
           <div id="labCurDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
             <h5>Image Viewer</h5>
             <div id="carouselCur" class="carousel carousel-dark slide mb-3" data-bs-interval="false">
-              <div class="carousel-indicators">
+              <div class="carousel-indicators" id="labCurCarouselInd">
                 @if(!empty($datum->consultation_files[0]->file_link))
                   @foreach($datum->consultation_files as $ind=>$file)
                 <button type="button" data-bs-target="#carouselCur" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
@@ -1780,7 +1780,7 @@
                 <button type="button" data-bs-target="#carouselCur" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                 @endif
               </div>
-              <div class="carousel-inner">
+              <div class="carousel-inner" id="labCurCarouselInner">
                 @if(!empty($datum->consultation_files[0]->file_link))
                   @foreach($datum->consultation_files as $ind=>$file)
                 <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
@@ -1812,6 +1812,9 @@
               <input class="form-control" type="file" id="{{ $viewFolder }}_files" name="{{ $viewFolder }}[ConsultationFile][files][]" accept="image/*, .pdf" multiple>
             </div>
             <div class="row overflow-auto" id="image_preview_saved" style="max-height:500px">
+              
+            </div>
+            <div class="row" id="image_preview">
               @if(isset($datum->consultation_files))
                 @foreach($datum->consultation_files as $ind => $file)
                 @php
@@ -1825,7 +1828,6 @@
                 @endforeach
               @endif
             </div>
-            <div class="row" id="image_preview"></div>
           </div>
           {{-- @if($user->id == $datum->doctor->id) --}}
           <div id="presCurDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
@@ -2348,23 +2350,86 @@
   $(document).ready(function() {
     var fileArr = [];
     $("#{{ $viewFolder }}_files").change(function(){
-        // check if fileArr length is greater than 0
-        if (fileArr.length > 0) fileArr = [];
-      
-          $('#image_preview').html("");
-          var total_file = document.getElementById("{{ $viewFolder }}_files").files;
-          if (!total_file.length) return;
-          for (var i = 0; i < total_file.length; i++) {
-            if (total_file[i].size > 1048576) {
-              return false;
-            } else {
-              fileArr.push(total_file[i]);
-              if(total_file[i].name.split('.')[1] == 'pdf')
-                $('#image_preview').append("<div class='img-div' id='img-div"+i+"'><iframe src='"+URL.createObjectURL(event.target.files[i])+"' class='img-thumbnail' title='"+total_file[i].name+"'></iframe><div class='middle'><button id='action-icon' value='img-div"+i+"' class='btn btn-danger' role='"+total_file[i].name+"'><i class='bi bi-trash'></i></button></div></div>");
-              else
-                $('#image_preview').append("<div class='img-div' id='img-div"+i+"'><img src='"+URL.createObjectURL(event.target.files[i])+"' class='img-thumbnail' title='"+total_file[i].name+"'><div class='middle'><button id='action-icon' value='img-div"+i+"' class='btn btn-danger' role='"+total_file[i].name+"'><i class='bi bi-trash'></i></button></div></div>");
-            }
+      // check if fileArr length is greater than 0
+      if (fileArr.length > 0) fileArr = [];
+      $('#image_preview').html("");
+      var total_file = document.getElementById("{{ $viewFolder }}_files").files;
+      if (!total_file.length) return;
+      for (var i = 0; i < total_file.length; i++) {
+        if (total_file[i].size > 1048576) {
+          return false;
+        } 
+        // else {
+          
+        //   fileArr.push(total_file[i]);
+        //   if(total_file[i].name.split('.')[1] == 'pdf')
+        //     $('#image_preview').append("<div class='img-div' id='img-div"+i+"'><iframe src='"+URL.createObjectURL(event.target.files[i])+"' class='img-thumbnail' title='"+total_file[i].name+"'></iframe><div class='middle'><button id='action-icon' value='img-div"+i+"' class='btn btn-danger' role='"+total_file[i].name+"'><i class='bi bi-trash'></i></button></div></div>");
+        //   else
+        //     $('#image_preview').append("<div class='img-div' id='img-div"+i+"'><img src='"+URL.createObjectURL(event.target.files[i])+"' class='img-thumbnail' title='"+total_file[i].name+"'><div class='middle'><button id='action-icon' value='img-div"+i+"' class='btn btn-danger' role='"+total_file[i].name+"'><i class='bi bi-trash'></i></button></div></div>");
+        // }
+      }
+      $('#doctors_home_submit_type').val('Pause');
+      $.ajax({
+        type: 'POST',
+        data: new FormData($("#bookMod")[0]),
+        processData: false,
+        contentType: false,
+        url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, !isset($referal_conso) ? $datum->id : $referal_conso->id) : ''}}',
+        success:
+          function (){
+            $.ajax({
+              type: 'GET',
+              url: '{{ Route::has($viewFolder . '.getPrevBookingInfo') ? route($viewFolder . '.getPrevBookingInfo') : ''}}/{{ $datum->id }}/0',
+              success:
+                function(data, status){
+                  bookingObj = jQuery.parseJSON(data);
+                  if(bookingObj.consultation_files !== undefined){
+                    inner = '';
+                    indicator = '';
+                    grid = '';
+                    bookingObj.consultation_files.forEach(function(item, index){
+                      if(item.file_link.includes('.pdf')){
+                        if(item.file_link.includes('uploads'))
+                          item.file_link = item.file_link.replace('uploads', 'storage/uploads');
+                        if(index == 0){
+                          indicator = '<button type="button" data-bs-target="#carouselCur" data-bs-slide-to="' + index + '" class="active" aria-current="true" aria-label="Slide ' + (index+1) + '"></button>'
+                          inner = '<div class="carousel-item active"><iframe src="' + item.file_link + '" class="d-block w-100" alt=""></iframe></div>';
+                        }else{
+                          indicator += '<button type="button" data-bs-target="#carouselCur" data-bs-slide-to="' + index + '" aria-label="Slide ' + (index+1) + '"></button>'
+                          inner += '<div class="carousel-item"><iframe src="' + item.file_link + '" class="d-block w-100" alt=""></iframe></div>';
+                        }
+                        grid += '<div class="img-div" data-bs-target="#carouselCur" data-bs-slide-to="' + index + '" id="img-div-save' + index + '""><iframe src="' + item.file_link + '" class="img-thumbnail" title="' + item.file_link.split("/")[item.file_link.split("/").length - 1] + '"></iframe><div class="middle"><button id="action-icon" value="img-div-save' + index + '" class="btn btn-danger" saved="' + item.id + '"><i class="bi bi-trash"></i></button></div></div>';
+                      }else{
+                        if(item.file_link.includes('uploads'))
+                          item.file_link = item.file_link.replace('uploads', 'storage/uploads');
+                        if(index == 0){
+                          indicator = '<button type="button" data-bs-target="#carouselCur" data-bs-slide-to="' + index + '" class="active" aria-current="true" aria-label="Slide ' + (index+1) + '"></button>'
+                          inner = '<div class="carousel-item active"><img src="' + item.file_link + '" class="d-block w-100" alt=""></div>';
+                        }else{
+                          indicator += '<button type="button" data-bs-target="#carouselCur" data-bs-slide-to="' + index + '" aria-label="Slide ' + (index+1) + '"></button>'
+                          inner += '<div class="carousel-item"><img src="' + item.file_link + '" class="d-block w-100" alt=""></div>';
+                        }
+                        grid += '<div class="img-div" data-bs-target="#carouselCur" data-bs-slide-to="' + index + '" id="img-div-save' + index + '""><img src="' + item.file_link + '" class="img-thumbnail" title="' + item.file_link.split("/")[item.file_link.split("/").length - 1] + '"><div class="middle"><button id="action-icon" value="img-div-save' + index + '" class="btn btn-danger" saved="' + item.id + '"><i class="bi bi-trash"></i></button></div></div>';
+                      }
+                      
+                    });
+                    $('#labCurCarouselInd').html(indicator);
+                    $('#labCurCarouselInner').html(inner);
+                    $('#image_preview').html(grid);
+                  }else{
+                    $('#labCurCarouselInd').html('<button type="button" data-bs-target="#carouselCur" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>');
+                    $('#labCurCarouselInner').html('<div class="carousel-item active"><img src="https://mdbootstrap.com/img/Photos/Others/placeholder.jpg" class="d-block w-100" alt=""></div>');
+                    $('#image_preview').html('');
+                  }
+                  
+                }
+                
+            });
+            document.getElementById('{{ $viewFolder }}_files').files = FileListItem(fileArr);
           }
+      });
+      
+     
     });
     
     $('body').on('click', '#action-icon', function(evt){
@@ -2373,25 +2438,74 @@
         if($(this).attr('saved') != ''){
           $.ajax({
             type: 'GET',
-            url: '{{ Route::has('clinics_home.deleteUploadedFile') ? route('clinics_home.deleteUploadedFile') : ''}}/' + $(this).attr('saved')
+            url: '{{ Route::has('clinics_home.deleteUploadedFile') ? route('clinics_home.deleteUploadedFile') : ''}}/' + $(this).attr('saved'),
+            success:
+              function (){
+                $.ajax({
+                  type: 'GET',
+                  url: '{{ Route::has($viewFolder . '.getPrevBookingInfo') ? route($viewFolder . '.getPrevBookingInfo') : ''}}/{{ $datum->id }}/0',
+                  success:
+                    function(data, status){
+                      bookingObj = jQuery.parseJSON(data);
+                      if(bookingObj.consultation_files !== undefined){
+                        inner = '';
+                        indicator = '';
+                        grid = '';
+                        bookingObj.consultation_files.forEach(function(item, index){
+                          if(item.file_link.includes('.pdf')){
+                            if(item.file_link.includes('uploads'))
+                              item.file_link = item.file_link.replace('uploads', 'storage/uploads');
+                            if(index == 0){
+                              indicator = '<button type="button" data-bs-target="#carouselCur" data-bs-slide-to="' + index + '" class="active" aria-current="true" aria-label="Slide ' + (index+1) + '"></button>'
+                              inner = '<div class="carousel-item active"><iframe src="' + item.file_link + '" class="d-block w-100" alt=""></iframe></div>';
+                            }else{
+                              indicator += '<button type="button" data-bs-target="#carouselCur" data-bs-slide-to="' + index + '" aria-label="Slide ' + (index+1) + '"></button>'
+                              inner += '<div class="carousel-item"><iframe src="' + item.file_link + '" class="d-block w-100" alt=""></iframe></div>';
+                            }
+                            grid += '<div class="img-div" data-bs-target="#carouselCur" data-bs-slide-to="' + index + '" id="img-div-save' + index + '""><iframe src="' + item.file_link + '" class="img-thumbnail" title="' + item.file_link.split("/")[item.file_link.split("/").length - 1] + '></iframe><div class="middle"><button id="action-icon" value="img-div-save' + index + '" class="btn btn-danger" saved="' + item.id + '"><i class="bi bi-trash"></i></button></div></div>';
+                          }else{
+                            if(item.file_link.includes('uploads'))
+                              item.file_link = item.file_link.replace('uploads', 'storage/uploads');
+                            if(index == 0){
+                              indicator = '<button type="button" data-bs-target="#carouselCur" data-bs-slide-to="' + index + '" class="active" aria-current="true" aria-label="Slide ' + (index+1) + '"></button>'
+                              inner = '<div class="carousel-item active"><img src="' + item.file_link + '" class="d-block w-100" alt=""></div>';
+                            }else{
+                              indicator += '<button type="button" data-bs-target="#carouselCur" data-bs-slide-to="' + index + '" aria-label="Slide ' + (index+1) + '"></button>'
+                              inner += '<div class="carousel-item"><img src="' + item.file_link + '" class="d-block w-100" alt=""></div>';
+                            }
+                            grid += '<div class="img-div" data-bs-target="#carouselCur" data-bs-slide-to="' + index + '" id="img-div-save' + index + '""><img src="' + item.file_link + '" class="img-thumbnail" title="' + item.file_link.split("/")[item.file_link.split("/").length - 1] + '"><div class="middle"><button id="action-icon" value="img-div-save' + index + '" class="btn btn-danger" saved="' + item.id + '""><i class="bi bi-trash"></i></button></div></div>';
+                          }
+                          
+                        });
+                        $('#labCurCarouselInd').html(indicator);
+                        $('#labCurCarouselInner').html(inner);
+                        $('#image_preview').html(grid);
+                      }else{
+                        $('#labCurCarouselInd').html('<button type="button" data-bs-target="#carouselCur" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>');
+                        $('#labCurCarouselInner').html('<div class="carousel-item active"><img src="https://mdbootstrap.com/img/Photos/Others/placeholder.jpg" class="d-block w-100" alt=""></div>');
+                        $('#image_preview').html('');
+                      }
+                    }
+                });
+              }
           });
         }
           
-        $(`#${divName}`).remove();
+        // $(`#${divName}`).remove();
       
-        for (var i = 0; i < fileArr.length; i++) {
-          if (fileArr[i].name === fileName) {
-            fileArr.splice(i, 1);
-          }
-        }
-      document.getElementById('{{ $viewFolder }}_files').files = FileListItem(fileArr);
+        // for (var i = 0; i < fileArr.length; i++) {
+        //   if (fileArr[i].name === fileName) {
+        //     fileArr.splice(i, 1);
+        //   }
+        // }
+        document.getElementById('{{ $viewFolder }}_files').files = FileListItem(fileArr);
         evt.preventDefault();
     });
     
     
     $("#{{ $viewFolder }}_icd_code").on("input", function () {
       val = $(this).val();
-      if(val.length > 3){
+      if(val.length >= 3){
         $.ajax({
           type: 'GET',
           url: '{{ Route::has('doctors_home.getIcdCode') ? route('doctors_home.getIcdCode') : ''}}/' + val,
