@@ -644,7 +644,7 @@
             <div class="card mb-3">
               <div class="card-header">Prescription Preview</div>
               <div class="card-body">
-                <iframe id="iframePrevPresc" src="{{ file_exists(public_path('storage/prescription_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf')) ? asset('storage/prescription_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf') : (file_exists(public_path('storage/uploads/prescription_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf')) ? asset('storage//uploads/prescription_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg') }}" width="100%" height="300" style="border:1"></iframe>
+                <iframe id="iframePrevPresc" src="{{ file_exists(public_path('storage/prescription_files/' . $bookings[0]->id . '_' . trim($bookings[0]->patient->l_name) . '.pdf')) ? asset('storage/prescription_files/' . $bookings[0]->id . '_' . trim($bookings[0]->patient->l_name) . '.pdf') : (file_exists(public_path('storage/uploads/prescription_files/' . $bookings[0]->id . '_' . trim($bookings[0]->patient->l_name) . '.pdf')) ? asset('storage//uploads/prescription_files/' . $bookings[0]->id . '_' . trim($bookings[0]->patient->l_name) . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg') }}" width="100%" height="300" style="border:1"></iframe>
                 <small class="form-text text-muted">To print or download go to Tools</small>
               </div>
             </div>
@@ -652,9 +652,8 @@
           <div id="medPrevDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
             <div class="card mb-3">
               <div class="card-header">Med Cert Preview</div>
-              {{ public_path('storage/uploads/med_cert_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf') }}
               <div class="card-body">
-                <iframe id="iframePrevMedCert" src="{{ file_exists(public_path('storage/med_cert_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf')) ? asset('storage/med_cert_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf') : (file_exists(public_path('storage/uploads/med_cert_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf')) ? asset('storage//uploads/med_cert_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg') }}" width="100%" height="300" style="border:1"></iframe>
+                <iframe id="iframePrevMedCert" src="{{ file_exists(public_path('storage/med_cert_files/' . $bookings[0]->id . '_' . trim($bookings[0]->patient->l_name) . '.pdf')) ? asset('storage/med_cert_files/' . $bookings[0]->id . '_' . trim($bookings[0]->patient->l_name) . '.pdf') : (file_exists(public_path('storage/uploads/med_cert_files/' . $bookings[0]->id . '_' . trim($bookings[0]->patient->l_name) . '.pdf')) ? asset('storage//uploads/med_cert_files/' . $bookings[0]->id . '_' . trim($bookings[0]->patient->l_name) . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg') }}" width="100%" height="300" style="border:1"></iframe>
                 <small class="form-text text-muted">To print or download go to Tools</small>
               </div>
             </div>
@@ -663,7 +662,7 @@
             <div class="card mb-3">
               <div class="card-header">Admitting Orders Preview</div>
               <div class="card-body">
-                <iframe id="iframePrevAdmitting" src="{{ file_exists(public_path('storage/admitting_order_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf')) ? asset('storage/admitting_order_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf') : (file_exists(public_path('storage/uploads/admitting_order_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf')) ? asset('storage//uploads/admitting_order_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg') }}" width="100%" height="300" style="border:1"></iframe>
+                <iframe id="iframePrevAdmitting" src="{{ file_exists(public_path('storage/admitting_order_files/' . $bookings[0]->id . '_' . trim($bookings[0]->patient->l_name) . '.pdf')) ? asset('storage/admitting_order_files/' . $bookings[0]->id . '_' . trim($bookings[0]->patient->l_name) . '.pdf') : (file_exists(public_path('storage/uploads/admitting_order_files/' . $bookings[0]->id . '_' . trim($bookings[0]->patient->l_name) . '.pdf')) ? asset('storage//uploads/admitting_order_files/' . $bookings[0]->id . '_' . trim($bookings[0]->patient->l_name) . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg') }}" width="100%" height="300" style="border:1"></iframe>
                 <small class="form-text text-muted">To print or download go to Tools</small>
               </div>
             </div>
