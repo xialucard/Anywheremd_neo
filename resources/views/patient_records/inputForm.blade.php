@@ -564,7 +564,7 @@
                   @endphp
                   @if(stristr($file->file_type, 'pdf'))
                 <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
-                  <iframe src="{{stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
+                  <iframe src="{{stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt=""></iframe>
                 </div>
                   @else
                 <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
@@ -581,7 +581,7 @@
                   @endphp
                   @if(stristr($file->file_type, 'pdf'))
                 <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
-                  <iframe src="{{stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
+                  <iframe src="{{stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt=""></iframe>
                 </div>
                   @else
                 <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
@@ -598,7 +598,7 @@
                   @endphp
                   @if(stristr($file->file_type, 'pdf'))
                 <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
-                  <iframe src="{{stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
+                  <iframe src="{{stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt=""></iframe>
                 </div>
                   @else
                 <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
@@ -615,7 +615,7 @@
                   @endphp
                   @if(stristr($file->file_type, 'pdf'))
                 <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
-                  <iframe src="{{stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
+                  <iframe src="{{stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt=""></iframe>
                 </div>
                   @else
                 <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
