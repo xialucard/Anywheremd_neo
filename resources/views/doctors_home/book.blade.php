@@ -507,23 +507,55 @@
           </ul>
           <ul class="nav nav-tabs">
             <li class="nav-item">
-              <a class="nav-link active" id="soapPrevLink" href="#" onclick="
+              <a class="nav-link active" id="sumPrevLink" href="#" onclick="
+                $('#sumPrevLink').addClass('active');  
+                $('#soapPrevLink').removeClass('active');  
+                $('#labPrevLink').removeClass('active');  
+                $('#presPrevLink').removeClass('active');  
+                $('#medPrevLink').removeClass('active');  
+                $('#admitPrevLink').removeClass('active');
+                $('#sumPrevDiv').show();  
+                $('#soapPrevDiv').hide();  
+                $('#labPrevDiv').hide();  
+                $('#presPrevDiv').hide();  
+                $('#medPrevDiv').hide();  
+                $('#admitPrevDiv').hide();
+                $('#sumCurLink').addClass('active');  
+                $('#soapCurLink').removeClass('active');  
+                $('#labCurLink').removeClass('active');  
+                $('#presCurLink').removeClass('active');  
+                $('#medCurLink').removeClass('active');  
+                $('#admitCurLink').removeClass('active');
+                $('#sumCurDiv').show();  
+                $('#soapCurDiv').hide();  
+                $('#labCurDiv').hide();  
+                $('#presCurDiv').hide();  
+                $('#medCurDiv').hide();  
+                $('#admitCurDiv').hide();
+              ">Summary</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="soapPrevLink" href="#" onclick="
                 $('#soapPrevLink').addClass('active');  
+                $('#sumPrevLink').removeClass('active');  
                 $('#labPrevLink').removeClass('active');  
                 $('#presPrevLink').removeClass('active');  
                 $('#medPrevLink').removeClass('active');  
                 $('#admitPrevLink').removeClass('active');
                 $('#soapPrevDiv').show();  
+                $('#sumPrevDiv').hide();  
                 $('#labPrevDiv').hide();  
                 $('#presPrevDiv').hide();  
                 $('#medPrevDiv').hide();  
                 $('#admitPrevDiv').hide();
                 $('#soapCurLink').addClass('active');  
+                $('#sumCurLink').removeClass('active');  
                 $('#labCurLink').removeClass('active');  
                 $('#presCurLink').removeClass('active');  
                 $('#medCurLink').removeClass('active');  
                 $('#admitCurLink').removeClass('active');
                 $('#soapCurDiv').show();  
+                $('#sumCurDiv').hide();  
                 $('#labCurDiv').hide();  
                 $('#presCurDiv').hide();  
                 $('#medCurDiv').hide();  
@@ -532,21 +564,25 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" id="labPrevLink" href="#" onclick="
+                $('#sumPrevLink').removeClass('active');
                 $('#soapPrevLink').removeClass('active');
                 $('#labPrevLink').addClass('active');  
                 $('#presPrevLink').removeClass('active');  
                 $('#medPrevLink').removeClass('active');  
                 $('#admitPrevLink').removeClass('active');
+                $('#sumPrevDiv').hide();  
                 $('#soapPrevDiv').hide();  
                 $('#labPrevDiv').show();  
                 $('#presPrevDiv').hide();  
                 $('#medPrevDiv').hide();  
                 $('#admitPrevDiv').hide();
+                $('#sumCurLink').removeClass('active');
                 $('#soapCurLink').removeClass('active');
                 $('#labCurLink').addClass('active');  
                 $('#presCurLink').removeClass('active');  
                 $('#medPCurLink').removeClass('active');  
                 $('#admitCurLink').removeClass('active');
+                $('#sumCurDiv').hide();  
                 $('#soapCurDiv').hide();  
                 $('#labCurDiv').show();  
                 $('#presCurDiv').hide();  
@@ -556,21 +592,25 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" id="presPrevLink" href="#" onclick="
+                $('#sumPrevLink').removeClass('active');
                 $('#soapPrevLink').removeClass('active');
                 $('#labPrevLink').removeClass('active');  
                 $('#presPrevLink').addClass('active');  
                 $('#medPrevLink').removeClass('active');  
                 $('#admitPrevLink').removeClass('active');
+                $('#sumPrevDiv').hide();  
                 $('#soapPrevDiv').hide();  
                 $('#labPrevDiv').hide();  
                 $('#presPrevDiv').show();  
                 $('#medPrevDiv').hide();  
                 $('#admitPrevDiv').hide();
+                $('#sumCurLink').removeClass('active');
                 $('#soapCurLink').removeClass('active');
                 $('#labCurLink').removeClass('active');  
                 $('#presCurLink').addClass('active');  
                 $('#medCurLink').removeClass('active');  
                 $('#admitCurLink').removeClass('active');
+                $('#sumCurDiv').hide();  
                 $('#soapCurDiv').hide();  
                 $('#labCurDiv').hide();  
                 $('#presCurDiv').show();  
@@ -580,21 +620,25 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" id="medPrevLink" href="#" onclick="
+                $('#sumPrevLink').removeClass('active');
                 $('#soapPrevLink').removeClass('active');
                 $('#labPrevLink').removeClass('active');  
                 $('#presPrevLink').removeClass('active');  
                 $('#medPrevLink').addClass('active');  
                 $('#admitPrevLink').removeClass('active');
+                $('#sumPrevDiv').hide();  
                 $('#soapPrevDiv').hide();  
                 $('#labPrevDiv').hide();  
                 $('#presPrevDiv').hide();  
                 $('#medPrevDiv').show();  
                 $('#admitPrevDiv').hide();
+                $('#sumCurLink').removeClass('active');
                 $('#soapCurLink').removeClass('active');
                 $('#labCurLink').removeClass('active');  
                 $('#presCurLink').removeClass('active');  
                 $('#medCurLink').addClass('active');  
                 $('#admitCurLink').removeClass('active');
+                $('#sumCurDiv').hide();  
                 $('#soapCurDiv').hide();  
                 $('#labCurDiv').hide();  
                 $('#presCurDiv').hide();  
@@ -604,21 +648,25 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" id="admitPrevLink" href="#" onclick="
+                $('#sumPrevLink').removeClass('active');
                 $('#soapPrevLink').removeClass('active');
                 $('#labPrevLink').removeClass('active');  
                 $('#presPrevLink').removeClass('active');  
                 $('#medPrevLink').removeClass('active');
                 $('#admitPrevLink').addClass('active'); 
+                $('#sumPrevDiv').hide();  
                 $('#soapPrevDiv').hide();  
                 $('#labPrevDiv').hide();  
                 $('#presPrevDiv').hide();  
                 $('#medPrevDiv').hide(); 
                 $('#admitPrevDiv').show();  
+                $('#sumCurLink').removeClass('active');
                 $('#soapCurLink').removeClass('active');
                 $('#labCurLink').removeClass('active');  
                 $('#presCurLink').removeClass('active');  
                 $('#medCurLink').removeClass('active');
                 $('#admitCurLink').addClass('active'); 
+                $('#sumCurDiv').hide();  
                 $('#soapCurDiv').hide();  
                 $('#labCurDiv').hide();  
                 $('#presCurDiv').hide();  
@@ -627,7 +675,9 @@
               ">Admitting Orders</a>
             </li>
           </ul>
-          <div id="soapPrevDiv" class="container border border-1 border-top-0 mb-3 p-3">
+          <div id="sumPrevDiv" class="container border border-1 border-top-0 mb-3 p-3">
+          </div>
+          <div id="soapPrevDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
             <div class="card mb-3">
               <div class="card-header">Previous Scheduled Procedure</div>
               <div class="card-body" style="height: 1in; max-height: 1in">
@@ -1237,129 +1287,175 @@
           </ul>
           <ul class="nav nav-tabs">
             <li class="nav-item">
-              <a class="nav-link active" id="soapCurLink" href="#" onclick="
-                $('#soapCurLink').addClass('active');  
+              <a class="nav-link active" id="sumCurLink" href="#" onclick="
+                $('#sumPrevLink').addClass('active');  
+                $('#soapPrevLink').removeClass('active');  
+                $('#labPrevLink').removeClass('active');  
+                $('#presPrevLink').removeClass('active');  
+                $('#medPrevLink').removeClass('active');  
+                $('#admitPrevLink').removeClass('active');
+                $('#sumPrevDiv').show();  
+                $('#soapPrevDiv').hide();  
+                $('#labPrevDiv').hide();  
+                $('#presPrevDiv').hide();  
+                $('#medPrevDiv').hide();  
+                $('#admitPrevDiv').hide();
+                $('#sumCurLink').addClass('active');  
+                $('#soapCurLink').removeClass('active');  
                 $('#labCurLink').removeClass('active');  
                 $('#presCurLink').removeClass('active');  
                 $('#medCurLink').removeClass('active');  
                 $('#admitCurLink').removeClass('active');
-                $('#soapCurDiv').show();  
+                $('#sumCurDiv').show();  
+                $('#soapCurDiv').hide();  
                 $('#labCurDiv').hide();  
                 $('#presCurDiv').hide();  
                 $('#medCurDiv').hide();  
                 $('#admitCurDiv').hide();
+              ">Summary</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="soapCurLink" href="#" onclick="
                 $('#soapPrevLink').addClass('active');  
+                $('#sumPrevLink').removeClass('active');  
                 $('#labPrevLink').removeClass('active');  
                 $('#presPrevLink').removeClass('active');  
                 $('#medPrevLink').removeClass('active');  
                 $('#admitPrevLink').removeClass('active');
                 $('#soapPrevDiv').show();  
+                $('#sumPrevDiv').hide();  
                 $('#labPrevDiv').hide();  
                 $('#presPrevDiv').hide();  
                 $('#medPrevDiv').hide();  
                 $('#admitPrevDiv').hide();
+                $('#soapCurLink').addClass('active');  
+                $('#sumCurLink').removeClass('active');  
+                $('#labCurLink').removeClass('active');  
+                $('#presCurLink').removeClass('active');  
+                $('#medCurLink').removeClass('active');  
+                $('#admitCurLink').removeClass('active');
+                $('#soapCurDiv').show();  
+                $('#sumCurDiv').hide();  
+                $('#labCurDiv').hide();  
+                $('#presCurDiv').hide();  
+                $('#medCurDiv').hide();  
+                $('#admitCurDiv').hide();
               ">SOAP</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" id="labCurLink" href="#" onclick="
-                $('#soapCurLink').removeClass('active');
-                $('#labCurLink').addClass('active');  
-                $('#presCurLink').removeClass('active');  
-                $('#medCurLink').removeClass('active');  
-                $('#admitCurLink').removeClass('active');
-                $('#soapCurDiv').hide();  
-                $('#labCurDiv').show();  
-                $('#presCurDiv').hide();  
-                $('#medCurDiv').hide();  
-                $('#admitCurDiv').hide();
+                $('#sumPrevLink').removeClass('active');
                 $('#soapPrevLink').removeClass('active');
                 $('#labPrevLink').addClass('active');  
                 $('#presPrevLink').removeClass('active');  
                 $('#medPrevLink').removeClass('active');  
                 $('#admitPrevLink').removeClass('active');
+                $('#sumPrevDiv').hide();  
                 $('#soapPrevDiv').hide();  
                 $('#labPrevDiv').show();  
                 $('#presPrevDiv').hide();  
                 $('#medPrevDiv').hide();  
                 $('#admitPrevDiv').hide();
-              ">File Uploads</a>
-            </li>
-            {{-- @if($user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id) --}}
-            <li class="nav-item">
-              <a class="nav-link" id="presCurLink" href="#" onclick="
+                $('#sumCurLink').removeClass('active');
                 $('#soapCurLink').removeClass('active');
-                $('#labCurLink').removeClass('active');  
-                $('#presCurLink').addClass('active');  
-                $('#medCurLink').removeClass('active');  
+                $('#labCurLink').addClass('active');  
+                $('#presCurLink').removeClass('active');  
+                $('#medPCurLink').removeClass('active');  
                 $('#admitCurLink').removeClass('active');
+                $('#sumCurDiv').hide();  
                 $('#soapCurDiv').hide();  
-                $('#labCurDiv').hide();  
-                $('#presCurDiv').show();  
+                $('#labCurDiv').show();  
+                $('#presCurDiv').hide();  
                 $('#medCurDiv').hide();  
                 $('#admitCurDiv').hide();
+              ">File Uploads</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="presCurLink" href="#" onclick="
+                $('#sumPrevLink').removeClass('active');
                 $('#soapPrevLink').removeClass('active');
                 $('#labPrevLink').removeClass('active');  
                 $('#presPrevLink').addClass('active');  
                 $('#medPrevLink').removeClass('active');  
                 $('#admitPrevLink').removeClass('active');
+                $('#sumPrevDiv').hide();  
                 $('#soapPrevDiv').hide();  
                 $('#labPrevDiv').hide();  
                 $('#presPrevDiv').show();  
                 $('#medPrevDiv').hide();  
                 $('#admitPrevDiv').hide();
+                $('#sumCurLink').removeClass('active');
+                $('#soapCurLink').removeClass('active');
+                $('#labCurLink').removeClass('active');  
+                $('#presCurLink').addClass('active');  
+                $('#medCurLink').removeClass('active');  
+                $('#admitCurLink').removeClass('active');
+                $('#sumCurDiv').hide();  
+                $('#soapCurDiv').hide();  
+                $('#labCurDiv').hide();  
+                $('#presCurDiv').show();  
+                $('#medCurDiv').hide();  
+                $('#admitCurDiv').hide();
               ">E-Prescription</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" id="medCurLink" href="#" onclick="
-                $('#soapCurLink').removeClass('active');
-                $('#labCurLink').removeClass('active');  
-                $('#presCurLink').removeClass('active');  
-                $('#medCurLink').addClass('active');  
-                $('#admitCurLink').removeClass('active');
-                $('#soapCurDiv').hide();  
-                $('#labCurDiv').hide();  
-                $('#presCurDiv').hide();  
-                $('#medCurDiv').show();  
-                $('#admitCurDiv').hide();
+                $('#sumPrevLink').removeClass('active');
                 $('#soapPrevLink').removeClass('active');
                 $('#labPrevLink').removeClass('active');  
                 $('#presPrevLink').removeClass('active');  
                 $('#medPrevLink').addClass('active');  
                 $('#admitPrevLink').removeClass('active');
+                $('#sumPrevDiv').hide();  
                 $('#soapPrevDiv').hide();  
                 $('#labPrevDiv').hide();  
                 $('#presPrevDiv').hide();  
                 $('#medPrevDiv').show();  
                 $('#admitPrevDiv').hide();
+                $('#sumCurLink').removeClass('active');
+                $('#soapCurLink').removeClass('active');
+                $('#labCurLink').removeClass('active');  
+                $('#presCurLink').removeClass('active');  
+                $('#medCurLink').addClass('active');  
+                $('#admitCurLink').removeClass('active');
+                $('#sumCurDiv').hide();  
+                $('#soapCurDiv').hide();  
+                $('#labCurDiv').hide();  
+                $('#presCurDiv').hide();  
+                $('#medCurDiv').show();  
+                $('#admitCurDiv').hide();
               ">Med Cert</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" id="admitCurLink" href="#" onclick="
-                $('#soapCurLink').removeClass('active');
-                $('#labCurLink').removeClass('active');  
-                $('#presCurLink').removeClass('active');  
-                $('#medCurLink').removeClass('active');
-                $('#admitCurLink').addClass('active'); 
-                $('#soapCurDiv').hide();  
-                $('#labCurDiv').hide();  
-                $('#presCurDiv').hide();  
-                $('#medCurDiv').hide(); 
-                $('#admitCurDiv').show();  
+                $('#sumPrevLink').removeClass('active');
                 $('#soapPrevLink').removeClass('active');
                 $('#labPrevLink').removeClass('active');  
                 $('#presPrevLink').removeClass('active');  
                 $('#medPrevLink').removeClass('active');
                 $('#admitPrevLink').addClass('active'); 
+                $('#sumPrevDiv').hide();  
                 $('#soapPrevDiv').hide();  
                 $('#labPrevDiv').hide();  
                 $('#presPrevDiv').hide();  
                 $('#medPrevDiv').hide(); 
                 $('#admitPrevDiv').show();  
+                $('#sumCurLink').removeClass('active');
+                $('#soapCurLink').removeClass('active');
+                $('#labCurLink').removeClass('active');  
+                $('#presCurLink').removeClass('active');  
+                $('#medCurLink').removeClass('active');
+                $('#admitCurLink').addClass('active'); 
+                $('#sumCurDiv').hide();  
+                $('#soapCurDiv').hide();  
+                $('#labCurDiv').hide();  
+                $('#presCurDiv').hide();  
+                $('#medCurDiv').hide(); 
+                $('#admitCurDiv').show();  
               ">Admitting Orders</a>
             </li>
-            {{-- @endif --}}
           </ul>
-          <div id="soapCurDiv" class="container border border-1 border-top-0 mb-3 p-3">
+          <div id="sumCurDiv" class="container border border-1 border-top-0 mb-3 p-3">
             <div class="card mb-3">
               <div class="card-header">Scheduled Procedure</div>
               <div class="card-body" style="height: 1in; max-height: 1in">
@@ -1373,7 +1469,50 @@
                 <small class="text-muted">{{ $datum->duration }}</small>
               </div>
             </div>
-            
+            <div class="card mb-3">
+              <div class="card-header">Doctor's Notes</div>
+              <div class="card-body">
+                <p>
+                  <strong>History of Present Illness:</strong><div class="m-3">{!! nl2br(isset($referal_conso) ? $referal_conso->docNotesHPI : (isset($datum->docNotesHPI) ? $datum->docNotesHPI : '')) !!}</div><br>
+                  <strong>Subjective Complaints:</strong><br><div class="m-3">{!! nl2br(isset($referal_conso) ? $referal_conso->docNotesSubject : (isset($datum->docNotesSubject) ? $datum->docNotesSubject : '')) !!}</div><br>
+                  <strong>Objective Findings:</strong><br><div class="m-3">{!! nl2br(isset($referal_conso) ? $referal_conso->docNotes : (isset($datum->docNotes) ? $datum->docNotes : '')) !!}</div><br>
+                </p>
+              </div>
+            </div>
+            <div class="card mb-3">
+              <div class="card-header">Assessment</div>
+              <div class="card-body">
+                <p>
+                  <strong>Primary Diagnosis:</strong> {!! nl2br(isset($referal_conso) ? $referal_conso->icd_code_obj->icd_code . ' - ' . $datum->icd_code_obj->details : (isset($datum->icd_code_obj->icd_code) ? $datum->icd_code_obj->icd_code . ' - ' . $datum->icd_code_obj->details : '')) !!}<br>
+                  <strong>Secondary Diagnosis:</strong><br><div class="m-3">{!! nl2br(isset($referal_conso) ? $referal_conso->assessment : (isset($datum->assessment) ? $datum->assessment : '')) !!}</div><br>
+                </p>
+              </div>
+            </div>
+            <div class="card mb-3">
+              <div class="card-header">Plan</div>
+              <div class="card-body">
+                <p>
+                  <strong>Medical Therapeutics:</strong><br><div class="m-3">{!! nl2br(isset($referal_conso) ? $referal_conso->planMed : (isset($datum->planMed) ? $datum->planMed : '')) !!}</div><br>
+                  <strong>Diagnostics and Surgery:</strong><br><div class="m-3">{!! nl2br(isset($referal_conso) ? $referal_conso->plan : (isset($datum->plan) ? $datum->plan : '')) !!}</div><br>
+                  <strong>Remarks:</strong><br><div class="m-3">{!! nl2br(isset($referal_conso) ? $referal_conso->planRem : (isset($datum->planRem) ? $datum->planRem : '')) !!}</div><br>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div id="soapCurDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
+            <div class="card mb-3">
+              <div class="card-header">Scheduled Procedure</div>
+              <div class="card-body" style="height: 1in; max-height: 1in">
+                <p>{{ $datum->procedure_details }}</p>
+              </div>
+            </div>
+            <div class="card mb-3">
+              <div class="card-header">Patient's Complaint</div>
+              <div class="card-body" style="height: 1in; max-height: 1in">
+                <p>{{ $datum->complain }}</p>
+                <small class="text-muted">{{ $datum->duration }}</small>
+              </div>
+            </div>
             <div class="docNotesDiv" id="{{ $viewFolder }}_SOAP_{{ $datum->id }}">
               <div class="card mb-3">
                 <div class="card-header">Doctor's Notes</div>
