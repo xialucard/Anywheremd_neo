@@ -719,12 +719,22 @@ class ClinicsHomeController extends Controller
         $user = Auth::user();
         if($user->user_type == 'Clinic' && is_null($conso)){
             $patients = Patient::where('name', 'like', "%{$patient_name}%")->where('client_id', $user->id)->orderBy('name')->get();
+            foreach($patients as $ind => $pat){
+                $patients[$ind]->consoCount = Consultation::where('clinic_id', $user->clinic_id)->where('patient_id', $pat->id)->count();
+                
+                
+            }
         }elseif($user->user_type == 'Clinic'){
             unset($patientsId);
             // foreach($user->clinic->bookings()->distinct('patient_id')->get() as $booking){
             foreach(Consultation::where('clinic_id', $user->clinic_id)->get('patient_id') as $booking){
-                if($booking->patient_id != '')
+                if($booking->patient_id != ''){
                     $patientsId[$booking->patient_id] = $booking->patient_id;
+                    if(!isset($consoCount[$booking->patient_id]))
+                        $consoCount[$booking->patient_id] = 1;
+                    else
+                        $consoCount[$booking->patient_id]++;
+                }
             }
             $patients = Patient::where('name', 'like', "%{$patient_name}%")->whereIn('id', $patientsId)->orderBy('name')->distinct()->get('name');
         }elseif($user->user_type == 'Doctor'){

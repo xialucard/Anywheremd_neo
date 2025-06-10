@@ -1313,7 +1313,7 @@
             patientsObj = jQuery.parseJSON(data);
             var options = "";
             patientsObj.forEach(function (item, index){
-                options  += '<option patient_id="' + item.id + '" value="' + item.name + '">' + item.name + '</option>';
+                options  += '<option patient_id="' + item.id + '" value="' + item.name + '">' + item.name + ' - ' + item.consoCount + '</option>';
             });
             $("#patientNameList").html(options);
           }
