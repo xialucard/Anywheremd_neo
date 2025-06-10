@@ -1483,7 +1483,7 @@
               <div class="card-header">Assessment</div>
               <div class="card-body">
                 <p>
-                  <strong>Primary Diagnosis:</strong> {!! nl2br(isset($referal_conso) ? $referal_conso->icd_code_obj->icd_code . ' - ' . $datum->icd_code_obj->details : (isset($datum->icd_code_obj->icd_code) ? $datum->icd_code_obj->icd_code . ' - ' . $datum->icd_code_obj->details : '')) !!}<br>
+                  <strong>Primary Diagnosis:</strong> {!! isset($referal_conso) ? nl2br($referal_conso->icd_code_obj->icd_code . ' - ' . $datum->icd_code_obj->details) : (isset($datum->icd_code_obj->icd_code) ? nl2br($datum->icd_code_obj->icd_code . ' - ' . $datum->icd_code_obj->details) : '') !!}<br>
                   <strong>Secondary Diagnosis:</strong><br><div class="m-3">{!! nl2br(isset($referal_conso) ? $referal_conso->assessment : (isset($datum->assessment) ? $datum->assessment : '')) !!}</div><br>
                 </p>
               </div>
