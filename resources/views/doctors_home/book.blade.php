@@ -64,7 +64,7 @@
                 </thead>
                 <tbody>
                   @php
-                    $bookings = $datum->patient->consultations()->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->where('status', 'Done')->orderByDesc('bookingDate')->get();
+                    $bookings = $datum->patient->consultations()->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
                     // print "<pre>";
                     // print_r($bookings->icd_code_obj->icd_code);
                     // print "</pre>";  
