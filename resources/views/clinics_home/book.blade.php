@@ -13,14 +13,14 @@
   @foreach($user->clinic->affiliated_doctors->sortBy('name') as $doc)
     @if(isset($doc->doctor->affiliated_clinics))
     @foreach($doc->doctor->affiliated_clinics->sortBy('name') as $clin)
-      @foreach($doc->doctor->schedules()->whereBetween('dateSched', [$datum->bookingDate, date('Y-m-d', strtotime(' + 30 days'))])->orderBy('dateSched', 'asc')->get()->unique('dateSchdule') as $sched)
-        @if(isset($clin->clinic->id))
+      @foreach($doc->doctor->schedules()->whereBetween('dateSched', [$datum->bookingDate, date('Y-m-d', strtotime(' + 15 days'))])->orderBy('dateSched', 'asc')->distinct()->get('dateSched') as $sched)
+        {{-- @if(isset($clin->clinic->id)) --}}
         {{-- @if(!isset($dateArr[$doc->doctor->id][$clin->clinic->id][$datum->bookingDate])) --}}
         {{-- @php
           $dateArr[$doc->doctor->id][$clin->clinic->id][$datum->bookingDate] = $datum->bookingDate;
         @endphp --}}
     <option value="{{ $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->doctor->id . ' - Dr. ' . $doc->doctor->name }}">{{ $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->doctor->id . ' - Dr. ' . $doc->doctor->name }}</option>
-        @endif
+        {{-- @endif --}}
       @endforeach
     @endforeach
     @endif
@@ -152,7 +152,6 @@
       <div class="card">
         <div class="card-header">Refer a Doctor</div>
         <div class="card-body">
-          {{ date('y-m-d', strtotime($datum->bookingDate. ' + 30 days')) }}
           <input class="form-control flexdatalist" list="doctorClinicNameList" id="{{ $viewFolder }}_referal" name="{{ $viewFolder }}[referal]" value="{{ isset($referedDoctorArr) ? implode(',', $referedDoctorArr) : '' }}" autocomplete="off">
         </div>
       </div>
