@@ -176,9 +176,6 @@
             <br>
             <br>
             <br>
-            <br>
-            <br>
-            <br>
             @yield('content')
         </main>
     </div>

@@ -1125,6 +1125,7 @@
                   $('.docNotesDiv').each(function(){
                     $(this).hide();
                   });
+                  $('#{{ $viewFolder }}_SUMM_{{ $datum->id }}').show();
                   $('#{{ $viewFolder }}_SOAP_{{ $datum->id }}').show();
                   $('#{{ $viewFolder }}_Presc_{{ $datum->id }}').show();
                   $('#{{ $viewFolder }}_MedCert_{{ $datum->id }}').show();
@@ -1196,6 +1197,7 @@
                 $('.docNotesDiv').each(function(){
                     $(this).hide();
                   });
+                  $('#{{ $viewFolder }}_SUMM_{{ $cr->id }}').show();
                   $('#{{ $viewFolder }}_SOAP_{{ $cr->id }}').show();
                   $('#{{ $viewFolder }}_Presc_{{ $cr->id }}').show();
                   $('#{{ $viewFolder }}_MedCert_{{ $cr->id }}').show();
@@ -1445,35 +1447,96 @@
                 <small class="text-muted">{{ $datum->duration }}</small>
               </div>
             </div>
+            @if(stristr($datum->doctor->specialty, 'Ophtha'))
             <div class="card mb-3">
-              <div class="card-header">Doctor's Notes</div>
+              <div class="card-header">Eye Examination Information</div>
               <div class="card-body">
                 <p>
-                  <strong>History of Present Illness:</strong><div class="m-3">{!! nl2br(isset($referal_conso) ? $referal_conso->docNotesHPI : (isset($datum->docNotesHPI) ? $datum->docNotesHPI : '')) !!}</div><br>
-                  <strong>Subjective Complaints:</strong><br><div class="m-3">{!! nl2br(isset($referal_conso) ? $referal_conso->docNotesSubject : (isset($datum->docNotesSubject) ? $datum->docNotesSubject : '')) !!}</div><br>
-                  <strong>Objective Findings:</strong><br><div class="m-3">{!! nl2br(isset($referal_conso) ? $referal_conso->docNotes : (isset($datum->docNotes) ? $datum->docNotes : '')) !!}</div><br>
+                  <strong>AR OD:</strong> <span class="text-primary">{{ $datum->arod_sphere != 'No Target' ? ($datum->arod_sphere > 0 ? '+' . $datum->arod_sphere : $datum->arod_sphere) . ' - ' . ($datum->arod_cylinder > 0 ? '+' . $datum->arod_cylinder : $datum->arod_cylinder) . ' x ' . $datum->arod_axis : 'No Refraction Possible' }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                  <strong>AR OS:</strong> <span class="text-primary">{{ $datum->aros_sphere != 'No Target' ? ($datum->aros_sphere > 0 ? '+' . $datum->aros_sphere : $datum->aros_sphere) . ' - ' . ($datum->aros_cylinder > 0 ? '+' . $datum->aros_cylinder : $datum->aros_cylinder) . ' x ' . $datum->aros_axis : 'No Refraction Possible' }}</span><br>
+                  <strong>UCVA OD:</strong> <span class="text-primary">{{ $datum->vaod_den != '' ? $datum->vaod_num . ' / ' . $datum->vaod_den : $datum->vaod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                  <strong>UCVA OD Present Correction:</strong> <span class="text-primary">{{ $datum->vaodcor_den != '' ? $datum->vaodcor_num . ' / ' . $datum->vaodcor_den : $datum->vaodcor_num }}</span><br>
+                  <strong>UCVA OS:</strong> <span class="text-primary">{{ $datum->vaos_den != '' ? $datum->vaos_num . ' / ' . $datum->vaos_den : $datum->vaos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                  <strong>UCVA OS Present Correction:</strong> <span class="text-primary">{{ $datum->vaoscor_den != '' ? $datum->vaoscor_num . ' / ' . $datum->vaoscor_den : $datum->vaoscor_num }}</span><br>
+                  <strong>VA OD Pinhole:</strong> <span class="text-primary">{{ $datum->pinod_den != '' ? $datum->pinod_num . ' / ' . $datum->pinod_den : $datum->pinod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                  <strong>BCVA OD:</strong> <span class="text-primary">{{ $datum->pinodcor_den != '' ? $datum->pinodcor_num . ' / ' . $datum->pinodcor_den : $datum->pinodcor_num }}</span><br>
+                  <strong>VA OS Pinhole:</strong> <span class="text-primary">{{ $datum->pinos_den != '' ? $datum->pinos_num . ' / ' . $datum->pinos_den : $datum->pinos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                  <strong>BCVA OS:</strong> <span class="text-primary">{{ $datum->pinoscor_den != '' ? $datum->pinoscor_num . ' / ' . $datum->pinoscor_den : $datum->pinoscor_num }}</span><br>
+                  <strong>Jaeger OU:</strong> <span class="text-primary">{{ $datum->jae_ou }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                  <strong>Jaeger OD:</strong> <span class="text-primary">{{ $datum->jae_od }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                  <strong>Jaeger OS:</strong> <span class="text-primary">{{ $datum->jae_os }}</span><br>
+                  <strong>IOP OD:</strong> <span class="text-primary">{{ $datum->iopod }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                  <strong>IOP OS:</strong> <span class="text-primary">{{ $datum->iopos }}</span>
                 </p>
               </div>
             </div>
-            <div class="card mb-3">
-              <div class="card-header">Assessment</div>
-              <div class="card-body">
-                <p>
-                  <strong>Primary Diagnosis:</strong> {!! isset($referal_conso->icd_code_obj) ? nl2br($referal_conso->icd_code_obj->icd_code . ' - ' . $datum->icd_code_obj->details) : (isset($datum->icd_code_obj->icd_code) ? nl2br($datum->icd_code_obj->icd_code . ' - ' . $datum->icd_code_obj->details) : '') !!}<br>
-                  <strong>Secondary Diagnosis:</strong><br><div class="m-3">{!! nl2br(isset($referal_conso) ? $referal_conso->assessment : (isset($datum->assessment) ? $datum->assessment : '')) !!}</div><br>
-                </p>
+            @endif
+            <div id="{{ $viewFolder }}_SUMM_{{ $datum->id }}" class="docNotesDiv">
+              <div class="card mb-3">
+                <div class="card-header">Doctor's Notes</div>
+                <div class="card-body">
+                  <p>
+                    <strong>History of Present Illness:</strong><div class="m-3">{!! nl2br(isset($datum->docNotesHPI) ? $datum->docNotesHPI : '') !!}</div><br>
+                    <strong>Subjective Complaints:</strong><br><div class="m-3">{!! nl2br(isset($datum->docNotesSubject) ? $datum->docNotesSubject : '') !!}</div><br>
+                    <strong>Objective Findings:</strong><br><div class="m-3">{!! nl2br(isset($datum->docNotes) ? $datum->docNotes : '') !!}</div><br>
+                  </p>
+                </div>
+              </div>
+              <div class="card mb-3">
+                <div class="card-header">Assessment</div>
+                <div class="card-body">
+                  <p>
+                    <strong>Primary Diagnosis:</strong> {!! nl2br(isset($datum->icd_code_obj) ? $datum->icd_code_obj->icd_code . ' - ' . $datum->icd_code_obj->details : '') !!}<br>
+                    <strong>Secondary Diagnosis:</strong><br><div class="m-3">{!! nl2br(isset($datum->assessment) ? $datum->assessment : '') !!}</div><br>
+                  </p>
+                </div>
+              </div>
+              <div class="card mb-3">
+                <div class="card-header">Plan</div>
+                <div class="card-body">
+                  <p>
+                    <strong>Medical Therapeutics:</strong><br><div class="m-3">{!! nl2br(isset($datum->planMed) ? $datum->planMed : '') !!}</div><br>
+                    <strong>Diagnostics and Surgery:</strong><br><div class="m-3">{!! nl2br(isset($datum->plan) ? $datum->plan : '') !!}</div><br>
+                    <strong>Remarks:</strong><br><div class="m-3">{!! nl2br(isset($datum->planRem) ? $datum->planRem : '') !!}</div><br>
+                  </p>
+                </div>
               </div>
             </div>
-            <div class="card mb-3">
-              <div class="card-header">Plan</div>
-              <div class="card-body">
-                <p>
-                  <strong>Medical Therapeutics:</strong><br><div class="m-3">{!! nl2br(isset($referal_conso) ? $referal_conso->planMed : (isset($datum->planMed) ? $datum->planMed : '')) !!}</div><br>
-                  <strong>Diagnostics and Surgery:</strong><br><div class="m-3">{!! nl2br(isset($referal_conso) ? $referal_conso->plan : (isset($datum->plan) ? $datum->plan : '')) !!}</div><br>
-                  <strong>Remarks:</strong><br><div class="m-3">{!! nl2br(isset($referal_conso) ? $referal_conso->planRem : (isset($datum->planRem) ? $datum->planRem : '')) !!}</div><br>
-                </p>
+            @if(isset($datum->consultation_referals[0]->id))
+              @foreach($datum->consultation_referals as $cr)
+            <div id="{{ $viewFolder }}_SUMM_{{ $cr->id }}" class="docNotesDiv" style="display: none">
+              <div class="card mb-3">
+                <div class="card-header">Doctor's Notes</div>
+                <div class="card-body">
+                  <p>
+                    <strong>History of Present Illness:</strong><div class="m-3">{!! nl2br(isset($cr->docNotesHPI) ? $cr->docNotesHPI : '') !!}</div><br>
+                    <strong>Subjective Complaints:</strong><br><div class="m-3">{!! nl2br(isset($cr->docNotesSubject) ? $cr->docNotesSubject : '') !!}</div><br>
+                    <strong>Objective Findings:</strong><br><div class="m-3">{!! nl2br(isset($cr->docNotes) ? $cr->docNotes : '') !!}</div><br>
+                  </p>
+                </div>
+              </div>
+              <div class="card mb-3">
+                <div class="card-header">Assessment</div>
+                <div class="card-body">
+                  <p>
+                    <strong>Primary Diagnosis:</strong> {!! nl2br(isset($cr->icd_code_obj) ? $cr->icd_code_obj->icd_code . ' - ' . $cr->icd_code_obj->details : '') !!}<br>
+                    <strong>Secondary Diagnosis:</strong><br><div class="m-3">{!! nl2br(isset($cr->assessment) ? $cr->assessment : '') !!}</div><br>
+                  </p>
+                </div>
+              </div>
+              <div class="card mb-3">
+                <div class="card-header">Plan</div>
+                <div class="card-body">
+                  <p>
+                    <strong>Medical Therapeutics:</strong><br><div class="m-3">{!! nl2br(isset($cr->planMed) ? $cr->planMed : '') !!}</div><br>
+                    <strong>Diagnostics and Surgery:</strong><br><div class="m-3">{!! nl2br(isset($cr->plan) ? $cr->plan : '') !!}</div><br>
+                    <strong>Remarks:</strong><br><div class="m-3">{!! nl2br(isset($cr->planRem) ? $cr->planRem : '') !!}</div><br>
+                  </p>
+                </div>
               </div>
             </div>
+              @endforeach
+            @endif
           </div>
           <div id="soapCurDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
             <div class="card mb-3">
