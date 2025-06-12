@@ -14,7 +14,7 @@
     @if(isset($doc->doctor->affiliated_clinics))
     @foreach($doc->doctor->affiliated_clinics->sortBy('name') as $clin)
       {{-- @foreach($doc->doctor->schedules()->whereBetween('dateSched', [$datum->bookingDate, date('Y-m-d', strtotime(' + 1 day'))])->orderBy('dateSched', 'asc')->distinct()->get('dateSched') as $sched) --}}
-      @foreach($doc->doctor->schedules()->whereBetween('dateSched', [$datum->bookingDate, $datum->bookingDate])->orderBy('dateSched', 'asc')->distinct()->get('dateSched') as $sched)
+      @foreach($doc->doctor->schedules()->whereBetween('dateSched', [$datum->bookingDate, $datum->bookingDate])->orderBy('dateSched', 'asc')->get()->unique('dateSched') as $sched)
         {{-- @if(isset($clin->clinic->id)) --}}
         {{-- @if(!isset($dateArr[$doc->doctor->id][$clin->clinic->id][$datum->bookingDate])) --}}
         {{-- @php
