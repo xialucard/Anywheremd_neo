@@ -13,7 +13,7 @@
   @foreach($user->clinic->affiliated_doctors->sortBy('name') as $doc)
     @if(isset($doc->doctor->affiliated_clinics))
     @foreach($doc->doctor->affiliated_clinics->sortBy('name') as $clin)
-      @foreach($doc->doctor->schedules()->whereBetween('dateSched', [$datum->bookingDate, date('Y-m-d', strtotime(' + 15 days'))])->orderBy('dateSched', 'asc')->distinct()->get('dateSched') as $sched)
+      @foreach($doc->doctor->schedules()->whereBetween('dateSched', [$datum->bookingDate, date('Y-m-d', strtotime(' + 7 days'))])->orderBy('dateSched', 'asc')->distinct()->get('dateSched') as $sched)
         {{-- @if(isset($clin->clinic->id)) --}}
         {{-- @if(!isset($dateArr[$doc->doctor->id][$clin->clinic->id][$datum->bookingDate])) --}}
         {{-- @php
