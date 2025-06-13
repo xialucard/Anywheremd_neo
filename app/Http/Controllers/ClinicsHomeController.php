@@ -750,6 +750,24 @@ class ClinicsHomeController extends Controller
         return json_encode($patients);
     }
 
+    function getReferralList($bookingDate){
+        $user = Auth::user();
+        // $datalist = (object)[];
+        $cnt = 0;
+        foreach($user->clinic->affiliated_doctors->sortBy('name') as $doc){
+            if(isset($doc->doctor->affiliated_clinics)){
+                foreach($doc->doctor->affiliated_clinics->sortBy('name') as $clin){
+                    foreach($doc->doctor->schedules()->whereBetween('dateSched', [$bookingDate, date('Y-m-d', strtotime($bookingDate . ' + 30 days'))])->orderBy('dateSched', 'asc')->distinct()->get('dateSched') as $sched){
+                        $datalist[$cnt]['id'] = $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->doctor->id . ' - Dr. ' . $doc->doctor->name;
+                        $datalist[$cnt]['name'] = $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->doctor->id . ' - Dr. ' . $doc->doctor->name;
+                        $cnt++;
+                    }
+                }
+            }
+       }
+       return json_encode($datalist);
+    }
+
     function getDoctorList($patient_name, $conso = null){
         $user = Auth::user();
         unset($doctorsId);

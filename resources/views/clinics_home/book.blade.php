@@ -5,29 +5,7 @@
   }
 @endphp
 <datalist id="patientNameList"></datalist>
-@if(isset($user) && isset($datum->id))
-<datalist id="doctorClinicNameList">
-  @php
-    unset($dateArr);
-  @endphp
-  @foreach($user->clinic->affiliated_doctors->sortBy('name') as $doc)
-    @if(isset($doc->doctor->affiliated_clinics))
-    @foreach($doc->doctor->affiliated_clinics->sortBy('name') as $clin)
-      {{-- @foreach($doc->doctor->schedules()->whereBetween('dateSched', [$datum->bookingDate, date('Y-m-d', strtotime(' + 1 day'))])->orderBy('dateSched', 'asc')->distinct()->get('dateSched') as $sched) --}}
-      @foreach($doc->doctor->schedules()->whereBetween('dateSched', [$datum->bookingDate, $datum->bookingDate])->orderBy('dateSched', 'asc')->get()->unique('dateSched') as $sched)
-        @if(isset($clin->clinic->id))
-        {{-- @if(!isset($dateArr[$doc->doctor->id][$clin->clinic->id][$datum->bookingDate])) --}}
-        {{-- @php
-          $dateArr[$doc->doctor->id][$clin->clinic->id][$datum->bookingDate] = $datum->bookingDate;
-        @endphp --}}
-    <option value="{{ $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->doctor->id . ' - Dr. ' . $doc->doctor->name }}">{{ $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->doctor->id . ' - Dr. ' . $doc->doctor->name }}</option>
-        @endif
-      @endforeach
-    @endforeach
-    @endif
-  @endforeach
-</datalist>
-@endif
+
 <div class="container">
   <div class="row">
     <div class="col-lg-4 mb-3">
@@ -153,7 +131,7 @@
       <div class="card">
         <div class="card-header">Refer a Doctor</div>
         <div class="card-body">
-          <input class="form-control flexdatalist" list="doctorClinicNameList" id="{{ $viewFolder }}_referal" name="{{ $viewFolder }}[referal]" value="{{ isset($referedDoctorArr) ? implode(',', $referedDoctorArr) : '' }}" autocomplete="off">
+          <input class="form-control flexdatalistData" id="{{ $viewFolder }}_referal" name="{{ $viewFolder }}[referal]" value="{{ isset($referedDoctorArr) ? implode(',', $referedDoctorArr) : '' }}" autocomplete="off">
         </div>
       </div>
       @endif
@@ -1566,6 +1544,16 @@
     });
     
     
+  });
+
+  $('.flexdatalistData').flexdatalist({
+      selectionRequired: 1,
+      searchContain:true,
+      multiple:true,
+      minLength: 1,
+      searchIn: 'name',
+      requestType: 'get',
+      url: '{{ Route::has($viewFolder . '.getReferralList') ? route($viewFolder . '.getReferralList', $dateBooking) : ''}}'
   });
 
   $('.flexdatalist').flexdatalist({
