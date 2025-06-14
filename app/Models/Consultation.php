@@ -143,7 +143,7 @@ class Consultation extends Model
 
     public function consultation_referals()
     {
-        return $this->hasMany(Consultation::class, 'consultation_parent_id');
+        return $this->hasMany(Consultation::class, 'consultation_parent_id', 'id');
     }
 
     public function parent_consultation()

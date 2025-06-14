@@ -131,7 +131,7 @@
       <div class="card">
         <div class="card-header">Refer a Doctor</div>
         <div class="card-body">
-          <input class="form-control flexdatalistData" id="{{ $viewFolder }}_referal" name="{{ $viewFolder }}[referal]" value="{{ isset($referedDoctorArr) ? implode(',', $referedDoctorArr) : '' }}" autocomplete="off">
+          <input class="form-control" id="{{ $viewFolder }}_referal" name="{{ $viewFolder }}[referal]" value="{{ isset($referedDoctorArr) ? implode(',', $referedDoctorArr) : '' }}" autocomplete="off">
         </div>
       </div>
       @endif
@@ -1546,14 +1546,20 @@
     
   });
 
-  $('.flexdatalistData').flexdatalist({
-      selectionRequired: 1,
-      searchContain:true,
-      multiple:true,
-      minLength: 1,
-      searchIn: 'name',
-      requestType: 'get',
-      url: '{{ Route::has($viewFolder . '.getReferralList') ? route($viewFolder . '.getReferralList', $dateBooking) : ''}}'
+  $.ajax({
+    type: 'GET',
+    url: '{{ Route::has($viewFolder . '.getReferralList') ? route($viewFolder . '.getReferralList', $dateBooking) : ''}}',
+    success: function(data){
+      data = jQuery.parseJSON(data);
+      $('#{{ $viewFolder }}_referal').flexdatalist({
+        selectionRequired: 1,
+        searchContain:true,
+        multiple:true,
+        minLength: 1,
+        searchIn: 'name',
+        data: data
+      });
+    }
   });
 
   $('.flexdatalist').flexdatalist({
