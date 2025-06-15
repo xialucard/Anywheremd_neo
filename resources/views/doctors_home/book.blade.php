@@ -476,7 +476,7 @@
               </p>
             </div>
           </div>
-          <ul class="nav nav-pills mb-3">
+          <ul class="nav nav-pills" style="margin-bottom: 55px">
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="#">{{ $user->name == $bookings[0]->doctor->name ? 'Yours' : 'Dr. ' . Str::substr($bookings[0]->doctor->f_name, 0, 1) . '. ' . $bookings[0]->doctor->l_name }}</a>
             </li>
@@ -1199,7 +1199,7 @@
 
                   
 
-                  @if($user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id)
+                  @if(!isset($referal_conso))
                   $('#{{ $viewFolder }}_prescription').prop('disabled', false);
                   $('#{{ $viewFolder }}_prescriptionSelect').prop('disabled', false);
                   $('#{{ $viewFolder }}_prescriptionHelperDelete').prop('disabled', false);
@@ -1241,7 +1241,7 @@
                   $('#{{ $viewFolder }}_anesthesia_type_ao').val($('#{{ $viewFolder }}_parent_anesthesia_type_ao_hidden').val());
                   $('#{{ $viewFolder }}_anesthesiologist_ao').val($('#{{ $viewFolder }}_parent_anesthesiologist_ao_hidden').val());
                   $('#{{ $viewFolder }}_admittingOrder').val($('#{{ $viewFolder }}_parent_admittingOrder_hidden').val());
-                ">{{  $user->id == $datum->doctor->id ? 'Yours - ' . $datum->clinic->name : 'Dr. ' . Str::substr($datum->doctor->f_name, 0, 1) . '. ' . $datum->doctor->l_name . ' - ' . $datum->clinic->name}}</a>
+                ">{{ !isset($referal_conso) ? 'Yours - ' . $datum->clinic->name . ' | ' . ($datum->booking_type == '' ? 'Consultations' : $datum->booking_type) : 'Dr. ' . Str::substr($datum->doctor->f_name, 0, 1) . '. ' . $datum->doctor->l_name . ' - ' . $datum->clinic->name . ' | ' . ($datum->booking_type == '' ? 'Consultations' : $datum->booking_type)}}</a>
             </li>
             <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_prescription_hidden" value="{{ addslashes($datum->prescription) }}">
             <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_findings_hidden" value="{{ addslashes($datum->findings) }}">
@@ -1271,7 +1271,7 @@
 
                   
 
-                  @if($user->id == $cr->doctor->id && $clinicDat == $cr->clinic_id)
+                  @if(isset($referal_conso) && $referal_conso->id == $cr->id)
                   $('#{{ $viewFolder }}_prescription').prop('disabled', false);
                   $('#{{ $viewFolder }}_prescriptionSelect').prop('disabled', false);
                   $('#{{ $viewFolder }}_prescriptionHelperDelete').prop('disabled', false);
@@ -1315,7 +1315,7 @@
                   $('#{{ $viewFolder }}_anesthesiologist_ao').val($('#{{ $viewFolder }}_anesthesiologist_ao_hidden').val());
                   $('#{{ $viewFolder }}_admittingOrder').val($('#{{ $viewFolder }}_admittingOrder_hidden').val());
 
-              ">{{ $user->name == $cr->doctor->name ? 'Yours - ' . $cr->clinic->name : 'Dr. ' . Str::substr($cr->doctor->f_name, 0, 1) . '. ' . $cr->doctor->l_name . ' - ' . $cr->clinic->name }}</a>
+              ">{{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'Yours - ' . $cr->clinic->name . ' | ' . ($cr->booking_type == '' ? 'Consultations' : $cr->booking_type) : 'Dr. ' . Str::substr($cr->doctor->f_name, 0, 1) . '. ' . $cr->doctor->l_name . ' - ' . $cr->clinic->name . ' | ' . ($cr->booking_type == '' ? 'Consultations' : $cr->booking_type) }}</a>
             </li>
               <input type="hidden" class="form-control" id="{{ $viewFolder }}_prescription_hidden" value="{{ addslashes($cr->prescription) }}">
               <input type="hidden" class="form-control" id="{{ $viewFolder }}_findings_hidden" value="{{ addslashes($cr->findings) }}">
@@ -1628,13 +1628,13 @@
                     <div class="card-body">
                       <small class="text-muted">Helper</small>
                       <div class="input-group input-group-small flex-nowrap">
-                        <select class="form-select" placeholder="" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id  ? '' : 'disabled' }}>
+                        <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
                           <option value=""></option>
                         </select>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id ? '' : 'disabled' }}>Delete Helper</button>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso) ? '' : 'disabled' }}>Delete Helper</button>
                       </div>
                       <small class="text-muted">Content</small>
-                      <textarea class="form-control" name="{{ $viewFolder }}[docNotesHPI]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_docNotesHPI" @endif rows=3 {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id  ? '' : 'disabled' }}>{{ isset($datum->docNotesHPI) ? $datum->docNotesHPI : '' }}</textarea>
+                      <textarea class="form-control" name="{{ $viewFolder }}[docNotesHPI]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_docNotesHPI" @endif rows=3 {{ !isset($referal_conso)  ? '' : 'disabled' }}>{{ isset($datum->docNotesHPI) ? $datum->docNotesHPI : '' }}</textarea>
                       <small class="text-muted">Helper Save/Edit</small>
                       <div class="input-group input-group-small mb-3 flex-nowrap">
                         <div class="input-group-text">
@@ -1652,13 +1652,13 @@
                     <div class="card-body">
                       <small class="text-muted">Helper</small>
                       <div class="input-group input-group-small flex-nowrap">
-                        <select class="form-select" placeholder="" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id  ? '' : 'disabled' }}>
+                        <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
                           <option value=""></option>
                         </select>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id  ? '' : 'disabled' }}>Delete Helper</button>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
                       </div>
                       <small class="text-muted">Content</small>
-                      <textarea class="form-control" name="{{ $viewFolder }}[docNotesSubject]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_docNotesSubject" @endif rows=3 {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id  ? '' : 'disabled' }}>{{ isset($datum->docNotesSubject) ? $datum->docNotesSubject : '' }}</textarea>
+                      <textarea class="form-control" name="{{ $viewFolder }}[docNotesSubject]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_docNotesSubject" @endif rows=3 {{ !isset($referal_conso)  ? '' : 'disabled' }}>{{ isset($datum->docNotesSubject) ? $datum->docNotesSubject : '' }}</textarea>
                       <small class="text-muted">Helper Save/Edit</small>
                       <div class="input-group input-group-small mb-3 flex-nowrap">
                         <div class="input-group-text">
@@ -1700,13 +1700,13 @@
                       @endif
                       <small class="text-muted">Helper</small>
                       <div class="input-group input-group-small flex-nowrap">
-                        <select class="form-select" placeholder="" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id  ? '' : 'disabled' }}>
+                        <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
                           <option value=""></option>
                         </select>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id  ? '' : 'disabled' }}>Delete Helper</button>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
                       </div>
                       <small class="text-muted">Content</small>
-                      <textarea class="form-control" name="{{ $viewFolder }}[docNotes]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_docNotes" @endif rows=3 {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id  ? 'required' : 'disabled' }} onchange="
+                      <textarea class="form-control" name="{{ $viewFolder }}[docNotes]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_docNotes" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }} onchange="
                         $('#{{ $viewFolder }}_findings').val($(this).val());
                       ">{{ isset($datum->docNotes) ? $datum->docNotes : '' }}</textarea>
                       <small class="text-muted">Helper Save/Edit</small>
@@ -1729,7 +1729,7 @@
                     {{-- <select class="form-select" name="{{ $viewFolder }}[icd_code]" id="{{ $viewFolder }}_icd_code" placeholder="" {{ $user->id == $datum->doctor->id ? '' : 'disabled' }}>
                       <option value=""></option>
                     </select> --}}
-                    <input class="form-control" list="icdCodeList" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id  ? 'id=' . $viewFolder . '_icd_code' : '' }} name="{{ $viewFolder }}[icd_code]" value="{{ isset($datum->icd_code_obj->icd_code) ? $datum->icd_code_obj->icd_code . ' - ' . $datum->icd_code_obj->details : '' }}" autocomplete="off" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id  ? '' : 'disabled' }}>
+                    <input class="form-control" list="icdCodeList" {{ !isset($referal_conso) ? 'id=' . $viewFolder . '_icd_code' : '' }} name="{{ $viewFolder }}[icd_code]" value="{{ isset($datum->icd_code_obj->icd_code) ? $datum->icd_code_obj->icd_code . ' - ' . $datum->icd_code_obj->details : '' }}" autocomplete="off" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
                     <label for="{{ $viewFolder }}_icd_code">Primary Diagnosis</label>
                     <small id="help_{{ $viewFolder }}_icd_code" class="text-muted"></small>
                   </div>
@@ -1738,13 +1738,13 @@
                     <div class="card-body">
                       <small class="text-muted">Helper</small>
                       <div class="input-group input-group-small flex-nowrap">
-                        <select class="form-select" placeholder="" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id  ? '' : 'disabled' }}>
+                        <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
                           <option value=""></option>
                         </select>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id  ? '' : 'disabled' }}>Delete Helper</button>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
                       </div>
                       <small class="text-muted">Content</small>
-                      <textarea class="form-control" name="{{ $viewFolder }}[assessment]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_assessment" @endif rows=3 {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id  ? 'required' : 'disabled' }} onchange="
+                      <textarea class="form-control" name="{{ $viewFolder }}[assessment]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_assessment" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }} onchange="
                         $('#{{ $viewFolder }}_diagnosis').val($(this).val());
                       ">{{ isset($datum->assessment) ? $datum->assessment : '' }}</textarea>
                       <small class="text-muted">Helper Save/Edit</small>
@@ -1768,13 +1768,13 @@
                     <div class="card-body">
                       <small class="text-muted">Helper</small>
                       <div class="input-group input-group-small flex-nowrap">
-                        <select class="form-select" placeholder="" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id  ? '' : 'disabled' }}>
+                        <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
                           <option value=""></option>
                         </select>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id  ? '' : 'disabled' }}>Delete Helper</button>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
                       </div>
                       <small class="text-muted">Content</small>
-                      <textarea class="form-control" name="{{ $viewFolder }}[planMed]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_planMed" @endif rows=3 {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id  ? 'required' : 'disabled' }}>{{ isset($datum->planMed) ? $datum->planMed : '' }}</textarea>
+                      <textarea class="form-control" name="{{ $viewFolder }}[planMed]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_planMed" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }}>{{ isset($datum->planMed) ? $datum->planMed : '' }}</textarea>
                       <small class="text-muted">Helper Save/Edit</small>
                       <div class="input-group input-group-small mb-3 flex-nowrap">
                         <div class="input-group-text">
@@ -1791,13 +1791,13 @@
                     <div class="card-body">
                       <small class="text-muted">Helper</small>
                       <div class="input-group input-group-small flex-nowrap">
-                        <select class="form-select" placeholder="" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id  ? '' : 'disabled' }}>
+                        <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
                           <option value=""></option>
                         </select>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id  ? '' : 'disabled' }}>Delete Helper</button>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
                       </div>
                       <small class="text-muted">Content</small>
-                      <textarea class="form-control" name="{{ $viewFolder }}[plan]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_plan" @endif rows=3 {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id  ? 'required' : 'disabled' }}>{{ isset($datum->plan) ? $datum->plan : '' }}</textarea>
+                      <textarea class="form-control" name="{{ $viewFolder }}[plan]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_plan" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }}>{{ isset($datum->plan) ? $datum->plan : '' }}</textarea>
                       <small class="text-muted">Helper Save/Edit</small>
                       <div class="input-group input-group-small mb-3 flex-nowrap">
                         <div class="input-group-text">
@@ -1814,13 +1814,13 @@
                     <div class="card-body">
                       <small class="text-muted">Helper</small>
                       <div class="input-group input-group-small flex-nowrap">
-                        <select class="form-select" placeholder="" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id  ? '' : 'disabled' }}>
+                        <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
                           <option value=""></option>
                         </select>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id  ? '' : 'disabled' }}>Delete Helper</button>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
                       </div>
                       <small class="text-muted">Content</small>
-                      <textarea class="form-control" name="{{ $viewFolder }}[planRem]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_planRem" @endif rows=3 {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id  ? '' : 'disabled' }}>{{ isset($datum->planRem) ? $datum->planRem : '' }}</textarea>
+                      <textarea class="form-control" name="{{ $viewFolder }}[planRem]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_planRem" @endif rows=3 {{ !isset($referal_conso)  ? '' : 'disabled' }}>{{ isset($datum->planRem) ? $datum->planRem : '' }}</textarea>
                       <small class="text-muted">Helper Save/Edit</small>
                       <div class="input-group input-group-small mb-3 flex-nowrap">
                         <div class="input-group-text">
@@ -1837,7 +1837,7 @@
             </div>
             @if(isset($datum->consultation_referals[0]->id))
               @foreach($datum->consultation_referals as $cr)
-                @if($user->id == $cr->doctor->id && $clinicDat == $cr->clinic_id)  
+                @if(isset($referal_conso) && $referal_conso->id == $cr->id)  
             <input type="hidden" class="form-control" id="{{ $viewFolder }}_referral_id" name="{{ $viewFolder }}[referral_id]" value="{{ $cr->id }}">
                 @endif
             <div class="docNotesDiv" id="{{ $viewFolder }}_SOAP_{{ $cr->id }}" style="display:none">
@@ -1850,13 +1850,13 @@
                     <div class="card-body">
                       <small class="text-muted">Helper</small>
                       <div class="input-group input-group-small flex-nowrap">
-                        <select class="form-select" placeholder="" {{ $user->id == $cr->doctor->id && $clinicDat == $cr->clinic_id ? '' : 'disabled' }}>
+                        <select class="form-select" placeholder="" {{ isset($referal_conso) && $referal_conso->id == $cr->id ? '' : 'disabled' }}>
                           <option value=""></option>
                         </select>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ $user->id == $cr->doctor->id && $clinicDat == $cr->clinic_id  ? '' : 'disabled' }}>Delete Helper</button>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>Delete Helper</button>
                       </div>
                       <small class="text-muted">Content</small>
-                      <textarea class="form-control" name="{{ $viewFolder }}[docNotesHPI]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_docNotesHPI" @endif rows=3 {{ $user->id == $cr->doctor->id && $clinicDat == $cr->clinic_id  ? '' : 'disabled' }}>{{ isset($cr->docNotesHPI) ? $cr->docNotesHPI : '' }}</textarea>
+                      <textarea class="form-control" name="{{ $viewFolder }}[docNotesHPI]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_docNotesHPI" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>{{ isset($cr->docNotesHPI) ? $cr->docNotesHPI : '' }}</textarea>
                       <small class="text-muted">Helper Save/Edit</small>
                       <div class="input-group input-group-small mb-3 flex-nowrap">
                         <div class="input-group-text">
@@ -1874,13 +1874,13 @@
                     <div class="card-body">
                       <small class="text-muted">Helper</small>
                       <div class="input-group input-group-small flex-nowrap">
-                        <select class="form-select" placeholder="" {{ $user->id == $cr->doctor->id && $clinicDat == $cr->clinic_id  ? '' : 'disabled' }}>
+                        <select class="form-select" placeholder="" {{ isset($referal_conso) && $referal_conso->id == $cr->id ? '' : 'disabled' }}>
                           <option value=""></option>
                         </select>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ $user->id == $cr->doctor->id && $clinicDat == $cr->clinic_id  ? '' : 'disabled' }}>Delete Helper</button>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>Delete Helper</button>
                       </div>
                       <small class="text-muted">Content</small>
-                      <textarea class="form-control" name="{{ $viewFolder }}[docNotesSubject]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_docNotesSubject" @endif rows=3 {{ $user->id == $cr->doctor->id && $clinicDat == $cr->clinic_id  ? '' : 'disabled' }}>{{ isset($cr->docNotesSubject) ? $cr->docNotesSubject : '' }}</textarea>
+                      <textarea class="form-control" name="{{ $viewFolder }}[docNotesSubject]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_docNotesSubject" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>{{ isset($cr->docNotesSubject) ? $cr->docNotesSubject : '' }}</textarea>
                       <small class="text-muted">Helper Save/Edit</small>
                       <div class="input-group input-group-small mb-3 flex-nowrap">
                         <div class="input-group-text">
@@ -1922,13 +1922,13 @@
                       @endif
                       <small class="text-muted">Helper</small>
                       <div class="input-group input-group-small flex-nowrap">
-                        <select class="form-select" placeholder="" {{ $user->id == $cr->doctor->id && $clinicDat == $cr->clinic_id  ? '' : 'disabled' }}>
+                        <select class="form-select" placeholder="" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>
                           <option value=""></option>
                         </select>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ $user->id == $cr->doctor->id && $clinicDat == $cr->clinic_id  ? '' : 'disabled' }}>Delete Helper</button>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>Delete Helper</button>
                       </div>
                       <small class="text-muted">Content</small>
-                      <textarea class="form-control" name="{{ $viewFolder }}[docNotes]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_docNotes" @endif rows=3 {{ $user->id == $cr->doctor->id && $clinicDat == $cr->clinic_id  ? 'required' : 'disabled' }} onchange="
+                      <textarea class="form-control" name="{{ $viewFolder }}[docNotes]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_docNotes" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }} onchange="
                         $('#{{ $viewFolder }}_findings').val($(this).val());
                       ">{{ isset($cr->docNotes) ? $cr->docNotes : '' }}</textarea>
                       <small class="text-muted">Helper Save/Edit</small>
@@ -1951,7 +1951,7 @@
                     {{-- <select class="form-select" name="{{ $viewFolder }}[icd_code]" id="{{ $viewFolder }}_icd_code" placeholder="" {{ $user->id == $cr->doctor->id ? '' : 'disabled' }}>
                       <option value=""></option>
                     </select> --}}
-                    <input class="form-control" list="icdCodeList" {{ $user->id == $cr->doctor->id && $clinicDat == $cr->clinic_id  ? 'id=' . $viewFolder . '_icd_code' : '' }} name="{{ $viewFolder }}[icd_code]" value="{{ isset($cr->icd_code_obj->icd_code) ? $cr->icd_code_obj->icd_code . ' - ' . $cr->icd_code_obj->details : '' }}" autocomplete="off" {{ $user->id == $cr->doctor->id && $clinicDat == $cr->clinic_id  ? '' : 'disabled' }}>
+                    <input class="form-control" list="icdCodeList" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'id=' . $viewFolder . '_icd_code' : '' }} name="{{ $viewFolder }}[icd_code]" value="{{ isset($cr->icd_code_obj->icd_code) ? $cr->icd_code_obj->icd_code . ' - ' . $cr->icd_code_obj->details : '' }}" autocomplete="off" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>
                     <label for="{{ $viewFolder }}_icd_code">Primary Diagnosis</label>
                     <small id="help_{{ $viewFolder }}_icd_code" class="text-muted"></small>
                   </div>
@@ -1960,13 +1960,13 @@
                     <div class="card-body">
                       <small class="text-muted">Helper</small>
                       <div class="input-group input-group-small flex-nowrap">
-                        <select class="form-select" placeholder="" {{ $user->id == $cr->doctor->id && $clinicDat == $cr->clinic_id  ? '' : 'disabled' }}>
+                        <select class="form-select" placeholder="" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>
                           <option value=""></option>
                         </select>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ $user->id == $cr->doctor->id && $clinicDat == $cr->clinic_id  ? '' : 'disabled' }}>Delete Helper</button>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>Delete Helper</button>
                       </div>
                       <small class="text-muted">Content</small>
-                      <textarea class="form-control" name="{{ $viewFolder }}[assessment]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_assessment" @endif rows=3 {{ $user->id == $cr->doctor->id && $clinicDat == $cr->clinic_id  ? 'required' : 'disabled' }}  onchange="
+                      <textarea class="form-control" name="{{ $viewFolder }}[assessment]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_assessment" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }}  onchange="
                         $('#{{ $viewFolder }}_diagnosis').val($(this).val());
                       ">{{ isset($cr->assessment) ? $cr->assessment : '' }}</textarea>
                       <small class="text-muted">Helper Save/Edit</small>
@@ -1990,13 +1990,13 @@
                     <div class="card-body">
                       <small class="text-muted">Helper</small>
                       <div class="input-group input-group-small flex-nowrap">
-                        <select class="form-select" placeholder="" {{ $user->id == $cr->doctor->id && $clinicDat == $cr->clinic_id  ? '' : 'disabled' }}>
+                        <select class="form-select" placeholder="" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>
                           <option value=""></option>
                         </select>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ $user->id == $cr->doctor->id && $clinicDat == $cr->clinic_id  ? '' : 'disabled' }}>Delete Helper</button>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>Delete Helper</button>
                       </div>
                       <small class="text-muted">Content</small>
-                      <textarea class="form-control" name="{{ $viewFolder }}[planMed]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_planMed" @endif rows=3 {{ $user->id == $cr->doctor->id && $clinicDat == $cr->clinic_id  ? 'required' : 'disabled' }}>{{ isset($cr->planMed) ? $cr->planMed : '' }}</textarea>
+                      <textarea class="form-control" name="{{ $viewFolder }}[planMed]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_planMed" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }}>{{ isset($cr->planMed) ? $cr->planMed : '' }}</textarea>
                       <small class="text-muted">Helper Save/Edit</small>
                       <div class="input-group input-group-small mb-3 flex-nowrap">
                         <div class="input-group-text">
@@ -2013,13 +2013,13 @@
                     <div class="card-body">
                       <small class="text-muted">Helper</small>
                       <div class="input-group input-group-small flex-nowrap">
-                        <select class="form-select" placeholder="" {{ $user->id == $cr->doctor->id && $clinicDat == $cr->clinic_id  ? '' : 'disabled' }}>
+                        <select class="form-select" placeholder="" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>
                           <option value=""></option>
                         </select>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ $user->id == $cr->doctor->id && $clinicDat == $cr->clinic_id  ? '' : 'disabled' }}>Delete Helper</button>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>Delete Helper</button>
                       </div>
                       <small class="text-muted">Content</small>
-                      <textarea class="form-control" name="{{ $viewFolder }}[plan]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_plan" @endif rows=3 {{ $user->id == $cr->doctor->id && $clinicDat == $cr->clinic_id  ? 'required' : 'disabled' }}>{{ isset($cr->plan) ? $cr->plan : '' }}</textarea>
+                      <textarea class="form-control" name="{{ $viewFolder }}[plan]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_plan" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }}>{{ isset($cr->plan) ? $cr->plan : '' }}</textarea>
                       <small class="text-muted">Helper Save/Edit</small>
                       <div class="input-group input-group-small mb-3 flex-nowrap">
                         <div class="input-group-text">
@@ -2036,13 +2036,13 @@
                     <div class="card-body">
                       <small class="text-muted">Helper</small>
                       <div class="input-group input-group-small flex-nowrap">
-                        <select class="form-select" placeholder="" {{ $user->id == $cr->doctor->id && $clinicDat == $cr->clinic_id  ? '' : 'disabled' }}>
+                        <select class="form-select" placeholder="" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>
                           <option value=""></option>
                         </select>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ $user->id == $cr->doctor->id && $clinicDat == $cr->clinic_id  ? '' : 'disabled' }}>Delete Helper</button>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>Delete Helper</button>
                       </div>
                       <small class="text-muted">Content</small>
-                      <textarea class="form-control" name="{{ $viewFolder }}[planRem]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_planRem" @endif rows=3 {{ $user->id == $cr->doctor->id && $clinicDat == $cr->clinic_id  ? '' : 'disabled' }}>{{ isset($cr->planRem) ? $cr->planRem : '' }}</textarea>
+                      <textarea class="form-control" name="{{ $viewFolder }}[planRem]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_planRem" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>{{ isset($cr->planRem) ? $cr->planRem : '' }}</textarea>
                       <small class="text-muted">Helper Save/Edit</small>
                       <div class="input-group input-group-small mb-3 flex-nowrap">
                         <div class="input-group-text">
@@ -2130,7 +2130,7 @@
                 <small class="form-text text-muted">To print or download check the upper right part</small>
               </div>
               <div class="card-footer">
-                @if($user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id)
+                @if(!isset($referal_conso))
                 <button id="createPDFButPresc{{ $datum->id }}" type="button" class="createPDFButPresc btn btn-{{ $bgColor }} btn-sm" {{ $datum->prescription == '' ? 'disabled' : '' }} onclick="
                   $('#doctors_home_submit_type').val('Pause');
                   $.ajax({
@@ -2163,7 +2163,7 @@
                 <small class="form-text text-muted">To print or download check the upper right part</small>
               </div>
               <div class="card-footer">
-                @if($user->id == $cr->doctor->id && $clinicDat == $cr->clinic_id)
+                @if(isset($referal_conso) && $referal_conso->id == $cr->id)
                 <button id="createPDFButPresc{{ $cr->id }}" type="button" class="createPDFButPresc btn btn-{{ $bgColor }} btn-sm" {{ $cr->prescription == '' ? 'disabled' : '' }} onclick="
                   $('#doctors_home_submit_type').val('Pause');
                   $.ajax({
@@ -2204,13 +2204,13 @@
               <div class="card-body">
                 <small class="text-muted">Helper</small>
                 <div class="input-group input-group-small flex-nowrap">
-                  <select class="form-select" placeholder="" id="{{ $viewFolder }}_prescriptionSelect" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id ? '' : 'disabled' }}>
+                  <select class="form-select" placeholder="" id="{{ $viewFolder }}_prescriptionSelect" {{ !isset($referal_conso) ? '' : 'disabled' }}>
                     <option value=""></option>
                   </select>
-                  <button class="btn btn-outline-secondary" type="button" id="{{ $viewFolder }}_prescriptionDeleteHelper" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id ? '' : 'disabled' }}>Delete Helper</button>
+                  <button class="btn btn-outline-secondary" type="button" id="{{ $viewFolder }}_prescriptionDeleteHelper" {{ !isset($referal_conso) ? '' : 'disabled' }}>Delete Helper</button>
                 </div>
                 <small class="text-muted">Content</small>
-                <textarea class="form-control" name="{{ $viewFolder }}[prescription]" id="{{ $viewFolder }}_prescription" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id ? '' : 'disabled' }} rows=3 onblur="
+                <textarea class="form-control" name="{{ $viewFolder }}[prescription]" id="{{ $viewFolder }}_prescription" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
                   if($(this).val() == ''){
                     $('.createPDFButPresc').each(function(){
                       $(this).prop('disabled', true);
@@ -2241,7 +2241,7 @@
                 <small class="form-text text-muted">To print or download check the upper right part</small>
               </div>
               <div class="card-footer">
-                @if($user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id)
+                @if(!isset($referal_conso))
                 <button id="createPDFButMedCert{{ $datum->id }}" type="button" class="createPDFButMedCert btn btn-{{ $bgColor }} btn-sm" {{ ($datum->findings == '' || $datum->diagnosis == '' || $datum->recommendations == '') ? 'disabled' : '' }} onclick="
                   $('#doctors_home_submit_type').val('Pause');
                   $.ajax({
@@ -2274,7 +2274,7 @@
                 <small class="form-text text-muted">To print or download check the upper right part</small>
               </div>
               <div class="card-footer">
-                @if($user->id == $cr->doctor->id && $clinicDat == $cr->clinic_id)
+                @if(isset($referal_conso) && $referal_conso->id == $cr->id)
                 <button id="createPDFButMedCert{{ $cr->id }}" type="button" class="createPDFButMedCert btn btn-{{ $bgColor }} btn-sm" {{ ($cr->findings == '' || $cr->diagnosis == '' || $cr->recommendations == '') ? 'disabled' : '' }} onclick="
                   $('#doctors_home_submit_type').val('Pause');
                   $.ajax({
@@ -2301,7 +2301,7 @@
               @endforeach
             @endif
             <div class="form-floating mb-3">
-              <textarea class="form-control" name="{{ $viewFolder }}[findings]" id="{{ $viewFolder }}_findings" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id ? '' : 'disabled' }} rows=3 onblur="
+              <textarea class="form-control" name="{{ $viewFolder }}[findings]" id="{{ $viewFolder }}_findings" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
                   if($('#{{ $viewFolder }}_findings').val() == '' || $('#{{ $viewFolder }}_diagnosis').val() == '' || $('#{{ $viewFolder }}_recommendations').val() == ''){
                     $('.createPDFButMedCert').each(function(){
                       $(this).prop('disabled', true);
@@ -2316,7 +2316,7 @@
               <small id="help_{{ $viewFolder }}_findings" class="text-muted"></small>
             </div>
             <div class="form-floating mb-3">
-              <textarea class="form-control" name="{{ $viewFolder }}[diagnosis]" id="{{ $viewFolder }}_diagnosis" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id ? '' : 'disabled' }} rows=3 onblur="
+              <textarea class="form-control" name="{{ $viewFolder }}[diagnosis]" id="{{ $viewFolder }}_diagnosis" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
                   if($('#{{ $viewFolder }}_findings').val() == '' || $('#{{ $viewFolder }}_diagnosis').val() == '' || $('#{{ $viewFolder }}_recommendations').val() == ''){
                     $('.createPDFButMedCert').each(function(){
                       $(this).prop('disabled', true);
@@ -2331,7 +2331,7 @@
               <small id="help_{{ $viewFolder }}_diagnosis" class="text-muted"></small>
             </div>
             <div class="form-floating mb-3">
-              <textarea class="form-control" name="{{ $viewFolder }}[recommendations]" id="{{ $viewFolder }}_recommendations" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id ? '' : 'disabled' }} rows=3 onblur="
+              <textarea class="form-control" name="{{ $viewFolder }}[recommendations]" id="{{ $viewFolder }}_recommendations" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
                   if($('#{{ $viewFolder }}_findings').val() == '' || $('#{{ $viewFolder }}_diagnosis').val() == '' || $('#{{ $viewFolder }}_recommendations').val() == ''){
                     $('.createPDFButMedCert').each(function(){
                       $(this).prop('disabled', true);
@@ -2354,7 +2354,7 @@
                 <small class="form-text text-muted">To print or download check the upper right part</small>
               </div>
               <div class="card-footer">
-                @if($user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id)
+                @if(!isset($referal_conso))
                 <button id="createPDFButAddmitting{{ $datum->id }}" type="button" class="createPDFButAddmitting btn btn-{{ $bgColor }} btn-sm" {{ ($datum->procedure_ao == '' || $datum->admittingOrder == '') ? 'disabled' : '' }} onclick="
                   $('#doctors_home_submit_type').val('Pause');
                   $.ajax({
@@ -2389,7 +2389,7 @@
                 <small class="form-text text-muted">To print or download check the upper right part</small>
               </div>
               <div class="card-footer">
-                @if($user->id == $cr->doctor->id && $clinicDat == $cr->clinic_id)
+                @if(isset($referal_conso) && $referal_conso->id == $cr->id)
                 <button id="createPDFButAddmitting{{ $cr->id }}" type="button" class="createPDFButAddmitting btn btn-{{ $bgColor }} btn-sm" {{ ($cr->procedure_ao == '' || $cr->admittingOrder == '') ? 'disabled' : '' }} onclick="
                   $('#doctors_home_submit_type').val('Pause');
                   $.ajax({
@@ -2418,7 +2418,7 @@
               @endforeach
             @endif
             <div class="form-floating mb-3">
-              <input class="form-control" type="date" name="{{ $viewFolder }}[con_date_ao]" id="{{ $viewFolder }}_con_date_ao" value="{{ isset($datum->con_date_ao) ? $datum->con_date_ao : '' }}" placeholder="" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id ? '' : 'disabled' }}>
+              <input class="form-control" type="date" name="{{ $viewFolder }}[con_date_ao]" id="{{ $viewFolder }}_con_date_ao" value="{{ isset($datum->con_date_ao) ? $datum->con_date_ao : '' }}" placeholder="" {{ !isset($referal_conso) ? '' : 'disabled' }}>
               <label for="{{ $viewFolder }}_con_date_ao" class="form-label">Contemplated Date of Procedure</label>
               <small id="help_{{ $viewFolder }}_con_date_ao" class="text-muted"></small>
             </div>
@@ -2427,13 +2427,13 @@
               <div class="card-body">
                 <small class="text-muted">Helper</small>
                 <div class="input-group input-group-small flex-nowrap">
-                  <select class="form-select" id="{{ $viewFolder }}_procedure_aoSelect" placeholder="" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id ? '' : 'disabled' }}>
+                  <select class="form-select" id="{{ $viewFolder }}_procedure_aoSelect" placeholder="" {{ !isset($referal_conso) ? '' : 'disabled' }}>
                     <option value=""></option>
                   </select>
-                  <button class="btn btn-outline-secondary" type="button" id="{{ $viewFolder }}_procedure_aoHelperDelete" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id ? '' : 'disabled' }}>Delete Helper</button>
+                  <button class="btn btn-outline-secondary" type="button" id="{{ $viewFolder }}_procedure_aoHelperDelete" {{ !isset($referal_conso) ? '' : 'disabled' }}>Delete Helper</button>
                 </div>
                 <small class="text-muted">Content</small>
-                <textarea class="form-control" name="{{ $viewFolder }}[procedure_ao]" id="{{ $viewFolder }}_procedure_ao" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id ? '' : 'disabled' }} rows=3 onblur="
+                <textarea class="form-control" name="{{ $viewFolder }}[procedure_ao]" id="{{ $viewFolder }}_procedure_ao" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
                     if(($('#{{ $viewFolder }}_procedure_ao').val() || $('#{{ $viewFolder }}_admittingOrder').val()) == ''){
                         $('.createPDFButAddmitting').each(function(){
                         $(this).prop('disabled', true);
@@ -2456,7 +2456,7 @@
               </div>
             </div>
             <div class="form-floating mb-3">
-              <select class="form-select" name="{{ $viewFolder }}[anesthesia_type_ao]" id="{{ $viewFolder }}_anesthesia_type_ao" placeholder="" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id ? '' : 'disabled' }}>
+              <select class="form-select" name="{{ $viewFolder }}[anesthesia_type_ao]" id="{{ $viewFolder }}_anesthesia_type_ao" placeholder="" {{ !isset($referal_conso) ? '' : 'disabled' }}>
                 <option value="None" {{ (isset($datum->anesthesia_type_ao) && $datum->anesthesia_type_ao == 'None') ? 'selected' : ''}}>None</option>
                 <option value="Regional Block" {{ (isset($datum->anesthesia_type_ao) && $datum->anesthesia_type_ao == 'Regional Block') ? 'selected' : ''}}>Regional Block</option>
                 <option value="IV Sedation" {{ (isset($datum->anesthesia_type_ao) && $datum->anesthesia_type_ao == 'IV Sedation') ? 'selected' : ''}}>IV Sedation</option>
@@ -2466,7 +2466,7 @@
               <small id="help_{{ $viewFolder }}_anesthesia_type_ao" class="text-muted"></small>
             </div>
             <div class="form-floating mb-3">
-              <input class="form-control" type="text" name="{{ $viewFolder }}[anesthesiologist_ao]" id="{{ $viewFolder }}_anesthesiologist_ao" placeholder="" value="{{ isset($datum->anesthesiologist_ao) ? $datum->anesthesiologist_ao : '' }}" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id ? '' : 'disabled' }}>
+              <input class="form-control" type="text" name="{{ $viewFolder }}[anesthesiologist_ao]" id="{{ $viewFolder }}_anesthesiologist_ao" placeholder="" value="{{ isset($datum->anesthesiologist_ao) ? $datum->anesthesiologist_ao : '' }}" {{ !isset($referal_conso) ? '' : 'disabled' }}>
               <label for="{{ $viewFolder }}_anesthesiologist_ao" class="form-label">Anesthesiologist</label>
               <small id="help_{{ $viewFolder }}_anesthesiologist_ao" class="text-muted"></small>
             </div>
@@ -2475,13 +2475,13 @@
               <div class="card-body">
                 <small class="text-muted">Helper</small>
                 <div class="input-group input-group-small flex-nowrap">
-                  <select class="form-select" id="{{ $viewFolder }}_admittingOrderSelect" placeholder="" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id ? '' : 'disabled' }}>
+                  <select class="form-select" id="{{ $viewFolder }}_admittingOrderSelect" placeholder="" {{ !isset($referal_conso) ? '' : 'disabled' }}>
                     <option value=""></option>
                   </select>
-                  <button class="btn btn-outline-secondary" type="button" id="{{ $viewFolder }}_admittingOrderHelperDelete" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id ? '' : 'disabled' }}>Delete Helper</button>
+                  <button class="btn btn-outline-secondary" type="button" id="{{ $viewFolder }}_admittingOrderHelperDelete" {{ !isset($referal_conso) ? '' : 'disabled' }}>Delete Helper</button>
                 </div>
                 <small class="text-muted">Content</small>
-                <textarea class="form-control" name="{{ $viewFolder }}[admittingOrder]" id="{{ $viewFolder }}_admittingOrder" {{ $user->id == $datum->doctor->id && $clinicDat == $datum->clinic_id ? '' : 'disabled' }} rows=3 onblur="
+                <textarea class="form-control" name="{{ $viewFolder }}[admittingOrder]" id="{{ $viewFolder }}_admittingOrder" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
                     if(($('#{{ $viewFolder }}_procedure_ao').val() || $('#{{ $viewFolder }}_admittingOrder').val()) == ''){
                       $('.createPDFButAddmitting').each(function(){
                         $(this).prop('disabled', true);

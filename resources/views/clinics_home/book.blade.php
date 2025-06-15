@@ -1,4 +1,5 @@
 @php
+  unset($referal_conso);
   if(isset($datum->parent_consultation)){
     $referal_conso = $datum;
     $datum = $datum->parent_consultation;
@@ -121,17 +122,20 @@
           </div>
         </div>
       </div>
-      @if(isset($datum->id) && !isset($datum->consultation_parent_id))
+      @if(isset($datum->id) && !isset($datum->consultation_parent_id) && !isset($referal_conso))
       @php
         unset($referedDoctorArr);
         foreach($datum->consultation_referals as $consultation_referal){
-          $referedDoctorArr[$consultation_referal->id] = $consultation_referal->bookingDate . ' | ' . $consultation_referal->clinic_id . ' - ' . $consultation_referal->clinic->name . ' | ' . $consultation_referal->doctor_id . ' - ' . $consultation_referal->doctor->name;
+          $bookingType = $consultation_referal->booking_type;
+          if($consultation_referal->booking_type == '')
+            $bookingType = 'Consultations';
+          $referedDoctorArr[$consultation_referal->id] = $bookingType . ' - ' . $consultation_referal->bookingDate . ' | ' . $consultation_referal->clinic_id . ' - ' . $consultation_referal->clinic->name . ' | ' . $consultation_referal->doctor_id . ' - ' . $consultation_referal->doctor->name;
         }
       @endphp
       <div class="card">
         <div class="card-header">Refer a Doctor</div>
         <div class="card-body">
-          <input class="form-control" id="{{ $viewFolder }}_referal" name="{{ $viewFolder }}[referal]" value="{{ isset($referedDoctorArr) ? implode(',', $referedDoctorArr) : '' }}" autocomplete="off">
+          <input class="form-control" id="{{ $viewFolder }}_referal" name="{{ $viewFolder }}[referal]" value="{{ isset($referedDoctorArr) ? implode(',', $referedDoctorArr) : '' }}" {{ isset($referedDoctorArr) ? 'disabled' : '' }} autocomplete="off">
         </div>
       </div>
       @endif
@@ -1545,10 +1549,10 @@
     
     
   });
-
+  @if(isset($datum->id) && !isset($datum->consultation_parent_id) && !isset($referal_conso))
   $.ajax({
     type: 'GET',
-    url: '{{ Route::has($viewFolder . '.getReferralList') ? route($viewFolder . '.getReferralList', $dateBooking) : ''}}',
+    url: '{{ Route::has($viewFolder . '.getReferralList') ? route($viewFolder . '.getReferralList', [$dateBooking, $doctor->id, ($datum->booking_type == "" ? "Consultations" : $datum->booking_type)]) : ''}}',
     success: function(data){
       data = jQuery.parseJSON(data);
       $('#{{ $viewFolder }}_referal').flexdatalist({
@@ -1561,7 +1565,7 @@
       });
     }
   });
-
+  @endif
   $('.flexdatalist').flexdatalist({
       selectionRequired: 1,
       searchContain:true,

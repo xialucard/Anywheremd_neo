@@ -345,44 +345,54 @@ class ClinicsHomeController extends Controller
         $patient = $params['Patient'];
         $referer = $params['referer'];
         unset($params['referer']);
-        if(!empty($request->clinics_home['Patient']['profile_pic'])){
-            $profile_pic = 'profile_pic_' . time() . '.' . $request->clinics_home['Patient']['profile_pic']->extension();
-            $request->clinics_home['Patient']['profile_pic']->storeAs('public/px_files', $profile_pic);
-            $patient['profile_pic'] = $profile_pic;
-        }
-        unset($params['Patient']);
-        $patient['client_id'] = $user->id;
-        $patient['name'] = $patient['f_name'] . " " . $patient['m_name'] . " " . $patient['l_name'];
-        $patient['birthdate'] = date('Y-m-d', strtotime($patient['birthdate']));
-        if(isset($patient['pastMedicalHistory']))
-            $patient['pastMedicalHistory'] = json_encode($patient['pastMedicalHistory']);
-        if(isset($patient['pastFamilyHistory']))
-            $patient['pastFamilyHistory'] = json_encode($patient['pastFamilyHistory']);
-        if(isset($patient['allergies']))
-            $patient['allergies'] = json_encode($patient['allergies']);
-        $patient['created_by'] = $user->id;
-        $patient['updated_by'] = $user->id;
-        // dd($params);
-        if($params['patient_id'] != ''){
-            $patientObj = Patient::find($params['patient_id']);
-            $patientObj->update($patient);
+        $existing = Consultation::where('bookingDate', $params['bookingDate'])
+                    ->where('doctor_id', $params['doctor_id'])
+                    ->where('booking_type', $params['booking_type'])
+                    ->where('patient_id', $params['patient_id'])->get();
+        if(isset($existing[0]->id) || !isset($params['patient_id'])){
+            if(!empty($request->clinics_home['Patient']['profile_pic'])){
+                $profile_pic = 'profile_pic_' . time() . '.' . $request->clinics_home['Patient']['profile_pic']->extension();
+                $request->clinics_home['Patient']['profile_pic']->storeAs('public/px_files', $profile_pic);
+                $patient['profile_pic'] = $profile_pic;
+            }
+            unset($params['Patient']);
+            $patient['client_id'] = $user->id;
+            $patient['name'] = $patient['f_name'] . " " . $patient['m_name'] . " " . $patient['l_name'];
+            $patient['birthdate'] = date('Y-m-d', strtotime($patient['birthdate']));
+            if(isset($patient['pastMedicalHistory']))
+                $patient['pastMedicalHistory'] = json_encode($patient['pastMedicalHistory']);
+            if(isset($patient['pastFamilyHistory']))
+                $patient['pastFamilyHistory'] = json_encode($patient['pastFamilyHistory']);
+            if(isset($patient['allergies']))
+                $patient['allergies'] = json_encode($patient['allergies']);
+            $patient['created_by'] = $user->id;
+            $patient['updated_by'] = $user->id;
+            // dd($params);
+            if($params['patient_id'] != ''){
+                $patientObj = Patient::find($params['patient_id']);
+                $patientObj->update($patient);
+            }else{
+                $patientObj = Patient::create($patient);
+            }
+            $params['bookingDate'] = date('Y-m-d', strtotime($params['bookingDate']));
+            if(is_null($params['booking_type']))
+                $params['booking_type'] = '';
+            $doctorObj = User::find($params['doctor_id']);
+            $params['fee'] = $doctorObj->fee;
+            $params['status'] = "Confirmed";
+            $params['patient_id'] = $patientObj->id;
+            $params['client_id'] = $user->id;
+            $params['created_by'] = $user->id;
+            $params['updated_by'] = $user->id;
+            Consultation::create($params);
+            return redirect()->to($referer)->with('message', "Booking successfully saved.");
+            // return redirect()->route($this->viewFolder . '.index')->with('message', "Booking successfully saved.");
+            // return redirect()->back()->with('message', "Booking successfully saved.");
         }else{
-            $patientObj = Patient::create($patient);
+            return redirect()->to($referer)->with('message', "Cannot book with existing booking type, patient, doctor and date.");
         }
-        $params['bookingDate'] = date('Y-m-d', strtotime($params['bookingDate']));
-        if(is_null($params['booking_type']))
-            $params['booking_type'] = '';
-        $doctorObj = User::find($params['doctor_id']);
-        $params['fee'] = $doctorObj->fee;
-        $params['status'] = "Confirmed";
-        $params['patient_id'] = $patientObj->id;
-        $params['client_id'] = $user->id;
-        $params['created_by'] = $user->id;
-        $params['updated_by'] = $user->id;
-        Consultation::create($params);
-        return redirect()->to($referer)->with('message', "Booking successfully saved.");
-        // return redirect()->route($this->viewFolder . '.index')->with('message', "Booking successfully saved.");
-        // return redirect()->back()->with('message', "Booking successfully saved.");
+        
+        
     }
 
     public function updateMyAccount(User $clinics_home, Request $request)
@@ -636,13 +646,14 @@ class ClinicsHomeController extends Controller
             unset($referralIDArr);
             foreach($referalExp as $refDet){
                 $refDetExp = explode(" | ", $refDet);
+                $consoDet = explode(" - ", $refDetExp[0]);
                 $clinicExp = explode(" - ", $refDetExp[1]);
                 $doctorExp = explode(" - ", $refDetExp[2]);
                 
                 $doctorObj = User::find($doctorExp[0]);
                 
                 $consultationReferralObj = $clinics_home->consultation_referals()
-                            ->where('bookingDate', $refDetExp[0])
+                            ->where('bookingDate', $consoDet[1])
                             ->where('clinic_id', $clinicExp[0])
                             ->where('doctor_id', $doctorExp[0])
                             ->get();
@@ -654,7 +665,10 @@ class ClinicsHomeController extends Controller
                 if(!isset($consultationReferralObj[0]->id)){
                     
                     $bookingReplication = $clinics_home->replicate();
-                    $bookingReplication['bookingDate'] = $refDetExp[0];
+                    $bookingReplication['booking_type'] = $consoDet[0];
+                    if($consoDet[0] == 'Consultations')
+                        $bookingReplication['booking_type'] = '';
+                    $bookingReplication['bookingDate'] = $consoDet[1];
                     $bookingReplication['clinic_id'] = $clinicExp[0];
                     $bookingReplication['doctor_id'] = $doctorExp[0];
                     $bookingReplication['consultation_parent_id'] = $clinics_home->id;
@@ -750,7 +764,7 @@ class ClinicsHomeController extends Controller
         return json_encode($patients);
     }
 
-    function getReferralList($bookingDate){
+    function getReferralList($bookingDate, $doctor_id, $booking_type){
         $user = Auth::user();
         // $datalist = (object)[];
         $cnt = 0;
@@ -758,8 +772,40 @@ class ClinicsHomeController extends Controller
             if(isset($doc->doctor->affiliated_clinics)){
                 foreach($doc->doctor->affiliated_clinics->sortBy('name') as $clin){
                     foreach($doc->doctor->schedules()->whereBetween('dateSched', [$bookingDate, date('Y-m-d', strtotime($bookingDate . ' + 30 days'))])->orderBy('dateSched', 'asc')->distinct()->get('dateSched') as $sched){
-                        $datalist[$cnt]['id'] = $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->doctor->id . ' - Dr. ' . $doc->doctor->name;
-                        $datalist[$cnt]['name'] = $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->doctor->id . ' - Dr. ' . $doc->doctor->name;
+                        if($sched->dateSched == $bookingDate && $doc->doctor->id == $doctor_id){
+                            if($booking_type != 'Diagnostics'){
+                                $datalist[$cnt]['id'] = 'Diagnostics - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->doctor->id . ' - Dr. ' . $doc->doctor->name;
+                                $datalist[$cnt]['name'] = 'Diagnostics - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->doctor->id . ' - Dr. ' . $doc->doctor->name;
+                                $cnt++;
+                            }
+                            if($booking_type != 'Dialysis'){
+                                $datalist[$cnt]['id'] = 'Dialysis - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->doctor->id . ' - Dr. ' . $doc->doctor->name;
+                                $datalist[$cnt]['name'] = 'Dialysis - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->doctor->id . ' - Dr. ' . $doc->doctor->name;
+                                $cnt++;
+                            }
+                            if($booking_type != 'Laboratory'){
+                                $datalist[$cnt]['id'] = 'Laboratory - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->doctor->id . ' - Dr. ' . $doc->doctor->name;
+                                $datalist[$cnt]['name'] = 'Laboratory - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->doctor->id . ' - Dr. ' . $doc->doctor->name;
+                                $cnt++;
+                            }
+                            if($booking_type != 'Laser'){
+                                $datalist[$cnt]['id'] = 'Laser - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->doctor->id . ' - Dr. ' . $doc->doctor->name;
+                                $datalist[$cnt]['name'] = 'Laser - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->doctor->id . ' - Dr. ' . $doc->doctor->name;
+                                $cnt++;
+                            }
+                            if($booking_type != 'Surgery'){
+                                $datalist[$cnt]['id'] = 'Surgery - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->doctor->id . ' - Dr. ' . $doc->doctor->name;
+                                $datalist[$cnt]['name'] = 'Surgery - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->doctor->id . ' - Dr. ' . $doc->doctor->name;
+                                $cnt++;
+                            }
+                            if($booking_type != 'Consultation'){
+                                $datalist[$cnt]['id'] = 'Consultation - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->doctor->id . ' - Dr. ' . $doc->doctor->name;
+                                $datalist[$cnt]['name'] = 'Consultation - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->doctor->id . ' - Dr. ' . $doc->doctor->name;
+                                $cnt++;
+                            }
+                        }
+                        $datalist[$cnt]['id'] = $booking_type . ' - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->doctor->id . ' - Dr. ' . $doc->doctor->name;
+                        $datalist[$cnt]['name'] = $booking_type . ' - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->doctor->id . ' - Dr. ' . $doc->doctor->name;
                         $cnt++;
                     }
                 }

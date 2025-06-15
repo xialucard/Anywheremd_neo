@@ -222,7 +222,7 @@
                                             <tr>
                                                 <th class=""><i class="bi bi-gear"></i></th>
                                                 <th>Profile Pic</th>
-                                                 @if(isset($booking_type) && $booking_type == 'Referral')
+                                                @if(isset($booking_type) && $booking_type == 'Referral')
                                                 <th>Parent Booking #</th>
                                                 @endif
                                                 <th class="">Booking #</th>
@@ -230,6 +230,9 @@
                                                 <th class="">Complaint</th>
                                                 <th class="">Status</th>
                                                 <th class="">Clinic</th>
+                                                @if(isset($booking_type) && $booking_type == 'Referral')
+                                                <th>Booking Type</th>
+                                                @endif
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -260,6 +263,9 @@
                                                 <td class="">{{ $dat->complain }}</td>
                                                 <td class="">{{ $dat->status }}</td>
                                                 <td class="">{{ $dat->clinic->name }}</td>
+                                                @if(isset($booking_type) && $booking_type == 'Referral')
+                                                <td class="">{{ $dat->booking_type == '' ? 'Consultations' : $dat->booking_type }}</td>
+                                                @endif
                                             </tr>
                                             @endforeach
                                         @endif
