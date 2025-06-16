@@ -349,7 +349,8 @@ class ClinicsHomeController extends Controller
                     ->where('doctor_id', $params['doctor_id'])
                     ->where('booking_type', $params['booking_type'])
                     ->where('patient_id', $params['patient_id'])->get();
-        if(isset($existing[0]->id) || !isset($params['patient_id'])){
+        // if(isset($existing[0]->id) || !isset($params['patient_id'])){
+        if(true){
             if(!empty($request->clinics_home['Patient']['profile_pic'])){
                 $profile_pic = 'profile_pic_' . time() . '.' . $request->clinics_home['Patient']['profile_pic']->extension();
                 $request->clinics_home['Patient']['profile_pic']->storeAs('public/px_files', $profile_pic);
