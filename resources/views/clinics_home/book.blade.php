@@ -42,7 +42,11 @@
                   $('#{{ $viewFolder }}_post_weight').prop('required', false);
                 }
               @endif
-              ">
+              " {{ isset($referal_conso) ? 'disabled' : '' }}>
+              @php
+                if(isset($referal_conso))
+                  $datum->booking_type = $referal_conso->booking_type
+              @endphp
               <option value="" {{ isset($datum->booking_type) && $datum->booking_type == '' ? 'selected' : '' }}>Consultation</option>
               <optgroup label="Procedure">
                 <option value="Diagnostics" {{ isset($datum->booking_type) && $datum->booking_type == 'Diagnostics' ? 'selected' : '' }}>Diagnostics</option>
