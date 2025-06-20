@@ -1,10 +1,4 @@
-@php
-  unset($referal_conso);
-  if(isset($datum->parent_consultation)){
-    $referal_conso = $datum;
-    $datum = $datum->parent_consultation;
-  }
-@endphp
+
 <datalist id="patientNameList"></datalist>
 
 <div class="container">
@@ -44,8 +38,11 @@
               @endif
               " {{ isset($referal_conso) ? 'disabled' : '' }}>
               @php
-                if(isset($referal_conso))
-                  $datum->booking_type = $referal_conso->booking_type
+                if(isset($referal_conso)){
+                  $origBookingType = $datum->booking_type;
+                  $datum->booking_type = $referal_conso->booking_type;
+                }
+                  
               @endphp
               <option value="" {{ isset($datum->booking_type) && $datum->booking_type == '' ? 'selected' : '' }}>Consultation</option>
               <optgroup label="Procedure">
@@ -56,6 +53,9 @@
                 <option value="Surgery" {{ isset($datum->booking_type) && $datum->booking_type == 'Surgery' ? 'selected' : '' }}>Surgery</option>
               </optgroup>
             </select>
+            @if(isset($referal_conso))
+              <input type="hidden" class="form-control" name="{{ $viewFolder }}[booking_type]" value="{{ !empty($origBookingType) ? $origBookingType : '' }}">
+            @endif
             <label for="{{ $viewFolder }}_booking_type">Booking Type</label>
             <small id="help_{{ $viewFolder }}_booking_type" class="text-muted"></small>
           </div>
@@ -862,6 +862,10 @@
           <div class="card mb-3">
             <div class="card-header">Basic Info</div>
             <div class="card-body">
+              {{-- @php
+                if(isset($referal_conso))
+                  $datum->clinic_id = $referal_conso->clinic_id
+              @endphp --}}
               <input type="hidden" class="form-control" name="{{ $viewFolder }}[doctor_id]" value="{{ !empty($doctor->id) ? $doctor->id : '' }}">
               <input type="hidden" class="form-control" name="{{ $viewFolder }}[clinic_id]" value="{{ !empty($datum->clinic_id) ? $datum->clinic_id : $user->clinic->id }}">
               <img src="{{ !empty($doctor->profile_pic) ? (stristr($doctor->profile_pic, 'uploads') ? asset('storage/' . $doctor->profile_pic) : asset('storage/doctor_files/' . $doctor->profile_pic)) : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" class="img-thumbnail float-start w-25 h-25 m-2" alt="">
@@ -1556,7 +1560,7 @@
   @if(isset($datum->id) && !isset($datum->consultation_parent_id) && !isset($referal_conso))
   $.ajax({
     type: 'GET',
-    url: '{{ Route::has($viewFolder . '.getReferralList') ? route($viewFolder . '.getReferralList', [$dateBooking, $doctor->id, ($datum->booking_type == "" ? "Consultations" : $datum->booking_type)]) : ''}}',
+    url: '{{ Route::has($viewFolder . '.getReferralList') ? route($viewFolder . '.getReferralList', [$dateBooking, $doctor->id, ($datum->booking_type == "" ? "Consultation" : $datum->booking_type)]) : ''}}',
     success: function(data){
       data = jQuery.parseJSON(data);
       $('#{{ $viewFolder }}_referal').flexdatalist({
