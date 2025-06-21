@@ -794,42 +794,43 @@ class ClinicsHomeController extends Controller
             if(isset($doc->affiliated_clinics)){
                 foreach($doc->affiliated_clinics->sortBy('name') as $clin){
                     foreach($doc->schedules()->whereBetween('dateSched', [$bookingDate, date('Y-m-d', strtotime($bookingDate . ' + 30 days'))])->orderBy('dateSched', 'asc')->distinct()->get('dateSched') as $sched){
-                        if($sched->dateSched == $bookingDate && $clin->clinic->id == $user->clinic_id && $doc->id == $doctor_id){
-                            if($booking_type != 'Diagnostics'){
-                                $datalist[$cnt]['id'] = 'Diagnostics - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->id . ' - Dr. ' . $doc->name;
-                                $datalist[$cnt]['name'] = 'Diagnostics - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->id . ' - Dr. ' . $doc->name;
-                                $cnt++;
-                            }
-                            if($booking_type != 'Dialysis'){
-                                $datalist[$cnt]['id'] = 'Dialysis - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->id . ' - Dr. ' . $doc->name;
-                                $datalist[$cnt]['name'] = 'Dialysis - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->id . ' - Dr. ' . $doc->name;
-                                $cnt++;
-                            }
-                            if($booking_type != 'Laboratory'){
-                                $datalist[$cnt]['id'] = 'Laboratory - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->id . ' - Dr. ' . $doc->name;
-                                $datalist[$cnt]['name'] = 'Laboratory - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->id . ' - Dr. ' . $doc->name;
-                                $cnt++;
-                            }
-                            if($booking_type != 'Laser'){
-                                $datalist[$cnt]['id'] = 'Laser - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->id . ' - Dr. ' . $doc->name;
-                                $datalist[$cnt]['name'] = 'Laser - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->id . ' - Dr. ' . $doc->name;
-                                $cnt++;
-                            }
-                            if($booking_type != 'Surgery'){
-                                $datalist[$cnt]['id'] = 'Surgery - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->id . ' - Dr. ' . $doc->name;
-                                $datalist[$cnt]['name'] = 'Surgery - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->id . ' - Dr. ' . $doc->name;
-                                $cnt++;
-                            }
-                            if($booking_type != 'Consultation'){
+                        // if($sched->dateSched == $bookingDate && $clin->clinic->id == $user->clinic_id && $doc->id == $doctor_id){
+                            // if($booking_type != 'Consultation'){
                                 $datalist[$cnt]['id'] = 'Consultation - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->id . ' - Dr. ' . $doc->name;
                                 $datalist[$cnt]['name'] = 'Consultation - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->id . ' - Dr. ' . $doc->name;
                                 $cnt++;
-                            }
-                        }else{
-                            $datalist[$cnt]['id'] = $booking_type . ' - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->id . ' - Dr. ' . $doc->name;
-                            $datalist[$cnt]['name'] = $booking_type . ' - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->id . ' - Dr. ' . $doc->name;
-                            $cnt++;
-                        }
+                            // }
+                            // if($booking_type != 'Diagnostics'){
+                                $datalist[$cnt]['id'] = 'Diagnostics - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->id . ' - Dr. ' . $doc->name;
+                                $datalist[$cnt]['name'] = 'Diagnostics - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->id . ' - Dr. ' . $doc->name;
+                                $cnt++;
+                            // }
+                            // if($booking_type != 'Dialysis'){
+                                $datalist[$cnt]['id'] = 'Dialysis - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->id . ' - Dr. ' . $doc->name;
+                                $datalist[$cnt]['name'] = 'Dialysis - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->id . ' - Dr. ' . $doc->name;
+                                $cnt++;
+                            // }
+                            // if($booking_type != 'Laboratory'){
+                                $datalist[$cnt]['id'] = 'Laboratory - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->id . ' - Dr. ' . $doc->name;
+                                $datalist[$cnt]['name'] = 'Laboratory - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->id . ' - Dr. ' . $doc->name;
+                                $cnt++;
+                            // }
+                            // if($booking_type != 'Laser'){
+                                $datalist[$cnt]['id'] = 'Laser - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->id . ' - Dr. ' . $doc->name;
+                                $datalist[$cnt]['name'] = 'Laser - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->id . ' - Dr. ' . $doc->name;
+                                $cnt++;
+                            // }
+                            // if($booking_type != 'Surgery'){
+                                $datalist[$cnt]['id'] = 'Surgery - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->id . ' - Dr. ' . $doc->name;
+                                $datalist[$cnt]['name'] = 'Surgery - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->id . ' - Dr. ' . $doc->name;
+                                $cnt++;
+                            // }
+                            
+                        // }else{
+                            // $datalist[$cnt]['id'] = $booking_type . ' - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->id . ' - Dr. ' . $doc->name;
+                            // $datalist[$cnt]['name'] = $booking_type . ' - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->id . ' - Dr. ' . $doc->name;
+                            // $cnt++;
+                        // }
                     }
                 }
             }
