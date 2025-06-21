@@ -83,6 +83,7 @@ return new class extends Migration
             $table->timestamps();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
+            $table->unsignedBigInteger('vitals_updated_by')->nullable();
             $table->integer('active')->default(1);
             $table->foreign('consultation_parent_id')->references('id')->on('consultations');
             $table->foreign('advance_booking_id')->references('id')->on('consultations');

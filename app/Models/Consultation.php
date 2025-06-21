@@ -76,7 +76,8 @@ class Consultation extends Model
         'anesthesiologist_ao',
         'admittingOrder',
         'created_by',
-        'updated_by'
+        'updated_by',
+        'vitals_updated_by'
     ];
 
     public $sortable = ['id'];
@@ -143,7 +144,7 @@ class Consultation extends Model
 
     public function consultation_referals()
     {
-        return $this->hasMany(Consultation::class, 'consultation_parent_id', 'id');
+        return $this->hasMany(Consultation::class, 'consultation_parent_id');
     }
 
     public function parent_consultation()

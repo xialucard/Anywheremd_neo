@@ -140,6 +140,7 @@
         <div class="card-header">Refer a Doctor</div>
         <div class="card-body">
           <input class="form-control" id="{{ $viewFolder }}_referal" name="{{ $viewFolder }}[referal]" value="{{ isset($referedDoctorArr) ? implode(',', $referedDoctorArr) : '' }}" {{ isset($referedDoctorArr) ? 'disabled' : '' }} autocomplete="off">
+          <small class="text-muted">Please type doctor's name then select the booking type, date and clinic in the option that will appear.</small>
         </div>
       </div>
       @endif
@@ -1557,29 +1558,28 @@
     
     
   });
+  
   @if(isset($datum->id) && !isset($datum->consultation_parent_id) && !isset($referal_conso))
-  $.ajax({
-    type: 'GET',
-    url: '{{ Route::has($viewFolder . '.getReferralList') ? route($viewFolder . '.getReferralList', [$dateBooking, $doctor->id, ($datum->booking_type == "" ? "Consultation" : $datum->booking_type)]) : ''}}',
-    success: function(data){
-      data = jQuery.parseJSON(data);
-      $('#{{ $viewFolder }}_referal').flexdatalist({
-        selectionRequired: 1,
-        searchContain:true,
-        multiple:true,
-        minLength: 1,
-        searchIn: 'name',
-        data: data
-      });
-    }
+  $('#{{ $viewFolder }}_referal').flexdatalist({
+    url:'{{ Route::has($viewFolder . '.getReferralList') ? route($viewFolder . '.getReferralList', [$dateBooking, $doctor->id, ($datum->booking_type == "" ? "Consultation" : $datum->booking_type)]) : ''}}/',
+    data: {},
+    selectionRequired: 1,
+    searchContain:true,
+    multiple:true,
+    minLength: 3,
+    searchIn: 'name',
+    requestType: 'get',
+    dataType: 'json'
   });
-  @endif
+  @else
   $('.flexdatalist').flexdatalist({
       selectionRequired: 1,
       searchContain:true,
       multiple:true,
-      minLength: 1
+      minLength: 3
   });
+  @endif
+  
 
   </script>
 
