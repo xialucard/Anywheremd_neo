@@ -41,6 +41,7 @@
                 if(isset($referal_conso)){
                   $origBookingType = $datum->booking_type;
                   $datum->booking_type = $referal_conso->booking_type;
+                  $datum->procedure_details = $referal_conso->procedure_details;
                 }
                   
               @endphp
@@ -55,6 +56,7 @@
             </select>
             @if(isset($referal_conso))
               <input type="hidden" class="form-control" name="{{ $viewFolder }}[booking_type]" value="{{ !empty($origBookingType) ? $origBookingType : '' }}">
+              <input type="hidden" class="form-control" name="{{ $viewFolder }}[referral_id]" value="{{ $referal_conso->id }}">
             @endif
             <label for="{{ $viewFolder }}_booking_type">Booking Type</label>
             <small id="help_{{ $viewFolder }}_booking_type" class="text-muted"></small>

@@ -528,6 +528,13 @@ class ClinicsHomeController extends Controller
         }
         $referer = $params['referer'];
         unset($params['referer']);
+
+        if(isset($params['referral_id']) && isset($params['procedure_details'])){
+            Consultation::find($params['referral_id'])->update(['procedure_details' => $params['procedure_details']]);
+            unset($params['referral_id']);
+            unset($params['procedure_details']);
+        }
+
         $patient = $params['Patient'];
         if(!empty($request->clinics_home['Patient']['profile_pic'])){
             $profile_pic = 'profile_pic_' . time() . '.' . $request->clinics_home['Patient']['profile_pic']->extension();
@@ -635,6 +642,7 @@ class ClinicsHomeController extends Controller
         }    
         
         $params['patient_id'] = $clinics_home->patient->id;
+        $params['doctor_id'] = $clinics_home->doctor->id;
         $params['client_id'] = $user->id;
         $params['updated_by'] = $user->id;
         if(is_null($clinics_home->vitals_updated_by))
