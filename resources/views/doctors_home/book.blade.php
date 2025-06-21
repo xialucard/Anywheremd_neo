@@ -1,13 +1,15 @@
 @php
-  unset($referal_conso);
-  $clinicDat = $datum->clinic->id;
-  $doctorDat = $datum->doctor->id;
-  $key = false;
-  if(isset($datum->parent_consultation)){
-    $referal_conso = $datum;
-    $datum = $datum->parent_consultation;
-    $key = true;
-  }
+  // unset($referal_conso);
+  // $clinicDat = $datum->clinic->id;
+  // $doctorDat = $datum->doctor->id;
+  // $key = false;
+  // if(isset($datum->parent_consultation)){
+  //   $referal_conso = $datum;
+  //   $datum = $datum->parent_consultation;
+  //   $key = true;
+  // }
+  
+    
   // print($clinicDat) . '<br>';
   // print($datum->doctor_id) . '<br>';
   // print($user->id);
@@ -476,7 +478,7 @@
               </p>
             </div>
           </div>
-          <ul class="nav nav-pills" style="margin-bottom: 55px">
+          <ul class="nav nav-pills mb-3">
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="#">{{ $user->name == $bookings[0]->doctor->name ? 'Yours' : 'Dr. ' . Str::substr($bookings[0]->doctor->f_name, 0, 1) . '. ' . $bookings[0]->doctor->l_name }}</a>
             </li>
@@ -1834,6 +1836,12 @@
                   </div>
                 </div>
               </div>
+              @if(!isset($referal_conso))
+              <div class="card mb-3">
+                <div class="card-header">Book Follow Up</div>
+                <div class="card-body"></div>
+              </div>
+              @endif
             </div>
             @if(isset($datum->consultation_referals[0]->id))
               @foreach($datum->consultation_referals as $cr)
