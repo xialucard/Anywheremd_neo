@@ -645,7 +645,7 @@ class ClinicsHomeController extends Controller
         $params['doctor_id'] = $clinics_home->doctor->id;
         $params['client_id'] = $user->id;
         $params['updated_by'] = $user->id;
-        if(is_null($clinics_home->vitals_updated_by))
+        if(is_null($clinics_home->vitals_updated_by) && is_null($clinics_home->temp) && $params['temp'] != '')
             $params['vitals_updated_by'] = $user->id;
         // print "<pre>";
         // print_r($params);
