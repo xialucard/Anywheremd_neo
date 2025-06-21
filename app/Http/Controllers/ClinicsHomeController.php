@@ -785,7 +785,7 @@ class ClinicsHomeController extends Controller
         foreach($docObj as $doc){
             if(isset($doc->affiliated_clinics)){
                 foreach($doc->affiliated_clinics->sortBy('name') as $clin){
-                    foreach($doc->schedules()->whereBetween('dateSched', [$bookingDate, date('Y-m-d', strtotime($bookingDate . ' + 15 days'))])->orderBy('dateSched', 'asc')->distinct()->get('dateSched') as $sched){
+                    foreach($doc->schedules()->whereBetween('dateSched', [$bookingDate, date('Y-m-d', strtotime($bookingDate . ' + 30 days'))])->orderBy('dateSched', 'asc')->distinct()->get('dateSched') as $sched){
                         if($sched->dateSched == $bookingDate && $clin->clinic->id == $user->clinic_id && $doc->id == $doctor_id){
                             if($booking_type != 'Diagnostics'){
                                 $datalist[$cnt]['id'] = 'Diagnostics - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->id . ' - Dr. ' . $doc->name;
