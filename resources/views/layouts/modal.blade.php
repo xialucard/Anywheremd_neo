@@ -7,14 +7,16 @@
 //     $datum = $datum->parent_consultation;
 //   }
   unset($referal_conso);
-  $clinicDat = $datum->clinic->id;
-  $doctorDat = $datum->doctor->id;
-  $key = false;
-  if(isset($datum->parent_consultation)){
-    $referal_conso = $datum;
-    $datum = $datum->parent_consultation;
-    $key = true;
-  }
+    if(isset($datum->clinic->id))
+        $clinicDat = $datum->clinic->id;
+    if(isset($datum->doctor->id))
+        $doctorDat = $datum->doctor->id;
+    $key = false;
+    if(isset($datum->parent_consultation)){
+        $referal_conso = $datum;
+        $datum = $datum->parent_consultation;
+        $key = true;
+    }
 @endphp
 <form {{ isset($formId) ? 'id=' . $formId : '' }} action="{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}" method="POST" enctype="multipart/form-data">
     @csrf
