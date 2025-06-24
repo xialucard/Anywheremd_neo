@@ -2844,7 +2844,7 @@
     data: {},
     selectionRequired: 1,
     searchContain:true,
-    minLength: 3,
+    minLength: 1,
     searchIn: 'name',
     requestType: 'get',
     dataType: 'json'
