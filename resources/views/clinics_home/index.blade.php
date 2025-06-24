@@ -376,7 +376,7 @@
                                             @else
                                                 <td class="">{{ $dat->complain }}</td>
                                                 <td class="">{{ $dat->status }}</td>
-                                                <td class="">{{ ($dat->creator->user_type == 'Doctor' ? 'Dr. ' : '') . $dat->creator->name }}</td>
+                                                <td class="">{{ isset($dat->creator->user_type) ? (($dat->creator->user_type == 'Doctor' ? 'Dr. ' : '') . $dat->creator->name) : '' }}</td>
                                             @endif
                                             </tr>
                                                 @endforeach
