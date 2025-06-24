@@ -158,6 +158,7 @@
               </p>
             </div>
           </div>
+          @if(stristr($bookings[0]->doctor->specialty, 'Ophtha'))
           <div class="card mb-3">
             <div class="card-header">Eye Examination Information</div>
             <div class="card-body">
@@ -180,48 +181,85 @@
               </p>
             </div>
           </div>
+          @endif
           <ul class="nav nav-tabs">
             <li class="nav-item">
-              <a class="nav-link active" id="soapPrevLink" href="#" onclick="
+              <a class="nav-link active" id="sumPrevLink" href="#" onclick="
+                $('#sumPrevLink').addClass('active');  
+                $('#soapPrevLink').removeClass('active');  
+                $('#labPrevLink').removeClass('active');  
+                $('#presPrevLink').removeClass('active');  
+                $('#medPrevLink').removeClass('active');  
+                $('#admitPrevLink').removeClass('active');
+                $('#sumPrevDiv').show();  
+                $('#soapPrevDiv').hide();  
+                $('#labPrevDiv').hide();  
+                $('#presPrevDiv').hide();  
+                $('#medPrevDiv').hide();  
+                $('#admitPrevDiv').hide();
+                $('#sumCurLink').addClass('active');  
+                $('#soapCurLink').removeClass('active');  
+                $('#labCurLink').removeClass('active');  
+                $('#presCurLink').removeClass('active');  
+                $('#medCurLink').removeClass('active');  
+                $('#admitCurLink').removeClass('active');
+                $('#sumCurDiv').show();  
+                $('#soapCurDiv').hide();  
+                $('#labCurDiv').hide();  
+                $('#presCurDiv').hide();  
+                $('#medCurDiv').hide();  
+                $('#admitCurDiv').hide();
+              ">Summary</a>
+            </li>
+            {{-- <li class="nav-item">
+              <a class="nav-link" id="soapPrevLink" href="#" onclick="
                 $('#soapPrevLink').addClass('active');  
+                $('#sumPrevLink').removeClass('active');  
                 $('#labPrevLink').removeClass('active');  
                 $('#presPrevLink').removeClass('active');  
                 $('#medPrevLink').removeClass('active');  
                 $('#admitPrevLink').removeClass('active');
                 $('#soapPrevDiv').show();  
+                $('#sumPrevDiv').hide();  
                 $('#labPrevDiv').hide();  
                 $('#presPrevDiv').hide();  
                 $('#medPrevDiv').hide();  
                 $('#admitPrevDiv').hide();
                 $('#soapCurLink').addClass('active');  
+                $('#sumCurLink').removeClass('active');  
                 $('#labCurLink').removeClass('active');  
                 $('#presCurLink').removeClass('active');  
                 $('#medCurLink').removeClass('active');  
                 $('#admitCurLink').removeClass('active');
                 $('#soapCurDiv').show();  
+                $('#sumCurDiv').hide();  
                 $('#labCurDiv').hide();  
                 $('#presCurDiv').hide();  
                 $('#medCurDiv').hide();  
                 $('#admitCurDiv').hide();
               ">SOAP</a>
-            </li>
+            </li> --}}
             <li class="nav-item">
               <a class="nav-link" id="labPrevLink" href="#" onclick="
+                $('#sumPrevLink').removeClass('active');
                 $('#soapPrevLink').removeClass('active');
                 $('#labPrevLink').addClass('active');  
                 $('#presPrevLink').removeClass('active');  
                 $('#medPrevLink').removeClass('active');  
                 $('#admitPrevLink').removeClass('active');
+                $('#sumPrevDiv').hide();  
                 $('#soapPrevDiv').hide();  
                 $('#labPrevDiv').show();  
                 $('#presPrevDiv').hide();  
                 $('#medPrevDiv').hide();  
                 $('#admitPrevDiv').hide();
+                $('#sumCurLink').removeClass('active');
                 $('#soapCurLink').removeClass('active');
                 $('#labCurLink').addClass('active');  
                 $('#presCurLink').removeClass('active');  
                 $('#medPCurLink').removeClass('active');  
                 $('#admitCurLink').removeClass('active');
+                $('#sumCurDiv').hide();  
                 $('#soapCurDiv').hide();  
                 $('#labCurDiv').show();  
                 $('#presCurDiv').hide();  
@@ -231,21 +269,25 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" id="presPrevLink" href="#" onclick="
+                $('#sumPrevLink').removeClass('active');
                 $('#soapPrevLink').removeClass('active');
                 $('#labPrevLink').removeClass('active');  
                 $('#presPrevLink').addClass('active');  
                 $('#medPrevLink').removeClass('active');  
                 $('#admitPrevLink').removeClass('active');
+                $('#sumPrevDiv').hide();  
                 $('#soapPrevDiv').hide();  
                 $('#labPrevDiv').hide();  
                 $('#presPrevDiv').show();  
                 $('#medPrevDiv').hide();  
                 $('#admitPrevDiv').hide();
+                $('#sumCurLink').removeClass('active');
                 $('#soapCurLink').removeClass('active');
                 $('#labCurLink').removeClass('active');  
                 $('#presCurLink').addClass('active');  
                 $('#medCurLink').removeClass('active');  
                 $('#admitCurLink').removeClass('active');
+                $('#sumCurDiv').hide();  
                 $('#soapCurDiv').hide();  
                 $('#labCurDiv').hide();  
                 $('#presCurDiv').show();  
@@ -255,21 +297,25 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" id="medPrevLink" href="#" onclick="
+                $('#sumPrevLink').removeClass('active');
                 $('#soapPrevLink').removeClass('active');
                 $('#labPrevLink').removeClass('active');  
                 $('#presPrevLink').removeClass('active');  
                 $('#medPrevLink').addClass('active');  
                 $('#admitPrevLink').removeClass('active');
+                $('#sumPrevDiv').hide();  
                 $('#soapPrevDiv').hide();  
                 $('#labPrevDiv').hide();  
                 $('#presPrevDiv').hide();  
                 $('#medPrevDiv').show();  
                 $('#admitPrevDiv').hide();
+                $('#sumCurLink').removeClass('active');
                 $('#soapCurLink').removeClass('active');
                 $('#labCurLink').removeClass('active');  
                 $('#presCurLink').removeClass('active');  
                 $('#medCurLink').addClass('active');  
                 $('#admitCurLink').removeClass('active');
+                $('#sumCurDiv').hide();  
                 $('#soapCurDiv').hide();  
                 $('#labCurDiv').hide();  
                 $('#presCurDiv').hide();  
@@ -279,21 +325,25 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" id="admitPrevLink" href="#" onclick="
+                $('#sumPrevLink').removeClass('active');
                 $('#soapPrevLink').removeClass('active');
                 $('#labPrevLink').removeClass('active');  
                 $('#presPrevLink').removeClass('active');  
                 $('#medPrevLink').removeClass('active');
                 $('#admitPrevLink').addClass('active'); 
+                $('#sumPrevDiv').hide();  
                 $('#soapPrevDiv').hide();  
                 $('#labPrevDiv').hide();  
                 $('#presPrevDiv').hide();  
                 $('#medPrevDiv').hide(); 
                 $('#admitPrevDiv').show();  
+                $('#sumCurLink').removeClass('active');
                 $('#soapCurLink').removeClass('active');
                 $('#labCurLink').removeClass('active');  
                 $('#presCurLink').removeClass('active');  
                 $('#medCurLink').removeClass('active');
                 $('#admitCurLink').addClass('active'); 
+                $('#sumCurDiv').hide();  
                 $('#soapCurDiv').hide();  
                 $('#labCurDiv').hide();  
                 $('#presCurDiv').hide();  
@@ -302,7 +352,52 @@
               ">Admitting Orders</a>
             </li>
           </ul>
-          <div id="soapPrevDiv" class="container border border-1 border-top-0 mb-3 p-3">
+          <div id="sumCurDiv" class="container border border-1 border-top-0 mb-3 p-3">
+            <div class="card mb-3">
+              <div class="card-header">Scheduled Procedure</div>
+              <div class="card-body" style="height: 1in; max-height: 1in">
+                <p id="prevSumProcDet">{{ $bookings[0]->procedure_details }}</p>
+              </div>
+            </div>
+            <div class="card mb-3">
+              <div class="card-header">Patient's Complaint</div>
+              <div class="card-body" style="height: 1in; max-height: 1in">
+                <p id="prevSumPatComp">{{ $bookings[0]->complain }}</p>
+                <small id="prevSumPatCompDur" class="text-muted">{{ $bookings[0]->duration }}</small>
+              </div>
+            </div>
+            
+            <div class="card mb-3">
+              <div class="card-header">Doctor's Notes</div>
+              <div class="card-body table-responsive" style="height:300px; max-height: 300px">
+                <p>
+                  <strong>History of Present Illness:</strong><div class="m-3" id="{{ $viewFolder }}_prev_sum_docNotesHPI">{!! nl2br(isset($bookings[0]->docNotesHPI) ? $bookings[0]->docNotesHPI : '') !!}</div><br>
+                  <strong>Subjective Complaints:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_docNotesSubject">{!! nl2br(isset($bookings[0]->docNotesSubject) ? $bookings[0]->docNotesSubject : '') !!}</div><br>
+                  <strong>Objective Findings:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_docNotes">{!! nl2br(isset($bookings[0]->docNotes) ? $bookings[0]->docNotes : '') !!}</div><br>
+                </p>
+              </div>
+            </div>
+            <div class="card mb-3">
+              <div class="card-header">Assessment</div>
+              <div class="card-body table-responsive" style="height:300px; max-height: 300px">
+                <p>
+                  <strong>Primary Diagnosis:</strong> <span id="{{ $viewFolder }}_prev_sum_icd_code">{!! nl2br(isset($bookings[0]->icd_code_obj) ? $bookings[0]->icd_code_obj->icd_code . ' - ' . $bookings[0]->icd_code_obj->details : '') !!}</span><br>
+                  <strong>Secondary Diagnosis:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_assessment">{!! nl2br(isset($bookings[0]->assessment) ? $bookings[0]->assessment : '') !!}</div><br>
+                </p>
+              </div>
+            </div>
+            <div class="card mb-3">
+              <div class="card-header">Plan</div>
+              <div class="card-body table-responsive" style="height:300px; max-height: 300px">
+                <p>
+                  <strong>Medical Therapeutics:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_planMed">{!! nl2br(isset($bookings[0]->planMed) ? $bookings[0]->planMed : '') !!}</div><br>
+                  <strong>Diagnostics and Surgery:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_plan">{!! nl2br(isset($bookings[0]->plan) ? $bookings[0]->plan : '') !!}</div><br>
+                  <strong>Remarks:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_planRem">{!! nl2br(isset($bookings[0]->planRem) ? $bookings[0]->planRem : '') !!}</div><br>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div id="soapPrevDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
             <div class="card mb-3">
               <div class="card-header">Procedure</div>
               <div class="card-body" style="height: 1in; max-height: 1in">
@@ -691,6 +786,9 @@
           $('#prevProcDet').html(bookingObj.consultation.procedure_details);
           $('#prevPatComp').html(bookingObj.consultation.complains);
           $('#prevPatCompDur').html(bookingObj.consultation.duration);
+          $('#prevSumProcDet').html(bookingObj.consultation.procedure_details);
+          $('#prevSumPatComp').html(bookingObj.consultation.complains);
+          $('#prevSumPatCompDur').html(bookingObj.consultation.duration);
           eyeStr = '';
           if(bookingObj.consultation.arod_sphere == 'No Target')
             eyeStr += '<strong>AR OD:</strong> <span class="text-primary">' + bookingObj.consultation.arod_sphere + '</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;';
@@ -749,12 +847,23 @@
           eyeStr += '<strong>IOP OS:</strong> <span class="text-primary">' + bookingObj.consultation.iopos + '</span>';
           $('#prevEyer').html(eyeStr);
           $('#{{ $viewFolder }}_prev_docNotesHPI').val(bookingObj.consultation.docNotesHPI);
+          $('#{{ $viewFolder }}_prev_sum_docNotesHPI').html(bookingObj.consultation.docNotesHPI);
           $('#{{ $viewFolder }}_prev_docNotesSubject').val(bookingObj.consultation.docNotesSubject);
+          $('#{{ $viewFolder }}_prev_sum_docNotesSubject').html(bookingObj.consultation.docNotesSubject);
           $('#{{ $viewFolder }}_prev_docNotes').val(bookingObj.consultation.docNotes);
+          $('#{{ $viewFolder }}_prev_sum_docNotes').html(bookingObj.consultation.docNotes);
+          if(bookingObj.consultation.icd_code_obj != null){
+            $('#{{ $viewFolder }}_prev_icd_code').val(bookingObj.consultation.icd_code_obj.icd_code + ' - ' + bookingObj.consultation.icd_code_obj.details);
+            $('#{{ $viewFolder }}_prev_sum_icd_code').html(bookingObj.consultation.icd_code_obj.icd_code + ' - ' + bookingObj.consultation.icd_code_obj.details);
+          }
           $('#{{ $viewFolder }}_prev_assessment').val(bookingObj.consultation.assessment);
+          $('#{{ $viewFolder }}_prev_sum_assessment').html(bookingObj.consultation.assessment);
           $('#{{ $viewFolder }}_prev_plan').val(bookingObj.consultation.plan);
+          $('#{{ $viewFolder }}_prev_sum_plan').html(bookingObj.consultation.plan);
           $('#{{ $viewFolder }}_prev_planMed').val(bookingObj.consultation.planMed);
+          $('#{{ $viewFolder }}_prev_sum_planMed').html(bookingObj.consultation.planMed);
           $('#{{ $viewFolder }}_prev_planRem').val(bookingObj.consultation.planRem);
+          $('#{{ $viewFolder }}_prev_sum_planRem').html(bookingObj.consultation.planRem);
           // $('#{{ $viewFolder }}_findings').val(bookingObj.consultation.findings);
           // $('#{{ $viewFolder }}_diagnosis').val(bookingObj.consultation.diagnosis);
           // $('#{{ $viewFolder }}_recommendations').val(bookingObj.consultation.recommendations);

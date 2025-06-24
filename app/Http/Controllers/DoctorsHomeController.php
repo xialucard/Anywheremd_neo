@@ -394,14 +394,16 @@ class DoctorsHomeController extends Controller
         $user = Auth::user();
         unset($params);
         $params = $request->input($this->viewFolder);
-        // print "<pre>";
-        // print_r($params);
-        // print "</pre>";
-        // exit();
+        
         unset($patient);
         $patient = $params['Patient'];
         if(isset($patient)){
             $doctors_home->patient->update($patient);
+        }
+
+        if(isset($params['referal'])){
+            $referralEntry = $params['referal'];
+            unset($params['referal']);
         }
         
         $referer = $params['referer'];
@@ -517,6 +519,33 @@ class DoctorsHomeController extends Controller
             // dd($params);
             $doctors_home->update($params);
         }
+
+        Consultation::where('advance_booking_id', $doctors_home->id)->delete();
+        if(isset($referralEntry)){
+            if(stristr($referralEntry, ' - ')){
+                $referalExp = explode(' - ', $referralEntry);
+                $dateExp = explode(' ', $referalExp[1]);
+                unset($params);
+                
+                $params['booking_type'] = $referalExp[0];
+                if($referalExp[0] == 'Consultation')
+                    $params['booking_type'] = '';
+                $params['bookingDate'] = $dateExp[0];
+                $params['doctor_id'] = $user->id;
+                $params['fee'] = $user->fee;
+                $params['patient_id'] = $doctors_home->patient_id;
+                $params['client_id'] = $doctors_home->client_id;
+                $params['clinic_id'] = $doctors_home->clinic_id;
+                $params['advance_booking_id'] = $doctors_home->id;
+                $params['status'] = "Confirmed";
+                $params['others'] = "Follow up checkup";
+                $params['created_by'] = $user->id;
+                $params['updated_by'] = $user->id;
+                
+                Consultation::create($params);
+            }
+
+        }
         
         
         
@@ -552,8 +581,12 @@ class DoctorsHomeController extends Controller
         // foreach($prevBookingInfo[$index]->consultation_files as $ind=>$consultation_file){
         //     $prevBookingArr['consultation_files'][$ind]['file_link'] = asset($consultation_file->file_link);
         // }
-
         $prevBookingArr['consultation'] = $doctors_home;
+        if(isset($doctors_home->icd_code_obj->icd_code)){
+            $prevBookingArr['consultation']['icd_code_obj']['icd_code'] = $doctors_home->icd_code_obj->icd_code;
+            $prevBookingArr['consultation']['icd_code_obj']['details'] = $doctors_home->icd_code_obj->details;
+        }
+        
         $prevBookingArr['consultation']['iframePrevPrescSrc'] = file_exists(public_path('storage/prescription_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf')) ? asset('storage/prescription_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf') : (file_exists(public_path('storage/uploads/prescription_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf')) ? asset('storage//uploads/prescription_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg');
         $prevBookingArr['consultation']['iframePrevMedCertSrc'] = file_exists(public_path('storage/med_cert_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf')) ? asset('storage/med_cert_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf') : (file_exists(public_path('storage/uploads/med_cert_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf')) ? asset('storage//uploads/med_cert_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg');
         $prevBookingArr['consultation']['iframePrevAdmittingSrc'] = file_exists(public_path('storage/admitting_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf')) ? asset('storage/med_cert_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf') : (file_exists(public_path('storage/uploads/admitting_order_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf')) ? asset('storage//uploads/admitting_order_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg');
@@ -577,8 +610,38 @@ class DoctorsHomeController extends Controller
             $prevBookingArr['consultation_files'][$ind]['file_link'] = asset($consultation_file->file_link);
             $prevBookingArr['consultation_files'][$ind]['id'] = $consultation_file->id;
         }
-
         return json_encode($prevBookingArr);
+    }
+
+    function getDoctorBookingList($bookingDate, $booking_type){
+        $user = Auth::user();
+        $doc = $user;
+        $cnt = 0;
+        foreach($doc->affiliated_clinics->sortBy('name') as $clin){
+            foreach($doc->schedules()->whereBetween('dateSched', [date('Y-m-d', strtotime($bookingDate . ' + 7 days')), date('Y-m-d', strtotime($bookingDate . ' + 30 days'))])->orderBy('dateSched', 'asc')->distinct()->get('dateSched') as $sched){
+                $datalist[$cnt]['id'] = $booking_type . ' - ' . $sched->dateSched;
+                $datalist[$cnt]['name'] = $booking_type . ' - ' . $sched->dateSched . ' (' . date('l', strtotime($sched->dateSched)) . ')';
+                $cnt++;
+                // $datalist[$cnt]['id'] = 'Diagnostics - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->id . ' - Dr. ' . $doc->name;
+                // $datalist[$cnt]['name'] = 'Diagnostics - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->id . ' - Dr. ' . $doc->name;
+                // $cnt++;
+                // $datalist[$cnt]['id'] = 'Dialysis - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->id . ' - Dr. ' . $doc->name;
+                // $datalist[$cnt]['name'] = 'Dialysis - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->id . ' - Dr. ' . $doc->name;
+                // $cnt++;
+                // $datalist[$cnt]['id'] = 'Laboratory - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->id . ' - Dr. ' . $doc->name;
+                // $datalist[$cnt]['name'] = 'Laboratory - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->id . ' - Dr. ' . $doc->name;
+                // $cnt++;
+                // $datalist[$cnt]['id'] = 'Laser - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->id . ' - Dr. ' . $doc->name;
+                // $datalist[$cnt]['name'] = 'Laser - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->id . ' - Dr. ' . $doc->name;
+                // $cnt++;
+                // $datalist[$cnt]['id'] = 'Surgery - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->id . ' - Dr. ' . $doc->name;
+                // $datalist[$cnt]['name'] = 'Surgery - ' . $sched->dateSched . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->id . ' - Dr. ' . $doc->name;
+                // $cnt++;
+            }
+        }
+        // dd($datalist);
+    
+        return json_encode($datalist);
     }
 
     function pdfPrescription(Consultation $doctors_home){

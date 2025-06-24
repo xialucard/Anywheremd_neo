@@ -1836,12 +1836,13 @@
                   </div>
                 </div>
               </div>
-              @if(!isset($referal_conso))
               <div class="card mb-3">
                 <div class="card-header">Book Follow Up</div>
-                <div class="card-body"></div>
+                <div class="card-body">
+                  <input class="form-control" id="{{ $viewFolder }}_referal" name="{{ $viewFolder }}[referal]" value="{{ isset($datum->advance_booking->id) ? ($datum->advance_booking->booking_type == '' ? 'Consultation' : $datum->advance_booking->booking_type) . ' - ' . $datum->advance_booking->bookingDate . ' (' . date('l', strtotime($datum->advance_booking->bookingDate)) . ')' : '' }}" {{ $datum->doctor_id != $user->id ? 'disabled' : '' }} autocomplete="off">
+                  <small class="text-muted">Please type date and click the option that will appear.</small>
+                </div>
               </div>
-              @endif
             </div>
             @if(isset($datum->consultation_referals[0]->id))
               @foreach($datum->consultation_referals as $cr)
@@ -2601,8 +2602,10 @@
           $('#{{ $viewFolder }}_prev_sum_docNotesSubject').html(bookingObj.consultation.docNotesSubject);
           $('#{{ $viewFolder }}_prev_docNotes').val(bookingObj.consultation.docNotes);
           $('#{{ $viewFolder }}_prev_sum_docNotes').html(bookingObj.consultation.docNotes);
-          $('#{{ $viewFolder }}_prev_icd_code').val(bookingObj.consultation.icd_code_obj.icd_code + ' - ' + bookingObj.consultation.icd_code_obj.details);
-          $('#{{ $viewFolder }}_prev_sum_icd_code').html(bookingObj.consultation.assessment);
+          if(bookingObj.consultation.icd_code_obj != null){
+            $('#{{ $viewFolder }}_prev_icd_code').val(bookingObj.consultation.icd_code_obj.icd_code + ' - ' + bookingObj.consultation.icd_code_obj.details);
+            $('#{{ $viewFolder }}_prev_sum_icd_code').html(bookingObj.consultation.icd_code_obj.icd_code + ' - ' + bookingObj.consultation.icd_code_obj.details);
+          }
           $('#{{ $viewFolder }}_prev_assessment').val(bookingObj.consultation.assessment);
           $('#{{ $viewFolder }}_prev_sum_assessment').html(bookingObj.consultation.assessment);
           $('#{{ $viewFolder }}_prev_plan').val(bookingObj.consultation.plan);
@@ -2834,6 +2837,17 @@
       }
       
     });
+  });
+
+  $('#{{ $viewFolder }}_referal').flexdatalist({
+    url:'{{ Route::has($viewFolder . '.getDoctorBookingList') ? route($viewFolder . '.getDoctorBookingList', [$datum->bookingDate, ($datum->booking_type == "" ? "Consultation" : $datum->booking_type)]) : ''}}/',
+    data: {},
+    selectionRequired: 1,
+    searchContain:true,
+    minLength: 3,
+    searchIn: 'name',
+    requestType: 'get',
+    dataType: 'json'
   });
 
   function FileListItem(file) {

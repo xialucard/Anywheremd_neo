@@ -11,6 +11,7 @@ class Consultation extends Model
     use HasFactory, Sortable;
 
     protected $fillable = [
+        'advance_booking_id',
         'clinic_id',
         'patient_id',
         'client_id',
@@ -150,6 +151,16 @@ class Consultation extends Model
     public function parent_consultation()
     {
         return $this->belongsTo(Consultation::class, 'consultation_parent_id');
+    }
+
+    public function advance_parent_booking()
+    {
+        return $this->belongsTo(Consultation::class, 'advance_booking_id');
+    }
+    
+    public function advance_booking()
+    {
+        return $this->hasOne(Consultation::class, 'advance_booking_id');
     }
 
 }

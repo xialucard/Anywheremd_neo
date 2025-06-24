@@ -329,6 +329,7 @@
                                             @else
                                                 <th class="">Complaint</th>
                                                 <th class="">Status</th>
+                                                <th class="">Booked By</th>
                                             @endif
                                             </tr>
                                         </thead>
@@ -375,6 +376,7 @@
                                             @else
                                                 <td class="">{{ $dat->complain }}</td>
                                                 <td class="">{{ $dat->status }}</td>
+                                                <td class="">{{ ($dat->creator->user_type == 'Doctor' ? 'Dr. ' : '') . $dat->creator->name }}</td>
                                             @endif
                                             </tr>
                                                 @endforeach

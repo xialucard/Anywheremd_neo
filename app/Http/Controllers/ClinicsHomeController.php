@@ -778,6 +778,8 @@ class ClinicsHomeController extends Controller
         return json_encode($patients);
     }
 
+    
+
     function getReferralList($bookingDate, $doctor_id, $booking_type){
         $user = Auth::user();
         $affiliatedDoctorObj = AffiliatedDoctor::where('clinic_id', $user->clinic_id)->get();

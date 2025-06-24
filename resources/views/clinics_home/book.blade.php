@@ -1569,6 +1569,7 @@
     searchContain:true,
     multiple:true,
     minLength: 3,
+    maxShownResults: 1000000,
     searchIn: 'name',
     requestType: 'get',
     dataType: 'json'
