@@ -158,8 +158,7 @@
               </p>
             </div>
           </div>
-          @if(stristr($bookings[0]->doctor->specialty, 'Ophtha'))
-          <div class="card mb-3">
+          <div class="card mb-3" id="eyeExam" {{ stristr($bookings[0]->doctor->specialty, 'Ophtha') ? '' : '' }}>
             <div class="card-header">Eye Examination Information</div>
             <div class="card-body">
               <p id="prevEyer">
@@ -181,7 +180,6 @@
               </p>
             </div>
           </div>
-          @endif
           <ul class="nav nav-tabs">
             <li class="nav-item">
               <a class="nav-link active" id="sumPrevLink" href="#" onclick="
@@ -780,6 +778,7 @@
       success:
         function(data, status){
           bookingObj = jQuery.parseJSON(data);
+          
           $('#prevBookingDater').text(bookingObj.consultation.bookingDate);
           vitalStr = '<strong>Temp:</strong> ' + bookingObj.consultation.temp + 'C | <strong>Height:</strong> ' + bookingObj.consultation.height + 'cm | <strong>Weight:</strong> ' + bookingObj.consultation.weight + 'kg | <strong>BMI:</strong> ' + Math.round(bookingObj.consultation.weight/((bookingObj.consultation.height/100)*(bookingObj.consultation.height/100))) + '<br><strong>BP:</strong> ' + bookingObj.consultation.bpS + '/' + bookingObj.consultation.bpD + ' | <strong>O2 Sat:</strong> ' + bookingObj.consultation.o2 + '% | <strong>Heart Rate:</strong> ' + bookingObj.consultation.heart + 'beats/min';
           $('#prevVitaler').html(vitalStr);
@@ -846,6 +845,7 @@
           eyeStr += '<strong>IOP OD:</strong> <span class="text-primary">' + bookingObj.consultation.iopod + '</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;';
           eyeStr += '<strong>IOP OS:</strong> <span class="text-primary">' + bookingObj.consultation.iopos + '</span>';
           $('#prevEyer').html(eyeStr);
+          
           $('#{{ $viewFolder }}_prev_docNotesHPI').val(bookingObj.consultation.docNotesHPI);
           $('#{{ $viewFolder }}_prev_sum_docNotesHPI').html(bookingObj.consultation.docNotesHPI);
           $('#{{ $viewFolder }}_prev_docNotesSubject').val(bookingObj.consultation.docNotesSubject);
