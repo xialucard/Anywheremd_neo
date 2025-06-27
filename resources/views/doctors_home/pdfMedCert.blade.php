@@ -88,6 +88,9 @@
                     <li>OS: {{ $datum->pinos_num == 'NA' ? $datum->pinos_num : $datum->pinos_num . ' / ' . $datum->pinos_den }}</li>
                 </ul>
             </li>
+            <li>Jaeger OU: {{ $datum->jae_ou }}</li>
+            <li>Jaeger OD: {{ $datum->jae_od }}</li>
+            <li>Jaeger OS: {{ $datum->jae_os }}</li>
         </ul>
         Diagnosis:
         <ul style="list-style-type:none;">
