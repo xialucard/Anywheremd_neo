@@ -586,7 +586,8 @@ class DoctorsHomeController extends Controller
             $prevBookingArr['consultation']['icd_code_obj']['icd_code'] = $doctors_home->icd_code_obj->icd_code;
             $prevBookingArr['consultation']['icd_code_obj']['details'] = $doctors_home->icd_code_obj->details;
         }
-        
+        $prevBookingArr['consultation']['doctor'] = $doctors_home->doctor;
+        $prevBookingArr['consultation']['clinic'] = $doctors_home->clinic;
         $prevBookingArr['consultation']['iframePrevPrescSrc'] = file_exists(public_path('storage/prescription_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf')) ? asset('storage/prescription_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf') : (file_exists(public_path('storage/uploads/prescription_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf')) ? asset('storage//uploads/prescription_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg');
         $prevBookingArr['consultation']['iframePrevMedCertSrc'] = file_exists(public_path('storage/med_cert_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf')) ? asset('storage/med_cert_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf') : (file_exists(public_path('storage/uploads/med_cert_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf')) ? asset('storage//uploads/med_cert_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg');
         $prevBookingArr['consultation']['iframePrevAdmittingSrc'] = file_exists(public_path('storage/admitting_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf')) ? asset('storage/med_cert_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf') : (file_exists(public_path('storage/uploads/admitting_order_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf')) ? asset('storage//uploads/admitting_order_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg');
@@ -610,6 +611,33 @@ class DoctorsHomeController extends Controller
             $prevBookingArr['consultation_files'][$ind]['file_link'] = asset($consultation_file->file_link);
             $prevBookingArr['consultation_files'][$ind]['id'] = $consultation_file->id;
         }
+
+        if(isset($doctors_home->consultation_referals[0]->id)){
+            $prevBookingArr['consultation_referals'] = $doctors_home->consultation_referals;
+            foreach($doctors_home->consultation_referals as $ind=>$consoDet){
+                $prevBookingArr['consultation_referals'][$ind]['doctor'] = $consoDet->doctor;
+                $prevBookingArr['consultation_referals'][$ind]['clinic'] = $consoDet->clinic;
+            }
+        }else{
+            $prevBookingArr['consultation_referals'][0]['id'] = '';
+        }
+        if(isset($doctors_home->parent_consultation->id)){
+            $prevBookingArr['parent_consultation'] = $doctors_home->parent_consultation;
+            $prevBookingArr['parent_consultation']['doctor'] = $doctors_home->parent_consultation->doctor;
+            $prevBookingArr['parent_consultation']['clinic'] = $doctors_home->parent_consultation->clinic;
+            if(isset($doctors_home->parent_consultation->consultation_referals[0]->id)){
+                $prevBookingArr['consultation_referals'] = $doctors_home->parent_consultation->consultation_referals;
+                foreach($doctors_home->parent_consultation->consultation_referals as $ind=>$consoDet){
+                    $prevBookingArr['consultation_referals'][$ind]['doctor'] = $consoDet->doctor;
+                    $prevBookingArr['consultation_referals'][$ind]['clinic'] = $consoDet->clinic;
+                }
+            }else{
+                $prevBookingArr['consultation_referals'][0]['id'] = '';
+            }
+        }else{
+            $prevBookingArr['parent_consultation']['id'] = '';
+        }
+
         return json_encode($prevBookingArr);
     }
 

@@ -107,7 +107,6 @@
                   $bookings = $datum->consultations()->where('doctor_id', $user->id)->orderByDesc('bookingDate')->get();
                 else
                   $bookings = $datum->consultations()->orderByDesc('bookingDate')->get();
-                print_r($user->user_type);
               @endphp
               @foreach($bookings as $ind=>$dat)
                 <tr>
@@ -180,6 +179,18 @@
               </p>
             </div>
           </div>
+          <ul class="nav nav-pills mb-3" id="referral_list">
+            <li class="nav-item">
+              <a class="nav-link docNotesLink active" href="#" onclick="loadPrevBooking({{ $bookings[0]->id }}, 0)">{{ 'Dr. ' . Str::substr($bookings[0]->doctor->f_name, 0, 1) . '. ' . $bookings[0]->doctor->l_name . ' - ' . $bookings[0]->clinic->name . ' | ' . ($bookings[0]->booking_type == '' ? 'Consultation' : $bookings[0]->booking_type)}}</a>
+            </li>
+            @if(isset($bookings[0]->consultation_referals[0]->id))
+              @foreach($bookings[0]->consultation_referals as $cr)
+            <li class="nav-item">
+              <a class="nav-link docNotesLink" id="{{ $viewFolder }}_doctorLink_{{ $cr->id }}" href="#"  onclick="loadPrevBooking({{ $$bookings[0]->id }}, 0)">{{'Dr. ' . Str::substr($cr->doctor->f_name, 0, 1) . '. ' . $cr->doctor->l_name . ' - ' . $cr->clinic->name . ' | ' . ($cr->booking_type == '' ? 'Consultation' : $cr->booking_type) }}</a>
+            </li>
+              @endforeach
+            @endif
+          </ul>
           <ul class="nav nav-tabs">
             <li class="nav-item">
               <a class="nav-link active" id="sumPrevLink" href="#" onclick="
@@ -778,7 +789,39 @@
       success:
         function(data, status){
           bookingObj = jQuery.parseJSON(data);
+          $('#referral_list').empty();
+          if(bookingObj.parent_consultation.id != ''){
+            if(bookingObj.parent_consultation.booking_type == '')
+              bookingObj.parent_consultation.booking_type = 'Consultation';
+            activeStr = '';
+            if(bookingObj.parent_consultation.id == consultation_id)
+              activeStr = 'active';
+            var newItem = '<li class="nav-item"><a class="nav-link docNotesLink ' + activeStr + '" href="#" onclick="loadPrevBooking(' + bookingObj.parent_consultation.id + ', 0)">Dr. ' + bookingObj.parent_consultation.doctor.f_name.substring(0, 1) + '. ' + bookingObj.parent_consultation.doctor.l_name + ' - ' + bookingObj.parent_consultation.clinic.name + ' | ' + bookingObj.parent_consultation.booking_type + '</a></li>';
+            $('#referral_list').append(newItem);
+          }else{
+            if(bookingObj.consultation.booking_type == '')
+              bookingObj.consultation.booking_type = 'Consultation';
+            activeStr = '';
+            if(bookingObj.consultation.id == consultation_id)
+              activeStr = 'active';
+            var newItem = '<li class="nav-item"><a class="nav-link docNotesLink ' + activeStr + '" href="#" onclick="loadPrevBooking(' + bookingObj.consultation.id + ', 0)">Dr. ' + bookingObj.consultation.doctor.f_name.substring(0, 1) + '. ' + bookingObj.consultation.doctor.l_name + ' - ' + bookingObj.consultation.clinic.name + ' | ' + bookingObj.consultation.booking_type + '</a></li>';
+            $('#referral_list').append(newItem);
+          }
+
           
+          if(bookingObj.consultation_referals[0].id != ''){
+            $.each(bookingObj.consultation_referals, function(key, value){
+              if(value.booking_type == '')
+                value.booking_type = 'Consultation';
+              activeStr = '';
+              if(value.id == consultation_id)
+                activeStr = 'active';
+              var newItem = '<li class="nav-item"><a class="nav-link docNotesLink ' + activeStr + '" href="#" onclick="loadPrevBooking(' + value.id + ', 0)">Dr. ' + value.doctor.f_name.substring(0, 1) + '. ' + value.doctor.l_name + ' - ' + value.clinic.name + ' | ' + value.booking_type + '</a></li>';
+              $('#referral_list').append(newItem);
+            });
+          }
+          
+                    
           $('#prevBookingDater').text(bookingObj.consultation.bookingDate);
           vitalStr = '<strong>Temp:</strong> ' + bookingObj.consultation.temp + 'C | <strong>Height:</strong> ' + bookingObj.consultation.height + 'cm | <strong>Weight:</strong> ' + bookingObj.consultation.weight + 'kg | <strong>BMI:</strong> ' + Math.round(bookingObj.consultation.weight/((bookingObj.consultation.height/100)*(bookingObj.consultation.height/100))) + '<br><strong>BP:</strong> ' + bookingObj.consultation.bpS + '/' + bookingObj.consultation.bpD + ' | <strong>O2 Sat:</strong> ' + bookingObj.consultation.o2 + '% | <strong>Heart Rate:</strong> ' + bookingObj.consultation.heart + 'beats/min';
           $('#prevVitaler').html(vitalStr);
@@ -913,6 +956,13 @@
               $('#image_preview').append("<div class='img-div' id='img-div"+i+"'><img src='"+URL.createObjectURL(event.target.files[i])+"' class='img-thumbnail' title='"+total_file[i].name+"'><div class='middle'><button id='action-icon' value='img-div"+i+"' class='btn btn-danger' role='"+total_file[i].name+"'><i class='bi bi-trash'></i></button></div></div>");
             }
           }
+    });
+
+    $('body').on('click', '.docNotesLink', function(){
+      $('.docNotesLink').each(function(){
+        $(this).removeClass('active');
+      });
+      $(this).addClass('active');
     });
     
     $('body').on('click', '#action-icon', function(evt){
