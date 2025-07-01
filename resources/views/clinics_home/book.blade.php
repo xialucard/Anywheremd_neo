@@ -583,7 +583,7 @@
         </div>
         @endif
         <div class="row">
-          <div class="col-lg-{{ stristr($doctor->specialty, 'Ophtha') && $datum->booking_type != 'Dialysis1' ? 4 : ($datum->booking_type == 'Dialysis1' ? 6 : 12) }}">
+          <div class="col-lg-{{ stristr($doctor->specialty, 'Ophtha') || (isset($datum->booking_type) && $datum->booking_type != 'Dialysis1') ? 4 : (isset($datum->booking_type) && $datum->booking_type == 'Dialysis1' ? 6 : 12) }}">
             <div class="card mb-3">
               <div class="card-header">{{ isset($datum->booking_type) && $datum->booking_type == 'Dialysis1' ? 'Pre-HD ' : '' }}Vitals</div>
               <div class="card-body">
