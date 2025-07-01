@@ -257,7 +257,7 @@
         <div class="row" id="image_preview_nurse"></div>
       </div>
       <div id="consoPatBookChartDiv" style="{{ !isset($datum->id) ? 'display:none' : '' }}" class="container border border-1 border-top-0 mb-3 p-3">
-        @if($datum->booking_type == 'Dialysis1')
+        @if(isset($datum->booking_type) && $datum->booking_type == 'Dialysis1')
         <div class="row">
           <div class="col-lg-4">
             <div class="input-group mb-3">
