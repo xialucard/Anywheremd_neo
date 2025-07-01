@@ -612,31 +612,31 @@ class DoctorsHomeController extends Controller
             $prevBookingArr['consultation_files'][$ind]['id'] = $consultation_file->id;
         }
 
-        // if(isset($doctors_home->consultation_referals[0]->id)){
-        //     $prevBookingArr['consultation_referals'] = $doctors_home->consultation_referals;
-        //     foreach($doctors_home->consultation_referals as $ind=>$consoDet){
-        //         $prevBookingArr['consultation_referals'][$ind]['doctor'] = $consoDet->doctor;
-        //         $prevBookingArr['consultation_referals'][$ind]['clinic'] = $consoDet->clinic;
-        //     }
-        // }else{
-        //     $prevBookingArr['consultation_referals'][0]['id'] = '';
-        // }
-        // if(isset($doctors_home->parent_consultation->id)){
-        //     $prevBookingArr['parent_consultation'] = $doctors_home->parent_consultation;
-        //     $prevBookingArr['parent_consultation']['doctor'] = $doctors_home->parent_consultation->doctor;
-        //     $prevBookingArr['parent_consultation']['clinic'] = $doctors_home->parent_consultation->clinic;
-        //     if(isset($doctors_home->parent_consultation->consultation_referals[0]->id)){
-        //         $prevBookingArr['consultation_referals'] = $doctors_home->parent_consultation->consultation_referals;
-        //         foreach($doctors_home->parent_consultation->consultation_referals as $ind=>$consoDet){
-        //             $prevBookingArr['consultation_referals'][$ind]['doctor'] = $consoDet->doctor;
-        //             $prevBookingArr['consultation_referals'][$ind]['clinic'] = $consoDet->clinic;
-        //         }
-        //     }else{
-        //         $prevBookingArr['consultation_referals'][0]['id'] = '';
-        //     }
-        // }else{
-        //     $prevBookingArr['parent_consultation']['id'] = '';
-        // }
+        if(isset($doctors_home->consultation_referals[0]->id)){
+            $prevBookingArr['consultation_referals'] = $doctors_home->consultation_referals;
+            foreach($doctors_home->consultation_referals as $ind=>$consoDet){
+                $prevBookingArr['consultation_referals'][$ind]['doctor'] = $consoDet->doctor;
+                $prevBookingArr['consultation_referals'][$ind]['clinic'] = $consoDet->clinic;
+            }
+        }else{
+            $prevBookingArr['consultation_referals'][0]['id'] = '';
+        }
+        if(isset($doctors_home->parent_consultation->id)){
+            $prevBookingArr['parent_consultation'] = $doctors_home->parent_consultation;
+            $prevBookingArr['parent_consultation']['doctor'] = $doctors_home->parent_consultation->doctor;
+            $prevBookingArr['parent_consultation']['clinic'] = $doctors_home->parent_consultation->clinic;
+            if(isset($doctors_home->parent_consultation->consultation_referals[0]->id)){
+                $prevBookingArr['consultation_referals'] = $doctors_home->parent_consultation->consultation_referals;
+                foreach($doctors_home->parent_consultation->consultation_referals as $ind=>$consoDet){
+                    $prevBookingArr['consultation_referals'][$ind]['doctor'] = $consoDet->doctor;
+                    $prevBookingArr['consultation_referals'][$ind]['clinic'] = $consoDet->clinic;
+                }
+            }else{
+                $prevBookingArr['consultation_referals'][0]['id'] = '';
+            }
+        }else{
+            $prevBookingArr['parent_consultation']['id'] = '';
+        }
 
         return json_encode($prevBookingArr);
     }
