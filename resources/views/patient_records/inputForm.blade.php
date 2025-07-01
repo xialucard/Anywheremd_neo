@@ -108,7 +108,6 @@
                 else
                   $bookings = $datum->consultations()->orderByDesc('bookingDate')->get();
                 print_r($bookings);
-                exit();
               @endphp
               @foreach($bookings as $ind=>$dat)
                 <tr>
