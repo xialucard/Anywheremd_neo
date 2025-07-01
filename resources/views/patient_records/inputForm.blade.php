@@ -107,7 +107,6 @@
                   $bookings = $datum->consultations()->where('doctor_id', $user->id)->orderByDesc('bookingDate')->get();
                 else
                   $bookings = $datum->consultations()->orderByDesc('bookingDate')->get();
-                print_r($bookings);
               @endphp
               @foreach($bookings as $ind=>$dat)
                 <tr>
@@ -144,18 +143,7 @@
       <div class="card mb-3">
         <div class="card-header">Past Patient's Chart (<span id="prevBookingDater">{{ $bookings[0]->id . ' - ' . $bookings[0]->bookingDate }}</span>)</div>
         <div class="card-body">
-          <ul class="nav nav-pills mb-3" id="referral_list">
-            <li class="nav-item">
-              <a class="nav-link docNotesLink active" href="#" onclick="loadPrevBooking({{ $bookings[0]->id }}, 0)">{{ 'Dr. ' . Str::substr($bookings[0]->doctor->f_name, 0, 1) . '. ' . $bookings[0]->doctor->l_name . ' - ' . $bookings[0]->clinic->name . ' | ' . ($bookings[0]->booking_type == '' ? 'Consultation' : $bookings[0]->booking_type)}}</a>
-            </li>
-            @if(isset($bookings[0]->consultation_referals[0]->id))
-              @foreach($bookings[0]->consultation_referals as $cr)
-            <li class="nav-item">
-              <a class="nav-link docNotesLink" id="{{ $viewFolder }}_doctorLink_{{ $cr->id }}" href="#"  onclick="loadPrevBooking({{ $$bookings[0]->id }}, 0)">{{'Dr. ' . Str::substr($cr->doctor->f_name, 0, 1) . '. ' . $cr->doctor->l_name . ' - ' . $cr->clinic->name . ' | ' . ($cr->booking_type == '' ? 'Consultation' : $cr->booking_type) }}</a>
-            </li>
-              @endforeach
-            @endif
-          </ul>
+          
           <div class="card mb-3">
             <div class="card-header">Vitals</div>
             <div class="card-body">
