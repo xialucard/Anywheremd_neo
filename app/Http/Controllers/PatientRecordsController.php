@@ -70,7 +70,7 @@ class PatientRecordsController extends Controller
         if(!empty($request->input()))
             $data = $this->getData($request->input());
         $datum = $patient_record;
-        dd($datum);
+        
         $patients = $user->patients->sortBy('name');
         if($user->active == 2)
             return redirect()->route('home.myaccount')->with("Incomplete Form", $this->newUserMsg);
