@@ -143,7 +143,12 @@
       <div class="card mb-3">
         <div class="card-header">Past Patient's Chart (<span id="prevBookingDater">{{ $bookings[0]->id . ' - ' . $bookings[0]->bookingDate }}</span>)</div>
         <div class="card-body">
-          
+          <ul class="nav nav-pills mb-3" id="referral_list">
+            <li class="nav-item">
+              <a class="nav-link docNotesLink active" href="#" onclick="loadPrevBooking({{ $bookings[0]->id }}, 0)">{{ 'Dr. ' . Str::substr($bookings[0]->doctor->f_name, 0, 1) . '. ' . $bookings[0]->doctor->l_name . ' - ' . $bookings[0]->clinic->name . ' | ' . ($bookings[0]->booking_type == '' ? 'Consultation' : $bookings[0]->booking_type)}}</a>
+            </li>
+            
+          </ul>
           <div class="card mb-3">
             <div class="card-header">Vitals</div>
             <div class="card-body">
