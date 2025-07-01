@@ -107,6 +107,7 @@
                   $bookings = $datum->consultations()->where('doctor_id', $user->id)->orderByDesc('bookingDate')->get();
                 else
                   $bookings = $datum->consultations()->orderByDesc('bookingDate')->get();
+                dd($bookings);
               @endphp
               @foreach($bookings as $ind=>$dat)
                 <tr>
