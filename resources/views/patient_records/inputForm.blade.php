@@ -149,7 +149,7 @@
             </li>
             @php
               print "<pre>";
-              print_r($bookings[0]->consultation_referals[0]);
+              print_r($bookings[0]->consultation_referals[0]->id);
               print "</pre>";
             @endphp
             {{-- @if(isset($bookings[0]->consultation_referals[0]->id))
