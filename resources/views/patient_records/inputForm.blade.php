@@ -169,7 +169,7 @@
               </p>
             </div>
           </div>
-          <div class="card mb-3" id="eyeExam" {{ stristr($bookings[0]->doctor->specialty, 'Ophtha') ? '' : '' }}>
+          <div class="card mb-3" id="eyeExam" {{ stristr($bookings[0]->doctor->specialty, 'Ophtha') ? '' : 'style=display:none' }}>
             <div class="card-header">Eye Examination Information</div>
             <div class="card-body">
               <p id="prevEyer">
@@ -790,6 +790,11 @@
       success:
         function(data, status){
           bookingObj = jQuery.parseJSON(data);
+          if(bookingObj.consultation.doctor.specialty.includes('Ophtha')){
+            $('#eyeExam').show();
+          }else{
+            $('#eyeExam').hide();
+          }
           $('#referral_list').empty();
           if(bookingObj.parent_consultation.id != ''){
             if(bookingObj.parent_consultation.booking_type == '')

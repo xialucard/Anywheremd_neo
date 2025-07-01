@@ -257,10 +257,335 @@
         <div class="row" id="image_preview_nurse"></div>
       </div>
       <div id="consoPatBookChartDiv" style="{{ !isset($datum->id) ? 'display:none' : '' }}" class="container border border-1 border-top-0 mb-3 p-3">
+        @if($datum->booking_type == 'Dialysis1')
         <div class="row">
-          <div class="col-lg-{{ stristr($doctor->specialty, 'Ophtha') ? 4 : 12 }}">
+          <div class="col-lg-4">
+            <div class="input-group mb-3">
+              <div class="form-floating">
+                <input class="form-control" type="text" name="{{ $viewFolder }}[id]" id="{{ $viewFolder }}_id" value="{{ isset($datum->id) ? $datum->id : '' }}" placeholder="" readonly>
+                <label for="{{ $viewFolder }}_id" class="form-label">Treatment Number</label>
+                <small id="help_{{ $viewFolder }}_id" class="text-muted"></small>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="input-group mb-3">
+              <div class="form-floating">
+                <input class="form-control" type="time" name="{{ $viewFolder }}[time_started]" id="{{ $viewFolder }}_time_started" value="" placeholder="">
+                <label for="{{ $viewFolder }}_time_started" class="form-label">Time Started</label>
+                <small id="help_{{ $viewFolder }}_time_started" class="text-muted"></small>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="input-group mb-3">
+              <div class="form-floating">
+                <input class="form-control" type="time" name="{{ $viewFolder }}[time_ended]" id="{{ $viewFolder }}_time_ended" value="" placeholder="">
+                <label for="{{ $viewFolder }}_time_ended" class="form-label">Time Ended</label>
+                <small id="help_{{ $viewFolder }}_time_ended" class="text-muted"></small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card mb-3">
+          <div class="card-header">Machine Details</div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-3">
+                <div class="input-group mb-3">
+                  <div class="form-floating">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[machine_number]" id="{{ $viewFolder }}_machine_number" value="" placeholder="">
+                    <label for="{{ $viewFolder }}_machine_number" class="form-label">Machine Number</label>
+                    <small id="help_{{ $viewFolder }}_machine_number" class="text-muted"></small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <div class="input-group mb-3">
+                  <div class="form-floating">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[dialyzer]" id="{{ $viewFolder }}_dialyzer" value="" placeholder="">
+                    <label for="{{ $viewFolder }}_dialyzer" class="form-label">Dialyzer</label>
+                    <small id="help_{{ $viewFolder }}_dialyzer" class="text-muted"></small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <div class="input-group mb-3">
+                  <div class="form-floating">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[use]" id="{{ $viewFolder }}_use" value="" placeholder="">
+                    <label for="{{ $viewFolder }}_use" class="form-label">Use</label>
+                    <small id="help_{{ $viewFolder }}_use" class="text-muted"></small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <div class="input-group mb-3">
+                  <div class="form-floating">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[acid]" id="{{ $viewFolder }}_acid" value="" placeholder="">
+                    <label for="{{ $viewFolder }}_acid" class="form-label">Acid</label>
+                    <small id="help_{{ $viewFolder }}_acid" class="text-muted"></small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-3">
+                <div class="input-group mb-3">
+                  <div class="form-floating">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[add]" id="{{ $viewFolder }}_add" value="" placeholder="">
+                    <label for="{{ $viewFolder }}_add" class="form-label">Add</label>
+                    <small id="help_{{ $viewFolder }}_add" class="text-muted"></small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <div class="input-group mb-3">
+                  <div class="form-floating">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[bfr]" id="{{ $viewFolder }}_bfr" value="" placeholder="">
+                    <label for="{{ $viewFolder }}_bfr" class="form-label">BRF</label>
+                    <small id="help_{{ $viewFolder }}_bfr" class="text-muted"></small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <div class="input-group mb-3">
+                  <div class="form-floating">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[dfr]" id="{{ $viewFolder }}_dfr" value="" placeholder="">
+                    <label for="{{ $viewFolder }}_dfr" class="form-label">DFR</label>
+                    <small id="help_{{ $viewFolder }}_dfr" class="text-muted"></small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <div class="input-group mb-3">
+                  <div class="form-floating">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[setup_prime]" id="{{ $viewFolder }}_setup_prime" value="" placeholder="">
+                    <label for="{{ $viewFolder }}_setup_prime" class="form-label">Setup Prime</label>
+                    <small id="help_{{ $viewFolder }}_setup_prime" class="text-muted"></small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="input-group mb-3">
+                  <div class="form-floating">
+                    <textarea class="form-control" name="{{ $viewFolder }}[safety_check]" id="{{ $viewFolder }}_safety_check" rows=3></textarea>
+                    <label for="{{ $viewFolder }}_safety_check" class="form-label">Safety Check</label>
+                    <small id="help_{{ $viewFolder }}_safety_check" class="text-muted"></small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="input-group mb-3">
+                  <div class="form-floating">
+                    <textarea class="form-control" name="{{ $viewFolder }}[residual_test]" id="{{ $viewFolder }}_residual_test" rows=3></textarea>
+                    <label for="{{ $viewFolder }}_residual_test" class="form-label">Residual Test</label>
+                    <small id="help_{{ $viewFolder }}_residual_test" class="text-muted"></small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card mb-3">
+          <div class="card-header">Treatment Plan</div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="input-group mb-3">
+                  <div class="form-floating">
+                    <input class="form-control" type="number" name="{{ $viewFolder }}[dry_weight]" min=1 step=.1 id="{{ $viewFolder }}_dry_weight" value="" placeholder="">
+                    <label for="{{ $viewFolder }}_dry_weight" class="form-label">Estimate Dry Weight</label>
+                    <small id="help_{{ $viewFolder }}_dry_weight" class="text-muted"></small>
+                  </div>
+                  <span class="input-group-text">kg</span>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="input-group mb-3">
+                  <div class="form-floating">
+                    <input class="form-control" type="number" name="{{ $viewFolder }}[prev_post_hd_weight]" min=1 step=.1 id="{{ $viewFolder }}_prev_post_hd_weight" value="" placeholder="">
+                    <label for="{{ $viewFolder }}_prev_post_hd_weight" class="form-label">Prev. Post HD Weight</label>
+                    <small id="help_{{ $viewFolder }}_prev_post_hd_weight" class="text-muted"></small>
+                  </div>
+                  <span class="input-group-text">kg</span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="input-group mb-3">
+                  <div class="form-floating">
+                    <input class="form-control" type="number" name="{{ $viewFolder }}[pre_hd_weight]" min=1 step=.1 id="{{ $viewFolder }}_pre_hd_weight" value="" placeholder="">
+                    <label for="{{ $viewFolder }}_pre_hd_weight" class="form-label">Pre HD Weight</label>
+                    <small id="help_{{ $viewFolder }}_pre_hd_weight" class="text-muted"></small>
+                  </div>
+                  <span class="input-group-text">kg</span>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="input-group mb-3">
+                  <div class="form-floating">
+                    <input class="form-control" type="number" name="{{ $viewFolder }}[post_hd_weight]" min=1 step=.1 id="{{ $viewFolder }}_post_hd_weight" value="" placeholder="">
+                    <label for="{{ $viewFolder }}_post_hd_weight" class="form-label">Post HD Weight</label>
+                    <small id="help_{{ $viewFolder }}_post_hd_weight" class="text-muted"></small>
+                  </div>
+                  <span class="input-group-text">kg</span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="input-group mb-3">
+                  <div class="form-floating">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[ktv]" id="{{ $viewFolder }}_ktv" value="" placeholder="">
+                    <label for="{{ $viewFolder }}_ktv" class="form-label">KT/V</label>
+                    <small id="help_{{ $viewFolder }}_ktv" class="text-muted"></small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="input-group mb-3">
+                  <div class="form-floating">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[net_uf]" id="{{ $viewFolder }}_net_uf" value="" placeholder="">
+                    <label for="{{ $viewFolder }}_net_uf" class="form-label">Net UF</label>
+                    <small id="help_{{ $viewFolder }}_net_uf" class="text-muted"></small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="input-group mb-3">
+                  <div class="form-floating">
+                    <input class="form-control" type="number" name="{{ $viewFolder }}[hd_duration]" min=1 step=.1 id="{{ $viewFolder }}_hd_duration" value="" placeholder="">
+                    <label for="{{ $viewFolder }}_hd_duration" class="form-label">Duration</label>
+                    <small id="help_{{ $viewFolder }}_hd_duration" class="text-muted"></small>
+                  </div>
+                  <span class="input-group-text">hr/s</span>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="input-group mb-3">
+                  <div class="form-floating">
+                    <input class="form-control" type="number" name="{{ $viewFolder }}[frequency]" min=1 step=.1 id="{{ $viewFolder }}_frequency" value="" placeholder="">
+                    <label for="{{ $viewFolder }}_frequency" class="form-label">Frequency</label>
+                    <small id="help_{{ $viewFolder }}_frequency" class="text-muted"></small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="input-group mb-3">
+                  <div class="form-floating">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[prime]" id="{{ $viewFolder }}_prime" value="" placeholder="">
+                    <label for="{{ $viewFolder }}_prime" class="form-label">Prime/Rinse</label>
+                    <small id="help_{{ $viewFolder }}_prime" class="text-muted"></small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="input-group mb-3">
+                  <div class="form-floating">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[other_fluids]" id="{{ $viewFolder }}_other_fluids" value="" placeholder="">
+                    <label for="{{ $viewFolder }}_other_fluids" class="form-label">Duration</label>
+                    <small id="help_{{ $viewFolder }}_other_fluids" class="text-muted"></small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="input-group mb-3">
+                  <div class="form-floating">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[total_uf_goal]" id="{{ $viewFolder }}_total_uf_goal" value="" placeholder="">
+                    <label for="{{ $viewFolder }}_total_uf_goal" class="form-label">Total UF Goal</label>
+                    <small id="help_{{ $viewFolder }}_total_uf_goal" class="text-muted"></small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="input-group mb-3">
+                  <div class="form-floating">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[weight_loss]" id="{{ $viewFolder }}_weight_loss" value="" placeholder="">
+                    <label for="{{ $viewFolder }}_weight_loss" class="form-label">Weight Loss</label>
+                    <small id="help_{{ $viewFolder }}_weight_loss" class="text-muted"></small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card mb-3">
+          <div class="card-header">Anticoagulant</div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="input-group mb-3">
+                  <div class="form-floating">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[brand]" id="{{ $viewFolder }}_brand" value="" placeholder="">
+                    <label for="{{ $viewFolder }}_brand" class="form-label">Brand Name</label>
+                    <small id="help_{{ $viewFolder }}_brand" class="text-muted"></small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="input-group mb-3">
+                  <div class="form-floating">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[dose]" id="{{ $viewFolder }}_dose" value="" placeholder="">
+                    <label for="{{ $viewFolder }}_dose" class="form-label">Dose</label>
+                    <small id="help_{{ $viewFolder }}_dose" class="text-muted"></small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="input-group mb-3">
+                  <div class="form-floating">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[regular_dose]" id="{{ $viewFolder }}_regular_dose" value="" placeholder="">
+                    <label for="{{ $viewFolder }}_regular_dose" class="form-label">Regular Dose</label>
+                    <small id="help_{{ $viewFolder }}_regular_dose" class="text-muted"></small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="input-group mb-3">
+                  <div class="form-floating">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[low_dose]" id="{{ $viewFolder }}_low_dose" value="" placeholder="">
+                    <label for="{{ $viewFolder }}_low_dose" class="form-label">Low Dose</label>
+                    <small id="help_{{ $viewFolder }}_low_dose" class="text-muted"></small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="input-group mb-3">
+                  <div class="form-floating">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[lmwh]" id="{{ $viewFolder }}_lmwh" value="" placeholder="">
+                    <label for="{{ $viewFolder }}_lmwh" class="form-label">LMWH</label>
+                    <small id="help_{{ $viewFolder }}_lmwh" class="text-muted"></small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="input-group mb-3">
+                  <div class="form-floating">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[flushing]" id="{{ $viewFolder }}_flushing" value="" placeholder="">
+                    <label for="{{ $viewFolder }}_flushing" class="form-label">NSS Flushing</label>
+                    <small id="help_{{ $viewFolder }}_flushing" class="text-muted"></small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        @endif
+        <div class="row">
+          <div class="col-lg-{{ stristr($doctor->specialty, 'Ophtha') && $datum->booking_type != 'Dialysis1' ? 4 : ($datum->booking_type == 'Dialysis1' ? 6 : 12) }}">
             <div class="card mb-3">
-              <div class="card-header">Vitals</div>
+              <div class="card-header">{{ isset($datum->booking_type) && $datum->booking_type == 'Dialysis1' ? 'Pre-HD ' : '' }}Vitals</div>
               <div class="card-body">
                 <div class="input-group mb-3">
                   <div class="form-floating">
@@ -338,7 +663,89 @@
               </div>
             </div>
           </div>
-          @if(stristr($doctor->specialty, 'Ophtha'))
+          @if($datum->booking_type == 'Dialysis1')
+          <div class="col-lg-6">
+            <div class="card mb-3">
+              <div class="card-header">Post-HD Vitals</div>
+              <div class="card-body">
+                <div class="input-group mb-3">
+                  <div class="form-floating">
+                    <input class="form-control" type="number" name="{{ $viewFolder }}[temp]" min=30 step=.1 id="{{ $viewFolder }}_temp" value="{{ isset($datum->temp) ? $datum->temp : ''}}" placeholder="" {{ isset($datum->id) ? '' : '' }}>
+                    <label for="{{ $viewFolder }}_temp" class="form-label">Temperature</label>
+                    <small id="help_{{ $viewFolder }}_temp" class="text-muted"></small>
+                  </div>
+                  <span class="input-group-text">C</span>
+                </div>
+                <div class="input-group mb-3">
+                  <div class="form-floating">
+                    <input class="form-control" type="number" name="{{ $viewFolder }}[height]" min=1 step=.1 id="{{ $viewFolder }}_height" value="{{ isset($datum->height) ? $datum->height : '' }}" placeholder="" {{ isset($datum->id) ? '' : '' }} onblur="
+                        if($(this).val() != '' && $('#{{ $viewFolder }}_weight').val() != ''){
+                          $('#{{ $viewFolder }}_bmi').val($('#{{ $viewFolder }}_weight').val()/(($(this).val()/100)*($(this).val()/100)));
+                        }else{
+                          $('#{{ $viewFolder }}_bmi').val('');
+                        }
+                      ">
+                    <label for="{{ $viewFolder }}_height" class="form-label">Height</label>
+                    <small id="help_{{ $viewFolder }}_height" class="text-muted"></small>
+                  </div>
+                  <span class="input-group-text">cm</span>
+                </div>
+                <div class="input-group mb-3">
+                  <div class="form-floating">
+                    <input class="form-control" type="number" name="{{ $viewFolder }}[weight]" min=1 step=.1 id="{{ $viewFolder }}_weight" value="{{ isset($datum->weight) ? $datum->weight : '' }}" placeholder="" {{ isset($datum->id) ? '' : '' }} onblur="
+                      if($(this).val() != '' && $('#{{ $viewFolder }}_height').val() != ''){
+                        $('#{{ $viewFolder }}_bmi').val($(this).val()/(($('#{{ $viewFolder }}_height').val()/100)*($('#{{ $viewFolder }}_height').val()/100)));
+                      }else{
+                        $('#{{ $viewFolder }}_bmi').val('');
+                      }
+                    ">
+                    <label for="{{ $viewFolder }}_weight" class="form-label">Weight</label>
+                    <small id="help_{{ $viewFolder }}_weight" class="text-muted"></small>
+                  </div>
+                  <span class="input-group-text">kg</span>
+                </div>
+                {{-- <div class="input-group mb-3">
+                  <div class="form-floating">
+                    <input class="form-control" type="number" name="{{ $viewFolder }}[post_weight]" min=1 step=.1 id="{{ $viewFolder }}_post_weight" value="{{ isset($datum->post_weight) ? $datum->post_weight : '' }}" placeholder="" {{ isset($datum->booking_type) && $datum->booking_type != 'Dialysis' ? 'disabled' : ''}}>
+                    <label for="{{ $viewFolder }}_post_weight" class="form-label">(Post HD)/Weight</label>
+                    <small id="help_{{ $viewFolder }}_post_weight" class="text-muted"></small>
+                  </div>
+                  <span class="input-group-text">kg</span>
+                </div> --}}
+                <div class="input-group mb-3">
+                  <div class="form-floating">
+                    <input class="form-control" type="number" name="{{ $viewFolder }}[bmi]" min=1 id="{{ $viewFolder }}_bmi" value="{{ !empty($datum->height) ? (int)$datum->weight/(((int)$datum->height/100)*((int)$datum->height/100)) : '' }}" placeholder="" disabled>
+                    <label for="{{ $viewFolder }}_bmi" class="form-label">BMI</label>
+                    <small id="help_{{ $viewFolder }}_bmi" class="text-muted"></small>
+                  </div>
+                </div>
+                <label for="{{ $viewFolder }}_bpS" class="form-label">BP</label>
+                <div class="input-group mb-3">
+                  <input class="form-control" type="number" name="{{ $viewFolder }}[bpS]" min=50 max=250 step=1 id="{{ $viewFolder }}_bpS" value="{{ isset($datum->bpS) ? $datum->bpS : '' }}" placeholder="Systolic" {{ isset($datum->id) ? '' : '' }}>
+                  <span class="input-group-text">/</span>
+                  <input class="form-control" type="number" name="{{ $viewFolder }}[bpD]" min=30 max=150 step=1 id="{{ $viewFolder }}_bpD" value="{{ isset($datum->bpD) ? $datum->bpD : '' }}" placeholder="Diastolic" {{ isset($datum->id) ? '' : '' }}>
+                </div>
+                <div class="input-group mb-3">
+                  <div class="form-floating">
+                    <input class="form-control" type="number" name="{{ $viewFolder }}[o2]" min=1 id="{{ $viewFolder }}_o2" value="{{ isset($datum->o2) ? $datum->o2 : '' }}" placeholder="" {{ isset($datum->id) ? '' : '' }}>
+                    <label for="{{ $viewFolder }}_o2" class="form-label">O2 Sat</label>
+                    <small id="help_{{ $viewFolder }}_o2" class="text-muted"></small>
+                  </div>
+                  <span class="input-group-text">%</span>
+                </div>
+                <div class="input-group mb-3">
+                  <div class="form-floating">
+                    <input class="form-control" type="number" name="{{ $viewFolder }}[heart]" min=1 id="{{ $viewFolder }}_heart" value="{{ isset($datum->heart) ? $datum->heart : '' }}" placeholder="" {{ isset($datum->id) ? '' : '' }}>
+                    <label for="{{ $viewFolder }}_heart" class="form-label">Heart/Pulse Rate</label>
+                    <small id="help_{{ $viewFolder }}_heart" class="text-muted"></small>
+                  </div>
+                  <span class="input-group-text">BPM</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          @endif
+          @if(stristr($doctor->specialty, 'Ophtha') && $datum->booking_type != 'Dialysis')
           <div class="col-lg-8">
             <div class="card mb-3">
               <div class="card-header">Eye Examination Information</div>
@@ -853,11 +1260,314 @@
           </div>
           @endif
         </div>
+        @if($datum->booking_type == 'Dialysis1')
         <div class="row">
-          <div class="col-lg-12">
-
+          <div class="col-lg-6">
+            <div class="card mb-3">
+              <div class="card-header">Pre-HD Assessment</div>
+              <div class="card-body">
+                <label>Mental Status</label>
+                <div class="container ml-5 mb-3">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="{{ $viewFolder }}[mental_status]" value="awake" id="{{ $viewFolder }}_mental_status_awake">
+                    <label class="form-check-label" for="{{ $viewFolder }}_mental_status_awake">awake</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="{{ $viewFolder }}[mental_status]" value="oriented" id="{{ $viewFolder }}_mental_status_oriented">
+                    <label class="form-check-label" for="{{ $viewFolder }}_mental_status_oriented">oriented</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="{{ $viewFolder }}[mental_status]" value="drowsy" id="{{ $viewFolder }}_mental_status_drowsy">
+                    <label class="form-check-label" for="{{ $viewFolder }}_mental_status_drowsy">drowsy</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="{{ $viewFolder }}[mental_status]" value="disoriented" id="{{ $viewFolder }}_mental_status_disoriented">
+                    <label class="form-check-label" for="{{ $viewFolder }}_mental_status_disoriented">disoriented</label>
+                  </div>
+                </div>
+                <label>Ambulation Status</label>
+                <div class="container ml-5 mb-3">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="{{ $viewFolder }}[ambulation_status]" value="ambulatory" id="{{ $viewFolder }}_mental_status_ambulatory">
+                    <label class="form-check-label" for="{{ $viewFolder }}_mental_status_ambulatory">ambulatory</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="{{ $viewFolder }}[ambulation_status]" value="w/ assistance" id="{{ $viewFolder }}_mental_status_assistance">
+                    <label class="form-check-label" for="{{ $viewFolder }}_mental_status_assistance">w/ assistance</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="{{ $viewFolder }}[ambulation_status]" value="wheelchair" id="{{ $viewFolder }}_mental_status_wheelchair">
+                    <label class="form-check-label" for="{{ $viewFolder }}_mental_status_wheelchair">wheelchair</label>
+                  </div>
+                </div>
+                <label>Subjective Complaints</label>
+                <div class="container ml-5 mb-3">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="{{ $viewFolder }}[subjective_complaints]" value="none" id="{{ $viewFolder }}_subjective_complaints_none" onchange="
+                        if(!$(this).prop('checked')){
+                          $('#{{ $viewFolder }}_subjective_complaints_text').prop('disabled', false);
+                          $('#{{ $viewFolder }}_subjective_complaints_text').prop('required', true);
+                        }else{
+                          $('#{{ $viewFolder }}_subjective_complaints_text').prop('disabled', true);
+                          $('#{{ $viewFolder }}_subjective_complaints_text').prop('required', false);
+                          $('#{{ $viewFolder }}_subjective_complaints_text').val('');
+                        }
+                      ">
+                    <label class="form-check-label" for="{{ $viewFolder }}_subjective_complaints_none">none</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="{{ $viewFolder }}[subjective_complaints]" value="yes" id="{{ $viewFolder }}_subjective_complaints_yes" onchange="
+                        if($(this).prop('checked')){
+                          $('#{{ $viewFolder }}_subjective_complaints_text').prop('disabled', false);
+                          $('#{{ $viewFolder }}_subjective_complaints_text').prop('required', true);
+                        }else{
+                          $('#{{ $viewFolder }}_subjective_complaints_text').prop('disabled', true);
+                          $('#{{ $viewFolder }}_subjective_complaints_text').prop('required', false);
+                          $('#{{ $viewFolder }}_subjective_complaints_text').val('');
+                        }
+                      ">
+                    <label class="form-check-label" for="{{ $viewFolder }}_subjective_complaints_yes">yes</label>
+                  </div>
+                  <textarea class="form-control" name="{{ $viewFolder }}[subjective_complaints_text]" id="{{ $viewFolder }}_subjective_complaints_text" rows=3 disabled></textarea>
+                </div>
+                <label>Significant PE Findings</label>
+                <div class="container ml-5 mb-3">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Pallor" id="{{ $viewFolder }}_pe_findings_pallor">
+                    <label class="form-check-label" for="{{ $viewFolder }}_pe_findings_pallor">Pallor</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Distended Neck Vein" id="{{ $viewFolder }}_pe_findings_neck_vein">
+                    <label class="form-check-label" for="{{ $viewFolder }}_pe_findings_neck_vein">Distended Neck Vein</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Abnormal Rhythm/Rate" id="{{ $viewFolder }}_pe_findings_rhythm">
+                    <label class="form-check-label" for="{{ $viewFolder }}_pe_findings_rhythm">Abnormal Rhythm/Rate</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Rales" id="{{ $viewFolder }}_pe_findings_rales">
+                    <label class="form-check-label" for="{{ $viewFolder }}_pe_findings_rales">Rales</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Wheezing" id="{{ $viewFolder }}_pe_findings_wheezing">
+                    <label class="form-check-label" for="{{ $viewFolder }}_pe_findings_wheezing">Wheezing</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Decreased Breath Sounds" id="{{ $viewFolder }}_pe_findings_breath_sounds">
+                    <label class="form-check-label" for="{{ $viewFolder }}_pe_findings_breath_sounds">Decreased Breath Sounds</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Ascites - Abdominal Girth" id="{{ $viewFolder }}_pe_findings_ascites" onchange="
+                        if($(this).prop('checked')){
+                          $('#{{ $viewFolder }}_pe_findings_ascites_text').prop('disabled', false);
+                          $('#{{ $viewFolder }}_pe_findings_ascites_text').prop('required', true);
+                        }else{
+                          $('#{{ $viewFolder }}_pe_findings_ascites_text').prop('disabled', true);
+                          $('#{{ $viewFolder }}_pe_findings_ascites_text').prop('required', false);
+                          $('#{{ $viewFolder }}_pe_findings_ascites_text').val('');
+                        }
+                      "
+                    >
+                    <label class="form-check-label" for="{{ $viewFolder }}_pe_findings_ascites">Ascites - Abdominal Girth:</label>
+                  </div>
+                  <textarea class="form-control" name="{{ $viewFolder }}[pe_findings_ascites_text]" id="{{ $viewFolder }}_pe_findings_ascites_text" rows=3 disabled></textarea>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Decreased Breath Sounds" id="{{ $viewFolder }}_pe_findings_breath_sounds">
+                    <label class="form-check-label" for="{{ $viewFolder }}_pe_findings_breath_sounds">Decreased Breath Sounds</label>
+                  </div>
+                  
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Edema Grade" id="{{ $viewFolder }}_pe_findings_edema" onchange="
+                        if($(this).prop('checked')){
+                          $('#{{ $viewFolder }}_pe_findings_edema_text').prop('disabled', false);
+                          $('#{{ $viewFolder }}_pe_findings_edema_text').prop('required', true);
+                        }else{
+                          $('#{{ $viewFolder }}_pe_findings_edema_text').prop('disabled', true);
+                          $('#{{ $viewFolder }}_pe_findings_edema_text').prop('required', false);
+                          $('#{{ $viewFolder }}_pe_findings_edema_text').val('');
+                        }
+                      "
+                    >
+                    <label class="form-check-label" for="{{ $viewFolder }}_pe_findings_edema">Edema Grade:</label>
+                  </div>
+                  <textarea class="form-control" name="{{ $viewFolder }}[pe_findings_edema_text]" id="{{ $viewFolder }}_pe_findings_edema_text" rows=3 disabled></textarea>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Bleeding" id="{{ $viewFolder }}_pe_findings_bleeding">
+                    <label class="form-check-label" for="{{ $viewFolder }}_pe_findings_bleeding">Bleeding</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Others" id="{{ $viewFolder }}_pe_findings_others" onchange="
+                        if($(this).prop('checked')){
+                          $('#{{ $viewFolder }}_pe_findings_others_text').prop('disabled', false);
+                          $('#{{ $viewFolder }}_pe_findings_others_text').prop('required', true);
+                        }else{
+                          $('#{{ $viewFolder }}_pe_findings_others_text').prop('disabled', true);
+                          $('#{{ $viewFolder }}_pe_findings_others_text').prop('required', false);
+                          $('#{{ $viewFolder }}_pe_findings_others_text').val('');
+                        }
+                      "
+                    >
+                    <label class="form-check-label" for="{{ $viewFolder }}_pe_findings_others">Others:</label>
+                  </div>
+                  <textarea class="form-control" name="{{ $viewFolder }}[pe_findings_others_text]" id="{{ $viewFolder }}_pe_findings_others_text" rows=3 disabled></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="card mb-3">
+              <div class="card-header">Post-HD Assessment</div>
+              <div class="card-body">
+                <label>Mental Status</label>
+                <div class="container ml-5 mb-3">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="{{ $viewFolder }}[post_mental_status]" value="awake" id="{{ $viewFolder }}_post_mental_status_awake">
+                    <label class="form-check-label" for="{{ $viewFolder }}_post_mental_status_awake">awake</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="{{ $viewFolder }}[post_mental_status]" value="oriented" id="{{ $viewFolder }}_post_mental_status_oriented">
+                    <label class="form-check-label" for="{{ $viewFolder }}_post_mental_status_oriented">oriented</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="{{ $viewFolder }}[post_mental_status]" value="drowsy" id="{{ $viewFolder }}_post_mental_status_drowsy">
+                    <label class="form-check-label" for="{{ $viewFolder }}_post_mental_status_drowsy">drowsy</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="{{ $viewFolder }}[post_mental_status]" value="disoriented" id="{{ $viewFolder }}_post_mental_status_disoriented">
+                    <label class="form-check-label" for="{{ $viewFolder }}_post_mental_status_disoriented">disoriented</label>
+                  </div>
+                </div>
+                <label>Ambulation Status</label>
+                <div class="container ml-5 mb-3">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="{{ $viewFolder }}[post_ambulation_status]" value="ambulatory" id="{{ $viewFolder }}_post_mental_status_ambulatory">
+                    <label class="form-check-label" for="{{ $viewFolder }}_post_mental_status_ambulatory">ambulatory</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="{{ $viewFolder }}[post_ambulation_status]" value="w/ assistance" id="{{ $viewFolder }}_post_mental_status_assistance">
+                    <label class="form-check-label" for="{{ $viewFolder }}_post_mental_status_assistance">w/ assistance</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="{{ $viewFolder }}[post_ambulation_status]" value="wheelchair" id="{{ $viewFolder }}_post_mental_status_wheelchair">
+                    <label class="form-check-label" for="{{ $viewFolder }}_post_mental_status_wheelchair">wheelchair</label>
+                  </div>
+                </div>
+                <label>Subjective Complaints</label>
+                <div class="container ml-5 mb-3">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="{{ $viewFolder }}[post_subjective_complaints]" value="none" id="{{ $viewFolder }}_post_subjective_complaints_none" onchange="
+                        if(!$(this).prop('checked')){
+                          $('#{{ $viewFolder }}_post_subjective_complaints_text').prop('disabled', false);
+                          $('#{{ $viewFolder }}_post_subjective_complaints_text').prop('required', true);
+                        }else{
+                          $('#{{ $viewFolder }}_post_subjective_complaints_text').prop('disabled', true);
+                          $('#{{ $viewFolder }}_post_subjective_complaints_text').prop('required', false);
+                          $('#{{ $viewFolder }}_post_subjective_complaints_text').val('');
+                        }
+                      ">
+                    <label class="form-check-label" for="{{ $viewFolder }}_post_subjective_complaints_none">none</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="{{ $viewFolder }}[post_subjective_complaints]" value="yes" id="{{ $viewFolder }}_post_subjective_complaints_yes" onchange="
+                        if($(this).prop('checked')){
+                          $('#{{ $viewFolder }}_post_subjective_complaints_text').prop('disabled', false);
+                          $('#{{ $viewFolder }}_post_subjective_complaints_text').prop('required', true);
+                        }else{
+                          $('#{{ $viewFolder }}_post_subjective_complaints_text').prop('disabled', true);
+                          $('#{{ $viewFolder }}_post_subjective_complaints_text').prop('required', false);
+                          $('#{{ $viewFolder }}_post_subjective_complaints_text').val('');
+                        }
+                      ">
+                    <label class="form-check-label" for="{{ $viewFolder }}_post_subjective_complaints_yes">yes</label>
+                  </div>
+                  <textarea class="form-control" name="{{ $viewFolder }}[post_subjective_complaints_text]" id="{{ $viewFolder }}_post_subjective_complaints_text" rows=3 disabled></textarea>
+                </div>
+                <label>Significant PE Findings</label>
+                <div class="container ml-5 mb-3">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Pallor" id="{{ $viewFolder }}_post_pe_findings_pallor">
+                    <label class="form-check-label" for="{{ $viewFolder }}_post_pe_findings_pallor">Pallor</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Distended Neck Vein" id="{{ $viewFolder }}_post_pe_findings_neck_vein">
+                    <label class="form-check-label" for="{{ $viewFolder }}_post_pe_findings_neck_vein">Distended Neck Vein</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Abnormal Rhythm/Rate" id="{{ $viewFolder }}_post_pe_findings_rhythm">
+                    <label class="form-check-label" for="{{ $viewFolder }}_post_pe_findings_rhythm">Abnormal Rhythm/Rate</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Rales" id="{{ $viewFolder }}_post_pe_findings_rales">
+                    <label class="form-check-label" for="{{ $viewFolder }}_post_pe_findings_rales">Rales</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Wheezing" id="{{ $viewFolder }}_post_pe_findings_wheezing">
+                    <label class="form-check-label" for="{{ $viewFolder }}_post_pe_findings_wheezing">Wheezing</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Decreased Breath Sounds" id="{{ $viewFolder }}_post_pe_findings_breath_sounds">
+                    <label class="form-check-label" for="{{ $viewFolder }}_post_pe_findings_breath_sounds">Decreased Breath Sounds</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Ascites - Abdominal Girth" id="{{ $viewFolder }}_post_pe_findings_ascites" onchange="
+                        if($(this).prop('checked')){
+                          $('#{{ $viewFolder }}_post_pe_findings_ascites_text').prop('disabled', false);
+                          $('#{{ $viewFolder }}_post_pe_findings_ascites_text').prop('required', true);
+                        }else{
+                          $('#{{ $viewFolder }}_post_pe_findings_ascites_text').prop('disabled', true);
+                          $('#{{ $viewFolder }}_post_pe_findings_ascites_text').prop('required', false);
+                          $('#{{ $viewFolder }}_post_pe_findings_ascites_text').val('');
+                        }
+                      "
+                    >
+                    <label class="form-check-label" for="{{ $viewFolder }}_post_pe_findings_ascites">Ascites - Abdominal Girth:</label>
+                  </div>
+                  <textarea class="form-control" name="{{ $viewFolder }}[post_pe_findings_ascites_text]" id="{{ $viewFolder }}_post_pe_findings_ascites_text" rows=3 disabled></textarea>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Decreased Breath Sounds" id="{{ $viewFolder }}_post_pe_findings_breath_sounds">
+                    <label class="form-check-label" for="{{ $viewFolder }}_post_pe_findings_breath_sounds">Decreased Breath Sounds</label>
+                  </div>
+                  
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Edema Grade" id="{{ $viewFolder }}_post_pe_findings_edema" onchange="
+                        if($(this).prop('checked')){
+                          $('#{{ $viewFolder }}_post_pe_findings_edema_text').prop('disabled', false);
+                          $('#{{ $viewFolder }}_post_pe_findings_edema_text').prop('required', true);
+                        }else{
+                          $('#{{ $viewFolder }}_post_pe_findings_edema_text').prop('disabled', true);
+                          $('#{{ $viewFolder }}_post_pe_findings_edema_text').prop('required', false);
+                          $('#{{ $viewFolder }}_post_pe_findings_edema_text').val('');
+                        }
+                      "
+                    >
+                    <label class="form-check-label" for="{{ $viewFolder }}_post_pe_findings_edema">Edema Grade:</label>
+                  </div>
+                  <textarea class="form-control" name="{{ $viewFolder }}[post_pe_findings_edema_text]" id="{{ $viewFolder }}_post_pe_findings_edema_text" rows=3 disabled></textarea>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Bleeding" id="{{ $viewFolder }}_post_pe_findings_bleeding">
+                    <label class="form-check-label" for="{{ $viewFolder }}_post_pe_findings_bleeding">Bleeding</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Others" id="{{ $viewFolder }}_post_pe_findings_others" onchange="
+                        if($(this).prop('checked')){
+                          $('#{{ $viewFolder }}_post_pe_findings_others_text').prop('disabled', false);
+                          $('#{{ $viewFolder }}_post_pe_findings_others_text').prop('required', true);
+                        }else{
+                          $('#{{ $viewFolder }}_post_pe_findings_others_text').prop('disabled', true);
+                          $('#{{ $viewFolder }}_post_pe_findings_others_text').prop('required', false);
+                          $('#{{ $viewFolder }}_post_pe_findings_others_text').val('');
+                        }
+                      "
+                    >
+                    <label class="form-check-label" for="{{ $viewFolder }}_post_pe_findings_others">Others:</label>
+                  </div>
+                  <textarea class="form-control" name="{{ $viewFolder }}[post_pe_findings_others_text]" id="{{ $viewFolder }}_post_pe_findings_others_text" rows=3 disabled></textarea>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+        @endif
       </div>
       <div id="consoDocDiv" style="{{ isset($datum->id) ? 'display:none' : '' }}" class="container border border-1 border-top-0 mb-3 p-3">
         {{-- <div class="card-header">Doctor's Info</div> --}}

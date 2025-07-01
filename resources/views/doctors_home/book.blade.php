@@ -1839,8 +1839,15 @@
               <div class="card mb-3">
                 <div class="card-header">Book Follow Up</div>
                 <div class="card-body">
-                  <input class="form-control" id="{{ $viewFolder }}_referal" name="{{ $viewFolder }}[referal]" value="{{ isset($datum->advance_booking->id) ? ($datum->advance_booking->booking_type == '' ? 'Consultation' : $datum->advance_booking->booking_type) . ' - ' . $datum->advance_booking->bookingDate . ' (' . date('l', strtotime($datum->advance_booking->bookingDate)) . ')' : '' }}" {{ $datum->doctor_id != $user->id ? 'disabled' : '' }} autocomplete="off">
-                  <small class="text-muted">Please type date and click the option that will appear.</small>
+                  <div class="form-floating mb-3">
+                    <input class="form-control" type="date" name="{{ $viewFolder }}[referal]" id="{{ $viewFolder }}_referals" value="" min="{{ date('Y-m-d', strtotime($datum->bookingDate . '+ 7days')) }}" onkeydown="return false">
+                    <label for="{{ $viewFolder }}_bookingDate" class="form-label">Booking Date</label>
+                    <small id="help_{{ $viewFolder }}_bookingDate" class="text-muted"></small>
+                  </div>
+                  {{-- <div class="form-floating mb-3">
+                    <input class="form-control" id="{{ $viewFolder }}_referal" name="{{ $viewFolder }}[referal]" value="{{ isset($datum->advance_booking->id) ? ($datum->advance_booking->booking_type == '' ? 'Consultation' : $datum->advance_booking->booking_type) . ' - ' . $datum->advance_booking->bookingDate . ' (' . date('l', strtotime($datum->advance_booking->bookingDate)) . ')' : '' }}" {{ $datum->doctor_id != $user->id ? 'disabled' : '' }} autocomplete="off">
+                    <small class="text-muted">Please type date and click the option that will appear.</small>
+                  </div> --}}
                 </div>
               </div>
             </div>
