@@ -745,7 +745,7 @@
             </div>
           </div>
           @endif
-          @if(stristr($doctor->specialty, 'Ophtha') && $datum->booking_type != 'Dialysis')
+          @if(stristr($doctor->specialty, 'Ophtha') || (isset($datum->booking_type) && $datum->booking_type != 'Dialysis'))
           <div class="col-lg-8">
             <div class="card mb-3">
               <div class="card-header">Eye Examination Information</div>
