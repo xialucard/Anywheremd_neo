@@ -147,6 +147,9 @@
             <li class="nav-item">
               <a class="nav-link docNotesLink active" href="#" onclick="loadPrevBooking({{ $bookings[0]->id }}, 0)">{{ 'Dr. ' . Str::substr($bookings[0]->doctor->f_name, 0, 1) . '. ' . $bookings[0]->doctor->l_name . ' - ' . $bookings[0]->clinic->name . ' | ' . ($bookings[0]->booking_type == '' ? 'Consultation' : $bookings[0]->booking_type)}}</a>
             </li>
+            @php
+              print_r($bookings[0]->consultation_referals);
+            @endphp
             {{-- @if(isset($bookings[0]->consultation_referals[0]->id))
               @foreach($bookings[0]->consultation_referals as $cr)
             <li class="nav-item">
