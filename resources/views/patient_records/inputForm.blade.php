@@ -149,16 +149,16 @@
             </li>
             
             @if(isset($bookings[0]->consultation_referals[0]->id))
-            @php
-              print "<pre>";
-              print_r($bookings[0]->consultation_referals[0]->id);
-              print "</pre>";
-            @endphp
-              {{-- @foreach($bookings[0]->consultation_referals as $cr)
-            <li class="nav-item">
+              @foreach($bookings[0]->consultation_referals as $cr)
+              @php
+                print "<pre>";
+                print_r($cr->id);
+                print "</pre>";
+              @endphp
+            {{-- <li class="nav-item">
               <a class="nav-link docNotesLink" id="{{ $viewFolder }}_doctorLink_{{ $cr->id }}" href="#"  onclick="loadPrevBooking({{ $$bookings[0]->id }}, 0)">{{'Dr. ' . Str::substr($cr->doctor->f_name, 0, 1) . '. ' . $cr->doctor->l_name . ' - ' . $cr->clinic->name . ' | ' . ($cr->booking_type == '' ? 'Consultation' : $cr->booking_type) }}</a>
-            </li>
-              @endforeach --}}
+            </li> --}}
+              @endforeach
             @endif
           </ul>
           <div class="card mb-3">
