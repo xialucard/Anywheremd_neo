@@ -1260,7 +1260,7 @@
           </div>
           @endif
         </div>
-        @if($datum->booking_type == 'Dialysis1')
+        @if(isset($datum->booking_type) && $datum->booking_type == 'Dialysis1')
         <div class="row">
           <div class="col-lg-6">
             <div class="card mb-3">
