@@ -581,6 +581,8 @@ class DoctorsHomeController extends Controller
         // foreach($prevBookingInfo[$index]->consultation_files as $ind=>$consultation_file){
         //     $prevBookingArr['consultation_files'][$ind]['file_link'] = asset($consultation_file->file_link);
         // }
+        if(isset($datum->parent_consultation))
+            $prevBookingArr['parent_consultation'] = $doctors_home->parent_consultation;
         $prevBookingArr['consultation'] = $doctors_home;
         if(isset($doctors_home->icd_code_obj->icd_code)){
             $prevBookingArr['consultation']['icd_code_obj']['icd_code'] = $doctors_home->icd_code_obj->icd_code;
