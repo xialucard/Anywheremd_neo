@@ -18,8 +18,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 // use Spatie\LaravelPdf\Facades\Pdf;
 
-use function Spatie\LaravelPdf\Support\pdf;
-
 class DoctorsHomeController extends Controller
 {
     private $module = "Dashboard";
@@ -675,8 +673,26 @@ class DoctorsHomeController extends Controller
     }
 
     function pdfPrescription(Consultation $doctors_home){
-        // Pdf::view($this->viewFolder . '.pdfPrescription', ['datum' => $doctors_home])->save('public/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf');
-        $pdf = Pdf::setOptions(['defaultFont' => 'sans-serif', 'chroot' => public_path('img/rx.jpg')])->loadView($this->viewFolder . '.pdfPrescription', ['datum' => $doctors_home]);
+        Pdf::view($this->viewFolder . '.pdfPrescription', ['datum' => $doctors_home])->save('public/prescription_files' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf');
+        // $pdf = Pdf::setOptions(['defaultFont' => 'sans-serif', 'chroot' => public_path('img/rx.jpg')])->loadView($this->viewFolder . '.pdfPrescription', ['datum' => $doctors_home]);
+        // // $pdf->getDomPDF()->setHttpContext(
+        // //     stream_context_create([
+        // //         'ssl' => [
+        // //             'allow_self_signed'=> TRUE,
+        // //             'verify_peer' => FALSE,
+        // //             'verify_peer_name' => FALSE,
+        // //         ]
+        // //     ])
+        // // );
+        // Storage::put('public/prescription_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf', $pdf->output());
+        $src = asset('storage/prescription_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf');
+        
+        return $src;
+        // return redirect()->route($this->viewFolder . '.index')->with('message', 'E-Prescription PDF is created.');
+    }
+
+    function pdfMedCert(Consultation $doctors_home){
+        $pdf = Pdf::setOptions(['defaultFont' => 'sans-serif', 'chroot' => public_path('storage/' . $doctors_home->doctor->sig_pic)])->loadView($this->viewFolder . '.pdfMedCert', ['datum' => $doctors_home]);
         // $pdf->getDomPDF()->setHttpContext(
         //     stream_context_create([
         //         'ssl' => [
@@ -686,23 +702,6 @@ class DoctorsHomeController extends Controller
         //         ]
         //     ])
         // );
-        Storage::put('public/prescription_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf', $pdf->output());
-        $src = asset('storage/prescription_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf');
-        return $src;
-        // return redirect()->route($this->viewFolder . '.index')->with('message', 'E-Prescription PDF is created.');
-    }
-
-    function pdfMedCert(Consultation $doctors_home){
-        $pdf = Pdf::setOptions(['defaultFont' => 'sans-serif', 'chroot' => '/var/www/php56/anywheremd/app/webroot/' . $doctors_home->doctor->sig_pic])->loadView($this->viewFolder . '.pdfMedCert', ['datum' => $doctors_home]);
-        $pdf->getDomPDF()->setHttpContext(
-            stream_context_create([
-                'ssl' => [
-                    'allow_self_signed'=> TRUE,
-                    'verify_peer' => FALSE,
-                    'verify_peer_name' => FALSE,
-                ]
-            ])
-        );
         Storage::put('public/med_cert_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf', $pdf->output());
         $src = asset('storage/med_cert_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf');
         return $src;
