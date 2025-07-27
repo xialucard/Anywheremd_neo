@@ -52,7 +52,7 @@
               </div>
             </div>
           </div>
-          <div class="card mb-3">
+          <div class="card mb-3 d-none d-lg-block">
             <div class="card-header">Booking History</div>
             <div class="card-body table-responsive" style="max-height: 300px">
               <table class="table table-bordered table-striped table-hover table-sm">
@@ -459,9 +459,71 @@
     </div> --}}
   </div>
   <div class="row">
-    <div class="col-lg-6 d-none d-md-block">
+    <div class="col-lg-6">
+      <div class="card mb-3 d-xs-block d-lg-none">
+        <div class="card-header">Booking History</div>
+        <div class="card-body table-responsive" style="max-height: 300px">
+          <table class="table table-bordered table-striped table-hover table-sm">
+            <thead class="table-{{ $bgColor }}">
+                <tr>
+                    <th class=""><i class="bi bi-gear"></i></th>
+                    <th>Date</th>
+                    <th>Booking Type</th>
+                    <th>Procedure Details</th>
+                </tr>
+            </thead>
+            <tbody>
+              @php
+                $bookings = $datum->patient->consultations()->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+                // print "<pre>";
+                // print_r($bookings->icd_code_obj->icd_code);
+                // print "</pre>";  
+              @endphp
+              @foreach($bookings as $ind=>$dat)
+                <tr>
+                  <td>
+                    <div class="d-sm-flex flex-sm-row">
+                      <div class="m-1"><a class="btn btn-{{ $bgColor }} btn-sm w-100" href="#" title="View" role="button" onclick="loadPrevBooking({{ $dat->id }}, {{ $ind }})"><i class="bi bi-binoculars"></i><span class="ps-1 d-sm-none">View</span></a></div>
+                    </div>
+                  </td>
+                  <td>{{ $dat->bookingDate }}</td>
+                  <td>{{ $dat->booking_type == '' ? 'Consultation' : $dat->booking_type }}</td>
+                  {{-- <td>{{ $dat->patient->name }}</td> --}}
+                  <td>{{ $dat->procedure_details }}</td>
+                </tr>
+              @endforeach
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <ul class="nav nav-pills mb-3 d-xs-block d-lg-none">
+        <li class="nav-item">
+          <a class="nav-link chartTab" href="#" onclick="
+            $('.chartTab').each(function(){
+              $(this).removeClass('active');
+            });
+            $(this).addClass('active');
+            $('#pastChart').show();
+            $('#pastChart').removeClass('d-none');
+            $('#pastChart').removeClass('d-lg-block');
+            $('#curChart').hide();
+          ">Previous Patient's Chart</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link chartTab active" href="#" onclick="
+            $('.chartTab').each(function(){
+              $(this).removeClass('active');
+            });
+            $(this).addClass('active');
+            $('#pastChart').hide();
+            $('#pastChart').addClass('d-none');
+            $('#pastChart').addClass('d-lg-block');
+            $('#curChart').show();
+          ">Current Patient's Chart</a>
+        </li>
+      </ul>
       @if(isset($bookings[0]))
-      <div class="card mb-3">
+      <div id="pastChart" class="card mb-3 d-none d-lg-block">
         <div class="card-header">Past Patient's Chart (<span id="prevBookingDater">{{ $bookings[0]->bookingDate }}</span>)</div>
         <div class="card-body">
           <div class="card mb-3">
@@ -1166,7 +1228,7 @@
     </div>
     
     <div class="col-lg-6">
-      <div class="card mb-3">
+      <div id="curChart" class="card mb-3 d-lg-block">
         <div class="card-header">Current Patient's Chart ({{ $datum->bookingDate }})</div>
         <div class="card-body">
           <div class="card mb-3">
@@ -1839,15 +1901,20 @@
               <div class="card mb-3">
                 <div class="card-header">Book Follow Up</div>
                 <div class="card-body">
+                  {{-- <div class="form-floating mb-3"> --}}
+                    {{-- <label for="{{ $viewFolder }}_referal" class="form-label">Booking Date</label> --}}
+                    <div class="input-group input-group-small mb-3 flex-nowrap">
+                      <input class="form-control" type="date" name="{{ $viewFolder }}[referal]" id="{{ $viewFolder }}_referals" value="{{ isset($datum->advance_booking->id) ? $datum->advance_booking->bookingDate : '' }}" min="{{ date('Y-m-d', strtotime($datum->bookingDate . '+ 7days')) }}" step=7 max="{{ $maxDateSched }}" onkeydown="return false">
+                      <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="
+                        $('#{{ $viewFolder }}_referals').val('');
+                      ">Clear Booking</button>
+                    </div>
+                    <small id="help_{{ $viewFolder }}_referal" class="text-muted"></small>
+                  {{-- </div> --}}
                   {{-- <div class="form-floating mb-3">
-                    <input class="form-control" type="date" name="{{ $viewFolder }}[referal]" id="{{ $viewFolder }}_referals" value="" min="{{ date('Y-m-d', strtotime($datum->bookingDate . '+ 7days')) }}" onkeydown="return false">
-                    <label for="{{ $viewFolder }}_bookingDate" class="form-label">Booking Date</label>
-                    <small id="help_{{ $viewFolder }}_bookingDate" class="text-muted"></small>
-                  </div> --}}
-                  <div class="form-floating mb-3">
                     <input class="form-control" id="{{ $viewFolder }}_referal" name="{{ $viewFolder }}[referal]" value="{{ isset($datum->advance_booking->id) ? ($datum->advance_booking->booking_type == '' ? 'Consultation' : $datum->advance_booking->booking_type) . ' - ' . $datum->advance_booking->bookingDate . ' (' . date('l', strtotime($datum->advance_booking->bookingDate)) . ')' : '' }}" {{ $datum->doctor_id != $user->id ? 'disabled' : '' }} autocomplete="off">
                     <small class="text-muted">Please type date and click the option that will appear.</small>
-                  </div>
+                  </div> --}}
                 </div>
               </div>
             </div>

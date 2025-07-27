@@ -351,7 +351,7 @@ class DoctorsHomeController extends Controller
         $data = $this->getData($request->input());
         $user = Auth::user();
         $datum = $doctors_home;
-        // dd($datum->icd_code_obj);
+        
         $yr = null;
         $mon = null;
         $dayNum = null;
@@ -382,6 +382,7 @@ class DoctorsHomeController extends Controller
                     'patients'=>$patients, 
                     'viewFolder' => $this->viewFolder, 
                     'modalSize' => 'modal-fullscreen',
+                    'maxDateSched' =>$datum->doctor->schedules()->max('dateSched'),
                     'referer' => urldecode($request->headers->get('referer'))
                 ]);
         }
@@ -392,7 +393,7 @@ class DoctorsHomeController extends Controller
         $user = Auth::user();
         unset($params);
         $params = $request->input($this->viewFolder);
-        
+        // dd($params);
         unset($patient);
         $patient = $params['Patient'];
         if(isset($patient)){
@@ -520,15 +521,15 @@ class DoctorsHomeController extends Controller
 
         Consultation::where('advance_booking_id', $doctors_home->id)->delete();
         if(isset($referralEntry)){
-            if(stristr($referralEntry, ' - ')){
-                $referalExp = explode(' - ', $referralEntry);
-                $dateExp = explode(' ', $referalExp[1]);
+            // if(stristr($referralEntry, ' - ')){
+                // $referalExp = explode(' - ', $referralEntry);
+                // $dateExp = explode(' ', $referalExp[1]);
                 unset($params);
                 
-                $params['booking_type'] = $referalExp[0];
-                if($referalExp[0] == 'Consultation')
-                    $params['booking_type'] = '';
-                $params['bookingDate'] = $dateExp[0];
+                $params['booking_type'] = $doctors_home->booking_type;
+                // if($referalExp[0] == 'Consultation')
+                //     $params['booking_type'] = '';
+                $params['bookingDate'] = $referralEntry;
                 $params['doctor_id'] = $user->id;
                 $params['fee'] = $user->fee;
                 $params['patient_id'] = $doctors_home->patient_id;
@@ -541,7 +542,7 @@ class DoctorsHomeController extends Controller
                 $params['updated_by'] = $user->id;
                 
                 Consultation::create($params);
-            }
+            // }
 
         }
         
