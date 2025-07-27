@@ -1,3 +1,16 @@
+@php
+    unset($referal_conso);
+    if(isset($datum->clinic->id))
+        $clinicDat = $datum->clinic->id;
+    if(isset($datum->doctor->id))
+        $doctorDat = $datum->doctor->id;
+    $key = false;
+    if(isset($datum->parent_consultation)){
+        $referal_conso = $datum;
+        $datum = $datum->parent_consultation;
+        $key = true;
+    }
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -72,8 +85,9 @@
     <br>
     <br>
     <div class="position-absolute top-100 start-100 text-end mt-5">
-        {{ str_pad("", strlen($datum->doctor->name), "_", STR_PAD_LEFT) }}<br>
-        Dr. {{ $datum->doctor->name }}<br>
+        <img src="{{ public_path('storage/' . $datum->doctor->sig_pic) }}" style="width:1in"><br>
+        {{ str_pad("", strlen(isset($referal_conso) ? $referal_conso->doctor->name : $datum->doctor->name), "_", STR_PAD_LEFT) }}<br>
+        Dr. {{ isset($referal_conso) ? $referal_conso->doctor->name : $datum->doctor->name }}<br>
         PRC#: {{ $datum->doctor->prc_number }}
     </div>
 </body>

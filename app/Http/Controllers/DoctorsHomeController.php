@@ -674,8 +674,8 @@ class DoctorsHomeController extends Controller
     }
 
     function pdfPrescription(Consultation $doctors_home){
-        Pdf::view($this->viewFolder . '.pdfPrescription', ['datum' => $doctors_home])->save('public/prescription_files' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf');
-        // $pdf = Pdf::setOptions(['defaultFont' => 'sans-serif', 'chroot' => public_path('img/rx.jpg')])->loadView($this->viewFolder . '.pdfPrescription', ['datum' => $doctors_home]);
+        //Pdf::view($this->viewFolder . '.pdfPrescription', ['datum' => $doctors_home])->save('public/prescription_files' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf');
+        $pdf = Pdf::setOptions(['defaultFont' => 'sans-serif', 'chroot' => public_path('img/rx.jpg')])->loadView($this->viewFolder . '.pdfPrescription', ['datum' => $doctors_home]);
         // // $pdf->getDomPDF()->setHttpContext(
         // //     stream_context_create([
         // //         'ssl' => [
@@ -685,7 +685,7 @@ class DoctorsHomeController extends Controller
         // //         ]
         // //     ])
         // // );
-        // Storage::put('public/prescription_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf', $pdf->output());
+        Storage::put('public/prescription_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf', $pdf->output());
         $src = asset('storage/prescription_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf');
         
         return $src;
@@ -710,7 +710,8 @@ class DoctorsHomeController extends Controller
     }
 
     function pdfAdmitting(Consultation $doctors_home){
-        $pdf = Pdf::loadView($this->viewFolder . '.pdfAdmitting', ['datum' => $doctors_home])->setOptions(['defaultFont' => 'sans-serif']);
+        $pdf = Pdf::setOptions(['defaultFont' => 'sans-serif', 'chroot' => public_path('storage/' . $doctors_home->doctor->sig_pic)])->loadView($this->viewFolder . '.pdfAdmitting', ['datum' => $doctors_home]);
+        
         Storage::put('public/admitting_order_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf', $pdf->output());
         $src = asset('storage/admitting_order_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf');
         return $src;
