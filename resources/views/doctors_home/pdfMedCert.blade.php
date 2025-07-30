@@ -116,7 +116,9 @@
         I certify that this information is generated from the Electronic Medical Records system in my clinic and by generating this form, my signature is hereby affixed.
     </p>
     <div class="position-absolute top-100 start-100 text-end mt-5">
+        @if($datum->doctor->sig_pic != "")
         <img src="{{ public_path('storage/' . $datum->doctor->sig_pic) }}" style="width:1in"><br>
+        @endif
         {{ str_pad("", strlen(isset($referal_conso) ? $referal_conso->doctor->name : $datum->doctor->name), "_", STR_PAD_LEFT) }}<br>
         Dr. {{ isset($referal_conso) ? $referal_conso->doctor->name : $datum->doctor->name }}<br>
         PRC#: {{ isset($referal_conso) ? $referal_conso->doctor->prc_number : $datum->doctor->prc_number }}
