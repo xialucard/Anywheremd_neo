@@ -72,20 +72,20 @@
     <p>
         Name of patient: {{ $datum->patient->name }}<br>
         Age/Sex: {{ floor((strtotime($datum->bookingDate) - strtotime($datum->patient->birthdate))/(60*60*24*365.25)) }}/{{ $datum->patient->gender }}<br>
-        Contemplated date of procedure: {{ date('F d, Y', strtotime($datum->con_date_ao)) }}<br>
-        Procedure: {!!html_entity_decode($datum->procedure_ao)!!}<br>
-        Attending MD: {{ $datum->doctor->name }} M.D.<br>
-        Type of Anesthesia: {{ $datum->anesthesia_type_ao }}<br>
-        Anesthesiologist: {{ $datum->anesthesiologist_ao }} M.D.
+        Contemplated date of procedure: {{ date('F d, Y', strtotime(isset($referal_conso->con_date_ao) ? $referal_conso->con_date_ao : $datum->con_date_ao)) }}<br>
+        Procedure: {!!html_entity_decode(isset($referal_conso->procedure_ao) ? $referal_conso->procedure_ao : $datum->procedure_ao)!!}<br>
+        Attending MD: {{ isset($referal_conso->doctor->name) ? $referal_conso->doctor->name : $datum->doctor->name }} M.D.<br>
+        Type of Anesthesia: {{ isset($referal_conso->anesthesia_type_ao) ? $referal_conso->anesthesia_type_ao : $datum->anesthesia_type_ao }}<br>
+        Anesthesiologist: {{ isset($referal_conso->anesthesiologist_ao) ? $referal_conso->anesthesiologist_ao : $datum->anesthesiologist_ao }} M.D.
     </p>
     <h1 class='text-center'>Admitting Order</h1>
     <br>
-    <p>{!!html_entity_decode($datum->admittingOrder)!!}</p>
+    <p>{!!html_entity_decode(isset($referal_conso->admittingOrder) ? $referal_conso->admittingOrder : $datum->admittingOrder)!!}</p>
     <br>
     <br>
     <br>
     <div class="position-absolute top-100 start-100 text-end mt-5">
-        @if($datum->doctor->sig_pic != "" || $referal_conso->doctor->sig_pic != "")
+        @if((isset($referal_conso) ? $referal_conso->doctor->sig_pic : $datum->doctor->sig_pic) != "")
         <img src="{{ public_path('storage/' . isset($referal_conso) ? $referal_conso->doctor->sig_pic : $datum->doctor->sig_pic) }}" style="width:1in"><br>
         @endif
         {{ str_pad("", strlen(isset($referal_conso) ? $referal_conso->doctor->name : $datum->doctor->name), "_", STR_PAD_LEFT) }}<br>
