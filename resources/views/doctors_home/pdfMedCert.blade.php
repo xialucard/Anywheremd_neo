@@ -1,5 +1,6 @@
 @php
     unset($referal_conso);
+    $referal_conso = array();
     if(isset($datum->clinic->id))
         $clinicDat = $datum->clinic->id;
     if(isset($datum->doctor->id))
