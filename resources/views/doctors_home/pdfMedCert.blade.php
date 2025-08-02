@@ -117,7 +117,7 @@
     </p>
     <div class="position-absolute top-100 start-100 text-end mt-5">
         @if((!empty($referal_conso->doctor->sig_pic) ? $referal_conso->doctor->sig_pic : $datum->doctor->sig_pic) != "")
-        <img src="{{ public_path('storage/' . isset($referal_conso->doctor->sig_pic) ? $referal_conso->doctor->sig_pic : $datum->doctor->sig_pic) }}" style="width:1in"><br>
+        <img src="{{ public_path('storage/' . !empty($referal_conso->doctor->sig_pic) ? $referal_conso->doctor->sig_pic : $datum->doctor->sig_pic) }}" style="width:1in"><br>
         @endif
         {{ str_pad("", strlen(!empty($referal_conso) ? $referal_conso->doctor->name : $datum->doctor->name), "_", STR_PAD_LEFT) }}<br>
         Dr. {{ isset($referal_conso) ? $referal_conso->doctor->name : $datum->doctor->name }}<br>
