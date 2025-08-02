@@ -83,7 +83,7 @@
         </ul>
         Findings:
         <ul style="list-style-type:none;">
-            <li>{!!html_entity_decode(isset($referal_conso) ? $referal_conso->findings : $datum->findings)!!}</li>
+            <li>{!!html_entity_decode(isset($referal_conso->findings) ? $referal_conso->findings : $datum->findings)!!}</li>
             <li>Refraction:
                 <ul>
                     <li>OD: {{ $datum->arod_sphere == 'No Target' ? 'No Refraction Possible' : ($datum->arod_sphere>0 ? '+' . $datum->arod_sphere : $datum->arod_sphere) . ' = ' . ($datum->arod_cylinder>0 ? '+' . $datum->arod_cylinder : $datum->arod_cylinder) . ' x ' . $datum->arod_axis }}</li>
@@ -108,21 +108,21 @@
         </ul>
         Diagnosis:
         <ul style="list-style-type:none;">
-            <li>{!!html_entity_decode(isset($referal_conso) ? $referal_conso->diagnosis : $datum->diagnosis)!!}</li>
+            <li>{!!html_entity_decode(isset($referal_conso->diagnosis) ? $referal_conso->diagnosis : $datum->diagnosis)!!}</li>
         </ul>
         Recommendation:
         <ul style="list-style-type:none;">
-            <li>{!!html_entity_decode(isset($referal_conso) ? $referal_conso->recommendations : $datum->recommendations)!!}</li>
+            <li>{!!html_entity_decode(isset($referal_conso->recommendations) ? $referal_conso->recommendations : $datum->recommendations)!!}</li>
         </ul>
         I certify that this information is generated from the Electronic Medical Records system in my clinic and by generating this form, my signature is hereby affixed.
     </p>
     <div class="position-absolute top-100 start-100 text-end mt-5">
         @if((!empty($referal_conso->doctor->sig_pic) ? $referal_conso->doctor->sig_pic : $datum->doctor->sig_pic) != "")
-        <img src="{{ public_path('storage/' . !empty($referal_conso->doctor->sig_pic) ? $referal_conso->doctor->sig_pic : $datum->doctor->sig_pic) }}" style="width:1in"><br>
+        <img src="{{ public_path('storage/' . isset($referal_conso->doctor->sig_pic) ? $referal_conso->doctor->sig_pic : $datum->doctor->sig_pic) }}" style="width:1in"><br>
         @endif
-        {{ str_pad("", strlen(!empty($referal_conso) ? $referal_conso->doctor->name : $datum->doctor->name), "_", STR_PAD_LEFT) }}<br>
-        Dr. {{ isset($referal_conso) ? $referal_conso->doctor->name : $datum->doctor->name }}<br>
-        PRC#: {{ isset($referal_conso) ? $referal_conso->doctor->prc_number : $datum->doctor->prc_number }}
+        {{ str_pad("", strlen(isset($referal_conso->doctor->name) ? $referal_conso->doctor->name : $datum->doctor->name), "_", STR_PAD_LEFT) }}<br>
+        Dr. {{ isset($referal_conso->doctor->name) ? $referal_conso->doctor->name : $datum->doctor->name }}<br>
+        PRC#: {{ isset($referal_conso->doctor->prc_number) ? $referal_conso->doctor->prc_number : $datum->doctor->prc_number }}
     </div>
     
 
