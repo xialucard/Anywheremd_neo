@@ -1016,6 +1016,13 @@
               <div class="carousel-indicators" id="labPrevCarouselInd">
                 @php
                   $key = false;
+                  if(isset($bookings[0]->parent_consultation)){
+                    $bookings[0]->consultation_files = $bookings[0]->parent_consultation->consultation_files;
+                    $bookings[0]->anesthesia_files = $bookings[0]->parent_consultation->anesthesia_files;
+                    $bookings[0]->doctor_files = $bookings[0]->parent_consultation->doctor_files;
+                    $bookings[0]->prescription_files = $bookings[0]->parent_consultation->prescription_files;
+                  }
+
                 @endphp
                 @if(!empty($bookings[0]->consultation_files[0]->file_link))
                   @foreach($bookings[0]->consultation_files as $ind=>$file)
@@ -1138,7 +1145,9 @@
               <label for="formFileMultiple" class="form-label">Uploaded Images/Files</label>
               <input class="form-control" type="file" id="{{ $viewFolder }}_prev_files" name="{{ $viewFolder }}[ConsultationFile][files][]" accept="image/png, image/gif, image/jpeg" multiple disabled>
             </div>
-            <div class="row overflow-auto" id="image_preview_prev_saved" style="max-height:500px">
+            <div class="container horizontal-scrollable" style="overflow-x: auto; white-space: nowrap;">
+              <div class="row flex-nowrap" id="image_preview_prev_saved" style="max-height:150px">
+            {{-- <div class="row overflow-auto" id="image_preview_prev_saved" style="max-height:500px"> --}}
               @php
                 $ind = 0;
               @endphp
@@ -1193,6 +1202,7 @@
                 @endif
                 @endforeach
               @endif
+            </div>
             </div>
           </div>
           <div id="presPrevDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
@@ -2186,22 +2196,24 @@
               <label for="formFileMultiple" class="form-label">Uploaded Images/Files</label>
               <input class="form-control" type="file" id="{{ $viewFolder }}_files" name="{{ $viewFolder }}[ConsultationFile][files][]" accept="image/*, .pdf" multiple>
             </div>
-            <div class="row overflow-auto" id="image_preview_saved" style="max-height:500px">
+            <div class="row overflow-auto" id="image_preview_saved" style="max-height:100px">
               
             </div>
-            <div class="row" id="image_preview">
-              @if(isset($datum->consultation_files))
-                @foreach($datum->consultation_files as $ind => $file)
-                @php
-                  $exAr = explode('/', $file->file_link);
-                @endphp
-                @if($file->file_type == 'application/pdf')
-              <div class='img-div' data-bs-target="#carouselCur" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail' title='{{ $exAr[sizeof($exAr)-1] }}'></iframe><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
-                @else
-              <div class='img-div' data-bs-target="#carouselCur" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail' title='{{ $exAr[sizeof($exAr)-1] }}'><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
+            <div class="container horizontal-scrollable" style="overflow-x: auto; white-space: nowrap;">
+              <div class="row flex-nowrap" id="image_preview" style="max-height:150px">
+                @if(isset($datum->consultation_files))
+                  @foreach($datum->consultation_files as $ind => $file)
+                  @php
+                    $exAr = explode('/', $file->file_link);
+                  @endphp
+                  @if($file->file_type == 'application/pdf')
+                <div class='img-div' data-bs-target="#carouselCur" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail' title='{{ $exAr[sizeof($exAr)-1] }}'></iframe><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
+                  @else
+                <div class='img-div' data-bs-target="#carouselCur" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail' title='{{ $exAr[sizeof($exAr)-1] }}'><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
+                  @endif
+                  @endforeach
                 @endif
-                @endforeach
-              @endif
+              </div>
             </div>
           </div>
           {{-- @if($user->id == $datum->doctor->id) --}}

@@ -54,8 +54,8 @@
             transition: .5s ease;
             opacity: 0;
             position: absolute;
-            top: 50%;
-            left: 50%;
+            bottom: 0%;
+            right: 0%;
             transform: translate(-50%, -50%);
             -ms-transform: translate(-50%, -50%);
             text-align: center;

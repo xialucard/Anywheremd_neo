@@ -580,7 +580,7 @@ class DoctorsHomeController extends Controller
         // foreach($prevBookingInfo[$index]->consultation_files as $ind=>$consultation_file){
         //     $prevBookingArr['consultation_files'][$ind]['file_link'] = asset($consultation_file->file_link);
         // }
-        if(isset($datum->parent_consultation))
+        if(isset($doctors_home->parent_consultation))
             $prevBookingArr['parent_consultation'] = $doctors_home->parent_consultation;
         $prevBookingArr['consultation'] = $doctors_home;
         if(isset($doctors_home->icd_code_obj->icd_code)){
@@ -593,10 +593,19 @@ class DoctorsHomeController extends Controller
         $prevBookingArr['consultation']['iframePrevMedCertSrc'] = file_exists(public_path('storage/med_cert_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf')) ? asset('storage/med_cert_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf') : (file_exists(public_path('storage/uploads/med_cert_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf')) ? asset('storage//uploads/med_cert_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg');
         $prevBookingArr['consultation']['iframePrevAdmittingSrc'] = file_exists(public_path('storage/admitting_order_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf')) ? asset('storage/admitting_order_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf') : (file_exists(public_path('storage/uploads/admitting_order_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf')) ? asset('storage//uploads/admitting_order_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg');
         $prevBookingArr['patient'] = $doctors_home->patient;
-        foreach($doctors_home->consultation_files as $ind=>$consultation_file){
-            $prevBookingArr['consultation_files'][$ind]['file_link'] = asset($consultation_file->file_link);
-            $prevBookingArr['consultation_files'][$ind]['id'] = $consultation_file->id;
+
+        if(isset($doctors_home->parent_consultation)){
+            foreach($doctors_home->parent_consultation->consultation_files as $ind=>$consultation_file){
+                $prevBookingArr['consultation_files'][$ind]['file_link'] = asset($consultation_file->file_link);
+                $prevBookingArr['consultation_files'][$ind]['id'] = $consultation_file->id;
+            }
+        }else{
+            foreach($doctors_home->consultation_files as $ind=>$consultation_file){
+                $prevBookingArr['consultation_files'][$ind]['file_link'] = asset($consultation_file->file_link);
+                $prevBookingArr['consultation_files'][$ind]['id'] = $consultation_file->id;
+            }
         }
+
         foreach($doctors_home->anesthesia_files as $consultation_file){
             $ind++;
             $prevBookingArr['consultation_files'][$ind]['file_link'] = asset($consultation_file->file_link);
