@@ -173,7 +173,7 @@
           <div class="card mb-3" id="eyeExam" {{ stristr($bookings[0]->doctor->specialty, 'Ophtha') ? '' : 'style=display:none' }}>
             <div class="card-header">Eye Examination Information</div>
             <div class="card-body">
-              <p id="prevEyer">
+              {{-- <p id="prevEyerBack">
                 <strong>AR OD:</strong> <span class="text-primary">{{ $bookings[0]->arod_sphere != 'No Target' ? $bookings[0]->arod_sphere . ' - ' . $bookings[0]->arod_cylinder . ' x ' . $bookings[0]->arod_axis : $bookings[0]->arod_sphere }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
                 <strong>AR OS:</strong> <span class="text-primary">{{ $bookings[0]->aros_sphere != 'No Target' ? $bookings[0]->aros_sphere . ' - ' . $bookings[0]->aros_cylinder . ' x ' . $bookings[0]->aros_axis : $bookings[0]->aros_sphere }}</span><br>
                 <strong>UCVA OD:</strong> <span class="text-primary">{{ $bookings[0]->vaod_den != '' ? $bookings[0]->vaod_num . ' / ' . $bookings[0]->vaod_den : $bookings[0]->vaod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
@@ -189,7 +189,61 @@
                 <strong>Jaeger OS:</strong> <span class="text-primary">{{ $bookings[0]->jae_os }}</span><br>
                 <strong>IOP OD:</strong> <span class="text-primary">{{ $bookings[0]->iopod }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
                 <strong>IOP OS:</strong> <span class="text-primary">{{ $bookings[0]->iopos }}</span>
-              </p>
+              </p> --}}
+              <table class="table table-bordered table-striped table-hover table-sm">
+                <thead class="table-{{ $bgColor }}">
+                    <tr>
+                        <th>&nbsp;</th>
+                        <th>OD</th>
+                        <th>OS</th>
+                        <th>OU</th>
+                    </tr>
+                </thead>
+                <tbody id="prevEyer">
+                  <tr>
+                      <td>AR</td>
+                      <td>{{ $bookings[0]->arod_sphere != 'No Target' ? ($bookings[0]->arod_sphere) . ' - ' . ($bookings[0]->arod_cylinder) . ' x ' . $bookings[0]->arod_axis : 'No Refraction Possible' }}</td>
+                      <td>{{ $bookings[0]->aros_sphere != 'No Target' ? ($bookings[0]->aros_sphere) . ' - ' . ($bookings[0]->aros_cylinder) . ' x ' . $bookings[0]->aros_axis : 'No Refraction Possible' }}</td>
+                      <td>&nbsp;</td>
+                  </tr>
+                  <tr>
+                      <td>UCVA</td>
+                      <td>{{ $bookings[0]->vaod_den != '' ? $bookings[0]->vaod_num . ' / ' . $bookings[0]->vaod_den : $bookings[0]->vaod_num }}</td>
+                      <td>{{ $bookings[0]->vaos_den != '' ? $bookings[0]->vaos_num . ' / ' . $bookings[0]->vaos_den : $bookings[0]->vaos_num }}</td>
+                      <td>&nbsp;</td>
+                  </tr>
+                  <tr>
+                      <td>UCVA Present Correction</td>
+                      <td>{{ $bookings[0]->vaodcor_den != '' ? $bookings[0]->vaodcor_num . ' / ' . $bookings[0]->vaodcor_den : $bookings[0]->vaodcor_num }}</td>
+                      <td>{{ $bookings[0]->vaoscor_den != '' ? $bookings[0]->vaoscor_num . ' / ' . $bookings[0]->vaoscor_den : $bookings[0]->vaoscor_num }}</td>
+                      <td>&nbsp;</td>
+                  </tr>
+                  <tr>
+                      <td>VA Pinhole</td>
+                      <td>{{ $bookings[0]->pinod_den != '' ? $bookings[0]->pinod_num . ' / ' . $bookings[0]->pinod_den : $bookings[0]->pinod_num }}</td>
+                      <td>{{ $bookings[0]->pinos_den != '' ? $bookings[0]->pinos_num . ' / ' . $bookings[0]->pinos_den : $bookings[0]->pinos_num }}</td>
+                      <td>&nbsp;</td>
+                  </tr>
+                  <tr>
+                      <td>BCVA</td>
+                      <td>{{ $bookings[0]->pinodcor_den != '' ? $bookings[0]->pinodcor_num . ' / ' . $bookings[0]->pinodcor_den : $bookings[0]->pinodcor_num }}</td>
+                      <td>{{ $bookings[0]->pinoscor_den != '' ? $bookings[0]->pinoscor_num . ' / ' . $bookings[0]->pinoscor_den : $bookings[0]->pinoscor_num }}</td>
+                      <td>&nbsp;</td>
+                  </tr>
+                  <tr>
+                      <td>Jaeger</td>
+                      <td>{{ $bookings[0]->jae_od }}</td>
+                      <td>{{ $bookings[0]->jae_os }}</td>
+                      <td>{{ $bookings[0]->jae_ou }}</td>
+                  </tr>
+                  <tr>
+                      <td>IOP</td>
+                      <td>{{ $bookings[0]->iopod }}</td>
+                      <td>{{ $bookings[0]->iopos }}</td>
+                      <td>&nbsp;</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
           
@@ -841,86 +895,97 @@
           $('#prevSumProcDet').html(bookingObj.consultation.procedure_details);
           $('#prevSumPatComp').html(bookingObj.consultation.complains);
           $('#prevSumPatCompDur').html(bookingObj.consultation.duration);
-          eyeStr = '';
+          eyeStr = '<tr><td>AR</td><td>';
           if(bookingObj.consultation.arod_sphere == 'No Target')
-            eyeStr += '<strong>AR OD:</strong> <span class="text-primary">' + bookingObj.consultation.arod_sphere + '</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;';
+            eyeStr += 'No Refraction Possible<';
           else
-            eyeStr += '<strong>AR OD:</strong> <span class="text-primary">' + bookingObj.consultation.arod_sphere + ' - ' + bookingObj.consultation.arod_cylinder + ' x ' + bookingObj.consultation.arod_axis + '</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;';
-          
+            eyeStr += bookingObj.consultation.arod_sphere + ' - ' + bookingObj.consultation.arod_cylinder + ' x ' + bookingObj.consultation.arod_axis;
+          eyeStr += '</td><td>';
           if(bookingObj.consultation.aros_sphere == 'No Target')
-            eyeStr += '<strong>AR OS:</strong> <span class="text-primary">' + bookingObj.consultation.aros_sphere + '</span><br> ';
+            eyeStr += 'No Refraction Possible';
           else
-            eyeStr += '<strong>AR OS:</strong> <span class="text-primary">' + bookingObj.consultation.aros_sphere + ' - ' + bookingObj.consultation.aros_cylinder + ' x ' + bookingObj.consultation.aros_axis + '</span><br> ';
-          
+            eyeStr += bookingObj.consultation.aros_sphere + ' - ' + bookingObj.consultation.aros_cylinder + ' x ' + bookingObj.consultation.aros_axis;
+          eyeStr += '</td><td></td>';
+          eyeStr += '<tr><td>UCVA</td><td>';
           if(bookingObj.consultation.vaod_den == '')
-            eyeStr += '<strong>UCVA OD:</strong> <span class="text-primary">' + bookingObj.consultation.vaod_num + '</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;';
+            eyeStr += bookingObj.consultation.vaod_num;
           else
-            eyeStr += '<strong>UCVA OD:</strong> <span class="text-primary">' + bookingObj.consultation.vaod_num + ' / ' + bookingObj.consultation.vaod_den + '</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;';
-          
-          if(bookingObj.consultation.vaodcor_den == '')
-            eyeStr += '<strong>UCVA OD w/ Correction:</strong> <span class="text-primary">' + bookingObj.consultation.vaodcor_num + '</span><br> ';
-          else
-            eyeStr += '<strong>UCVA OD w/ Correction:</strong> <span class="text-primary">' + bookingObj.consultation.vaodcor_num + ' / ' + bookingObj.consultation.vaodcor_den + '</span><br> ';
-          
+            eyeStr += bookingObj.consultation.vaod_num + ' / ' + bookingObj.consultation.vaod_den;
+          eyeStr += '</td><td>';
           if(bookingObj.consultation.vaos_den == '')
-            eyeStr += '<strong>UCVA OS:</strong> <span class="text-primary">' + bookingObj.consultation.vaos_num + '</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;';
+            eyeStr += bookingObj.consultation.vaos_num;
           else
-            eyeStr += '<strong>UCVA OS:</strong> <span class="text-primary">' + bookingObj.consultation.vaos_num + ' / ' + bookingObj.consultation.vaos_den + '</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;';
-
+            eyeStr += bookingObj.consultation.vaos_num + ' / ' + bookingObj.consultation.vaos_den;
+          eyeStr += '</td><td></td>';
+          eyeStr += '<tr><td>UCVA Present Correction</td><td>';
+          if(bookingObj.consultation.vaodcor_den == '')
+            eyeStr += bookingObj.consultation.vaodcor_num;
+          else
+            eyeStr += bookingObj.consultation.vaodcor_num + ' / ' + bookingObj.consultation.vaodcor_den;
+          eyeStr += '</td><td>';
           if(bookingObj.consultation.vaoscor_den == '')
-            eyeStr += '<strong>UCVA OS w/ Correction:</strong> <span class="text-primary">' + bookingObj.consultation.vaoscor_num + '</span><br> ';
+            eyeStr += bookingObj.consultation.vaoscor_num;
           else
-            eyeStr += '<strong>UCVA OS w/ Correction:</strong> <span class="text-primary">' + bookingObj.consultation.vaoscor_num + ' / ' + bookingObj.consultation.vaoscor_den + '</span><br> ';
-          
+            eyeStr += bookingObj.consultation.vaoscor_num + ' / ' + bookingObj.consultation.vaoscor_den;
+          eyeStr += '</td><td></td>';
+          eyeStr += '<tr><td>VA Pinhole</td><td>';
           if(bookingObj.consultation.pinod_den == '')
-            eyeStr += '<strong>BCVA OD:</strong> <span class="text-primary">' + bookingObj.consultation.pinod_num + '</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;';
+            eyeStr += bookingObj.consultation.pinod_num;
           else
-            eyeStr += '<strong>BCVA OD:</strong> <span class="text-primary">' + bookingObj.consultation.pinod_num + ' / ' + bookingObj.consultation.pinod_den + '</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;';
-          
-          if(bookingObj.consultation.pinodcor_den == '')
-            eyeStr += '<strong>BCVA OD w/ Correction:</strong> <span class="text-primary">' + bookingObj.consultation.pinodcor_num + '</span><br> ';
-          else
-            eyeStr += '<strong>BCVA OD w/ Correction:</strong> <span class="text-primary">' + bookingObj.consultation.pinodcor_num + ' / ' + bookingObj.consultation.pinodcor_den + '</span><br> ';
-          
+            eyeStr += bookingObj.consultation.pinod_num + ' / ' + bookingObj.consultation.pinod_den;
+          eyeStr += '</td><td>';
           if(bookingObj.consultation.pinos_den == '')
-            eyeStr += '<strong>BCVA OS:</strong> <span class="text-primary">' + bookingObj.consultation.pinos_num + '</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;';
+            eyeStr += bookingObj.consultation.pinos_num;
           else
-            eyeStr += '<strong>BCVA OS:</strong> <span class="text-primary">' + bookingObj.consultation.pinos_num + ' / ' + bookingObj.consultation.pinos_den + '</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;';
-          
+            eyeStr += bookingObj.consultation.pinos_num + ' / ' + bookingObj.consultation.pinos_den;
+          eyeStr += '</td><td></td>';
+          eyeStr += '<tr><td>BCVA</td><td>';
           if(bookingObj.consultation.pinodcor_den == '')
-            eyeStr += '<strong>BCVA OS w/ Correction:</strong> <span class="text-primary">' + bookingObj.consultation.pinoscor_num + '</span><br> ';
+            eyeStr += bookingObj.consultation.pinodcor_num;
           else
-            eyeStr += '<strong>BCVA OS w/ Correction:</strong> <span class="text-primary">' + bookingObj.consultation.pinoscor_num + ' / ' + bookingObj.consultation.pinoscor_den + '</span><br> ';
-          
-          eyeStr += '<strong>Jaeger OU:</strong> <span class="text-primary">' + bookingObj.consultation.jae_ou + '</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;';
-          eyeStr += '<strong>Jaeger OD:</strong> <span class="text-primary">' + bookingObj.consultation.jae_od + '</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;';
-          eyeStr += '<strong>Jaeger OS:</strong> <span class="text-primary">' + bookingObj.consultation.jae_os + '</span><br> ';
-          eyeStr += '<strong>IOP OD:</strong> <span class="text-primary">' + bookingObj.consultation.iopod + '</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;';
-          eyeStr += '<strong>IOP OS:</strong> <span class="text-primary">' + bookingObj.consultation.iopos + '</span>';
+            eyeStr += bookingObj.consultation.pinodcor_num + ' / ' + bookingObj.consultation.pinodcor_den;
+          eyeStr += '</td><td>';
+          if(bookingObj.consultation.pinodcor_den == '')
+            eyeStr += bookingObj.consultation.pinoscor_num;
+          else
+            eyeStr += bookingObj.consultation.pinoscor_num + ' / ' + bookingObj.consultation.pinoscor_den;
+          eyeStr += '</td><td></td>';
+          eyeStr += '<tr><td>Jaeger</td><td>';
+          eyeStr += bookingObj.consultation.jae_os;
+          eyeStr += '</td><td>';
+          eyeStr += bookingObj.consultation.jae_od;
+          eyeStr += '</td><td>';
+          eyeStr += bookingObj.consultation.jae_ou;
+          eyeStr += '</td>';
+          eyeStr += '<tr><td>IOP</td><td>';
+          eyeStr += bookingObj.consultation.iopod;
+          eyeStr += '</td><td>';
+          eyeStr += bookingObj.consultation.iopos;
+          eyeStr += '</td><td></td>';
           $('#prevEyer').html(eyeStr);
 
           if(bookingObj.parent_consultation.id != ''){
             bookingObj.consultation = orig_booking;
           }
           
-          $('#{{ $viewFolder }}_prev_docNotesHPI').val(bookingObj.consultation.docNotesHPI);
-          $('#{{ $viewFolder }}_prev_sum_docNotesHPI').html(bookingObj.consultation.docNotesHPI);
-          $('#{{ $viewFolder }}_prev_docNotesSubject').val(bookingObj.consultation.docNotesSubject);
-          $('#{{ $viewFolder }}_prev_sum_docNotesSubject').html(bookingObj.consultation.docNotesSubject);
-          $('#{{ $viewFolder }}_prev_docNotes').val(bookingObj.consultation.docNotes);
-          $('#{{ $viewFolder }}_prev_sum_docNotes').html(bookingObj.consultation.docNotes);
+          $('#{{ $viewFolder }}_prev_docNotesHPI').val(nl2br(bookingObj.consultation.docNotesHPI));
+          $('#{{ $viewFolder }}_prev_sum_docNotesHPI').html(nl2br(bookingObj.consultation.docNotesHPI));
+          $('#{{ $viewFolder }}_prev_docNotesSubject').val(nl2br(bookingObj.consultation.docNotesSubject));
+          $('#{{ $viewFolder }}_prev_sum_docNotesSubject').html(nl2br(bookingObj.consultation.docNotesSubject));
+          $('#{{ $viewFolder }}_prev_docNotes').val(nl2br(bookingObj.consultation.docNotes));
+          $('#{{ $viewFolder }}_prev_sum_docNotes').html(nl2br(bookingObj.consultation.docNotes));
           if(bookingObj.consultation.icd_code_obj != null){
             $('#{{ $viewFolder }}_prev_icd_code').val(bookingObj.consultation.icd_code_obj.icd_code + ' - ' + bookingObj.consultation.icd_code_obj.details);
             $('#{{ $viewFolder }}_prev_sum_icd_code').html(bookingObj.consultation.icd_code_obj.icd_code + ' - ' + bookingObj.consultation.icd_code_obj.details);
           }
-          $('#{{ $viewFolder }}_prev_assessment').val(bookingObj.consultation.assessment);
-          $('#{{ $viewFolder }}_prev_sum_assessment').html(bookingObj.consultation.assessment);
-          $('#{{ $viewFolder }}_prev_plan').val(bookingObj.consultation.plan);
-          $('#{{ $viewFolder }}_prev_sum_plan').html(bookingObj.consultation.plan);
-          $('#{{ $viewFolder }}_prev_planMed').val(bookingObj.consultation.planMed);
-          $('#{{ $viewFolder }}_prev_sum_planMed').html(bookingObj.consultation.planMed);
-          $('#{{ $viewFolder }}_prev_planRem').val(bookingObj.consultation.planRem);
-          $('#{{ $viewFolder }}_prev_sum_planRem').html(bookingObj.consultation.planRem);
+          $('#{{ $viewFolder }}_prev_assessment').val(nl2br(bookingObj.consultation.assessment));
+          $('#{{ $viewFolder }}_prev_sum_assessment').html(nl2br(bookingObj.consultation.assessment));
+          $('#{{ $viewFolder }}_prev_plan').val(nl2br(bookingObj.consultation.plan));
+          $('#{{ $viewFolder }}_prev_sum_plan').html(nl2br(bookingObj.consultation.plan));
+          $('#{{ $viewFolder }}_prev_planMed').val(nl2br(bookingObj.consultation.planMed));
+          $('#{{ $viewFolder }}_prev_sum_planMed').html(nl2br(bookingObj.consultation.planMed));
+          $('#{{ $viewFolder }}_prev_planRem').val(nl2br(bookingObj.consultation.planRem));
+          $('#{{ $viewFolder }}_prev_sum_planRem').html(nl2br(bookingObj.consultation.planRem));
           // $('#{{ $viewFolder }}_findings').val(bookingObj.consultation.findings);
           // $('#{{ $viewFolder }}_diagnosis').val(bookingObj.consultation.diagnosis);
           // $('#{{ $viewFolder }}_recommendations').val(bookingObj.consultation.recommendations);

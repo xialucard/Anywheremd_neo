@@ -732,8 +732,8 @@
             @if(stristr($datum->doctor->specialty, 'Ophtha'))
             <div class="card mb-3">
               <div class="card-header">Eye Examination Information</div>
-              <div class="card-body">
-                <p id="prevEyerSum">
+              <div class="card-body table-responsive">
+                {{-- <p id="prevEyerSumBack">
                   <strong>AR OD:</strong> <span class="text-primary">{{ $bookings[0]->arod_sphere != 'No Target' ? ($bookings[0]->arod_sphere) . ' - ' . ($bookings[0]->arod_cylinder) . ' x ' . $bookings[0]->arod_axis : 'No Refraction Possible' }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
                   <strong>AR OS:</strong> <span class="text-primary">{{ $bookings[0]->aros_sphere != 'No Target' ? ($bookings[0]->aros_sphere) . ' - ' . ($bookings[0]->aros_cylinder) . ' x ' . $bookings[0]->aros_axis : 'No Refraction Possible' }}</span><br>
                   <strong>UCVA OD:</strong> <span class="text-primary">{{ $bookings[0]->vaod_den != '' ? $bookings[0]->vaod_num . ' / ' . $bookings[0]->vaod_den : $bookings[0]->vaod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
@@ -749,7 +749,61 @@
                   <strong>Jaeger OS:</strong> <span class="text-primary">{{ $bookings[0]->jae_os }}</span><br>
                   <strong>IOP OD:</strong> <span class="text-primary">{{ $bookings[0]->iopod }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
                   <strong>IOP OS:</strong> <span class="text-primary">{{ $bookings[0]->iopos }}</span>
-                </p>
+                </p> --}}
+                <table class="table table-bordered table-striped table-hover table-sm">
+                  <thead class="table-{{ $bgColor }}">
+                      <tr>
+                          <th>&nbsp;</th>
+                          <th>OD</th>
+                          <th>OS</th>
+                          <th>OU</th>
+                      </tr>
+                  </thead>
+                  <tbody id="prevEyerSum">
+                    <tr>
+                        <td>AR</td>
+                        <td>{{ $bookings[0]->arod_sphere != 'No Target' ? ($bookings[0]->arod_sphere) . ' - ' . ($bookings[0]->arod_cylinder) . ' x ' . $bookings[0]->arod_axis : 'No Refraction Possible' }}</td>
+                        <td>{{ $bookings[0]->aros_sphere != 'No Target' ? ($bookings[0]->aros_sphere) . ' - ' . ($bookings[0]->aros_cylinder) . ' x ' . $bookings[0]->aros_axis : 'No Refraction Possible' }}</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>UCVA</td>
+                        <td>{{ $bookings[0]->vaod_den != '' ? $bookings[0]->vaod_num . ' / ' . $bookings[0]->vaod_den : $bookings[0]->vaod_num }}</td>
+                        <td>{{ $bookings[0]->vaos_den != '' ? $bookings[0]->vaos_num . ' / ' . $bookings[0]->vaos_den : $bookings[0]->vaos_num }}</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>UCVA Present Correction</td>
+                        <td>{{ $bookings[0]->vaodcor_den != '' ? $bookings[0]->vaodcor_num . ' / ' . $bookings[0]->vaodcor_den : $bookings[0]->vaodcor_num }}</td>
+                        <td>{{ $bookings[0]->vaoscor_den != '' ? $bookings[0]->vaoscor_num . ' / ' . $bookings[0]->vaoscor_den : $bookings[0]->vaoscor_num }}</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>VA Pinhole</td>
+                        <td>{{ $bookings[0]->pinod_den != '' ? $bookings[0]->pinod_num . ' / ' . $bookings[0]->pinod_den : $bookings[0]->pinod_num }}</td>
+                        <td>{{ $bookings[0]->pinos_den != '' ? $bookings[0]->pinos_num . ' / ' . $bookings[0]->pinos_den : $bookings[0]->pinos_num }}</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>BCVA</td>
+                        <td>{{ $bookings[0]->pinodcor_den != '' ? $bookings[0]->pinodcor_num . ' / ' . $bookings[0]->pinodcor_den : $bookings[0]->pinodcor_num }}</td>
+                        <td>{{ $bookings[0]->pinoscor_den != '' ? $bookings[0]->pinoscor_num . ' / ' . $bookings[0]->pinoscor_den : $bookings[0]->pinoscor_num }}</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>Jaeger</td>
+                        <td>{{ $bookings[0]->jae_od }}</td>
+                        <td>{{ $bookings[0]->jae_os }}</td>
+                        <td>{{ $bookings[0]->jae_ou }}</td>
+                    </tr>
+                    <tr>
+                        <td>IOP</td>
+                        <td>{{ $bookings[0]->iopod }}</td>
+                        <td>{{ $bookings[0]->iopos }}</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
             @endif
@@ -757,9 +811,9 @@
               <div class="card-header">Doctor's Notes</div>
               <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                 <p>
-                  <strong>History of Present Illness:</strong><div class="m-3" id="{{ $viewFolder }}_prev_sum_docNotesHPI">{!! nl2br(isset($bookings[0]->docNotesHPI) ? $bookings[0]->docNotesHPI : '') !!}</div><br>
-                  <strong>Subjective Complaints:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_docNotesSubject">{!! nl2br(isset($bookings[0]->docNotesSubject) ? $bookings[0]->docNotesSubject : '') !!}</div><br>
-                  <strong>Objective Findings:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_docNotes">{!! nl2br(isset($bookings[0]->docNotes) ? $bookings[0]->docNotes : '') !!}</div><br>
+                  <strong>History of Present Illness:</strong><div class="m-3" id="{{ $viewFolder }}_prev_sum_docNotesHPI">{!! isset($bookings[0]->docNotesHPI) ? nl2br($bookings[0]->docNotesHPI) : '' !!}</div><br>
+                  <strong>Subjective Complaints:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_docNotesSubject">{!! isset($bookings[0]->docNotesSubject) ? nl2br($bookings[0]->docNotesSubject) : '' !!}</div><br>
+                  <strong>Objective Findings:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_docNotes">{!! isset($bookings[0]->docNotes) ? nl2br($bookings[0]->docNotes) : '' !!}</div><br>
                 </p>
               </div>
             </div>
@@ -767,8 +821,8 @@
               <div class="card-header">Assessment</div>
               <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                 <p>
-                  <strong>Primary Diagnosis:</strong> <span id="{{ $viewFolder }}_prev_sum_icd_code">{!! nl2br(isset($bookings[0]->icd_code_obj) ? $bookings[0]->icd_code_obj->icd_code . ' - ' . $bookings[0]->icd_code_obj->details : '') !!}</span><br>
-                  <strong>Secondary Diagnosis:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_assessment">{!! nl2br(isset($bookings[0]->assessment) ? $bookings[0]->assessment : '') !!}</div><br>
+                  <strong>Primary Diagnosis:</strong> <span id="{{ $viewFolder }}_prev_sum_icd_code">{!! isset($bookings[0]->icd_code_obj) ? $bookings[0]->icd_code_obj->icd_code . ' - ' . $bookings[0]->icd_code_obj->details : '' !!}</span><br>
+                  <strong>Secondary Diagnosis:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_assessment">{!! isset($bookings[0]->assessment) ? nl2br($bookings[0]->assessment) : '' !!}</div><br>
                 </p>
               </div>
             </div>
@@ -776,9 +830,9 @@
               <div class="card-header">Plan</div>
               <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                 <p>
-                  <strong>Medical Therapeutics:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_planMed">{!! nl2br(isset($bookings[0]->planMed) ? $bookings[0]->planMed : '') !!}</div><br>
-                  <strong>Diagnostics and Surgery:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_plan">{!! nl2br(isset($bookings[0]->plan) ? $bookings[0]->plan : '') !!}</div><br>
-                  <strong>Remarks:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_planRem">{!! nl2br(isset($bookings[0]->planRem) ? $bookings[0]->planRem : '') !!}</div><br>
+                  <strong>Medical Therapeutics:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_planMed">{!! isset($bookings[0]->planMed) ? nl2br($bookings[0]->planMed) : '' !!}</div><br>
+                  <strong>Diagnostics and Surgery:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_plan">{!! isset($bookings[0]->plan) ? nl2br($bookings[0]->plan) : '' !!}</div><br>
+                  <strong>Remarks:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_planRem">{!! isset($bookings[0]->planRem) ? nl2br($bookings[0]->planRem) : '' !!}</div><br>
                 </p>
               </div>
             </div>
@@ -857,7 +911,7 @@
                     <div class="card mb-3">
                       <div class="card-header">Eye Examination Information</div>
                       <div class="card-body">
-                        <p id="prevEyer">
+                        {{-- <p id="prevEyerBack">
                           <strong>AR OD:</strong> <span class="text-primary">{{ $bookings[0]->arod_sphere != 'No Target' ? ($bookings[0]->arod_sphere) . ' - ' . ($bookings[0]->arod_cylinder) . ' x ' . $bookings[0]->arod_axis : 'No Refraction Possible' }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
                           <strong>AR OS:</strong> <span class="text-primary">{{ $bookings[0]->aros_sphere != 'No Target' ? ($bookings[0]->aros_sphere) . ' - ' . ($bookings[0]->aros_cylinder) . ' x ' . $bookings[0]->aros_axis : 'No Refraction Possible' }}</span><br>
                           <strong>UCVA OD:</strong> <span class="text-primary">{{ $bookings[0]->vaod_den != '' ? $bookings[0]->vaod_num . ' / ' . $bookings[0]->vaod_den : $bookings[0]->vaod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
@@ -873,7 +927,61 @@
                           <strong>Jaeger OS:</strong> <span class="text-primary">{{ $bookings[0]->jae_os }}</span><br>
                           <strong>IOP OD:</strong> <span class="text-primary">{{ $bookings[0]->iopod }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
                           <strong>IOP OS:</strong> <span class="text-primary">{{ $bookings[0]->iopos }}</span>
-                        </p>
+                        </p> --}}
+                        <table class="table table-bordered table-striped table-hover table-sm">
+                          <thead class="table-{{ $bgColor }}">
+                              <tr>
+                                  <th>&nbsp;</th>
+                                  <th>OD</th>
+                                  <th>OS</th>
+                                  <th>OU</th>
+                              </tr>
+                          </thead>
+                          <tbody id="prevEyer">
+                            <tr>
+                                <td>AR</td>
+                                <td>{{ $bookings[0]->arod_sphere != 'No Target' ? ($bookings[0]->arod_sphere) . ' - ' . ($bookings[0]->arod_cylinder) . ' x ' . $bookings[0]->arod_axis : 'No Refraction Possible' }}</td>
+                                <td>{{ $bookings[0]->aros_sphere != 'No Target' ? ($bookings[0]->aros_sphere) . ' - ' . ($bookings[0]->aros_cylinder) . ' x ' . $bookings[0]->aros_axis : 'No Refraction Possible' }}</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>UCVA</td>
+                                <td>{{ $bookings[0]->vaod_den != '' ? $bookings[0]->vaod_num . ' / ' . $bookings[0]->vaod_den : $bookings[0]->vaod_num }}</td>
+                                <td>{{ $bookings[0]->vaos_den != '' ? $bookings[0]->vaos_num . ' / ' . $bookings[0]->vaos_den : $bookings[0]->vaos_num }}</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>UCVA Present Correction</td>
+                                <td>{{ $bookings[0]->vaodcor_den != '' ? $bookings[0]->vaodcor_num . ' / ' . $bookings[0]->vaodcor_den : $bookings[0]->vaodcor_num }}</td>
+                                <td>{{ $bookings[0]->vaoscor_den != '' ? $bookings[0]->vaoscor_num . ' / ' . $bookings[0]->vaoscor_den : $bookings[0]->vaoscor_num }}</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>VA Pinhole</td>
+                                <td>{{ $bookings[0]->pinod_den != '' ? $bookings[0]->pinod_num . ' / ' . $bookings[0]->pinod_den : $bookings[0]->pinod_num }}</td>
+                                <td>{{ $bookings[0]->pinos_den != '' ? $bookings[0]->pinos_num . ' / ' . $bookings[0]->pinos_den : $bookings[0]->pinos_num }}</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>BCVA</td>
+                                <td>{{ $bookings[0]->pinodcor_den != '' ? $bookings[0]->pinodcor_num . ' / ' . $bookings[0]->pinodcor_den : $bookings[0]->pinodcor_num }}</td>
+                                <td>{{ $bookings[0]->pinoscor_den != '' ? $bookings[0]->pinoscor_num . ' / ' . $bookings[0]->pinoscor_den : $bookings[0]->pinoscor_num }}</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>Jaeger</td>
+                                <td>{{ $bookings[0]->jae_od }}</td>
+                                <td>{{ $bookings[0]->jae_os }}</td>
+                                <td>{{ $bookings[0]->jae_ou }}</td>
+                            </tr>
+                            <tr>
+                                <td>IOP</td>
+                                <td>{{ $bookings[0]->iopod }}</td>
+                                <td>{{ $bookings[0]->iopos }}</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </div>
                     @endif
@@ -1591,7 +1699,7 @@
             <div class="card mb-3">
               <div class="card-header">Eye Examination Information</div>
               <div class="card-body">
-                <p>
+                {{-- <p>
                   <strong>AR OD:</strong> <span class="text-primary">{{ $datum->arod_sphere != 'No Target' ? ($datum->arod_sphere > 0 ? '+' . $datum->arod_sphere : $datum->arod_sphere) . ' - ' . ($datum->arod_cylinder > 0 ? '+' . $datum->arod_cylinder : $datum->arod_cylinder) . ' x ' . $datum->arod_axis : 'No Refraction Possible' }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
                   <strong>AR OS:</strong> <span class="text-primary">{{ $datum->aros_sphere != 'No Target' ? ($datum->aros_sphere > 0 ? '+' . $datum->aros_sphere : $datum->aros_sphere) . ' - ' . ($datum->aros_cylinder > 0 ? '+' . $datum->aros_cylinder : $datum->aros_cylinder) . ' x ' . $datum->aros_axis : 'No Refraction Possible' }}</span><br>
                   <strong>UCVA OD:</strong> <span class="text-primary">{{ $datum->vaod_den != '' ? $datum->vaod_num . ' / ' . $datum->vaod_den : $datum->vaod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
@@ -1607,7 +1715,61 @@
                   <strong>Jaeger OS:</strong> <span class="text-primary">{{ $datum->jae_os }}</span><br>
                   <strong>IOP OD:</strong> <span class="text-primary">{{ $datum->iopod }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
                   <strong>IOP OS:</strong> <span class="text-primary">{{ $datum->iopos }}</span>
-                </p>
+                </p> --}}
+                <table class="table table-bordered table-striped table-hover table-sm">
+                  <thead class="table-{{ $bgColor }}">
+                      <tr>
+                          <th>&nbsp;</th>
+                          <th>OD</th>
+                          <th>OS</th>
+                          <th>OU</th>
+                      </tr>
+                  </thead>
+                  <tbody id="prevEyerSum">
+                    <tr>
+                        <td>AR</td>
+                        <td>{{ $datum->arod_sphere != 'No Target' ? ($datum->arod_sphere) . ' - ' . ($datum->arod_cylinder) . ' x ' . $datum->arod_axis : 'No Refraction Possible' }}</td>
+                        <td>{{ $datum->aros_sphere != 'No Target' ? ($datum->aros_sphere) . ' - ' . ($datum->aros_cylinder) . ' x ' . $datum->aros_axis : 'No Refraction Possible' }}</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>UCVA</td>
+                        <td>{{ $datum->vaod_den != '' ? $datum->vaod_num . ' / ' . $datum->vaod_den : $datum->vaod_num }}</td>
+                        <td>{{ $datum->vaos_den != '' ? $datum->vaos_num . ' / ' . $datum->vaos_den : $datum->vaos_num }}</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>UCVA Present Correction</td>
+                        <td>{{ $datum->vaodcor_den != '' ? $datum->vaodcor_num . ' / ' . $datum->vaodcor_den : $datum->vaodcor_num }}</td>
+                        <td>{{ $datum->vaoscor_den != '' ? $datum->vaoscor_num . ' / ' . $datum->vaoscor_den : $datum->vaoscor_num }}</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>VA Pinhole</td>
+                        <td>{{ $datum->pinod_den != '' ? $datum->pinod_num . ' / ' . $datum->pinod_den : $datum->pinod_num }}</td>
+                        <td>{{ $datum->pinos_den != '' ? $datum->pinos_num . ' / ' . $datum->pinos_den : $datum->pinos_num }}</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>BCVA</td>
+                        <td>{{ $datum->pinodcor_den != '' ? $datum->pinodcor_num . ' / ' . $datum->pinodcor_den : $datum->pinodcor_num }}</td>
+                        <td>{{ $datum->pinoscor_den != '' ? $datum->pinoscor_num . ' / ' . $datum->pinoscor_den : $datum->pinoscor_num }}</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>Jaeger</td>
+                        <td>{{ $datum->jae_od }}</td>
+                        <td>{{ $datum->jae_os }}</td>
+                        <td>{{ $datum->jae_ou }}</td>
+                    </tr>
+                    <tr>
+                        <td>IOP</td>
+                        <td>{{ $datum->iopod }}</td>
+                        <td>{{ $datum->iopos }}</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
             @endif
@@ -1616,9 +1778,9 @@
                 <div class="card-header">Doctor's Notes</div>
                 <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                   <p>
-                    <strong>History of Present Illness:</strong><div class="m-3">{!! nl2br(isset($datum->docNotesHPI) ? $datum->docNotesHPI : '') !!}</div><br>
-                    <strong>Subjective Complaints:</strong><br><div class="m-3">{!! nl2br(isset($datum->docNotesSubject) ? $datum->docNotesSubject : '') !!}</div><br>
-                    <strong>Objective Findings:</strong><br><div class="m-3">{!! nl2br(isset($datum->docNotes) ? $datum->docNotes : '') !!}</div><br>
+                    <strong>History of Present Illness:</strong><div class="m-3">{!! isset($datum->docNotesHPI) ? nl2br($datum->docNotesHPI) : '' !!}</div><br>
+                    <strong>Subjective Complaints:</strong><br><div class="m-3">{!! isset($datum->docNotesSubject) ? nl2br($datum->docNotesSubject) : '' !!}</div><br>
+                    <strong>Objective Findings:</strong><br><div class="m-3">{!! isset($datum->docNotes) ? nl2br($datum->docNotes) : '' !!}</div><br>
                   </p>
                 </div>
               </div>
@@ -1626,8 +1788,8 @@
                 <div class="card-header">Assessment</div>
                 <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                   <p>
-                    <strong>Primary Diagnosis:</strong> {!! nl2br(isset($datum->icd_code_obj) ? $datum->icd_code_obj->icd_code . ' - ' . $datum->icd_code_obj->details : '') !!}<br>
-                    <strong>Secondary Diagnosis:</strong><br><div class="m-3">{!! nl2br(isset($datum->assessment) ? $datum->assessment : '') !!}</div><br>
+                    <strong>Primary Diagnosis:</strong> {!! isset($datum->icd_code_obj) ? $datum->icd_code_obj->icd_code . ' - ' . $datum->icd_code_obj->details : '' !!}<br>
+                    <strong>Secondary Diagnosis:</strong><br><div class="m-3">{!! isset($datum->assessment) ? nl2br($datum->assessment) : '' !!}</div><br>
                   </p>
                 </div>
               </div>
@@ -1635,9 +1797,9 @@
                 <div class="card-header">Plan</div>
                 <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                   <p>
-                    <strong>Medical Therapeutics:</strong><br><div class="m-3">{!! nl2br(isset($datum->planMed) ? $datum->planMed : '') !!}</div><br>
-                    <strong>Diagnostics and Surgery:</strong><br><div class="m-3">{!! nl2br(isset($datum->plan) ? $datum->plan : '') !!}</div><br>
-                    <strong>Remarks:</strong><br><div class="m-3">{!! nl2br(isset($datum->planRem) ? $datum->planRem : '') !!}</div><br>
+                    <strong>Medical Therapeutics:</strong><br><div class="m-3">{!! isset($datum->planMed) ? nl2br($datum->planMed) : '' !!}</div><br>
+                    <strong>Diagnostics and Surgery:</strong><br><div class="m-3">{!! isset($datum->plan) ? nl2br($datum->plan) : '' !!}</div><br>
+                    <strong>Remarks:</strong><br><div class="m-3">{!! isset($datum->planRem) ? nl2br($datum->planRem) : '' !!}</div><br>
                   </p>
                 </div>
               </div>
@@ -1649,9 +1811,9 @@
                 <div class="card-header">Doctor's Notes</div>
                 <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                   <p>
-                    <strong>History of Present Illness:</strong><div class="m-3">{!! nl2br(isset($cr->docNotesHPI) ? $cr->docNotesHPI : '') !!}</div><br>
-                    <strong>Subjective Complaints:</strong><br><div class="m-3">{!! nl2br(isset($cr->docNotesSubject) ? $cr->docNotesSubject : '') !!}</div><br>
-                    <strong>Objective Findings:</strong><br><div class="m-3">{!! nl2br(isset($cr->docNotes) ? $cr->docNotes : '') !!}</div><br>
+                    <strong>History of Present Illness:</strong><div class="m-3">{!! isset($cr->docNotesHPI) ? nl2br($cr->docNotesHPI) : '' !!}</div><br>
+                    <strong>Subjective Complaints:</strong><br><div class="m-3">{!! isset($cr->docNotesSubject) ? nl2br($cr->docNotesSubject) : '' !!}</div><br>
+                    <strong>Objective Findings:</strong><br><div class="m-3">{!! isset($cr->docNotes) ? nl2br($cr->docNotes) : '' !!}</div><br>
                   </p>
                 </div>
               </div>
@@ -1659,8 +1821,8 @@
                 <div class="card-header">Assessment</div>
                 <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                   <p>
-                    <strong>Primary Diagnosis:</strong> {!! nl2br(isset($cr->icd_code_obj) ? $cr->icd_code_obj->icd_code . ' - ' . $cr->icd_code_obj->details : '') !!}<br>
-                    <strong>Secondary Diagnosis:</strong><br><div class="m-3">{!! nl2br(isset($cr->assessment) ? $cr->assessment : '') !!}</div><br>
+                    <strong>Primary Diagnosis:</strong> {!! isset($cr->icd_code_obj) ? $cr->icd_code_obj->icd_code . ' - ' . $cr->icd_code_obj->details : '' !!}<br>
+                    <strong>Secondary Diagnosis:</strong><br><div class="m-3">{!! isset($cr->assessment) ? nl2br($cr->assessment) : '' !!}</div><br>
                   </p>
                 </div>
               </div>
@@ -1668,9 +1830,9 @@
                 <div class="card-header">Plan</div>
                 <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                   <p>
-                    <strong>Medical Therapeutics:</strong><br><div class="m-3">{!! nl2br(isset($cr->planMed) ? $cr->planMed : '') !!}</div><br>
-                    <strong>Diagnostics and Surgery:</strong><br><div class="m-3">{!! nl2br(isset($cr->plan) ? $cr->plan : '') !!}</div><br>
-                    <strong>Remarks:</strong><br><div class="m-3">{!! nl2br(isset($cr->planRem) ? $cr->planRem : '') !!}</div><br>
+                    <strong>Medical Therapeutics:</strong><br><div class="m-3">{!! isset($cr->planMed) ? nl2br($cr->planMed) : '' !!}</div><br>
+                    <strong>Diagnostics and Surgery:</strong><br><div class="m-3">{!! isset($cr->plan) ? nl2br($cr->plan) : '' !!}</div><br>
+                    <strong>Remarks:</strong><br><div class="m-3">{!! isset($cr->planRem) ? nl2br($cr->planRem) : '' !!}</div><br>
                   </p>
                 </div>
               </div>
@@ -1752,7 +1914,7 @@
                       <div class="card mb-3">
                         <div class="card-header">Eye Examination Information</div>
                         <div class="card-body">
-                          <p>
+                          {{-- <p>
                             <strong>AR OD:</strong> <span class="text-primary">{{ $datum->arod_sphere != 'No Target' ? ($datum->arod_sphere > 0 ? '+' . $datum->arod_sphere : $datum->arod_sphere) . ' - ' . ($datum->arod_cylinder > 0 ? '+' . $datum->arod_cylinder : $datum->arod_cylinder) . ' x ' . $datum->arod_axis : 'No Refraction Possible' }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
                             <strong>AR OS:</strong> <span class="text-primary">{{ $datum->aros_sphere != 'No Target' ? ($datum->aros_sphere > 0 ? '+' . $datum->aros_sphere : $datum->aros_sphere) . ' - ' . ($datum->aros_cylinder > 0 ? '+' . $datum->aros_cylinder : $datum->aros_cylinder) . ' x ' . $datum->aros_axis : 'No Refraction Possible' }}</span><br>
                             <strong>UCVA OD:</strong> <span class="text-primary">{{ $datum->vaod_den != '' ? $datum->vaod_num . ' / ' . $datum->vaod_den : $datum->vaod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
@@ -1768,7 +1930,61 @@
                             <strong>Jaeger OS:</strong> <span class="text-primary">{{ $datum->jae_os }}</span><br>
                             <strong>IOP OD:</strong> <span class="text-primary">{{ $datum->iopod }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
                             <strong>IOP OS:</strong> <span class="text-primary">{{ $datum->iopos }}</span>
-                          </p>
+                          </p> --}}
+                          <table class="table table-bordered table-striped table-hover table-sm">
+                            <thead class="table-{{ $bgColor }}">
+                                <tr>
+                                    <th>&nbsp;</th>
+                                    <th>OD</th>
+                                    <th>OS</th>
+                                    <th>OU</th>
+                                </tr>
+                            </thead>
+                            <tbody id="prevEyerSum">
+                              <tr>
+                                  <td>AR</td>
+                                  <td>{{ $datum->arod_sphere != 'No Target' ? ($datum->arod_sphere) . ' - ' . ($datum->arod_cylinder) . ' x ' . $datum->arod_axis : 'No Refraction Possible' }}</td>
+                                  <td>{{ $datum->aros_sphere != 'No Target' ? ($datum->aros_sphere) . ' - ' . ($datum->aros_cylinder) . ' x ' . $datum->aros_axis : 'No Refraction Possible' }}</td>
+                                  <td>&nbsp;</td>
+                              </tr>
+                              <tr>
+                                  <td>UCVA</td>
+                                  <td>{{ $datum->vaod_den != '' ? $datum->vaod_num . ' / ' . $datum->vaod_den : $datum->vaod_num }}</td>
+                                  <td>{{ $datum->vaos_den != '' ? $datum->vaos_num . ' / ' . $datum->vaos_den : $datum->vaos_num }}</td>
+                                  <td>&nbsp;</td>
+                              </tr>
+                              <tr>
+                                  <td>UCVA Present Correction</td>
+                                  <td>{{ $datum->vaodcor_den != '' ? $datum->vaodcor_num . ' / ' . $datum->vaodcor_den : $datum->vaodcor_num }}</td>
+                                  <td>{{ $datum->vaoscor_den != '' ? $datum->vaoscor_num . ' / ' . $datum->vaoscor_den : $datum->vaoscor_num }}</td>
+                                  <td>&nbsp;</td>
+                              </tr>
+                              <tr>
+                                  <td>VA Pinhole</td>
+                                  <td>{{ $datum->pinod_den != '' ? $datum->pinod_num . ' / ' . $datum->pinod_den : $datum->pinod_num }}</td>
+                                  <td>{{ $datum->pinos_den != '' ? $datum->pinos_num . ' / ' . $datum->pinos_den : $datum->pinos_num }}</td>
+                                  <td>&nbsp;</td>
+                              </tr>
+                              <tr>
+                                  <td>BCVA</td>
+                                  <td>{{ $datum->pinodcor_den != '' ? $datum->pinodcor_num . ' / ' . $datum->pinodcor_den : $datum->pinodcor_num }}</td>
+                                  <td>{{ $datum->pinoscor_den != '' ? $datum->pinoscor_num . ' / ' . $datum->pinoscor_den : $datum->pinoscor_num }}</td>
+                                  <td>&nbsp;</td>
+                              </tr>
+                              <tr>
+                                  <td>Jaeger</td>
+                                  <td>{{ $datum->jae_od }}</td>
+                                  <td>{{ $datum->jae_os }}</td>
+                                  <td>{{ $datum->jae_ou }}</td>
+                              </tr>
+                              <tr>
+                                  <td>IOP</td>
+                                  <td>{{ $datum->iopod }}</td>
+                                  <td>{{ $datum->iopos }}</td>
+                                  <td>&nbsp;</td>
+                              </tr>
+                            </tbody>
+                          </table>
                         </div>
                       </div>
                       @endif
@@ -1993,7 +2209,7 @@
                       <div class="card mb-3">
                         <div class="card-header">Eye Examination Information</div>
                         <div class="card-body">
-                          <p>
+                          {{-- <p>
                             <strong>AR OD:</strong> <span class="text-primary">{{ $datum->arod_sphere != 'No Target' ? ($datum->arod_sphere > 0 ? '+' . $datum->arod_sphere : $datum->arod_sphere) . ' - ' . ($datum->arod_cylinder > 0 ? '+' . $datum->arod_cylinder : $datum->arod_cylinder) . ' x ' . $datum->arod_axis : 'No Refraction Possible' }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
                             <strong>AR OS:</strong> <span class="text-primary">{{ $datum->aros_sphere != 'No Target' ? ($datum->aros_sphere > 0 ? '+' . $datum->aros_sphere : $datum->aros_sphere) . ' - ' . ($datum->aros_cylinder > 0 ? '+' . $datum->aros_cylinder : $datum->aros_cylinder) . ' x ' . $datum->aros_axis : 'No Refraction Possible' }}</span><br>
                             <strong>UCVA OD:</strong> <span class="text-primary">{{ $datum->vaod_den != '' ? $datum->vaod_num . ' / ' . $datum->vaod_den : $datum->vaod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
@@ -2009,7 +2225,61 @@
                             <strong>Jaeger OS:</strong> <span class="text-primary">{{ $datum->jae_os }}</span><br>
                             <strong>IOP OD:</strong> <span class="text-primary">{{ $datum->iopod }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
                             <strong>IOP OS:</strong> <span class="text-primary">{{ $datum->iopos }}</span>
-                          </p>
+                          </p> --}}
+                          <table class="table table-bordered table-striped table-hover table-sm">
+                            <thead class="table-{{ $bgColor }}">
+                                <tr>
+                                    <th>&nbsp;</th>
+                                    <th>OD</th>
+                                    <th>OS</th>
+                                    <th>OU</th>
+                                </tr>
+                            </thead>
+                            <tbody id="prevEyerSum">
+                              <tr>
+                                  <td>AR</td>
+                                  <td>{{ $datum->arod_sphere != 'No Target' ? ($datum->arod_sphere) . ' - ' . ($datum->arod_cylinder) . ' x ' . $datum->arod_axis : 'No Refraction Possible' }}</td>
+                                  <td>{{ $datum->aros_sphere != 'No Target' ? ($datum->aros_sphere) . ' - ' . ($datum->aros_cylinder) . ' x ' . $datum->aros_axis : 'No Refraction Possible' }}</td>
+                                  <td>&nbsp;</td>
+                              </tr>
+                              <tr>
+                                  <td>UCVA</td>
+                                  <td>{{ $datum->vaod_den != '' ? $datum->vaod_num . ' / ' . $datum->vaod_den : $datum->vaod_num }}</td>
+                                  <td>{{ $datum->vaos_den != '' ? $datum->vaos_num . ' / ' . $datum->vaos_den : $datum->vaos_num }}</td>
+                                  <td>&nbsp;</td>
+                              </tr>
+                              <tr>
+                                  <td>UCVA Present Correction</td>
+                                  <td>{{ $datum->vaodcor_den != '' ? $datum->vaodcor_num . ' / ' . $datum->vaodcor_den : $datum->vaodcor_num }}</td>
+                                  <td>{{ $datum->vaoscor_den != '' ? $datum->vaoscor_num . ' / ' . $datum->vaoscor_den : $datum->vaoscor_num }}</td>
+                                  <td>&nbsp;</td>
+                              </tr>
+                              <tr>
+                                  <td>VA Pinhole</td>
+                                  <td>{{ $datum->pinod_den != '' ? $datum->pinod_num . ' / ' . $datum->pinod_den : $datum->pinod_num }}</td>
+                                  <td>{{ $datum->pinos_den != '' ? $datum->pinos_num . ' / ' . $datum->pinos_den : $datum->pinos_num }}</td>
+                                  <td>&nbsp;</td>
+                              </tr>
+                              <tr>
+                                  <td>BCVA</td>
+                                  <td>{{ $datum->pinodcor_den != '' ? $datum->pinodcor_num . ' / ' . $datum->pinodcor_den : $datum->pinodcor_num }}</td>
+                                  <td>{{ $datum->pinoscor_den != '' ? $datum->pinoscor_num . ' / ' . $datum->pinoscor_den : $datum->pinoscor_num }}</td>
+                                  <td>&nbsp;</td>
+                              </tr>
+                              <tr>
+                                  <td>Jaeger</td>
+                                  <td>{{ $datum->jae_od }}</td>
+                                  <td>{{ $datum->jae_os }}</td>
+                                  <td>{{ $datum->jae_ou }}</td>
+                              </tr>
+                              <tr>
+                                  <td>IOP</td>
+                                  <td>{{ $datum->iopod }}</td>
+                                  <td>{{ $datum->iopos }}</td>
+                                  <td>&nbsp;</td>
+                              </tr>
+                            </tbody>
+                          </table>
                         </div>
                       </div>
                       @endif
@@ -2630,62 +2900,73 @@
           $('#prevSumPatComp').html(bookingObj.consultation.complains);
           $('#prevPatCompDur').html(bookingObj.consultation.duration);
           $('#prevSumPatCompDur').html(bookingObj.consultation.duration);
-          eyeStr = '';
+          eyeStr = '<tr><td>AR</td><td>';
           if(bookingObj.consultation.arod_sphere == 'No Target')
-            eyeStr += '<strong>AR OD:</strong> <span class="text-primary">No Refraction Possible</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;';
+            eyeStr += 'No Refraction Possible<';
           else
-            eyeStr += '<strong>AR OD:</strong> <span class="text-primary">' + bookingObj.consultation.arod_sphere + ' - ' + bookingObj.consultation.arod_cylinder + ' x ' + bookingObj.consultation.arod_axis + '</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;';
-          
+            eyeStr += bookingObj.consultation.arod_sphere + ' - ' + bookingObj.consultation.arod_cylinder + ' x ' + bookingObj.consultation.arod_axis;
+          eyeStr += '</td><td>';
           if(bookingObj.consultation.aros_sphere == 'No Target')
-            eyeStr += '<strong>AR OS:</strong> <span class="text-primary">No Refraction Possible</span><br> ';
+            eyeStr += 'No Refraction Possible';
           else
-            eyeStr += '<strong>AR OS:</strong> <span class="text-primary">' + bookingObj.consultation.aros_sphere + ' - ' + bookingObj.consultation.aros_cylinder + ' x ' + bookingObj.consultation.aros_axis + '</span><br> ';
-          
+            eyeStr += bookingObj.consultation.aros_sphere + ' - ' + bookingObj.consultation.aros_cylinder + ' x ' + bookingObj.consultation.aros_axis;
+          eyeStr += '</td><td></td>';
+          eyeStr += '<tr><td>UCVA</td><td>';
           if(bookingObj.consultation.vaod_den == '')
-            eyeStr += '<strong>UCVA OD:</strong> <span class="text-primary">' + bookingObj.consultation.vaod_num + '</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;';
+            eyeStr += bookingObj.consultation.vaod_num;
           else
-            eyeStr += '<strong>UCVA OD:</strong> <span class="text-primary">' + bookingObj.consultation.vaod_num + ' / ' + bookingObj.consultation.vaod_den + '</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;';
-          
-          if(bookingObj.consultation.vaodcor_den == '')
-            eyeStr += '<strong>UCVA OD Present Correction:</strong> <span class="text-primary">' + bookingObj.consultation.vaodcor_num + '</span><br> ';
-          else
-            eyeStr += '<strong>UCVA OD Present Correction:</strong> <span class="text-primary">' + bookingObj.consultation.vaodcor_num + ' / ' + bookingObj.consultation.vaodcor_den + '</span><br> ';
-          
+            eyeStr += bookingObj.consultation.vaod_num + ' / ' + bookingObj.consultation.vaod_den;
+          eyeStr += '</td><td>';
           if(bookingObj.consultation.vaos_den == '')
-            eyeStr += '<strong>UCVA OS:</strong> <span class="text-primary">' + bookingObj.consultation.vaos_num + '</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;';
+            eyeStr += bookingObj.consultation.vaos_num;
           else
-            eyeStr += '<strong>UCVA OS:</strong> <span class="text-primary">' + bookingObj.consultation.vaos_num + ' / ' + bookingObj.consultation.vaos_den + '</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;';
-
+            eyeStr += bookingObj.consultation.vaos_num + ' / ' + bookingObj.consultation.vaos_den;
+          eyeStr += '</td><td></td>';
+          eyeStr += '<tr><td>UCVA Present Correction</td><td>';
+          if(bookingObj.consultation.vaodcor_den == '')
+            eyeStr += bookingObj.consultation.vaodcor_num;
+          else
+            eyeStr += bookingObj.consultation.vaodcor_num + ' / ' + bookingObj.consultation.vaodcor_den;
+          eyeStr += '</td><td>';
           if(bookingObj.consultation.vaoscor_den == '')
-            eyeStr += '<strong>UCVA OS Present Correction:</strong> <span class="text-primary">' + bookingObj.consultation.vaoscor_num + '</span><br> ';
+            eyeStr += bookingObj.consultation.vaoscor_num;
           else
-            eyeStr += '<strong>UCVA OS Present Correction:</strong> <span class="text-primary">' + bookingObj.consultation.vaoscor_num + ' / ' + bookingObj.consultation.vaoscor_den + '</span><br> ';
-          
+            eyeStr += bookingObj.consultation.vaoscor_num + ' / ' + bookingObj.consultation.vaoscor_den;
+          eyeStr += '</td><td></td>';
+          eyeStr += '<tr><td>VA Pinhole</td><td>';
           if(bookingObj.consultation.pinod_den == '')
-            eyeStr += '<strong>VA OD Pinhole:</strong> <span class="text-primary">' + bookingObj.consultation.pinod_num + '</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;';
+            eyeStr += bookingObj.consultation.pinod_num;
           else
-            eyeStr += '<strong>VA OD Pinhole:</strong> <span class="text-primary">' + bookingObj.consultation.pinod_num + ' / ' + bookingObj.consultation.pinod_den + '</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;';
-          
-          if(bookingObj.consultation.pinodcor_den == '')
-            eyeStr += '<strong>BCVA OD:</strong> <span class="text-primary">' + bookingObj.consultation.pinodcor_num + '</span><br> ';
-          else
-            eyeStr += '<strong>BCVA OD:</strong> <span class="text-primary">' + bookingObj.consultation.pinodcor_num + ' / ' + bookingObj.consultation.pinodcor_den + '</span><br> ';
-          
+            eyeStr += bookingObj.consultation.pinod_num + ' / ' + bookingObj.consultation.pinod_den;
+          eyeStr += '</td><td>';
           if(bookingObj.consultation.pinos_den == '')
-            eyeStr += '<strong>VA OS Pinhole:</strong> <span class="text-primary">' + bookingObj.consultation.pinos_num + '</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;';
+            eyeStr += bookingObj.consultation.pinos_num;
           else
-            eyeStr += '<strong>VA OS Pinhole:</strong> <span class="text-primary">' + bookingObj.consultation.pinos_num + ' / ' + bookingObj.consultation.pinos_den + '</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;';
-          
+            eyeStr += bookingObj.consultation.pinos_num + ' / ' + bookingObj.consultation.pinos_den;
+          eyeStr += '</td><td></td>';
+          eyeStr += '<tr><td>BCVA</td><td>';
           if(bookingObj.consultation.pinodcor_den == '')
-            eyeStr += '<strong>BCVA OS:</strong> <span class="text-primary">' + bookingObj.consultation.pinoscor_num + '</span><br> ';
+            eyeStr += bookingObj.consultation.pinodcor_num;
           else
-            eyeStr += '<strong>BCVA OS:</strong> <span class="text-primary">' + bookingObj.consultation.pinoscor_num + ' / ' + bookingObj.consultation.pinoscor_den + '</span><br> ';
-          
-          eyeStr += '<strong>Jaeger OU:</strong> <span class="text-primary">' + bookingObj.consultation.jae_ou + '</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;';
-          eyeStr += '<strong>Jaeger OD:</strong> <span class="text-primary">' + bookingObj.consultation.jae_od + '</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;';
-          eyeStr += '<strong>Jaeger OS:</strong> <span class="text-primary">' + bookingObj.consultation.jae_os + '</span><br> ';
-          eyeStr += '<strong>IOP OD:</strong> <span class="text-primary">' + bookingObj.consultation.iopod + '</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;';
-          eyeStr += '<strong>IOP OS:</strong> <span class="text-primary">' + bookingObj.consultation.iopos + '</span>';
+            eyeStr += bookingObj.consultation.pinodcor_num + ' / ' + bookingObj.consultation.pinodcor_den;
+          eyeStr += '</td><td>';
+          if(bookingObj.consultation.pinodcor_den == '')
+            eyeStr += bookingObj.consultation.pinoscor_num;
+          else
+            eyeStr += bookingObj.consultation.pinoscor_num + ' / ' + bookingObj.consultation.pinoscor_den;
+          eyeStr += '</td><td></td>';
+          eyeStr += '<tr><td>Jaeger</td><td>';
+          eyeStr += bookingObj.consultation.jae_os;
+          eyeStr += '</td><td>';
+          eyeStr += bookingObj.consultation.jae_od;
+          eyeStr += '</td><td>';
+          eyeStr += bookingObj.consultation.jae_ou;
+          eyeStr += '</td>';
+          eyeStr += '<tr><td>IOP</td><td>';
+          eyeStr += bookingObj.consultation.iopod;
+          eyeStr += '</td><td>';
+          eyeStr += bookingObj.consultation.iopos;
+          eyeStr += '</td><td></td>';
           $('#prevEyer').html(eyeStr);
           $('#prevEyerSum').html(eyeStr);
 
@@ -2693,24 +2974,24 @@
             bookingObj.consultation = orig_booking;
           }
 
-          $('#{{ $viewFolder }}_prev_docNotesHPI').val(bookingObj.consultation.docNotesHPI);
-          $('#{{ $viewFolder }}_prev_sum_docNotesHPI').html(bookingObj.consultation.docNotesHPI);
-          $('#{{ $viewFolder }}_prev_docNotesSubject').val(bookingObj.consultation.docNotesSubject);
-          $('#{{ $viewFolder }}_prev_sum_docNotesSubject').html(bookingObj.consultation.docNotesSubject);
-          $('#{{ $viewFolder }}_prev_docNotes').val(bookingObj.consultation.docNotes);
-          $('#{{ $viewFolder }}_prev_sum_docNotes').html(bookingObj.consultation.docNotes);
+          $('#{{ $viewFolder }}_prev_docNotesHPI').val(nl2br(bookingObj.consultation.docNotesHPI));
+          $('#{{ $viewFolder }}_prev_sum_docNotesHPI').html(nl2br(bookingObj.consultation.docNotesHPI));
+          $('#{{ $viewFolder }}_prev_docNotesSubject').val(nl2br(bookingObj.consultation.docNotesSubject));
+          $('#{{ $viewFolder }}_prev_sum_docNotesSubject').html(nl2br(bookingObj.consultation.docNotesSubject));
+          $('#{{ $viewFolder }}_prev_docNotes').val(nl2br(bookingObj.consultation.docNotes));
+          $('#{{ $viewFolder }}_prev_sum_docNotes').html(nl2br(bookingObj.consultation.docNotes));
           if(bookingObj.consultation.icd_code_obj != null){
             $('#{{ $viewFolder }}_prev_icd_code').val(bookingObj.consultation.icd_code_obj.icd_code + ' - ' + bookingObj.consultation.icd_code_obj.details);
             $('#{{ $viewFolder }}_prev_sum_icd_code').html(bookingObj.consultation.icd_code_obj.icd_code + ' - ' + bookingObj.consultation.icd_code_obj.details);
           }
-          $('#{{ $viewFolder }}_prev_assessment').val(bookingObj.consultation.assessment);
-          $('#{{ $viewFolder }}_prev_sum_assessment').html(bookingObj.consultation.assessment);
-          $('#{{ $viewFolder }}_prev_plan').val(bookingObj.consultation.plan);
-          $('#{{ $viewFolder }}_prev_sum_plan').html(bookingObj.consultation.plan);
-          $('#{{ $viewFolder }}_prev_planMed').val(bookingObj.consultation.planMed);
-          $('#{{ $viewFolder }}_prev_sum_planMed').html(bookingObj.consultation.planMed);
-          $('#{{ $viewFolder }}_prev_planRem').val(bookingObj.consultation.planRem);
-          $('#{{ $viewFolder }}_prevsum_planRem').html(bookingObj.consultation.planRem);
+          $('#{{ $viewFolder }}_prev_assessment').val(nl2br(bookingObj.consultation.assessment));
+          $('#{{ $viewFolder }}_prev_sum_assessment').html(nl2br(bookingObj.consultation.assessment));
+          $('#{{ $viewFolder }}_prev_plan').val(nl2br(bookingObj.consultation.plan));
+          $('#{{ $viewFolder }}_prev_sum_plan').html(nl2br(bookingObj.consultation.plan));
+          $('#{{ $viewFolder }}_prev_planMed').val(nl2br(bookingObj.consultation.planMed));
+          $('#{{ $viewFolder }}_prev_sum_planMed').html(nl2br(bookingObj.consultation.planMed));
+          $('#{{ $viewFolder }}_prev_planRem').val(nl2br(bookingObj.consultation.planRem));
+          $('#{{ $viewFolder }}_prev_sum_planRem').html(nl2br(bookingObj.consultation.planRem));
           // $('#{{ $viewFolder }}_findings').val(bookingObj.consultation.findings);
           // $('#{{ $viewFolder }}_diagnosis').val(bookingObj.consultation.diagnosis);
           // $('#{{ $viewFolder }}_recommendations').val(bookingObj.consultation.recommendations);
