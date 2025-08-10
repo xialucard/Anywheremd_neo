@@ -3147,21 +3147,21 @@
             bookingObj.consultation = orig_booking;
           }
           if(bookingObj.consultation.docNotesHPI != null){
-            $('#{{ $viewFolder }}_prev_docNotesHPI').val(nl2br(bookingObj.consultation.docNotesHPI));
+            $('#{{ $viewFolder }}_prev_docNotesHPI').val(bookingObj.consultation.docNotesHPI);
             $('#{{ $viewFolder }}_prev_sum_docNotesHPI').html(nl2br(bookingObj.consultation.docNotesHPI));
           }else{
             $('#{{ $viewFolder }}_prev_docNotesHPI').val('');
             $('#{{ $viewFolder }}_prev_sum_docNotesHPI').html('');
           }
           if(bookingObj.consultation.docNotesSubject != null){
-            $('#{{ $viewFolder }}_prev_docNotesSubject').val(nl2br(bookingObj.consultation.docNotesSubject));
+            $('#{{ $viewFolder }}_prev_docNotesSubject').val(bookingObj.consultation.docNotesSubject);
             $('#{{ $viewFolder }}_prev_sum_docNotesSubject').html(nl2br(bookingObj.consultation.docNotesSubject));
           }else{
             $('#{{ $viewFolder }}_prev_docNotesSubject').val('');
             $('#{{ $viewFolder }}_prev_sum_docNotesSubject').html('');
           }
           if(bookingObj.consultation.docNotes != null){
-            $('#{{ $viewFolder }}_prev_docNotes').val(nl2br(bookingObj.consultation.docNotes));
+            $('#{{ $viewFolder }}_prev_docNotes').val(bookingObj.consultation.docNotes);
             $('#{{ $viewFolder }}_prev_sum_docNotes').html(nl2br(bookingObj.consultation.docNotes));
           }else{
             $('#{{ $viewFolder }}_prev_docNotes').val('');
@@ -3175,28 +3175,28 @@
             $('#{{ $viewFolder }}_prev_sum_icd_code').html('');
           }
           if(bookingObj.consultation.assessment != null){
-            $('#{{ $viewFolder }}_prev_assessment').val(nl2br(bookingObj.consultation.assessment));
+            $('#{{ $viewFolder }}_prev_assessment').val(bookingObj.consultation.assessment);
             $('#{{ $viewFolder }}_prev_sum_assessment').html(nl2br(bookingObj.consultation.assessment));
           }else{
             $('#{{ $viewFolder }}_prev_assessment').val('');
             $('#{{ $viewFolder }}_prev_sum_assessment').html('');
           }
           if(bookingObj.consultation.plan != null){
-            $('#{{ $viewFolder }}_prev_plan').val(nl2br(bookingObj.consultation.plan));
+            $('#{{ $viewFolder }}_prev_plan').val(bookingObj.consultation.plan);
             $('#{{ $viewFolder }}_prev_sum_plan').html(nl2br(bookingObj.consultation.plan));
           }else{
             $('#{{ $viewFolder }}_prev_plan').val('');
             $('#{{ $viewFolder }}_prev_sum_plan').html('');
           }
           if(bookingObj.consultation.planMed != null){
-            $('#{{ $viewFolder }}_prev_planMed').val(nl2br(bookingObj.consultation.planMed));
+            $('#{{ $viewFolder }}_prev_planMed').val(bookingObj.consultation.planMed);
             $('#{{ $viewFolder }}_prev_sum_planMed').html(nl2br(bookingObj.consultation.planMed));
           }else{
             $('#{{ $viewFolder }}_prev_planMed').val('');
             $('#{{ $viewFolder }}_prev_sum_planMed').html('');
           }
           if(bookingObj.consultation.planRem != null){
-            $('#{{ $viewFolder }}_prev_planRem').val(nl2br(bookingObj.consultation.planRem));
+            $('#{{ $viewFolder }}_prev_planRem').val(bookingObj.consultation.planRem);
             $('#{{ $viewFolder }}_prev_sum_planRem').html(nl2br(bookingObj.consultation.planRem));
           }else{
             $('#{{ $viewFolder }}_prev_planRem').val('');
