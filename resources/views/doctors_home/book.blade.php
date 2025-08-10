@@ -730,6 +730,12 @@
                   <small id="prevSumPatCompDur" class="text-muted">{{ $bookings[0]->duration }}</small>
                 </div>
               </div>
+              <div class="card mb-3">
+                <div class="card-header">Remarks</div>
+                <div class="card-body" style="height: 1in; max-height: 1in">
+                  <p id="prevSumPatRem">{{ $bookings[0]->others }}</p>
+                </div>
+              </div>
               @if(stristr($datum->doctor->specialty, 'Ophtha'))
               <div class="card mb-3">
                 <div class="card-header">Eye Examination Information</div>
@@ -852,7 +858,12 @@
                   <small class="text-muted" id="prevPatCompDur">{{ $bookings[0]->duration }}</small>
                 </div>
               </div>
-              
+              <div class="card mb-3">
+                <div class="card-header">Remarks</div>
+                <div class="card-body" style="height: 1in; max-height: 1in">
+                  <p id="prevPatRem">{{ $bookings[0]->others }}</p>
+                </div>
+              </div>
               <div class="card mb-3">
                 <div class="card-header">Previous Doctor's Notes</div>
                 <div class="card-body">
@@ -1698,6 +1709,12 @@
                   <small class="text-muted">{{ $datum->duration }}</small>
                 </div>
               </div>
+              <div class="card mb-3">
+                <div class="card-header">Remarks</div>
+                <div class="card-body" style="height: 1in; max-height: 1in">
+                  <p>{{ $datum->others }}</p>
+                </div>
+              </div>
               @if(stristr($datum->doctor->specialty, 'Ophtha'))
               <div class="card mb-3">
                 <div class="card-header">Eye Examination Information</div>
@@ -1855,6 +1872,12 @@
                 <div class="card-body" style="height: 1in; max-height: 1in">
                   <p>{{ $datum->complain }}</p>
                   <small class="text-muted">{{ $datum->duration }}</small>
+                </div>
+              </div>
+              <div class="card mb-3">
+                <div class="card-header">Remarks</div>
+                <div class="card-body" style="height: 1in; max-height: 1in">
+                  <p>{{ $datum->others }}</p>
                 </div>
               </div>
               <div class="docNotesDiv" id="{{ $viewFolder }}_SOAP_{{ $datum->id }}">
@@ -2939,7 +2962,33 @@
           }
 
           $('#prevBookingDater').text(bookingObj.consultation.bookingDate);
-          vitalStr = '<strong>Temp:</strong> ' + bookingObj.consultation.temp + 'C | <strong>Height:</strong> ' + bookingObj.consultation.height + 'cm | <strong>Weight:</strong> ' + bookingObj.consultation.weight + 'kg | <strong>BMI:</strong> ' + Math.round(bookingObj.consultation.weight/((bookingObj.consultation.height/100)*(bookingObj.consultation.height/100))) + '<br><strong>BP:</strong> ' + bookingObj.consultation.bpS + '/' + bookingObj.consultation.bpD + ' | <strong>O2 Sat:</strong> ' + bookingObj.consultation.o2 + '% | <strong>Heart Rate:</strong> ' + bookingObj.consultation.heart + 'beats/min';
+          if(bookingObj.consultation.temp == null)
+            bookingObj.consultation.temp = '';
+          var bmiKey = false;
+          if(bookingObj.consultation.height == null){
+            bookingObj.consultation.height = '';
+          }else
+            bmiKey = true;
+          
+          if(bookingObj.consultation.weight == null){
+            bookingObj.consultation.weight = '';
+          }else
+            bmiKey = true;
+          
+          var bmi = '';
+          if(bmiKey)
+            bmi = Math.round(bookingObj.consultation.weight/((bookingObj.consultation.height/100)*(bookingObj.consultation.height/100)));
+
+          if(bookingObj.consultation.bpS == null)
+            bookingObj.consultation.bpS = '';
+          if(bookingObj.consultation.bpD == null)
+            bookingObj.consultation.bpD = '';
+          if(bookingObj.consultation.o2 == null)
+            bookingObj.consultation.o2 = '';
+          if(bookingObj.consultation.heart == null)
+            bookingObj.consultation.heart = '';
+            
+          vitalStr = '<strong>Temp:</strong>&nbsp;<span class="text-primary">' + bookingObj.consultation.temp + 'C</span>&nbsp;&nbsp;|&nbsp;&nbsp;<strong>Height:</strong>&nbsp;<span class="text-primary">' + bookingObj.consultation.height + 'cm</span>&nbsp;&nbsp;|&nbsp;&nbsp;<strong>Weight:</strong>&nbsp;<span class="text-primary">' + bookingObj.consultation.weight + 'kg</span>&nbsp;&nbsp;|&nbsp;&nbsp;<strong>BMI:</strong>&nbsp;<span class="text-primary">' + bmi + '</span><br><strong>BP:</strong>&nbsp;<span class="text-primary">' + bookingObj.consultation.bpS + '/' + bookingObj.consultation.bpD + '</span>&nbsp;&nbsp;|&nbsp;&nbsp;<strong>O2 Sat:</strong>&nbsp;<span class="text-primary">' + bookingObj.consultation.o2 + '%</span>&nbsp;&nbsp;|&nbsp;&nbsp;<strong>Heart Rate:</strong>&nbsp;<span class="text-primary">' + bookingObj.consultation.heart + 'beats/min</span>';
           $('#prevVitaler').html(vitalStr);
           $('#prevProcDet').html(bookingObj.consultation.procedure_details);
           $('#prevSumProcDet').html(bookingObj.consultation.procedure_details);
@@ -2947,72 +2996,149 @@
           $('#prevSumPatComp').html(bookingObj.consultation.complains);
           $('#prevPatCompDur').html(bookingObj.consultation.duration);
           $('#prevSumPatCompDur').html(bookingObj.consultation.duration);
+          $('#prevPatRem').html(bookingObj.consultation.others);
+          $('#prevSumPatRem').html(bookingObj.consultation.others);
           eyeStr = '<tr><td>AR</td><td>';
           if(bookingObj.consultation.arod_sphere == 'No Target')
-            eyeStr += 'No Refraction Possible<';
-          else
+            eyeStr += 'No Refraction Possible';
+          else{
+            if(bookingObj.consultation.arod_sphere == null)
+              bookingObj.consultation.arod_sphere = '';
+            if(bookingObj.consultation.arod_cylinder == null)
+              bookingObj.consultation.arod_cylinder = '';
+            if(bookingObj.consultation.arod_axis == null)
+              bookingObj.consultation.arod_axis = '';
             eyeStr += bookingObj.consultation.arod_sphere + ' - ' + bookingObj.consultation.arod_cylinder + ' x ' + bookingObj.consultation.arod_axis;
+          }
           eyeStr += '</td><td>';
           if(bookingObj.consultation.aros_sphere == 'No Target')
             eyeStr += 'No Refraction Possible';
-          else
+          else{
+            if(bookingObj.consultation.aros_sphere == null)
+              bookingObj.consultation.arod_saros_spherephere = '';
+            if(bookingObj.consultation.aros_cylinder == null)
+             bookingObj.consultation.aros_cylinder = '';
+            if(bookingObj.consultation.aros_axis == null)
+             bookingObj.consultation.aros_axis = '';
             eyeStr += bookingObj.consultation.aros_sphere + ' - ' + bookingObj.consultation.aros_cylinder + ' x ' + bookingObj.consultation.aros_axis;
+          }
           eyeStr += '</td><td></td>';
           eyeStr += '<tr><td>UCVA</td><td>';
-          if(bookingObj.consultation.vaod_den == '')
+          if((bookingObj.consultation.vaod_den == '' || bookingObj.consultation.vaod_den == null) && bookingObj.consultation.vaod_num != null)
             eyeStr += bookingObj.consultation.vaod_num;
-          else
-            eyeStr += bookingObj.consultation.vaod_num + ' / ' + bookingObj.consultation.vaod_den;
+          else{
+            var key = false;
+            if(bookingObj.consultation.vaod_num != null)
+              key = true;
+            if(bookingObj.consultation.vaod_den != null)
+             key = true;
+            if(key)
+              eyeStr += bookingObj.consultation.vaod_num + ' / ' + bookingObj.consultation.vaod_den;
+          }
           eyeStr += '</td><td>';
-          if(bookingObj.consultation.vaos_den == '')
+          if((bookingObj.consultation.vaos_den == '' || bookingObj.consultation.vaos_den == null) && bookingObj.consultation.vaos_num != null)
             eyeStr += bookingObj.consultation.vaos_num;
-          else
-            eyeStr += bookingObj.consultation.vaos_num + ' / ' + bookingObj.consultation.vaos_den;
+          else{
+            key = false;
+            if(bookingObj.consultation.vaos_num != null)
+              key = true;
+            if(bookingObj.consultation.vaos_den != null)
+             key = true;
+            if(key)
+              eyeStr += bookingObj.consultation.vaos_num + ' / ' + bookingObj.consultation.vaos_den;
+          }
           eyeStr += '</td><td></td>';
           eyeStr += '<tr><td>UCVA Present Correction</td><td>';
-          if(bookingObj.consultation.vaodcor_den == '')
+          if((bookingObj.consultation.vaodcor_den == '' || bookingObj.consultation.vaodcor_den == null) && bookingObj.consultation.vaodcor_num != null)
             eyeStr += bookingObj.consultation.vaodcor_num;
-          else
-            eyeStr += bookingObj.consultation.vaodcor_num + ' / ' + bookingObj.consultation.vaodcor_den;
+          else{
+            key = false;
+            if(bookingObj.consultation.vaodcor_num != null)
+              key = true;
+            if(bookingObj.consultation.vaodcor_den != null)
+             key = true;
+            if(key)
+              eyeStr += bookingObj.consultation.vaodcor_num + ' / ' + bookingObj.consultation.vaodcor_den;
+          }
           eyeStr += '</td><td>';
-          if(bookingObj.consultation.vaoscor_den == '')
+          if((bookingObj.consultation.vaoscor_den == '' || bookingObj.consultation.vaoscor_den == null) && bookingObj.consultation.vaoscor_num != null)
             eyeStr += bookingObj.consultation.vaoscor_num;
-          else
-            eyeStr += bookingObj.consultation.vaoscor_num + ' / ' + bookingObj.consultation.vaoscor_den;
+          else{
+            key = false;
+            if(bookingObj.consultation.vaoscor_num != null)
+              key = true;
+            if(bookingObj.consultation.vaoscor_den != null)
+              key = true;
+            if(key)
+              eyeStr += bookingObj.consultation.vaoscor_num + ' / ' + bookingObj.consultation.vaoscor_den;
+          }
           eyeStr += '</td><td></td>';
           eyeStr += '<tr><td>VA Pinhole</td><td>';
-          if(bookingObj.consultation.pinod_den == '')
+          if((bookingObj.consultation.pinod_den == '' || bookingObj.consultation.pinod_den == null) && bookingObj.consultation.pinod_num != null)
             eyeStr += bookingObj.consultation.pinod_num;
-          else
-            eyeStr += bookingObj.consultation.pinod_num + ' / ' + bookingObj.consultation.pinod_den;
+          else{
+            key = false;
+            if(bookingObj.consultation.pinod_num != null)
+              key = true;
+            if(bookingObj.consultation.pinod_den != null)
+              key = true;
+            if(key)
+              eyeStr += bookingObj.consultation.pinod_num + ' / ' + bookingObj.consultation.pinod_den;
+          }
           eyeStr += '</td><td>';
-          if(bookingObj.consultation.pinos_den == '')
+          if((bookingObj.consultation.pinos_den == '' || bookingObj.consultation.pinos_den == null) && bookingObj.consultation.pinos_num != null)
             eyeStr += bookingObj.consultation.pinos_num;
-          else
-            eyeStr += bookingObj.consultation.pinos_num + ' / ' + bookingObj.consultation.pinos_den;
+          else{
+            key = false;
+            if(bookingObj.consultation.pinos_num != null)
+              key = true;
+            if(bookingObj.consultation.pinos_den != null)
+              key = true;
+            if(key)
+              eyeStr += bookingObj.consultation.pinos_num + ' / ' + bookingObj.consultation.pinos_den;
+          }
           eyeStr += '</td><td></td>';
           eyeStr += '<tr><td>BCVA</td><td>';
-          if(bookingObj.consultation.pinodcor_den == '')
+          if((bookingObj.consultation.pinodcor_den == '' || bookingObj.consultation.pinodcor_den == null) && bookingObj.consultation.pinodcor_num != null)
             eyeStr += bookingObj.consultation.pinodcor_num;
-          else
-            eyeStr += bookingObj.consultation.pinodcor_num + ' / ' + bookingObj.consultation.pinodcor_den;
+          else{
+            key = false;
+            if(bookingObj.consultation.pinodcor_num != null)
+              key = true;
+            if(bookingObj.consultation.pinodcor_den != null)
+              key = true;
+            if(key)
+              eyeStr += bookingObj.consultation.pinodcor_num + ' / ' + bookingObj.consultation.pinodcor_den;
+          }
           eyeStr += '</td><td>';
-          if(bookingObj.consultation.pinodcor_den == '')
+          if((bookingObj.consultation.pinoscor_den == '' || bookingObj.consultation.pinoscor_den == null) && bookingObj.consultation.pinoscor_num != null)
             eyeStr += bookingObj.consultation.pinoscor_num;
-          else
-            eyeStr += bookingObj.consultation.pinoscor_num + ' / ' + bookingObj.consultation.pinoscor_den;
+          else{
+            key = false;
+            if(bookingObj.consultation.pinoscor_num != null)
+              key = true;
+            if(bookingObj.consultation.pinoscor_den != null)
+              key = true;
+            if(key)
+              eyeStr += bookingObj.consultation.pinoscor_num + ' / ' + bookingObj.consultation.pinoscor_den;
+          }
           eyeStr += '</td><td></td>';
           eyeStr += '<tr><td>Jaeger</td><td>';
-          eyeStr += bookingObj.consultation.jae_os;
+          if(bookingObj.consultation.jae_os != null)
+            eyeStr += bookingObj.consultation.jae_os;
           eyeStr += '</td><td>';
-          eyeStr += bookingObj.consultation.jae_od;
+          if(bookingObj.consultation.jae_od != null)
+            eyeStr += bookingObj.consultation.jae_od;
           eyeStr += '</td><td>';
-          eyeStr += bookingObj.consultation.jae_ou;
+          if(bookingObj.consultation.jae_ou != null)
+            eyeStr += bookingObj.consultation.jae_ou;
           eyeStr += '</td>';
           eyeStr += '<tr><td>IOP</td><td>';
-          eyeStr += bookingObj.consultation.iopod;
+          if(bookingObj.consultation.iopod != null)
+            eyeStr += bookingObj.consultation.iopod;
           eyeStr += '</td><td>';
-          eyeStr += bookingObj.consultation.iopos;
+          if(bookingObj.consultation.iopos != null)
+            eyeStr += bookingObj.consultation.iopos;
           eyeStr += '</td><td></td>';
           $('#prevEyer').html(eyeStr);
           $('#prevEyerSum').html(eyeStr);
@@ -3020,25 +3146,63 @@
           if(bookingObj.parent_consultation.id != ''){
             bookingObj.consultation = orig_booking;
           }
-
-          $('#{{ $viewFolder }}_prev_docNotesHPI').val(nl2br(bookingObj.consultation.docNotesHPI));
-          $('#{{ $viewFolder }}_prev_sum_docNotesHPI').html(nl2br(bookingObj.consultation.docNotesHPI));
-          $('#{{ $viewFolder }}_prev_docNotesSubject').val(nl2br(bookingObj.consultation.docNotesSubject));
-          $('#{{ $viewFolder }}_prev_sum_docNotesSubject').html(nl2br(bookingObj.consultation.docNotesSubject));
-          $('#{{ $viewFolder }}_prev_docNotes').val(nl2br(bookingObj.consultation.docNotes));
-          $('#{{ $viewFolder }}_prev_sum_docNotes').html(nl2br(bookingObj.consultation.docNotes));
+          if(bookingObj.consultation.docNotesHPI != null){
+            $('#{{ $viewFolder }}_prev_docNotesHPI').val(nl2br(bookingObj.consultation.docNotesHPI));
+            $('#{{ $viewFolder }}_prev_sum_docNotesHPI').html(nl2br(bookingObj.consultation.docNotesHPI));
+          }else{
+            $('#{{ $viewFolder }}_prev_docNotesHPI').val('');
+            $('#{{ $viewFolder }}_prev_sum_docNotesHPI').html('');
+          }
+          if(bookingObj.consultation.docNotesSubject != null){
+            $('#{{ $viewFolder }}_prev_docNotesSubject').val(nl2br(bookingObj.consultation.docNotesSubject));
+            $('#{{ $viewFolder }}_prev_sum_docNotesSubject').html(nl2br(bookingObj.consultation.docNotesSubject));
+          }else{
+            $('#{{ $viewFolder }}_prev_docNotesSubject').val('');
+            $('#{{ $viewFolder }}_prev_sum_docNotesSubject').html('');
+          }
+          if(bookingObj.consultation.docNotes != null){
+            $('#{{ $viewFolder }}_prev_docNotes').val(nl2br(bookingObj.consultation.docNotes));
+            $('#{{ $viewFolder }}_prev_sum_docNotes').html(nl2br(bookingObj.consultation.docNotes));
+          }else{
+            $('#{{ $viewFolder }}_prev_docNotes').val('');
+            $('#{{ $viewFolder }}_prev_sum_docNotes').html('');
+          }
           if(bookingObj.consultation.icd_code_obj != null){
             $('#{{ $viewFolder }}_prev_icd_code').val(bookingObj.consultation.icd_code_obj.icd_code + ' - ' + bookingObj.consultation.icd_code_obj.details);
             $('#{{ $viewFolder }}_prev_sum_icd_code').html(bookingObj.consultation.icd_code_obj.icd_code + ' - ' + bookingObj.consultation.icd_code_obj.details);
+          }else{
+            $('#{{ $viewFolder }}_prev_icd_code').val('');
+            $('#{{ $viewFolder }}_prev_sum_icd_code').html('');
           }
-          $('#{{ $viewFolder }}_prev_assessment').val(nl2br(bookingObj.consultation.assessment));
-          $('#{{ $viewFolder }}_prev_sum_assessment').html(nl2br(bookingObj.consultation.assessment));
-          $('#{{ $viewFolder }}_prev_plan').val(nl2br(bookingObj.consultation.plan));
-          $('#{{ $viewFolder }}_prev_sum_plan').html(nl2br(bookingObj.consultation.plan));
-          $('#{{ $viewFolder }}_prev_planMed').val(nl2br(bookingObj.consultation.planMed));
-          $('#{{ $viewFolder }}_prev_sum_planMed').html(nl2br(bookingObj.consultation.planMed));
-          $('#{{ $viewFolder }}_prev_planRem').val(nl2br(bookingObj.consultation.planRem));
-          $('#{{ $viewFolder }}_prev_sum_planRem').html(nl2br(bookingObj.consultation.planRem));
+          if(bookingObj.consultation.assessment != null){
+            $('#{{ $viewFolder }}_prev_assessment').val(nl2br(bookingObj.consultation.assessment));
+            $('#{{ $viewFolder }}_prev_sum_assessment').html(nl2br(bookingObj.consultation.assessment));
+          }else{
+            $('#{{ $viewFolder }}_prev_assessment').val('');
+            $('#{{ $viewFolder }}_prev_sum_assessment').html('');
+          }
+          if(bookingObj.consultation.plan != null){
+            $('#{{ $viewFolder }}_prev_plan').val(nl2br(bookingObj.consultation.plan));
+            $('#{{ $viewFolder }}_prev_sum_plan').html(nl2br(bookingObj.consultation.plan));
+          }else{
+            $('#{{ $viewFolder }}_prev_plan').val('');
+            $('#{{ $viewFolder }}_prev_sum_plan').html('');
+          }
+          if(bookingObj.consultation.planMed != null){
+            $('#{{ $viewFolder }}_prev_planMed').val(nl2br(bookingObj.consultation.planMed));
+            $('#{{ $viewFolder }}_prev_sum_planMed').html(nl2br(bookingObj.consultation.planMed));
+          }else{
+            $('#{{ $viewFolder }}_prev_planMed').val('');
+            $('#{{ $viewFolder }}_prev_sum_planMed').html('');
+          }
+          if(bookingObj.consultation.planRem != null){
+            $('#{{ $viewFolder }}_prev_planRem').val(nl2br(bookingObj.consultation.planRem));
+            $('#{{ $viewFolder }}_prev_sum_planRem').html(nl2br(bookingObj.consultation.planRem));
+          }else{
+            $('#{{ $viewFolder }}_prev_planRem').val('');
+            $('#{{ $viewFolder }}_prev_sum_planRem').html('');
+          }
+          
           // $('#{{ $viewFolder }}_findings').val(bookingObj.consultation.findings);
           // $('#{{ $viewFolder }}_diagnosis').val(bookingObj.consultation.diagnosis);
           // $('#{{ $viewFolder }}_recommendations').val(bookingObj.consultation.recommendations);
