@@ -507,7 +507,7 @@
             $('#pastChart').removeClass('d-none');
             $('#pastChart').removeClass('d-lg-block');
             $('#curChart').hide();
-          ">Previous Patient's Chart</a>
+          ">Previous Px's Chart</a>
         </li>
         <li class="nav-item">
           <a class="nav-link chartTab active" href="#" onclick="
@@ -519,7 +519,7 @@
             $('#pastChart').addClass('d-none');
             $('#pastChart').addClass('d-lg-block');
             $('#curChart').show();
-          ">Current Patient's Chart</a>
+          ">Current Px's Chart</a>
         </li>
       </ul>
       @if(isset($bookings[0]))
@@ -715,628 +715,630 @@
               ">Admitting Orders</a>
             </li>
           </ul>
-          <div id="sumPrevDiv" class="container border border-1 border-top-0 mb-3 p-3">
-            <div class="card mb-3">
-              <div class="card-header">Scheduled Procedure</div>
-              <div class="card-body" style="height: 1in; max-height: 1in">
-                <p id="prevSumProcDet">{{ $bookings[0]->procedure_details }}</p>
+          <div id="prevDiv" class="card-body table-responsive p-0" style="max-height: 600px">
+            <div id="sumPrevDiv" class="container border border-1 border-top-0 mb-3 p-3">
+              <div class="card mb-3">
+                <div class="card-header">Scheduled Procedure</div>
+                <div class="card-body" style="height: 1in; max-height: 1in">
+                  <p id="prevSumProcDet">{{ $bookings[0]->procedure_details }}</p>
+                </div>
               </div>
-            </div>
-            <div class="card mb-3">
-              <div class="card-header">Patient's Complaint</div>
-              <div class="card-body" style="height: 1in; max-height: 1in">
-                <p id="prevSumPatComp">{{ $bookings[0]->complain }}</p>
-                <small id="prevSumPatCompDur" class="text-muted">{{ $bookings[0]->duration }}</small>
+              <div class="card mb-3">
+                <div class="card-header">Patient's Complaint</div>
+                <div class="card-body" style="height: 1in; max-height: 1in">
+                  <p id="prevSumPatComp">{{ $bookings[0]->complain }}</p>
+                  <small id="prevSumPatCompDur" class="text-muted">{{ $bookings[0]->duration }}</small>
+                </div>
               </div>
-            </div>
-            @if(stristr($datum->doctor->specialty, 'Ophtha'))
-            <div class="card mb-3">
-              <div class="card-header">Eye Examination Information</div>
-              <div class="card-body table-responsive">
-                {{-- <p id="prevEyerSumBack">
-                  <strong>AR OD:</strong> <span class="text-primary">{{ $bookings[0]->arod_sphere != 'No Target' ? ($bookings[0]->arod_sphere) . ' - ' . ($bookings[0]->arod_cylinder) . ' x ' . $bookings[0]->arod_axis : 'No Refraction Possible' }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                  <strong>AR OS:</strong> <span class="text-primary">{{ $bookings[0]->aros_sphere != 'No Target' ? ($bookings[0]->aros_sphere) . ' - ' . ($bookings[0]->aros_cylinder) . ' x ' . $bookings[0]->aros_axis : 'No Refraction Possible' }}</span><br>
-                  <strong>UCVA OD:</strong> <span class="text-primary">{{ $bookings[0]->vaod_den != '' ? $bookings[0]->vaod_num . ' / ' . $bookings[0]->vaod_den : $bookings[0]->vaod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                  <strong>UCVA OD Present Correction:</strong> <span class="text-primary">{{ $bookings[0]->vaodcor_den != '' ? $bookings[0]->vaodcor_num . ' / ' . $bookings[0]->vaodcor_den : $bookings[0]->vaodcor_num }}</span><br>
-                  <strong>UCVA OS:</strong> <span class="text-primary">{{ $bookings[0]->vaos_den != '' ? $bookings[0]->vaos_num . ' / ' . $bookings[0]->vaos_den : $bookings[0]->vaos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                  <strong>UCVA OS Present Correction:</strong> <span class="text-primary">{{ $bookings[0]->vaoscor_den != '' ? $bookings[0]->vaoscor_num . ' / ' . $bookings[0]->vaoscor_den : $bookings[0]->vaoscor_num }}</span><br>
-                  <strong>VA OD Pinhole:</strong> <span class="text-primary">{{ $bookings[0]->pinod_den != '' ? $bookings[0]->pinod_num . ' / ' . $bookings[0]->pinod_den : $bookings[0]->pinod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                  <strong>BCVA OD:</strong> <span class="text-primary">{{ $bookings[0]->pinodcor_den != '' ? $bookings[0]->pinodcor_num . ' / ' . $bookings[0]->pinodcor_den : $bookings[0]->pinodcor_num }}</span><br>
-                  <strong>VA OS Pinhole:</strong> <span class="text-primary">{{ $bookings[0]->pinos_den != '' ? $bookings[0]->pinos_num . ' / ' . $bookings[0]->pinos_den : $bookings[0]->pinos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                  <strong>BCVA OS:</strong> <span class="text-primary">{{ $bookings[0]->pinoscor_den != '' ? $bookings[0]->pinoscor_num . ' / ' . $bookings[0]->pinoscor_den : $bookings[0]->pinoscor_num }}</span><br>
-                  <strong>Jaeger OU:</strong> <span class="text-primary">{{ $bookings[0]->jae_ou }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                  <strong>Jaeger OD:</strong> <span class="text-primary">{{ $bookings[0]->jae_od }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                  <strong>Jaeger OS:</strong> <span class="text-primary">{{ $bookings[0]->jae_os }}</span><br>
-                  <strong>IOP OD:</strong> <span class="text-primary">{{ $bookings[0]->iopod }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                  <strong>IOP OS:</strong> <span class="text-primary">{{ $bookings[0]->iopos }}</span>
-                </p> --}}
-                <table class="table table-bordered table-striped table-hover table-sm">
-                  <thead class="table-{{ $bgColor }}">
+              @if(stristr($datum->doctor->specialty, 'Ophtha'))
+              <div class="card mb-3">
+                <div class="card-header">Eye Examination Information</div>
+                <div class="card-body table-responsive">
+                  {{-- <p id="prevEyerSumBack">
+                    <strong>AR OD:</strong> <span class="text-primary">{{ $bookings[0]->arod_sphere != 'No Target' ? ($bookings[0]->arod_sphere) . ' - ' . ($bookings[0]->arod_cylinder) . ' x ' . $bookings[0]->arod_axis : 'No Refraction Possible' }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                    <strong>AR OS:</strong> <span class="text-primary">{{ $bookings[0]->aros_sphere != 'No Target' ? ($bookings[0]->aros_sphere) . ' - ' . ($bookings[0]->aros_cylinder) . ' x ' . $bookings[0]->aros_axis : 'No Refraction Possible' }}</span><br>
+                    <strong>UCVA OD:</strong> <span class="text-primary">{{ $bookings[0]->vaod_den != '' ? $bookings[0]->vaod_num . ' / ' . $bookings[0]->vaod_den : $bookings[0]->vaod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                    <strong>UCVA OD Present Correction:</strong> <span class="text-primary">{{ $bookings[0]->vaodcor_den != '' ? $bookings[0]->vaodcor_num . ' / ' . $bookings[0]->vaodcor_den : $bookings[0]->vaodcor_num }}</span><br>
+                    <strong>UCVA OS:</strong> <span class="text-primary">{{ $bookings[0]->vaos_den != '' ? $bookings[0]->vaos_num . ' / ' . $bookings[0]->vaos_den : $bookings[0]->vaos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                    <strong>UCVA OS Present Correction:</strong> <span class="text-primary">{{ $bookings[0]->vaoscor_den != '' ? $bookings[0]->vaoscor_num . ' / ' . $bookings[0]->vaoscor_den : $bookings[0]->vaoscor_num }}</span><br>
+                    <strong>VA OD Pinhole:</strong> <span class="text-primary">{{ $bookings[0]->pinod_den != '' ? $bookings[0]->pinod_num . ' / ' . $bookings[0]->pinod_den : $bookings[0]->pinod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                    <strong>BCVA OD:</strong> <span class="text-primary">{{ $bookings[0]->pinodcor_den != '' ? $bookings[0]->pinodcor_num . ' / ' . $bookings[0]->pinodcor_den : $bookings[0]->pinodcor_num }}</span><br>
+                    <strong>VA OS Pinhole:</strong> <span class="text-primary">{{ $bookings[0]->pinos_den != '' ? $bookings[0]->pinos_num . ' / ' . $bookings[0]->pinos_den : $bookings[0]->pinos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                    <strong>BCVA OS:</strong> <span class="text-primary">{{ $bookings[0]->pinoscor_den != '' ? $bookings[0]->pinoscor_num . ' / ' . $bookings[0]->pinoscor_den : $bookings[0]->pinoscor_num }}</span><br>
+                    <strong>Jaeger OU:</strong> <span class="text-primary">{{ $bookings[0]->jae_ou }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                    <strong>Jaeger OD:</strong> <span class="text-primary">{{ $bookings[0]->jae_od }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                    <strong>Jaeger OS:</strong> <span class="text-primary">{{ $bookings[0]->jae_os }}</span><br>
+                    <strong>IOP OD:</strong> <span class="text-primary">{{ $bookings[0]->iopod }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                    <strong>IOP OS:</strong> <span class="text-primary">{{ $bookings[0]->iopos }}</span>
+                  </p> --}}
+                  <table class="table table-bordered table-striped table-hover table-sm">
+                    <thead class="table-{{ $bgColor }}">
+                        <tr>
+                            <th>&nbsp;</th>
+                            <th>OD</th>
+                            <th>OS</th>
+                            <th>OU</th>
+                        </tr>
+                    </thead>
+                    <tbody id="prevEyerSum">
                       <tr>
-                          <th>&nbsp;</th>
-                          <th>OD</th>
-                          <th>OS</th>
-                          <th>OU</th>
+                          <td>AR</td>
+                          <td>{{ $bookings[0]->arod_sphere != 'No Target' ? ($bookings[0]->arod_sphere) . ' - ' . ($bookings[0]->arod_cylinder) . ' x ' . $bookings[0]->arod_axis : 'No Refraction Possible' }}</td>
+                          <td>{{ $bookings[0]->aros_sphere != 'No Target' ? ($bookings[0]->aros_sphere) . ' - ' . ($bookings[0]->aros_cylinder) . ' x ' . $bookings[0]->aros_axis : 'No Refraction Possible' }}</td>
+                          <td>&nbsp;</td>
                       </tr>
-                  </thead>
-                  <tbody id="prevEyerSum">
-                    <tr>
-                        <td>AR</td>
-                        <td>{{ $bookings[0]->arod_sphere != 'No Target' ? ($bookings[0]->arod_sphere) . ' - ' . ($bookings[0]->arod_cylinder) . ' x ' . $bookings[0]->arod_axis : 'No Refraction Possible' }}</td>
-                        <td>{{ $bookings[0]->aros_sphere != 'No Target' ? ($bookings[0]->aros_sphere) . ' - ' . ($bookings[0]->aros_cylinder) . ' x ' . $bookings[0]->aros_axis : 'No Refraction Possible' }}</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>UCVA</td>
-                        <td>{{ $bookings[0]->vaod_den != '' ? $bookings[0]->vaod_num . ' / ' . $bookings[0]->vaod_den : $bookings[0]->vaod_num }}</td>
-                        <td>{{ $bookings[0]->vaos_den != '' ? $bookings[0]->vaos_num . ' / ' . $bookings[0]->vaos_den : $bookings[0]->vaos_num }}</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>UCVA Present Correction</td>
-                        <td>{{ $bookings[0]->vaodcor_den != '' ? $bookings[0]->vaodcor_num . ' / ' . $bookings[0]->vaodcor_den : $bookings[0]->vaodcor_num }}</td>
-                        <td>{{ $bookings[0]->vaoscor_den != '' ? $bookings[0]->vaoscor_num . ' / ' . $bookings[0]->vaoscor_den : $bookings[0]->vaoscor_num }}</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>VA Pinhole</td>
-                        <td>{{ $bookings[0]->pinod_den != '' ? $bookings[0]->pinod_num . ' / ' . $bookings[0]->pinod_den : $bookings[0]->pinod_num }}</td>
-                        <td>{{ $bookings[0]->pinos_den != '' ? $bookings[0]->pinos_num . ' / ' . $bookings[0]->pinos_den : $bookings[0]->pinos_num }}</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>BCVA</td>
-                        <td>{{ $bookings[0]->pinodcor_den != '' ? $bookings[0]->pinodcor_num . ' / ' . $bookings[0]->pinodcor_den : $bookings[0]->pinodcor_num }}</td>
-                        <td>{{ $bookings[0]->pinoscor_den != '' ? $bookings[0]->pinoscor_num . ' / ' . $bookings[0]->pinoscor_den : $bookings[0]->pinoscor_num }}</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>Jaeger</td>
-                        <td>{{ $bookings[0]->jae_od }}</td>
-                        <td>{{ $bookings[0]->jae_os }}</td>
-                        <td>{{ $bookings[0]->jae_ou }}</td>
-                    </tr>
-                    <tr>
-                        <td>IOP</td>
-                        <td>{{ $bookings[0]->iopod }}</td>
-                        <td>{{ $bookings[0]->iopos }}</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            @endif
-            <div class="card mb-3">
-              <div class="card-header">Doctor's Notes</div>
-              <div class="card-body table-responsive" style="height:300px; max-height: 300px">
-                <p>
-                  <strong>History of Present Illness:</strong><div class="m-3" id="{{ $viewFolder }}_prev_sum_docNotesHPI">{!! isset($bookings[0]->docNotesHPI) ? nl2br($bookings[0]->docNotesHPI) : '' !!}</div><br>
-                  <strong>Subjective Complaints:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_docNotesSubject">{!! isset($bookings[0]->docNotesSubject) ? nl2br($bookings[0]->docNotesSubject) : '' !!}</div><br>
-                  <strong>Objective Findings:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_docNotes">{!! isset($bookings[0]->docNotes) ? nl2br($bookings[0]->docNotes) : '' !!}</div><br>
-                </p>
-              </div>
-            </div>
-            <div class="card mb-3">
-              <div class="card-header">Assessment</div>
-              <div class="card-body table-responsive" style="height:300px; max-height: 300px">
-                <p>
-                  <strong>Primary Diagnosis:</strong> <span id="{{ $viewFolder }}_prev_sum_icd_code">{!! isset($bookings[0]->icd_code_obj) ? $bookings[0]->icd_code_obj->icd_code . ' - ' . $bookings[0]->icd_code_obj->details : '' !!}</span><br>
-                  <strong>Secondary Diagnosis:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_assessment">{!! isset($bookings[0]->assessment) ? nl2br($bookings[0]->assessment) : '' !!}</div><br>
-                </p>
-              </div>
-            </div>
-            <div class="card mb-3">
-              <div class="card-header">Plan</div>
-              <div class="card-body table-responsive" style="height:300px; max-height: 300px">
-                <p>
-                  <strong>Medical Therapeutics:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_planMed">{!! isset($bookings[0]->planMed) ? nl2br($bookings[0]->planMed) : '' !!}</div><br>
-                  <strong>Diagnostics and Surgery:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_plan">{!! isset($bookings[0]->plan) ? nl2br($bookings[0]->plan) : '' !!}</div><br>
-                  <strong>Remarks:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_planRem">{!! isset($bookings[0]->planRem) ? nl2br($bookings[0]->planRem) : '' !!}</div><br>
-                </p>
-              </div>
-            </div>
-          </div>
-          <div id="soapPrevDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
-            <div class="card mb-3">
-              <div class="card-header">Previous Scheduled Procedure</div>
-              <div class="card-body" style="height: 1in; max-height: 1in">
-                <p id="prevProcDet">{{ $bookings[0]->procedure_details }}</p>
-              </div>
-            </div>
-            <div class="card mb-3">
-              <div class="card-header">Previous Patient's Complaint</div>
-              <div class="card-body" style="height: 1in; max-height: 1in">
-                <p id="prevPatComp">{{ $bookings[0]->complain }}</p>
-                <small class="text-muted" id="prevPatCompDur">{{ $bookings[0]->duration }}</small>
-              </div>
-            </div>
-            
-            <div class="card mb-3">
-              <div class="card-header">Previous Doctor's Notes</div>
-              <div class="card-body">
-                {{-- @if(sizeof($bookings) == 1) --}}
-                <div class="card mb-3">
-                  <div class="card-header">History of Present Illness</div>
-                  <div class="card-body">
-                    <small class="text-muted">Helper</small>
-                    <div class="input-group input-group-small flex-nowrap">
-                      <select class="form-select" placeholder="" disabled>
-                        <option value=""></option>
-                      </select>
-                      <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
-                    </div>
-                    <small class="text-muted">Content</small>
-                    <textarea class="form-control" name="{{ $viewFolder }}[docNotesHPI]" id="{{ $viewFolder }}_prev_docNotesHPI" rows=3 disabled>{{ $bookings[0]->docNotesHPI }}</textarea>
-                    <small class="text-muted">Helper Save/Edit</small>
-                    <div class="input-group input-group-small mb-3 flex-nowrap">
-                      <div class="input-group-text">
-                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
-                      </div>
-                      <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesHPITitle" name="{{ $viewFolder }}[docNotesHPITitle]" disabled>
-                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
-                    </div>
-                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[docNotesHPIEdit]" id="{{ $viewFolder }}_docNotesHPIEdit" rows=3 disabled></textarea>
-                  </div>
+                      <tr>
+                          <td>UCVA</td>
+                          <td>{{ $bookings[0]->vaod_den != '' ? $bookings[0]->vaod_num . ' / ' . $bookings[0]->vaod_den : $bookings[0]->vaod_num }}</td>
+                          <td>{{ $bookings[0]->vaos_den != '' ? $bookings[0]->vaos_num . ' / ' . $bookings[0]->vaos_den : $bookings[0]->vaos_num }}</td>
+                          <td>&nbsp;</td>
+                      </tr>
+                      <tr>
+                          <td>UCVA Present Correction</td>
+                          <td>{{ $bookings[0]->vaodcor_den != '' ? $bookings[0]->vaodcor_num . ' / ' . $bookings[0]->vaodcor_den : $bookings[0]->vaodcor_num }}</td>
+                          <td>{{ $bookings[0]->vaoscor_den != '' ? $bookings[0]->vaoscor_num . ' / ' . $bookings[0]->vaoscor_den : $bookings[0]->vaoscor_num }}</td>
+                          <td>&nbsp;</td>
+                      </tr>
+                      <tr>
+                          <td>VA Pinhole</td>
+                          <td>{{ $bookings[0]->pinod_den != '' ? $bookings[0]->pinod_num . ' / ' . $bookings[0]->pinod_den : $bookings[0]->pinod_num }}</td>
+                          <td>{{ $bookings[0]->pinos_den != '' ? $bookings[0]->pinos_num . ' / ' . $bookings[0]->pinos_den : $bookings[0]->pinos_num }}</td>
+                          <td>&nbsp;</td>
+                      </tr>
+                      <tr>
+                          <td>BCVA</td>
+                          <td>{{ $bookings[0]->pinodcor_den != '' ? $bookings[0]->pinodcor_num . ' / ' . $bookings[0]->pinodcor_den : $bookings[0]->pinodcor_num }}</td>
+                          <td>{{ $bookings[0]->pinoscor_den != '' ? $bookings[0]->pinoscor_num . ' / ' . $bookings[0]->pinoscor_den : $bookings[0]->pinoscor_num }}</td>
+                          <td>&nbsp;</td>
+                      </tr>
+                      <tr>
+                          <td>Jaeger</td>
+                          <td>{{ $bookings[0]->jae_od }}</td>
+                          <td>{{ $bookings[0]->jae_os }}</td>
+                          <td>{{ $bookings[0]->jae_ou }}</td>
+                      </tr>
+                      <tr>
+                          <td>IOP</td>
+                          <td>{{ $bookings[0]->iopod }}</td>
+                          <td>{{ $bookings[0]->iopos }}</td>
+                          <td>&nbsp;</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
-                {{-- @else --}}
-                <div class="card mb-3">
-                  <div class="card-header">Previous Subjective Complaints</div>
-                  <div class="card-body">
-                    <small class="text-muted">Helper</small>
-                    <div class="input-group input-group-small flex-nowrap">
-                      <select class="form-select" placeholder="" disabled>
-                        <option value=""></option>
-                      </select>
-                      <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
-                    </div>
-                    <small class="text-muted">Content</small>
-                    <textarea class="form-control" name="{{ $viewFolder }}[docNotesSubject]" id="{{ $viewFolder }}_prev_docNotesSubject" rows=3 disabled>{{ $bookings[0]->docNotesSubject }}</textarea>
-                    <small class="text-muted">Helper Save/Edit</small>
-                    <div class="input-group input-group-small mb-3 flex-nowrap">
-                      <div class="input-group-text">
-                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
-                      </div>
-                      <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesSubjectTitle" name="{{ $viewFolder }}[docNotesSubjectTitle]" disabled>
-                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
-                    </div>
-                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[ddocNotesSubjectEdit]" id="{{ $viewFolder }}_docNotesSubjectEdit" rows=3 disabled></textarea>
-                  </div>
+              </div>
+              @endif
+              <div class="card mb-3">
+                <div class="card-header">Doctor's Notes</div>
+                <div class="card-body table-responsive" style="height:300px; max-height: 300px">
+                  <p>
+                    <strong>History of Present Illness:</strong><div class="m-3" id="{{ $viewFolder }}_prev_sum_docNotesHPI">{!! isset($bookings[0]->docNotesHPI) ? nl2br($bookings[0]->docNotesHPI) : '' !!}</div><br>
+                    <strong>Subjective Complaints:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_docNotesSubject">{!! isset($bookings[0]->docNotesSubject) ? nl2br($bookings[0]->docNotesSubject) : '' !!}</div><br>
+                    <strong>Objective Findings:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_docNotes">{!! isset($bookings[0]->docNotes) ? nl2br($bookings[0]->docNotes) : '' !!}</div><br>
+                  </p>
                 </div>
-                {{-- @endif --}}
-                <div class="card mb-3">
-                  <div class="card-header">Previous Objective Findings</div>
-                  <div class="card-body">
-                    @if(stristr($datum->doctor->specialty, 'Ophtha'))
-                    <div class="card mb-3">
-                      <div class="card-header">Eye Examination Information</div>
-                      <div class="card-body">
-                        {{-- <p id="prevEyerBack">
-                          <strong>AR OD:</strong> <span class="text-primary">{{ $bookings[0]->arod_sphere != 'No Target' ? ($bookings[0]->arod_sphere) . ' - ' . ($bookings[0]->arod_cylinder) . ' x ' . $bookings[0]->arod_axis : 'No Refraction Possible' }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                          <strong>AR OS:</strong> <span class="text-primary">{{ $bookings[0]->aros_sphere != 'No Target' ? ($bookings[0]->aros_sphere) . ' - ' . ($bookings[0]->aros_cylinder) . ' x ' . $bookings[0]->aros_axis : 'No Refraction Possible' }}</span><br>
-                          <strong>UCVA OD:</strong> <span class="text-primary">{{ $bookings[0]->vaod_den != '' ? $bookings[0]->vaod_num . ' / ' . $bookings[0]->vaod_den : $bookings[0]->vaod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                          <strong>UCVA OD Present Correction:</strong> <span class="text-primary">{{ $bookings[0]->vaodcor_den != '' ? $bookings[0]->vaodcor_num . ' / ' . $bookings[0]->vaodcor_den : $bookings[0]->vaodcor_num }}</span><br>
-                          <strong>UCVA OS:</strong> <span class="text-primary">{{ $bookings[0]->vaos_den != '' ? $bookings[0]->vaos_num . ' / ' . $bookings[0]->vaos_den : $bookings[0]->vaos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                          <strong>UCVA OS Present Correction:</strong> <span class="text-primary">{{ $bookings[0]->vaoscor_den != '' ? $bookings[0]->vaoscor_num . ' / ' . $bookings[0]->vaoscor_den : $bookings[0]->vaoscor_num }}</span><br>
-                          <strong>VA OD Pinhole:</strong> <span class="text-primary">{{ $bookings[0]->pinod_den != '' ? $bookings[0]->pinod_num . ' / ' . $bookings[0]->pinod_den : $bookings[0]->pinod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                          <strong>BCVA OD:</strong> <span class="text-primary">{{ $bookings[0]->pinodcor_den != '' ? $bookings[0]->pinodcor_num . ' / ' . $bookings[0]->pinodcor_den : $bookings[0]->pinodcor_num }}</span><br>
-                          <strong>VA OS Pinhole:</strong> <span class="text-primary">{{ $bookings[0]->pinos_den != '' ? $bookings[0]->pinos_num . ' / ' . $bookings[0]->pinos_den : $bookings[0]->pinos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                          <strong>BCVA OS:</strong> <span class="text-primary">{{ $bookings[0]->pinoscor_den != '' ? $bookings[0]->pinoscor_num . ' / ' . $bookings[0]->pinoscor_den : $bookings[0]->pinoscor_num }}</span><br>
-                          <strong>Jaeger OU:</strong> <span class="text-primary">{{ $bookings[0]->jae_ou }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                          <strong>Jaeger OD:</strong> <span class="text-primary">{{ $bookings[0]->jae_od }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                          <strong>Jaeger OS:</strong> <span class="text-primary">{{ $bookings[0]->jae_os }}</span><br>
-                          <strong>IOP OD:</strong> <span class="text-primary">{{ $bookings[0]->iopod }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                          <strong>IOP OS:</strong> <span class="text-primary">{{ $bookings[0]->iopos }}</span>
-                        </p> --}}
-                        <table class="table table-bordered table-striped table-hover table-sm">
-                          <thead class="table-{{ $bgColor }}">
+              </div>
+              <div class="card mb-3">
+                <div class="card-header">Assessment</div>
+                <div class="card-body table-responsive" style="height:300px; max-height: 300px">
+                  <p>
+                    <strong>Primary Diagnosis:</strong> <span id="{{ $viewFolder }}_prev_sum_icd_code">{!! isset($bookings[0]->icd_code_obj) ? $bookings[0]->icd_code_obj->icd_code . ' - ' . $bookings[0]->icd_code_obj->details : '' !!}</span><br>
+                    <strong>Secondary Diagnosis:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_assessment">{!! isset($bookings[0]->assessment) ? nl2br($bookings[0]->assessment) : '' !!}</div><br>
+                  </p>
+                </div>
+              </div>
+              <div class="card mb-3">
+                <div class="card-header">Plan</div>
+                <div class="card-body table-responsive" style="height:300px; max-height: 300px">
+                  <p>
+                    <strong>Medical Therapeutics:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_planMed">{!! isset($bookings[0]->planMed) ? nl2br($bookings[0]->planMed) : '' !!}</div><br>
+                    <strong>Diagnostics and Surgery:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_plan">{!! isset($bookings[0]->plan) ? nl2br($bookings[0]->plan) : '' !!}</div><br>
+                    <strong>Remarks:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_planRem">{!! isset($bookings[0]->planRem) ? nl2br($bookings[0]->planRem) : '' !!}</div><br>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div id="soapPrevDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
+              <div class="card mb-3">
+                <div class="card-header">Previous Scheduled Procedure</div>
+                <div class="card-body" style="height: 1in; max-height: 1in">
+                  <p id="prevProcDet">{{ $bookings[0]->procedure_details }}</p>
+                </div>
+              </div>
+              <div class="card mb-3">
+                <div class="card-header">Previous Patient's Complaint</div>
+                <div class="card-body" style="height: 1in; max-height: 1in">
+                  <p id="prevPatComp">{{ $bookings[0]->complain }}</p>
+                  <small class="text-muted" id="prevPatCompDur">{{ $bookings[0]->duration }}</small>
+                </div>
+              </div>
+              
+              <div class="card mb-3">
+                <div class="card-header">Previous Doctor's Notes</div>
+                <div class="card-body">
+                  {{-- @if(sizeof($bookings) == 1) --}}
+                  <div class="card mb-3">
+                    <div class="card-header">History of Present Illness</div>
+                    <div class="card-body">
+                      <small class="text-muted">Helper</small>
+                      <div class="input-group input-group-small flex-nowrap">
+                        <select class="form-select" placeholder="" disabled>
+                          <option value=""></option>
+                        </select>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
+                      </div>
+                      <small class="text-muted">Content</small>
+                      <textarea class="form-control" name="{{ $viewFolder }}[docNotesHPI]" id="{{ $viewFolder }}_prev_docNotesHPI" rows=3 disabled>{{ $bookings[0]->docNotesHPI }}</textarea>
+                      <small class="text-muted">Helper Save/Edit</small>
+                      <div class="input-group input-group-small mb-3 flex-nowrap">
+                        <div class="input-group-text">
+                          <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                        </div>
+                        <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesHPITitle" name="{{ $viewFolder }}[docNotesHPITitle]" disabled>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                      </div>
+                      <textarea class="form-control mb-2" name="{{ $viewFolder }}[docNotesHPIEdit]" id="{{ $viewFolder }}_docNotesHPIEdit" rows=3 disabled></textarea>
+                    </div>
+                  </div>
+                  {{-- @else --}}
+                  <div class="card mb-3">
+                    <div class="card-header">Previous Subjective Complaints</div>
+                    <div class="card-body">
+                      <small class="text-muted">Helper</small>
+                      <div class="input-group input-group-small flex-nowrap">
+                        <select class="form-select" placeholder="" disabled>
+                          <option value=""></option>
+                        </select>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
+                      </div>
+                      <small class="text-muted">Content</small>
+                      <textarea class="form-control" name="{{ $viewFolder }}[docNotesSubject]" id="{{ $viewFolder }}_prev_docNotesSubject" rows=3 disabled>{{ $bookings[0]->docNotesSubject }}</textarea>
+                      <small class="text-muted">Helper Save/Edit</small>
+                      <div class="input-group input-group-small mb-3 flex-nowrap">
+                        <div class="input-group-text">
+                          <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                        </div>
+                        <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesSubjectTitle" name="{{ $viewFolder }}[docNotesSubjectTitle]" disabled>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                      </div>
+                      <textarea class="form-control mb-2" name="{{ $viewFolder }}[ddocNotesSubjectEdit]" id="{{ $viewFolder }}_docNotesSubjectEdit" rows=3 disabled></textarea>
+                    </div>
+                  </div>
+                  {{-- @endif --}}
+                  <div class="card mb-3">
+                    <div class="card-header">Previous Objective Findings</div>
+                    <div class="card-body">
+                      @if(stristr($datum->doctor->specialty, 'Ophtha'))
+                      <div class="card mb-3">
+                        <div class="card-header">Eye Examination Information</div>
+                        <div class="card-body">
+                          {{-- <p id="prevEyerBack">
+                            <strong>AR OD:</strong> <span class="text-primary">{{ $bookings[0]->arod_sphere != 'No Target' ? ($bookings[0]->arod_sphere) . ' - ' . ($bookings[0]->arod_cylinder) . ' x ' . $bookings[0]->arod_axis : 'No Refraction Possible' }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                            <strong>AR OS:</strong> <span class="text-primary">{{ $bookings[0]->aros_sphere != 'No Target' ? ($bookings[0]->aros_sphere) . ' - ' . ($bookings[0]->aros_cylinder) . ' x ' . $bookings[0]->aros_axis : 'No Refraction Possible' }}</span><br>
+                            <strong>UCVA OD:</strong> <span class="text-primary">{{ $bookings[0]->vaod_den != '' ? $bookings[0]->vaod_num . ' / ' . $bookings[0]->vaod_den : $bookings[0]->vaod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                            <strong>UCVA OD Present Correction:</strong> <span class="text-primary">{{ $bookings[0]->vaodcor_den != '' ? $bookings[0]->vaodcor_num . ' / ' . $bookings[0]->vaodcor_den : $bookings[0]->vaodcor_num }}</span><br>
+                            <strong>UCVA OS:</strong> <span class="text-primary">{{ $bookings[0]->vaos_den != '' ? $bookings[0]->vaos_num . ' / ' . $bookings[0]->vaos_den : $bookings[0]->vaos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                            <strong>UCVA OS Present Correction:</strong> <span class="text-primary">{{ $bookings[0]->vaoscor_den != '' ? $bookings[0]->vaoscor_num . ' / ' . $bookings[0]->vaoscor_den : $bookings[0]->vaoscor_num }}</span><br>
+                            <strong>VA OD Pinhole:</strong> <span class="text-primary">{{ $bookings[0]->pinod_den != '' ? $bookings[0]->pinod_num . ' / ' . $bookings[0]->pinod_den : $bookings[0]->pinod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                            <strong>BCVA OD:</strong> <span class="text-primary">{{ $bookings[0]->pinodcor_den != '' ? $bookings[0]->pinodcor_num . ' / ' . $bookings[0]->pinodcor_den : $bookings[0]->pinodcor_num }}</span><br>
+                            <strong>VA OS Pinhole:</strong> <span class="text-primary">{{ $bookings[0]->pinos_den != '' ? $bookings[0]->pinos_num . ' / ' . $bookings[0]->pinos_den : $bookings[0]->pinos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                            <strong>BCVA OS:</strong> <span class="text-primary">{{ $bookings[0]->pinoscor_den != '' ? $bookings[0]->pinoscor_num . ' / ' . $bookings[0]->pinoscor_den : $bookings[0]->pinoscor_num }}</span><br>
+                            <strong>Jaeger OU:</strong> <span class="text-primary">{{ $bookings[0]->jae_ou }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                            <strong>Jaeger OD:</strong> <span class="text-primary">{{ $bookings[0]->jae_od }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                            <strong>Jaeger OS:</strong> <span class="text-primary">{{ $bookings[0]->jae_os }}</span><br>
+                            <strong>IOP OD:</strong> <span class="text-primary">{{ $bookings[0]->iopod }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                            <strong>IOP OS:</strong> <span class="text-primary">{{ $bookings[0]->iopos }}</span>
+                          </p> --}}
+                          <table class="table table-bordered table-striped table-hover table-sm">
+                            <thead class="table-{{ $bgColor }}">
+                                <tr>
+                                    <th>&nbsp;</th>
+                                    <th>OD</th>
+                                    <th>OS</th>
+                                    <th>OU</th>
+                                </tr>
+                            </thead>
+                            <tbody id="prevEyer">
                               <tr>
-                                  <th>&nbsp;</th>
-                                  <th>OD</th>
-                                  <th>OS</th>
-                                  <th>OU</th>
+                                  <td>AR</td>
+                                  <td>{{ $bookings[0]->arod_sphere != 'No Target' ? ($bookings[0]->arod_sphere) . ' - ' . ($bookings[0]->arod_cylinder) . ' x ' . $bookings[0]->arod_axis : 'No Refraction Possible' }}</td>
+                                  <td>{{ $bookings[0]->aros_sphere != 'No Target' ? ($bookings[0]->aros_sphere) . ' - ' . ($bookings[0]->aros_cylinder) . ' x ' . $bookings[0]->aros_axis : 'No Refraction Possible' }}</td>
+                                  <td>&nbsp;</td>
                               </tr>
-                          </thead>
-                          <tbody id="prevEyer">
-                            <tr>
-                                <td>AR</td>
-                                <td>{{ $bookings[0]->arod_sphere != 'No Target' ? ($bookings[0]->arod_sphere) . ' - ' . ($bookings[0]->arod_cylinder) . ' x ' . $bookings[0]->arod_axis : 'No Refraction Possible' }}</td>
-                                <td>{{ $bookings[0]->aros_sphere != 'No Target' ? ($bookings[0]->aros_sphere) . ' - ' . ($bookings[0]->aros_cylinder) . ' x ' . $bookings[0]->aros_axis : 'No Refraction Possible' }}</td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td>UCVA</td>
-                                <td>{{ $bookings[0]->vaod_den != '' ? $bookings[0]->vaod_num . ' / ' . $bookings[0]->vaod_den : $bookings[0]->vaod_num }}</td>
-                                <td>{{ $bookings[0]->vaos_den != '' ? $bookings[0]->vaos_num . ' / ' . $bookings[0]->vaos_den : $bookings[0]->vaos_num }}</td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td>UCVA Present Correction</td>
-                                <td>{{ $bookings[0]->vaodcor_den != '' ? $bookings[0]->vaodcor_num . ' / ' . $bookings[0]->vaodcor_den : $bookings[0]->vaodcor_num }}</td>
-                                <td>{{ $bookings[0]->vaoscor_den != '' ? $bookings[0]->vaoscor_num . ' / ' . $bookings[0]->vaoscor_den : $bookings[0]->vaoscor_num }}</td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td>VA Pinhole</td>
-                                <td>{{ $bookings[0]->pinod_den != '' ? $bookings[0]->pinod_num . ' / ' . $bookings[0]->pinod_den : $bookings[0]->pinod_num }}</td>
-                                <td>{{ $bookings[0]->pinos_den != '' ? $bookings[0]->pinos_num . ' / ' . $bookings[0]->pinos_den : $bookings[0]->pinos_num }}</td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td>BCVA</td>
-                                <td>{{ $bookings[0]->pinodcor_den != '' ? $bookings[0]->pinodcor_num . ' / ' . $bookings[0]->pinodcor_den : $bookings[0]->pinodcor_num }}</td>
-                                <td>{{ $bookings[0]->pinoscor_den != '' ? $bookings[0]->pinoscor_num . ' / ' . $bookings[0]->pinoscor_den : $bookings[0]->pinoscor_num }}</td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td>Jaeger</td>
-                                <td>{{ $bookings[0]->jae_od }}</td>
-                                <td>{{ $bookings[0]->jae_os }}</td>
-                                <td>{{ $bookings[0]->jae_ou }}</td>
-                            </tr>
-                            <tr>
-                                <td>IOP</td>
-                                <td>{{ $bookings[0]->iopod }}</td>
-                                <td>{{ $bookings[0]->iopos }}</td>
-                                <td>&nbsp;</td>
-                            </tr>
-                          </tbody>
-                        </table>
+                              <tr>
+                                  <td>UCVA</td>
+                                  <td>{{ $bookings[0]->vaod_den != '' ? $bookings[0]->vaod_num . ' / ' . $bookings[0]->vaod_den : $bookings[0]->vaod_num }}</td>
+                                  <td>{{ $bookings[0]->vaos_den != '' ? $bookings[0]->vaos_num . ' / ' . $bookings[0]->vaos_den : $bookings[0]->vaos_num }}</td>
+                                  <td>&nbsp;</td>
+                              </tr>
+                              <tr>
+                                  <td>UCVA Present Correction</td>
+                                  <td>{{ $bookings[0]->vaodcor_den != '' ? $bookings[0]->vaodcor_num . ' / ' . $bookings[0]->vaodcor_den : $bookings[0]->vaodcor_num }}</td>
+                                  <td>{{ $bookings[0]->vaoscor_den != '' ? $bookings[0]->vaoscor_num . ' / ' . $bookings[0]->vaoscor_den : $bookings[0]->vaoscor_num }}</td>
+                                  <td>&nbsp;</td>
+                              </tr>
+                              <tr>
+                                  <td>VA Pinhole</td>
+                                  <td>{{ $bookings[0]->pinod_den != '' ? $bookings[0]->pinod_num . ' / ' . $bookings[0]->pinod_den : $bookings[0]->pinod_num }}</td>
+                                  <td>{{ $bookings[0]->pinos_den != '' ? $bookings[0]->pinos_num . ' / ' . $bookings[0]->pinos_den : $bookings[0]->pinos_num }}</td>
+                                  <td>&nbsp;</td>
+                              </tr>
+                              <tr>
+                                  <td>BCVA</td>
+                                  <td>{{ $bookings[0]->pinodcor_den != '' ? $bookings[0]->pinodcor_num . ' / ' . $bookings[0]->pinodcor_den : $bookings[0]->pinodcor_num }}</td>
+                                  <td>{{ $bookings[0]->pinoscor_den != '' ? $bookings[0]->pinoscor_num . ' / ' . $bookings[0]->pinoscor_den : $bookings[0]->pinoscor_num }}</td>
+                                  <td>&nbsp;</td>
+                              </tr>
+                              <tr>
+                                  <td>Jaeger</td>
+                                  <td>{{ $bookings[0]->jae_od }}</td>
+                                  <td>{{ $bookings[0]->jae_os }}</td>
+                                  <td>{{ $bookings[0]->jae_ou }}</td>
+                              </tr>
+                              <tr>
+                                  <td>IOP</td>
+                                  <td>{{ $bookings[0]->iopod }}</td>
+                                  <td>{{ $bookings[0]->iopos }}</td>
+                                  <td>&nbsp;</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
                       </div>
-                    </div>
-                    @endif
-                    <small class="text-muted">Helper</small>
-                    <div class="input-group input-group-small flex-nowrap">
-                      <select class="form-select" placeholder="" disabled>
-                        <option value=""></option>
-                      </select>
-                      <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
-                    </div>
-                    <small class="text-muted">Content</small>
-                    <textarea class="form-control" name="{{ $viewFolder }}[docNotes]" id="{{ $viewFolder }}_prev_docNotes" rows=3 disabled>{{ $bookings[0]->docNotes }}</textarea>
-                    <small class="text-muted">Helper Save/Edit</small>
-                    <div class="input-group input-group-small mb-3 flex-nowrap">
-                      <div class="input-group-text">
-                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                      @endif
+                      <small class="text-muted">Helper</small>
+                      <div class="input-group input-group-small flex-nowrap">
+                        <select class="form-select" placeholder="" disabled>
+                          <option value=""></option>
+                        </select>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
                       </div>
-                      <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesTitle" name="{{ $viewFolder }}[docNotesTitle]" disabled>
-                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                      <small class="text-muted">Content</small>
+                      <textarea class="form-control" name="{{ $viewFolder }}[docNotes]" id="{{ $viewFolder }}_prev_docNotes" rows=3 disabled>{{ $bookings[0]->docNotes }}</textarea>
+                      <small class="text-muted">Helper Save/Edit</small>
+                      <div class="input-group input-group-small mb-3 flex-nowrap">
+                        <div class="input-group-text">
+                          <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                        </div>
+                        <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesTitle" name="{{ $viewFolder }}[docNotesTitle]" disabled>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                      </div>
+                      <textarea class="form-control mb-2" name="{{ $viewFolder }}[_docNotesEdit]" id="{{ $viewFolder }}_docNotesEdit" rows=3 disabled></textarea>
                     </div>
-                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[_docNotesEdit]" id="{{ $viewFolder }}_docNotesEdit" rows=3 disabled></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="card mb-3">
+                <div class="card-header">Previous Assessment</div>
+                <div class="card-body">
+                  <div class="form-floating mb-3">
+                    {{-- <select class="form-select" name="{{ $viewFolder }}[icd_code]" id="{{ $viewFolder }}_icd_code" placeholder="" disabled>
+                      <option value=""></option>
+                    </select> --}}
+                    <input class="form-control" list="icdCodeList" id="{{ $viewFolder }}_prev_icd_code" name="{{ $viewFolder }}[icd_code]" value="{{ isset($bookings[0]->icd_code_obj) ? $bookings[0]->icd_code_obj->icd_code . ' - ' . $bookings[0]->icd_code_obj->details : '' }}" autocomplete="off" disabled>
+                    <label for="{{ $viewFolder }}_icd_code">Previous Primary Diagnosis</label>
+                    <small id="help_{{ $viewFolder }}_icd_code" class="text-muted"></small>
+                  </div>
+                  <div class="card mb-3">
+                    <div class="card-header">Previous Secondary Diagnosis</div>
+                    <div class="card-body">
+                      <small class="text-muted">Helper</small>
+                      <div class="input-group input-group-small flex-nowrap">
+                        <select class="form-select" placeholder="" disabled>
+                          <option value=""></option>
+                        </select>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
+                      </div>
+                      <small class="text-muted">Content</small>
+                      <textarea class="form-control" name="{{ $viewFolder }}[assessment]" id="{{ $viewFolder }}_prev_assessment" rows=3 disabled>{{ $bookings[0]->assessment }}</textarea>
+                      <small class="text-muted">Helper Save/Edit</small>
+                      <div class="input-group input-group-small mb-3 flex-nowrap">
+                        <div class="input-group-text">
+                          <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                        </div>
+                        <input type="text" class="form-control" id="{{ $viewFolder }}_assessmentTitle" name="{{ $viewFolder }}[assessmentTitle]" disabled>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                      </div>
+                      <textarea class="form-control mb-2" name="{{ $viewFolder }}[_assessmentEdit]" id="{{ $viewFolder }}_assessmentEdit" rows=3 disabled></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card mb-3">
+                <div class="card-header">Previous Plan</div>
+                <div class="card-body">
+                  <div class="card mb-3">
+                    <div class="card-header">Previous Medical Therapeutics</div>
+                    <div class="card-body">
+                      <small class="text-muted">Helper</small>
+                      <div class="input-group input-group-small flex-nowrap">
+                        <select class="form-select" placeholder="" disabled>
+                          <option value=""></option>
+                        </select>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
+                      </div>
+                      <small class="text-muted">Content</small>
+                      <textarea class="form-control" name="{{ $viewFolder }}[planMed]" id="{{ $viewFolder }}_prev_planMed" rows=3 disabled>{{ $bookings[0]->planMed }}</textarea>
+                      <small class="text-muted">Helper Save/Edit</small>
+                      <div class="input-group input-group-small mb-3 flex-nowrap">
+                        <div class="input-group-text">
+                          <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                        </div>
+                        <input type="text" class="form-control" id="{{ $viewFolder }}_planMedTitle" name="{{ $viewFolder }}[planMedTitle]" disabled>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                      </div>
+                      <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planMedEdit]" id="{{ $viewFolder }}_planMedEdit" rows=3 disabled></textarea>
+                    </div>
+                  </div>
+                  <div class="card mb-3">
+                    <div class="card-header">Previous Diagnostics and Surgery</div>
+                    <div class="card-body">
+                      <small class="text-muted">Helper</small>
+                      <div class="input-group input-group-small flex-nowrap">
+                        <select class="form-select" placeholder="" disabled>
+                          <option value=""></option>
+                        </select>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
+                      </div>
+                      <small class="text-muted">Content</small>
+                      <textarea class="form-control" name="{{ $viewFolder }}[plan]" id="{{ $viewFolder }}_prev_plan" rows=3 disabled>{{ $bookings[0]->plan }}</textarea>
+                      <small class="text-muted">Helper Save/Edit</small>
+                      <div class="input-group input-group-small mb-3 flex-nowrap">
+                        <div class="input-group-text">
+                          <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                        </div>
+                        <input type="text" class="form-control" id="{{ $viewFolder }}_planTitle" name="{{ $viewFolder }}[planTitle]" disabled>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                      </div>
+                      <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planEdit]" id="{{ $viewFolder }}_planEdit" rows=3 disabled></textarea>
+                    </div>
+                  </div>
+                  <div class="card mb-3">
+                    <div class="card-header">Previous Remarks</div>
+                    <div class="card-body">
+                      <small class="text-muted">Helper</small>
+                      <div class="input-group input-group-small flex-nowrap">
+                        <select class="form-select" placeholder="" disabled>
+                          <option value=""></option>
+                        </select>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
+                      </div>
+                      <small class="text-muted">Content</small>
+                      <textarea class="form-control" name="{{ $viewFolder }}[planRem]" id="{{ $viewFolder }}_prev_planRem" rows=3 disabled>{{ $bookings[0]->planRem }}</textarea>
+                      <small class="text-muted">Helper Save/Edit</small>
+                      <div class="input-group input-group-small mb-3 flex-nowrap">
+                        <div class="input-group-text">
+                          <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                        </div>
+                        <input type="text" class="form-control" id="{{ $viewFolder }}_planRemTitle" name="{{ $viewFolder }}[planRemTitle]" disabled>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                      </div>
+                      <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planRemEdit]" id="{{ $viewFolder }}_planRemEdit" rows=3 disabled></textarea>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="card mb-3">
-              <div class="card-header">Previous Assessment</div>
-              <div class="card-body">
-                <div class="form-floating mb-3">
-                  {{-- <select class="form-select" name="{{ $viewFolder }}[icd_code]" id="{{ $viewFolder }}_icd_code" placeholder="" disabled>
-                    <option value=""></option>
-                  </select> --}}
-                  <input class="form-control" list="icdCodeList" id="{{ $viewFolder }}_prev_icd_code" name="{{ $viewFolder }}[icd_code]" value="{{ isset($bookings[0]->icd_code_obj) ? $bookings[0]->icd_code_obj->icd_code . ' - ' . $bookings[0]->icd_code_obj->details : '' }}" autocomplete="off" disabled>
-                  <label for="{{ $viewFolder }}_icd_code">Previous Primary Diagnosis</label>
-                  <small id="help_{{ $viewFolder }}_icd_code" class="text-muted"></small>
-                </div>
-                <div class="card mb-3">
-                  <div class="card-header">Previous Secondary Diagnosis</div>
-                  <div class="card-body">
-                    <small class="text-muted">Helper</small>
-                    <div class="input-group input-group-small flex-nowrap">
-                      <select class="form-select" placeholder="" disabled>
-                        <option value=""></option>
-                      </select>
-                      <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
-                    </div>
-                    <small class="text-muted">Content</small>
-                    <textarea class="form-control" name="{{ $viewFolder }}[assessment]" id="{{ $viewFolder }}_prev_assessment" rows=3 disabled>{{ $bookings[0]->assessment }}</textarea>
-                    <small class="text-muted">Helper Save/Edit</small>
-                    <div class="input-group input-group-small mb-3 flex-nowrap">
-                      <div class="input-group-text">
-                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
-                      </div>
-                      <input type="text" class="form-control" id="{{ $viewFolder }}_assessmentTitle" name="{{ $viewFolder }}[assessmentTitle]" disabled>
-                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
-                    </div>
-                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[_assessmentEdit]" id="{{ $viewFolder }}_assessmentEdit" rows=3 disabled></textarea>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="card mb-3">
-              <div class="card-header">Previous Plan</div>
-              <div class="card-body">
-                <div class="card mb-3">
-                  <div class="card-header">Previous Medical Therapeutics</div>
-                  <div class="card-body">
-                    <small class="text-muted">Helper</small>
-                    <div class="input-group input-group-small flex-nowrap">
-                      <select class="form-select" placeholder="" disabled>
-                        <option value=""></option>
-                      </select>
-                      <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
-                    </div>
-                    <small class="text-muted">Content</small>
-                    <textarea class="form-control" name="{{ $viewFolder }}[planMed]" id="{{ $viewFolder }}_prev_planMed" rows=3 disabled>{{ $bookings[0]->planMed }}</textarea>
-                    <small class="text-muted">Helper Save/Edit</small>
-                    <div class="input-group input-group-small mb-3 flex-nowrap">
-                      <div class="input-group-text">
-                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
-                      </div>
-                      <input type="text" class="form-control" id="{{ $viewFolder }}_planMedTitle" name="{{ $viewFolder }}[planMedTitle]" disabled>
-                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
-                    </div>
-                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planMedEdit]" id="{{ $viewFolder }}_planMedEdit" rows=3 disabled></textarea>
-                  </div>
-                </div>
-                <div class="card mb-3">
-                  <div class="card-header">Previous Diagnostics and Surgery</div>
-                  <div class="card-body">
-                    <small class="text-muted">Helper</small>
-                    <div class="input-group input-group-small flex-nowrap">
-                      <select class="form-select" placeholder="" disabled>
-                        <option value=""></option>
-                      </select>
-                      <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
-                    </div>
-                    <small class="text-muted">Content</small>
-                    <textarea class="form-control" name="{{ $viewFolder }}[plan]" id="{{ $viewFolder }}_prev_plan" rows=3 disabled>{{ $bookings[0]->plan }}</textarea>
-                    <small class="text-muted">Helper Save/Edit</small>
-                    <div class="input-group input-group-small mb-3 flex-nowrap">
-                      <div class="input-group-text">
-                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
-                      </div>
-                      <input type="text" class="form-control" id="{{ $viewFolder }}_planTitle" name="{{ $viewFolder }}[planTitle]" disabled>
-                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
-                    </div>
-                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planEdit]" id="{{ $viewFolder }}_planEdit" rows=3 disabled></textarea>
-                  </div>
-                </div>
-                <div class="card mb-3">
-                  <div class="card-header">Previous Remarks</div>
-                  <div class="card-body">
-                    <small class="text-muted">Helper</small>
-                    <div class="input-group input-group-small flex-nowrap">
-                      <select class="form-select" placeholder="" disabled>
-                        <option value=""></option>
-                      </select>
-                      <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
-                    </div>
-                    <small class="text-muted">Content</small>
-                    <textarea class="form-control" name="{{ $viewFolder }}[planRem]" id="{{ $viewFolder }}_prev_planRem" rows=3 disabled>{{ $bookings[0]->planRem }}</textarea>
-                    <small class="text-muted">Helper Save/Edit</small>
-                    <div class="input-group input-group-small mb-3 flex-nowrap">
-                      <div class="input-group-text">
-                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
-                      </div>
-                      <input type="text" class="form-control" id="{{ $viewFolder }}_planRemTitle" name="{{ $viewFolder }}[planRemTitle]" disabled>
-                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
-                    </div>
-                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planRemEdit]" id="{{ $viewFolder }}_planRemEdit" rows=3 disabled></textarea>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div id="labPrevDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
-            <h5>Image Viewer</h5>
-            <div id="carouselPrev" class="carousel carousel-dark slide" data-bs-interval="false">
-              <div class="carousel-indicators" id="labPrevCarouselInd">
-                @php
-                  $key = false;
-                  if(isset($bookings[0]->parent_consultation)){
-                    $bookings[0]->consultation_files = $bookings[0]->parent_consultation->consultation_files;
-                    $bookings[0]->anesthesia_files = $bookings[0]->parent_consultation->anesthesia_files;
-                    $bookings[0]->doctor_files = $bookings[0]->parent_consultation->doctor_files;
-                    $bookings[0]->prescription_files = $bookings[0]->parent_consultation->prescription_files;
-                  }
+            <div id="labPrevDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
+              <h5>Image Viewer</h5>
+              <div id="carouselPrev" class="carousel carousel-dark slide" data-bs-interval="false">
+                <div class="carousel-indicators" id="labPrevCarouselInd">
+                  @php
+                    $key = false;
+                    if(isset($bookings[0]->parent_consultation)){
+                      $bookings[0]->consultation_files = $bookings[0]->parent_consultation->consultation_files;
+                      $bookings[0]->anesthesia_files = $bookings[0]->parent_consultation->anesthesia_files;
+                      $bookings[0]->doctor_files = $bookings[0]->parent_consultation->doctor_files;
+                      $bookings[0]->prescription_files = $bookings[0]->parent_consultation->prescription_files;
+                    }
 
-                @endphp
-                @if(!empty($bookings[0]->consultation_files[0]->file_link))
-                  @foreach($bookings[0]->consultation_files as $ind=>$file)
-                  @php
-                    $key = true;
                   @endphp
-                <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
+                  @if(!empty($bookings[0]->consultation_files[0]->file_link))
+                    @foreach($bookings[0]->consultation_files as $ind=>$file)
+                    @php
+                      $key = true;
+                    @endphp
+                  <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
+                    @endforeach
+                  @endif
+                  @if(!empty($bookings[0]->anesthesia_files[0]->file_link))
+                    @foreach($bookings[0]->anesthesia_files as $file)
+                    @php
+                      $ind++;
+                      $key = true;
+                    @endphp
+                  <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
+                    @endforeach
+                  @endif
+                  @if(!empty($bookings[0]->doctor_files[0]->file_link))
+                    @foreach($bookings[0]->doctor_files as $file)
+                    @php
+                      $ind++;
+                      $key = true;
+                    @endphp
+                  <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
+                    @endforeach
+                  @endif
+                  @if(!empty($bookings[0]->prescription_files[0]->file_link))
+                    @foreach($bookings[0]->prescription_files as $file)
+                    @php
+                      $ind++;
+                      $key = true;
+                    @endphp
+                  <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
+                    @endforeach
+                  @endif
+                  @if(!$key)
+                  <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                  @endif
+                </div>
+                <div class="carousel-inner" id="labPrevCarouselInner">
+                  @php
+                    $key = false;
+                  @endphp
+                  @if(!empty($bookings[0]->consultation_files[0]->file_link))
+                    @foreach($bookings[0]->consultation_files as $ind=>$file)
+                    @php
+                      $key = true;
+                    @endphp
+                  <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
+                    @if($file->file_type == 'application/pdf')
+                    <iframe src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" width="100%" height="373" style="border:1"></iframe>
+                    @else
+                    <img src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
+                    @endif
+                  </div>
+                    @endforeach
+                  @endif
+                  @if(!empty($bookings[0]->anesthesia_files[0]->file_link))
+                    @foreach($bookings[0]->anesthesia_files as $file)
+                    @php
+                      $ind++;
+                      $key = true;
+                    @endphp
+                  <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
+                    @if($file->file_type == 'application/pdf')
+                    <iframe src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" width="100%" height="373" style="border:1"></iframe>
+                    @else
+                    <img src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
+                    @endif
+                  </div>
+                    @endforeach
+                  @endif
+                  @if(!empty($bookings[0]->doctor_files[0]->file_link))
+                    @foreach($bookings[0]->doctor_files as $file)
+                    @php
+                      $ind++;
+                      $key = true;
+                    @endphp
+                  <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
+                    @if($file->file_type == 'application/pdf')
+                    <iframe src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" width="100%" height="373" style="border:1"></iframe>
+                    @else
+                    <img src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
+                    @endif
+                  </div>
+                    @endforeach
+                  @endif
+                  @if(!empty($bookings[0]->prescription_files[0]->file_link))
+                    @foreach($bookings[0]->prescription_files as $file)
+                    @php
+                      $ind++;
+                      $key = true;
+                    @endphp
+                  <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
+                    @if($file->file_type == 'application/pdf')
+                    <iframe src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" width="100%" height="373" style="border:1"></iframe>
+                    @else
+                    <img src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
+                    @endif
+                  </div>
+                    @endforeach
+                  @endif
+                  @if(!$key)
+                  <div class="carousel-item active">
+                    <img src="https://mdbootstrap.com/img/Photos/Others/placeholder.jpg" class="d-block w-100" alt="">
+                  </div>
+                  @endif
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselPrev" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselPrev" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+              <div class="my-3">
+                <label for="formFileMultiple" class="form-label">Uploaded Images/Files</label>
+                <input class="form-control" type="file" id="{{ $viewFolder }}_prev_files" name="{{ $viewFolder }}[ConsultationFile][files][]" accept="image/png, image/gif, image/jpeg" multiple disabled>
+              </div>
+              <div class="container horizontal-scrollable" style="overflow-x: auto; white-space: nowrap;">
+                <div class="row flex-nowrap" id="image_preview_prev_saved" style="max-height:200px">
+              {{-- <div class="row overflow-auto" id="image_preview_prev_saved" style="max-height:500px"> --}}
+                @php
+                  $ind = 0;
+                @endphp
+                @if(isset($bookings[0]->consultation_files))
+                  @foreach($bookings[0]->consultation_files as $ind => $file)
+                  @php
+                    $exAr = explode('/', $file->file_link);
+                  @endphp
+                  @if($file->file_type == 'application/pdf')
+                <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'></iframe><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
+                  @else
+                <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}' disabled><i class='bi bi-trash'></i></button></div></div>
+                  @endif
                   @endforeach
                 @endif
-                @if(!empty($bookings[0]->anesthesia_files[0]->file_link))
+                @if(isset($bookings[0]->anesthesia_files))
                   @foreach($bookings[0]->anesthesia_files as $file)
                   @php
                     $ind++;
-                    $key = true;
+                    $exAr = explode('/', $file->file_link);
                   @endphp
-                <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
+                  @if($file->file_type == 'application/pdf')
+                <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'></iframe><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
+                  @else
+                <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}' disabled><i class='bi bi-trash'></i></button></div></div>
+                  @endif
                   @endforeach
                 @endif
-                @if(!empty($bookings[0]->doctor_files[0]->file_link))
+                @if(isset($bookings[0]->doctor_files))
                   @foreach($bookings[0]->doctor_files as $file)
                   @php
                     $ind++;
-                    $key = true;
+                    $exAr = explode('/', $file->file_link);
                   @endphp
-                <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
+                  @if($file->file_type == 'application/pdf')
+                <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'></iframe><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
+                  @else
+                <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}' disabled><i class='bi bi-trash'></i></button></div></div>
+                  @endif
                   @endforeach
                 @endif
-                @if(!empty($bookings[0]->prescription_files[0]->file_link))
+                @if(isset($bookings[0]->prescription_files))
                   @foreach($bookings[0]->prescription_files as $file)
                   @php
                     $ind++;
-                    $key = true;
+                    $exAr = explode('/', $file->file_link);
                   @endphp
-                <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
+                  @if($file->file_type == 'application/pdf')
+                <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'></iframe><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
+                  @else
+                <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}' disabled><i class='bi bi-trash'></i></button></div></div>
+                  @endif
                   @endforeach
-                @endif
-                @if(!$key)
-                <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                 @endif
               </div>
-              <div class="carousel-inner" id="labPrevCarouselInner">
-                @php
-                  $key = false;
-                @endphp
-                @if(!empty($bookings[0]->consultation_files[0]->file_link))
-                  @foreach($bookings[0]->consultation_files as $ind=>$file)
-                  @php
-                    $key = true;
-                  @endphp
-                <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
-                  @if($file->file_type == 'application/pdf')
-                  <iframe src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" width="100%" height="373" style="border:1"></iframe>
-                  @else
-                  <img src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
-                  @endif
-                </div>
-                  @endforeach
-                @endif
-                @if(!empty($bookings[0]->anesthesia_files[0]->file_link))
-                  @foreach($bookings[0]->anesthesia_files as $file)
-                  @php
-                    $ind++;
-                    $key = true;
-                  @endphp
-                <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
-                  @if($file->file_type == 'application/pdf')
-                  <iframe src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" width="100%" height="373" style="border:1"></iframe>
-                  @else
-                  <img src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
-                  @endif
-                </div>
-                  @endforeach
-                @endif
-                @if(!empty($bookings[0]->doctor_files[0]->file_link))
-                  @foreach($bookings[0]->doctor_files as $file)
-                  @php
-                    $ind++;
-                    $key = true;
-                  @endphp
-                <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
-                  @if($file->file_type == 'application/pdf')
-                  <iframe src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" width="100%" height="373" style="border:1"></iframe>
-                  @else
-                  <img src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
-                  @endif
-                </div>
-                  @endforeach
-                @endif
-                @if(!empty($bookings[0]->prescription_files[0]->file_link))
-                  @foreach($bookings[0]->prescription_files as $file)
-                  @php
-                    $ind++;
-                    $key = true;
-                  @endphp
-                <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
-                  @if($file->file_type == 'application/pdf')
-                  <iframe src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" width="100%" height="373" style="border:1"></iframe>
-                  @else
-                  <img src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
-                  @endif
-                </div>
-                  @endforeach
-                @endif
-                @if(!$key)
-                <div class="carousel-item active">
-                  <img src="https://mdbootstrap.com/img/Photos/Others/placeholder.jpg" class="d-block w-100" alt="">
-                </div>
-                @endif
-              </div>
-              <button class="carousel-control-prev" type="button" data-bs-target="#carouselPrev" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#carouselPrev" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-              </button>
-            </div>
-            <div class="my-3">
-              <label for="formFileMultiple" class="form-label">Uploaded Images/Files</label>
-              <input class="form-control" type="file" id="{{ $viewFolder }}_prev_files" name="{{ $viewFolder }}[ConsultationFile][files][]" accept="image/png, image/gif, image/jpeg" multiple disabled>
-            </div>
-            <div class="container horizontal-scrollable" style="overflow-x: auto; white-space: nowrap;">
-              <div class="row flex-nowrap" id="image_preview_prev_saved" style="max-height:150px">
-            {{-- <div class="row overflow-auto" id="image_preview_prev_saved" style="max-height:500px"> --}}
-              @php
-                $ind = 0;
-              @endphp
-              @if(isset($bookings[0]->consultation_files))
-                @foreach($bookings[0]->consultation_files as $ind => $file)
-                @php
-                  $exAr = explode('/', $file->file_link);
-                @endphp
-                @if($file->file_type == 'application/pdf')
-              <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'></iframe><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
-                @else
-              <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}' disabled><i class='bi bi-trash'></i></button></div></div>
-                @endif
-                @endforeach
-              @endif
-              @if(isset($bookings[0]->anesthesia_files))
-                @foreach($bookings[0]->anesthesia_files as $file)
-                @php
-                  $ind++;
-                  $exAr = explode('/', $file->file_link);
-                @endphp
-                @if($file->file_type == 'application/pdf')
-              <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'></iframe><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
-                @else
-              <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}' disabled><i class='bi bi-trash'></i></button></div></div>
-                @endif
-                @endforeach
-              @endif
-              @if(isset($bookings[0]->doctor_files))
-                @foreach($bookings[0]->doctor_files as $file)
-                @php
-                  $ind++;
-                  $exAr = explode('/', $file->file_link);
-                @endphp
-                @if($file->file_type == 'application/pdf')
-              <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'></iframe><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
-                @else
-              <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}' disabled><i class='bi bi-trash'></i></button></div></div>
-                @endif
-                @endforeach
-              @endif
-              @if(isset($bookings[0]->prescription_files))
-                @foreach($bookings[0]->prescription_files as $file)
-                @php
-                  $ind++;
-                  $exAr = explode('/', $file->file_link);
-                @endphp
-                @if($file->file_type == 'application/pdf')
-              <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'></iframe><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
-                @else
-              <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}' disabled><i class='bi bi-trash'></i></button></div></div>
-                @endif
-                @endforeach
-              @endif
-            </div>
-            </div>
-          </div>
-          <div id="presPrevDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
-            <div class="card mb-3">
-              <div class="card-header">Previous Prescription Preview</div>
-              <div class="card-body">
-                <iframe id="iframePrevPresc" src="{{ file_exists(public_path('storage/prescription_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf')) ? asset('storage/prescription_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
-                <small class="form-text text-muted">To print or download go to Tools</small>
               </div>
             </div>
-          </div>
-          <div id="medPrevDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
-            <div class="card mb-3">
-              <div class="card-header">Previous Med Cert Preview</div>
-              <div class="card-body">
-                <iframe id="iframePrevMedCert" src="{{ file_exists(public_path('storage/med_cert_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf')) ? asset('storage/med_cert_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
-                <small class="form-text text-muted">To print or download go to Tools</small>
+            <div id="presPrevDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
+              <div class="card mb-3">
+                <div class="card-header">Previous Prescription Preview</div>
+                <div class="card-body">
+                  <iframe id="iframePrevPresc" src="{{ file_exists(public_path('storage/prescription_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf')) ? asset('storage/prescription_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
+                  <small class="form-text text-muted">To print or download go to Tools</small>
+                </div>
               </div>
             </div>
-          </div>
-          <div id="admitPrevDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
-            <div class="card mb-3">
-              <div class="card-header">Previous Admitting Orders Preview</div>
-              <div class="card-body">
-                <iframe id="iframePrevAdmitting" src="{{ file_exists(public_path('storage/admitting_order_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf')) ? asset('storage/admitting_order_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
-                <small class="form-text text-muted">To print or download go to Tools</small>
+            <div id="medPrevDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
+              <div class="card mb-3">
+                <div class="card-header">Previous Med Cert Preview</div>
+                <div class="card-body">
+                  <iframe id="iframePrevMedCert" src="{{ file_exists(public_path('storage/med_cert_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf')) ? asset('storage/med_cert_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
+                  <small class="form-text text-muted">To print or download go to Tools</small>
+                </div>
+              </div>
+            </div>
+            <div id="admitPrevDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
+              <div class="card mb-3">
+                <div class="card-header">Previous Admitting Orders Preview</div>
+                <div class="card-body">
+                  <iframe id="iframePrevAdmitting" src="{{ file_exists(public_path('storage/admitting_order_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf')) ? asset('storage/admitting_order_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
+                  <small class="form-text text-muted">To print or download go to Tools</small>
+                </div>
               </div>
             </div>
           </div>
@@ -1681,1191 +1683,1193 @@
               ">Admitting Orders</a>
             </li>
           </ul>
-          <div id="sumCurDiv" class="container border border-1 border-top-0 mb-3 p-3">
-            <div class="card mb-3">
-              <div class="card-header">Scheduled Procedure</div>
-              <div class="card-body" style="height: 1in; max-height: 1in">
-                <p>{{ $datum->procedure_details }}</p>
+          <div id="curDiv" class="card-body table-responsive p-0" style="max-height: 600px">
+            <div id="sumCurDiv" class="container border border-1 border-top-0 mb-3 p-3">
+              <div class="card mb-3">
+                <div class="card-header">Scheduled Procedure</div>
+                <div class="card-body" style="height: 1in; max-height: 1in">
+                  <p>{{ $datum->procedure_details }}</p>
+                </div>
               </div>
-            </div>
-            <div class="card mb-3">
-              <div class="card-header">Patient's Complaint</div>
-              <div class="card-body" style="height: 1in; max-height: 1in">
-                <p>{{ $datum->complain }}</p>
-                <small class="text-muted">{{ $datum->duration }}</small>
+              <div class="card mb-3">
+                <div class="card-header">Patient's Complaint</div>
+                <div class="card-body" style="height: 1in; max-height: 1in">
+                  <p>{{ $datum->complain }}</p>
+                  <small class="text-muted">{{ $datum->duration }}</small>
+                </div>
               </div>
-            </div>
-            @if(stristr($datum->doctor->specialty, 'Ophtha'))
-            <div class="card mb-3">
-              <div class="card-header">Eye Examination Information</div>
-              <div class="card-body">
-                {{-- <p>
-                  <strong>AR OD:</strong> <span class="text-primary">{{ $datum->arod_sphere != 'No Target' ? ($datum->arod_sphere > 0 ? '+' . $datum->arod_sphere : $datum->arod_sphere) . ' - ' . ($datum->arod_cylinder > 0 ? '+' . $datum->arod_cylinder : $datum->arod_cylinder) . ' x ' . $datum->arod_axis : 'No Refraction Possible' }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                  <strong>AR OS:</strong> <span class="text-primary">{{ $datum->aros_sphere != 'No Target' ? ($datum->aros_sphere > 0 ? '+' . $datum->aros_sphere : $datum->aros_sphere) . ' - ' . ($datum->aros_cylinder > 0 ? '+' . $datum->aros_cylinder : $datum->aros_cylinder) . ' x ' . $datum->aros_axis : 'No Refraction Possible' }}</span><br>
-                  <strong>UCVA OD:</strong> <span class="text-primary">{{ $datum->vaod_den != '' ? $datum->vaod_num . ' / ' . $datum->vaod_den : $datum->vaod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                  <strong>UCVA OD Present Correction:</strong> <span class="text-primary">{{ $datum->vaodcor_den != '' ? $datum->vaodcor_num . ' / ' . $datum->vaodcor_den : $datum->vaodcor_num }}</span><br>
-                  <strong>UCVA OS:</strong> <span class="text-primary">{{ $datum->vaos_den != '' ? $datum->vaos_num . ' / ' . $datum->vaos_den : $datum->vaos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                  <strong>UCVA OS Present Correction:</strong> <span class="text-primary">{{ $datum->vaoscor_den != '' ? $datum->vaoscor_num . ' / ' . $datum->vaoscor_den : $datum->vaoscor_num }}</span><br>
-                  <strong>VA OD Pinhole:</strong> <span class="text-primary">{{ $datum->pinod_den != '' ? $datum->pinod_num . ' / ' . $datum->pinod_den : $datum->pinod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                  <strong>BCVA OD:</strong> <span class="text-primary">{{ $datum->pinodcor_den != '' ? $datum->pinodcor_num . ' / ' . $datum->pinodcor_den : $datum->pinodcor_num }}</span><br>
-                  <strong>VA OS Pinhole:</strong> <span class="text-primary">{{ $datum->pinos_den != '' ? $datum->pinos_num . ' / ' . $datum->pinos_den : $datum->pinos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                  <strong>BCVA OS:</strong> <span class="text-primary">{{ $datum->pinoscor_den != '' ? $datum->pinoscor_num . ' / ' . $datum->pinoscor_den : $datum->pinoscor_num }}</span><br>
-                  <strong>Jaeger OU:</strong> <span class="text-primary">{{ $datum->jae_ou }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                  <strong>Jaeger OD:</strong> <span class="text-primary">{{ $datum->jae_od }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                  <strong>Jaeger OS:</strong> <span class="text-primary">{{ $datum->jae_os }}</span><br>
-                  <strong>IOP OD:</strong> <span class="text-primary">{{ $datum->iopod }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                  <strong>IOP OS:</strong> <span class="text-primary">{{ $datum->iopos }}</span>
-                </p> --}}
-                <table class="table table-bordered table-striped table-hover table-sm">
-                  <thead class="table-{{ $bgColor }}">
+              @if(stristr($datum->doctor->specialty, 'Ophtha'))
+              <div class="card mb-3">
+                <div class="card-header">Eye Examination Information</div>
+                <div class="card-body">
+                  {{-- <p>
+                    <strong>AR OD:</strong> <span class="text-primary">{{ $datum->arod_sphere != 'No Target' ? ($datum->arod_sphere > 0 ? '+' . $datum->arod_sphere : $datum->arod_sphere) . ' - ' . ($datum->arod_cylinder > 0 ? '+' . $datum->arod_cylinder : $datum->arod_cylinder) . ' x ' . $datum->arod_axis : 'No Refraction Possible' }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                    <strong>AR OS:</strong> <span class="text-primary">{{ $datum->aros_sphere != 'No Target' ? ($datum->aros_sphere > 0 ? '+' . $datum->aros_sphere : $datum->aros_sphere) . ' - ' . ($datum->aros_cylinder > 0 ? '+' . $datum->aros_cylinder : $datum->aros_cylinder) . ' x ' . $datum->aros_axis : 'No Refraction Possible' }}</span><br>
+                    <strong>UCVA OD:</strong> <span class="text-primary">{{ $datum->vaod_den != '' ? $datum->vaod_num . ' / ' . $datum->vaod_den : $datum->vaod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                    <strong>UCVA OD Present Correction:</strong> <span class="text-primary">{{ $datum->vaodcor_den != '' ? $datum->vaodcor_num . ' / ' . $datum->vaodcor_den : $datum->vaodcor_num }}</span><br>
+                    <strong>UCVA OS:</strong> <span class="text-primary">{{ $datum->vaos_den != '' ? $datum->vaos_num . ' / ' . $datum->vaos_den : $datum->vaos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                    <strong>UCVA OS Present Correction:</strong> <span class="text-primary">{{ $datum->vaoscor_den != '' ? $datum->vaoscor_num . ' / ' . $datum->vaoscor_den : $datum->vaoscor_num }}</span><br>
+                    <strong>VA OD Pinhole:</strong> <span class="text-primary">{{ $datum->pinod_den != '' ? $datum->pinod_num . ' / ' . $datum->pinod_den : $datum->pinod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                    <strong>BCVA OD:</strong> <span class="text-primary">{{ $datum->pinodcor_den != '' ? $datum->pinodcor_num . ' / ' . $datum->pinodcor_den : $datum->pinodcor_num }}</span><br>
+                    <strong>VA OS Pinhole:</strong> <span class="text-primary">{{ $datum->pinos_den != '' ? $datum->pinos_num . ' / ' . $datum->pinos_den : $datum->pinos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                    <strong>BCVA OS:</strong> <span class="text-primary">{{ $datum->pinoscor_den != '' ? $datum->pinoscor_num . ' / ' . $datum->pinoscor_den : $datum->pinoscor_num }}</span><br>
+                    <strong>Jaeger OU:</strong> <span class="text-primary">{{ $datum->jae_ou }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                    <strong>Jaeger OD:</strong> <span class="text-primary">{{ $datum->jae_od }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                    <strong>Jaeger OS:</strong> <span class="text-primary">{{ $datum->jae_os }}</span><br>
+                    <strong>IOP OD:</strong> <span class="text-primary">{{ $datum->iopod }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                    <strong>IOP OS:</strong> <span class="text-primary">{{ $datum->iopos }}</span>
+                  </p> --}}
+                  <table class="table table-bordered table-striped table-hover table-sm">
+                    <thead class="table-{{ $bgColor }}">
+                        <tr>
+                            <th>&nbsp;</th>
+                            <th>OD</th>
+                            <th>OS</th>
+                            <th>OU</th>
+                        </tr>
+                    </thead>
+                    <tbody id="prevEyerSum">
                       <tr>
-                          <th>&nbsp;</th>
-                          <th>OD</th>
-                          <th>OS</th>
-                          <th>OU</th>
+                          <td>AR</td>
+                          <td>{{ $datum->arod_sphere != 'No Target' ? ($datum->arod_sphere) . ' - ' . ($datum->arod_cylinder) . ' x ' . $datum->arod_axis : 'No Refraction Possible' }}</td>
+                          <td>{{ $datum->aros_sphere != 'No Target' ? ($datum->aros_sphere) . ' - ' . ($datum->aros_cylinder) . ' x ' . $datum->aros_axis : 'No Refraction Possible' }}</td>
+                          <td>&nbsp;</td>
                       </tr>
-                  </thead>
-                  <tbody id="prevEyerSum">
-                    <tr>
-                        <td>AR</td>
-                        <td>{{ $datum->arod_sphere != 'No Target' ? ($datum->arod_sphere) . ' - ' . ($datum->arod_cylinder) . ' x ' . $datum->arod_axis : 'No Refraction Possible' }}</td>
-                        <td>{{ $datum->aros_sphere != 'No Target' ? ($datum->aros_sphere) . ' - ' . ($datum->aros_cylinder) . ' x ' . $datum->aros_axis : 'No Refraction Possible' }}</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>UCVA</td>
-                        <td>{{ $datum->vaod_den != '' ? $datum->vaod_num . ' / ' . $datum->vaod_den : $datum->vaod_num }}</td>
-                        <td>{{ $datum->vaos_den != '' ? $datum->vaos_num . ' / ' . $datum->vaos_den : $datum->vaos_num }}</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>UCVA Present Correction</td>
-                        <td>{{ $datum->vaodcor_den != '' ? $datum->vaodcor_num . ' / ' . $datum->vaodcor_den : $datum->vaodcor_num }}</td>
-                        <td>{{ $datum->vaoscor_den != '' ? $datum->vaoscor_num . ' / ' . $datum->vaoscor_den : $datum->vaoscor_num }}</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>VA Pinhole</td>
-                        <td>{{ $datum->pinod_den != '' ? $datum->pinod_num . ' / ' . $datum->pinod_den : $datum->pinod_num }}</td>
-                        <td>{{ $datum->pinos_den != '' ? $datum->pinos_num . ' / ' . $datum->pinos_den : $datum->pinos_num }}</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>BCVA</td>
-                        <td>{{ $datum->pinodcor_den != '' ? $datum->pinodcor_num . ' / ' . $datum->pinodcor_den : $datum->pinodcor_num }}</td>
-                        <td>{{ $datum->pinoscor_den != '' ? $datum->pinoscor_num . ' / ' . $datum->pinoscor_den : $datum->pinoscor_num }}</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>Jaeger</td>
-                        <td>{{ $datum->jae_od }}</td>
-                        <td>{{ $datum->jae_os }}</td>
-                        <td>{{ $datum->jae_ou }}</td>
-                    </tr>
-                    <tr>
-                        <td>IOP</td>
-                        <td>{{ $datum->iopod }}</td>
-                        <td>{{ $datum->iopos }}</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            @endif
-            <div id="{{ $viewFolder }}_SUMM_{{ $datum->id }}" class="docNotesDiv">
-              <div class="card mb-3">
-                <div class="card-header">Doctor's Notes</div>
-                <div class="card-body table-responsive" style="height:300px; max-height: 300px">
-                  <p>
-                    <strong>History of Present Illness:</strong><div class="m-3">{!! isset($datum->docNotesHPI) ? nl2br($datum->docNotesHPI) : '' !!}</div><br>
-                    <strong>Subjective Complaints:</strong><br><div class="m-3">{!! isset($datum->docNotesSubject) ? nl2br($datum->docNotesSubject) : '' !!}</div><br>
-                    <strong>Objective Findings:</strong><br><div class="m-3">{!! isset($datum->docNotes) ? nl2br($datum->docNotes) : '' !!}</div><br>
-                  </p>
+                      <tr>
+                          <td>UCVA</td>
+                          <td>{{ $datum->vaod_den != '' ? $datum->vaod_num . ' / ' . $datum->vaod_den : $datum->vaod_num }}</td>
+                          <td>{{ $datum->vaos_den != '' ? $datum->vaos_num . ' / ' . $datum->vaos_den : $datum->vaos_num }}</td>
+                          <td>&nbsp;</td>
+                      </tr>
+                      <tr>
+                          <td>UCVA Present Correction</td>
+                          <td>{{ $datum->vaodcor_den != '' ? $datum->vaodcor_num . ' / ' . $datum->vaodcor_den : $datum->vaodcor_num }}</td>
+                          <td>{{ $datum->vaoscor_den != '' ? $datum->vaoscor_num . ' / ' . $datum->vaoscor_den : $datum->vaoscor_num }}</td>
+                          <td>&nbsp;</td>
+                      </tr>
+                      <tr>
+                          <td>VA Pinhole</td>
+                          <td>{{ $datum->pinod_den != '' ? $datum->pinod_num . ' / ' . $datum->pinod_den : $datum->pinod_num }}</td>
+                          <td>{{ $datum->pinos_den != '' ? $datum->pinos_num . ' / ' . $datum->pinos_den : $datum->pinos_num }}</td>
+                          <td>&nbsp;</td>
+                      </tr>
+                      <tr>
+                          <td>BCVA</td>
+                          <td>{{ $datum->pinodcor_den != '' ? $datum->pinodcor_num . ' / ' . $datum->pinodcor_den : $datum->pinodcor_num }}</td>
+                          <td>{{ $datum->pinoscor_den != '' ? $datum->pinoscor_num . ' / ' . $datum->pinoscor_den : $datum->pinoscor_num }}</td>
+                          <td>&nbsp;</td>
+                      </tr>
+                      <tr>
+                          <td>Jaeger</td>
+                          <td>{{ $datum->jae_od }}</td>
+                          <td>{{ $datum->jae_os }}</td>
+                          <td>{{ $datum->jae_ou }}</td>
+                      </tr>
+                      <tr>
+                          <td>IOP</td>
+                          <td>{{ $datum->iopod }}</td>
+                          <td>{{ $datum->iopos }}</td>
+                          <td>&nbsp;</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
-              <div class="card mb-3">
-                <div class="card-header">Assessment</div>
-                <div class="card-body table-responsive" style="height:300px; max-height: 300px">
-                  <p>
-                    <strong>Primary Diagnosis:</strong> {!! isset($datum->icd_code_obj) ? $datum->icd_code_obj->icd_code . ' - ' . $datum->icd_code_obj->details : '' !!}<br>
-                    <strong>Secondary Diagnosis:</strong><br><div class="m-3">{!! isset($datum->assessment) ? nl2br($datum->assessment) : '' !!}</div><br>
-                  </p>
-                </div>
-              </div>
-              <div class="card mb-3">
-                <div class="card-header">Plan</div>
-                <div class="card-body table-responsive" style="height:300px; max-height: 300px">
-                  <p>
-                    <strong>Medical Therapeutics:</strong><br><div class="m-3">{!! isset($datum->planMed) ? nl2br($datum->planMed) : '' !!}</div><br>
-                    <strong>Diagnostics and Surgery:</strong><br><div class="m-3">{!! isset($datum->plan) ? nl2br($datum->plan) : '' !!}</div><br>
-                    <strong>Remarks:</strong><br><div class="m-3">{!! isset($datum->planRem) ? nl2br($datum->planRem) : '' !!}</div><br>
-                  </p>
-                </div>
-              </div>
-            </div>
-            @if(isset($datum->consultation_referals[0]->id))
-              @foreach($datum->consultation_referals as $cr)
-            <div id="{{ $viewFolder }}_SUMM_{{ $cr->id }}" class="docNotesDiv" style="display: none">
-              <div class="card mb-3">
-                <div class="card-header">Doctor's Notes</div>
-                <div class="card-body table-responsive" style="height:300px; max-height: 300px">
-                  <p>
-                    <strong>History of Present Illness:</strong><div class="m-3">{!! isset($cr->docNotesHPI) ? nl2br($cr->docNotesHPI) : '' !!}</div><br>
-                    <strong>Subjective Complaints:</strong><br><div class="m-3">{!! isset($cr->docNotesSubject) ? nl2br($cr->docNotesSubject) : '' !!}</div><br>
-                    <strong>Objective Findings:</strong><br><div class="m-3">{!! isset($cr->docNotes) ? nl2br($cr->docNotes) : '' !!}</div><br>
-                  </p>
-                </div>
-              </div>
-              <div class="card mb-3">
-                <div class="card-header">Assessment</div>
-                <div class="card-body table-responsive" style="height:300px; max-height: 300px">
-                  <p>
-                    <strong>Primary Diagnosis:</strong> {!! isset($cr->icd_code_obj) ? $cr->icd_code_obj->icd_code . ' - ' . $cr->icd_code_obj->details : '' !!}<br>
-                    <strong>Secondary Diagnosis:</strong><br><div class="m-3">{!! isset($cr->assessment) ? nl2br($cr->assessment) : '' !!}</div><br>
-                  </p>
-                </div>
-              </div>
-              <div class="card mb-3">
-                <div class="card-header">Plan</div>
-                <div class="card-body table-responsive" style="height:300px; max-height: 300px">
-                  <p>
-                    <strong>Medical Therapeutics:</strong><br><div class="m-3">{!! isset($cr->planMed) ? nl2br($cr->planMed) : '' !!}</div><br>
-                    <strong>Diagnostics and Surgery:</strong><br><div class="m-3">{!! isset($cr->plan) ? nl2br($cr->plan) : '' !!}</div><br>
-                    <strong>Remarks:</strong><br><div class="m-3">{!! isset($cr->planRem) ? nl2br($cr->planRem) : '' !!}</div><br>
-                  </p>
-                </div>
-              </div>
-            </div>
-              @endforeach
-            @endif
-          </div>
-          <div id="soapCurDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
-            <div class="card mb-3">
-              <div class="card-header">Scheduled Procedure</div>
-              <div class="card-body" style="height: 1in; max-height: 1in">
-                <p>{{ $datum->procedure_details }}</p>
-              </div>
-            </div>
-            <div class="card mb-3">
-              <div class="card-header">Patient's Complaint</div>
-              <div class="card-body" style="height: 1in; max-height: 1in">
-                <p>{{ $datum->complain }}</p>
-                <small class="text-muted">{{ $datum->duration }}</small>
-              </div>
-            </div>
-            <div class="docNotesDiv" id="{{ $viewFolder }}_SOAP_{{ $datum->id }}">
-              <div class="card mb-3">
-                <div class="card-header">Doctor's Notes</div>
-                <div class="card-body">
-                  {{-- @if(!isset($bookings[0])) --}}
-                  <div class="card mb-3">
-                    <div class="card-header">History of Present Illness</div>
-                    <div class="card-body">
-                      <small class="text-muted">Helper</small>
-                      <div class="input-group input-group-small flex-nowrap">
-                        <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
-                          <option value=""></option>
-                        </select>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso) ? '' : 'disabled' }}>Delete Helper</button>
-                      </div>
-                      <small class="text-muted">Content</small>
-                      <textarea class="form-control" name="{{ $viewFolder }}[docNotesHPI]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_docNotesHPI" @endif rows=3 {{ !isset($referal_conso)  ? '' : 'disabled' }}>{{ isset($datum->docNotesHPI) ? $datum->docNotesHPI : '' }}</textarea>
-                      <small class="text-muted">Helper Save/Edit</small>
-                      <div class="input-group input-group-small mb-3 flex-nowrap">
-                        <div class="input-group-text">
-                          <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
-                        </div>
-                        <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesHPITitle" name="{{ $viewFolder }}[docNotesHPITitle]" disabled>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
-                      </div>
-                      <textarea class="form-control mb-2" name="{{ $viewFolder }}[docNotesHPIEdit]" id="{{ $viewFolder }}_docNotesHPIEdit" rows=3 disabled></textarea>
-                    </div>
+              @endif
+              <div id="{{ $viewFolder }}_SUMM_{{ $datum->id }}" class="docNotesDiv">
+                <div class="card mb-3">
+                  <div class="card-header">Doctor's Notes</div>
+                  <div class="card-body table-responsive" style="height:300px; max-height: 300px">
+                    <p>
+                      <strong>History of Present Illness:</strong><div class="m-3">{!! isset($datum->docNotesHPI) ? nl2br($datum->docNotesHPI) : '' !!}</div><br>
+                      <strong>Subjective Complaints:</strong><br><div class="m-3">{!! isset($datum->docNotesSubject) ? nl2br($datum->docNotesSubject) : '' !!}</div><br>
+                      <strong>Objective Findings:</strong><br><div class="m-3">{!! isset($datum->docNotes) ? nl2br($datum->docNotes) : '' !!}</div><br>
+                    </p>
                   </div>
-                  {{-- @else --}}
-                  <div class="card mb-3">
-                    <div class="card-header">Subjective Complaints</div>
-                    <div class="card-body">
-                      <small class="text-muted">Helper</small>
-                      <div class="input-group input-group-small flex-nowrap">
-                        <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
-                          <option value=""></option>
-                        </select>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
-                      </div>
-                      <small class="text-muted">Content</small>
-                      <textarea class="form-control" name="{{ $viewFolder }}[docNotesSubject]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_docNotesSubject" @endif rows=3 {{ !isset($referal_conso)  ? '' : 'disabled' }}>{{ isset($datum->docNotesSubject) ? $datum->docNotesSubject : '' }}</textarea>
-                      <small class="text-muted">Helper Save/Edit</small>
-                      <div class="input-group input-group-small mb-3 flex-nowrap">
-                        <div class="input-group-text">
-                          <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
-                        </div>
-                        <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesSubjectTitle" name="{{ $viewFolder }}[docNotesSubjectTitle]" disabled>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
-                      </div>
-                      <textarea class="form-control mb-2" name="{{ $viewFolder }}[ddocNotesSubjectEdit]" id="{{ $viewFolder }}_docNotesSubjectEdit" rows=3 disabled></textarea>
-                    </div>
+                </div>
+                <div class="card mb-3">
+                  <div class="card-header">Assessment</div>
+                  <div class="card-body table-responsive" style="height:300px; max-height: 300px">
+                    <p>
+                      <strong>Primary Diagnosis:</strong> {!! isset($datum->icd_code_obj) ? $datum->icd_code_obj->icd_code . ' - ' . $datum->icd_code_obj->details : '' !!}<br>
+                      <strong>Secondary Diagnosis:</strong><br><div class="m-3">{!! isset($datum->assessment) ? nl2br($datum->assessment) : '' !!}</div><br>
+                    </p>
                   </div>
-                  {{-- @endif --}}
-                  <div class="card mb-3">
-                    <div class="card-header">Objective Findings</div>
-                    <div class="card-body">
-                      @if(stristr($datum->doctor->specialty, 'Ophtha'))
-                      <div class="card mb-3">
-                        <div class="card-header">Eye Examination Information</div>
-                        <div class="card-body">
-                          {{-- <p>
-                            <strong>AR OD:</strong> <span class="text-primary">{{ $datum->arod_sphere != 'No Target' ? ($datum->arod_sphere > 0 ? '+' . $datum->arod_sphere : $datum->arod_sphere) . ' - ' . ($datum->arod_cylinder > 0 ? '+' . $datum->arod_cylinder : $datum->arod_cylinder) . ' x ' . $datum->arod_axis : 'No Refraction Possible' }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                            <strong>AR OS:</strong> <span class="text-primary">{{ $datum->aros_sphere != 'No Target' ? ($datum->aros_sphere > 0 ? '+' . $datum->aros_sphere : $datum->aros_sphere) . ' - ' . ($datum->aros_cylinder > 0 ? '+' . $datum->aros_cylinder : $datum->aros_cylinder) . ' x ' . $datum->aros_axis : 'No Refraction Possible' }}</span><br>
-                            <strong>UCVA OD:</strong> <span class="text-primary">{{ $datum->vaod_den != '' ? $datum->vaod_num . ' / ' . $datum->vaod_den : $datum->vaod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                            <strong>UCVA OD Present Correction:</strong> <span class="text-primary">{{ $datum->vaodcor_den != '' ? $datum->vaodcor_num . ' / ' . $datum->vaodcor_den : $datum->vaodcor_num }}</span><br>
-                            <strong>UCVA OS:</strong> <span class="text-primary">{{ $datum->vaos_den != '' ? $datum->vaos_num . ' / ' . $datum->vaos_den : $datum->vaos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                            <strong>UCVA OS Present Correction:</strong> <span class="text-primary">{{ $datum->vaoscor_den != '' ? $datum->vaoscor_num . ' / ' . $datum->vaoscor_den : $datum->vaoscor_num }}</span><br>
-                            <strong>VA OD Pinhole:</strong> <span class="text-primary">{{ $datum->pinod_den != '' ? $datum->pinod_num . ' / ' . $datum->pinod_den : $datum->pinod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                            <strong>BCVA OD:</strong> <span class="text-primary">{{ $datum->pinodcor_den != '' ? $datum->pinodcor_num . ' / ' . $datum->pinodcor_den : $datum->pinodcor_num }}</span><br>
-                            <strong>VA OS Pinhole:</strong> <span class="text-primary">{{ $datum->pinos_den != '' ? $datum->pinos_num . ' / ' . $datum->pinos_den : $datum->pinos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                            <strong>BCVA OS:</strong> <span class="text-primary">{{ $datum->pinoscor_den != '' ? $datum->pinoscor_num . ' / ' . $datum->pinoscor_den : $datum->pinoscor_num }}</span><br>
-                            <strong>Jaeger OU:</strong> <span class="text-primary">{{ $datum->jae_ou }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                            <strong>Jaeger OD:</strong> <span class="text-primary">{{ $datum->jae_od }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                            <strong>Jaeger OS:</strong> <span class="text-primary">{{ $datum->jae_os }}</span><br>
-                            <strong>IOP OD:</strong> <span class="text-primary">{{ $datum->iopod }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                            <strong>IOP OS:</strong> <span class="text-primary">{{ $datum->iopos }}</span>
-                          </p> --}}
-                          <table class="table table-bordered table-striped table-hover table-sm">
-                            <thead class="table-{{ $bgColor }}">
+                </div>
+                <div class="card mb-3">
+                  <div class="card-header">Plan</div>
+                  <div class="card-body table-responsive" style="height:300px; max-height: 300px">
+                    <p>
+                      <strong>Medical Therapeutics:</strong><br><div class="m-3">{!! isset($datum->planMed) ? nl2br($datum->planMed) : '' !!}</div><br>
+                      <strong>Diagnostics and Surgery:</strong><br><div class="m-3">{!! isset($datum->plan) ? nl2br($datum->plan) : '' !!}</div><br>
+                      <strong>Remarks:</strong><br><div class="m-3">{!! isset($datum->planRem) ? nl2br($datum->planRem) : '' !!}</div><br>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              @if(isset($datum->consultation_referals[0]->id))
+                @foreach($datum->consultation_referals as $cr)
+              <div id="{{ $viewFolder }}_SUMM_{{ $cr->id }}" class="docNotesDiv" style="display: none">
+                <div class="card mb-3">
+                  <div class="card-header">Doctor's Notes</div>
+                  <div class="card-body table-responsive" style="height:300px; max-height: 300px">
+                    <p>
+                      <strong>History of Present Illness:</strong><div class="m-3">{!! isset($cr->docNotesHPI) ? nl2br($cr->docNotesHPI) : '' !!}</div><br>
+                      <strong>Subjective Complaints:</strong><br><div class="m-3">{!! isset($cr->docNotesSubject) ? nl2br($cr->docNotesSubject) : '' !!}</div><br>
+                      <strong>Objective Findings:</strong><br><div class="m-3">{!! isset($cr->docNotes) ? nl2br($cr->docNotes) : '' !!}</div><br>
+                    </p>
+                  </div>
+                </div>
+                <div class="card mb-3">
+                  <div class="card-header">Assessment</div>
+                  <div class="card-body table-responsive" style="height:300px; max-height: 300px">
+                    <p>
+                      <strong>Primary Diagnosis:</strong> {!! isset($cr->icd_code_obj) ? $cr->icd_code_obj->icd_code . ' - ' . $cr->icd_code_obj->details : '' !!}<br>
+                      <strong>Secondary Diagnosis:</strong><br><div class="m-3">{!! isset($cr->assessment) ? nl2br($cr->assessment) : '' !!}</div><br>
+                    </p>
+                  </div>
+                </div>
+                <div class="card mb-3">
+                  <div class="card-header">Plan</div>
+                  <div class="card-body table-responsive" style="height:300px; max-height: 300px">
+                    <p>
+                      <strong>Medical Therapeutics:</strong><br><div class="m-3">{!! isset($cr->planMed) ? nl2br($cr->planMed) : '' !!}</div><br>
+                      <strong>Diagnostics and Surgery:</strong><br><div class="m-3">{!! isset($cr->plan) ? nl2br($cr->plan) : '' !!}</div><br>
+                      <strong>Remarks:</strong><br><div class="m-3">{!! isset($cr->planRem) ? nl2br($cr->planRem) : '' !!}</div><br>
+                    </p>
+                  </div>
+                </div>
+              </div>
+                @endforeach
+              @endif
+            </div>
+            <div id="soapCurDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
+              <div class="card mb-3">
+                <div class="card-header">Scheduled Procedure</div>
+                <div class="card-body" style="height: 1in; max-height: 1in">
+                  <p>{{ $datum->procedure_details }}</p>
+                </div>
+              </div>
+              <div class="card mb-3">
+                <div class="card-header">Patient's Complaint</div>
+                <div class="card-body" style="height: 1in; max-height: 1in">
+                  <p>{{ $datum->complain }}</p>
+                  <small class="text-muted">{{ $datum->duration }}</small>
+                </div>
+              </div>
+              <div class="docNotesDiv" id="{{ $viewFolder }}_SOAP_{{ $datum->id }}">
+                <div class="card mb-3">
+                  <div class="card-header">Doctor's Notes</div>
+                  <div class="card-body">
+                    {{-- @if(!isset($bookings[0])) --}}
+                    <div class="card mb-3">
+                      <div class="card-header">History of Present Illness</div>
+                      <div class="card-body">
+                        <small class="text-muted">Helper</small>
+                        <div class="input-group input-group-small flex-nowrap">
+                          <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <option value=""></option>
+                          </select>
+                          <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso) ? '' : 'disabled' }}>Delete Helper</button>
+                        </div>
+                        <small class="text-muted">Content</small>
+                        <textarea class="form-control" name="{{ $viewFolder }}[docNotesHPI]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_docNotesHPI" @endif rows=3 {{ !isset($referal_conso)  ? '' : 'disabled' }}>{{ isset($datum->docNotesHPI) ? $datum->docNotesHPI : '' }}</textarea>
+                        <small class="text-muted">Helper Save/Edit</small>
+                        <div class="input-group input-group-small mb-3 flex-nowrap">
+                          <div class="input-group-text">
+                            <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                          </div>
+                          <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesHPITitle" name="{{ $viewFolder }}[docNotesHPITitle]" disabled>
+                          <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                        </div>
+                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[docNotesHPIEdit]" id="{{ $viewFolder }}_docNotesHPIEdit" rows=3 disabled></textarea>
+                      </div>
+                    </div>
+                    {{-- @else --}}
+                    <div class="card mb-3">
+                      <div class="card-header">Subjective Complaints</div>
+                      <div class="card-body">
+                        <small class="text-muted">Helper</small>
+                        <div class="input-group input-group-small flex-nowrap">
+                          <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <option value=""></option>
+                          </select>
+                          <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
+                        </div>
+                        <small class="text-muted">Content</small>
+                        <textarea class="form-control" name="{{ $viewFolder }}[docNotesSubject]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_docNotesSubject" @endif rows=3 {{ !isset($referal_conso)  ? '' : 'disabled' }}>{{ isset($datum->docNotesSubject) ? $datum->docNotesSubject : '' }}</textarea>
+                        <small class="text-muted">Helper Save/Edit</small>
+                        <div class="input-group input-group-small mb-3 flex-nowrap">
+                          <div class="input-group-text">
+                            <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                          </div>
+                          <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesSubjectTitle" name="{{ $viewFolder }}[docNotesSubjectTitle]" disabled>
+                          <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                        </div>
+                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[ddocNotesSubjectEdit]" id="{{ $viewFolder }}_docNotesSubjectEdit" rows=3 disabled></textarea>
+                      </div>
+                    </div>
+                    {{-- @endif --}}
+                    <div class="card mb-3">
+                      <div class="card-header">Objective Findings</div>
+                      <div class="card-body">
+                        @if(stristr($datum->doctor->specialty, 'Ophtha'))
+                        <div class="card mb-3">
+                          <div class="card-header">Eye Examination Information</div>
+                          <div class="card-body">
+                            {{-- <p>
+                              <strong>AR OD:</strong> <span class="text-primary">{{ $datum->arod_sphere != 'No Target' ? ($datum->arod_sphere > 0 ? '+' . $datum->arod_sphere : $datum->arod_sphere) . ' - ' . ($datum->arod_cylinder > 0 ? '+' . $datum->arod_cylinder : $datum->arod_cylinder) . ' x ' . $datum->arod_axis : 'No Refraction Possible' }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                              <strong>AR OS:</strong> <span class="text-primary">{{ $datum->aros_sphere != 'No Target' ? ($datum->aros_sphere > 0 ? '+' . $datum->aros_sphere : $datum->aros_sphere) . ' - ' . ($datum->aros_cylinder > 0 ? '+' . $datum->aros_cylinder : $datum->aros_cylinder) . ' x ' . $datum->aros_axis : 'No Refraction Possible' }}</span><br>
+                              <strong>UCVA OD:</strong> <span class="text-primary">{{ $datum->vaod_den != '' ? $datum->vaod_num . ' / ' . $datum->vaod_den : $datum->vaod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                              <strong>UCVA OD Present Correction:</strong> <span class="text-primary">{{ $datum->vaodcor_den != '' ? $datum->vaodcor_num . ' / ' . $datum->vaodcor_den : $datum->vaodcor_num }}</span><br>
+                              <strong>UCVA OS:</strong> <span class="text-primary">{{ $datum->vaos_den != '' ? $datum->vaos_num . ' / ' . $datum->vaos_den : $datum->vaos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                              <strong>UCVA OS Present Correction:</strong> <span class="text-primary">{{ $datum->vaoscor_den != '' ? $datum->vaoscor_num . ' / ' . $datum->vaoscor_den : $datum->vaoscor_num }}</span><br>
+                              <strong>VA OD Pinhole:</strong> <span class="text-primary">{{ $datum->pinod_den != '' ? $datum->pinod_num . ' / ' . $datum->pinod_den : $datum->pinod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                              <strong>BCVA OD:</strong> <span class="text-primary">{{ $datum->pinodcor_den != '' ? $datum->pinodcor_num . ' / ' . $datum->pinodcor_den : $datum->pinodcor_num }}</span><br>
+                              <strong>VA OS Pinhole:</strong> <span class="text-primary">{{ $datum->pinos_den != '' ? $datum->pinos_num . ' / ' . $datum->pinos_den : $datum->pinos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                              <strong>BCVA OS:</strong> <span class="text-primary">{{ $datum->pinoscor_den != '' ? $datum->pinoscor_num . ' / ' . $datum->pinoscor_den : $datum->pinoscor_num }}</span><br>
+                              <strong>Jaeger OU:</strong> <span class="text-primary">{{ $datum->jae_ou }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                              <strong>Jaeger OD:</strong> <span class="text-primary">{{ $datum->jae_od }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                              <strong>Jaeger OS:</strong> <span class="text-primary">{{ $datum->jae_os }}</span><br>
+                              <strong>IOP OD:</strong> <span class="text-primary">{{ $datum->iopod }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                              <strong>IOP OS:</strong> <span class="text-primary">{{ $datum->iopos }}</span>
+                            </p> --}}
+                            <table class="table table-bordered table-striped table-hover table-sm">
+                              <thead class="table-{{ $bgColor }}">
+                                  <tr>
+                                      <th>&nbsp;</th>
+                                      <th>OD</th>
+                                      <th>OS</th>
+                                      <th>OU</th>
+                                  </tr>
+                              </thead>
+                              <tbody id="prevEyerSum">
                                 <tr>
-                                    <th>&nbsp;</th>
-                                    <th>OD</th>
-                                    <th>OS</th>
-                                    <th>OU</th>
+                                    <td>AR</td>
+                                    <td>{{ $datum->arod_sphere != 'No Target' ? ($datum->arod_sphere) . ' - ' . ($datum->arod_cylinder) . ' x ' . $datum->arod_axis : 'No Refraction Possible' }}</td>
+                                    <td>{{ $datum->aros_sphere != 'No Target' ? ($datum->aros_sphere) . ' - ' . ($datum->aros_cylinder) . ' x ' . $datum->aros_axis : 'No Refraction Possible' }}</td>
+                                    <td>&nbsp;</td>
                                 </tr>
-                            </thead>
-                            <tbody id="prevEyerSum">
-                              <tr>
-                                  <td>AR</td>
-                                  <td>{{ $datum->arod_sphere != 'No Target' ? ($datum->arod_sphere) . ' - ' . ($datum->arod_cylinder) . ' x ' . $datum->arod_axis : 'No Refraction Possible' }}</td>
-                                  <td>{{ $datum->aros_sphere != 'No Target' ? ($datum->aros_sphere) . ' - ' . ($datum->aros_cylinder) . ' x ' . $datum->aros_axis : 'No Refraction Possible' }}</td>
-                                  <td>&nbsp;</td>
-                              </tr>
-                              <tr>
-                                  <td>UCVA</td>
-                                  <td>{{ $datum->vaod_den != '' ? $datum->vaod_num . ' / ' . $datum->vaod_den : $datum->vaod_num }}</td>
-                                  <td>{{ $datum->vaos_den != '' ? $datum->vaos_num . ' / ' . $datum->vaos_den : $datum->vaos_num }}</td>
-                                  <td>&nbsp;</td>
-                              </tr>
-                              <tr>
-                                  <td>UCVA Present Correction</td>
-                                  <td>{{ $datum->vaodcor_den != '' ? $datum->vaodcor_num . ' / ' . $datum->vaodcor_den : $datum->vaodcor_num }}</td>
-                                  <td>{{ $datum->vaoscor_den != '' ? $datum->vaoscor_num . ' / ' . $datum->vaoscor_den : $datum->vaoscor_num }}</td>
-                                  <td>&nbsp;</td>
-                              </tr>
-                              <tr>
-                                  <td>VA Pinhole</td>
-                                  <td>{{ $datum->pinod_den != '' ? $datum->pinod_num . ' / ' . $datum->pinod_den : $datum->pinod_num }}</td>
-                                  <td>{{ $datum->pinos_den != '' ? $datum->pinos_num . ' / ' . $datum->pinos_den : $datum->pinos_num }}</td>
-                                  <td>&nbsp;</td>
-                              </tr>
-                              <tr>
-                                  <td>BCVA</td>
-                                  <td>{{ $datum->pinodcor_den != '' ? $datum->pinodcor_num . ' / ' . $datum->pinodcor_den : $datum->pinodcor_num }}</td>
-                                  <td>{{ $datum->pinoscor_den != '' ? $datum->pinoscor_num . ' / ' . $datum->pinoscor_den : $datum->pinoscor_num }}</td>
-                                  <td>&nbsp;</td>
-                              </tr>
-                              <tr>
-                                  <td>Jaeger</td>
-                                  <td>{{ $datum->jae_od }}</td>
-                                  <td>{{ $datum->jae_os }}</td>
-                                  <td>{{ $datum->jae_ou }}</td>
-                              </tr>
-                              <tr>
-                                  <td>IOP</td>
-                                  <td>{{ $datum->iopod }}</td>
-                                  <td>{{ $datum->iopos }}</td>
-                                  <td>&nbsp;</td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                      @endif
-                      <small class="text-muted">Helper</small>
-                      <div class="input-group input-group-small flex-nowrap">
-                        <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
-                          <option value=""></option>
-                        </select>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
-                      </div>
-                      <small class="text-muted">Content</small>
-                      <textarea class="form-control" name="{{ $viewFolder }}[docNotes]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_docNotes" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }} onchange="
-                        $('#{{ $viewFolder }}_findings').val($(this).val());
-                      ">{{ isset($datum->docNotes) ? $datum->docNotes : '' }}</textarea>
-                      <small class="text-muted">Helper Save/Edit</small>
-                      <div class="input-group input-group-small mb-3 flex-nowrap">
-                        <div class="input-group-text">
-                          <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
-                        </div>
-                        <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesTitle" name="{{ $viewFolder }}[docNotesTitle]" disabled>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
-                      </div>
-                      <textarea class="form-control mb-2" name="{{ $viewFolder }}[_docNotesEdit]" id="{{ $viewFolder }}_docNotesEdit" rows=3 disabled></textarea>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card mb-3">
-                <div class="card-header">Assessment</div>
-                <div class="card-body">
-                  <div class="form-floating mb-3">
-                    {{-- <select class="form-select" name="{{ $viewFolder }}[icd_code]" id="{{ $viewFolder }}_icd_code" placeholder="" {{ $user->id == $datum->doctor->id ? '' : 'disabled' }}>
-                      <option value=""></option>
-                    </select> --}}
-                    <input class="form-control" list="icdCodeList" {{ !isset($referal_conso) ? 'id=' . $viewFolder . '_icd_code' : '' }} name="{{ $viewFolder }}[icd_code]" value="{{ isset($datum->icd_code_obj->icd_code) ? $datum->icd_code_obj->icd_code . ' - ' . $datum->icd_code_obj->details : '' }}" autocomplete="off" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
-                    <label for="{{ $viewFolder }}_icd_code">Primary Diagnosis</label>
-                    <small id="help_{{ $viewFolder }}_icd_code" class="text-muted"></small>
-                  </div>
-                  <div class="card mb-3">
-                    <div class="card-header">Secondary Diagnosis</div>
-                    <div class="card-body">
-                      <small class="text-muted">Helper</small>
-                      <div class="input-group input-group-small flex-nowrap">
-                        <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
-                          <option value=""></option>
-                        </select>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
-                      </div>
-                      <small class="text-muted">Content</small>
-                      <textarea class="form-control" name="{{ $viewFolder }}[assessment]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_assessment" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }} onchange="
-                        $('#{{ $viewFolder }}_diagnosis').val($(this).val());
-                      ">{{ isset($datum->assessment) ? $datum->assessment : '' }}</textarea>
-                      <small class="text-muted">Helper Save/Edit</small>
-                      <div class="input-group input-group-small mb-3 flex-nowrap">
-                        <div class="input-group-text">
-                          <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
-                        </div>
-                        <input type="text" class="form-control" id="{{ $viewFolder }}_assessmentTitle" name="{{ $viewFolder }}[assessmentTitle]" disabled>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
-                      </div>
-                      <textarea class="form-control mb-2" name="{{ $viewFolder }}[_assessmentEdit]" id="{{ $viewFolder }}_assessmentEdit" rows=3 disabled></textarea>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card mb-3">
-                <div class="card-header">Plan</div>
-                <div class="card-body">
-                  <div class="card mb-3">
-                    <div class="card-header">Medical Therapeutics</div>
-                    <div class="card-body">
-                      <small class="text-muted">Helper</small>
-                      <div class="input-group input-group-small flex-nowrap">
-                        <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
-                          <option value=""></option>
-                        </select>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
-                      </div>
-                      <small class="text-muted">Content</small>
-                      <textarea class="form-control" name="{{ $viewFolder }}[planMed]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_planMed" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }}>{{ isset($datum->planMed) ? $datum->planMed : '' }}</textarea>
-                      <small class="text-muted">Helper Save/Edit</small>
-                      <div class="input-group input-group-small mb-3 flex-nowrap">
-                        <div class="input-group-text">
-                          <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
-                        </div>
-                        <input type="text" class="form-control" id="{{ $viewFolder }}_planMedTitle" name="{{ $viewFolder }}[planMedTitle]" disabled>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
-                      </div>
-                      <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planMedEdit]" id="{{ $viewFolder }}_planMedEdit" rows=3 disabled></textarea>
-                    </div>
-                  </div>
-                  <div class="card mb-3">
-                    <div class="card-header">Diagnostics and Surgery</div>
-                    <div class="card-body">
-                      <small class="text-muted">Helper</small>
-                      <div class="input-group input-group-small flex-nowrap">
-                        <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
-                          <option value=""></option>
-                        </select>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
-                      </div>
-                      <small class="text-muted">Content</small>
-                      <textarea class="form-control" name="{{ $viewFolder }}[plan]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_plan" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }}>{{ isset($datum->plan) ? $datum->plan : '' }}</textarea>
-                      <small class="text-muted">Helper Save/Edit</small>
-                      <div class="input-group input-group-small mb-3 flex-nowrap">
-                        <div class="input-group-text">
-                          <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
-                        </div>
-                        <input type="text" class="form-control" id="{{ $viewFolder }}_planTitle" name="{{ $viewFolder }}[planTitle]" disabled>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
-                      </div>
-                      <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planEdit]" id="{{ $viewFolder }}_planEdit" rows=3 disabled></textarea>
-                    </div>
-                  </div>
-                  <div class="card mb-3">
-                    <div class="card-header">Remarks</div>
-                    <div class="card-body">
-                      <small class="text-muted">Helper</small>
-                      <div class="input-group input-group-small flex-nowrap">
-                        <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
-                          <option value=""></option>
-                        </select>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
-                      </div>
-                      <small class="text-muted">Content</small>
-                      <textarea class="form-control" name="{{ $viewFolder }}[planRem]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_planRem" @endif rows=3 {{ !isset($referal_conso)  ? '' : 'disabled' }}>{{ isset($datum->planRem) ? $datum->planRem : '' }}</textarea>
-                      <small class="text-muted">Helper Save/Edit</small>
-                      <div class="input-group input-group-small mb-3 flex-nowrap">
-                        <div class="input-group-text">
-                          <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
-                        </div>
-                        <input type="text" class="form-control" id="{{ $viewFolder }}_planRemTitle" name="{{ $viewFolder }}[planRemTitle]" disabled>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
-                      </div>
-                      <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planRemEdit]" id="{{ $viewFolder }}_planRemEdit" rows=3 disabled></textarea>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card mb-3">
-                <div class="card-header">Book Follow Up</div>
-                <div class="card-body">
-                  {{-- <div class="form-floating mb-3"> --}}
-                    {{-- <label for="{{ $viewFolder }}_referal" class="form-label">Booking Date</label> --}}
-                    <div class="input-group input-group-small mb-3 flex-nowrap">
-                      <input class="form-control" type="date" name="{{ $viewFolder }}[referal]" id="{{ $viewFolder }}_referals" value="{{ isset($datum->advance_booking->id) ? $datum->advance_booking->bookingDate : '' }}" min="{{ date('Y-m-d', strtotime($datum->bookingDate . '+ 7days')) }}" step=7 max="{{ $maxDateSched }}" onkeydown="return false">
-                      <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="
-                        $('#{{ $viewFolder }}_referals').val('');
-                      ">Clear Booking</button>
-                    </div>
-                    <small id="help_{{ $viewFolder }}_referal" class="text-muted"></small>
-                  {{-- </div> --}}
-                  {{-- <div class="form-floating mb-3">
-                    <input class="form-control" id="{{ $viewFolder }}_referal" name="{{ $viewFolder }}[referal]" value="{{ isset($datum->advance_booking->id) ? ($datum->advance_booking->booking_type == '' ? 'Consultation' : $datum->advance_booking->booking_type) . ' - ' . $datum->advance_booking->bookingDate . ' (' . date('l', strtotime($datum->advance_booking->bookingDate)) . ')' : '' }}" {{ $datum->doctor_id != $user->id ? 'disabled' : '' }} autocomplete="off">
-                    <small class="text-muted">Please type date and click the option that will appear.</small>
-                  </div> --}}
-                </div>
-              </div>
-            </div>
-            @if(isset($datum->consultation_referals[0]->id))
-              @foreach($datum->consultation_referals as $cr)
-                @if(isset($referal_conso) && $referal_conso->id == $cr->id)  
-            <input type="hidden" class="form-control" id="{{ $viewFolder }}_referral_id" name="{{ $viewFolder }}[referral_id]" value="{{ $cr->id }}">
-                @endif
-            <div class="docNotesDiv" id="{{ $viewFolder }}_SOAP_{{ $cr->id }}" style="display:none">
-              <div class="card mb-3">
-                <div class="card-header">Doctor's Notes</div>
-                <div class="card-body">
-                  {{-- @if(!isset($bookings[0])) --}}
-                  <div class="card mb-3">
-                    <div class="card-header">History of Present Illness</div>
-                    <div class="card-body">
-                      <small class="text-muted">Helper</small>
-                      <div class="input-group input-group-small flex-nowrap">
-                        <select class="form-select" placeholder="" {{ isset($referal_conso) && $referal_conso->id == $cr->id ? '' : 'disabled' }}>
-                          <option value=""></option>
-                        </select>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>Delete Helper</button>
-                      </div>
-                      <small class="text-muted">Content</small>
-                      <textarea class="form-control" name="{{ $viewFolder }}[docNotesHPI]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_docNotesHPI" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>{{ isset($cr->docNotesHPI) ? $cr->docNotesHPI : '' }}</textarea>
-                      <small class="text-muted">Helper Save/Edit</small>
-                      <div class="input-group input-group-small mb-3 flex-nowrap">
-                        <div class="input-group-text">
-                          <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
-                        </div>
-                        <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesHPITitle" name="{{ $viewFolder }}[docNotesHPITitle]" disabled>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
-                      </div>
-                      <textarea class="form-control mb-2" name="{{ $viewFolder }}[docNotesHPIEdit]" id="{{ $viewFolder }}_docNotesHPIEdit" rows=3 disabled></textarea>
-                    </div>
-                  </div>
-                  {{-- @else --}}
-                  <div class="card mb-3">
-                    <div class="card-header">Subjective Complaints</div>
-                    <div class="card-body">
-                      <small class="text-muted">Helper</small>
-                      <div class="input-group input-group-small flex-nowrap">
-                        <select class="form-select" placeholder="" {{ isset($referal_conso) && $referal_conso->id == $cr->id ? '' : 'disabled' }}>
-                          <option value=""></option>
-                        </select>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>Delete Helper</button>
-                      </div>
-                      <small class="text-muted">Content</small>
-                      <textarea class="form-control" name="{{ $viewFolder }}[docNotesSubject]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_docNotesSubject" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>{{ isset($cr->docNotesSubject) ? $cr->docNotesSubject : '' }}</textarea>
-                      <small class="text-muted">Helper Save/Edit</small>
-                      <div class="input-group input-group-small mb-3 flex-nowrap">
-                        <div class="input-group-text">
-                          <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
-                        </div>
-                        <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesSubjectTitle" name="{{ $viewFolder }}[docNotesSubjectTitle]" disabled>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
-                      </div>
-                      <textarea class="form-control mb-2" name="{{ $viewFolder }}[ddocNotesSubjectEdit]" id="{{ $viewFolder }}_docNotesSubjectEdit" rows=3 disabled></textarea>
-                    </div>
-                  </div>
-                  {{-- @endif --}}
-                  <div class="card mb-3">
-                    <div class="card-header">Objective Findings</div>
-                    <div class="card-body">
-                      @if(stristr($datum->doctor->specialty, 'Ophtha'))
-                      <div class="card mb-3">
-                        <div class="card-header">Eye Examination Information</div>
-                        <div class="card-body">
-                          {{-- <p>
-                            <strong>AR OD:</strong> <span class="text-primary">{{ $datum->arod_sphere != 'No Target' ? ($datum->arod_sphere > 0 ? '+' . $datum->arod_sphere : $datum->arod_sphere) . ' - ' . ($datum->arod_cylinder > 0 ? '+' . $datum->arod_cylinder : $datum->arod_cylinder) . ' x ' . $datum->arod_axis : 'No Refraction Possible' }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                            <strong>AR OS:</strong> <span class="text-primary">{{ $datum->aros_sphere != 'No Target' ? ($datum->aros_sphere > 0 ? '+' . $datum->aros_sphere : $datum->aros_sphere) . ' - ' . ($datum->aros_cylinder > 0 ? '+' . $datum->aros_cylinder : $datum->aros_cylinder) . ' x ' . $datum->aros_axis : 'No Refraction Possible' }}</span><br>
-                            <strong>UCVA OD:</strong> <span class="text-primary">{{ $datum->vaod_den != '' ? $datum->vaod_num . ' / ' . $datum->vaod_den : $datum->vaod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                            <strong>UCVA OD Present Correction:</strong> <span class="text-primary">{{ $datum->vaodcor_den != '' ? $datum->vaodcor_num . ' / ' . $datum->vaodcor_den : $datum->vaodcor_num }}</span><br>
-                            <strong>UCVA OS:</strong> <span class="text-primary">{{ $datum->vaos_den != '' ? $datum->vaos_num . ' / ' . $datum->vaos_den : $datum->vaos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                            <strong>UCVA OS Present Correction:</strong> <span class="text-primary">{{ $datum->vaoscor_den != '' ? $datum->vaoscor_num . ' / ' . $datum->vaoscor_den : $datum->vaoscor_num }}</span><br>
-                            <strong>VA OD Pinhole:</strong> <span class="text-primary">{{ $datum->pinod_den != '' ? $datum->pinod_num . ' / ' . $datum->pinod_den : $datum->pinod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                            <strong>BCVA OD:</strong> <span class="text-primary">{{ $datum->pinodcor_den != '' ? $datum->pinodcor_num . ' / ' . $datum->pinodcor_den : $datum->pinodcor_num }}</span><br>
-                            <strong>VA OS Pinhole:</strong> <span class="text-primary">{{ $datum->pinos_den != '' ? $datum->pinos_num . ' / ' . $datum->pinos_den : $datum->pinos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                            <strong>BCVA OS:</strong> <span class="text-primary">{{ $datum->pinoscor_den != '' ? $datum->pinoscor_num . ' / ' . $datum->pinoscor_den : $datum->pinoscor_num }}</span><br>
-                            <strong>Jaeger OU:</strong> <span class="text-primary">{{ $datum->jae_ou }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                            <strong>Jaeger OD:</strong> <span class="text-primary">{{ $datum->jae_od }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                            <strong>Jaeger OS:</strong> <span class="text-primary">{{ $datum->jae_os }}</span><br>
-                            <strong>IOP OD:</strong> <span class="text-primary">{{ $datum->iopod }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                            <strong>IOP OS:</strong> <span class="text-primary">{{ $datum->iopos }}</span>
-                          </p> --}}
-                          <table class="table table-bordered table-striped table-hover table-sm">
-                            <thead class="table-{{ $bgColor }}">
                                 <tr>
-                                    <th>&nbsp;</th>
-                                    <th>OD</th>
-                                    <th>OS</th>
-                                    <th>OU</th>
+                                    <td>UCVA</td>
+                                    <td>{{ $datum->vaod_den != '' ? $datum->vaod_num . ' / ' . $datum->vaod_den : $datum->vaod_num }}</td>
+                                    <td>{{ $datum->vaos_den != '' ? $datum->vaos_num . ' / ' . $datum->vaos_den : $datum->vaos_num }}</td>
+                                    <td>&nbsp;</td>
                                 </tr>
-                            </thead>
-                            <tbody id="prevEyerSum">
-                              <tr>
-                                  <td>AR</td>
-                                  <td>{{ $datum->arod_sphere != 'No Target' ? ($datum->arod_sphere) . ' - ' . ($datum->arod_cylinder) . ' x ' . $datum->arod_axis : 'No Refraction Possible' }}</td>
-                                  <td>{{ $datum->aros_sphere != 'No Target' ? ($datum->aros_sphere) . ' - ' . ($datum->aros_cylinder) . ' x ' . $datum->aros_axis : 'No Refraction Possible' }}</td>
-                                  <td>&nbsp;</td>
-                              </tr>
-                              <tr>
-                                  <td>UCVA</td>
-                                  <td>{{ $datum->vaod_den != '' ? $datum->vaod_num . ' / ' . $datum->vaod_den : $datum->vaod_num }}</td>
-                                  <td>{{ $datum->vaos_den != '' ? $datum->vaos_num . ' / ' . $datum->vaos_den : $datum->vaos_num }}</td>
-                                  <td>&nbsp;</td>
-                              </tr>
-                              <tr>
-                                  <td>UCVA Present Correction</td>
-                                  <td>{{ $datum->vaodcor_den != '' ? $datum->vaodcor_num . ' / ' . $datum->vaodcor_den : $datum->vaodcor_num }}</td>
-                                  <td>{{ $datum->vaoscor_den != '' ? $datum->vaoscor_num . ' / ' . $datum->vaoscor_den : $datum->vaoscor_num }}</td>
-                                  <td>&nbsp;</td>
-                              </tr>
-                              <tr>
-                                  <td>VA Pinhole</td>
-                                  <td>{{ $datum->pinod_den != '' ? $datum->pinod_num . ' / ' . $datum->pinod_den : $datum->pinod_num }}</td>
-                                  <td>{{ $datum->pinos_den != '' ? $datum->pinos_num . ' / ' . $datum->pinos_den : $datum->pinos_num }}</td>
-                                  <td>&nbsp;</td>
-                              </tr>
-                              <tr>
-                                  <td>BCVA</td>
-                                  <td>{{ $datum->pinodcor_den != '' ? $datum->pinodcor_num . ' / ' . $datum->pinodcor_den : $datum->pinodcor_num }}</td>
-                                  <td>{{ $datum->pinoscor_den != '' ? $datum->pinoscor_num . ' / ' . $datum->pinoscor_den : $datum->pinoscor_num }}</td>
-                                  <td>&nbsp;</td>
-                              </tr>
-                              <tr>
-                                  <td>Jaeger</td>
-                                  <td>{{ $datum->jae_od }}</td>
-                                  <td>{{ $datum->jae_os }}</td>
-                                  <td>{{ $datum->jae_ou }}</td>
-                              </tr>
-                              <tr>
-                                  <td>IOP</td>
-                                  <td>{{ $datum->iopod }}</td>
-                                  <td>{{ $datum->iopos }}</td>
-                                  <td>&nbsp;</td>
-                              </tr>
-                            </tbody>
-                          </table>
+                                <tr>
+                                    <td>UCVA Present Correction</td>
+                                    <td>{{ $datum->vaodcor_den != '' ? $datum->vaodcor_num . ' / ' . $datum->vaodcor_den : $datum->vaodcor_num }}</td>
+                                    <td>{{ $datum->vaoscor_den != '' ? $datum->vaoscor_num . ' / ' . $datum->vaoscor_den : $datum->vaoscor_num }}</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>VA Pinhole</td>
+                                    <td>{{ $datum->pinod_den != '' ? $datum->pinod_num . ' / ' . $datum->pinod_den : $datum->pinod_num }}</td>
+                                    <td>{{ $datum->pinos_den != '' ? $datum->pinos_num . ' / ' . $datum->pinos_den : $datum->pinos_num }}</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>BCVA</td>
+                                    <td>{{ $datum->pinodcor_den != '' ? $datum->pinodcor_num . ' / ' . $datum->pinodcor_den : $datum->pinodcor_num }}</td>
+                                    <td>{{ $datum->pinoscor_den != '' ? $datum->pinoscor_num . ' / ' . $datum->pinoscor_den : $datum->pinoscor_num }}</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>Jaeger</td>
+                                    <td>{{ $datum->jae_od }}</td>
+                                    <td>{{ $datum->jae_os }}</td>
+                                    <td>{{ $datum->jae_ou }}</td>
+                                </tr>
+                                <tr>
+                                    <td>IOP</td>
+                                    <td>{{ $datum->iopod }}</td>
+                                    <td>{{ $datum->iopos }}</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
                         </div>
+                        @endif
+                        <small class="text-muted">Helper</small>
+                        <div class="input-group input-group-small flex-nowrap">
+                          <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <option value=""></option>
+                          </select>
+                          <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
+                        </div>
+                        <small class="text-muted">Content</small>
+                        <textarea class="form-control" name="{{ $viewFolder }}[docNotes]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_docNotes" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }} onchange="
+                          $('#{{ $viewFolder }}_findings').val($(this).val());
+                        ">{{ isset($datum->docNotes) ? $datum->docNotes : '' }}</textarea>
+                        <small class="text-muted">Helper Save/Edit</small>
+                        <div class="input-group input-group-small mb-3 flex-nowrap">
+                          <div class="input-group-text">
+                            <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                          </div>
+                          <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesTitle" name="{{ $viewFolder }}[docNotesTitle]" disabled>
+                          <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                        </div>
+                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[_docNotesEdit]" id="{{ $viewFolder }}_docNotesEdit" rows=3 disabled></textarea>
                       </div>
-                      @endif
-                      <small class="text-muted">Helper</small>
-                      <div class="input-group input-group-small flex-nowrap">
-                        <select class="form-select" placeholder="" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>
-                          <option value=""></option>
-                        </select>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>Delete Helper</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="card mb-3">
+                  <div class="card-header">Assessment</div>
+                  <div class="card-body">
+                    <div class="form-floating mb-3">
+                      {{-- <select class="form-select" name="{{ $viewFolder }}[icd_code]" id="{{ $viewFolder }}_icd_code" placeholder="" {{ $user->id == $datum->doctor->id ? '' : 'disabled' }}>
+                        <option value=""></option>
+                      </select> --}}
+                      <input class="form-control" list="icdCodeList" {{ !isset($referal_conso) ? 'id=' . $viewFolder . '_icd_code' : '' }} name="{{ $viewFolder }}[icd_code]" value="{{ isset($datum->icd_code_obj->icd_code) ? $datum->icd_code_obj->icd_code . ' - ' . $datum->icd_code_obj->details : '' }}" autocomplete="off" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                      <label for="{{ $viewFolder }}_icd_code">Primary Diagnosis</label>
+                      <small id="help_{{ $viewFolder }}_icd_code" class="text-muted"></small>
+                    </div>
+                    <div class="card mb-3">
+                      <div class="card-header">Secondary Diagnosis</div>
+                      <div class="card-body">
+                        <small class="text-muted">Helper</small>
+                        <div class="input-group input-group-small flex-nowrap">
+                          <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <option value=""></option>
+                          </select>
+                          <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
+                        </div>
+                        <small class="text-muted">Content</small>
+                        <textarea class="form-control" name="{{ $viewFolder }}[assessment]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_assessment" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }} onchange="
+                          $('#{{ $viewFolder }}_diagnosis').val($(this).val());
+                        ">{{ isset($datum->assessment) ? $datum->assessment : '' }}</textarea>
+                        <small class="text-muted">Helper Save/Edit</small>
+                        <div class="input-group input-group-small mb-3 flex-nowrap">
+                          <div class="input-group-text">
+                            <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                          </div>
+                          <input type="text" class="form-control" id="{{ $viewFolder }}_assessmentTitle" name="{{ $viewFolder }}[assessmentTitle]" disabled>
+                          <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                        </div>
+                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[_assessmentEdit]" id="{{ $viewFolder }}_assessmentEdit" rows=3 disabled></textarea>
                       </div>
-                      <small class="text-muted">Content</small>
-                      <textarea class="form-control" name="{{ $viewFolder }}[docNotes]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_docNotes" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }} onchange="
-                        $('#{{ $viewFolder }}_findings').val($(this).val());
-                      ">{{ isset($cr->docNotes) ? $cr->docNotes : '' }}</textarea>
-                      <small class="text-muted">Helper Save/Edit</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="card mb-3">
+                  <div class="card-header">Plan</div>
+                  <div class="card-body">
+                    <div class="card mb-3">
+                      <div class="card-header">Medical Therapeutics</div>
+                      <div class="card-body">
+                        <small class="text-muted">Helper</small>
+                        <div class="input-group input-group-small flex-nowrap">
+                          <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <option value=""></option>
+                          </select>
+                          <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
+                        </div>
+                        <small class="text-muted">Content</small>
+                        <textarea class="form-control" name="{{ $viewFolder }}[planMed]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_planMed" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }}>{{ isset($datum->planMed) ? $datum->planMed : '' }}</textarea>
+                        <small class="text-muted">Helper Save/Edit</small>
+                        <div class="input-group input-group-small mb-3 flex-nowrap">
+                          <div class="input-group-text">
+                            <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                          </div>
+                          <input type="text" class="form-control" id="{{ $viewFolder }}_planMedTitle" name="{{ $viewFolder }}[planMedTitle]" disabled>
+                          <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                        </div>
+                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planMedEdit]" id="{{ $viewFolder }}_planMedEdit" rows=3 disabled></textarea>
+                      </div>
+                    </div>
+                    <div class="card mb-3">
+                      <div class="card-header">Diagnostics and Surgery</div>
+                      <div class="card-body">
+                        <small class="text-muted">Helper</small>
+                        <div class="input-group input-group-small flex-nowrap">
+                          <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <option value=""></option>
+                          </select>
+                          <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
+                        </div>
+                        <small class="text-muted">Content</small>
+                        <textarea class="form-control" name="{{ $viewFolder }}[plan]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_plan" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }}>{{ isset($datum->plan) ? $datum->plan : '' }}</textarea>
+                        <small class="text-muted">Helper Save/Edit</small>
+                        <div class="input-group input-group-small mb-3 flex-nowrap">
+                          <div class="input-group-text">
+                            <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                          </div>
+                          <input type="text" class="form-control" id="{{ $viewFolder }}_planTitle" name="{{ $viewFolder }}[planTitle]" disabled>
+                          <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                        </div>
+                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planEdit]" id="{{ $viewFolder }}_planEdit" rows=3 disabled></textarea>
+                      </div>
+                    </div>
+                    <div class="card mb-3">
+                      <div class="card-header">Remarks</div>
+                      <div class="card-body">
+                        <small class="text-muted">Helper</small>
+                        <div class="input-group input-group-small flex-nowrap">
+                          <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <option value=""></option>
+                          </select>
+                          <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
+                        </div>
+                        <small class="text-muted">Content</small>
+                        <textarea class="form-control" name="{{ $viewFolder }}[planRem]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_planRem" @endif rows=3 {{ !isset($referal_conso)  ? '' : 'disabled' }}>{{ isset($datum->planRem) ? $datum->planRem : '' }}</textarea>
+                        <small class="text-muted">Helper Save/Edit</small>
+                        <div class="input-group input-group-small mb-3 flex-nowrap">
+                          <div class="input-group-text">
+                            <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                          </div>
+                          <input type="text" class="form-control" id="{{ $viewFolder }}_planRemTitle" name="{{ $viewFolder }}[planRemTitle]" disabled>
+                          <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                        </div>
+                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planRemEdit]" id="{{ $viewFolder }}_planRemEdit" rows=3 disabled></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card mb-3">
+                  <div class="card-header">Book Follow Up</div>
+                  <div class="card-body">
+                    {{-- <div class="form-floating mb-3"> --}}
+                      {{-- <label for="{{ $viewFolder }}_referal" class="form-label">Booking Date</label> --}}
                       <div class="input-group input-group-small mb-3 flex-nowrap">
-                        <div class="input-group-text">
-                          <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
-                        </div>
-                        <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesTitle" name="{{ $viewFolder }}[docNotesTitle]" disabled>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                        <input class="form-control" type="date" name="{{ $viewFolder }}[referal]" id="{{ $viewFolder }}_referals" value="{{ isset($datum->advance_booking->id) ? $datum->advance_booking->bookingDate : '' }}" min="{{ date('Y-m-d', strtotime($datum->bookingDate . '+ 7days')) }}" step=7 max="{{ $maxDateSched }}" onkeydown="return false">
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="
+                          $('#{{ $viewFolder }}_referals').val('');
+                        ">Clear Booking</button>
                       </div>
-                      <textarea class="form-control mb-2" name="{{ $viewFolder }}[_docNotesEdit]" id="{{ $viewFolder }}_docNotesEdit" rows=3 disabled></textarea>
+                      <small id="help_{{ $viewFolder }}_referal" class="text-muted"></small>
+                    {{-- </div> --}}
+                    {{-- <div class="form-floating mb-3">
+                      <input class="form-control" id="{{ $viewFolder }}_referal" name="{{ $viewFolder }}[referal]" value="{{ isset($datum->advance_booking->id) ? ($datum->advance_booking->booking_type == '' ? 'Consultation' : $datum->advance_booking->booking_type) . ' - ' . $datum->advance_booking->bookingDate . ' (' . date('l', strtotime($datum->advance_booking->bookingDate)) . ')' : '' }}" {{ $datum->doctor_id != $user->id ? 'disabled' : '' }} autocomplete="off">
+                      <small class="text-muted">Please type date and click the option that will appear.</small>
+                    </div> --}}
+                  </div>
+                </div>
+              </div>
+              @if(isset($datum->consultation_referals[0]->id))
+                @foreach($datum->consultation_referals as $cr)
+                  @if(isset($referal_conso) && $referal_conso->id == $cr->id)  
+              <input type="hidden" class="form-control" id="{{ $viewFolder }}_referral_id" name="{{ $viewFolder }}[referral_id]" value="{{ $cr->id }}">
+                  @endif
+              <div class="docNotesDiv" id="{{ $viewFolder }}_SOAP_{{ $cr->id }}" style="display:none">
+                <div class="card mb-3">
+                  <div class="card-header">Doctor's Notes</div>
+                  <div class="card-body">
+                    {{-- @if(!isset($bookings[0])) --}}
+                    <div class="card mb-3">
+                      <div class="card-header">History of Present Illness</div>
+                      <div class="card-body">
+                        <small class="text-muted">Helper</small>
+                        <div class="input-group input-group-small flex-nowrap">
+                          <select class="form-select" placeholder="" {{ isset($referal_conso) && $referal_conso->id == $cr->id ? '' : 'disabled' }}>
+                            <option value=""></option>
+                          </select>
+                          <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>Delete Helper</button>
+                        </div>
+                        <small class="text-muted">Content</small>
+                        <textarea class="form-control" name="{{ $viewFolder }}[docNotesHPI]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_docNotesHPI" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>{{ isset($cr->docNotesHPI) ? $cr->docNotesHPI : '' }}</textarea>
+                        <small class="text-muted">Helper Save/Edit</small>
+                        <div class="input-group input-group-small mb-3 flex-nowrap">
+                          <div class="input-group-text">
+                            <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                          </div>
+                          <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesHPITitle" name="{{ $viewFolder }}[docNotesHPITitle]" disabled>
+                          <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                        </div>
+                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[docNotesHPIEdit]" id="{{ $viewFolder }}_docNotesHPIEdit" rows=3 disabled></textarea>
+                      </div>
+                    </div>
+                    {{-- @else --}}
+                    <div class="card mb-3">
+                      <div class="card-header">Subjective Complaints</div>
+                      <div class="card-body">
+                        <small class="text-muted">Helper</small>
+                        <div class="input-group input-group-small flex-nowrap">
+                          <select class="form-select" placeholder="" {{ isset($referal_conso) && $referal_conso->id == $cr->id ? '' : 'disabled' }}>
+                            <option value=""></option>
+                          </select>
+                          <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>Delete Helper</button>
+                        </div>
+                        <small class="text-muted">Content</small>
+                        <textarea class="form-control" name="{{ $viewFolder }}[docNotesSubject]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_docNotesSubject" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>{{ isset($cr->docNotesSubject) ? $cr->docNotesSubject : '' }}</textarea>
+                        <small class="text-muted">Helper Save/Edit</small>
+                        <div class="input-group input-group-small mb-3 flex-nowrap">
+                          <div class="input-group-text">
+                            <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                          </div>
+                          <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesSubjectTitle" name="{{ $viewFolder }}[docNotesSubjectTitle]" disabled>
+                          <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                        </div>
+                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[ddocNotesSubjectEdit]" id="{{ $viewFolder }}_docNotesSubjectEdit" rows=3 disabled></textarea>
+                      </div>
+                    </div>
+                    {{-- @endif --}}
+                    <div class="card mb-3">
+                      <div class="card-header">Objective Findings</div>
+                      <div class="card-body">
+                        @if(stristr($datum->doctor->specialty, 'Ophtha'))
+                        <div class="card mb-3">
+                          <div class="card-header">Eye Examination Information</div>
+                          <div class="card-body">
+                            {{-- <p>
+                              <strong>AR OD:</strong> <span class="text-primary">{{ $datum->arod_sphere != 'No Target' ? ($datum->arod_sphere > 0 ? '+' . $datum->arod_sphere : $datum->arod_sphere) . ' - ' . ($datum->arod_cylinder > 0 ? '+' . $datum->arod_cylinder : $datum->arod_cylinder) . ' x ' . $datum->arod_axis : 'No Refraction Possible' }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                              <strong>AR OS:</strong> <span class="text-primary">{{ $datum->aros_sphere != 'No Target' ? ($datum->aros_sphere > 0 ? '+' . $datum->aros_sphere : $datum->aros_sphere) . ' - ' . ($datum->aros_cylinder > 0 ? '+' . $datum->aros_cylinder : $datum->aros_cylinder) . ' x ' . $datum->aros_axis : 'No Refraction Possible' }}</span><br>
+                              <strong>UCVA OD:</strong> <span class="text-primary">{{ $datum->vaod_den != '' ? $datum->vaod_num . ' / ' . $datum->vaod_den : $datum->vaod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                              <strong>UCVA OD Present Correction:</strong> <span class="text-primary">{{ $datum->vaodcor_den != '' ? $datum->vaodcor_num . ' / ' . $datum->vaodcor_den : $datum->vaodcor_num }}</span><br>
+                              <strong>UCVA OS:</strong> <span class="text-primary">{{ $datum->vaos_den != '' ? $datum->vaos_num . ' / ' . $datum->vaos_den : $datum->vaos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                              <strong>UCVA OS Present Correction:</strong> <span class="text-primary">{{ $datum->vaoscor_den != '' ? $datum->vaoscor_num . ' / ' . $datum->vaoscor_den : $datum->vaoscor_num }}</span><br>
+                              <strong>VA OD Pinhole:</strong> <span class="text-primary">{{ $datum->pinod_den != '' ? $datum->pinod_num . ' / ' . $datum->pinod_den : $datum->pinod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                              <strong>BCVA OD:</strong> <span class="text-primary">{{ $datum->pinodcor_den != '' ? $datum->pinodcor_num . ' / ' . $datum->pinodcor_den : $datum->pinodcor_num }}</span><br>
+                              <strong>VA OS Pinhole:</strong> <span class="text-primary">{{ $datum->pinos_den != '' ? $datum->pinos_num . ' / ' . $datum->pinos_den : $datum->pinos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                              <strong>BCVA OS:</strong> <span class="text-primary">{{ $datum->pinoscor_den != '' ? $datum->pinoscor_num . ' / ' . $datum->pinoscor_den : $datum->pinoscor_num }}</span><br>
+                              <strong>Jaeger OU:</strong> <span class="text-primary">{{ $datum->jae_ou }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                              <strong>Jaeger OD:</strong> <span class="text-primary">{{ $datum->jae_od }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                              <strong>Jaeger OS:</strong> <span class="text-primary">{{ $datum->jae_os }}</span><br>
+                              <strong>IOP OD:</strong> <span class="text-primary">{{ $datum->iopod }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                              <strong>IOP OS:</strong> <span class="text-primary">{{ $datum->iopos }}</span>
+                            </p> --}}
+                            <table class="table table-bordered table-striped table-hover table-sm">
+                              <thead class="table-{{ $bgColor }}">
+                                  <tr>
+                                      <th>&nbsp;</th>
+                                      <th>OD</th>
+                                      <th>OS</th>
+                                      <th>OU</th>
+                                  </tr>
+                              </thead>
+                              <tbody id="prevEyerSum">
+                                <tr>
+                                    <td>AR</td>
+                                    <td>{{ $datum->arod_sphere != 'No Target' ? ($datum->arod_sphere) . ' - ' . ($datum->arod_cylinder) . ' x ' . $datum->arod_axis : 'No Refraction Possible' }}</td>
+                                    <td>{{ $datum->aros_sphere != 'No Target' ? ($datum->aros_sphere) . ' - ' . ($datum->aros_cylinder) . ' x ' . $datum->aros_axis : 'No Refraction Possible' }}</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>UCVA</td>
+                                    <td>{{ $datum->vaod_den != '' ? $datum->vaod_num . ' / ' . $datum->vaod_den : $datum->vaod_num }}</td>
+                                    <td>{{ $datum->vaos_den != '' ? $datum->vaos_num . ' / ' . $datum->vaos_den : $datum->vaos_num }}</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>UCVA Present Correction</td>
+                                    <td>{{ $datum->vaodcor_den != '' ? $datum->vaodcor_num . ' / ' . $datum->vaodcor_den : $datum->vaodcor_num }}</td>
+                                    <td>{{ $datum->vaoscor_den != '' ? $datum->vaoscor_num . ' / ' . $datum->vaoscor_den : $datum->vaoscor_num }}</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>VA Pinhole</td>
+                                    <td>{{ $datum->pinod_den != '' ? $datum->pinod_num . ' / ' . $datum->pinod_den : $datum->pinod_num }}</td>
+                                    <td>{{ $datum->pinos_den != '' ? $datum->pinos_num . ' / ' . $datum->pinos_den : $datum->pinos_num }}</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>BCVA</td>
+                                    <td>{{ $datum->pinodcor_den != '' ? $datum->pinodcor_num . ' / ' . $datum->pinodcor_den : $datum->pinodcor_num }}</td>
+                                    <td>{{ $datum->pinoscor_den != '' ? $datum->pinoscor_num . ' / ' . $datum->pinoscor_den : $datum->pinoscor_num }}</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>Jaeger</td>
+                                    <td>{{ $datum->jae_od }}</td>
+                                    <td>{{ $datum->jae_os }}</td>
+                                    <td>{{ $datum->jae_ou }}</td>
+                                </tr>
+                                <tr>
+                                    <td>IOP</td>
+                                    <td>{{ $datum->iopod }}</td>
+                                    <td>{{ $datum->iopos }}</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                        @endif
+                        <small class="text-muted">Helper</small>
+                        <div class="input-group input-group-small flex-nowrap">
+                          <select class="form-select" placeholder="" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>
+                            <option value=""></option>
+                          </select>
+                          <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>Delete Helper</button>
+                        </div>
+                        <small class="text-muted">Content</small>
+                        <textarea class="form-control" name="{{ $viewFolder }}[docNotes]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_docNotes" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }} onchange="
+                          $('#{{ $viewFolder }}_findings').val($(this).val());
+                        ">{{ isset($cr->docNotes) ? $cr->docNotes : '' }}</textarea>
+                        <small class="text-muted">Helper Save/Edit</small>
+                        <div class="input-group input-group-small mb-3 flex-nowrap">
+                          <div class="input-group-text">
+                            <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                          </div>
+                          <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesTitle" name="{{ $viewFolder }}[docNotesTitle]" disabled>
+                          <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                        </div>
+                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[_docNotesEdit]" id="{{ $viewFolder }}_docNotesEdit" rows=3 disabled></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card mb-3">
+                  <div class="card-header">Assessment</div>
+                  <div class="card-body">
+                    <div class="form-floating mb-3">
+                      {{-- <select class="form-select" name="{{ $viewFolder }}[icd_code]" id="{{ $viewFolder }}_icd_code" placeholder="" {{ $user->id == $cr->doctor->id ? '' : 'disabled' }}>
+                        <option value=""></option>
+                      </select> --}}
+                      <input class="form-control" list="icdCodeList" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'id=' . $viewFolder . '_icd_code' : '' }} name="{{ $viewFolder }}[icd_code]" value="{{ isset($cr->icd_code_obj->icd_code) ? $cr->icd_code_obj->icd_code . ' - ' . $cr->icd_code_obj->details : '' }}" autocomplete="off" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>
+                      <label for="{{ $viewFolder }}_icd_code">Primary Diagnosis</label>
+                      <small id="help_{{ $viewFolder }}_icd_code" class="text-muted"></small>
+                    </div>
+                    <div class="card mb-3">
+                      <div class="card-header">Secondary Diagnosis</div>
+                      <div class="card-body">
+                        <small class="text-muted">Helper</small>
+                        <div class="input-group input-group-small flex-nowrap">
+                          <select class="form-select" placeholder="" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>
+                            <option value=""></option>
+                          </select>
+                          <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>Delete Helper</button>
+                        </div>
+                        <small class="text-muted">Content</small>
+                        <textarea class="form-control" name="{{ $viewFolder }}[assessment]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_assessment" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }}  onchange="
+                          $('#{{ $viewFolder }}_diagnosis').val($(this).val());
+                        ">{{ isset($cr->assessment) ? $cr->assessment : '' }}</textarea>
+                        <small class="text-muted">Helper Save/Edit</small>
+                        <div class="input-group input-group-small mb-3 flex-nowrap">
+                          <div class="input-group-text">
+                            <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                          </div>
+                          <input type="text" class="form-control" id="{{ $viewFolder }}_assessmentTitle" name="{{ $viewFolder }}[assessmentTitle]" disabled>
+                          <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                        </div>
+                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[_assessmentEdit]" id="{{ $viewFolder }}_assessmentEdit" rows=3 disabled></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card mb-3">
+                  <div class="card-header">Plan</div>
+                  <div class="card-body">
+                    <div class="card mb-3">
+                      <div class="card-header">Medical Therapeutics</div>
+                      <div class="card-body">
+                        <small class="text-muted">Helper</small>
+                        <div class="input-group input-group-small flex-nowrap">
+                          <select class="form-select" placeholder="" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>
+                            <option value=""></option>
+                          </select>
+                          <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>Delete Helper</button>
+                        </div>
+                        <small class="text-muted">Content</small>
+                        <textarea class="form-control" name="{{ $viewFolder }}[planMed]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_planMed" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }}>{{ isset($cr->planMed) ? $cr->planMed : '' }}</textarea>
+                        <small class="text-muted">Helper Save/Edit</small>
+                        <div class="input-group input-group-small mb-3 flex-nowrap">
+                          <div class="input-group-text">
+                            <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                          </div>
+                          <input type="text" class="form-control" id="{{ $viewFolder }}_planMedTitle" name="{{ $viewFolder }}[planMedTitle]" disabled>
+                          <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                        </div>
+                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planMedEdit]" id="{{ $viewFolder }}_planMedEdit" rows=3 disabled></textarea>
+                      </div>
+                    </div>
+                    <div class="card mb-3">
+                      <div class="card-header">Diagnostics and Surgery</div>
+                      <div class="card-body">
+                        <small class="text-muted">Helper</small>
+                        <div class="input-group input-group-small flex-nowrap">
+                          <select class="form-select" placeholder="" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>
+                            <option value=""></option>
+                          </select>
+                          <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>Delete Helper</button>
+                        </div>
+                        <small class="text-muted">Content</small>
+                        <textarea class="form-control" name="{{ $viewFolder }}[plan]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_plan" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }}>{{ isset($cr->plan) ? $cr->plan : '' }}</textarea>
+                        <small class="text-muted">Helper Save/Edit</small>
+                        <div class="input-group input-group-small mb-3 flex-nowrap">
+                          <div class="input-group-text">
+                            <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                          </div>
+                          <input type="text" class="form-control" id="{{ $viewFolder }}_planTitle" name="{{ $viewFolder }}[planTitle]" disabled>
+                          <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                        </div>
+                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planEdit]" id="{{ $viewFolder }}_planEdit" rows=3 disabled></textarea>
+                      </div>
+                    </div>
+                    <div class="card mb-3">
+                      <div class="card-header">Remarks</div>
+                      <div class="card-body">
+                        <small class="text-muted">Helper</small>
+                        <div class="input-group input-group-small flex-nowrap">
+                          <select class="form-select" placeholder="" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>
+                            <option value=""></option>
+                          </select>
+                          <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>Delete Helper</button>
+                        </div>
+                        <small class="text-muted">Content</small>
+                        <textarea class="form-control" name="{{ $viewFolder }}[planRem]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_planRem" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>{{ isset($cr->planRem) ? $cr->planRem : '' }}</textarea>
+                        <small class="text-muted">Helper Save/Edit</small>
+                        <div class="input-group input-group-small mb-3 flex-nowrap">
+                          <div class="input-group-text">
+                            <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                          </div>
+                          <input type="text" class="form-control" id="{{ $viewFolder }}_planRemTitle" name="{{ $viewFolder }}[planRemTitle]" disabled>
+                          <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                        </div>
+                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planRemEdit]" id="{{ $viewFolder }}_planRemEdit" rows=3 disabled></textarea>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="card mb-3">
-                <div class="card-header">Assessment</div>
+                @endforeach
+              @endif
+            </div>
+            <div id="labCurDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
+              <h5>Image Viewer</h5>
+              <div id="carouselCur" class="carousel carousel-dark slide mb-3" data-bs-interval="false">
+                <div class="carousel-indicators" id="labCurCarouselInd">
+                  @if(!empty($datum->consultation_files[0]->file_link))
+                    @foreach($datum->consultation_files as $ind=>$file)
+                  <button type="button" data-bs-target="#carouselCur" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
+                    @endforeach
+                  @else
+                  <button type="button" data-bs-target="#carouselCur" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                  @endif
+                </div>
+                <div class="carousel-inner" id="labCurCarouselInner">
+                  @if(!empty($datum->consultation_files[0]->file_link))
+                    @foreach($datum->consultation_files as $ind=>$file)
+                  <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
+                    @if($file->file_type == 'application/pdf')
+                    <iframe src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" width="100%" height="373" style="border:1"></iframe>
+                    @else
+                    <img src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
+                    @endif
+                  </div>  
+                    @endforeach
+                  @else
+                  <div class="carousel-item active">
+                    {{-- <iframe src="{{ asset('MDR_030502009768.pdf') }}" width="100%" height="373" style="border:1"></iframe> --}}
+                    <img src="https://mdbootstrap.com/img/Photos/Others/placeholder.jpg" class="d-block w-100" alt="">
+                  </div>
+                  @endif
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselCur" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselCur" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+              <div class="mb-3">
+                <label for="formFileMultiple" class="form-label">Uploaded Images/Files</label>
+                <input class="form-control" type="file" id="{{ $viewFolder }}_files" name="{{ $viewFolder }}[ConsultationFile][files][]" accept="image/*, .pdf" multiple>
+              </div>
+              <div class="row overflow-auto" id="image_preview_saved" style="max-height:100px">
+                
+              </div>
+              <div class="container horizontal-scrollable" style="overflow-x: auto; white-space: nowrap;">
+                <div class="row flex-nowrap" id="image_preview" style="max-height:200px">
+                  @if(isset($datum->consultation_files))
+                    @foreach($datum->consultation_files as $ind => $file)
+                    @php
+                      $exAr = explode('/', $file->file_link);
+                    @endphp
+                    @if($file->file_type == 'application/pdf')
+                  <div class='img-div' data-bs-target="#carouselCur" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail' title='{{ $exAr[sizeof($exAr)-1] }}'></iframe><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
+                    @else
+                  <div class='img-div' data-bs-target="#carouselCur" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail' title='{{ $exAr[sizeof($exAr)-1] }}'><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
+                    @endif
+                    @endforeach
+                  @endif
+                </div>
+              </div>
+            </div>
+            {{-- @if($user->id == $datum->doctor->id) --}}
+            <div id="presCurDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
+              <div class="docNotesDiv card mb-3" id="{{ $viewFolder }}_Presc_{{ $datum->id }}">
+                <div class="card-header">Prescription View</div>
                 <div class="card-body">
-                  <div class="form-floating mb-3">
-                    {{-- <select class="form-select" name="{{ $viewFolder }}[icd_code]" id="{{ $viewFolder }}_icd_code" placeholder="" {{ $user->id == $cr->doctor->id ? '' : 'disabled' }}>
+                  <iframe id="iframePresc{{ $datum->id }}" src="{{ file_exists(public_path('storage/prescription_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf')) ? asset('storage/prescription_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
+                  <small class="form-text text-muted">To print or download check the upper right part</small>
+                </div>
+                <div class="card-footer">
+                  @if(!isset($referal_conso))
+                  <button id="createPDFButPresc{{ $datum->id }}" type="button" class="createPDFButPresc btn btn-{{ $bgColor }} btn-sm" {{ $datum->prescription == '' ? 'disabled' : '' }} onclick="
+                    $('#doctors_home_submit_type').val('Pause');
+                    $.ajax({
+                      type: 'POST',
+                      data: $('#bookMod').serialize(),
+                      url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
+                      success:
+                      function (){
+                          $.ajax({
+                            type: 'GET',
+                            url: '{{ Route::has($viewFolder . '.pdfPrescription') ? route($viewFolder . '.pdfPrescription', $datum->id) : '' }}',
+                            success:
+                            function (data){
+                              $('#iframePresc{{ $datum->id }}').attr('src', data);
+                            }
+                          });
+                      }
+                    });
+
+                  ">Create PDF</button>
+                  @endif
+                </div>
+              </div>
+              @if(isset($datum->consultation_referals[0]->id))
+                @foreach($datum->consultation_referals as $cr)
+              <div class="docNotesDiv card mb-3" id="{{ $viewFolder }}_Presc_{{ $cr->id }}" style="display:none">
+                <div class="card-header">Prescription View</div>
+                <div class="card-body">
+                  <iframe id="iframePresc{{ $cr->id }}" src="{{ file_exists(public_path('storage/prescription_files/' . $cr->id . '_' . $cr->patient->l_name . '.pdf')) ? asset('storage/prescription_files/' . $cr->id . '_' . $cr->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
+                  <small class="form-text text-muted">To print or download check the upper right part</small>
+                </div>
+                <div class="card-footer">
+                  @if(isset($referal_conso) && $referal_conso->id == $cr->id)
+                  <button id="createPDFButPresc{{ $cr->id }}" type="button" class="createPDFButPresc btn btn-{{ $bgColor }} btn-sm" {{ $cr->prescription == '' ? 'disabled' : '' }} onclick="
+                    $('#doctors_home_submit_type').val('Pause');
+                    $.ajax({
+                      type: 'POST',
+                      data: $('#bookMod').serialize(),
+                      url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
+                      success:
+                      function (){
+                          $.ajax({
+                            type: 'GET',
+                            url: '{{ Route::has($viewFolder . '.pdfPrescription') ? route($viewFolder . '.pdfPrescription', $cr->id) : '' }}',
+                            success:
+                            function (data){
+                              $('#iframePresc{{ $cr->id }}').attr('src', data);
+                            }
+                          });
+                      }
+                    });
+
+                  ">Create PDF</button>
+                  @endif
+                </div>
+              </div>
+                @endforeach
+              @endif
+              <div class="form-floating mb-3">
+                <textarea class="form-control" name="{{ $viewFolder }}[Doctor][sub_header_1]" id="{{ $viewFolder }}_sub_header_1" rows=3>{{ isset($datum->doctor->sub_header_1) ? $datum->doctor->sub_header_1 : '' }}</textarea>
+                <label for="{{ $viewFolder }}_sub_header_1" class="form-label">MD Specialty/sub-specialty</label>
+                <small id="help_{{ $viewFolder }}_sub_header_1" class="text-muted"></small>
+              </div>
+              <div class="form-floating mb-3">
+                <textarea class="form-control" name="{{ $viewFolder }}[Doctor][sub_header_2]" id="{{ $viewFolder }}_sub_header_2" rows=3>{{ isset($datum->doctor->sub_header_2) ? $datum->doctor->sub_header_2 : '' }}</textarea>
+                <label for="{{ $viewFolder }}_sub_header_2" class="form-label">MD Clinic and Clinic Address:</label>
+                <small id="help_{{ $viewFolder }}_sub_header_2" class="text-muted"></small>
+              </div>
+              <div class="card mb-3">
+                <div class="card-header">Prescription</div>
+                <div class="card-body">
+                  <small class="text-muted">Helper</small>
+                  <div class="input-group input-group-small flex-nowrap">
+                    <select class="form-select" placeholder="" id="{{ $viewFolder }}_prescriptionSelect" {{ !isset($referal_conso) ? '' : 'disabled' }}>
                       <option value=""></option>
-                    </select> --}}
-                    <input class="form-control" list="icdCodeList" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'id=' . $viewFolder . '_icd_code' : '' }} name="{{ $viewFolder }}[icd_code]" value="{{ isset($cr->icd_code_obj->icd_code) ? $cr->icd_code_obj->icd_code . ' - ' . $cr->icd_code_obj->details : '' }}" autocomplete="off" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>
-                    <label for="{{ $viewFolder }}_icd_code">Primary Diagnosis</label>
-                    <small id="help_{{ $viewFolder }}_icd_code" class="text-muted"></small>
+                    </select>
+                    <button class="btn btn-outline-secondary" type="button" id="{{ $viewFolder }}_prescriptionDeleteHelper" {{ !isset($referal_conso) ? '' : 'disabled' }}>Delete Helper</button>
                   </div>
-                  <div class="card mb-3">
-                    <div class="card-header">Secondary Diagnosis</div>
-                    <div class="card-body">
-                      <small class="text-muted">Helper</small>
-                      <div class="input-group input-group-small flex-nowrap">
-                        <select class="form-select" placeholder="" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>
-                          <option value=""></option>
-                        </select>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>Delete Helper</button>
-                      </div>
-                      <small class="text-muted">Content</small>
-                      <textarea class="form-control" name="{{ $viewFolder }}[assessment]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_assessment" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }}  onchange="
-                        $('#{{ $viewFolder }}_diagnosis').val($(this).val());
-                      ">{{ isset($cr->assessment) ? $cr->assessment : '' }}</textarea>
-                      <small class="text-muted">Helper Save/Edit</small>
-                      <div class="input-group input-group-small mb-3 flex-nowrap">
-                        <div class="input-group-text">
-                          <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
-                        </div>
-                        <input type="text" class="form-control" id="{{ $viewFolder }}_assessmentTitle" name="{{ $viewFolder }}[assessmentTitle]" disabled>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
-                      </div>
-                      <textarea class="form-control mb-2" name="{{ $viewFolder }}[_assessmentEdit]" id="{{ $viewFolder }}_assessmentEdit" rows=3 disabled></textarea>
+                  <small class="text-muted">Content</small>
+                  <textarea class="form-control" name="{{ $viewFolder }}[prescription]" id="{{ $viewFolder }}_prescription" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
+                    if($(this).val() == ''){
+                      $('.createPDFButPresc').each(function(){
+                        $(this).prop('disabled', true);
+                      });
+                    }else{
+                      $('.createPDFButPresc').each(function(){
+                        $(this).prop('disabled', false);
+                      });
+                    }
+                  ">{{ isset($datum->prescription) ? $datum->prescription : '' }}</textarea>
+                  <small class="text-muted">Helper Save/Edit</small>
+                  <div class="input-group input-group-small mb-3 flex-nowrap">
+                    <div class="input-group-text">
+                      <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
                     </div>
+                    <input type="text" class="form-control" name="{{ $viewFolder }}[prescriptionTitle]" disabled>
+                    <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                   </div>
+                  <textarea class="form-control mb-2" name="{{ $viewFolder }}[prescriptionEdit]" id="{{ $viewFolder }}_prescriptionEdit" rows=3 disabled></textarea>
                 </div>
+              </div>
+            </div>
+            <div id="medCurDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
+              <div class="docNotesDiv card mb-3" id="{{ $viewFolder }}_MedCert_{{ $datum->id }}">
+                <div class="card-header">Med Cert View</div>
+                <div class="card-body">
+                  <iframe id="iframeMedCert{{ $datum->id }}" src="{{ file_exists(public_path('storage/med_cert_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf')) ? asset('storage/med_cert_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
+                  <small class="form-text text-muted">To print or download check the upper right part</small>
+                </div>
+                <div class="card-footer">
+                  @if(!isset($referal_conso))
+                  <button id="createPDFButMedCert{{ $datum->id }}" type="button" class="createPDFButMedCert btn btn-{{ $bgColor }} btn-sm" {{ ($datum->findings == '' || $datum->diagnosis == '' || $datum->recommendations == '') ? 'disabled' : '' }} onclick="
+                    $('#doctors_home_submit_type').val('Pause');
+                    $.ajax({
+                      type: 'POST',
+                      data: $('#bookMod').serialize(),
+                      url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : '' }}',
+                      success:
+                      function (){
+                          $.ajax({
+                            type: 'GET',
+                            url: '{{ Route::has($viewFolder . '.pdfMedCert') ? route($viewFolder . '.pdfMedCert', $datum->id) : '' }}',
+                            success:
+                            function (data){
+                              $('#iframeMedCert{{ $datum->id }}').attr('src', data);
+                            }
+                          });
+                      }
+                    });
+
+                  ">Create PDF</button>
+                  @endif
+                </div>
+              </div>
+              @if(isset($datum->consultation_referals[0]->id))
+                @foreach($datum->consultation_referals as $cr)
+              <div class="docNotesDiv card mb-3" id="{{ $viewFolder }}_MedCert_{{ $cr->id }}" style="display:none">
+                <div class="card-header">Med Cert View</div>
+                <div class="card-body">
+                  <iframe id="iframeMedCert{{ $cr->id }}" src="{{ file_exists(public_path('storage/med_cert_files/' . $cr->id . '_' . $cr->patient->l_name . '.pdf')) ? asset('storage/med_cert_files/' . $cr->id . '_' . $cr->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
+                  <small class="form-text text-muted">To print or download check the upper right part</small>
+                </div>
+                <div class="card-footer">
+                  @if(isset($referal_conso) && $referal_conso->id == $cr->id)
+                  <button id="createPDFButMedCert{{ $cr->id }}" type="button" class="createPDFButMedCert btn btn-{{ $bgColor }} btn-sm" {{ ($cr->findings == '' || $cr->diagnosis == '' || $cr->recommendations == '') ? 'disabled' : '' }} onclick="
+                    $('#doctors_home_submit_type').val('Pause');
+                    $.ajax({
+                      type: 'POST',
+                      data: $('#bookMod').serialize(),
+                      url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
+                      success:
+                      function (){
+                          $.ajax({
+                            type: 'GET',
+                            url: '{{ Route::has($viewFolder . '.pdfMedCert') ? route($viewFolder . '.pdfMedCert', $cr->id) : '' }}',
+                            success:
+                            function (data){
+                              $('#iframeMedCert{{ $cr->id }}').attr('src', data);
+                            }
+                          });
+                      }
+                    });
+
+                  ">Create PDF</button>
+                  @endif
+                </div>
+              </div>
+                @endforeach
+              @endif
+              <div class="form-floating mb-3">
+                <textarea class="form-control" name="{{ $viewFolder }}[findings]" id="{{ $viewFolder }}_findings" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
+                    if($('#{{ $viewFolder }}_findings').val() == '' || $('#{{ $viewFolder }}_diagnosis').val() == '' || $('#{{ $viewFolder }}_recommendations').val() == ''){
+                      $('.createPDFButMedCert').each(function(){
+                        $(this).prop('disabled', true);
+                      });
+                    }else{
+                      $('.createPDFButMedCert').each(function(){
+                        $(this).prop('disabled', false);
+                      });
+                    }
+                  ">{{ isset($datum->findings) ? $datum->findings : '' }}</textarea>
+                <label for="{{ $viewFolder }}_findings" class="form-label">Findings</label>
+                <small id="help_{{ $viewFolder }}_findings" class="text-muted"></small>
+              </div>
+              <div class="form-floating mb-3">
+                <textarea class="form-control" name="{{ $viewFolder }}[diagnosis]" id="{{ $viewFolder }}_diagnosis" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
+                    if($('#{{ $viewFolder }}_findings').val() == '' || $('#{{ $viewFolder }}_diagnosis').val() == '' || $('#{{ $viewFolder }}_recommendations').val() == ''){
+                      $('.createPDFButMedCert').each(function(){
+                        $(this).prop('disabled', true);
+                      });
+                    }else{
+                      $('.createPDFButMedCert').each(function(){
+                        $(this).prop('disabled', false);
+                      });
+                    }
+                  ">{{ isset($datum->diagnosis) ? $datum->diagnosis : '' }}</textarea>
+                <label for="{{ $viewFolder }}_diagnosis" class="form-label">Diagnosis</label>
+                <small id="help_{{ $viewFolder }}_diagnosis" class="text-muted"></small>
+              </div>
+              <div class="form-floating mb-3">
+                <textarea class="form-control" name="{{ $viewFolder }}[recommendations]" id="{{ $viewFolder }}_recommendations" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
+                    if($('#{{ $viewFolder }}_findings').val() == '' || $('#{{ $viewFolder }}_diagnosis').val() == '' || $('#{{ $viewFolder }}_recommendations').val() == ''){
+                      $('.createPDFButMedCert').each(function(){
+                        $(this).prop('disabled', true);
+                      });
+                    }else{
+                      $('.createPDFButMedCert').each(function(){
+                        $(this).prop('disabled', false);
+                      });
+                    }
+                  ">{{ isset($datum->recommendations) ? $datum->recommendations : '' }}</textarea>
+                <label for="{{ $viewFolder }}_recommendations" class="form-label">Recommendations</label>
+                <small id="help_{{ $viewFolder }}_recommendations" class="text-muted"></small>
+              </div>
+            </div>
+            <div id="admitCurDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
+              <div class="docNotesDiv card mb-3" id="{{ $viewFolder }}_Admitting_{{ $datum->id }}">
+                <div class="card-header">Admitting Orders Preview</div>
+                <div class="card-body">
+                  <iframe id="iframeAdmitting{{ $datum->id }}" src="{{ file_exists(public_path('storage/admitting_order_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf')) ? asset('storage/admitting_order_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
+                  <small class="form-text text-muted">To print or download check the upper right part</small>
+                </div>
+                <div class="card-footer">
+                  @if(!isset($referal_conso))
+                  <button id="createPDFButAddmitting{{ $datum->id }}" type="button" class="createPDFButAddmitting btn btn-{{ $bgColor }} btn-sm" {{ ($datum->procedure_ao == '' || $datum->admittingOrder == '') ? 'disabled' : '' }} onclick="
+                    $('#doctors_home_submit_type').val('Pause');
+                    $.ajax({
+                      type: 'POST',
+                      data: $('#bookMod').serialize(),
+                      url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
+                      success:
+                      function (data){
+                          $.ajax({
+                            type: 'GET',
+                            url: '{{ Route::has($viewFolder . '.pdfAdmitting') ? route($viewFolder . '.pdfAdmitting', $datum->id) : '' }}',
+                            success:
+                            function (data){
+                              $('#iframeAdmitting{{ $datum->id }}').attr('src', data);
+                              // var iFrame = $('#iframeAdmitting');
+                              // iFrame.load(data);
+                              // $('#iframeAdmitting').attr('src', $('#iframeAdmitting').attr('src'));
+                            }
+                          });
+                      }
+                    });
+                  ">Create PDF</button>
+                  @endif
+                </div>
+              </div>
+              @if(isset($datum->consultation_referals[0]->id))
+                @foreach($datum->consultation_referals as $cr)
+              <div class="docNotesDiv card mb-3" id="{{ $viewFolder }}_Admitting_{{ $cr->id }}" style="display:none">
+                <div class="card-header">Admitting Orders Preview</div>
+                <div class="card-body">
+                  <iframe id="iframeAdmitting{{ $cr->id }}" src="{{ file_exists(public_path('storage/admitting_order_files/' . $cr->id . '_' . $cr->patient->l_name . '.pdf')) ? asset('storage/admitting_order_files/' . $cr->id . '_' . $cr->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
+                  <small class="form-text text-muted">To print or download check the upper right part</small>
+                </div>
+                <div class="card-footer">
+                  @if(isset($referal_conso) && $referal_conso->id == $cr->id)
+                  <button id="createPDFButAddmitting{{ $cr->id }}" type="button" class="createPDFButAddmitting btn btn-{{ $bgColor }} btn-sm" {{ ($cr->procedure_ao == '' || $cr->admittingOrder == '') ? 'disabled' : '' }} onclick="
+                    $('#doctors_home_submit_type').val('Pause');
+                    $.ajax({
+                      type: 'POST',
+                      data: $('#bookMod').serialize(),
+                      url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
+                      success:
+                      function (data){
+                          $.ajax({
+                            type: 'GET',
+                            url: '{{ Route::has($viewFolder . '.pdfAdmitting') ? route($viewFolder . '.pdfAdmitting', $cr->id) : '' }}',
+                            success:
+                            function (data){
+                              $('#iframeAdmitting{{ $cr->id }}').attr('src', data);
+                              // var iFrame = $('#iframeAdmitting');
+                              // iFrame.load(data);
+                              // $('#iframeAdmitting').attr('src', $('#iframeAdmitting').attr('src'));
+                            }
+                          });
+                      }
+                    });
+                  ">Create PDF</button>
+                  @endif
+                </div>
+              </div>
+                @endforeach
+              @endif
+              <div class="form-floating mb-3">
+                <input class="form-control" type="date" name="{{ $viewFolder }}[con_date_ao]" id="{{ $viewFolder }}_con_date_ao" value="{{ isset($datum->con_date_ao) ? $datum->con_date_ao : '' }}" placeholder="" {{ !isset($referal_conso) ? '' : 'disabled' }}>
+                <label for="{{ $viewFolder }}_con_date_ao" class="form-label">Contemplated Date of Procedure</label>
+                <small id="help_{{ $viewFolder }}_con_date_ao" class="text-muted"></small>
               </div>
               <div class="card mb-3">
-                <div class="card-header">Plan</div>
+                <div class="card-header">Procedure</div>
                 <div class="card-body">
-                  <div class="card mb-3">
-                    <div class="card-header">Medical Therapeutics</div>
-                    <div class="card-body">
-                      <small class="text-muted">Helper</small>
-                      <div class="input-group input-group-small flex-nowrap">
-                        <select class="form-select" placeholder="" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>
-                          <option value=""></option>
-                        </select>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>Delete Helper</button>
-                      </div>
-                      <small class="text-muted">Content</small>
-                      <textarea class="form-control" name="{{ $viewFolder }}[planMed]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_planMed" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }}>{{ isset($cr->planMed) ? $cr->planMed : '' }}</textarea>
-                      <small class="text-muted">Helper Save/Edit</small>
-                      <div class="input-group input-group-small mb-3 flex-nowrap">
-                        <div class="input-group-text">
-                          <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
-                        </div>
-                        <input type="text" class="form-control" id="{{ $viewFolder }}_planMedTitle" name="{{ $viewFolder }}[planMedTitle]" disabled>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
-                      </div>
-                      <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planMedEdit]" id="{{ $viewFolder }}_planMedEdit" rows=3 disabled></textarea>
-                    </div>
+                  <small class="text-muted">Helper</small>
+                  <div class="input-group input-group-small flex-nowrap">
+                    <select class="form-select" id="{{ $viewFolder }}_procedure_aoSelect" placeholder="" {{ !isset($referal_conso) ? '' : 'disabled' }}>
+                      <option value=""></option>
+                    </select>
+                    <button class="btn btn-outline-secondary" type="button" id="{{ $viewFolder }}_procedure_aoHelperDelete" {{ !isset($referal_conso) ? '' : 'disabled' }}>Delete Helper</button>
                   </div>
-                  <div class="card mb-3">
-                    <div class="card-header">Diagnostics and Surgery</div>
-                    <div class="card-body">
-                      <small class="text-muted">Helper</small>
-                      <div class="input-group input-group-small flex-nowrap">
-                        <select class="form-select" placeholder="" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>
-                          <option value=""></option>
-                        </select>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>Delete Helper</button>
-                      </div>
-                      <small class="text-muted">Content</small>
-                      <textarea class="form-control" name="{{ $viewFolder }}[plan]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_plan" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }}>{{ isset($cr->plan) ? $cr->plan : '' }}</textarea>
-                      <small class="text-muted">Helper Save/Edit</small>
-                      <div class="input-group input-group-small mb-3 flex-nowrap">
-                        <div class="input-group-text">
-                          <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
-                        </div>
-                        <input type="text" class="form-control" id="{{ $viewFolder }}_planTitle" name="{{ $viewFolder }}[planTitle]" disabled>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
-                      </div>
-                      <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planEdit]" id="{{ $viewFolder }}_planEdit" rows=3 disabled></textarea>
-                    </div>
-                  </div>
-                  <div class="card mb-3">
-                    <div class="card-header">Remarks</div>
-                    <div class="card-body">
-                      <small class="text-muted">Helper</small>
-                      <div class="input-group input-group-small flex-nowrap">
-                        <select class="form-select" placeholder="" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>
-                          <option value=""></option>
-                        </select>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>Delete Helper</button>
-                      </div>
-                      <small class="text-muted">Content</small>
-                      <textarea class="form-control" name="{{ $viewFolder }}[planRem]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_planRem" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>{{ isset($cr->planRem) ? $cr->planRem : '' }}</textarea>
-                      <small class="text-muted">Helper Save/Edit</small>
-                      <div class="input-group input-group-small mb-3 flex-nowrap">
-                        <div class="input-group-text">
-                          <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
-                        </div>
-                        <input type="text" class="form-control" id="{{ $viewFolder }}_planRemTitle" name="{{ $viewFolder }}[planRemTitle]" disabled>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
-                      </div>
-                      <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planRemEdit]" id="{{ $viewFolder }}_planRemEdit" rows=3 disabled></textarea>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-              @endforeach
-            @endif
-          </div>
-          <div id="labCurDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
-            <h5>Image Viewer</h5>
-            <div id="carouselCur" class="carousel carousel-dark slide mb-3" data-bs-interval="false">
-              <div class="carousel-indicators" id="labCurCarouselInd">
-                @if(!empty($datum->consultation_files[0]->file_link))
-                  @foreach($datum->consultation_files as $ind=>$file)
-                <button type="button" data-bs-target="#carouselCur" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
-                  @endforeach
-                @else
-                <button type="button" data-bs-target="#carouselCur" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                @endif
-              </div>
-              <div class="carousel-inner" id="labCurCarouselInner">
-                @if(!empty($datum->consultation_files[0]->file_link))
-                  @foreach($datum->consultation_files as $ind=>$file)
-                <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
-                  @if($file->file_type == 'application/pdf')
-                  <iframe src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" width="100%" height="373" style="border:1"></iframe>
-                  @else
-                  <img src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
-                  @endif
-                </div>  
-                  @endforeach
-                @else
-                <div class="carousel-item active">
-                  {{-- <iframe src="{{ asset('MDR_030502009768.pdf') }}" width="100%" height="373" style="border:1"></iframe> --}}
-                  <img src="https://mdbootstrap.com/img/Photos/Others/placeholder.jpg" class="d-block w-100" alt="">
-                </div>
-                @endif
-              </div>
-              <button class="carousel-control-prev" type="button" data-bs-target="#carouselCur" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#carouselCur" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-              </button>
-            </div>
-            <div class="mb-3">
-              <label for="formFileMultiple" class="form-label">Uploaded Images/Files</label>
-              <input class="form-control" type="file" id="{{ $viewFolder }}_files" name="{{ $viewFolder }}[ConsultationFile][files][]" accept="image/*, .pdf" multiple>
-            </div>
-            <div class="row overflow-auto" id="image_preview_saved" style="max-height:100px">
-              
-            </div>
-            <div class="container horizontal-scrollable" style="overflow-x: auto; white-space: nowrap;">
-              <div class="row flex-nowrap" id="image_preview" style="max-height:150px">
-                @if(isset($datum->consultation_files))
-                  @foreach($datum->consultation_files as $ind => $file)
-                  @php
-                    $exAr = explode('/', $file->file_link);
-                  @endphp
-                  @if($file->file_type == 'application/pdf')
-                <div class='img-div' data-bs-target="#carouselCur" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail' title='{{ $exAr[sizeof($exAr)-1] }}'></iframe><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
-                  @else
-                <div class='img-div' data-bs-target="#carouselCur" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail' title='{{ $exAr[sizeof($exAr)-1] }}'><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
-                  @endif
-                  @endforeach
-                @endif
-              </div>
-            </div>
-          </div>
-          {{-- @if($user->id == $datum->doctor->id) --}}
-          <div id="presCurDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
-            <div class="docNotesDiv card mb-3" id="{{ $viewFolder }}_Presc_{{ $datum->id }}">
-              <div class="card-header">Prescription View</div>
-              <div class="card-body">
-                <iframe id="iframePresc{{ $datum->id }}" src="{{ file_exists(public_path('storage/prescription_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf')) ? asset('storage/prescription_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
-                <small class="form-text text-muted">To print or download check the upper right part</small>
-              </div>
-              <div class="card-footer">
-                @if(!isset($referal_conso))
-                <button id="createPDFButPresc{{ $datum->id }}" type="button" class="createPDFButPresc btn btn-{{ $bgColor }} btn-sm" {{ $datum->prescription == '' ? 'disabled' : '' }} onclick="
-                  $('#doctors_home_submit_type').val('Pause');
-                  $.ajax({
-                    type: 'POST',
-                    data: $('#bookMod').serialize(),
-                    url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
-                    success:
-                    function (){
-                        $.ajax({
-                          type: 'GET',
-                          url: '{{ Route::has($viewFolder . '.pdfPrescription') ? route($viewFolder . '.pdfPrescription', $datum->id) : '' }}',
-                          success:
-                          function (data){
-                            $('#iframePresc{{ $datum->id }}').attr('src', data);
-                          }
+                  <small class="text-muted">Content</small>
+                  <textarea class="form-control" name="{{ $viewFolder }}[procedure_ao]" id="{{ $viewFolder }}_procedure_ao" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
+                      if(($('#{{ $viewFolder }}_procedure_ao').val() || $('#{{ $viewFolder }}_admittingOrder').val()) == ''){
+                          $('.createPDFButAddmitting').each(function(){
+                          $(this).prop('disabled', true);
                         });
-                    }
-                  });
-
-                ">Create PDF</button>
-                @endif
-              </div>
-            </div>
-            @if(isset($datum->consultation_referals[0]->id))
-              @foreach($datum->consultation_referals as $cr)
-            <div class="docNotesDiv card mb-3" id="{{ $viewFolder }}_Presc_{{ $cr->id }}" style="display:none">
-              <div class="card-header">Prescription View</div>
-              <div class="card-body">
-                <iframe id="iframePresc{{ $cr->id }}" src="{{ file_exists(public_path('storage/prescription_files/' . $cr->id . '_' . $cr->patient->l_name . '.pdf')) ? asset('storage/prescription_files/' . $cr->id . '_' . $cr->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
-                <small class="form-text text-muted">To print or download check the upper right part</small>
-              </div>
-              <div class="card-footer">
-                @if(isset($referal_conso) && $referal_conso->id == $cr->id)
-                <button id="createPDFButPresc{{ $cr->id }}" type="button" class="createPDFButPresc btn btn-{{ $bgColor }} btn-sm" {{ $cr->prescription == '' ? 'disabled' : '' }} onclick="
-                  $('#doctors_home_submit_type').val('Pause');
-                  $.ajax({
-                    type: 'POST',
-                    data: $('#bookMod').serialize(),
-                    url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
-                    success:
-                    function (){
-                        $.ajax({
-                          type: 'GET',
-                          url: '{{ Route::has($viewFolder . '.pdfPrescription') ? route($viewFolder . '.pdfPrescription', $cr->id) : '' }}',
-                          success:
-                          function (data){
-                            $('#iframePresc{{ $cr->id }}').attr('src', data);
-                          }
-                        });
-                    }
-                  });
-
-                ">Create PDF</button>
-                @endif
-              </div>
-            </div>
-              @endforeach
-            @endif
-            <div class="form-floating mb-3">
-              <textarea class="form-control" name="{{ $viewFolder }}[Doctor][sub_header_1]" id="{{ $viewFolder }}_sub_header_1" rows=3>{{ isset($datum->doctor->sub_header_1) ? $datum->doctor->sub_header_1 : '' }}</textarea>
-              <label for="{{ $viewFolder }}_sub_header_1" class="form-label">MD Specialty/sub-specialty</label>
-              <small id="help_{{ $viewFolder }}_sub_header_1" class="text-muted"></small>
-            </div>
-            <div class="form-floating mb-3">
-              <textarea class="form-control" name="{{ $viewFolder }}[Doctor][sub_header_2]" id="{{ $viewFolder }}_sub_header_2" rows=3>{{ isset($datum->doctor->sub_header_2) ? $datum->doctor->sub_header_2 : '' }}</textarea>
-              <label for="{{ $viewFolder }}_sub_header_2" class="form-label">MD Clinic and Clinic Address:</label>
-              <small id="help_{{ $viewFolder }}_sub_header_2" class="text-muted"></small>
-            </div>
-            <div class="card mb-3">
-              <div class="card-header">Prescription</div>
-              <div class="card-body">
-                <small class="text-muted">Helper</small>
-                <div class="input-group input-group-small flex-nowrap">
-                  <select class="form-select" placeholder="" id="{{ $viewFolder }}_prescriptionSelect" {{ !isset($referal_conso) ? '' : 'disabled' }}>
-                    <option value=""></option>
-                  </select>
-                  <button class="btn btn-outline-secondary" type="button" id="{{ $viewFolder }}_prescriptionDeleteHelper" {{ !isset($referal_conso) ? '' : 'disabled' }}>Delete Helper</button>
-                </div>
-                <small class="text-muted">Content</small>
-                <textarea class="form-control" name="{{ $viewFolder }}[prescription]" id="{{ $viewFolder }}_prescription" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
-                  if($(this).val() == ''){
-                    $('.createPDFButPresc').each(function(){
-                      $(this).prop('disabled', true);
-                    });
-                  }else{
-                    $('.createPDFButPresc').each(function(){
-                      $(this).prop('disabled', false);
-                    });
-                  }
-                ">{{ isset($datum->prescription) ? $datum->prescription : '' }}</textarea>
-                <small class="text-muted">Helper Save/Edit</small>
-                <div class="input-group input-group-small mb-3 flex-nowrap">
-                  <div class="input-group-text">
-                    <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
-                  </div>
-                  <input type="text" class="form-control" name="{{ $viewFolder }}[prescriptionTitle]" disabled>
-                  <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
-                </div>
-                <textarea class="form-control mb-2" name="{{ $viewFolder }}[prescriptionEdit]" id="{{ $viewFolder }}_prescriptionEdit" rows=3 disabled></textarea>
-              </div>
-            </div>
-          </div>
-          <div id="medCurDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
-            <div class="docNotesDiv card mb-3" id="{{ $viewFolder }}_MedCert_{{ $datum->id }}">
-              <div class="card-header">Med Cert View</div>
-              <div class="card-body">
-                <iframe id="iframeMedCert{{ $datum->id }}" src="{{ file_exists(public_path('storage/med_cert_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf')) ? asset('storage/med_cert_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
-                <small class="form-text text-muted">To print or download check the upper right part</small>
-              </div>
-              <div class="card-footer">
-                @if(!isset($referal_conso))
-                <button id="createPDFButMedCert{{ $datum->id }}" type="button" class="createPDFButMedCert btn btn-{{ $bgColor }} btn-sm" {{ ($datum->findings == '' || $datum->diagnosis == '' || $datum->recommendations == '') ? 'disabled' : '' }} onclick="
-                  $('#doctors_home_submit_type').val('Pause');
-                  $.ajax({
-                    type: 'POST',
-                    data: $('#bookMod').serialize(),
-                    url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : '' }}',
-                    success:
-                    function (){
-                        $.ajax({
-                          type: 'GET',
-                          url: '{{ Route::has($viewFolder . '.pdfMedCert') ? route($viewFolder . '.pdfMedCert', $datum->id) : '' }}',
-                          success:
-                          function (data){
-                            $('#iframeMedCert{{ $datum->id }}').attr('src', data);
-                          }
-                        });
-                    }
-                  });
-
-                ">Create PDF</button>
-                @endif
-              </div>
-            </div>
-            @if(isset($datum->consultation_referals[0]->id))
-              @foreach($datum->consultation_referals as $cr)
-            <div class="docNotesDiv card mb-3" id="{{ $viewFolder }}_MedCert_{{ $cr->id }}" style="display:none">
-              <div class="card-header">Med Cert View</div>
-              <div class="card-body">
-                <iframe id="iframeMedCert{{ $cr->id }}" src="{{ file_exists(public_path('storage/med_cert_files/' . $cr->id . '_' . $cr->patient->l_name . '.pdf')) ? asset('storage/med_cert_files/' . $cr->id . '_' . $cr->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
-                <small class="form-text text-muted">To print or download check the upper right part</small>
-              </div>
-              <div class="card-footer">
-                @if(isset($referal_conso) && $referal_conso->id == $cr->id)
-                <button id="createPDFButMedCert{{ $cr->id }}" type="button" class="createPDFButMedCert btn btn-{{ $bgColor }} btn-sm" {{ ($cr->findings == '' || $cr->diagnosis == '' || $cr->recommendations == '') ? 'disabled' : '' }} onclick="
-                  $('#doctors_home_submit_type').val('Pause');
-                  $.ajax({
-                    type: 'POST',
-                    data: $('#bookMod').serialize(),
-                    url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
-                    success:
-                    function (){
-                        $.ajax({
-                          type: 'GET',
-                          url: '{{ Route::has($viewFolder . '.pdfMedCert') ? route($viewFolder . '.pdfMedCert', $cr->id) : '' }}',
-                          success:
-                          function (data){
-                            $('#iframeMedCert{{ $cr->id }}').attr('src', data);
-                          }
-                        });
-                    }
-                  });
-
-                ">Create PDF</button>
-                @endif
-              </div>
-            </div>
-              @endforeach
-            @endif
-            <div class="form-floating mb-3">
-              <textarea class="form-control" name="{{ $viewFolder }}[findings]" id="{{ $viewFolder }}_findings" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
-                  if($('#{{ $viewFolder }}_findings').val() == '' || $('#{{ $viewFolder }}_diagnosis').val() == '' || $('#{{ $viewFolder }}_recommendations').val() == ''){
-                    $('.createPDFButMedCert').each(function(){
-                      $(this).prop('disabled', true);
-                    });
-                  }else{
-                    $('.createPDFButMedCert').each(function(){
-                      $(this).prop('disabled', false);
-                    });
-                  }
-                ">{{ isset($datum->findings) ? $datum->findings : '' }}</textarea>
-              <label for="{{ $viewFolder }}_findings" class="form-label">Findings</label>
-              <small id="help_{{ $viewFolder }}_findings" class="text-muted"></small>
-            </div>
-            <div class="form-floating mb-3">
-              <textarea class="form-control" name="{{ $viewFolder }}[diagnosis]" id="{{ $viewFolder }}_diagnosis" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
-                  if($('#{{ $viewFolder }}_findings').val() == '' || $('#{{ $viewFolder }}_diagnosis').val() == '' || $('#{{ $viewFolder }}_recommendations').val() == ''){
-                    $('.createPDFButMedCert').each(function(){
-                      $(this).prop('disabled', true);
-                    });
-                  }else{
-                    $('.createPDFButMedCert').each(function(){
-                      $(this).prop('disabled', false);
-                    });
-                  }
-                ">{{ isset($datum->diagnosis) ? $datum->diagnosis : '' }}</textarea>
-              <label for="{{ $viewFolder }}_diagnosis" class="form-label">Diagnosis</label>
-              <small id="help_{{ $viewFolder }}_diagnosis" class="text-muted"></small>
-            </div>
-            <div class="form-floating mb-3">
-              <textarea class="form-control" name="{{ $viewFolder }}[recommendations]" id="{{ $viewFolder }}_recommendations" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
-                  if($('#{{ $viewFolder }}_findings').val() == '' || $('#{{ $viewFolder }}_diagnosis').val() == '' || $('#{{ $viewFolder }}_recommendations').val() == ''){
-                    $('.createPDFButMedCert').each(function(){
-                      $(this).prop('disabled', true);
-                    });
-                  }else{
-                    $('.createPDFButMedCert').each(function(){
-                      $(this).prop('disabled', false);
-                    });
-                  }
-                ">{{ isset($datum->recommendations) ? $datum->recommendations : '' }}</textarea>
-              <label for="{{ $viewFolder }}_recommendations" class="form-label">Recommendations</label>
-              <small id="help_{{ $viewFolder }}_recommendations" class="text-muted"></small>
-            </div>
-          </div>
-          <div id="admitCurDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
-            <div class="docNotesDiv card mb-3" id="{{ $viewFolder }}_Admitting_{{ $datum->id }}">
-              <div class="card-header">Admitting Orders Preview</div>
-              <div class="card-body">
-                <iframe id="iframeAdmitting{{ $datum->id }}" src="{{ file_exists(public_path('storage/admitting_order_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf')) ? asset('storage/admitting_order_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
-                <small class="form-text text-muted">To print or download check the upper right part</small>
-              </div>
-              <div class="card-footer">
-                @if(!isset($referal_conso))
-                <button id="createPDFButAddmitting{{ $datum->id }}" type="button" class="createPDFButAddmitting btn btn-{{ $bgColor }} btn-sm" {{ ($datum->procedure_ao == '' || $datum->admittingOrder == '') ? 'disabled' : '' }} onclick="
-                  $('#doctors_home_submit_type').val('Pause');
-                  $.ajax({
-                    type: 'POST',
-                    data: $('#bookMod').serialize(),
-                    url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
-                    success:
-                    function (data){
-                        $.ajax({
-                          type: 'GET',
-                          url: '{{ Route::has($viewFolder . '.pdfAdmitting') ? route($viewFolder . '.pdfAdmitting', $datum->id) : '' }}',
-                          success:
-                          function (data){
-                            $('#iframeAdmitting{{ $datum->id }}').attr('src', data);
-                            // var iFrame = $('#iframeAdmitting');
-                            // iFrame.load(data);
-                            // $('#iframeAdmitting').attr('src', $('#iframeAdmitting').attr('src'));
-                          }
-                        });
-                    }
-                  });
-                ">Create PDF</button>
-                @endif
-              </div>
-            </div>
-            @if(isset($datum->consultation_referals[0]->id))
-              @foreach($datum->consultation_referals as $cr)
-            <div class="docNotesDiv card mb-3" id="{{ $viewFolder }}_Admitting_{{ $cr->id }}" style="display:none">
-              <div class="card-header">Admitting Orders Preview</div>
-              <div class="card-body">
-                <iframe id="iframeAdmitting{{ $cr->id }}" src="{{ file_exists(public_path('storage/admitting_order_files/' . $cr->id . '_' . $cr->patient->l_name . '.pdf')) ? asset('storage/admitting_order_files/' . $cr->id . '_' . $cr->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
-                <small class="form-text text-muted">To print or download check the upper right part</small>
-              </div>
-              <div class="card-footer">
-                @if(isset($referal_conso) && $referal_conso->id == $cr->id)
-                <button id="createPDFButAddmitting{{ $cr->id }}" type="button" class="createPDFButAddmitting btn btn-{{ $bgColor }} btn-sm" {{ ($cr->procedure_ao == '' || $cr->admittingOrder == '') ? 'disabled' : '' }} onclick="
-                  $('#doctors_home_submit_type').val('Pause');
-                  $.ajax({
-                    type: 'POST',
-                    data: $('#bookMod').serialize(),
-                    url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
-                    success:
-                    function (data){
-                        $.ajax({
-                          type: 'GET',
-                          url: '{{ Route::has($viewFolder . '.pdfAdmitting') ? route($viewFolder . '.pdfAdmitting', $cr->id) : '' }}',
-                          success:
-                          function (data){
-                            $('#iframeAdmitting{{ $cr->id }}').attr('src', data);
-                            // var iFrame = $('#iframeAdmitting');
-                            // iFrame.load(data);
-                            // $('#iframeAdmitting').attr('src', $('#iframeAdmitting').attr('src'));
-                          }
-                        });
-                    }
-                  });
-                ">Create PDF</button>
-                @endif
-              </div>
-            </div>
-              @endforeach
-            @endif
-            <div class="form-floating mb-3">
-              <input class="form-control" type="date" name="{{ $viewFolder }}[con_date_ao]" id="{{ $viewFolder }}_con_date_ao" value="{{ isset($datum->con_date_ao) ? $datum->con_date_ao : '' }}" placeholder="" {{ !isset($referal_conso) ? '' : 'disabled' }}>
-              <label for="{{ $viewFolder }}_con_date_ao" class="form-label">Contemplated Date of Procedure</label>
-              <small id="help_{{ $viewFolder }}_con_date_ao" class="text-muted"></small>
-            </div>
-            <div class="card mb-3">
-              <div class="card-header">Procedure</div>
-              <div class="card-body">
-                <small class="text-muted">Helper</small>
-                <div class="input-group input-group-small flex-nowrap">
-                  <select class="form-select" id="{{ $viewFolder }}_procedure_aoSelect" placeholder="" {{ !isset($referal_conso) ? '' : 'disabled' }}>
-                    <option value=""></option>
-                  </select>
-                  <button class="btn btn-outline-secondary" type="button" id="{{ $viewFolder }}_procedure_aoHelperDelete" {{ !isset($referal_conso) ? '' : 'disabled' }}>Delete Helper</button>
-                </div>
-                <small class="text-muted">Content</small>
-                <textarea class="form-control" name="{{ $viewFolder }}[procedure_ao]" id="{{ $viewFolder }}_procedure_ao" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
-                    if(($('#{{ $viewFolder }}_procedure_ao').val() || $('#{{ $viewFolder }}_admittingOrder').val()) == ''){
+                      }else{
                         $('.createPDFButAddmitting').each(function(){
-                        $(this).prop('disabled', true);
-                      });
-                    }else{
-                      $('.createPDFButAddmitting').each(function(){
-                        $(this).prop('disabled', false);
-                      });
-                    }
-                  ">{{ isset($datum->procedure_ao) ? $datum->procedure_ao : '' }}</textarea>
-                <small class="text-muted">Helper Save/Edit</small>
-                <div class="input-group input-group-small mb-3 flex-nowrap">
-                  <div class="input-group-text">
-                    <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                          $(this).prop('disabled', false);
+                        });
+                      }
+                    ">{{ isset($datum->procedure_ao) ? $datum->procedure_ao : '' }}</textarea>
+                  <small class="text-muted">Helper Save/Edit</small>
+                  <div class="input-group input-group-small mb-3 flex-nowrap">
+                    <div class="input-group-text">
+                      <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                    </div>
+                    <input type="text" class="form-control" name="{{ $viewFolder }}[_procedure_aoTitle]" disabled>
+                    <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                   </div>
-                  <input type="text" class="form-control" name="{{ $viewFolder }}[_procedure_aoTitle]" disabled>
-                  <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                  <textarea class="form-control mb-2" name="{{ $viewFolder }}[procedure_aoEdit]" id="{{ $viewFolder }}_procedure_aoEdit" rows=3 disabled></textarea>
                 </div>
-                <textarea class="form-control mb-2" name="{{ $viewFolder }}[procedure_aoEdit]" id="{{ $viewFolder }}_procedure_aoEdit" rows=3 disabled></textarea>
               </div>
-            </div>
-            <div class="form-floating mb-3">
-              <select class="form-select" name="{{ $viewFolder }}[anesthesia_type_ao]" id="{{ $viewFolder }}_anesthesia_type_ao" placeholder="" {{ !isset($referal_conso) ? '' : 'disabled' }}>
-                <option value="None" {{ (isset($datum->anesthesia_type_ao) && $datum->anesthesia_type_ao == 'None') ? 'selected' : ''}}>None</option>
-                <option value="Regional Block" {{ (isset($datum->anesthesia_type_ao) && $datum->anesthesia_type_ao == 'Regional Block') ? 'selected' : ''}}>Regional Block</option>
-                <option value="IV Sedation" {{ (isset($datum->anesthesia_type_ao) && $datum->anesthesia_type_ao == 'IV Sedation') ? 'selected' : ''}}>IV Sedation</option>
-                <option value="General Anesthesia" {{ (isset($datum->anesthesia_type_ao) && $datum->anesthesia_type_ao == 'General Anesthesia') ? 'selected' : ''}}>General Anesthesia</option>
-              </select>
-              <label for="{{ $viewFolder }}_anesthesia_type_ao">Anesthesia Type</label>
-              <small id="help_{{ $viewFolder }}_anesthesia_type_ao" class="text-muted"></small>
-            </div>
-            <div class="form-floating mb-3">
-              <input class="form-control" type="text" name="{{ $viewFolder }}[anesthesiologist_ao]" id="{{ $viewFolder }}_anesthesiologist_ao" placeholder="" value="{{ isset($datum->anesthesiologist_ao) ? $datum->anesthesiologist_ao : '' }}" {{ !isset($referal_conso) ? '' : 'disabled' }}>
-              <label for="{{ $viewFolder }}_anesthesiologist_ao" class="form-label">Anesthesiologist</label>
-              <small id="help_{{ $viewFolder }}_anesthesiologist_ao" class="text-muted"></small>
-            </div>
-            <div class="card mb-3">
-              <div class="card-header">Admitting Details</div>
-              <div class="card-body">
-                <small class="text-muted">Helper</small>
-                <div class="input-group input-group-small flex-nowrap">
-                  <select class="form-select" id="{{ $viewFolder }}_admittingOrderSelect" placeholder="" {{ !isset($referal_conso) ? '' : 'disabled' }}>
-                    <option value=""></option>
-                  </select>
-                  <button class="btn btn-outline-secondary" type="button" id="{{ $viewFolder }}_admittingOrderHelperDelete" {{ !isset($referal_conso) ? '' : 'disabled' }}>Delete Helper</button>
-                </div>
-                <small class="text-muted">Content</small>
-                <textarea class="form-control" name="{{ $viewFolder }}[admittingOrder]" id="{{ $viewFolder }}_admittingOrder" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
-                    if(($('#{{ $viewFolder }}_procedure_ao').val() || $('#{{ $viewFolder }}_admittingOrder').val()) == ''){
-                      $('.createPDFButAddmitting').each(function(){
-                        $(this).prop('disabled', true);
-                      });
-                    }else{
-                      $('.createPDFButAddmitting').each(function(){
-                        $(this).prop('disabled', false);
-                      });
-                    }
-                  ">{{ isset($datum->admittingOrder) ? $datum->admittingOrder : '' }}</textarea>
-                <small class="text-muted">Helper Save/Edit</small>
-                <div class="input-group input-group-small mb-3 flex-nowrap">
-                  <div class="input-group-text">
-                    <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+              <div class="form-floating mb-3">
+                <select class="form-select" name="{{ $viewFolder }}[anesthesia_type_ao]" id="{{ $viewFolder }}_anesthesia_type_ao" placeholder="" {{ !isset($referal_conso) ? '' : 'disabled' }}>
+                  <option value="None" {{ (isset($datum->anesthesia_type_ao) && $datum->anesthesia_type_ao == 'None') ? 'selected' : ''}}>None</option>
+                  <option value="Regional Block" {{ (isset($datum->anesthesia_type_ao) && $datum->anesthesia_type_ao == 'Regional Block') ? 'selected' : ''}}>Regional Block</option>
+                  <option value="IV Sedation" {{ (isset($datum->anesthesia_type_ao) && $datum->anesthesia_type_ao == 'IV Sedation') ? 'selected' : ''}}>IV Sedation</option>
+                  <option value="General Anesthesia" {{ (isset($datum->anesthesia_type_ao) && $datum->anesthesia_type_ao == 'General Anesthesia') ? 'selected' : ''}}>General Anesthesia</option>
+                </select>
+                <label for="{{ $viewFolder }}_anesthesia_type_ao">Anesthesia Type</label>
+                <small id="help_{{ $viewFolder }}_anesthesia_type_ao" class="text-muted"></small>
+              </div>
+              <div class="form-floating mb-3">
+                <input class="form-control" type="text" name="{{ $viewFolder }}[anesthesiologist_ao]" id="{{ $viewFolder }}_anesthesiologist_ao" placeholder="" value="{{ isset($datum->anesthesiologist_ao) ? $datum->anesthesiologist_ao : '' }}" {{ !isset($referal_conso) ? '' : 'disabled' }}>
+                <label for="{{ $viewFolder }}_anesthesiologist_ao" class="form-label">Anesthesiologist</label>
+                <small id="help_{{ $viewFolder }}_anesthesiologist_ao" class="text-muted"></small>
+              </div>
+              <div class="card mb-3">
+                <div class="card-header">Admitting Details</div>
+                <div class="card-body">
+                  <small class="text-muted">Helper</small>
+                  <div class="input-group input-group-small flex-nowrap">
+                    <select class="form-select" id="{{ $viewFolder }}_admittingOrderSelect" placeholder="" {{ !isset($referal_conso) ? '' : 'disabled' }}>
+                      <option value=""></option>
+                    </select>
+                    <button class="btn btn-outline-secondary" type="button" id="{{ $viewFolder }}_admittingOrderHelperDelete" {{ !isset($referal_conso) ? '' : 'disabled' }}>Delete Helper</button>
                   </div>
-                  <input type="text" class="form-control" name="{{ $viewFolder }}[admittingOrderTitle]" disabled>
-                  <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                  <small class="text-muted">Content</small>
+                  <textarea class="form-control" name="{{ $viewFolder }}[admittingOrder]" id="{{ $viewFolder }}_admittingOrder" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
+                      if(($('#{{ $viewFolder }}_procedure_ao').val() || $('#{{ $viewFolder }}_admittingOrder').val()) == ''){
+                        $('.createPDFButAddmitting').each(function(){
+                          $(this).prop('disabled', true);
+                        });
+                      }else{
+                        $('.createPDFButAddmitting').each(function(){
+                          $(this).prop('disabled', false);
+                        });
+                      }
+                    ">{{ isset($datum->admittingOrder) ? $datum->admittingOrder : '' }}</textarea>
+                  <small class="text-muted">Helper Save/Edit</small>
+                  <div class="input-group input-group-small mb-3 flex-nowrap">
+                    <div class="input-group-text">
+                      <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                    </div>
+                    <input type="text" class="form-control" name="{{ $viewFolder }}[admittingOrderTitle]" disabled>
+                    <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                  </div>
+                  <textarea class="form-control mb-2" name="{{ $viewFolder }}[admittingOrderEdit]" id="{{ $viewFolder }}_admittingOrderEdit" rows=3 disabled></textarea>
                 </div>
-                <textarea class="form-control mb-2" name="{{ $viewFolder }}[admittingOrderEdit]" id="{{ $viewFolder }}_admittingOrderEdit" rows=3 disabled></textarea>
               </div>
             </div>
           </div>
@@ -2878,6 +2882,28 @@
 </div>
 
 <script>
+  document.addEventListener('DOMContentLoaded', function() {
+  const div1 = document.getElementById('prevDiv');
+  const div2 = document.getElementById('curDiv');
+
+  let isScrolling = false; // Flag to prevent infinite loops
+
+  div1.addEventListener('scroll', function() {
+    if (!isScrolling) {
+      isScrolling = true;
+      div2.scrollTop = div1.scrollTop;
+      setTimeout(() => { isScrolling = false; }, 50); // Small delay to reset flag
+    }
+  });
+
+  div2.addEventListener('scroll', function() {
+    if (!isScrolling) {
+      isScrolling = true;
+      div1.scrollTop = div2.scrollTop;
+      setTimeout(() => { isScrolling = false; }, 50); // Small delay to reset flag
+    }
+  });
+});
   function nl2br (str, is_xhtml) {
     // http://kevin.vanzonneveld.net
     // +   original by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
