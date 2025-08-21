@@ -76,7 +76,7 @@
     <h3 class="text-center m-0 mb-5">MEDICAL CERTIFICATE</h3>
     <p>
         To whom it may concern:<br><br>
-        This is to certify that {{ $datum->patient->name }} was seen in my clinic {{ $datum->clinic->name }} today.<br><br>
+        This is to certify that {{ $datum->patient->name }} was seen in my clinic {{ isset($referal_conso->clinic->name) ? $referal_conso->clinic->name : $datum->clinic->name }} today.<br><br>
         Chief Complaint:
         <ul style="list-style-type:none;">
             <li>{!!html_entity_decode($datum->complain)!!} for {{ $datum->duration }}</li>
