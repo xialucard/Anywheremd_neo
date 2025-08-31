@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use App\Models\ScheduleConso;
 use App\Models\AffiliatedDoctor;
 use App\Models\ConsultationFile;
+use App\Models\ConsultationMed;
+use App\Models\ConsultationMonitoring;
 use App\Models\HealthOrganization;
 use App\Models\IcdCode;
 use App\Models\User;
@@ -394,6 +396,62 @@ class DoctorsHomeController extends Controller
         unset($params);
         $params = $request->input($this->viewFolder);
         // dd($params);
+
+        if(isset($params['Med'])){
+            $medication = $params['Med'];
+            unset($params['Med']);
+            if($medication['time_given'] != ''){
+                $medication['consultation_id'] = $clinics_home->id;
+                $medication['created_by'] = $user->id;
+                $medication['updated_by'] = $user->id;
+                // dd($medication);
+                ConsultationMed::create($medication);
+                
+            }
+        }
+        
+        if(isset($params['Monitoring'])){
+            $monitoring = $params['Monitoring'];
+            unset($params['Monitoring']);
+            if($monitoring['time_given'] != ''){
+                $monitoring['consultation_id'] = $clinics_home->id;
+                $monitoring['created_by'] = $user->id;
+                $monitoring['updated_by'] = $user->id;
+                // dd($medication);
+                ConsultationMonitoring::create($monitoring);
+                
+            }
+        }
+
+         if(isset($params['mental_status']))
+            $params['mental_status'] = json_encode($params['mental_status']);
+        else
+            $params['mental_status'] = json_encode('');
+        if(isset($params['pe_findings']))
+            $params['pe_findings'] = json_encode($params['pe_findings']);
+        else
+            $params['pe_findings'] = json_encode('');
+        if(isset($params['post_mental_status']))
+            $params['post_mental_status'] = json_encode($params['post_mental_status']);
+        else
+            $params['post_mental_status'] = json_encode('');
+        if(isset($params['post_pe_findings']))
+            $params['post_pe_findings'] = json_encode($params['post_pe_findings']);
+        else
+            $params['post_pe_findings'] = json_encode('');
+        if(isset($params['vaccess_detail']))
+            $params['vaccvaccess_detailess'] = json_encode($params['vaccess_detail']);
+        else
+            $params['vaccess_detail'] = json_encode('');
+        if(isset($params['av_fistula_detail']))
+            $params['av_fistula_detail'] = json_encode($params['av_fistula_detail']);
+        else
+            $params['av_fistula_detail'] = json_encode('');
+        if(isset($params['hd_catheter_detail']))
+            $params['hd_catheter_detail'] = json_encode($params['hd_catheter_detail']);
+        else
+            $params['hd_catheter_detail'] = json_encode('');
+
         unset($patient);
         $patient = $params['Patient'];
         if(isset($patient)){
@@ -410,7 +468,7 @@ class DoctorsHomeController extends Controller
         
         if(isset($params['referral_id'])){
             $consultationObj = Consultation::find($params['referral_id']);
-            
+
             unset($paramsRef);
             if(isset($params['docNotesHPI']))
                 $paramsRef['docNotesHPI'] = $params['docNotesHPI'];
@@ -546,8 +604,6 @@ class DoctorsHomeController extends Controller
 
         }
         
-        
-        
         return redirect()->to($referer)->with('message', "Entry has been updated.");
         // return redirect()->route($this->viewFolder . '.index')->with('message', 'Entry has been updated.');
     }
@@ -586,6 +642,18 @@ class DoctorsHomeController extends Controller
         if(isset($doctors_home->icd_code_obj->icd_code)){
             $prevBookingArr['consultation']['icd_code_obj']['icd_code'] = $doctors_home->icd_code_obj->icd_code;
             $prevBookingArr['consultation']['icd_code_obj']['details'] = $doctors_home->icd_code_obj->details;
+        }
+        if(!is_null($doctors_home->consultation_meds)){
+            $prevBookingArr['consultation_meds'] = $doctors_home->consultation_meds;
+            foreach($prevBookingArr['consultation_meds'] as $ind=>$dat){
+                $prevBookingArr['consultation_meds'][$ind]['creator'] = $dat->creator;
+            }
+        }
+        if(!is_null($doctors_home->consultation_monitorings)){
+            $prevBookingArr['consultation_monitorings'] = $doctors_home->consultation_monitorings;
+            foreach($prevBookingArr['consultation_monitorings'] as $ind=>$dat){
+                $prevBookingArr['consultation_monitorings'][$ind]['creator'] = $dat->creator;
+            }
         }
         $prevBookingArr['consultation']['doctor'] = $doctors_home->doctor;
         $prevBookingArr['consultation']['clinic'] = $doctors_home->clinic;
@@ -647,7 +715,6 @@ class DoctorsHomeController extends Controller
         }else{
             $prevBookingArr['parent_consultation']['id'] = '';
         }
-
         return json_encode($prevBookingArr);
     }
 

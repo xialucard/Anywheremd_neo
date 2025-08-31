@@ -256,27 +256,31 @@
                 $('#presPrevLink').removeClass('active');  
                 $('#medPrevLink').removeClass('active');  
                 $('#admitPrevLink').removeClass('active');
+                $('#dialysisPrevLink').removeClass('active');
                 $('#sumPrevDiv').show();  
                 $('#soapPrevDiv').hide();  
                 $('#labPrevDiv').hide();  
                 $('#presPrevDiv').hide();  
                 $('#medPrevDiv').hide();  
                 $('#admitPrevDiv').hide();
+                $('#dialysisPrevDiv').hide();
                 $('#sumCurLink').addClass('active');  
                 $('#soapCurLink').removeClass('active');  
                 $('#labCurLink').removeClass('active');  
                 $('#presCurLink').removeClass('active');  
                 $('#medCurLink').removeClass('active');  
                 $('#admitCurLink').removeClass('active');
+                $('#dialysisCurLink').removeClass('active');
                 $('#sumCurDiv').show();  
                 $('#soapCurDiv').hide();  
                 $('#labCurDiv').hide();  
                 $('#presCurDiv').hide();  
                 $('#medCurDiv').hide();  
                 $('#admitCurDiv').hide();
+                $('#dialysisCurDiv').hide();
               ">Summary</a>
             </li>
-            {{-- <li class="nav-item">
+            <li class="nav-item">
               <a class="nav-link" id="soapPrevLink" href="#" onclick="
                 $('#soapPrevLink').addClass('active');  
                 $('#sumPrevLink').removeClass('active');  
@@ -284,26 +288,30 @@
                 $('#presPrevLink').removeClass('active');  
                 $('#medPrevLink').removeClass('active');  
                 $('#admitPrevLink').removeClass('active');
+                $('#dialysisPrevLink').removeClass('active');
                 $('#soapPrevDiv').show();  
                 $('#sumPrevDiv').hide();  
                 $('#labPrevDiv').hide();  
                 $('#presPrevDiv').hide();  
                 $('#medPrevDiv').hide();  
                 $('#admitPrevDiv').hide();
+                $('#dialysisPrevDiv').hide();
                 $('#soapCurLink').addClass('active');  
                 $('#sumCurLink').removeClass('active');  
                 $('#labCurLink').removeClass('active');  
                 $('#presCurLink').removeClass('active');  
                 $('#medCurLink').removeClass('active');  
                 $('#admitCurLink').removeClass('active');
+                $('#dialysisCurLink').removeClass('active');
                 $('#soapCurDiv').show();  
                 $('#sumCurDiv').hide();  
                 $('#labCurDiv').hide();  
                 $('#presCurDiv').hide();  
                 $('#medCurDiv').hide();  
                 $('#admitCurDiv').hide();
+                $('#dialysisCurDiv').hide();
               ">SOAP</a>
-            </li> --}}
+            </li>
             <li class="nav-item">
               <a class="nav-link" id="labPrevLink" href="#" onclick="
                 $('#sumPrevLink').removeClass('active');
@@ -312,24 +320,28 @@
                 $('#presPrevLink').removeClass('active');  
                 $('#medPrevLink').removeClass('active');  
                 $('#admitPrevLink').removeClass('active');
+                $('#dialysisPrevLink').removeClass('active');
                 $('#sumPrevDiv').hide();  
                 $('#soapPrevDiv').hide();  
                 $('#labPrevDiv').show();  
                 $('#presPrevDiv').hide();  
                 $('#medPrevDiv').hide();  
                 $('#admitPrevDiv').hide();
+                $('#dialysisPrevDiv').hide();
                 $('#sumCurLink').removeClass('active');
                 $('#soapCurLink').removeClass('active');
                 $('#labCurLink').addClass('active');  
                 $('#presCurLink').removeClass('active');  
                 $('#medPCurLink').removeClass('active');  
                 $('#admitCurLink').removeClass('active');
+                $('#dialysisCurLink').removeClass('active');
                 $('#sumCurDiv').hide();  
                 $('#soapCurDiv').hide();  
                 $('#labCurDiv').show();  
                 $('#presCurDiv').hide();  
                 $('#medCurDiv').hide();  
                 $('#admitCurDiv').hide();
+                $('#dialysisCurDiv').hide();
               ">File Uploads</a>
             </li>
             <li class="nav-item">
@@ -340,24 +352,28 @@
                 $('#presPrevLink').addClass('active');  
                 $('#medPrevLink').removeClass('active');  
                 $('#admitPrevLink').removeClass('active');
+                $('#dialysisPrevLink').removeClass('active');
                 $('#sumPrevDiv').hide();  
                 $('#soapPrevDiv').hide();  
                 $('#labPrevDiv').hide();  
                 $('#presPrevDiv').show();  
                 $('#medPrevDiv').hide();  
                 $('#admitPrevDiv').hide();
+                $('#dialysisPrevDiv').hide();
                 $('#sumCurLink').removeClass('active');
                 $('#soapCurLink').removeClass('active');
                 $('#labCurLink').removeClass('active');  
                 $('#presCurLink').addClass('active');  
                 $('#medCurLink').removeClass('active');  
                 $('#admitCurLink').removeClass('active');
+                $('#dialysisCurLink').removeClass('active');
                 $('#sumCurDiv').hide();  
                 $('#soapCurDiv').hide();  
                 $('#labCurDiv').hide();  
                 $('#presCurDiv').show();  
                 $('#medCurDiv').hide();  
                 $('#admitCurDiv').hide();
+                $('#dialysisCurDiv').hide();
               ">E-Prescription</a>
             </li>
             <li class="nav-item">
@@ -368,24 +384,28 @@
                 $('#presPrevLink').removeClass('active');  
                 $('#medPrevLink').addClass('active');  
                 $('#admitPrevLink').removeClass('active');
+                $('#dialysisPrevLink').removeClass('active');
                 $('#sumPrevDiv').hide();  
                 $('#soapPrevDiv').hide();  
                 $('#labPrevDiv').hide();  
                 $('#presPrevDiv').hide();  
                 $('#medPrevDiv').show();  
                 $('#admitPrevDiv').hide();
+                $('#dialysisPrevDiv').hide();
                 $('#sumCurLink').removeClass('active');
                 $('#soapCurLink').removeClass('active');
                 $('#labCurLink').removeClass('active');  
                 $('#presCurLink').removeClass('active');  
                 $('#medCurLink').addClass('active');  
                 $('#admitCurLink').removeClass('active');
+                $('#dialysisCurLink').removeClass('active');
                 $('#sumCurDiv').hide();  
                 $('#soapCurDiv').hide();  
                 $('#labCurDiv').hide();  
                 $('#presCurDiv').hide();  
                 $('#medCurDiv').show();  
                 $('#admitCurDiv').hide();
+                $('#dialysisCurDiv').hide();
               ">Med Cert</a>
             </li>
             <li class="nav-item">
@@ -396,26 +416,64 @@
                 $('#presPrevLink').removeClass('active');  
                 $('#medPrevLink').removeClass('active');
                 $('#admitPrevLink').addClass('active'); 
+                $('#dialysisPrevLink').removeClass('active');
                 $('#sumPrevDiv').hide();  
                 $('#soapPrevDiv').hide();  
                 $('#labPrevDiv').hide();  
                 $('#presPrevDiv').hide();  
                 $('#medPrevDiv').hide(); 
-                $('#admitPrevDiv').show();  
+                $('#admitPrevDiv').show();
+                $('#dialysisPrevDiv').hide();  
                 $('#sumCurLink').removeClass('active');
                 $('#soapCurLink').removeClass('active');
                 $('#labCurLink').removeClass('active');  
                 $('#presCurLink').removeClass('active');  
                 $('#medCurLink').removeClass('active');
                 $('#admitCurLink').addClass('active'); 
+                $('#dialysisCurLink').removeClass('active');
                 $('#sumCurDiv').hide();  
                 $('#soapCurDiv').hide();  
                 $('#labCurDiv').hide();  
                 $('#presCurDiv').hide();  
                 $('#medCurDiv').hide(); 
                 $('#admitCurDiv').show();  
+                $('#dialysisCurDiv').hide();  
               ">Admitting Orders</a>
             </li>
+            @if($bookings[0]->booking_type == 'Dialysis')
+            <li class="nav-item">
+              <a class="nav-link" id="dialysisPrevLink" href="#" onclick="
+                $('#sumPrevLink').removeClass('active');
+                $('#soapPrevLink').removeClass('active');
+                $('#labPrevLink').removeClass('active');  
+                $('#presPrevLink').removeClass('active');  
+                $('#medPrevLink').removeClass('active');
+                $('#admitPrevLink').removeClass('active');
+                $('#dialysisPrevLink').addClass('active');
+                $('#sumPrevDiv').hide();  
+                $('#soapPrevDiv').hide();  
+                $('#labPrevDiv').hide();  
+                $('#presPrevDiv').hide();  
+                $('#medPrevDiv').hide(); 
+                $('#admitPrevDiv').hide();  
+                $('#dialysisPrevDiv').show();  
+                $('#sumCurLink').removeClass('active');
+                $('#soapCurLink').removeClass('active');
+                $('#labCurLink').removeClass('active');  
+                $('#presCurLink').removeClass('active');  
+                $('#medCurLink').removeClass('active');
+                $('#admitCurLink').removeClass('active');
+                $('#dialysisCurLink').addClass('active'); 
+                $('#sumCurDiv').hide();  
+                $('#soapCurDiv').hide();  
+                $('#labCurDiv').hide();  
+                $('#presCurDiv').hide();  
+                $('#medCurDiv').hide(); 
+                $('#admitCurDiv').hide();  
+                $('#dialysisCurDiv').show();  
+              ">Dialysis Chart</a>
+            </li>
+            @endif
           </ul>
           <div id="sumCurDiv" class="container border border-1 border-top-0 mb-3 p-3">
             <div class="card mb-3">
@@ -827,6 +885,1917 @@
               </div>
             </div>
           </div>
+          <div id="dialysisPrevDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
+            @if(isset($bookings[0]->booking_type) && $bookings[0]->booking_type == 'Dialysis')
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="input-group mb-3">
+                  <div class="form-floating">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[id]" id="{{ $viewFolder }}_prev_treatment_id" value="{{ isset($bookings[0]->id) ? $bookings[0]->id : '' }}" placeholder="" disabled>
+                    <label for="{{ $viewFolder }}_prev_treatment_id" class="form-label">Treatment Number</label>
+                    <small id="help_{{ $viewFolder }}_prev_treatment_id" class="text-muted"></small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="input-group mb-3">
+                  <div class="form-floating">
+                    <input class="form-control" type="time" name="{{ $viewFolder }}[time_started]" id="{{ $viewFolder }}_prev_time_started" value="{{ isset($bookings[0]->time_started) ? $bookings[0]->time_started : ''}}" placeholder="" disabled>
+                    <label for="{{ $viewFolder }}_prev_time_started" class="form-label">Time Started</label>
+                    <small id="help_{{ $viewFolder }}_prev_time_started" class="text-muted"></small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="input-group mb-3">
+                  <div class="form-floating">
+                    <input class="form-control" type="time" name="{{ $viewFolder }}[time_ended]" id="{{ $viewFolder }}_prev_time_ended" value="{{ isset($bookings[0]->time_ended) ? $bookings[0]->time_ended : ''}}" placeholder="" disabled>
+                    <label for="{{ $viewFolder }}_prev_time_ended" class="form-label">Time Ended</label>
+                    <small id="help_{{ $viewFolder }}_prev_time_ended" class="text-muted"></small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card mb-3">
+              <div class="card-header">Machine Details</div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-3">
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="text" name="{{ $viewFolder }}[machine_number]" id="{{ $viewFolder }}_prev_machine_number" value="{{ isset($bookings[0]->machine_number) ? $bookings[0]->machine_number : ''}}" placeholder="" disabled>
+                        <label for="{{ $viewFolder }}_prev_machine_number" class="form-label">Machine Number</label>
+                        <small id="help_{{ $viewFolder }}_prev_machine_number" class="text-muted"></small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-3">
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="text" name="{{ $viewFolder }}[dialyzer]" id="{{ $viewFolder }}_prev_dialyzer" value="{{ isset($bookings[0]->dialyzer) ? $bookings[0]->dialyzer : ''}}" placeholder="" disabled>
+                        <label for="{{ $viewFolder }}_prev_dialyzer" class="form-label">Dialyzer</label>
+                        <small id="help_{{ $viewFolder }}_prev_dialyzer" class="text-muted"></small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-3">
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" step=1 min=0 name="{{ $viewFolder }}[mac_use]" id="{{ $viewFolder }}_prev_use" value="{{ isset($bookings[0]->mac_use) ? $bookings[0]->mac_use : ''}}" placeholder="" disabled>
+                        <label for="{{ $viewFolder }}_prev_use" class="form-label">Use</label>
+                        <small id="help_{{ $viewFolder }}_prev_use" class="text-muted"></small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-3">
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="text" name="{{ $viewFolder }}[acid]" id="{{ $viewFolder }}_prev_acid" value="{{ isset($bookings[0]->acid) ? $bookings[0]->acid : ''}}" placeholder="" disabled>
+                        <label for="{{ $viewFolder }}_prev_acid" class="form-label">Acid</label>
+                        <small id="help_{{ $viewFolder }}_prev_acid" class="text-muted"></small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-3">
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="text" name="{{ $viewFolder }}[mac_add]" id="{{ $viewFolder }}_prev_add" value="{{ isset($bookings[0]->mac_add) ? $bookings[0]->mac_add : ''}}" placeholder="" disabled>
+                        <label for="{{ $viewFolder }}_prev_add" class="form-label">Add</label>
+                        <small id="help_{{ $viewFolder }}_prev_add" class="text-muted"></small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-3">
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="text" name="{{ $viewFolder }}[bfr]" id="{{ $viewFolder }}_prev_bfr" value="{{ isset($bookings[0]->bfr) ? $bookings[0]->bfr : ''}}" placeholder="" disabled>
+                        <label for="{{ $viewFolder }}_prev_bfr" class="form-label">BRF</label>
+                        <small id="help_{{ $viewFolder }}_prev_bfr" class="text-muted"></small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-3">
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="text" name="{{ $viewFolder }}[dfr]" id="{{ $viewFolder }}_prev_dfr" value="{{ isset($bookings[0]->dfr) ? $bookings[0]->dfr : ''}}" placeholder="" disabled>
+                        <label for="{{ $viewFolder }}_prev_dfr" class="form-label">DFR</label>
+                        <small id="help_{{ $viewFolder }}_prev_dfr" class="text-muted"></small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-3">
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="text" name="{{ $viewFolder }}[setup_prime]" id="{{ $viewFolder }}_prev_setup_prime" value="{{ isset($bookings[0]->setup_prime) ? $bookings[0]->setup_prime : ''}}" placeholder="" disabled>
+                        <label for="{{ $viewFolder }}_prev_setup_prime" class="form-label">Setup Prime</label>
+                        <small id="help_{{ $viewFolder }}_prev_setup_prime" class="text-muted"></small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <textarea class="form-control" name="{{ $viewFolder }}[safety_check]" id="{{ $viewFolder }}_prev_safety_check" rows=3 disabled>{{ isset($bookings[0]->safety_check) ? $bookings[0]->safety_check : ''}}</textarea>
+                        <label for="{{ $viewFolder }}_prev_safety_check" class="form-label">Safety Check</label>
+                        <small id="help_{{ $viewFolder }}_prev_safety_check" class="text-muted"></small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <textarea class="form-control" name="{{ $viewFolder }}[residual_test]" id="{{ $viewFolder }}_prev_residual_test" rows=3 disabled>{{ isset($bookings[0]->residual_test) ? $bookings[0]->residual_test : ''}}</textarea>
+                        <label for="{{ $viewFolder }}_prev_residual_test" class="form-label">Residual Test</label>
+                        <small id="help_{{ $viewFolder }}_prev_residual_test" class="text-muted"></small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card mb-3">
+              <div class="card-header">Treatment Plan</div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" name="{{ $viewFolder }}[dry_weight]" min=1 step=.1 id="{{ $viewFolder }}_prev_dry_weight" value="{{ isset($bookings[0]->dry_weight) ? $bookings[0]->dry_weight : ''}}" placeholder="" disabled>
+                        <label for="{{ $viewFolder }}_prev_dry_weight" class="form-label">Estimate Dry Weight</label>
+                        <small id="help_{{ $viewFolder }}_prev_dry_weight" class="text-muted"></small>
+                      </div>
+                      <span class="input-group-text">kg</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" name="{{ $viewFolder }}[prev_post_hd_weight]" min=1 step=.1 id="{{ $viewFolder }}_prev_prev_post_hd_weight" value="{{ isset($bookings[0]->prev_post_hd_weight) ? $bookings[0]->prev_post_hd_weight : ''}}" placeholder="" disabled>
+                        <label for="{{ $viewFolder }}_prev_prev_post_hd_weight" class="form-label">Prev. Post HD Weight</label>
+                        <small id="help_{{ $viewFolder }}_prev_prev_post_hd_weight" class="text-muted"></small>
+                      </div>
+                      <span class="input-group-text">kg</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" name="{{ $viewFolder }}[weight]" min=1 step=.1 id="{{ $viewFolder }}_prev_pre_hd_weight" value="{{ isset($bookings[0]->weight) ? $bookings[0]->weight : ''}}" placeholder="" onchange="
+                          if($('#{{ $viewFolder }}_prev_pre_hd_weight').val() != '' &&  $('#{{ $viewFolder }}_prev_post_hd_weight').val() != ''){
+                            $('#{{ $viewFolder }}_prev_weight_loss').val($('#{{ $viewFolder }}_prev_pre_hd_weight').val() - $('#{{ $viewFolder }}_prev_post_hd_weight').val());
+                          }
+                        " disabled>
+                        <label for="{{ $viewFolder }}_prev_pre_hd_weight" class="form-label">Pre HD Weight</label>
+                        <small id="help_{{ $viewFolder }}_prev_pre_hd_weight" class="text-muted"></small>
+                      </div>
+                      <span class="input-group-text">kg</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" name="{{ $viewFolder }}[post_weight]" min=1 step=.1 id="{{ $viewFolder }}_prev_post_hd_weight" value="{{ isset($bookings[0]->post_weight) ? $bookings[0]->post_weight : ''}}" placeholder="" onchange="
+                          if($('#{{ $viewFolder }}_prev_pre_hd_weight').val() != '' &&  $('#{{ $viewFolder }}_prev_post_hd_weight').val() != ''){
+                            $('#{{ $viewFolder }}_prev_weight_loss').val($('#{{ $viewFolder }}_prev_pre_hd_weight').val() - $('#{{ $viewFolder }}_prev_post_hd_weight').val());
+                          }
+                        " disabled>
+                        <label for="{{ $viewFolder }}_prev_post_hd_weight" class="form-label">Post HD Weight</label>
+                        <small id="help_{{ $viewFolder }}_prev_post_hd_weight" class="text-muted"></small>
+                      </div>
+                      <span class="input-group-text">kg</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-4">
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="text" name="{{ $viewFolder }}[ktv]" id="{{ $viewFolder }}_prev_ktv" value="{{ isset($bookings[0]->ktv) ? $bookings[0]->ktv : ''}}" placeholder="" disabled>
+                        <label for="{{ $viewFolder }}_prev_ktv" class="form-label">KT/V</label>
+                        <small id="help_{{ $viewFolder }}_prev_ktv" class="text-muted"></small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-4">
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="text" name="{{ $viewFolder }}[net_uf]" id="{{ $viewFolder }}_prev_net_uf" value="{{ isset($bookings[0]->net_uf) ? $bookings[0]->net_uf : ''}}" placeholder="" disabled>
+                        <label for="{{ $viewFolder }}_prev_net_uf" class="form-label">Net UF</label>
+                        <small id="help_{{ $viewFolder }}_prev_net_uf" class="text-muted"></small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" name="{{ $viewFolder }}[hd_duration]" min=1 step=.1 id="{{ $viewFolder }}_prev_hd_duration" value="{{ isset($bookings[0]->hd_duration) ? $bookings[0]->hd_duration : ''}}" placeholder="" disabled>
+                        <label for="{{ $viewFolder }}_prev_hd_duration" class="form-label">Duration</label>
+                        <small id="help_{{ $viewFolder }}_prev_hd_duration" class="text-muted"></small>
+                      </div>
+                      <span class="input-group-text">hr/s</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" name="{{ $viewFolder }}[frequency]" min=1 step=.1 id="{{ $viewFolder }}_prev_frequency" value="{{ isset($bookings[0]->frequency) ? $bookings[0]->frequency : ''}}" placeholder="" disabled>
+                        <label for="{{ $viewFolder }}_prev_frequency" class="form-label">Frequency</label>
+                        <small id="help_{{ $viewFolder }}_prev_frequency" class="text-muted"></small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="text" name="{{ $viewFolder }}[prime]" id="{{ $viewFolder }}_prev_prime" value="{{ isset($bookings[0]->prime) ? $bookings[0]->prime : ''}}" placeholder="" disabled>
+                        <label for="{{ $viewFolder }}_prev_prime" class="form-label">Prime/Rinse</label>
+                        <small id="help_{{ $viewFolder }}_prev_prime" class="text-muted"></small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="text" name="{{ $viewFolder }}[other_fluids]" id="{{ $viewFolder }}_prev_other_fluids" value="{{ isset($bookings[0]->other_fluids) ? $bookings[0]->other_fluids : ''}}" placeholder="" disabled>
+                        <label for="{{ $viewFolder }}_prev_other_fluids" class="form-label">Other Fluids</label>
+                        <small id="help_{{ $viewFolder }}_prev_other_fluids" class="text-muted"></small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="text" name="{{ $viewFolder }}[total_uf_goal]" id="{{ $viewFolder }}_prev_total_uf_goal" value="{{ isset($bookings[0]->total_uf_goal) ? $bookings[0]->total_uf_goal : ''}}" placeholder="" disabled>
+                        <label for="{{ $viewFolder }}_prev_total_uf_goal" class="form-label">Total UF Goal</label>
+                        <small id="help_{{ $viewFolder }}_prev_total_uf_goal" class="text-muted"></small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="text" name="{{ $viewFolder }}[weight_loss]" id="{{ $viewFolder }}_prev_weight_loss" value="{{ isset($bookings[0]->weight_loss) ? $bookings[0]->weight_loss : ''}}" placeholder="" disabled>
+                        <label for="{{ $viewFolder }}_prev_weight_loss" class="form-label">Weight Loss</label>
+                        <small id="help_{{ $viewFolder }}_prev_weight_loss" class="text-muted"></small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card mb-3">
+              <div class="card-header">Anticoagulant</div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-4">
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="text" name="{{ $viewFolder }}[brand]" id="{{ $viewFolder }}_prev_brand" value="{{ isset($bookings[0]->brand) ? $bookings[0]->brand : ''}}" placeholder="" disabled>
+                        <label for="{{ $viewFolder }}_prev_brand" class="form-label">Brand Name</label>
+                        <small id="help_{{ $viewFolder }}_prev_brand" class="text-muted"></small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="text" name="{{ $viewFolder }}[dose]" id="{{ $viewFolder }}_prev_dose" value="{{ isset($bookings[0]->dose) ? $bookings[0]->dose : ''}}" placeholder="" disabled>
+                        <label for="{{ $viewFolder }}_prev_dose" class="form-label">Dose</label>
+                        <small id="help_{{ $viewFolder }}_prev_dose" class="text-muted"></small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="text" name="{{ $viewFolder }}[regular_dose]" id="{{ $viewFolder }}_prev_regular_dose" value="{{ isset($bookings[0]->regular_dose) ? $bookings[0]->regular_dose : ''}}" placeholder="" disabled>
+                        <label for="{{ $viewFolder }}_prev_regular_dose" class="form-label">Regular Dose</label>
+                        <small id="help_{{ $viewFolder }}_prev_regular_dose" class="text-muted"></small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-4">
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="text" name="{{ $viewFolder }}[low_dose]" id="{{ $viewFolder }}_prev_low_dose" value="{{ isset($bookings[0]->low_dose) ? $bookings[0]->low_dose : ''}}" placeholder="" disabled>
+                        <label for="{{ $viewFolder }}_prev_low_dose" class="form-label">Low Dose</label>
+                        <small id="help_{{ $viewFolder }}_prev_low_dose" class="text-muted"></small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="text" name="{{ $viewFolder }}[lmwh]" id="{{ $viewFolder }}_prev_lmwh" value="{{ isset($bookings[0]->lmwh) ? $bookings[0]->lmwh : ''}}" placeholder="" disabled>
+                        <label for="{{ $viewFolder }}_prev_lmwh" class="form-label">LMWH</label>
+                        <small id="help_{{ $viewFolder }}_prev_lmwh" class="text-muted"></small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="text" name="{{ $viewFolder }}[flushing]" id="{{ $viewFolder }}_prev_flushing" value="{{ isset($bookings[0]->flushing) ? $bookings[0]->flushing : ''}}" placeholder="" disabled>
+                        <label for="{{ $viewFolder }}_prev_flushing" class="form-label">NSS Flushing</label>
+                        <small id="help_{{ $viewFolder }}_prev_flushing" class="text-muted"></small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            @endif
+            <div class="row">
+              <div class="col-lg-{{ stristr($user->specialty, 'Ophtha') && (isset($bookings[0]->booking_type) && $bookings[0]->booking_type != 'Dialysis') ? 4 : (isset($bookings[0]->booking_type) && $bookings[0]->booking_type == 'Dialysis' ? 6 : 12) }}">
+                <div class="card mb-3">
+                  <div class="card-header">{{ isset($bookings[0]->booking_type) && $bookings[0]->booking_type == 'Dialysis' ? 'Pre-HD ' : '' }}Vitals</div>
+                  <div class="card-body">
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" name="{{ $viewFolder }}[temp]" min=30 step=.1 id="{{ $viewFolder }}_prev_temp" value="{{ isset($bookings[0]->temp) ? $bookings[0]->temp : ''}}" placeholder="" {{ isset($bookings[0]->id) ? '' : '' }} disabled>
+                        <label for="{{ $viewFolder }}_prev_temp" class="form-label">Temperature</label>
+                        <small id="help_{{ $viewFolder }}_prev_temp" class="text-muted"></small>
+                      </div>
+                      <span class="input-group-text">C</span>
+                    </div>
+                    @if(isset($bookings[0]->booking_type) && $bookings[0]->booking_type != 'Dialysis')
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" name="{{ $viewFolder }}[height]" min=1 step=.1 id="{{ $viewFolder }}_prev_height" value="{{ isset($bookings[0]->height) ? $bookings[0]->height : '' }}" placeholder="" {{ isset($bookings[0]->id) ? '' : '' }} onblur="
+                            if($(this).val() != '' && $('#{{ $viewFolder }}_prev_weight').val() != ''){
+                              $('#{{ $viewFolder }}_prev_bmi').val($('#{{ $viewFolder }}_prev_weight').val()/(($(this).val()/100)*($(this).val()/100)));
+                            }else{
+                              $('#{{ $viewFolder }}_prev_bmi').val('');
+                            }
+                          " disabled>
+                        <label for="{{ $viewFolder }}_prev_height" class="form-label">Height</label>
+                        <small id="help_{{ $viewFolder }}_prev_height" class="text-muted"></small>
+                      </div>
+                      <span class="input-group-text">cm</span>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" name="{{ $viewFolder }}[weight]" min=1 step=.1 id="{{ $viewFolder }}_prev_weight" value="{{ isset($bookings[0]->weight) ? $bookings[0]->weight : '' }}" placeholder="" {{ isset($bookings[0]->id) ? '' : '' }} onblur="
+                          if($(this).val() != '' && $('#{{ $viewFolder }}_prev_height').val() != ''){
+                            $('#{{ $viewFolder }}_prev_bmi').val($(this).val()/(($('#{{ $viewFolder }}_prev_height').val()/100)*($('#{{ $viewFolder }}_prev_height').val()/100)));
+                          }else{
+                            $('#{{ $viewFolder }}_prev_bmi').val('');
+                          }
+                        " disabled>
+                        <label for="{{ $viewFolder }}_prev_weight" class="form-label">Weight</label>
+                        <small id="help_{{ $viewFolder }}_prev_weight" class="text-muted"></small>
+                      </div>
+                      <span class="input-group-text">kg</span>
+                    </div>
+                    {{-- <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" name="{{ $viewFolder }}[post_weight]" min=1 step=.1 id="{{ $viewFolder }}_post_weight" value="{{ isset($datum->post_weight) ? $datum->post_weight : '' }}" placeholder="" {{ isset($datum->booking_type) && $datum->booking_type != 'Dialysis' ? 'disabled' : ''}}>
+                        <label for="{{ $viewFolder }}_post_weight" class="form-label">(Post HD)/Weight</label>
+                        <small id="help_{{ $viewFolder }}_post_weight" class="text-muted"></small>
+                      </div>
+                      <span class="input-group-text">kg</span>
+                    </div> --}}
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" name="{{ $viewFolder }}[bmi]" min=1 id="{{ $viewFolder }}_prev_bmi" value="{{ !empty($bookings[0]->height) ? (int)$bookings[0]->weight/(((int)$bookings[0]->height/100)*((int)$bookings[0]->height/100)) : '' }}" placeholder="" disabled>
+                        <label for="{{ $viewFolder }}_prev_bmi" class="form-label">BMI</label>
+                        <small id="help_{{ $viewFolder }}_prev_bmi" class="text-muted"></small>
+                      </div>
+                    </div>
+                    @endif
+                    <label for="{{ $viewFolder }}_bpS" class="form-label">BP</label>
+                    <div class="input-group mb-3">
+                      <input class="form-control" type="number" name="{{ $viewFolder }}[bpS]" min=50 max=250 step=1 id="{{ $viewFolder }}_prev_bpS" value="{{ isset($bookings[0]->bpS) ? $bookings[0]->bpS : '' }}" placeholder="Systolic" {{ isset($bookings[0]->id) ? '' : '' }} disabled>
+                      <span class="input-group-text">/</span>
+                      <input class="form-control" type="number" name="{{ $viewFolder }}[bpD]" min=30 max=150 step=1 id="{{ $viewFolder }}_prev_bpD" value="{{ isset($bookings[0]->bpD) ? $bookings[0]->bpD : '' }}" placeholder="Diastolic" {{ isset($bookings[0]->id) ? '' : '' }} disabled>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" name="{{ $viewFolder }}[o2]" min=1 id="{{ $viewFolder }}_prev_o2" value="{{ isset($bookings[0]->o2) ? $bookings[0]->o2 : '' }}" placeholder="" {{ isset($bookings[0]->id) ? '' : '' }} disabled>
+                        <label for="{{ $viewFolder }}_prev_o2" class="form-label">O2 Sat</label>
+                        <small id="help_{{ $viewFolder }}_prev_o2" class="text-muted"></small>
+                      </div>
+                      <span class="input-group-text">%</span>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" name="{{ $viewFolder }}[heart]" min=1 id="{{ $viewFolder }}_prev_heart" value="{{ isset($bookings[0]->heart) ? $bookings[0]->heart : '' }}" placeholder="" {{ isset($bookings[0]->id) ? '' : '' }} disabled>
+                        <label for="{{ $viewFolder }}_prev_heart" class="form-label">Heart/Pulse Rate</label>
+                        <small id="help_{{ $viewFolder }}_prev_heart" class="text-muted"></small>
+                      </div>
+                      <span class="input-group-text">BPM</span>
+                    </div>
+                    @if(isset($bookings[0]->booking_type) && $bookings[0]->booking_type == 'Dialysis')
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" name="{{ $viewFolder }}[resp]" min=1 id="{{ $viewFolder }}_prev_resp" value="{{ isset($bookings[0]->resp) ? $bookings[0]->resp : '' }}" placeholder="" {{ isset($bookings[0]->id) ? '' : '' }} disabled>
+                        <label for="{{ $viewFolder }}_prev_resp" class="form-label">Resp</label>
+                        <small id="help_{{ $viewFolder }}_prev_resp" class="text-muted"></small>
+                      </div>
+                      <span class="input-group-text">CPM</span>
+                    </div>
+                    @endif
+                  </div>
+                </div>
+              </div>
+              @if(isset($bookings[0]->booking_type) && $bookings[0]->booking_type == 'Dialysis')
+              <div class="col-lg-6">
+                <div class="card mb-3">
+                  <div class="card-header">Post-HD Vitals</div>
+                  <div class="card-body">
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" name="{{ $viewFolder }}[post_temp]" min=30 step=.1 id="{{ $viewFolder }}_prev_post_temp" value="{{ isset($bookings[0]->post_temp) ? $bookings[0]->post_temp : ''}}" placeholder="" {{ isset($bookings[0]->id) ? '' : '' }} disabled>
+                        <label for="{{ $viewFolder }}_prev_post_temp" class="form-label">Temperature</label>
+                        <small id="help_{{ $viewFolder }}_prev_post_temp" class="text-muted"></small>
+                      </div>
+                      <span class="input-group-text">C</span>
+                    </div>
+                    @if(isset($bookings[0]->booking_type) && $bookings[0]->booking_type != 'Dialysis')
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" name="{{ $viewFolder }}[post_height]" min=1 step=.1 id="{{ $viewFolder }}_prev_post_height" value="{{ isset($bookings[0]->post_height) ? $bookings[0]->post_height : '' }}" placeholder="" {{ isset($bookings[0]->id) ? '' : '' }} onblur="
+                            if($(this).val() != '' && $('#{{ $viewFolder }}_prev_post_weight').val() != ''){
+                              $('#{{ $viewFolder }}_prev_post_bmi').val($('#{{ $viewFolder }}_prev_post_weight').val()/(($(this).val()/100)*($(this).val()/100)));
+                            }else{
+                              $('#{{ $viewFolder }}_prev_post_bmi').val('');
+                            }
+                          " disabled>
+                        <label for="{{ $viewFolder }}_prev_post_height" class="form-label">Height</label>
+                        <small id="help_{{ $viewFolder }}_prev_post_height" class="text-muted"></small>
+                      </div>
+                      <span class="input-group-text">cm</span>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" name="{{ $viewFolder }}[post_weight]" min=1 step=.1 id="{{ $viewFolder }}_prev_post_weight" value="{{ isset($bookings[0]->post_weight) ? $bookings[0]->post_weight : '' }}" placeholder="" {{ isset($bookings[0]->id) ? '' : '' }} onblur="
+                          if($(this).val() != '' && $('#{{ $viewFolder }}_prev_post_height').val() != ''){
+                            $('#{{ $viewFolder }}_prev_post_bmi').val($(this).val()/(($('#{{ $viewFolder }}_prev_post_height').val()/100)*($('#{{ $viewFolder }}_prev_post_height').val()/100)));
+                          }else{
+                            $('#{{ $viewFolder }}_prev_post_bmi').val('');
+                          }
+                        " disabled>
+                        <label for="{{ $viewFolder }}_prev_post_weight" class="form-label">Weight</label>
+                        <small id="help_{{ $viewFolder }}_prev_post_weight" class="text-muted"></small>
+                      </div>
+                      <span class="input-group-text">kg</span>
+                    </div>
+                    {{-- <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" name="{{ $viewFolder }}[post_weight]" min=1 step=.1 id="{{ $viewFolder }}_post_weight" value="{{ isset($datum->post_weight) ? $datum->post_weight : '' }}" placeholder="" {{ isset($datum->booking_type) && $datum->booking_type != 'Dialysis' ? 'disabled' : ''}}>
+                        <label for="{{ $viewFolder }}_post_weight" class="form-label">(Post HD)/Weight</label>
+                        <small id="help_{{ $viewFolder }}_post_weight" class="text-muted"></small>
+                      </div>
+                      <span class="input-group-text">kg</span>
+                    </div> --}}
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" name="{{ $viewFolder }}[post_bmi]" min=1 id="{{ $viewFolder }}_prev_post_bmi" value="{{ !empty($bookings[0]->post_height) ? (int)$bookings[0]->post_weight/(((int)$bookings[0]->post_height/100)*((int)$bookings[0]->post_height/100)) : '' }}" placeholder="" disabled>
+                        <label for="{{ $viewFolder }}_prev_post_bmi" class="form-label">BMI</label>
+                        <small id="help_{{ $viewFolder }}_prev_post_bmi" class="text-muted"></small>
+                      </div>
+                    </div>
+                    @endif
+                    <label for="{{ $viewFolder }}_bpS" class="form-label">BP</label>
+                    <div class="input-group mb-3">
+                      <input class="form-control" type="number" name="{{ $viewFolder }}[post_bpS]" min=50 max=250 step=1 id="{{ $viewFolder }}_prev_post_bpS" value="{{ isset($bookings[0]->post_bpS) ? $bookings[0]->post_bpS : '' }}" placeholder="Systolic" {{ isset($bookings[0]->id) ? '' : '' }} disabled>
+                      <span class="input-group-text">/</span>
+                      <input class="form-control" type="number" name="{{ $viewFolder }}[post_bpD]" min=30 max=150 step=1 id="{{ $viewFolder }}_prev_post_bpD" value="{{ isset($bookings[0]->post_bpD) ? $bookings[0]->post_bpD : '' }}" placeholder="Diastolic" {{ isset($bookings[0]->id) ? '' : '' }} disabled>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" name="{{ $viewFolder }}[post_o2]" min=1 id="{{ $viewFolder }}_prev_post_o2" value="{{ isset($bookings[0]->post_o2) ? $bookings[0]->post_o2 : '' }}" placeholder="" {{ isset($bookings[0]->id) ? '' : '' }} disabled>
+                        <label for="{{ $viewFolder }}_prev_post_o2" class="form-label">O2 Sat</label>
+                        <small id="help_{{ $viewFolder }}_prev_post_o2" class="text-muted"></small>
+                      </div>
+                      <span class="input-group-text">%</span>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" name="{{ $viewFolder }}[post_heart]" min=1 id="{{ $viewFolder }}_prev_post_heart" value="{{ isset($bookings[0]->post_heart) ? $bookings[0]->post_heart : '' }}" placeholder="" {{ isset($bookings[0]->id) ? '' : '' }} disabled>
+                        <label for="{{ $viewFolder }}_prev_post_heart" class="form-label">Heart/Pulse Rate</label>
+                        <small id="help_{{ $viewFolder }}_prev_post_heart" class="text-muted"></small>
+                      </div>
+                      <span class="input-group-text">BPM</span>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" name="{{ $viewFolder }}[post_resp]" min=1 id="{{ $viewFolder }}_prev_post_resp" value="{{ isset($bookings[0]->post_resp) ? $bookings[0]->post_resp : '' }}" placeholder="" {{ isset($bookings[0]->id) ? '' : '' }} disabled>
+                        <label for="{{ $viewFolder }}_prev_post_resp" class="form-label">Resp</label>
+                        <small id="help_{{ $viewFolder }}_prev_post_resp" class="text-muted"></small>
+                      </div>
+                      <span class="input-group-text">CPM</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              @endif
+            </div>
+            @if(isset($bookings[0]->booking_type) && $bookings[0]->booking_type == 'Dialysis')
+            
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="card mb-3">
+                  <div class="card-header">Pre-HD Assessment</div>
+                  <div class="card-body">
+                    <label>Mental Status</label>
+                    <div class="container ml-5 mb-3">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[mental_status][]" value="awake" id="{{ $viewFolder }}_prev_mental_status_awake" {{ (isset($bookings[0]->mental_status) && is_array(json_decode($bookings[0]->mental_status)) && in_array('awake', json_decode($bookings[0]->mental_status))) ? 'checked' : '' }} disabled>
+                        <label class="form-check-label" for="{{ $viewFolder }}_prev_mental_status_awake">awake</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[mental_status][]" value="oriented" id="{{ $viewFolder }}_prev_mental_status_oriented" {{ (isset($bookings[0]->mental_status) && is_array(json_decode($bookings[0]->mental_status)) && in_array('oriented', json_decode($bookings[0]->mental_status))) ? 'checked' : '' }} disabled>
+                        <label class="form-check-label" for="{{ $viewFolder }}_prev_mental_status_oriented">oriented</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[mental_status][]" value="drowsy" id="{{ $viewFolder }}_prev_mental_status_drowsy" {{ (isset($bookings[0]->mental_status) && is_array(json_decode($bookings[0]->mental_status)) && in_array('drowsy', json_decode($bookings[0]->mental_status))) ? 'checked' : '' }} disabled>
+                        <label class="form-check-label" for="{{ $viewFolder }}_prev_mental_status_drowsy">drowsy</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[mental_status][]" value="disoriented" id="{{ $viewFolder }}_prev_mental_status_disoriented" {{ (isset($bookings[0]->mental_status) && is_array(json_decode($bookings[0]->mental_status)) && in_array('disoriented', json_decode($bookings[0]->mental_status))) ? 'checked' : '' }} disabled>
+                        <label class="form-check-label" for="{{ $viewFolder }}_prev_mental_status_disoriented">disoriented</label>
+                      </div>
+                    </div>
+                    <label>Ambulation Status</label>
+                    <div class="container ml-5 mb-3">
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="{{ $viewFolder }}[prev_ambulation_status]" value="ambulatory" id="{{ $viewFolder }}_prev_ambulation_status_ambulatory" {{ (isset($bookings[0]->ambulation_status) && $bookings[0]->ambulation_status == 'ambulatory') ? 'checked' : '' }} disabled>
+                        <label class="form-check-label" for="{{ $viewFolder }}_prev_ambulation_status_ambulatory">ambulatory</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="{{ $viewFolder }}[prev_ambulation_status]" value="w/ assistance" id="{{ $viewFolder }}_prev_ambulation_status_assistance" {{ (isset($bookings[0]->ambulation_status) && $bookings[0]->ambulation_status == 'w/ assistance') ? 'checked' : '' }} disabled>
+                        <label class="form-check-label" for="{{ $viewFolder }}_prev_ambulation_status_assistance">w/ assistance</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="{{ $viewFolder }}[prev_ambulation_status]" value="wheelchair" id="{{ $viewFolder }}_prev_ambulation_status_wheelchair" {{ (isset($bookings[0]->ambulation_status) && $bookings[0]->ambulation_status == 'wheelchair') ? 'checked' : '' }} disabled>
+                        <label class="form-check-label" for="{{ $viewFolder }}_prev_ambulation_status_wheelchair">wheelchair</label>
+                      </div>
+                    </div>
+                    <label>Subjective Complaints</label>
+                    <div class="container ml-5 mb-3">
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="{{ $viewFolder }}[prev_subjective_complaints]" value="none" id="{{ $viewFolder }}_prev_subjective_complaints_none" onchange="
+                            if(!$(this).prop('checked')){
+                              $('#{{ $viewFolder }}_prev_subjective_complaints_text').prop('disabled', false);
+                              $('#{{ $viewFolder }}_prev_subjective_complaints_text').prop('required', true);
+                            }else{
+                              $('#{{ $viewFolder }}_prev_subjective_complaints_text').prop('disabled', true);
+                              $('#{{ $viewFolder }}_prev_subjective_complaints_text').prop('required', false);
+                              $('#{{ $viewFolder }}_prev_subjective_complaints_text').val('');
+                            }
+                          " {{ (isset($bookings[0]->subjective_complaints) && $bookings[0]->ambulation_status == 'none') ? 'checked' : '' }} disabled>
+                        <label class="form-check-label" for="{{ $viewFolder }}_prev_subjective_complaints_none">none</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="{{ $viewFolder }}[prev_subjective_complaints]" value="yes" id="{{ $viewFolder }}_prev_subjective_complaints_yes" onchange="
+                            if($(this).prop('checked')){
+                              $('#{{ $viewFolder }}_prev_subjective_complaints_text').prop('disabled', false);
+                              $('#{{ $viewFolder }}_prev_subjective_complaints_text').prop('required', true);
+                            }else{
+                              $('#{{ $viewFolder }}_prev_subjective_complaints_text').prop('disabled', true);
+                              $('#{{ $viewFolder }}_prev_subjective_complaints_text').prop('required', false);
+                              $('#{{ $viewFolder }}_prev_subjective_complaints_text').val('');
+                            }
+                          "  {{ (isset($bookings[0]->subjective_complaints) && $bookings[0]->subjective_complaints == 'yes') ? 'checked' : '' }} disabled>
+                        <label class="form-check-label" for="{{ $viewFolder }}_prev_subjective_complaints_yes">yes</label>
+                      </div>
+                      <textarea class="form-control" name="{{ $viewFolder }}[subjective_complaints_text]" id="{{ $viewFolder }}_prev_subjective_complaints_text" rows=3 {{ (isset($bookings[0]->subjective_complaints) && $bookings[0]->subjective_complaints == 'yes') ? '' : 'disabled' }} disabled>{{ isset($bookings[0]->subjective_complaints_text) ? $bookings[0]->subjective_complaints_text : '' }}</textarea>
+                    </div>
+                    <label>Significant PE Findings</label>
+                    <div class="container ml-5 mb-3">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Pallor" id="{{ $viewFolder }}_prev_pe_findings_pallor" {{ (isset($bookings[0]->pe_findings) && is_array(json_decode($bookings[0]->pe_findings)) && in_array('Pallor', json_decode($bookings[0]->pe_findings))) ? 'checked' : '' }} disabled>
+                        <label class="form-check-label" for="{{ $viewFolder }}_prev_pe_findings_pallor">Pallor</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Distended Neck Vein" id="{{ $viewFolder }}_prev_pe_findings_neck_vein" {{ (isset($bookings[0]->pe_findings) && is_array(json_decode($bookings[0]->pe_findings)) && in_array('Distended Neck Vein', json_decode($bookings[0]->pe_findings))) ? 'checked' : '' }} disabled>
+                        <label class="form-check-label" for="{{ $viewFolder }}_prev_pe_findings_neck_vein">Distended Neck Vein</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Abnormal Rhythm/Rate" id="{{ $viewFolder }}_prev_pe_findings_rhythm" {{ (isset($bookings[0]->pe_findings) && is_array(json_decode($bookings[0]->pe_findings)) && in_array('Abnormal Rhythm/Rate', json_decode($bookings[0]->pe_findings))) ? 'checked' : '' }} disabled>
+                        <label class="form-check-label" for="{{ $viewFolder }}_prev_pe_findings_rhythm">Abnormal Rhythm/Rate</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Rales" id="{{ $viewFolder }}_prev_pe_findings_rales" {{ (isset($bookings[0]->pe_findings) && is_array(json_decode($bookings[0]->pe_findings)) && in_array('Rales', json_decode($bookings[0]->pe_findings))) ? 'checked' : '' }} disabled>
+                        <label class="form-check-label" for="{{ $viewFolder }}_prev_pe_findings_rales">Rales</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Wheezing" id="{{ $viewFolder }}_prev_pe_findings_wheezing" {{ (isset($bookings[0]->pe_findings) && is_array(json_decode($bookings[0]->pe_findings)) && in_array('Wheezing', json_decode($bookings[0]->pe_findings))) ? 'checked' : '' }} disabled>
+                        <label class="form-check-label" for="{{ $viewFolder }}_prev_pe_findings_wheezing">Wheezing</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Decreased Breath Sounds" id="{{ $viewFolder }}_prev_pe_findings_breath_sounds" {{ (isset($bookings[0]->pe_findings) && is_array(json_decode($bookings[0]->pe_findings)) && in_array('Decreased Breath Sounds', json_decode($bookings[0]->pe_findings))) ? 'checked' : '' }} disabled>
+                        <label class="form-check-label" for="{{ $viewFolder }}_prev_pe_findings_breath_sounds">Decreased Breath Sounds</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Ascites - Abdominal Girth" id="{{ $viewFolder }}_prev_pe_findings_ascites" onchange="
+                            if($(this).prop('checked')){
+                              $('#{{ $viewFolder }}_prev_pe_findings_ascites_text').prop('disabled', false);
+                              $('#{{ $viewFolder }}_prev_pe_findings_ascites_text').prop('required', true);
+                            }else{
+                              $('#{{ $viewFolder }}_prev_pe_findings_ascites_text').prop('disabled', true);
+                              $('#{{ $viewFolder }}_prev_pe_findings_ascites_text').prop('required', false);
+                              $('#{{ $viewFolder }}_prev_pe_findings_ascites_text').val('');
+                            }
+                          " {{ (isset($bookings[0]->pe_findings) && is_array(json_decode($bookings[0]->pe_findings)) && in_array('Ascites - Abdominal Girth', json_decode($bookings[0]->pe_findings))) ? 'checked' : '' }} disabled>
+                        <label class="form-check-label" for="{{ $viewFolder }}_prev_pe_findings_ascites">Ascites - Abdominal Girth:</label>
+                      </div>
+                      <textarea class="form-control" name="{{ $viewFolder }}[pe_findings_ascites_text]" id="{{ $viewFolder }}_prev_pe_findings_ascites_text" rows=3 {{ (isset($bookings[0]->pe_findings) && is_array(json_decode($bookings[0]->pe_findings)) && in_array('Ascites - Abdominal Girth', json_decode($bookings[0]->pe_findings))) ? '' : 'disabled' }} disabled>{{ isset($bookings[0]->pe_findings_ascites_text) ? $bookings[0]->pe_findings_ascites_text : '' }}</textarea>
+                      {{-- <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Decreased Breath Sounds" id="{{ $viewFolder }}_pe_findings_breath_sounds">
+                        <label class="form-check-label" for="{{ $viewFolder }}_pe_findings_breath_sounds">Decreased Breath Sounds</label>
+                      </div> --}}
+                      
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Edema Grade" id="{{ $viewFolder }}_prev_pe_findings_edema" onchange="
+                            if($(this).prop('checked')){
+                              $('#{{ $viewFolder }}_prev_pe_findings_edema_text').prop('disabled', false);
+                              $('#{{ $viewFolder }}_prev_pe_findings_edema_text').prop('required', true);
+                            }else{
+                              $('#{{ $viewFolder }}_prev_pe_findings_edema_text').prop('disabled', true);
+                              $('#{{ $viewFolder }}_prev_pe_findings_edema_text').prop('required', false);
+                              $('#{{ $viewFolder }}_prev_pe_findings_edema_text').val('');
+                            }
+                          " {{ (isset($bookings[0]->pe_findings) && is_array(json_decode($bookings[0]->pe_findings)) && in_array('Edema Grade', json_decode($bookings[0]->pe_findings))) ? 'checked' : '' }} disabled>
+                        <label class="form-check-label" for="{{ $viewFolder }}_prev_pe_findings_edema">Edema Grade:</label>
+                      </div>
+                      <textarea class="form-control" name="{{ $viewFolder }}[pe_findings_edema_text]" id="{{ $viewFolder }}_prev_pe_findings_edema_text" rows=3 {{ (isset($bookings[0]->pe_findings) && is_array(json_decode($bookings[0]->pe_findings)) && in_array('Edema Grade', json_decode($bookings[0]->pe_findings))) ? '' : 'disabled' }} disabled>{{ isset($bookings[0]->pe_findings_edema_text) ? $bookings[0]->pe_findings_edema_text : '' }}</textarea>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Bleeding" id="{{ $viewFolder }}_prev_pe_findings_bleeding" {{ (isset($bookings[0]->pe_findings) && is_array(json_decode($bookings[0]->pe_findings)) && in_array('Bleeding', json_decode($bookings[0]->pe_findings))) ? 'checked' : '' }} disabled>
+                        <label class="form-check-label" for="{{ $viewFolder }}_prev_pe_findings_bleeding">Bleeding</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Others" id="{{ $viewFolder }}_prev_pe_findings_others" onchange="
+                            if($(this).prop('checked')){
+                              $('#{{ $viewFolder }}_prev_pe_findings_others_text').prop('disabled', false);
+                              $('#{{ $viewFolder }}_prev_pe_findings_others_text').prop('required', true);
+                            }else{
+                              $('#{{ $viewFolder }}_prev_pe_findings_others_text').prop('disabled', true);
+                              $('#{{ $viewFolder }}_prev_pe_findings_others_text').prop('required', false);
+                              $('#{{ $viewFolder }}_prev_pe_findings_others_text').val('');
+                            }
+                          " {{ (isset($bookings[0]->pe_findings) && is_array(json_decode($bookings[0]->pe_findings)) && in_array('Others', json_decode($bookings[0]->pe_findings))) ? 'checked' : '' }} disabled>
+                        <label class="form-check-label" for="{{ $viewFolder }}_prev_pe_findings_others">Others:</label>
+                      </div>
+                      <textarea class="form-control" name="{{ $viewFolder }}[pe_findings_others_text]" id="{{ $viewFolder }}_prev_pe_findings_others_text" rows=3 {{ (isset($bookings[0]->pe_findings) && is_array(json_decode($bookings[0]->pe_findings)) && in_array('Others', json_decode($bookings[0]->pe_findings))) ? '' : 'disabled' }} disabled>{{ isset($bookings[0]->pe_findings_others_text) ? $bookings[0]->pe_findings_others_text : '' }}</textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="card mb-3">
+                  <div class="card-header">Post-HD Assessment</div>
+                  <div class="card-body">
+                    <label>Mental Status</label>
+                    <div class="container ml-5 mb-3">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_mental_status][]" value="awake" id="{{ $viewFolder }}_prev_post_mental_status_awake" {{ (isset($bookings[0]->post_mental_status) && is_array(json_decode($bookings[0]->post_mental_status)) && in_array('awake', json_decode($bookings[0]->post_mental_status))) ? 'checked' : '' }} disabled>
+                        <label class="form-check-label" for="{{ $viewFolder }}_prev_post_mental_status_awake">awake</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_mental_status][]" value="oriented" id="{{ $viewFolder }}_prev_post_mental_status_oriented" {{ (isset($bookings[0]->post_mental_status) && is_array(json_decode($bookings[0]->post_mental_status)) && in_array('oriented', json_decode($bookings[0]->post_mental_status))) ? 'checked' : '' }} disabled>
+                        <label class="form-check-label" for="{{ $viewFolder }}_prev_post_mental_status_oriented">oriented</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_mental_status][]" value="drowsy" id="{{ $viewFolder }}_prev_post_mental_status_drowsy" {{ (isset($bookings[0]->post_mental_status) && is_array(json_decode($bookings[0]->post_mental_status)) && in_array('drowsy', json_decode($bookings[0]->post_mental_status))) ? 'checked' : '' }} disabled>
+                        <label class="form-check-label" for="{{ $viewFolder }}_prev_post_mental_status_drowsy">drowsy</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_mental_status][]" value="disoriented" id="{{ $viewFolder }}_prev_post_mental_status_disoriented" {{ (isset($bookings[0]->post_mental_status) && is_array(json_decode($bookings[0]->post_mental_status)) && in_array('disoriented', json_decode($bookings[0]->post_mental_status))) ? 'checked' : '' }} disabled>
+                        <label class="form-check-label" for="{{ $viewFolder }}_prev_post_mental_status_disoriented">disoriented</label>
+                      </div>
+                    </div>
+                    <label>Ambulation Status</label>
+                    <div class="container ml-5 mb-3">
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="{{ $viewFolder }}[prev_post_ambulation_status]" value="ambulatory" id="{{ $viewFolder }}_prev_post_ambulation_status_ambulatory" {{ (isset($bookings[0]->post_ambulation_status) && $bookings[0]->post_ambulation_status == 'ambulatory') ? 'checked' : '' }} disabled>
+                        <label class="form-check-label" for="{{ $viewFolder }}_prev_post_ambulation_status_ambulatory">ambulatory</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="{{ $viewFolder }}[prev_post_ambulation_status]" value="w/ assistance" id="{{ $viewFolder }}_prev_post_ambulation_status_assistance" {{ (isset($bookings[0]->post_ambulation_status) && $bookings[0]->post_ambulation_status == 'w/ assistance') ? 'checked' : '' }} disabled>
+                        <label class="form-check-label" for="{{ $viewFolder }}_prev_post_ambulation_status_assistance">w/ assistance</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="{{ $viewFolder }}[prev_post_ambulation_status]" value="wheelchair" id="{{ $viewFolder }}_prev_post_ambulation_status_wheelchair" {{ (isset($bookings[0]->post_ambulation_status) && $bookings[0]->post_ambulation_status == 'wheelchair') ? 'checked' : '' }} disabled>
+                        <label class="form-check-label" for="{{ $viewFolder }}_prev_post_ambulation_status_wheelchair">wheelchair</label>
+                      </div>
+                    </div>
+                    <label>Subjective Complaints</label>
+                    <div class="container ml-5 mb-3">
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="{{ $viewFolder }}[prev_post_subjective_complaints]" value="none" id="{{ $viewFolder }}_prev_post_subjective_complaints_none" onchange="
+                            if(!$(this).prop('checked')){
+                              $('#{{ $viewFolder }}_prev_post_subjective_complaints_text').prop('disabled', false);
+                              $('#{{ $viewFolder }}_prev_post_subjective_complaints_text').prop('required', true);
+                            }else{
+                              $('#{{ $viewFolder }}_prev_post_subjective_complaints_text').prop('disabled', true);
+                              $('#{{ $viewFolder }}_prev_post_subjective_complaints_text').prop('required', false);
+                              $('#{{ $viewFolder }}_prev_post_subjective_complaints_text').val('');
+                            }
+                          " {{ (isset($bookings[0]->post_subjective_complaints) && $bookings[0]->post_subjective_complaints == 'none') ? 'checked' : '' }} disabled>
+                        <label class="form-check-label" for="{{ $viewFolder }}_prev_post_subjective_complaints_none">none</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="{{ $viewFolder }}[prev_post_subjective_complaints]" value="yes" id="{{ $viewFolder }}_prev_post_subjective_complaints_yes" onchange="
+                            if($(this).prop('checked')){
+                              $('#{{ $viewFolder }}_prev_post_subjective_complaints_text').prop('disabled', false);
+                              $('#{{ $viewFolder }}_prev_post_subjective_complaints_text').prop('required', true);
+                            }else{
+                              $('#{{ $viewFolder }}_prev_post_subjective_complaints_text').prop('disabled', true);
+                              $('#{{ $viewFolder }}_prev_post_subjective_complaints_text').prop('required', false);
+                              $('#{{ $viewFolder }}_prev_post_subjective_complaints_text').val('');
+                            }
+                          " {{ (isset($bookings[0]->post_subjective_complaints) && $bookings[0]->post_subjective_complaints == 'yes') ? 'checked' : '' }} disabled>
+                        <label class="form-check-label" for="{{ $viewFolder }}_prev_post_subjective_complaints_yes">yes</label>
+                      </div>
+                      <textarea class="form-control" name="{{ $viewFolder }}[post_subjective_complaints_text]" id="{{ $viewFolder }}_prev_post_subjective_complaints_text" rows=3 {{ (isset($bookings[0]->post_subjective_complaints) && $bookings[0]->post_subjective_complaints == 'yes') ? '' : 'disabled' }} disabled>{{ isset($bookings[0]->post_subjective_complaints_text) ? $bookings[0]->post_subjective_complaints_text : '' }}</textarea>
+                    </div>
+                    <label>Significant PE Findings</label>
+                    <div class="container ml-5 mb-3">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Pallor" id="{{ $viewFolder }}_prev_post_pe_findings_pallor" {{ (isset($bookings[0]->post_pe_findings) && is_array(json_decode($bookings[0]->post_pe_findings)) && in_array('Pallor', json_decode($bookings[0]->post_pe_findings))) ? 'checked' : '' }} disabled>
+                        <label class="form-check-label" for="{{ $viewFolder }}_prev_post_pe_findings_pallor">Pallor</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Distended Neck Vein" id="{{ $viewFolder }}_prev_post_pe_findings_neck_vein" {{ (isset($bookings[0]->post_pe_findings) && is_array(json_decode($bookings[0]->post_pe_findings)) && in_array('Distended Neck Vein', json_decode($bookings[0]->post_pe_findings))) ? 'checked' : '' }} disabled>
+                        <label class="form-check-label" for="{{ $viewFolder }}_prev_post_pe_findings_neck_vein">Distended Neck Vein</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Abnormal Rhythm/Rate" id="{{ $viewFolder }}_prev_post_pe_findings_rhythm" {{ (isset($bookings[0]->post_pe_findings) && is_array(json_decode($bookings[0]->post_pe_findings)) && in_array('Abnormal Rhythm/Rate', json_decode($bookings[0]->post_pe_findings))) ? 'checked' : '' }} disabled>
+                        <label class="form-check-label" for="{{ $viewFolder }}_prev_post_pe_findings_rhythm">Abnormal Rhythm/Rate</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Rales" id="{{ $viewFolder }}_prev_post_pe_findings_rales" {{ (isset($bookings[0]->post_pe_findings) && is_array(json_decode($bookings[0]->post_pe_findings)) && in_array('Rales', json_decode($bookings[0]->post_pe_findings))) ? 'checked' : '' }} disabled>
+                        <label class="form-check-label" for="{{ $viewFolder }}_prev_post_pe_findings_rales">Rales</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Wheezing" id="{{ $viewFolder }}_prev_post_pe_findings_wheezing" {{ (isset($bookings[0]->post_pe_findings) && is_array(json_decode($bookings[0]->post_pe_findings)) && in_array('Wheezing', json_decode($bookings[0]->post_pe_findings))) ? 'checked' : '' }} disabled>
+                        <label class="form-check-label" for="{{ $viewFolder }}_prev_post_pe_findings_wheezing">Wheezing</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Decreased Breath Sounds" id="{{ $viewFolder }}_prev_post_pe_findings_breath_sounds" {{ (isset($bookings[0]->post_pe_findings) && is_array(json_decode($bookings[0]->post_pe_findings)) && in_array('Decreased Breath Sounds', json_decode($bookings[0]->post_pe_findings))) ? 'checked' : '' }} disabled>
+                        <label class="form-check-label" for="{{ $viewFolder }}_prev_post_pe_findings_breath_sounds">Decreased Breath Sounds</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Ascites - Abdominal Girth" id="{{ $viewFolder }}_prev_post_pe_findings_ascites" onchange="
+                            if($(this).prop('checked')){
+                              $('#{{ $viewFolder }}_prev_post_pe_findings_ascites_text').prop('disabled', false);
+                              $('#{{ $viewFolder }}_prev_post_pe_findings_ascites_text').prop('required', true);
+                            }else{
+                              $('#{{ $viewFolder }}_prev_post_pe_findings_ascites_text').prop('disabled', true);
+                              $('#{{ $viewFolder }}_prev_post_pe_findings_ascites_text').prop('required', false);
+                              $('#{{ $viewFolder }}_prev_post_pe_findings_ascites_text').val('');
+                            }
+                          " {{ (isset($bookings[0]->post_pe_findings) && is_array(json_decode($bookings[0]->post_pe_findings)) && in_array('Ascites - Abdominal Girth', json_decode($bookings[0]->post_pe_findings))) ? 'checked' : '' }} disabled>
+                        <label class="form-check-label" for="{{ $viewFolder }}_prev_post_pe_findings_ascites">Ascites - Abdominal Girth:</label>
+                      </div>
+                      <textarea class="form-control" name="{{ $viewFolder }}[post_pe_findings_ascites_text]" id="{{ $viewFolder }}_prev_post_pe_findings_ascites_text" rows=3 {{ (isset($bookings[0]->post_pe_findings) && is_array(json_decode($bookings[0]->post_pe_findings)) && in_array('Ascites - Abdominal Girth', json_decode($bookings[0]->post_pe_findings))) ? '' : 'disabled' }} disabled>{{ isset($bookings[0]->post_pe_findings_ascites_text) ? $bookings[0]->post_pe_findings_ascites_text : '' }}</textarea>
+                      {{-- <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Decreased Breath Sounds" id="{{ $viewFolder }}_post_pe_findings_breath_sounds">
+                        <label class="form-check-label" for="{{ $viewFolder }}_post_pe_findings_breath_sounds">Decreased Breath Sounds</label>
+                      </div> --}}
+                      
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Edema Grade" id="{{ $viewFolder }}_prev_post_pe_findings_edema" onchange="
+                            if($(this).prop('checked')){
+                              $('#{{ $viewFolder }}_prev_post_pe_findings_edema_text').prop('disabled', false);
+                              $('#{{ $viewFolder }}_prev_post_pe_findings_edema_text').prop('required', true);
+                            }else{
+                              $('#{{ $viewFolder }}_prev_post_pe_findings_edema_text').prop('disabled', true);
+                              $('#{{ $viewFolder }}_prev_post_pe_findings_edema_text').prop('required', false);
+                              $('#{{ $viewFolder }}_prev_post_pe_findings_edema_text').val('');
+                            }
+                          " {{ (isset($bookings[0]->post_pe_findings) && is_array(json_decode($bookings[0]->post_pe_findings)) && in_array('Edema Grade', json_decode($bookings[0]->post_pe_findings))) ? 'checked' : '' }} disabled>
+                        <label class="form-check-label" for="{{ $viewFolder }}_prev_post_pe_findings_edema">Edema Grade:</label>
+                      </div>
+                      <textarea class="form-control" name="{{ $viewFolder }}[post_pe_findings_edema_text]" id="{{ $viewFolder }}_prev_post_pe_findings_edema_text" rows=3 {{ (isset($bookings[0]->post_pe_findings) && is_array(json_decode($bookings[0]->post_pe_findings)) && in_array('Edema Grade', json_decode($bookings[0]->post_pe_findings))) ? '' : 'disabled' }} disabled>{{ isset($bookings[0]->post_pe_findings_edema_text) ? $bookings[0]->post_pe_findings_edema_text : '' }}</textarea>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Bleeding" id="{{ $viewFolder }}_prev_post_pe_findings_bleeding" {{ (isset($bookings[0]->post_pe_findings) && is_array(json_decode($bookings[0]->post_pe_findings)) && in_array('Bleeding', json_decode($bookings[0]->post_pe_findings))) ? 'checked' : '' }} disabled>
+                        <label class="form-check-label" for="{{ $viewFolder }}_prev_post_pe_findings_bleeding">Bleeding</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Others" id="{{ $viewFolder }}_prev_post_pe_findings_others" onchange="
+                            if($(this).prop('checked')){
+                              $('#{{ $viewFolder }}_prev_post_pe_findings_others_text').prop('disabled', false);
+                              $('#{{ $viewFolder }}_prev_post_pe_findings_others_text').prop('required', true);
+                            }else{
+                              $('#{{ $viewFolder }}_prev_post_pe_findings_others_text').prop('disabled', true);
+                              $('#{{ $viewFolder }}_prev_post_pe_findings_others_text').prop('required', false);
+                              $('#{{ $viewFolder }}_prev_post_pe_findings_others_text').val('');
+                            }
+                          " {{ (isset($bookings[0]->post_pe_findings) && is_array(json_decode($bookings[0]->post_pe_findings)) && in_array('Others', json_decode($bookings[0]->post_pe_findings))) ? 'checked' : '' }} disabled>
+                        <label class="form-check-label" for="{{ $viewFolder }}_prev_post_pe_findings_others">Others:</label>
+                      </div>
+                      <textarea class="form-control" name="{{ $viewFolder }}[post_pe_findings_others_text]" id="{{ $viewFolder }}_prev_post_pe_findings_others_text" rows=3 {{ (isset($bookings[0]->post_pe_findings) && is_array(json_decode($bookings[0]->post_pe_findings)) && in_array('Others', json_decode($bookings[0]->post_pe_findings))) ? '' : 'disabled' }} disabled>{{ isset($bookings[0]->post_pe_findings_others_text) ? $bookings[0]->post_pe_findings_others_text : '' }}</textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="card mb-3">
+                  <div class="card-header">Vascular Access</div>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-lg-4">
+                        <label>Vascular Access</label>
+                        <div class="container ml-5 mb-3">
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="{{ $viewFolder }}[prev_vaccess]" value="left" id="{{ $viewFolder }}_prev_vaccess_left" {{ (isset($bookings[0]->vaccess) && $bookings[0]->vaccess == 'left') ? 'checked' : '' }} disabled>
+                            <label class="form-check-label" for="{{ $viewFolder }}_prev_vaccess_left">left</label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="{{ $viewFolder }}[prev_vaccess]" value="right" id="{{ $viewFolder }}_prev_vaccess_right" {{ (isset($bookings[0]->vaccess) && $bookings[0]->vaccess == 'right') ? 'checked' : '' }} disabled>
+                            <label class="form-check-label" for="{{ $viewFolder }}_prev_vaccess_right">right</label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-lg-8">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[vaccess_detail][]" value="Fistula" id="{{ $viewFolder }}_prev_fistula" {{ (isset($bookings[0]->vaccess_detail) && is_array(json_decode($bookings[0]->vaccess_detail)) && in_array('Fistula', json_decode($bookings[0]->vaccess_detail))) ? 'checked' : '' }} disabled>
+                          <label class="form-check-label" for="{{ $viewFolder }}_prev_fistula">Fistula</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[vaccess_detail][]" value="Graft" id="{{ $viewFolder }}_prev_graft" {{ (isset($bookings[0]->vaccess_detail) && is_array(json_decode($bookings[0]->vaccess_detail)) && in_array('Graft', json_decode($bookings[0]->vaccess_detail))) ? 'checked' : '' }} disabled>
+                          <label class="form-check-label" for="{{ $viewFolder }}_prev_graft">Graft</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[vaccess_detail][]" value="CVC" id="{{ $viewFolder }}_prev_cvc" {{ (isset($bookings[0]->vaccess_detail) && is_array(json_decode($bookings[0]->vaccess_detail)) && in_array('CVC', json_decode($bookings[0]->vaccess_detail))) ? 'checked' : '' }} disabled>
+                          <label class="form-check-label" for="{{ $viewFolder }}_prev_cvc">CVC / PERM / others</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="card mb-3">
+                  <div class="card-header">AV Fistula</div>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[av_fistula_detail][]" value="Strong Thrill" id="{{ $viewFolder }}_prev_strong_thrill" {{ (isset($bookings[0]->av_fistula_detail) && is_array(json_decode($bookings[0]->av_fistula_detail)) && in_array('Strong Thrill', json_decode($bookings[0]->av_fistula_detail))) ? 'checked' : '' }} disabled>
+                          <label class="form-check-label" for="{{ $viewFolder }}_prev_strong_thrill">Strong Thrill</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[av_fistula_detail][]" value="Weak Thrill" id="{{ $viewFolder }}_prev_weak_thrill" {{ (isset($bookings[0]->av_fistula_detail) && is_array(json_decode($bookings[0]->av_fistula_detail)) && in_array('Weak Thrill', json_decode($bookings[0]->av_fistula_detail))) ? 'checked' : '' }} disabled>
+                          <label class="form-check-label" for="{{ $viewFolder }}_prev_weak_thrill">Weak Thrill</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[av_fistula_detail][]" value="Absent Thrill w/ Bruit" id="{{ $viewFolder }}_prev_absent_thrill_with" {{ (isset($bookings[0]->av_fistula_detail) && is_array(json_decode($bookings[0]->av_fistula_detail)) && in_array('Absent Thrill w/ Bruit', json_decode($bookings[0]->av_fistula_detail))) ? 'checked' : '' }} disabled>
+                          <label class="form-check-label" for="{{ $viewFolder }}_prev_absent_thrill_with">Absent Thrill w/ Bruit</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[av_fistula_detail][]" value="Absent Thrill no Bruit" id="{{ $viewFolder }}_prev_absent_thrill_no" {{ (isset($bookings[0]->av_fistula_detail) && is_array(json_decode($bookings[0]->av_fistula_detail)) && in_array('Absent Thrill no Bruit', json_decode($bookings[0]->av_fistula_detail))) ? 'checked' : '' }} disabled>
+                          <label class="form-check-label" for="{{ $viewFolder }}_prev_absent_thrill_no">Absent Thrill no Bruit</label>
+                        </div>
+                        <div class="input-group mb-3 mt-3">
+                          <div class="form-floating">
+                            <input class="form-control" type="text" name="{{ $viewFolder }}[needle_gauge]" id="{{ $viewFolder }}_prev_needle_gauge" placeholder="" value="{{ !empty($bookings[0]->needle_gauge) ? $bookings[0]->needle_gauge : '' }}" disabled>
+                            <label for="{{ $viewFolder }}_prev_needle_gauge" class="form-label">Needle Gauge</label>
+                            <small id="help_{{ $viewFolder }}_prev_needle_gauge" class="text-muted"></small>
+                          </div>
+                        </div>
+                        <div class="input-group mb-3">
+                          <div class="form-floating">
+                            <input class="form-control" type="number" step="1" name="{{ $viewFolder }}[number_commultation]" id="{{ $viewFolder }}_prev_number_commultation" placeholder="" value="{{ !empty($bookings[0]->number_commultation) ? $bookings[0]->number_commultation : '' }}" disabled>
+                            <label for="{{ $viewFolder }}_prev_number_commultation" class="form-label"># of Cannulation</label>
+                            <small id="help_{{ $viewFolder }}_prev_number_commultation" class="text-muted"></small>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">  
+                <div class="card mb-3">
+                  <div class="card-header">HD Catheter</div>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[hd_catheter_detail][]" value="Both Patent" id="{{ $viewFolder }}_prev_both_patent" {{ (isset($bookings[0]->hd_catheter_detail) && is_array(json_decode($bookings[0]->hd_catheter_detail)) && in_array('Both Patent', json_decode($bookings[0]->hd_catheter_detail))) ? 'checked' : '' }} disabled>
+                          <label class="form-check-label" for="{{ $viewFolder }}_prev_both_patent">Both Patent</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[hd_catheter_detail][]" value="A Clotted" id="{{ $viewFolder }}_prev_a_clotted" {{ (isset($bookings[0]->hd_catheter_detail) && is_array(json_decode($bookings[0]->hd_catheter_detail)) && in_array('A Clotted', json_decode($bookings[0]->hd_catheter_detail))) ? 'checked' : '' }} disabled>
+                          <label class="form-check-label" for="{{ $viewFolder }}_prev_a_clotted">A Clotted</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[hd_catheter_detail][]" value="V Clotted" id="{{ $viewFolder }}_prev_v_clotted" {{ (isset($bookings[0]->hd_catheter_detail) && is_array(json_decode($bookings[0]->hd_catheter_detail)) && in_array('V Clotted', json_decode($bookings[0]->hd_catheter_detail))) ? 'checked' : '' }} disabled>
+                          <label class="form-check-label" for="{{ $viewFolder }}_prev_v_clotted">V Clotted</label>
+                        </div>
+                        <div class="input-group mb-3 mt-3">
+                          <div class="form-floating">
+                            <input class="form-control" type="text" name="{{ $viewFolder }}[hd_catheter_remarks]" id="{{ $viewFolder }}_prev_hd_catheter_remarks" placeholder="" value="{{ !empty($bookings[0]->hd_catheter_remarks) ? $bookings[0]->hd_catheter_remarks : '' }}" disabled>
+                            <label for="{{ $viewFolder }}_prev_hd_catheter_remarks" class="form-label">Remarks</label>
+                            <small id="help_{{ $viewFolder }}_prev_hd_catheter_remarks" class="text-muted"></small>
+                          </div>
+                        </div>
+                        <div class="input-group mb-3">
+                          <div class="form-floating">
+                            <input class="form-control" type="text" name="{{ $viewFolder }}[hd_catheter_hgb]" id="{{ $viewFolder }}_prev_hd_catheter_hgb" placeholder="" value="{{ !empty($bookings[0]->hd_catheter_hgb) ? $bookings[0]->hd_catheter_hgb : '' }}" disabled>
+                            <label for="{{ $viewFolder }}_prev_hd_catheter_hgb" class="form-label">Latest HGB</label>
+                            <small id="help_{{ $viewFolder }}_prev_hd_catheter_hgb" class="text-muted"></small>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="card mb-3">
+                  <div class="card-header">Medication Given</div>
+                  <div class="card-body">
+                    @if(Route::has($viewFolder . '.getMedTable'))
+                    <div class="card mb-3">
+                      <div class="card-header">Add Entry</div>
+                      <div class="card-body">
+                        <div class="input-group mb-3">
+                          <div class="form-floating">
+                            <input class="form-control" type="time" name="{{ $viewFolder }}[Med][time_given]" id="{{ $viewFolder }}_time_given" value="" placeholder="" onchange="
+                              if($(this).val() != ''){
+                                $('#{{ $viewFolder }}_medication').prop('required', true);
+                                $('#{{ $viewFolder }}_dosage').prop('required', true);
+                              }else{
+                                $('#{{ $viewFolder }}_medication').prop('required', false);
+                                $('#{{ $viewFolder }}_dosage').prop('required', false);
+                              }
+                              if($(this).val() != '' && $('#{{ $viewFolder }}_medication').val() != '' && $('#{{ $viewFolder }}_dosage').val() != '')
+                                $('#addMedLog{{ $bookings[0]->id }}').prop('disabled', false);
+                              else
+                                $('#addMedLog{{ $bookings[0]->id }}').prop('disabled', true);
+                            ">
+                            <label for="{{ $viewFolder }}_time_given" class="form-label">Time Given</label>
+                            <small id="help_{{ $viewFolder }}_time_given" class="text-muted"></small>
+                          </div>
+                        </div>
+                        <div class="input-group mb-3">
+                          <div class="form-floating">
+                            <input class="form-control" type="text" name="{{ $viewFolder }}[Med][medication]" id="{{ $viewFolder }}_medication" placeholder="" onchange="
+                              if($('#{{ $viewFolder }}_time_given').val() != ''){
+                                $('#{{ $viewFolder }}_medication').prop('required', true);
+                                $('#{{ $viewFolder }}_dosage').prop('required', true);
+                              }else{
+                                $('#{{ $viewFolder }}_medication').prop('required', false);
+                                $('#{{ $viewFolder }}_dosage').prop('required', false);
+                              }
+                              if($('#{{ $viewFolder }}_time_given').val() != '' && $('#{{ $viewFolder }}_medication').val() != '' && $('#{{ $viewFolder }}_dosage').val() != '')
+                                $('#addMedLog{{ $bookings[0]->id }}').prop('disabled', false);
+                              else
+                                $('#addMedLog{{ $bookings[0]->id }}').prop('disabled', true);
+                            ">
+                            <label for="{{ $viewFolder }}_medication" class="form-label">Medication</label>
+                            <small id="help_{{ $viewFolder }}_medication" class="text-muted"></small>
+                          </div>
+                        </div>
+                        <div class="input-group mb-3">
+                          <div class="form-floating">
+                            <input class="form-control" type="text" name="{{ $viewFolder }}[Med][dosage]" id="{{ $viewFolder }}_dosage" placeholder=""  onchange="
+                              if($('#{{ $viewFolder }}_time_given').val() != ''){
+                                $('#{{ $viewFolder }}_medication').prop('required', true);
+                                $('#{{ $viewFolder }}_dosage').prop('required', true);
+                              }else{
+                                $('#{{ $viewFolder }}_medication').prop('required', false);
+                                $('#{{ $viewFolder }}_dosage').prop('required', false);
+                              }
+                              if($('#{{ $viewFolder }}_time_given').val() != '' && $('#{{ $viewFolder }}_medication').val() != '' && $('#{{ $viewFolder }}_dosage').val() != '')
+                                $('#addMedLog{{ $bookings[0]->id }}').prop('disabled', false);
+                              else
+                                $('#addMedLog{{ $bookings[0]->id }}').prop('disabled', true);
+                            ">
+                            <label for="{{ $viewFolder }}_dosage" class="form-label">Dosage</label>
+                            <small id="help_{{ $viewFolder }}_dosage" class="text-muted"></small>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card-footer">
+                        <button id="addMedLog{{ $bookings[0]->id }}" type="button" class="addMedLog btn btn-{{ $bgColor }} btn-sm" disabled onclick="
+                          $.ajax({
+                            type: 'POST',
+                            data: $('#bookMod').serialize(),
+                            url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $bookings[0]->id) : ''}}',
+                            success:
+                            function (){
+                                $.ajax({
+                                  type: 'GET',
+                                  url: '{{ Route::has($viewFolder . '.getMedTable') ? route($viewFolder . '.getMedTable', $bookings[0]->id) : '' }}',
+                                  success:
+                                  function (data){
+                                    medObj = jQuery.parseJSON(data);
+                                    var tr;
+                                    medObj.forEach(function (item, index){
+                                      tr += '<tr id=\'' + item.id + '\' log=\'meds\'><td><div class=\'d-sm-flex flex-sm-row\'><div class=\'m-1\'><button type=\'submit\' class=\'btn btn-{{ $bgColor }} btn-sm w-100 rowBtnDel\'><i class=\'bi bi-trash\'></i><span class=\'ps-1 d-sm-none\'>Delete</span></button></div></div></td><td>' + item.time_given + '</td><td>' + item.medication + '</td><td>' + item.dosage + '</td><td>' + item.creator + '</td></tr>';
+                                    });
+                                    $('#medTable{{ $bookings[0]->id }}').html(tr);
+                                  }
+                                });
+                                $('#{{ $viewFolder }}_time_given').val('')
+                                $('#{{ $viewFolder }}_medication').val('');
+                                $('#{{ $viewFolder }}_dosage').val('');
+                                $('#addMedLog{{ $datum->id }}').prop('disabled', true);
+                            }
+                          });
+
+                        ">Add Medication Log</button>
+                      </div>
+                    </div>
+                    @endif
+                    <div class="card-body table-responsive" style="max-height: 300px">
+                      <table class="table table-bordered table-striped table-hover table-sm hdLogs">
+                        <thead class="table-{{ $bgColor }}">
+                          <tr>
+                            <th class=""><i class="bi bi-gear"></i></th>
+                            <th>Time</th>
+                            <th>Medication</th>
+                            <th>Dosage</th>
+                            <th>NOD</th>
+                          </tr>
+                        </thead>
+                        <tbody id="medTable{{ $bookings[0]->id }}">
+                        @foreach ($bookings[0]->consultation_meds()->orderBy('id', 'desc')->get() as $dat)
+                            <tr id="{{ $dat->id }}" log="meds">
+                                <td>@if(Route::has($viewFolder . '.getMedTable'))<div class="d-sm-flex flex-sm-row"><div class="m-1"><button type="submit" class="btn btn-{{ $bgColor }} btn-sm w-100 rowBtnDel"><i class="bi bi-trash"></i><span class="ps-1 d-sm-none">Delete</span></button></div></div>@endif</td>
+                                <td>{{ $dat->time_given }}</td>
+                                <td>{{ $dat->medication }}</td>
+                                <td>{{ $dat->dosage }}</td>
+                                <td>{{ $dat->creator->name }}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="card mb-3">
+                  <div class="card-header">Special Endorsement</div>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <div class="input-group mb-3">
+                          <div class="form-floating">
+                            <input class="form-control" type="text" name="{{ $viewFolder }}[rml]" id="{{ $viewFolder }}_prev_rml" placeholder="" value="{{ !empty($bookings[0]->rml) ? $bookings[0]->rml : '' }}" disabled>
+                            <label for="{{ $viewFolder }}_prev_rml" class="form-label">RML</label>
+                            <small id="help_{{ $viewFolder }}_prev_rml" class="text-muted"></small>
+                          </div>
+                        </div>
+                        <div class="input-group mb-3">
+                          <div class="form-floating">
+                            <input class="form-control" type="text" name="{{ $viewFolder }}[hepa]" id="{{ $viewFolder }}_prev_hepa" placeholder="" value="{{ !empty($bookings[0]->hepa) ? $bookings[0]->hepa : '' }}" disabled>
+                            <label for="{{ $viewFolder }}_prev_hepa" class="form-label">HEPA Profile</label>
+                            <small id="help_{{ $viewFolder }}_prev_hepa" class="text-muted"></small>
+                          </div>
+                        </div>
+                        <div class="input-group mb-3">
+                          <div class="form-floating">
+                            <input class="form-control" type="text" name="{{ $viewFolder }}[iv_iron]" id="{{ $viewFolder }}_prev_iv_iron" placeholder="" value="{{ !empty($bookings[0]->iv_iron) ? $bookings[0]->iv_iron : '' }}" disabled>
+                            <label for="{{ $viewFolder }}_prev_iv_iron" class="form-label">IV Iron</label>
+                            <small id="help_{{ $viewFolder }}_prev_iv_iron" class="text-muted"></small>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-lg-6">
+                        <div class="input-group mb-3">
+                          <div class="form-floating">
+                            <input class="form-control" type="text" name="{{ $viewFolder }}[epo]" id="{{ $viewFolder }}_prev_epo" placeholder="" value="{{ !empty($bookings[0]->epo) ? $bookings[0]->epo : '' }}" disabled>
+                            <label for="{{ $viewFolder }}_prev_epo" class="form-label">EPO</label>
+                            <small id="help_{{ $viewFolder }}_prev_epo" class="text-muted"></small>
+                          </div>
+                        </div>
+                        <div class="input-group mb-3">
+                          <div class="form-floating">
+                            <input class="form-control" type="text" name="{{ $viewFolder }}[hd_vac]" id="{{ $viewFolder }}_prev_hd_vac" placeholder="" value="{{ !empty($bookings[0]->hd_vac) ? $bookings[0]->hd_vac : '' }}" disabled>
+                            <label for="{{ $viewFolder }}_prev_hd_vac" class="form-label">Vaccines</label>
+                            <small id="help_{{ $viewFolder }}_prev_hd_vac" class="text-muted"></small>
+                          </div>
+                        </div>
+                        <div class="form-floating mb-3">
+                          <textarea class="form-control" name="{{ $viewFolder }}[hd_endorsement]" id="{{ $viewFolder }}_prev_hd_endorsement" disabled>{{ !empty($bookings[0]->hd_endorsement) ? $bookings[0]->hd_endorsement : '' }}</textarea>
+                          <label for="{{ $viewFolder }}_prev_hd_endorsement" class="form-label">Endorsement Details</label>
+                          <small id="help_{{ $viewFolder }}_prev_hd_endorsement" class="text-muted"></small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="card mb-3">
+                  <div class="card-header">Dialysis Monitoring</div>
+                  <div class="card-body">
+                    @if(Route::has($viewFolder . '.getMonTable'))
+                    <div class="card mb-3">
+                      <div class="card-header">Add Entry</div>
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-lg-6">
+                            <div class="input-group mb-3">
+                              <div class="form-floating">
+                                <input class="form-control" type="time" name="{{ $viewFolder }}[Monitoring][time_given]" id="{{ $viewFolder }}_mon_time" value="" placeholder="" onchange="
+                              if($(this).val() != ''){
+                                $('#{{ $viewFolder }}_mon_bpS').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_bpD').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_heart').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_o2').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_ap').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_vp').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_tmp').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_bfr').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_nss').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_ufr').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_ufv').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_remarks').prop('required', true);
+                              }else{
+                                $('#{{ $viewFolder }}_mon_bpS').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_bpD').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_heart').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_o2').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_ap').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_vp').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_tmp').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_bfr').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_nss').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_ufr').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_ufv').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_remarks').prop('required', false);
+                              }
+                              if(
+                                $('#{{ $viewFolder }}_mon_time').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_bpS').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_bpD').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_heart').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_o2').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_ap').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_vp').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_tmp').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_bfr').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_nss').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_ufr').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_ufv').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_remarks').val() != ''
+                              ){
+                                $('#addMonLog{{ $bookings[0]->id }}').prop('disabled', false);
+                              }else
+                                $('#addMonLog{{ $bookings[0]->id }}').prop('disabled', true);
+                            ">
+                                <label for="{{ $viewFolder }}_mon_time" class="form-label">Time</label>
+                                <small id="help_{{ $viewFolder }}_mon_time" class="text-muted"></small>
+                              </div>
+                            </div>
+                            <label for="{{ $viewFolder }}_bpS" class="form-label">BP</label>
+                            <div class="input-group mb-3">
+                              <input class="form-control" type="number" name="{{ $viewFolder }}[Monitoring][bpS]" min=50 max=250 step=1 id="{{ $viewFolder }}_mon_bpS" placeholder="Systolic" {{ isset($bookings[0]->id) ? '' : '' }} onchange="
+                              if($('#{{ $viewFolder }}_mon_time').val() != ''){
+                                $('#{{ $viewFolder }}_mon_bpS').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_bpD').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_heart').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_o2').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_ap').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_vp').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_tmp').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_bfr').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_nss').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_ufr').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_ufv').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_remarks').prop('required', true);
+                              }else{
+                                $('#{{ $viewFolder }}_mon_bpS').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_bpD').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_heart').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_o2').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_ap').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_vp').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_tmp').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_bfr').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_nss').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_ufr').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_ufv').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_remarks').prop('required', false);
+                              }
+                              if(
+                                $('#{{ $viewFolder }}_mon_time').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_bpS').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_bpD').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_heart').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_o2').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_ap').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_vp').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_tmp').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_bfr').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_nss').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_ufr').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_ufv').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_remarks').val() != ''
+                              ){
+                                $('#addMonLog{{ $datum->id }}').prop('disabled', false);
+                              }else
+                                $('#addMonLog{{ $datum->id }}').prop('disabled', true);
+                            ">
+                              <span class="input-group-text">/</span>
+                              <input class="form-control" type="number" name="{{ $viewFolder }}[Monitoring][bpD]" min=30 max=150 step=1 id="{{ $viewFolder }}_mon_bpD" placeholder="Diastolic" {{ isset($bookings[0]->id) ? '' : '' }} onchange="
+                              if($('#{{ $viewFolder }}_mon_time').val() != ''){
+                                $('#{{ $viewFolder }}_mon_bpS').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_bpD').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_heart').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_o2').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_ap').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_vp').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_tmp').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_bfr').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_nss').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_ufr').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_ufv').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_remarks').prop('required', true);
+                              }else{
+                                $('#{{ $viewFolder }}_mon_bpS').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_bpD').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_heart').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_o2').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_ap').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_vp').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_tmp').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_bfr').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_nss').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_ufr').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_ufv').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_remarks').prop('required', false);
+                              }
+                              if(
+                                $('#{{ $viewFolder }}_mon_time').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_bpS').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_bpD').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_heart').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_o2').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_ap').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_vp').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_tmp').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_bfr').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_nss').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_ufr').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_ufv').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_remarks').val() != ''
+                              ){
+                                $('#addMonLog{{ $datum->id }}').prop('disabled', false);
+                              }else
+                                $('#addMonLog{{ $datum->id }}').prop('disabled', true);
+                            ">
+                            </div>
+                            <div class="input-group mb-3">
+                              <div class="form-floating">
+                                <input class="form-control" type="number" name="{{ $viewFolder }}[Monitoring][heart]" min=1 id="{{ $viewFolder }}_mon_heart" placeholder="" {{ isset($bookings[0]->id) ? '' : '' }} onchange="
+                              if($('#{{ $viewFolder }}_mon_time').val() != ''){
+                                $('#{{ $viewFolder }}_mon_bpS').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_bpD').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_heart').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_o2').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_ap').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_vp').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_tmp').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_bfr').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_nss').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_ufr').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_ufv').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_remarks').prop('required', true);
+                              }else{
+                                $('#{{ $viewFolder }}_mon_bpS').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_bpD').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_heart').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_o2').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_ap').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_vp').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_tmp').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_bfr').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_nss').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_ufr').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_ufv').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_remarks').prop('required', false);
+                              }
+                              if(
+                                $('#{{ $viewFolder }}_mon_time').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_bpS').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_bpD').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_heart').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_o2').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_ap').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_vp').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_tmp').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_bfr').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_nss').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_ufr').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_ufv').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_remarks').val() != ''
+                              ){
+                                $('#addMonLog{{ $datum->id }}').prop('disabled', false);
+                              }else
+                                $('#addMonLog{{ $datum->id }}').prop('disabled', true);
+                            ">
+                                <label for="{{ $viewFolder }}_mon_heart" class="form-label">Heart/Pulse Rate</label>
+                                <small id="help_{{ $viewFolder }}_mon_heart" class="text-muted"></small>
+                              </div>
+                              <span class="input-group-text">BPM</span>
+                            </div>
+                            <div class="input-group mb-3">
+                              <div class="form-floating">
+                                <input class="form-control" type="number" name="{{ $viewFolder }}[Monitoring][o2]" min=1 id="{{ $viewFolder }}_mon_o2" placeholder="" {{ isset($bookings[0]->id) ? '' : '' }} onchange="
+                              if($('#{{ $viewFolder }}_mon_time').val() != ''){
+                                $('#{{ $viewFolder }}_mon_bpS').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_bpD').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_heart').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_o2').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_ap').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_vp').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_tmp').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_bfr').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_nss').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_ufr').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_ufv').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_remarks').prop('required', true);
+                              }else{
+                                $('#{{ $viewFolder }}_mon_bpS').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_bpD').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_heart').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_o2').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_ap').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_vp').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_tmp').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_bfr').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_nss').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_ufr').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_ufv').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_remarks').prop('required', false);
+                              }
+                              if(
+                                $('#{{ $viewFolder }}_mon_time').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_bpS').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_bpD').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_heart').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_o2').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_ap').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_vp').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_tmp').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_bfr').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_nss').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_ufr').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_ufv').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_remarks').val() != ''
+                              ){
+                                $('#addMonLog{{ $bookings[0]->id }}').prop('disabled', false);
+                              }else
+                                $('#addMonLog{{ $bookings[0]->id }}').prop('disabled', true);
+                            ">
+                                <label for="{{ $viewFolder }}_mon_o2" class="form-label">O2 Sat</label>
+                                <small id="help_{{ $viewFolder }}_mon_o2" class="text-muted"></small>
+                              </div>
+                              <span class="input-group-text">%</span>
+                            </div>
+                            <div class="input-group mb-3">
+                              <div class="form-floating">
+                                <input class="form-control" type="text" name="{{ $viewFolder }}[Monitoring][ap]" id="{{ $viewFolder }}_mon_ap" placeholder="" onchange="
+                              if($('#{{ $viewFolder }}_mon_time').val() != ''){
+                                $('#{{ $viewFolder }}_mon_bpS').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_bpD').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_heart').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_o2').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_ap').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_vp').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_tmp').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_bfr').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_nss').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_ufr').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_ufv').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_remarks').prop('required', true);
+                              }else{
+                                $('#{{ $viewFolder }}_mon_bpS').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_bpD').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_heart').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_o2').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_ap').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_vp').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_tmp').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_bfr').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_nss').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_ufr').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_ufv').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_remarks').prop('required', false);
+                              }
+                              if(
+                                $('#{{ $viewFolder }}_mon_time').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_bpS').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_bpD').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_heart').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_o2').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_ap').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_vp').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_tmp').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_bfr').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_nss').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_ufr').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_ufv').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_remarks').val() != ''
+                              ){
+                                $('#addMonLog{{ $bookings[0]->id }}').prop('disabled', false);
+                              }else
+                                $('#addMonLog{{ $bookings[0]->id }}').prop('disabled', true);
+                            ">
+                                <label for="{{ $viewFolder }}_mon_ap" class="form-label">AP</label>
+                                <small id="help_{{ $viewFolder }}_mon_ap" class="text-muted"></small>
+                              </div>
+                            </div>
+                            <div class="input-group mb-3">
+                              <div class="form-floating">
+                                <input class="form-control" type="text" name="{{ $viewFolder }}[Monitoring][vp]" id="{{ $viewFolder }}_mon_vp" placeholder="" onchange="
+                              if($('#{{ $viewFolder }}_mon_time').val() != ''){
+                                $('#{{ $viewFolder }}_mon_bpS').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_bpD').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_heart').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_o2').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_ap').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_vp').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_tmp').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_bfr').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_nss').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_ufr').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_ufv').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_remarks').prop('required', true);
+                              }else{
+                                $('#{{ $viewFolder }}_mon_bpS').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_bpD').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_heart').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_o2').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_ap').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_vp').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_tmp').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_bfr').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_nss').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_ufr').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_ufv').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_remarks').prop('required', false);
+                              }
+                              if(
+                                $('#{{ $viewFolder }}_mon_time').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_bpS').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_bpD').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_heart').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_o2').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_ap').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_vp').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_tmp').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_bfr').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_nss').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_ufr').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_ufv').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_remarks').val() != ''
+                              ){
+                                $('#addMonLog{{ $bookings[0]->id }}').prop('disabled', false);
+                              }else
+                                $('#addMonLog{{ $bookings[0]->id }}').prop('disabled', true);
+                            ">
+                                <label for="{{ $viewFolder }}_mon_vp" class="form-label">VP</label>
+                                <small id="help_{{ $viewFolder }}_mon_vp" class="text-muted"></small>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-lg-6">
+                            <div class="input-group mb-3">
+                              <div class="form-floating">
+                                <input class="form-control" type="text" name="{{ $viewFolder }}[Monitoring][tmp]" id="{{ $viewFolder }}_mon_tmp" placeholder="" onchange="
+                              if($('#{{ $viewFolder }}_mon_time').val() != ''){
+                                $('#{{ $viewFolder }}_mon_bpS').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_bpD').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_heart').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_o2').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_ap').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_vp').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_tmp').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_bfr').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_nss').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_ufr').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_ufv').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_remarks').prop('required', true);
+                              }else{
+                                $('#{{ $viewFolder }}_mon_bpS').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_bpD').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_heart').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_o2').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_ap').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_vp').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_tmp').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_bfr').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_nss').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_ufr').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_ufv').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_remarks').prop('required', false);
+                              }
+                              if(
+                                $('#{{ $viewFolder }}_mon_time').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_bpS').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_bpD').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_heart').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_o2').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_ap').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_vp').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_tmp').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_bfr').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_nss').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_ufr').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_ufv').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_remarks').val() != ''
+                              ){
+                                $('#addMonLog{{ $bookings[0]->id }}').prop('disabled', false);
+                              }else
+                                $('#addMonLog{{ $bookings[0]->id }}').prop('disabled', true);
+                            ">
+                                <label for="{{ $viewFolder }}_mon_tmp" class="form-label">TMP</label>
+                                <small id="help_{{ $viewFolder }}_mon_tmp" class="text-muted"></small>
+                              </div>
+                            </div>
+                            <div class="input-group mb-3">
+                              <div class="form-floating">
+                                <input class="form-control" type="text" name="{{ $viewFolder }}[Monitoring][bfr]" id="{{ $viewFolder }}_mon_bfr" placeholder="" onchange="
+                              if($('#{{ $viewFolder }}_mon_time').val() != ''){
+                                $('#{{ $viewFolder }}_mon_bpS').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_bpD').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_heart').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_o2').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_ap').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_vp').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_tmp').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_bfr').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_nss').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_ufr').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_ufv').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_remarks').prop('required', true);
+                              }else{
+                                $('#{{ $viewFolder }}_mon_bpS').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_bpD').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_heart').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_o2').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_ap').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_vp').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_tmp').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_bfr').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_nss').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_ufr').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_ufv').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_remarks').prop('required', false);
+                              }
+                              if(
+                                $('#{{ $viewFolder }}_mon_time').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_bpS').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_bpD').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_heart').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_o2').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_ap').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_vp').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_tmp').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_bfr').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_nss').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_ufr').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_ufv').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_remarks').val() != ''
+                              ){
+                                $('#addMonLog{{ $bookings[0]->id }}').prop('disabled', false);
+                              }else
+                                $('#addMonLog{{ $bookings[0]->id }}').prop('disabled', true);
+                            ">
+                                <label for="{{ $viewFolder }}_mon_bfr" class="form-label">BFR</label>
+                                <small id="help_{{ $viewFolder }}_mon_bfr" class="text-muted"></small>
+                              </div>
+                            </div>
+                            <div class="input-group mb-3">
+                              <div class="form-floating">
+                                <input class="form-control" type="text" name="{{ $viewFolder }}[Monitoring][nss]" id="{{ $viewFolder }}_mon_nss" placeholder="" onchange="
+                              if($('#{{ $viewFolder }}_mon_time').val() != ''){
+                                $('#{{ $viewFolder }}_mon_bpS').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_bpD').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_heart').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_o2').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_ap').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_vp').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_tmp').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_bfr').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_nss').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_ufr').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_ufv').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_remarks').prop('required', true);
+                              }else{
+                                $('#{{ $viewFolder }}_mon_bpS').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_bpD').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_heart').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_o2').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_ap').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_vp').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_tmp').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_bfr').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_nss').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_ufr').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_ufv').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_remarks').prop('required', false);
+                              }
+                              if(
+                                $('#{{ $viewFolder }}_mon_time').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_bpS').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_bpD').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_heart').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_o2').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_ap').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_vp').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_tmp').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_bfr').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_nss').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_ufr').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_ufv').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_remarks').val() != ''
+                              ){
+                                $('#addMonLog{{ $bookings[0]->id }}').prop('disabled', false);
+                              }else
+                                $('#addMonLog{{ $bookings[0]->id }}').prop('disabled', true);
+                            ">
+                                <label for="{{ $viewFolder }}_mon_nss" class="form-label">NSS</label>
+                                <small id="help_{{ $viewFolder }}_mon_nss" class="text-muted"></small>
+                              </div>
+                            </div>
+                            <div class="input-group mb-3">
+                              <div class="form-floating">
+                                <input class="form-control" type="text" name="{{ $viewFolder }}[Monitoring][ufr]" id="{{ $viewFolder }}_mon_ufr" placeholder="" onchange="
+                              if($('#{{ $viewFolder }}_mon_time').val() != ''){
+                                $('#{{ $viewFolder }}_mon_bpS').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_bpD').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_heart').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_o2').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_ap').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_vp').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_tmp').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_bfr').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_nss').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_ufr').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_ufv').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_remarks').prop('required', true);
+                              }else{
+                                $('#{{ $viewFolder }}_mon_bpS').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_bpD').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_heart').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_o2').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_ap').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_vp').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_tmp').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_bfr').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_nss').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_ufr').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_ufv').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_remarks').prop('required', false);
+                              }
+                              if(
+                                $('#{{ $viewFolder }}_mon_time').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_bpS').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_bpD').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_heart').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_o2').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_ap').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_vp').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_tmp').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_bfr').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_nss').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_ufr').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_ufv').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_remarks').val() != ''
+                              ){
+                                $('#addMonLog{{ $bookings[0]->id }}').prop('disabled', false);
+                              }else
+                                $('#addMonLog{{ $bookings[0]->id }}').prop('disabled', true);
+                            ">
+                                <label for="{{ $viewFolder }}_mon_ufr" class="form-label">UFR</label>
+                                <small id="help_{{ $viewFolder }}_mon_ufr" class="text-muted"></small>
+                              </div>
+                            </div>
+                            <div class="input-group mb-3">
+                              <div class="form-floating">
+                                <input class="form-control" type="text" name="{{ $viewFolder }}[Monitoring][ufv]" id="{{ $viewFolder }}_mon_ufv" placeholder="" onchange="
+                              if($('#{{ $viewFolder }}_mon_time').val() != ''){
+                                $('#{{ $viewFolder }}_mon_bpS').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_bpD').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_heart').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_o2').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_ap').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_vp').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_tmp').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_bfr').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_nss').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_ufr').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_ufv').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_remarks').prop('required', true);
+                              }else{
+                                $('#{{ $viewFolder }}_mon_bpS').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_bpD').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_heart').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_o2').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_ap').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_vp').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_tmp').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_bfr').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_nss').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_ufr').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_ufv').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_remarks').prop('required', false);
+                              }
+                              if(
+                                $('#{{ $viewFolder }}_mon_time').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_bpS').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_bpD').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_heart').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_o2').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_ap').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_vp').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_tmp').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_bfr').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_nss').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_ufr').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_ufv').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_remarks').val() != ''
+                              ){
+                                $('#addMonLog{{ $bookings[0]->id }}').prop('disabled', false);
+                              }else
+                                $('#addMonLog{{ $bookings[0]->id }}').prop('disabled', true);
+                            ">
+                                <label for="{{ $viewFolder }}_mon_ufv" class="form-label">UFV</label>
+                                <small id="help_{{ $viewFolder }}_mon_ufv" class="text-muted"></small>
+                              </div>
+                            </div>
+                            <div class="input-group mb-3">
+                              <div class="form-floating">
+                                <input class="form-control" type="text" name="{{ $viewFolder }}[Monitoring][remarks]" id="{{ $viewFolder }}_mon_remarks" placeholder="" onchange="
+                              if($('#{{ $viewFolder }}_mon_time').val() != ''){
+                                $('#{{ $viewFolder }}_mon_bpS').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_bpD').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_heart').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_o2').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_ap').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_vp').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_tmp').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_bfr').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_nss').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_ufr').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_ufv').prop('required', true);
+                                $('#{{ $viewFolder }}_mon_remarks').prop('required', true);
+                              }else{
+                                $('#{{ $viewFolder }}_mon_bpS').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_bpD').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_heart').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_o2').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_ap').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_vp').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_tmp').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_bfr').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_nss').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_ufr').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_ufv').prop('required', false);
+                                $('#{{ $viewFolder }}_mon_remarks').prop('required', false);
+                              }
+                              if(
+                                $('#{{ $viewFolder }}_mon_time').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_bpS').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_bpD').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_heart').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_o2').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_ap').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_vp').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_tmp').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_bfr').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_nss').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_ufr').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_ufv').val() != '' &&
+                                $('#{{ $viewFolder }}_mon_remarks').val() != ''
+                              ){
+                                $('#addMonLog{{ $bookings[0]->id }}').prop('disabled', false);
+                              }else
+                                $('#addMonLog{{ $bookings[0]->id }}').prop('disabled', true);
+                            ">
+                                <label for="{{ $viewFolder }}_mon_remarks" class="form-label">Remarks</label>
+                                <small id="help_{{ $viewFolder }}_mon_remarks" class="text-muted"></small>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card-footer">
+                        <button id="addMonLog{{ $bookings[0]->id }}" type="button" class="addMonLog btn btn-{{ $bgColor }} btn-sm" disabled onclick="
+                          $.ajax({
+                            type: 'POST',
+                            data: $('#bookMod').serialize(),
+                            url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $bookings[0]->id) : ''}}',
+                            success:
+                            function (){
+                                $.ajax({
+                                  type: 'GET',
+                                  url: '{{ Route::has($viewFolder . '.getMonTable') ? route($viewFolder . '.getMonTable', $bookings[0]->id) : '' }}',
+                                  success:
+                                  function (data){
+                                    medObj = jQuery.parseJSON(data);
+                                    var tr;
+                                    medObj.forEach(function (item, index){
+                                      tr += '<tr id=\'' + item.id + '\' log=\'moni\'><td><div class=\'d-sm-flex flex-sm-row\'><div class=\'m-1\'><button type=\'submit\' class=\'btn btn-{{ $bgColor }} btn-sm w-100 rowBtnDel\'><i class=\'bi bi-trash\'></i><span class=\'ps-1 d-sm-none\'>Delete</span></button></div></div></td><td>' + item.time_given + '</td><td>' + item.bpS + '/' + item.bpD + '</td><td>' + item.heart + 'BPM</td><td>' + item.o2 + '%</td><td>' + item.ap + '</td><td>' + item.vp + '</td><td>' + item.tmp + '</td><td>' + item.bfr + '</td><td>' + item.nss + '</td><td>' + item.ufr + '</td><td>' + item.ufv + '</td><td>' + item.remarks + '</td><td>' + item.creator + '</td></tr>';
+                                    });
+                                    $('#monTable{{ $bookings[0]->id }}').html(tr);
+                                  }
+                                });
+                                $('#{{ $viewFolder }}_mon_time').val('');
+                                $('#{{ $viewFolder }}_mon_bpS').val('');
+                                $('#{{ $viewFolder }}_mon_bpD').val('');
+                                $('#{{ $viewFolder }}_mon_heart').val('');
+                                $('#{{ $viewFolder }}_mon_o2').val('');
+                                $('#{{ $viewFolder }}_mon_ap').val('');
+                                $('#{{ $viewFolder }}_mon_vp').val('');
+                                $('#{{ $viewFolder }}_mon_tmp').val('');
+                                $('#{{ $viewFolder }}_mon_bfr').val('');
+                                $('#{{ $viewFolder }}_mon_nss').val('');
+                                $('#{{ $viewFolder }}_mon_ufr').val('');
+                                $('#{{ $viewFolder }}_mon_ufv').val('');
+                                $('#{{ $viewFolder }}_mon_remarks').val('');
+                                $('#addMonLog{{ $bookings[0]->id }}').prop('disabled', true);
+                            }
+                          });
+
+                        ">Add Monitoring Log</button>
+                      </div>
+                    </div>
+                    @endif
+                    <div class="card-body table-responsive" style="max-height: 300px">
+                      <table class="table table-bordered table-striped table-hover table-sm hdLogs">
+                        <thead class="table-{{ $bgColor }}">
+                          <tr>
+                            <th class=""><i class="bi bi-gear"></i></th>
+                            <th>Time</th>
+                            <th>BP</th>
+                            <th>HR</th>
+                            <th>O2 Sat</th>
+                            <th>AP</th>
+                            <th>VP</th>
+                            <th>TMP</th>
+                            <th>BFR</th>
+                            <th>NSS</th>
+                            <th>UFR</th>
+                            <th>UFV</th>
+                            <th>Remarks</th>
+                            <th>NOD</th>
+                          </tr>
+                        </thead>
+                        <tbody id="monTable{{ $bookings[0]->id }}">
+                        @foreach ($bookings[0]->consultation_monitorings()->orderBy('id', 'desc')->get() as $dat)
+                            <tr id="{{ $dat->id }}" log="moni">
+                                <td>@if(Route::has($viewFolder . '.getMonTable'))<div class="d-sm-flex flex-sm-row"><div class="m-1"><button type="submit" class="btn btn-{{ $bgColor }} btn-sm w-100 rowBtnDel"><i class="bi bi-trash"></i><span class="ps-1 d-sm-none">Delete</span></button></div></div>@endif</td>
+                                <td>{{ $dat->time_given }}</td>
+                                <td>{{ $dat->bpS . '/' . $dat->bpD }}</td>
+                                <td>{{ $dat->heart }}BPM</td>
+                                <td>{{ $dat->o2 }}%</td>
+                                <td>{{ $dat->ap }}</td>
+                                <td>{{ $dat->vp }}</td>
+                                <td>{{ $dat->tmp }}</td>
+                                <td>{{ $dat->bfr }}</td>
+                                <td>{{ $dat->nss }}</td>
+                                <td>{{ $dat->ufr }}</td>
+                                <td>{{ $dat->ufv }}</td>
+                                <td>{{ $dat->remarks }}</td>
+                                <td>{{ $dat->creator->name }}</td>
+                            </tr>
+                        @endforeach 
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            @endif
+          </div>
         </div>
       </div>
       @endif
@@ -1148,6 +3117,604 @@
             $('#{{ $viewFolder }}_prev_planRem').val('');
             $('#{{ $viewFolder }}_prev_sum_planRem').html('');
           }
+
+          if(bookingObj.consultation.id != null){
+            $('#{{ $viewFolder }}_prev_treatment_id').val(bookingObj.consultation.id);
+          }else{
+            $('#{{ $viewFolder }}_prev_treatment_id').val('');
+          }
+          if(bookingObj.consultation.time_started != null){
+            $('#{{ $viewFolder }}_prev_time_started').val(bookingObj.consultation.time_started);
+          }else{
+            $('#{{ $viewFolder }}_prev_time_started').val('');
+          }
+          if(bookingObj.consultation.time_ended != null){
+            $('#{{ $viewFolder }}_prev_time_ended').val(bookingObj.consultation.time_ended);
+          }else{
+            $('#{{ $viewFolder }}_prev_time_ended').val('');
+          }
+          if(bookingObj.consultation.machine_number != null){
+            $('#{{ $viewFolder }}_prev_machine_number').val(bookingObj.consultation.machine_number);
+          }else{
+            $('#{{ $viewFolder }}_prev_machine_number').val('');
+          }
+          if(bookingObj.consultation.dialyzer != null){
+            $('#{{ $viewFolder }}_prev_dialyzer').val(bookingObj.consultation.dialyzer);
+          }else{
+            $('#{{ $viewFolder }}_prev_dialyzer').val('');
+          }
+          if(bookingObj.consultation.mac_use != null){
+            $('#{{ $viewFolder }}_prev_mac_use').val(bookingObj.consultation.mac_use);
+          }else{
+            $('#{{ $viewFolder }}_prev_mac_use').val('');
+          }
+          if(bookingObj.consultation.acid != null){
+            $('#{{ $viewFolder }}_prev_acid').val(bookingObj.consultation.acid);
+          }else{
+            $('#{{ $viewFolder }}_prev_acid').val('');
+          }
+          if(bookingObj.consultation.mac_add != null){
+            $('#{{ $viewFolder }}_prev_add').val(bookingObj.consultation.mac_add);
+          }else{
+            $('#{{ $viewFolder }}_prev_add').val('');
+          }
+          if(bookingObj.consultation.bfr != null){
+            $('#{{ $viewFolder }}_prev_bfr').val(bookingObj.consultation.bfr);
+          }else{
+            $('#{{ $viewFolder }}_prev_bfr').val('');
+          }
+          if(bookingObj.consultation.dfr != null){
+            $('#{{ $viewFolder }}_prev_dfr').val(bookingObj.consultation.dfr);
+          }else{
+            $('#{{ $viewFolder }}_prev_dfr').val('');
+          }
+          if(bookingObj.consultation.setup_prime != null){
+            $('#{{ $viewFolder }}_prev_setup_prime').val(bookingObj.consultation.setup_prime);
+          }else{
+            $('#{{ $viewFolder }}_prev_setup_prime').val('');
+          }
+          if(bookingObj.consultation.safety_check != null){
+            $('#{{ $viewFolder }}_prev_safety_check').val(bookingObj.consultation.safety_check);
+          }else{
+            $('#{{ $viewFolder }}_prev_safety_check').val('');
+          }
+          if(bookingObj.consultation.residual_test != null){
+            $('#{{ $viewFolder }}_prev_residual_test').val(bookingObj.consultation.residual_test);
+          }else{
+            $('#{{ $viewFolder }}_prev_residual_test').val('');
+          }
+          if(bookingObj.consultation.dry_weight != null){
+            $('#{{ $viewFolder }}_prev_dry_weight').val(bookingObj.consultation.dry_weight);
+          }else{
+            $('#{{ $viewFolder }}_prev_dry_weight').val('');
+          }
+          if(bookingObj.consultation.prev_post_hd_weight != null){
+            $('#{{ $viewFolder }}_prev_dry_prev_post_hd_weight').val(bookingObj.consultation.prev_post_hd_weight);
+          }else{
+            $('#{{ $viewFolder }}_prev_dry_prev_post_hd_weight').val('');
+          }
+          if(bookingObj.consultation.pre_hd_weight != null){
+            $('#{{ $viewFolder }}_prev_pre_hd_weight').val(bookingObj.consultation.pre_hd_weight);
+          }else{
+            $('#{{ $viewFolder }}_prev_pre_hd_weight').val('');
+          }
+          if(bookingObj.consultation.post_hd_weight != null){
+            $('#{{ $viewFolder }}_prev_post_hd_weight').val(bookingObj.consultation.post_hd_weight);
+          }else{
+            $('#{{ $viewFolder }}_prev_post_hd_weight').val('');
+          }
+          if(bookingObj.consultation.ktv != null){
+            $('#{{ $viewFolder }}_prev_ktv').val(bookingObj.consultation.ktv);
+          }else{
+            $('#{{ $viewFolder }}_prev_ktv').val('');
+          }
+          if(bookingObj.consultation.net_uf != null){
+            $('#{{ $viewFolder }}_prev_net_uf').val(bookingObj.consultation.net_uf);
+          }else{
+            $('#{{ $viewFolder }}_prev_net_uf').val('');
+          }
+          if(bookingObj.consultation.hd_duration != null){
+            $('#{{ $viewFolder }}_prev_hd_duration').val(bookingObj.consultation.hd_duration);
+          }else{
+            $('#{{ $viewFolder }}_prev_hd_duration').val('');
+          }
+          if(bookingObj.consultation.frequency != null){
+            $('#{{ $viewFolder }}_prev_frequency').val(bookingObj.consultation.frequency);
+          }else{
+            $('#{{ $viewFolder }}_prev_frequency').val('');
+          }
+          if(bookingObj.consultation.prime != null){
+            $('#{{ $viewFolder }}_prev_prime').val(bookingObj.consultation.prime);
+          }else{
+            $('#{{ $viewFolder }}_prev_prime').val('');
+          }
+          if(bookingObj.consultation.other_fluids != null){
+            $('#{{ $viewFolder }}_prev_other_fluids').val(bookingObj.consultation.other_fluids);
+          }else{
+            $('#{{ $viewFolder }}_prev_other_fluids').val('');
+          }
+          if(bookingObj.consultation.total_uf_goal != null){
+            $('#{{ $viewFolder }}_prev_total_uf_goal').val(bookingObj.consultation.total_uf_goal);
+          }else{
+            $('#{{ $viewFolder }}_prev_total_uf_goal').val('');
+          }
+          if(bookingObj.consultation.weight_loss != null){
+            $('#{{ $viewFolder }}_prev_weight_loss').val(bookingObj.consultation.weight_loss);
+          }else{
+            $('#{{ $viewFolder }}_prev_weight_loss').val('');
+          }
+          if(bookingObj.consultation.brand != null){
+            $('#{{ $viewFolder }}_prev_brand').val(bookingObj.consultation.brand);
+          }else{
+            $('#{{ $viewFolder }}_prev_brand').val('');
+          }
+          if(bookingObj.consultation.dose != null){
+            $('#{{ $viewFolder }}_prev_dose').val(bookingObj.consultation.dose);
+          }else{
+            $('#{{ $viewFolder }}_prev_dose').val('');
+          }
+          if(bookingObj.consultation.regular_dose != null){
+            $('#{{ $viewFolder }}_prev_regular_dose').val(bookingObj.consultation.regular_dose);
+          }else{
+            $('#{{ $viewFolder }}_prev_regular_dose').val('');
+          }
+          if(bookingObj.consultation.low_dose != null){
+            $('#{{ $viewFolder }}_prev_low_dose').val(bookingObj.consultation.low_dose);
+          }else{
+            $('#{{ $viewFolder }}_prev_low_dose').val('');
+          }
+          if(bookingObj.consultation.lmwh != null){
+            $('#{{ $viewFolder }}_prev_lmwh').val(bookingObj.consultation.lmwh);
+          }else{
+            $('#{{ $viewFolder }}_prev_lmwh').val('');
+          }
+          if(bookingObj.consultation.flushing != null){
+            $('#{{ $viewFolder }}_prev_flushing').val(bookingObj.consultation.flushing);
+          }else{
+            $('#{{ $viewFolder }}_prev_flushing').val('');
+          }
+          if(bookingObj.consultation.temp != null){
+            $('#{{ $viewFolder }}_prev_temp').val(bookingObj.consultation.temp);
+          }else{
+            $('#{{ $viewFolder }}_prev_temp').val('');
+          }
+          if(bookingObj.consultation.bpS != null){
+            $('#{{ $viewFolder }}_prev_bpS').val(bookingObj.consultation.bpS);
+          }else{
+            $('#{{ $viewFolder }}_prev_bpS').val('');
+          }
+          if(bookingObj.consultation.bpD != null){
+            $('#{{ $viewFolder }}_prev_bpD').val(bookingObj.consultation.bpD);
+          }else{
+            $('#{{ $viewFolder }}_prev_bpD').val('');
+          }
+          if(bookingObj.consultation.o2 != null){
+            $('#{{ $viewFolder }}_prev_o2').val(bookingObj.consultation.o2);
+          }else{
+            $('#{{ $viewFolder }}_prev_o2').val('');
+          }
+          if(bookingObj.consultation.heart != null){
+            $('#{{ $viewFolder }}_prev_heart').val(bookingObj.consultation.heart);
+          }else{
+            $('#{{ $viewFolder }}_prev_heart').val('');
+          }
+          if(bookingObj.consultation.resp != null){
+            $('#{{ $viewFolder }}_prev_resp').val(bookingObj.consultation.resp);
+          }else{
+            $('#{{ $viewFolder }}_prev_resp').val('');
+          }
+          if(bookingObj.consultation.post_temp != null){
+            $('#{{ $viewFolder }}_prev_post_temp').val(bookingObj.consultation.post_temp);
+          }else{
+            $('#{{ $viewFolder }}_prev_post_temp').val('');
+          }
+          if(bookingObj.consultation.post_bpS != null){
+            $('#{{ $viewFolder }}_prev_post_bpS').val(bookingObj.consultation.post_bpS);
+          }else{
+            $('#{{ $viewFolder }}_prev_post_bpS').val('');
+          }
+          if(bookingObj.consultation.post_bpD != null){
+            $('#{{ $viewFolder }}_prev_post_bpD').val(bookingObj.consultation.post_bpD);
+          }else{
+            $('#{{ $viewFolder }}_prev_post_bpD').val('');
+          }
+          if(bookingObj.consultation.post_o2 != null){
+            $('#{{ $viewFolder }}_prev_post_o2').val(bookingObj.consultation.post_o2);
+          }else{
+            $('#{{ $viewFolder }}_prev_post_o2').val('');
+          }
+          if(bookingObj.consultation.post_heart != null){
+            $('#{{ $viewFolder }}_prev_post_heart').val(bookingObj.consultation.post_heart);
+          }else{
+            $('#{{ $viewFolder }}_prev_post_heart').val('');
+          }
+          if(bookingObj.consultation.post_resp != null){
+            $('#{{ $viewFolder }}_prev_post_resp').val(bookingObj.consultation.post_resp);
+          }else{
+            $('#{{ $viewFolder }}_prev_post_resp').val('');
+          }
+          if(bookingObj.consultation.mental_status != null){
+            if(bookingObj.consultation.mental_status.includes('awake'))
+              $('#{{ $viewFolder }}_prev_mental_status_awake').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_mental_status_awake').prop('checked', false);
+            if(bookingObj.consultation.mental_status.includes('oriented'))
+              $('#{{ $viewFolder }}_prev_mental_status_oriented').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_mental_status_oriented').prop('checked', false);
+            if(bookingObj.consultation.mental_status.includes('drowsy'))
+              $('#{{ $viewFolder }}_prev_mental_status_drowsy').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_mental_status_drowsy').prop('checked', false);
+            if(bookingObj.consultation.mental_status.includes('disoriented'))
+              $('#{{ $viewFolder }}_prev_mental_status_disoriented').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_mental_status_disoriented').prop('checked', false);
+          }else{
+            $('#{{ $viewFolder }}_prev_mental_status_awake').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_mental_status_oriented').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_mental_status_drowsy').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_mental_status_disoriented').prop('checked', false);
+          }
+          
+          if(bookingObj.consultation.post_mental_status != null){
+            if(bookingObj.consultation.post_mental_status.includes('awake'))
+              $('#{{ $viewFolder }}_prev_post_mental_status_awake').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_post_mental_status_awake').prop('checked', false);
+            if(bookingObj.consultation.post_mental_status.includes('oriented'))
+              $('#{{ $viewFolder }}_prev_post_mental_status_oriented').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_post_mental_status_oriented').prop('checked', false);
+            if(bookingObj.consultation.post_mental_status.includes('drowsy'))
+              $('#{{ $viewFolder }}_prev_post_mental_status_drowsy').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_post_mental_status_drowsy').prop('checked', false);
+            if(bookingObj.consultation.post_mental_status.includes('disoriented'))
+              $('#{{ $viewFolder }}_prev_post_mental_status_disoriented').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_post_mental_status_disoriented').prop('checked', false);
+          }else{
+            $('#{{ $viewFolder }}_prev_post_mental_status_awake').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_post_mental_status_oriented').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_post_mental_status_drowsy').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_post_mental_status_disoriented').prop('checked', false);
+          }
+
+          if(bookingObj.consultation.ambulation_status != null){
+            if(bookingObj.consultation.ambulation_status == 'ambulatory')
+              $('#{{ $viewFolder }}_prev_ambulation_status_ambulatory').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_ambulation_status_ambulatory').prop('checked', false);
+            if(bookingObj.consultation.ambulation_status == 'w/ assistance')
+              $('#{{ $viewFolder }}_prev_ambulation_status_assistance').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_ambulation_status_assistance').prop('checked', false);
+            if(bookingObj.consultation.ambulation_status == 'wheelchair')
+              $('#{{ $viewFolder }}_prev_ambulation_status_wheelchair').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_ambulation_status_wheelchair').prop('checked', false);
+          }else{  
+            $('#{{ $viewFolder }}_prev_ambulation_status_ambulatory').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_ambulation_status_assistance').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_ambulation_status_wheelchair').prop('checked', false);
+          }
+
+          if(bookingObj.consultation.post_ambulation_status != null){
+            if(bookingObj.consultation.post_ambulation_status == 'ambulatory')
+              $('#{{ $viewFolder }}_prev_post_ambulation_status_ambulatory').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_post_ambulation_status_ambulatory').prop('checked', false);
+            if(bookingObj.consultation.post_ambulation_status == 'w/ assistance')
+              $('#{{ $viewFolder }}_prev_post_ambulation_status_assistance').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_post_ambulation_status_assistance').prop('checked', false);
+            if(bookingObj.consultation.post_ambulation_status == 'wheelchair')
+              $('#{{ $viewFolder }}_prev_post_ambulation_status_wheelchair').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_post_ambulation_status_wheelchair').prop('checked', false);
+          }else{  
+            $('#{{ $viewFolder }}_prev_post_ambulation_status_ambulatory').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_post_ambulation_status_assistance').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_post_ambulation_status_wheelchair').prop('checked', false);
+          }
+
+          if(bookingObj.consultation.subjective_complaints != null){
+            if(bookingObj.consultation.subjective_complaints == 'none')
+              $('#{{ $viewFolder }}_prev_subjective_complaints_none').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_subjective_complaints_none').prop('checked', false);
+            if(bookingObj.consultation.subjective_complaints == 'yes')
+              $('#{{ $viewFolder }}_prev_subjective_complaints_yes').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_subjective_complaints_yes').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_subjective_complaints_text').val(bookingObj.consultation.subjective_complaints_text);
+           
+          }else{  
+            $('#{{ $viewFolder }}_prev_subjective_complaints_none').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_subjective_complaints_yes').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_subjective_complaints_text').val('');
+            
+          }
+
+          if(bookingObj.consultation.post_subjective_complaints != null){
+            if(bookingObj.consultation.post_subjective_complaints == 'none')
+              $('#{{ $viewFolder }}_prev_post_subjective_complaints_none').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_post_subjective_complaints_none').prop('checked', false);
+            if(bookingObj.consultation.post_subjective_complaints == 'yes')
+              $('#{{ $viewFolder }}_prev_post_subjective_complaints_yes').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_post_subjective_complaints_yes').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_post_subjective_complaints_text').val(bookingObj.consultation.post_subjective_complaints_text);
+           
+          }else{  
+            $('#{{ $viewFolder }}_prev_post_subjective_complaints_none').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_post_subjective_complaints_yes').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_post_subjective_complaints_text').val('');
+            
+          }
+
+          if(bookingObj.consultation.pe_findings != null){
+            if(bookingObj.consultation.pe_findings.includes('Pallor'))
+              $('#{{ $viewFolder }}_prev_pe_findings_pallor').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_pe_findings_pallor').prop('checked', false);
+            if(bookingObj.consultation.pe_findings.includes('Distended Neck Vein'))
+              $('#{{ $viewFolder }}_prev_pe_findings_neck_vein').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_pe_findings_neck_vein').prop('checked', false);
+            if(bookingObj.consultation.pe_findings.includes('Abnormal Rhythm/Rate'))
+              $('#{{ $viewFolder }}_prev_pe_findings_rhythm').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_pe_findings_rhythym').prop('checked', false);
+            if(bookingObj.consultation.pe_findings.includes('Rales'))
+              $('#{{ $viewFolder }}_prev_pe_findings_rales').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_pe_findings_rales').prop('checked', false);
+            if(bookingObj.consultation.pe_findings.includes('Wheezing'))
+              $('#{{ $viewFolder }}_prev_pe_findings_wheezing').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_pe_findings_wheezing').prop('checked', false);
+            if(bookingObj.consultation.pe_findings.includes('Decreased Breath Sounds'))
+              $('#{{ $viewFolder }}_prev_pe_findings_breath_sounds').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_pe_findings_breath_sounds').prop('checked', false);
+            if(bookingObj.consultation.pe_findings.includes('Ascites - Abdominal Girth'))
+              $('#{{ $viewFolder }}_prev_pe_findings_ascites').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_pe_findings_ascites').prop('checked', false);
+            if(bookingObj.consultation.pe_findings.includes('Edema Grade'))
+              $('#{{ $viewFolder }}_prev_pe_findings_edema').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_pe_findings_edema').prop('checked', false);
+            if(bookingObj.consultation.pe_findings.includes('Bleeding'))
+              $('#{{ $viewFolder }}_prev_pe_findings_bleeding').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_pe_findings_bleeding').prop('checked', false);
+            if(bookingObj.consultation.pe_findings.includes('Others'))
+              $('#{{ $viewFolder }}_prev_pe_findings_others').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_pe_findings_others').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_pe_findings_ascites_text').val(bookingObj.consultation.pe_findings_ascites_text);
+            $('#{{ $viewFolder }}_prev_pe_findings_edema_text').val(bookingObj.consultation.pe_findings_edema_text);
+            $('#{{ $viewFolder }}_prev_pe_findings_others_text').val(bookingObj.consultation.pe_findings_others_text);
+            
+          }else{
+            $('#{{ $viewFolder }}_prev_pe_findings_pallor').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_pe_findings_neck_vein').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_pe_findings_rhythm').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_pe_findings_rales').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_pe_findings_wheezing').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_pe_findings_breath_sounds').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_pe_findings_ascites').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_pe_findings_edema').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_pe_findings_bleeding').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_pe_findings_others').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_pe_findings_ascites_text').val('');
+            $('#{{ $viewFolder }}_prev_pe_findings_edema_text').val('');
+            $('#{{ $viewFolder }}_prev_pe_findings_others_text').val('');
+          }
+
+          if(bookingObj.consultation.post_pe_findings != null){
+            if(bookingObj.consultation.post_pe_findings.includes('Pallor'))
+              $('#{{ $viewFolder }}_prev_post_pe_findings_pallor').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_post_pe_findings_pallor').prop('checked', false);
+            if(bookingObj.consultation.post_pe_findings.includes('Distended Neck Vein'))
+              $('#{{ $viewFolder }}_prev_post_pe_findings_neck_vein').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_post_pe_findings_neck_vein').prop('checked', false);
+            if(bookingObj.consultation.post_pe_findings.includes('Abnormal Rhythm/Rate'))
+              $('#{{ $viewFolder }}_prev_post_pe_findings_rhythm').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_post_pe_findings_rhythym').prop('checked', false);
+            if(bookingObj.consultation.post_pe_findings.includes('Rales'))
+              $('#{{ $viewFolder }}_prev_post_pe_findings_rales').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_post_pe_findings_rales').prop('checked', false);
+            if(bookingObj.consultation.post_pe_findings.includes('Wheezing'))
+              $('#{{ $viewFolder }}_prev_post_pe_findings_wheezing').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_post_pe_findings_wheezing').prop('checked', false);
+            if(bookingObj.consultation.post_pe_findings.includes('Decreased Breath Sounds'))
+              $('#{{ $viewFolder }}_prev_post_pe_findings_breath_sounds').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_post_pe_findings_breath_sounds').prop('checked', false);
+            if(bookingObj.consultation.post_pe_findings.includes('Ascites - Abdominal Girth'))
+              $('#{{ $viewFolder }}_prev_post_pe_findings_ascites').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_post_pe_findings_ascites').prop('checked', false);
+            if(bookingObj.consultation.post_pe_findings.includes('Edema Grade'))
+              $('#{{ $viewFolder }}_prev_post_pe_findings_edema').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_post_pe_findings_edema').prop('checked', false);
+            if(bookingObj.consultation.post_pe_findings.includes('Bleeding'))
+              $('#{{ $viewFolder }}_prev_post_pe_findings_bleeding').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_post_pe_findings_bleeding').prop('checked', false);
+            if(bookingObj.consultation.post_pe_findings.includes('Others'))
+              $('#{{ $viewFolder }}_prev_post_pe_findings_others').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_post_pe_findings_others').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_post_pe_findings_ascites_text').val(bookingObj.consultation.post_pe_findings_ascites_text);
+            $('#{{ $viewFolder }}_prev_post_pe_findings_edema_text').val(bookingObj.consultation.post_pe_findings_edema_text);
+            $('#{{ $viewFolder }}_prev_post_pe_findings_others_text').val(bookingObj.consultation.post_pe_findings_others_text);
+            
+          }else{
+            $('#{{ $viewFolder }}_prev_post_pe_findings_pallor').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_post_pe_findings_neck_vein').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_post_pe_findings_rhythm').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_post_pe_findings_rales').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_post_pe_findings_wheezing').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_post_pe_findings_breath_sounds').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_post_pe_findings_ascites').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_post_pe_findings_edema').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_post_pe_findings_bleeding').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_post_pe_findings_others').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_post_pe_findings_ascites_text').val('');
+            $('#{{ $viewFolder }}_prev_post_pe_findings_edema_text').val('');
+            $('#{{ $viewFolder }}_prev_post_pe_findings_others_text').val('');
+          }
+
+          if(bookingObj.consultation.vaccess != null){
+            if(bookingObj.consultation.vaccess == 'left')
+              $('#{{ $viewFolder }}_prev_vaccess_left').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_vaccess_left').prop('checked', false);
+            if(bookingObj.consultation.vaccess == 'right')
+              $('#{{ $viewFolder }}_prev_vaccess_right').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_vaccess_right').prop('checked', false);
+            
+          }else{  
+            $('#{{ $viewFolder }}_prev_vaccess_left').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_vaccess_right').prop('checked', false);
+            
+          }
+
+          if(bookingObj.consultation.vaccess_detail != null){
+            if(bookingObj.consultation.vaccess_detail.includes('Fistula'))
+              $('#{{ $viewFolder }}_prev_fistula').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_fistula').prop('checked', false);
+            if(bookingObj.consultation.vaccess_detail.includes('Graft'))
+              $('#{{ $viewFolder }}_prev_graft').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_graft').prop('checked', false);
+            if(bookingObj.consultation.vaccess_detail.includes('CVC'))
+              $('#{{ $viewFolder }}_prev_cvc').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_cvc').prop('checked', false);
+          }else{
+            $('#{{ $viewFolder }}_prev_fistula').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_graft').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_cvc').prop('checked', false);
+            
+          }
+          if(bookingObj.consultation.av_fistula_detail != null){
+            // alert(bookingObj.consultation.av_fistula_detail);
+            if(bookingObj.consultation.av_fistula_detail.includes('Strong Thrill'))
+              $('#{{ $viewFolder }}_prev_strong_thrill').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_strong_thrill').prop('checked', false);
+            if(bookingObj.consultation.av_fistula_detail.includes('Strong Thrill'))
+              $('#{{ $viewFolder }}_prev_weak_thrill').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_weak_thrill').prop('checked', false);
+            if(bookingObj.consultation.av_fistula_detail.includes('Absent Thrill w/ Bruit'))
+              $('#{{ $viewFolder }}_prev_absent_thrill_with').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_absent_thrill_with').prop('checked', false);
+            if(bookingObj.consultation.av_fistula_detail.includes('Absent Thrill no Bruit'))
+              $('#{{ $viewFolder }}_prev_absent_thrill_no').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_absent_thrill_no').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_needle_gauge').val(bookingObj.consultation.needle_gauge);
+            $('#{{ $viewFolder }}_prev_number_commultation').val(bookingObj.consultation.number_commultation);
+            
+          }else{
+            $('#{{ $viewFolder }}_prev_strong_thrill').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_weak_thrill').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_absent_thrill_with').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_absent_thrill_no').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_needle_gauge').val('');
+            $('#{{ $viewFolder }}_prev_number_commultation').val('');
+            
+          }
+          if(bookingObj.consultation.hd_catheter_detail != null){
+            // alert(bookingObj.consultation.av_fistula_detail);
+            if(bookingObj.consultation.hd_catheter_detail.includes('Both Patent'))
+              $('#{{ $viewFolder }}_prev_both_patent').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_both_patent').prop('checked', false);
+            if(bookingObj.consultation.hd_catheter_detail.includes('A Clotted'))
+              $('#{{ $viewFolder }}_prev_a_clotted').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_a_clotted').prop('checked', false);
+            if(bookingObj.consultation.hd_catheter_detail.includes('V Clotted'))
+              $('#{{ $viewFolder }}_prev_v_clotted').prop('checked', true);
+            else
+              $('#{{ $viewFolder }}_prev_v_clotted').prop('checked', false);
+            
+            $('#{{ $viewFolder }}_prev_hd_catheter_remarks').val(bookingObj.consultation.hd_catheter_remarks);
+            $('#{{ $viewFolder }}_prev_hd_catheter_hgb').val(bookingObj.consultation.hd_catheter_hgb);
+            
+          }else{
+            $('#{{ $viewFolder }}_prev_both_patent').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_a_clotted').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_v_clotted').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_hd_catheter_remarks').val('');
+            $('#{{ $viewFolder }}_prev_hd_catheter_hgb').val('');
+            
+          }
+
+          if(bookingObj.consultation.rml != null){
+            $('#{{ $viewFolder }}_prev_rml').val(bookingObj.consultation.rml);
+          }else{
+            $('#{{ $viewFolder }}_prev_rml').val('');
+          }
+          if(bookingObj.consultation.hepa != null){
+            $('#{{ $viewFolder }}_prev_hepa').val(bookingObj.consultation.hepa);
+          }else{
+            $('#{{ $viewFolder }}_prev_hepa').val('');
+          }
+          if(bookingObj.consultation.iv_iron != null){
+            $('#{{ $viewFolder }}_prev_iv_iron').val(bookingObj.consultation.iv_iron);
+          }else{
+            $('#{{ $viewFolder }}_prev_iv_iron').val('');
+          }
+          if(bookingObj.consultation.epo != null){
+            $('#{{ $viewFolder }}_prev_epo').val(bookingObj.consultation.epo);
+          }else{
+            $('#{{ $viewFolder }}_prev_epo').val('');
+          }
+          if(bookingObj.consultation.hd_vac != null){
+            $('#{{ $viewFolder }}_prev_hd_vac').val(bookingObj.consultation.hd_vac);
+          }else{
+            $('#{{ $viewFolder }}_prev_hd_vac').val('');
+          }
+          if(bookingObj.consultation.hd_endorsement != null){
+            $('#{{ $viewFolder }}_prev_hd_endorsement').val(bookingObj.consultation.hd_endorsement);
+          }else{
+            $('#{{ $viewFolder }}_prev_hd_endorsement').val('');
+          }
+          $.each(bookingObj.consultation_meds, function(index, element){
+            if(index == 0){
+              $('#medTable{{ isset($bookings) ? $bookings[0]->id : '' }}').empty().append('<tr id=\'' + element.id + '\' log=\'meds\'><td></td><td>' + element.time_given + '</td><td>' + element.medication + '</td><td>' + element.dosage + '</td><td>' + element.creator.name + '</td></tr>');
+            }else{
+              $('#medTable{{ isset($bookings) ? $bookings[0]->id : '' }}').append('<tr id=\'' + element.id + '\' log=\'meds\'><td></td><td>' + element.time_given + '</td><td>' + element.medication + '</td><td>' + element.dosage + '</td><td>' + element.creator.name + '</td></tr>');
+            }
+          });
+          $.each(bookingObj.consultation_monitorings, function(index, element){
+            if(index == 0){
+              $('#monTable{{ isset($bookings) ? $bookings[0]->id : '' }}').empty().append('<tr id=\'' + element.id + '\' log=\'moni\'><td></td><td>' + element.time_given + '</td><td>' + element.bpS + '/' + element.bpD + '</td><td>' + element.heart + 'BPM</td><td>' + element.o2 + '%</td><td>' + element.ap + '</td><td>' + element.vp + '</td><td>' + element.tmp + '</td><td>' + element.bfr + '</td><td>' + element.nss + '</td><td>' + element.ufr + '</td><td>' + element.ufv + '</td><td>' + element.remarks + '</td><td>' + element.creator.name + '</td></tr>');
+            }else{
+              $('#monTable{{ isset($bookings) ? $bookings[0]->id : '' }}').append('<tr id=\'' + element.id + '\' log=\'moni\'><td></td><td>' + element.time_given + '</td><td>' + element.bpS + '/' + element.bpD + '</td><td>' + element.heart + 'BPM</td><td>' + element.o2 + '%</td><td>' + element.ap + '</td><td>' + element.vp + '</td><td>' + element.tmp + '</td><td>' + element.bfr + '</td><td>' + element.nss + '</td><td>' + element.ufr + '</td><td>' + element.ufv + '</td><td>' + element.remarks + '</td><td>' + element.creator.name + '</td></tr>');
+            }
+          });
+          
+
           // $('#{{ $viewFolder }}_findings').val(bookingObj.consultation.findings);
           // $('#{{ $viewFolder }}_diagnosis').val(bookingObj.consultation.diagnosis);
           // $('#{{ $viewFolder }}_recommendations').val(bookingObj.consultation.recommendations);

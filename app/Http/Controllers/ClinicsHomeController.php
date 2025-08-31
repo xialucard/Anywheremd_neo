@@ -8,6 +8,8 @@ use App\Models\AffiliatedDoctor;
 use App\Models\Clinic;
 use App\Models\Consultation;
 use App\Models\ConsultationFile;
+use App\Models\ConsultationMed;
+use App\Models\ConsultationMonitoring;
 use App\Models\HealthOrganization;
 use App\Models\NurseFile;
 use App\Models\Patient;
@@ -535,6 +537,32 @@ class ClinicsHomeController extends Controller
             unset($params['procedure_details']);
         }
 
+        if(isset($params['Med'])){
+            $medication = $params['Med'];
+            unset($params['Med']);
+            if($medication['time_given'] != ''){
+                $medication['consultation_id'] = $clinics_home->id;
+                $medication['created_by'] = $user->id;
+                $medication['updated_by'] = $user->id;
+                // dd($medication);
+                ConsultationMed::create($medication);
+                
+            }
+        }
+        
+        if(isset($params['Monitoring'])){
+            $monitoring = $params['Monitoring'];
+            unset($params['Monitoring']);
+            if($monitoring['time_given'] != ''){
+                $monitoring['consultation_id'] = $clinics_home->id;
+                $monitoring['created_by'] = $user->id;
+                $monitoring['updated_by'] = $user->id;
+                // dd($medication);
+                ConsultationMonitoring::create($monitoring);
+                
+            }
+        }
+
         $patient = $params['Patient'];
         if(!empty($request->clinics_home['Patient']['profile_pic'])){
             $profile_pic = 'profile_pic_' . time() . '.' . $request->clinics_home['Patient']['profile_pic']->extension();
@@ -606,7 +634,7 @@ class ClinicsHomeController extends Controller
         $clinics_home->patient->update($patient);
         $params['bookingDate'] = date('Y-m-d', strtotime($params['bookingDate']));
         // dd($params);
-        if(is_null($params['booking_type']))
+        if(!isset($params['booking_type']))
             $params['booking_type'] = '';
         if(isset($params['arod_sphere']) && $params['arod_sphere'] == 'No Target'){
             $params['arod_cylinder'] = null;
@@ -639,7 +667,36 @@ class ClinicsHomeController extends Controller
         }
         if(isset($params['pinoscor_num']) && $params['pinoscor_num'] == 'NA'){
             $params['pinoscor_den'] = null;
-        }    
+        }
+
+        if(isset($params['mental_status']))
+            $params['mental_status'] = json_encode($params['mental_status']);
+        else
+            $params['mental_status'] = json_encode('');
+        if(isset($params['pe_findings']))
+            $params['pe_findings'] = json_encode($params['pe_findings']);
+        else
+            $params['pe_findings'] = json_encode('');
+        if(isset($params['post_mental_status']))
+            $params['post_mental_status'] = json_encode($params['post_mental_status']);
+        else
+            $params['post_mental_status'] = json_encode('');
+        if(isset($params['post_pe_findings']))
+            $params['post_pe_findings'] = json_encode($params['post_pe_findings']);
+        else
+            $params['post_pe_findings'] = json_encode('');
+        if(isset($params['vaccess_detail']))
+            $params['vaccvaccess_detailess'] = json_encode($params['vaccess_detail']);
+        else
+            $params['vaccess_detail'] = json_encode('');
+        if(isset($params['av_fistula_detail']))
+            $params['av_fistula_detail'] = json_encode($params['av_fistula_detail']);
+        else
+            $params['av_fistula_detail'] = json_encode('');
+        if(isset($params['hd_catheter_detail']))
+            $params['hd_catheter_detail'] = json_encode($params['hd_catheter_detail']);
+        else
+            $params['hd_catheter_detail'] = json_encode('');
         
         $params['patient_id'] = $clinics_home->patient->id;
         $params['doctor_id'] = $clinics_home->doctor->id;
@@ -741,6 +798,13 @@ class ClinicsHomeController extends Controller
 
     function deleteUploadedNurseFile(?int $id){
         NurseFile::destroy($id);
+    }
+
+    function deleteHDLogs($log_type, ?int $id){
+        if($log_type == 'meds')
+            ConsultationMed::destroy($id);
+        else    
+            ConsultationMonitoring::destroy($id);
     }
 
     function getPatientList($patient_name, $conso = null){
@@ -884,6 +948,26 @@ class ClinicsHomeController extends Controller
         // $data['data'] = $datalist;
         // dd(json_encode($data));
         return json_encode($datalist);
+    }
+
+    function getMedTable($id){
+        $medLogs = ConsultationMed::where('consultation_id', $id)->orderBy('id', 'desc')->get();
+        $medLogArr = $medLogs->toArray();
+        foreach($medLogs as $ind=>$dat){
+            $medLogArr[$ind]['creator'] = $dat->creator->name;
+        }
+        return json_encode($medLogArr);
+
+    }
+
+    function getMonTable($id){
+        $monLogs = ConsultationMonitoring::where('consultation_id', $id)->orderBy('id', 'desc')->get();
+        $monLogArr = $monLogs->toArray();
+        foreach($monLogs as $ind=>$dat){
+            $monLogArr[$ind]['creator'] = $dat->creator->name;
+        }
+        return json_encode($monLogArr);
+
     }
 
     function getDoctorList($patient_name, $conso = null){
