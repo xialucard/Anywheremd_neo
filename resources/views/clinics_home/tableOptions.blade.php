@@ -25,7 +25,7 @@
     <div class="m-1"><a class="btn btn-{{ $bgColor }} btn-sm w-100" href="{{ route($viewFolder . '.show', [isset($referal_conso) ? $referal_conso->id : $dat->id, !empty(parse_url(Request::fullUrl())['query']) ? parse_url(Request::fullUrl())['query'] : '']) }}" title="View" role="button"><i class="bi bi-binoculars"></i><span class="ps-1 d-sm-none">View</span></a></div>
         @endcan
     @endif
-    @if (Route::has($viewFolder . '.edit') && (($dat->status != 'Done' && is_null($dat->consultation_parent_id) && !isset($dat->consultation_referals)) || is_null($dat->temp) || is_null($dat->vitals_updated_by) || (!is_null($dat->temp) && $dat->vitals_updated_by == $user->id)))
+    @if (Route::has($viewFolder . '.edit') && (($dat->status != 'Done' && is_null($dat->consultation_parent_id) && !isset($dat->consultation_referals)) || is_null($dat->temp) || is_null($dat->vitals_updated_by) || $dat->booking_type == 'Dialysis' || (!is_null($dat->temp) && ($dat->vitals_updated_by == $user->id))))
         @can($viewFolder . '.edit')
     <div class="m-1"><a class="btn btn-{{ $bgColor }} btn-sm w-100" href="{{ route($viewFolder . '.edit', [isset($referal_conso) ? $referal_conso->id : $dat->id, !empty(parse_url(Request::fullUrl())['query']) ? parse_url(Request::fullUrl())['query'] : '']) }}" title="Edit" role="button"><i class="bi bi-pencil"></i><span class="ps-1 d-sm-none">Edit</span></a></div>
         @endcan
