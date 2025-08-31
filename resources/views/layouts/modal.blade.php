@@ -31,7 +31,7 @@
                     <h5 class="modal-title" id="modalTitleId">{{ $inputFormHeader }}</h5>
                         <button type="button" class="btn-close modalForm-close" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-body p-0">
+                <div class="modal-body {{ stristr($inputFormHeader, 'Booking') ? 'pt-0' : '' }}">
                     <div class="container">
                         <div class="pb-8">
                             @if ($errors->any())
