@@ -27,6 +27,16 @@ class ConsultationFile extends Model
         return $this->belongsTo(User::class, 'updated_by');
     }
 
+    public function hd_starter()
+    {
+        return $this->belongsTo(User::class, 'hd_started_by');
+    }
+
+    public function hd_terminator()
+    {
+        return $this->belongsTo(User::class, 'hd_terminated_by');
+    }
+
     public function consultation()
     {
         return $this->belongsTo(Consultation::class, 'consultation_id');

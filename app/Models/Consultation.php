@@ -148,7 +148,9 @@ class Consultation extends Model
         'admittingOrder',
         'created_by',
         'updated_by',
-        'vitals_updated_by'
+        'vitals_updated_by',
+        'hd_started_by',
+        'hd_terminated_by'
     ];
 
     public $sortable = ['id'];

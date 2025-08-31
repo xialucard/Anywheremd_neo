@@ -697,6 +697,14 @@ class ClinicsHomeController extends Controller
             $params['hd_catheter_detail'] = json_encode($params['hd_catheter_detail']);
         else
             $params['hd_catheter_detail'] = json_encode('');
+
+        if($clinics_home->time_started == '' && $params['time_started'] != ''){
+            $params['hd_started_by'] = $user->id;
+        }
+
+        if($clinics_home->time_ended == '' && $params['time_ended'] != ''){
+            $params['hd_terminated_by'] = $user->id;
+        }
         
         $params['patient_id'] = $clinics_home->patient->id;
         $params['doctor_id'] = $clinics_home->doctor->id;
