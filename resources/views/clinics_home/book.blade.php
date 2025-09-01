@@ -57,7 +57,7 @@
             @if(isset($referal_conso))
               <input type="hidden" class="form-control" name="{{ $viewFolder }}[booking_type]" value="{{ !empty($origBookingType) ? $origBookingType : '' }}">
               <input type="hidden" class="form-control" name="{{ $viewFolder }}[referral_id]" value="{{ $referal_conso->id }}">
-            @elseif(isset($datum->id) && $datum->booking_type == 'Dialysis')
+            @elseif(isset($datum->id) && $datum->booking_type != '')
               <input type="hidden" class="form-control" name="{{ $viewFolder }}[booking_type]" value="{{ $datum->booking_type }}">
             @endif
             <label for="{{ $viewFolder }}_booking_type">Booking Type</label>
