@@ -2009,7 +2009,7 @@
                       <div class="col-lg-6">
                         <div class="input-group mb-3">
                           <div class="form-floating">
-                            <input class="form-control" type="number" name="{{ $viewFolder }}[dry_weight]" min=1 step=.1 id="{{ $viewFolder }}_prev_dry_weight" value="{{ isset($bookings[0]->dry_weight) ? $bookings[0]->dry_weight : ''}}" placeholder="" disabled>
+                            <input class="form-control" type="text" name="{{ $viewFolder }}[dry_weight]" id="{{ $viewFolder }}_prev_dry_weight" value="{{ isset($bookings[0]->dry_weight) ? $bookings[0]->dry_weight : ''}}" placeholder="" disabled>
                             <label for="{{ $viewFolder }}_prev_dry_weight" class="form-label">Estimate Dry Weight</label>
                             <small id="help_{{ $viewFolder }}_prev_dry_weight" class="text-muted"></small>
                           </div>
@@ -5521,7 +5521,7 @@
                       <div class="col-lg-6">
                         <div class="input-group mb-3">
                           <div class="form-floating">
-                            <input class="form-control" type="number" name="{{ $viewFolder }}[dry_weight]" min=1 step=.1 id="{{ $viewFolder }}_dry_weight" value="{{ isset($datum->dry_weight) ? $datum->dry_weight : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-control" type="text" name="{{ $viewFolder }}[dry_weight]" id="{{ $viewFolder }}_dry_weight" value="{{ isset($datum->dry_weight) ? $datum->dry_weight : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
                             <label for="{{ $viewFolder }}_dry_weight" class="form-label">Estimate Dry Weight</label>
                             <small id="help_{{ $viewFolder }}_dry_weight" class="text-muted"></small>
                           </div>
