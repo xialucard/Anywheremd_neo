@@ -10,6 +10,7 @@ use App\Models\Consultation;
 use App\Models\ConsultationFile;
 use App\Models\ConsultationMed;
 use App\Models\ConsultationMonitoring;
+use App\Models\ConsultationNurseNote;
 use App\Models\HealthOrganization;
 use App\Models\NurseFile;
 use App\Models\Patient;
@@ -563,6 +564,19 @@ class ClinicsHomeController extends Controller
             }
         }
 
+        if(isset($params['Nurse'])){
+            $nurse_notes = $params['Nurse'];
+            unset($params['Nurse']);
+            if($nurse_notes['time_given'] != ''){
+                $nurse_notes['consultation_id'] = $clinics_home->id;
+                $nurse_notes['created_by'] = $user->id;
+                $nurse_notes['updated_by'] = $user->id;
+                // dd($nurse_notes);
+                ConsultationNurseNote::create($nurse_notes);
+                
+            }
+        }
+
         $patient = $params['Patient'];
         if(!empty($request->clinics_home['Patient']['profile_pic'])){
             $profile_pic = 'profile_pic_' . time() . '.' . $request->clinics_home['Patient']['profile_pic']->extension();
@@ -811,8 +825,10 @@ class ClinicsHomeController extends Controller
     function deleteHDLogs($log_type, ?int $id){
         if($log_type == 'meds')
             ConsultationMed::destroy($id);
+        elseif($log_type == 'moni')
+            ConsultationMed::destroy($id);
         else    
-            ConsultationMonitoring::destroy($id);
+            ConsultationNurseNote::destroy($id);
     }
 
     function getPatientList($patient_name, $conso = null){
@@ -975,6 +991,16 @@ class ClinicsHomeController extends Controller
             $monLogArr[$ind]['creator'] = $dat->creator->name;
         }
         return json_encode($monLogArr);
+
+    }
+
+    function getNurseNotesTable($id){
+        $nurseNotesLogs = ConsultationNurseNote::where('consultation_id', $id)->orderBy('id', 'desc')->get();
+        $nurseNotesLogArr = $nurseNotesLogs->toArray();
+        foreach($nurseNotesLogs as $ind=>$dat){
+            $nurseNotesLogArr[$ind]['creator'] = $dat->creator->name;
+        }
+        return json_encode($nurseNotesLogArr);
 
     }
 

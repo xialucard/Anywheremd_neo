@@ -128,6 +128,8 @@ class Consultation extends Model
         'epo',
         'hd_vac',
         'hd_endorsement',
+        'shorten_min',
+        'shorten_reason',
         'docNotesHPI',
         'docNotesSubject',
         'docNotes',
@@ -203,6 +205,11 @@ class Consultation extends Model
     public function consultation_monitorings()
     {
         return $this->hasMany(ConsultationMonitoring::class, 'consultation_id');
+    }
+
+    public function consultation_nurse_notes()
+    {
+        return $this->hasMany(ConsultationNurseNote::class, 'consultation_id');
     }
 
     public function anesthesia_files()
