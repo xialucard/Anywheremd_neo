@@ -2794,6 +2794,139 @@
                 </div>
               </div>
             </div>
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="card mb-3">
+                  <div class="card-header">Nurse Notes</div>
+                  <div class="card-body">
+                    @if(Route::has($viewFolder . '.getNurseNotesTable'))
+                    <div class="card mb-3">
+                      <div class="card-header">Add Entry</div>
+                      <div class="card-body">
+                        <div class="input-group mb-3">
+                          <div class="form-floating">
+                            <input class="form-control" type="time" name="{{ $viewFolder }}[Nurse][time_given]" id="{{ $viewFolder }}_notes_time" value="" placeholder="" onchange="
+                              if($(this).val() != ''){
+                                $('#{{ $viewFolder }}_nurse_notes').prop('required', true);
+                              
+                              }else{
+                                $('#{{ $viewFolder }}_nurse_notes').prop('required', false);
+                                
+                              }
+                              if($(this).val() != '' && $('#{{ $viewFolder }}_nurse_notes').val() != '')
+                                $('#addNurseNotesLog{{ $datum->id }}').prop('disabled', false);
+                              else
+                                $('#addNurseNotesLog{{ $datum->id }}').prop('disabled', true);
+                            ">
+                            <label for="{{ $viewFolder }}_notes_time" class="form-label">Time Given</label>
+                            <small id="help_{{ $viewFolder }}_notes_time" class="text-muted"></small>
+                          </div>
+                        </div>
+                        <div class="input-group mb-3">
+                          <div class="form-floating">
+                            <input class="form-control" type="text" name="{{ $viewFolder }}[Nurse][notes]" id="{{ $viewFolder }}_nurse_notes" placeholder="" onchange="
+                              if($('#{{ $viewFolder }}_notes_time').val() != ''){
+                                $('#{{ $viewFolder }}_nurse_notes').prop('required', true);
+                              }else{
+                                $('#{{ $viewFolder }}_nurse_notes').prop('required', false);
+                              }
+                              if($('#{{ $viewFolder }}_notes_time').val() != '' && $('#{{ $viewFolder }}_nurse_notes').val() != '')
+                                $('#addNurseNotesLog{{ $datum->id }}').prop('disabled', false);
+                              else
+                                $('#addNurseNotesLog{{ $datum->id }}').prop('disabled', true);
+                            ">
+                            <label for="{{ $viewFolder }}_nurse_notes" class="form-label">Notes</label>
+                            <small id="help_{{ $viewFolder }}_nurse_notes" class="text-muted"></small>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card-footer">
+                        <button id="addNurseNotesLog{{ $datum->id }}" type="button" class="addNurseNotesLog btn btn-{{ $bgColor }} btn-sm" disabled onclick="
+                          $.ajax({
+                            type: 'POST',
+                            data: $('#bookMod').serialize(),
+                            url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
+                            success:
+                            function (){
+                                $.ajax({
+                                  type: 'GET',
+                                  url: '{{ Route::has($viewFolder . '.getNurseNotesTable') ? route($viewFolder . '.getNurseNotesTable', $datum->id) : '' }}',
+                                  success:
+                                  function (data){
+                                    medObj = jQuery.parseJSON(data);
+                                    var tr;
+                                    medObj.forEach(function (item, index){
+                                      tr += '<tr id=\'' + item.id + '\' log=\'nurseNotes\'><td><div class=\'d-sm-flex flex-sm-row\'><div class=\'m-1\'><button type=\'submit\' class=\'btn btn-{{ $bgColor }} btn-sm w-100 rowBtnDel\'><i class=\'bi bi-trash\'></i><span class=\'ps-1 d-sm-none\'>Delete</span></button></div></div></td><td>' + item.time_given + '</td><td>' + item.notes + '</td><td>' + item.creator + '</td></tr>';
+                                    });
+                                    $('#nurseNotesTable{{ $bookings[0]->id }}').html(tr);
+                                  }
+                                });
+                                $('#{{ $viewFolder }}_notes_time').val('')
+                                $('#{{ $viewFolder }}_nurse_notes').val('');
+                                $('#addNurseNotesLog{{ $bookings[0]->id }}').prop('disabled', true);
+                            }
+                          });
+
+                        ">Add Nurse Notes</button>
+                      </div>
+                    </div>
+                    @endif
+                    <div class="card-body table-responsive" style="max-height: 300px">
+                      <table class="table table-bordered table-striped table-hover table-sm hdLogs">
+                        <thead class="table-{{ $bgColor }}">
+                          <tr>
+                            <th class=""><i class="bi bi-gear"></i></th>
+                            <th>Time</th>
+                            <th>Notes</th>
+                            <th>NOD</th>
+                          </tr>
+                        </thead>
+                        <tbody id="nurseNotesTable{{ $bookings[0]->id }}">
+                        @foreach ($bookings[0]->consultation_nurse_notes()->orderBy('id', 'desc')->get() as $dat)
+                            <tr id="{{ $dat->id }}" log="nurseNotes">
+                                <td>@if(Route::has($viewFolder . '.getNurseNotesTable'))<div class="d-sm-flex flex-sm-row"><div class="m-1"><button type="submit" class="btn btn-{{ $bgColor }} btn-sm w-100 rowBtnDel"><i class="bi bi-trash"></i><span class="ps-1 d-sm-none">Delete</span></button></div></div>@endif</td>
+                                <td>{{ $dat->time_given }}</td>
+                                <td>{{ $dat->notes }}</td>
+                                <td>{{ $dat->creator->name }}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="card mb-3">
+                  <div class="card-header">Early Termination Waiver</div>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <div class="input-group mb-3">
+                          <div class="form-floating">
+                            <input class="form-control" type="number" name="{{ $viewFolder }}[shorten_min]" id="{{ $viewFolder }}_prev_shorten_min" placeholder="" value="{{ !empty($bookings[0]->shorten_min) ? $bookings[0]->shorten_min : '' }}" disabled>
+                            <label for="{{ $viewFolder }}_shorten_min" class="form-label">Shorten Treatment to</label>
+                            <small id="help_{{ $viewFolder }}_shorten_min" class="text-muted"></small>
+                          </div>
+                          <span class="input-group-text">mins</span>
+                        </div>
+                        <div class="input-group mb-3">
+                          <div class="form-floating">
+                            <input class="form-control" type="text" name="{{ $viewFolder }}[shorten_reason]" id="{{ $viewFolder }}_prev_shorten_reason" placeholder="" value="{{ !empty($bookings[0]->shorten_reason) ? $bookings[0]->shorten_reason : '' }}" disabled>
+                            <label for="{{ $viewFolder }}_shorten_reason" class="form-label">Reason</label>
+                            <small id="help_{{ $viewFolder }}_shorten_reason" class="text-muted"></small>
+                          </div>
+                          
+                        </div>
+                        
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
             @endif
           </div>
         </div>
@@ -3699,18 +3832,39 @@
           }else{
             $('#{{ $viewFolder }}_prev_hd_endorsement').val('');
           }
+          if(bookingObj.consultation.shorten_min != null){
+            $('#{{ $viewFolder }}_prev_shorten_min').val(bookingObj.consultation.shorten_min);
+          }else{
+            $('#{{ $viewFolder }}_prev_shorten_min').val('');
+          }
+          if(bookingObj.consultation.shorten_reason != null){
+            $('#{{ $viewFolder }}_prev_shorten_reason').val(bookingObj.consultation.shorten_reason);
+          }else{
+            $('#{{ $viewFolder }}_prev_shorten_reason').val('');
+          }
+          $('#medTable{{ $bookings[0]->id }}').empty();
           $.each(bookingObj.consultation_meds, function(index, element){
+            
             if(index == 0){
-              $('#medTable{{ isset($bookings) ? $bookings[0]->id : '' }}').empty().append('<tr id=\'' + element.id + '\' log=\'meds\'><td></td><td>' + element.time_given + '</td><td>' + element.medication + '</td><td>' + element.dosage + '</td><td>' + element.creator.name + '</td></tr>');
+              $('#medTable{{ $bookings[0]->id }}').empty().append('<tr id=\'' + element.id + '\' log=\'meds\'><td></td><td>' + element.time_given + '</td><td>' + element.medication + '</td><td>' + element.dosage + '</td><td>' + element.creator.name + '</td></tr>');
             }else{
-              $('#medTable{{ isset($bookings) ? $bookings[0]->id : '' }}').append('<tr id=\'' + element.id + '\' log=\'meds\'><td></td><td>' + element.time_given + '</td><td>' + element.medication + '</td><td>' + element.dosage + '</td><td>' + element.creator.name + '</td></tr>');
+              $('#medTable{{ $bookings[0]->id }}').append('<tr id=\'' + element.id + '\' log=\'meds\'><td></td><td>' + element.time_given + '</td><td>' + element.medication + '</td><td>' + element.dosage + '</td><td>' + element.creator.name + '</td></tr>');
             }
           });
+          $('#monTable{{ $bookings[0]->id }}').empty();
           $.each(bookingObj.consultation_monitorings, function(index, element){
             if(index == 0){
-              $('#monTable{{ isset($bookings) ? $bookings[0]->id : '' }}').empty().append('<tr id=\'' + element.id + '\' log=\'moni\'><td></td><td>' + element.time_given + '</td><td>' + element.bpS + '/' + element.bpD + '</td><td>' + element.heart + 'BPM</td><td>' + element.o2 + '%</td><td>' + element.ap + '</td><td>' + element.vp + '</td><td>' + element.tmp + '</td><td>' + element.bfr + '</td><td>' + element.nss + '</td><td>' + element.ufr + '</td><td>' + element.ufv + '</td><td>' + element.remarks + '</td><td>' + element.creator.name + '</td></tr>');
+              $('#monTable{{ $bookings[0]->id }}').empty().append('<tr id=\'' + element.id + '\' log=\'moni\'><td></td><td>' + element.time_given + '</td><td>' + element.bpS + '/' + element.bpD + '</td><td>' + element.heart + 'BPM</td><td>' + element.o2 + '%</td><td>' + element.ap + '</td><td>' + element.vp + '</td><td>' + element.tmp + '</td><td>' + element.bfr + '</td><td>' + element.nss + '</td><td>' + element.ufr + '</td><td>' + element.ufv + '</td><td>' + element.remarks + '</td><td>' + element.creator.name + '</td></tr>');
             }else{
-              $('#monTable{{ isset($bookings) ? $bookings[0]->id : '' }}').append('<tr id=\'' + element.id + '\' log=\'moni\'><td></td><td>' + element.time_given + '</td><td>' + element.bpS + '/' + element.bpD + '</td><td>' + element.heart + 'BPM</td><td>' + element.o2 + '%</td><td>' + element.ap + '</td><td>' + element.vp + '</td><td>' + element.tmp + '</td><td>' + element.bfr + '</td><td>' + element.nss + '</td><td>' + element.ufr + '</td><td>' + element.ufv + '</td><td>' + element.remarks + '</td><td>' + element.creator.name + '</td></tr>');
+              $('#monTable{{ $bookings[0]->id }}').append('<tr id=\'' + element.id + '\' log=\'moni\'><td></td><td>' + element.time_given + '</td><td>' + element.bpS + '/' + element.bpD + '</td><td>' + element.heart + 'BPM</td><td>' + element.o2 + '%</td><td>' + element.ap + '</td><td>' + element.vp + '</td><td>' + element.tmp + '</td><td>' + element.bfr + '</td><td>' + element.nss + '</td><td>' + element.ufr + '</td><td>' + element.ufv + '</td><td>' + element.remarks + '</td><td>' + element.creator.name + '</td></tr>');
+            }
+          });
+          $('#nurseNotesTable{{ $bookings[0]->id }}').empty();
+          $.each(bookingObj.consultation_nurse_notes, function(index, element){
+            if(index == 0){
+              $('#nurseNotesTable{{ $bookings[0]->id }}').empty().append('<tr id=\'' + element.id + '\' log=\'nurseNotes\'><td></td><td>' + element.time_given + '</td><td>' + element.notes + '</td><td>' + element.creator.name + '</td></tr>');
+            }else{
+              $('#nurseNotesTable{{ $bookings[0]->id }}').append('<tr id=\'' + element.id + '\' log=\'nurseNotes\'><td></td><td>' + element.time_given + '</td><td>' + element.notes + '</td><td>' + element.creator.name + '</td></tr>');
             }
           });
           
