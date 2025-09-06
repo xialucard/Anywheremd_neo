@@ -11,6 +11,7 @@ use App\Models\AffiliatedDoctor;
 use App\Models\ConsultationFile;
 use App\Models\ConsultationMed;
 use App\Models\ConsultationMonitoring;
+use App\Models\ConsultationNurseNote;
 use App\Models\HealthOrganization;
 use App\Models\IcdCode;
 use App\Models\User;
@@ -401,7 +402,7 @@ class DoctorsHomeController extends Controller
             $medication = $params['Med'];
             unset($params['Med']);
             if($medication['time_given'] != ''){
-                $medication['consultation_id'] = $clinics_home->id;
+                $medication['consultation_id'] = $doctors_home->id;
                 $medication['created_by'] = $user->id;
                 $medication['updated_by'] = $user->id;
                 // dd($medication);
@@ -414,11 +415,24 @@ class DoctorsHomeController extends Controller
             $monitoring = $params['Monitoring'];
             unset($params['Monitoring']);
             if($monitoring['time_given'] != ''){
-                $monitoring['consultation_id'] = $clinics_home->id;
+                $monitoring['consultation_id'] = $doctors_home->id;
                 $monitoring['created_by'] = $user->id;
                 $monitoring['updated_by'] = $user->id;
                 // dd($medication);
                 ConsultationMonitoring::create($monitoring);
+                
+            }
+        }
+
+        if(isset($params['Nurse'])){
+            $nurse_notes = $params['Nurse'];
+            unset($params['Nurse']);
+            if($nurse_notes['time_given'] != ''){
+                $nurse_notes['consultation_id'] = $doctors_home->id;
+                $nurse_notes['created_by'] = $user->id;
+                $nurse_notes['updated_by'] = $user->id;
+                // dd($nurse_notes);
+                ConsultationNurseNote::create($nurse_notes);
                 
             }
         }
@@ -653,6 +667,12 @@ class DoctorsHomeController extends Controller
             $prevBookingArr['consultation_monitorings'] = $doctors_home->consultation_monitorings;
             foreach($prevBookingArr['consultation_monitorings'] as $ind=>$dat){
                 $prevBookingArr['consultation_monitorings'][$ind]['creator'] = $dat->creator;
+            }
+        }
+        if(!is_null($doctors_home->consultation_nurse_notes)){
+            $prevBookingArr['consultation_nurse_notes'] = $doctors_home->consultation_nurse_notes;
+            foreach($prevBookingArr['consultation_nurse_notes'] as $ind=>$dat){
+                $prevBookingArr['consultation_nurse_notes'][$ind]['creator'] = $dat->creator;
             }
         }
         $prevBookingArr['consultation']['doctor'] = $doctors_home->doctor;
