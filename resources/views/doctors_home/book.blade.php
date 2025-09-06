@@ -3472,7 +3472,7 @@
                                   }else
                                     $('#addMonLog{{ $datum->id }}').prop('disabled', true);
                                 ">
-                                    <label for="{{ $viewFolder }}_mon_bfr" class="form-label">BFR</label>
+                                    <label for="{{ $viewFolder }}_mon_bfr" class="form-label">BRF</label>
                                     <small id="help_{{ $viewFolder }}_mon_bfr" class="text-muted"></small>
                                   </div>
                                 </div>
@@ -3745,7 +3745,7 @@
                                 <th>AP</th>
                                 <th>VP</th>
                                 <th>TMP</th>
-                                <th>BFR</th>
+                                <th>BRF</th>
                                 <th>NSS</th>
                                 <th>UFR</th>
                                 <th>UFV</th>
@@ -6985,7 +6985,7 @@
                                   }else
                                     $('#addMonLog{{ $datum->id }}').prop('disabled', true);
                                 ">
-                                    <label for="{{ $viewFolder }}_mon_bfr" class="form-label">BFR</label>
+                                    <label for="{{ $viewFolder }}_mon_bfr" class="form-label">BRF</label>
                                     <small id="help_{{ $viewFolder }}_mon_bfr" class="text-muted"></small>
                                   </div>
                                 </div>
@@ -7258,7 +7258,7 @@
                                 <th>AP</th>
                                 <th>VP</th>
                                 <th>TMP</th>
-                                <th>BFR</th>
+                                <th>BRF</th>
                                 <th>NSS</th>
                                 <th>UFR</th>
                                 <th>UFV</th>

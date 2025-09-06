@@ -407,7 +407,7 @@
               <div class="col-lg-6">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="number" name="{{ $viewFolder }}[prev_post_hd_weight]" min=1 step=.1 id="{{ $viewFolder }}_prev_post_hd_weight" value="{{ isset($datum->prev_post_hd_weight) ? $datum->prev_post_hd_weight : ''}}" placeholder="" readonly>
+                    <input class="form-control" type="number" name="{{ $viewFolder }}[prev_post_hd_weight]" min=1 step=.1 id="{{ $viewFolder }}_prev_post_hd_weight" value="{{ isset($datum->prev_post_hd_weight) ? $datum->prev_post_hd_weight : ''}}" placeholder="">
                     <label for="{{ $viewFolder }}_prev_post_hd_weight" class="form-label">Prev. Post HD Weight</label>
                     <small id="help_{{ $viewFolder }}_prev_post_hd_weight" class="text-muted"></small>
                   </div>
@@ -519,7 +519,7 @@
               <div class="col-lg-6">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="text" name="{{ $viewFolder }}[weight_loss]" id="{{ $viewFolder }}_weight_loss" value="{{ isset($datum->weight_loss) ? $datum->weight_loss : ''}}" placeholder="" readonly>
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[weight_loss]" id="{{ $viewFolder }}_weight_loss" value="{{ isset($datum->weight_loss) ? $datum->weight_loss : ''}}" placeholder="">
                     <label for="{{ $viewFolder }}_weight_loss" class="form-label">Weight Loss</label>
                     <small id="help_{{ $viewFolder }}_weight_loss" class="text-muted"></small>
                   </div>
@@ -2371,7 +2371,7 @@
                           }else
                             $('#addMonLog{{ $datum->id }}').prop('disabled', true);
                         ">
-                            <label for="{{ $viewFolder }}_mon_bfr" class="form-label">BFR</label>
+                            <label for="{{ $viewFolder }}_mon_bfr" class="form-label">@csrf</label>
                             <small id="help_{{ $viewFolder }}_mon_bfr" class="text-muted"></small>
                           </div>
                         </div>
@@ -2643,7 +2643,7 @@
                         <th>AP</th>
                         <th>VP</th>
                         <th>TMP</th>
-                        <th>BFR</th>
+                        <th>BRF</th>
                         <th>NSS</th>
                         <th>UFR</th>
                         <th>UFV</th>
