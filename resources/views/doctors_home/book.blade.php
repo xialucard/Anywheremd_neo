@@ -15,12 +15,19 @@
   // print($user->id);
 @endphp
 
+<style>
+        .doctor-conso-nav{
+            font-size: 1.2em;
+            font-weight:bold;
+        }
+</style>
+
 <datalist id="icdCodeList"></datalist>
 
 <div class="container">
   <div class="row sticky-top bg-white">
     <div class="col-lg-12 d-none d-md-block">
-      <ul class="nav nav-tabs mt-3">
+      <ul class="nav nav-tabs mt-3 doctor-conso-nav">
         <li class="nav-item">
           <a class="nav-link active" id="sumPrevLink" href="#" onclick="
             $('#sumPrevLink').addClass('active');  
@@ -286,7 +293,7 @@
               </div>
             </div>
             <div class="card mb-3 d-none d-lg-block">
-              <div class="card-header">Booking History</div>
+              <div class="card-header">Booking History <small id="help_{{ $viewFolder }}_notes" class="text-muted">(select previous booking to compare with current booking)</small></div>
               <div class="card-body table-responsive" style="max-height: 300px">
                 <table class="table table-bordered table-striped table-hover table-sm">
                   <thead class="table-{{ $bgColor }}">
@@ -308,7 +315,14 @@
                       <tr>
                         <td>
                           <div class="d-sm-flex flex-sm-row">
-                            <div class="m-1"><a class="btn btn-{{ $bgColor }} btn-sm w-100" href="#" title="View" role="button" onclick="loadPrevBooking({{ $dat->id }}, {{ $ind }})"><i class="bi bi-binoculars"></i><span class="ps-1 d-sm-none">View</span></a></div>
+                            <div class="m-1"><a class="btn btn-{{ $bgColor }} btn-sm w-100" href="#" title="View" role="button" onclick="
+                              loadPrevBooking({{ $dat->id }}, {{ $ind }});
+                              $('#curChart').removeClass('col-lg-12');
+                              $('#curChart').addClass('col-lg-6');
+                              $('#pastChart').show();
+                              $('#pastChart').removeClass('d-none');
+                              $('#pastChart').removeClass('d-lg-none');
+                              "><i class="bi bi-binoculars"></i><span class="ps-1 d-sm-none">View</span></a></div>
                           </div>
                         </td>
                         <td>{{ $dat->bookingDate }}</td>
@@ -983,8 +997,14 @@
           </li>
         </ul>
         @if(isset($bookings[0]))
-        <div id="pastChart" class="card mb-3 d-none d-lg-block">
-          <div class="card-header">Past Patient's Chart (<span id="prevBookingDater">{{ $bookings[0]->bookingDate }}</span>)</div>
+        <div id="pastChart" class="card mb-3 d-none d-lg-none">
+          <div class="card-header">Past Patient's Chart (<span id="prevBookingDater">{{ $bookings[0]->bookingDate }}</span>)&nbsp;<a id="showPast" class="d-none d-lg-block" href="#" onclick="
+            $('#curChart').removeClass('col-lg-6');
+            $('#curChart').addClass('col-lg-12');
+            $('#pastChart').hide();
+            $('#pastChart').addClass('d-none');
+            $('#pastChart').addClass('d-lg-none');
+          ">hide past patient's chart</a></div>
           <div class="card-body">
             <div class="card mb-3">
               <div class="card-header">Vitals</div>
@@ -2131,10 +2151,11 @@
                       <div class="col-lg-6">
                         <div class="input-group mb-3">
                           <div class="form-floating">
-                            <input class="form-control" type="text" name="{{ $viewFolder }}[weight_loss]" id="{{ $viewFolder }}_prev_weight_loss" value="{{ isset($bookings[0]->weight_loss) ? $bookings[0]->weight_loss : ''}}" placeholder="" disabled>
+                            <input class="form-control" type="number" name="{{ $viewFolder }}[weight_loss]" min=0 step=.1 id="{{ $viewFolder }}_prev_weight_loss" value="{{ isset($bookings[0]->weight_loss) ? $bookings[0]->weight_loss : ''}}" placeholder="" disabled>
                             <label for="{{ $viewFolder }}_prev_weight_loss" class="form-label">Weight Loss</label>
                             <small id="help_{{ $viewFolder }}_prev_weight_loss" class="text-muted"></small>
                           </div>
+                          <span class="input-group-text">kg</span>
                         </div>
                       </div>
                     </div>
@@ -3921,9 +3942,15 @@
         @endif
       </div>
       
-      <div class="col-lg-6">
-        <div id="curChart" class="card mb-3 d-lg-block">
-          <div class="card-header">Current Patient's Chart ({{ $datum->bookingDate }})</div>
+      <div id="curChart" class="col-lg-12">
+        <div class="card mb-3 d-lg-block">
+          <div class="card-header">Current Patient's Chart ({{ $datum->bookingDate }})&nbsp;<a id="showPast" class="d-none d-lg-block" href="#" onclick="
+            $('#curChart').removeClass('col-lg-12');
+            $('#curChart').addClass('col-lg-6');
+            $('#pastChart').show();
+            $('#pastChart').removeClass('d-none');
+            $('#pastChart').removeClass('d-lg-none');
+          ">show past patient's chart</a></div>
           <div class="card-body">
             <div class="card mb-3">
               <div class="card-header">Vitals</div>
@@ -5665,7 +5692,7 @@
                       <div class="col-lg-6">
                         <div class="input-group mb-3">
                           <div class="form-floating">
-                            <input class="form-control" type="number" name="{{ $viewFolder }}[prev_post_hd_weight]" min=1 step=.1 id="{{ $viewFolder }}_prev_post_hd_weight" value="{{ isset($datum->prev_post_hd_weight) ? $datum->prev_post_hd_weight : ''}}" placeholder=""  {{ !isset($referal_conso)  ? 'readonly' : 'disabled' }}>
+                            <input class="form-control" type="number" name="{{ $viewFolder }}[prev_post_hd_weight]" min=1 step=.1 id="{{ $viewFolder }}_prev_post_hd_weight" value="{{ isset($datum->prev_post_hd_weight) ? $datum->prev_post_hd_weight : ''}}" placeholder=""  {{ !isset($referal_conso)  ? '' : 'disabled' }}>
                             <label for="{{ $viewFolder }}_prev_post_hd_weight" class="form-label">Prev. Post HD Weight</label>
                             <small id="help_{{ $viewFolder }}_prev_post_hd_weight" class="text-muted"></small>
                           </div>
@@ -5777,11 +5804,13 @@
                       <div class="col-lg-6">
                         <div class="input-group mb-3">
                           <div class="form-floating">
-                            <input class="form-control" type="text" name="{{ $viewFolder }}[weight_loss]" id="{{ $viewFolder }}_weight_loss" value="{{ isset($datum->weight_loss) ? $datum->weight_loss : ''}}" placeholder=""  {{ !isset($referal_conso)  ? 'readonly' : 'disabled' }}>
+                            <input class="form-control" type="number" name="{{ $viewFolder }}[weight_loss]" min=0 step=.1 id="{{ $viewFolder }}_weight_loss" value="{{ isset($datum->weight_loss) ? $datum->weight_loss : ''}}" placeholder=""  {{ !isset($referal_conso)  ? '' : 'disabled' }}>
                             <label for="{{ $viewFolder }}_weight_loss" class="form-label">Weight Loss</label>
                             <small id="help_{{ $viewFolder }}_weight_loss" class="text-muted"></small>
                           </div>
+                          <span class="input-group-text">kg</span>
                         </div>
+                        
                       </div>
                     </div>
                   </div>

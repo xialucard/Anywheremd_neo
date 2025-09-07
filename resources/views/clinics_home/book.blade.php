@@ -519,10 +519,11 @@
               <div class="col-lg-6">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="text" name="{{ $viewFolder }}[weight_loss]" id="{{ $viewFolder }}_weight_loss" value="{{ isset($datum->weight_loss) ? $datum->weight_loss : ''}}" placeholder="">
+                    <input class="form-control" type="number" name="{{ $viewFolder }}[weight_loss]" min=0 step=.1 id="{{ $viewFolder }}_weight_loss" value="{{ isset($datum->weight_loss) ? $datum->weight_loss : ''}}" placeholder="">
                     <label for="{{ $viewFolder }}_weight_loss" class="form-label">Weight Loss</label>
                     <small id="help_{{ $viewFolder }}_weight_loss" class="text-muted"></small>
                   </div>
+                  <span class="input-group-text">kg</span>
                 </div>
               </div>
             </div>
