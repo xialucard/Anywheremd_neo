@@ -1896,7 +1896,7 @@
                   <div class="col-lg-4">
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="text" name="{{ $viewFolder }}[id]" id="{{ $viewFolder }}_prev_treatment_id" value="{{ isset($bookings[0]->id) ? $bookings[0]->id : '' }}" placeholder="" disabled>
+                        <input class="form-control" type="text" name="{{ $viewFolder }}[treatment_number]" id="{{ $viewFolder }}_prev_treatment_id" value="{{ isset($bookings[0]->treatment_number) ? $bookings[0]->treatment_number : '' }}" placeholder="" disabled>
                         <label for="{{ $viewFolder }}_prev_treatment_id" class="form-label">Treatment Number</label>
                         <small id="help_{{ $viewFolder }}_prev_treatment_id" class="text-muted"></small>
                       </div>
@@ -5549,7 +5549,7 @@
                   <div class="col-lg-4">
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="text" name="{{ $viewFolder }}[id]" id="{{ $viewFolder }}_id" value="{{ isset($datum->id) ? $datum->id : '' }}" placeholder="" {{ !isset($referal_conso)  ? 'readonly' : 'disabled' }}>
+                        <input class="form-control" type="text" name="{{ $viewFolder }}[treatment_number]" id="{{ $viewFolder }}_treatment_number" value="{{ isset($datum->treatment_number) ? $datum->treatment_number : '' }}" placeholder="" {{ !isset($referal_conso)  ? 'readonly' : 'disabled' }}>
                         <label for="{{ $viewFolder }}_id" class="form-label">Treatment Number</label>
                         <small id="help_{{ $viewFolder }}_id" class="text-muted"></small>
                       </div>

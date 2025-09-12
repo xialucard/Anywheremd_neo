@@ -1805,6 +1805,8 @@
                             $('#{{ $viewFolder }}_medication').val('');
                             $('#{{ $viewFolder }}_dosage').val('');
                             $('#{{ $viewFolder }}_med_id').val('');
+                            $('#{{ $viewFolder }}_medication').prop('required', false);
+                            $('#{{ $viewFolder }}_dosage').prop('required', false);
                             $('#addMedLog{{ $datum->id }}').prop('disabled', true);
                         }
                       });
@@ -2635,6 +2637,18 @@
                             $('#{{ $viewFolder }}_mon_ufv').val('');
                             $('#{{ $viewFolder }}_mon_remarks').val('');
                             $('#{{ $viewFolder }}_monitoring_id').val('');
+                            $('#{{ $viewFolder }}_mon_bpS').prop('required', false);
+                            $('#{{ $viewFolder }}_mon_bpD').prop('required', false);
+                            $('#{{ $viewFolder }}_mon_heart').prop('required', false);
+                            $('#{{ $viewFolder }}_mon_o2').prop('required', false);
+                            $('#{{ $viewFolder }}_mon_ap').prop('required', false);
+                            $('#{{ $viewFolder }}_mon_vp').prop('required', false);
+                            $('#{{ $viewFolder }}_mon_tmp').prop('required', false);
+                            $('#{{ $viewFolder }}_mon_bfr').prop('required', false);
+                            $('#{{ $viewFolder }}_mon_nss').prop('required', false);
+                            $('#{{ $viewFolder }}_mon_ufr').prop('required', false);
+                            $('#{{ $viewFolder }}_mon_ufv').prop('required', false);
+                            $('#{{ $viewFolder }}_mon_remarks').prop('required', false);
                             $('#addMonLog{{ $datum->id }}').prop('disabled', true);
                         }
                       });
@@ -2764,6 +2778,7 @@
                             $('#{{ $viewFolder }}_notes_time').val('')
                             $('#{{ $viewFolder }}_nurse_notes').val('');
                             $('#{{ $viewFolder }}_nurse_id').val('');
+                            $('#{{ $viewFolder }}_nurse_notes').prop('required', false);
                             $('#addNurseNotesLog{{ $datum->id }}').prop('disabled', true);
                         }
                       });
