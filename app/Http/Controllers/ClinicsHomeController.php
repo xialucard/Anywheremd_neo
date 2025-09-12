@@ -546,7 +546,10 @@ class ClinicsHomeController extends Controller
                 $medication['created_by'] = $user->id;
                 $medication['updated_by'] = $user->id;
                 // dd($medication);
-                ConsultationMed::create($medication);
+                if($medication['id'] != "")
+                    ConsultationMed::where('id', $medication['id'])->update($medication);
+                else
+                    ConsultationMed::create($medication);
                 
             }
         }
@@ -559,7 +562,10 @@ class ClinicsHomeController extends Controller
                 $monitoring['created_by'] = $user->id;
                 $monitoring['updated_by'] = $user->id;
                 // dd($medication);
-                ConsultationMonitoring::create($monitoring);
+                if($monitoring['id'] != "")
+                    ConsultationMonitoring::where('id', $monitoring['id'])->update($monitoring);
+                else
+                    ConsultationMonitoring::create($monitoring);
                 
             }
         }
@@ -572,7 +578,10 @@ class ClinicsHomeController extends Controller
                 $nurse_notes['created_by'] = $user->id;
                 $nurse_notes['updated_by'] = $user->id;
                 // dd($nurse_notes);
-                ConsultationNurseNote::create($nurse_notes);
+                if($nurse_notes['id'] != "")
+                    ConsultationNurseNote::where('id', $nurse_notes['id'])->update($nurse_notes);
+                else
+                    ConsultationNurseNote::create($nurse_notes);
                 
             }
         }
@@ -829,6 +838,20 @@ class ClinicsHomeController extends Controller
             ConsultationMed::destroy($id);
         else    
             ConsultationNurseNote::destroy($id);
+    }
+
+    function getHDLogs($log_type, ?int $id){
+        unset($HDLogs);
+        if($log_type == 'meds'){
+            $HDLogs = ConsultationMed::find($id);
+            $HDLogs->type = 'meds';
+        }elseif($log_type == 'moni'){
+            $HDLogs = ConsultationMonitoring::find($id);
+            $HDLogs->type = 'moni';
+        }else{    
+            $HDLogs = ConsultationNurseNote::find($id);
+        }
+        return json_encode($HDLogs);
     }
 
     function getPatientList($patient_name, $conso = null){

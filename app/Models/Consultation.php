@@ -128,6 +128,7 @@ class Consultation extends Model
         'epo',
         'hd_vac',
         'hd_endorsement',
+        'treatment_number',
         'shorten_min',
         'shorten_reason',
         'docNotesHPI',

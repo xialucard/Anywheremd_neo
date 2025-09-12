@@ -44,6 +44,7 @@ Route::group(['middleware' => ['auth', 'permission']], function() {
     Route::get('/clinics_home/getPatientInfo/{patient_id?}', [ClinicsHomeController::class, 'getPatientInfo'])->name('clinics_home.getPatientInfo');
     Route::get('/clinics_home/getReferralList/{bookingDate}/{doctor_id}/{booking_type}', [ClinicsHomeController::class, 'getReferralList'])->name('clinics_home.getReferralList');
     Route::get('/clinics_home/deleteHDLogs/{log_type?}/{id?}', [ClinicsHomeController::class, 'deleteHDLogs'])->name('clinics_home.deleteHDLogs');
+    Route::get('/clinics_home/getHDLogs/{log_type?}/{id?}', [ClinicsHomeController::class, 'getHDLogs'])->name('clinics_home.getHDLogs');
     Route::get('/clinics_home/deleteUploadedFile/{id?}', [ClinicsHomeController::class, 'deleteUploadedFile'])->name('clinics_home.deleteUploadedFile');
     Route::get('/clinics_home/deleteUploadedNurseFile/{id?}', [ClinicsHomeController::class, 'deleteUploadedNurseFile'])->name('clinics_home.deleteUploadedNurseFile');
     Route::post('/clinics_home/book', [ClinicsHomeController::class, 'book'])->name('clinics_home.book');

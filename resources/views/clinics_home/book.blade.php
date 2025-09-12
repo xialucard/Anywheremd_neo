@@ -264,9 +264,9 @@
           <div class="col-lg-4">
             <div class="input-group mb-3">
               <div class="form-floating">
-                <input class="form-control" type="text" name="{{ $viewFolder }}[id]" id="{{ $viewFolder }}_id" value="{{ isset($datum->id) ? $datum->id : '' }}" placeholder="" readonly>
-                <label for="{{ $viewFolder }}_id" class="form-label">Treatment Number</label>
-                <small id="help_{{ $viewFolder }}_id" class="text-muted"></small>
+                <input class="form-control" type="number" name="{{ $viewFolder }}[treatment_number]" id="{{ $viewFolder }}_treatment_number" value="{{ isset($datum->treatment_number) ? $datum->treatment_number : '' }}" placeholder="" >
+                <label for="{{ $viewFolder }}_treatment_number" class="form-label">Treatment Number</label>
+                <small id="help_{{ $viewFolder }}_treatment_number" class="text-muted"></small>
               </div>
             </div>
           </div>
@@ -1719,7 +1719,7 @@
               <div class="card-header">Medication Given</div>
               <div class="card-body">
                 <div class="card mb-3">
-                  <div class="card-header">Add Entry</div>
+                  <div class="card-header">Add/Edit Entry</div>
                   <div class="card-body">
                     <div class="input-group mb-3">
                       <div class="form-floating">
@@ -1778,6 +1778,7 @@
                         <small id="help_{{ $viewFolder }}_dosage" class="text-muted"></small>
                       </div>
                     </div>
+                    <input id="{{ $viewFolder }}_med_id" type="hidden" class="form-control" name="{{ $viewFolder }}[Med][id]" value="">
                   </div>
                   <div class="card-footer">
                     <button id="addMedLog{{ $datum->id }}" type="button" class="addMedLog btn btn-{{ $bgColor }} btn-sm" disabled onclick="
@@ -1795,7 +1796,7 @@
                                 medObj = jQuery.parseJSON(data);
                                 var tr;
                                 medObj.forEach(function (item, index){
-                                  tr += '<tr id=\'' + item.id + '\' log=\'meds\'><td><div class=\'d-sm-flex flex-sm-row\'><div class=\'m-1\'><button type=\'submit\' class=\'btn btn-{{ $bgColor }} btn-sm w-100 rowBtnDel\'><i class=\'bi bi-trash\'></i><span class=\'ps-1 d-sm-none\'>Delete</span></button></div></div></td><td>' + item.time_given + '</td><td>' + item.medication + '</td><td>' + item.dosage + '</td><td>' + item.creator + '</td></tr>';
+                                  tr += '<tr id=\'' + item.id + '\' log=\'meds\'><td><div class=\'d-sm-flex flex-sm-row\'><div class=\'m-1\'><button type=\'submit\' class=\'btn btn-{{ $bgColor }} btn-sm w-100 rowBtnEdit\'><i class=\'bi bi-pencil\'></i><span class=\'ps-1 d-sm-none\'>Edit</span></button></div><div class=\'m-1\'><button type=\'submit\' class=\'btn btn-{{ $bgColor }} btn-sm w-100 rowBtnDel\'><i class=\'bi bi-trash\'></i><span class=\'ps-1 d-sm-none\'>Delete</span></button></div></div></td><td>' + item.time_given + '</td><td>' + item.medication + '</td><td>' + item.dosage + '</td><td>' + item.creator + '</td></tr>';
                                 });
                                 $('#medTable{{ $datum->id }}').html(tr);
                               }
@@ -1803,11 +1804,12 @@
                             $('#{{ $viewFolder }}_time_given').val('')
                             $('#{{ $viewFolder }}_medication').val('');
                             $('#{{ $viewFolder }}_dosage').val('');
+                            $('#{{ $viewFolder }}_med_id').val('');
                             $('#addMedLog{{ $datum->id }}').prop('disabled', true);
                         }
                       });
 
-                    ">Add Medication Log</button>
+                    ">Add/Edit Medication Log</button>
                   </div>
                 </div>
                 <div class="card-body table-responsive" style="max-height: 300px">
@@ -1824,7 +1826,12 @@
                     <tbody id="medTable{{ $datum->id }}">
                     @foreach ($datum->consultation_meds()->orderBy('id', 'desc')->get() as $dat)
                         <tr id="{{ $dat->id }}" log="meds">
-                            <td><div class="d-sm-flex flex-sm-row"><div class="m-1"><button type="submit" class="btn btn-{{ $bgColor }} btn-sm w-100 rowBtnDel"><i class="bi bi-trash"></i><span class="ps-1 d-sm-none">Delete</span></button></div></div></td>
+                            <td>
+                              <div class="d-sm-flex flex-sm-row">
+                                <div class="m-1"><button type="submit" class="btn btn-{{ $bgColor }} btn-sm w-100 rowBtnEdit"><i class="bi bi-pencil"></i><span class="ps-1 d-sm-none">Edit</span></button></div>
+                                <div class="m-1"><button type="submit" class="btn btn-{{ $bgColor }} btn-sm w-100 rowBtnDel"><i class="bi bi-trash"></i><span class="ps-1 d-sm-none">Delete</span></button></div>
+                              </div>
+                            </td>
                             <td>{{ $dat->time_given }}</td>
                             <td>{{ $dat->medication }}</td>
                             <td>{{ $dat->dosage }}</td>
@@ -1899,7 +1906,7 @@
               <div class="card-header">Dialysis Monitoring</div>
               <div class="card-body">
                 <div class="card mb-3">
-                  <div class="card-header">Add Entry</div>
+                  <div class="card-header">Add/Edit Entry</div>
                   <div class="card-body">
                     <div class="row">
                       <div class="col-lg-6">
@@ -2584,10 +2591,12 @@
                           }else
                             $('#addMonLog{{ $datum->id }}').prop('disabled', true);
                         ">
+                        
                             <label for="{{ $viewFolder }}_mon_remarks" class="form-label">Remarks</label>
                             <small id="help_{{ $viewFolder }}_mon_remarks" class="text-muted"></small>
                           </div>
                         </div>
+                        <input id="{{ $viewFolder }}_monitoring_id" type="hidden" class="form-control" name="{{ $viewFolder }}[Monitoring][id]" value="">
                       </div>
                     </div>
                   </div>
@@ -2607,7 +2616,7 @@
                                 medObj = jQuery.parseJSON(data);
                                 var tr;
                                 medObj.forEach(function (item, index){
-                                  tr += '<tr id=\'' + item.id + '\' log=\'moni\'><td><div class=\'d-sm-flex flex-sm-row\'><div class=\'m-1\'><button type=\'submit\' class=\'btn btn-{{ $bgColor }} btn-sm w-100 rowBtnDel\'><i class=\'bi bi-trash\'></i><span class=\'ps-1 d-sm-none\'>Delete</span></button></div></div></td><td>' + item.time_given + '</td><td>' + item.bpS + '/' + item.bpD + '</td><td>' + item.heart + 'BPM</td><td>' + item.o2 + '%</td><td>' + item.ap + '</td><td>' + item.vp + '</td><td>' + item.tmp + '</td><td>' + item.bfr + '</td><td>' + item.nss + '</td><td>' + item.ufr + '</td><td>' + item.ufv + '</td><td>' + item.remarks + '</td><td>' + item.creator + '</td></tr>';
+                                  tr += '<tr id=\'' + item.id + '\' log=\'moni\'><td><div class=\'d-sm-flex flex-sm-row\'><div class=\'m-1\'><button type=\'submit\' class=\'btn btn-{{ $bgColor }} btn-sm w-100 rowBtnEdit\'><i class=\'bi bi-pencil\'></i><span class=\'ps-1 d-sm-none\'>Edit</span></button></div><div class=\'m-1\'><button type=\'submit\' class=\'btn btn-{{ $bgColor }} btn-sm w-100 rowBtnDel\'><i class=\'bi bi-trash\'></i><span class=\'ps-1 d-sm-none\'>Delete</span></button></div></div></td><td>' + item.time_given + '</td><td>' + item.bpS + '/' + item.bpD + '</td><td>' + item.heart + 'BPM</td><td>' + item.o2 + '%</td><td>' + item.ap + '</td><td>' + item.vp + '</td><td>' + item.tmp + '</td><td>' + item.bfr + '</td><td>' + item.nss + '</td><td>' + item.ufr + '</td><td>' + item.ufv + '</td><td>' + item.remarks + '</td><td>' + item.creator + '</td></tr>';
                                 });
                                 $('#monTable{{ $datum->id }}').html(tr);
                               }
@@ -2625,11 +2634,12 @@
                             $('#{{ $viewFolder }}_mon_ufr').val('');
                             $('#{{ $viewFolder }}_mon_ufv').val('');
                             $('#{{ $viewFolder }}_mon_remarks').val('');
+                            $('#{{ $viewFolder }}_monitoring_id').val('');
                             $('#addMonLog{{ $datum->id }}').prop('disabled', true);
                         }
                       });
 
-                    ">Add Monitoring Log</button>
+                    ">Add/Edit Monitoring Log</button>
                   </div>
                 </div>
                 <div class="card-body table-responsive" style="max-height: 300px">
@@ -2655,7 +2665,12 @@
                     <tbody id="monTable{{ $datum->id }}">
                     @foreach ($datum->consultation_monitorings()->orderBy('id', 'desc')->get() as $dat)
                         <tr id="{{ $dat->id }}" log="moni">
-                            <td><div class="d-sm-flex flex-sm-row"><div class="m-1"><button type="submit" class="btn btn-{{ $bgColor }} btn-sm w-100 rowBtnDel"><i class="bi bi-trash"></i><span class="ps-1 d-sm-none">Delete</span></button></div></div></td>
+                            <td>
+                              <div class="d-sm-flex flex-sm-row">
+                                <div class="m-1"><button type="submit" class="btn btn-{{ $bgColor }} btn-sm w-100 rowBtnEdit"><i class="bi bi-pencil"></i><span class="ps-1 d-sm-none">Edit</span></button></div>
+                                <div class="m-1"><button type="submit" class="btn btn-{{ $bgColor }} btn-sm w-100 rowBtnDel"><i class="bi bi-trash"></i><span class="ps-1 d-sm-none">Delete</span></button></div>
+                              </div>
+                            </td>
                             <td>{{ $dat->time_given }}</td>
                             <td>{{ $dat->bpS . '/' . $dat->bpD }}</td>
                             <td>{{ $dat->heart }}BPM</td>
@@ -2684,7 +2699,7 @@
               <div class="card-header">Nurse Notes</div>
               <div class="card-body">
                 <div class="card mb-3">
-                  <div class="card-header">Add Entry</div>
+                  <div class="card-header">Add/Edit Entry</div>
                   <div class="card-body">
                     <div class="input-group mb-3">
                       <div class="form-floating">
@@ -2718,10 +2733,12 @@
                           else
                             $('#addNurseNotesLog{{ $datum->id }}').prop('disabled', true);
                         ">
+                        
                         <label for="{{ $viewFolder }}_nurse_notes" class="form-label">Notes</label>
                         <small id="help_{{ $viewFolder }}_nurse_notes" class="text-muted"></small>
                       </div>
                     </div>
+                    <input id="{{ $viewFolder }}_nurse_id" type="hidden" class="form-control" name="{{ $viewFolder }}[Nurse][id]" value="">
                   </div>
                   <div class="card-footer">
                     <button id="addNurseNotesLog{{ $datum->id }}" type="button" class="addNurseNotesLog btn btn-{{ $bgColor }} btn-sm" disabled onclick="
@@ -2739,18 +2756,19 @@
                                 medObj = jQuery.parseJSON(data);
                                 var tr;
                                 medObj.forEach(function (item, index){
-                                  tr += '<tr id=\'' + item.id + '\' log=\'nurseNotes\'><td><div class=\'d-sm-flex flex-sm-row\'><div class=\'m-1\'><button type=\'submit\' class=\'btn btn-{{ $bgColor }} btn-sm w-100 rowBtnDel\'><i class=\'bi bi-trash\'></i><span class=\'ps-1 d-sm-none\'>Delete</span></button></div></div></td><td>' + item.time_given + '</td><td>' + item.notes + '</td><td>' + item.creator + '</td></tr>';
+                                  tr += '<tr id=\'' + item.id + '\' log=\'nurseNotes\'><td><div class=\'d-sm-flex flex-sm-row\'><div class=\'m-1\'><button type=\'submit\' class=\'btn btn-{{ $bgColor }} btn-sm w-100 rowBtnEdit\'><i class=\'bi bi-pencil\'></i><span class=\'ps-1 d-sm-none\'>Edit</span></button></div><div class=\'m-1\'><button type=\'submit\' class=\'btn btn-{{ $bgColor }} btn-sm w-100 rowBtnDel\'><i class=\'bi bi-trash\'></i><span class=\'ps-1 d-sm-none\'>Delete</span></button></div></div></td><td>' + item.time_given + '</td><td>' + item.notes + '</td><td>' + item.creator + '</td></tr>';
                                 });
                                 $('#nurseNotesTable{{ $datum->id }}').html(tr);
                               }
                             });
                             $('#{{ $viewFolder }}_notes_time').val('')
                             $('#{{ $viewFolder }}_nurse_notes').val('');
+                            $('#{{ $viewFolder }}_nurse_id').val('');
                             $('#addNurseNotesLog{{ $datum->id }}').prop('disabled', true);
                         }
                       });
 
-                    ">Add Nurse Notes</button>
+                    ">Add/Edit Nurse Notes</button>
                   </div>
                 </div>
                 <div class="card-body table-responsive" style="max-height: 300px">
@@ -2766,7 +2784,12 @@
                     <tbody id="nurseNotesTable{{ $datum->id }}">
                     @foreach ($datum->consultation_nurse_notes()->orderBy('id', 'desc')->get() as $dat)
                         <tr id="{{ $dat->id }}" log="nurseNotes">
-                            <td><div class="d-sm-flex flex-sm-row"><div class="m-1"><button type="submit" class="btn btn-{{ $bgColor }} btn-sm w-100 rowBtnDel"><i class="bi bi-trash"></i><span class="ps-1 d-sm-none">Delete</span></button></div></div></td>
+                            <td>
+                              <div class="d-sm-flex flex-sm-row">
+                                <div class="m-1"><button type="submit" class="btn btn-{{ $bgColor }} btn-sm w-100 rowBtnEdit"><i class="bi bi-pencil"></i><span class="ps-1 d-sm-none">Edit</span></button></div>
+                                <div class="m-1"><button type="submit" class="btn btn-{{ $bgColor }} btn-sm w-100 rowBtnDel"><i class="bi bi-trash"></i><span class="ps-1 d-sm-none">Delete</span></button></div>
+                              </div>
+                            </td>
                             <td>{{ $dat->time_given }}</td>
                             <td>{{ $dat->notes }}</td>
                             <td>{{ $dat->creator->name }}</td>
@@ -3221,6 +3244,46 @@
         $.ajax({
           type: 'GET',
           url: '{{ Route::has($viewFolder . '.deleteHDLogs') ? route($viewFolder . '.deleteHDLogs') : ''}}/' + $(this).closest("tr").attr("log") + '/' + $(this).closest("tr").attr("id"),
+        });
+      }
+    });
+
+    $("table.hdLogs").on("click", ".rowBtnEdit", function ( event ) {
+      if(!confirm('Are you sure you want to edit this?')){
+        return false;
+      }else{
+        event.preventDefault();
+        $.ajax({
+          type: 'GET',
+          url: '{{ Route::has($viewFolder . '.getHDLogs') ? route($viewFolder . '.getHDLogs') : ''}}/' + $(this).closest("tr").attr("log") + '/' + $(this).closest("tr").attr("id"),
+          success:function(data){
+              HDLogObj = jQuery.parseJSON(data);
+              if(HDLogObj.type == 'meds'){
+                $('#{{ $viewFolder }}_time_given').val(HDLogObj.time_given)
+                $('#{{ $viewFolder }}_medication').val(HDLogObj.medication);
+                $('#{{ $viewFolder }}_dosage').val(HDLogObj.dosage);
+                $("#{{ $viewFolder }}_med_id").val(HDLogObj.id);
+              }else if(HDLogObj.type == 'moni'){
+                $('#{{ $viewFolder }}_mon_time').val(HDLogObj.time_given);
+                $('#{{ $viewFolder }}_mon_bpS').val(HDLogObj.bpS);
+                $('#{{ $viewFolder }}_mon_bpD').val(HDLogObj.bpD);
+                $('#{{ $viewFolder }}_mon_heart').val(HDLogObj.heart);
+                $('#{{ $viewFolder }}_mon_o2').val(HDLogObj.o2);
+                $('#{{ $viewFolder }}_mon_ap').val(HDLogObj.ap);
+                $('#{{ $viewFolder }}_mon_vp').val(HDLogObj.vp);
+                $('#{{ $viewFolder }}_mon_tmp').val(HDLogObj.tmp);
+                $('#{{ $viewFolder }}_mon_bfr').val(HDLogObj.bfr);
+                $('#{{ $viewFolder }}_mon_nss').val(HDLogObj.nss);
+                $('#{{ $viewFolder }}_mon_ufr').val(HDLogObj.ufr);
+                $('#{{ $viewFolder }}_mon_ufv').val(HDLogObj.ufv);
+                $('#{{ $viewFolder }}_mon_remarks').val(HDLogObj.remarks);
+                $("#{{ $viewFolder }}_monitoring_id").val(HDLogObj.id);
+              }else{
+                $("#{{ $viewFolder }}_notes_time").val(HDLogObj.time_given);
+                $("#{{ $viewFolder }}_nurse_notes").val(HDLogObj.notes);
+                $("#{{ $viewFolder }}_nurse_id").val(HDLogObj.id);
+              }
+            }
         });
       }
     });
