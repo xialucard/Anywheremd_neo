@@ -85,8 +85,8 @@ return new class extends Migration
             $table->string('bfr', 255)->nullable();
             $table->string('dfr', 255)->nullable();
             $table->string('setup_prime', 255)->nullable();
-            $table->string('safety_check', 255)->nullable();
-            $table->string('residual_test', 255)->nullable();
+            $table->string('safety_check', 255)->nullable(); //
+            $table->string('residual_test', 255)->nullable(); //
             $table->string('dry_weight', 255)->nullable();
             $table->string('prev_post_hd_weight', 255)->nullable();
             $table->string('pre_hd_weight', 255)->nullable();
@@ -105,28 +105,31 @@ return new class extends Migration
             $table->string('low_dose', 255)->nullable();
             $table->string('lmwh', 255)->nullable();
             $table->string('flushing', 255)->nullable();
-            $table->json('mental_status')->nullable();
-            $table->string('ambulation_status', 255)->nullable();
-            $table->string('subjective_complaints', 255)->nullable();
-            $table->string('subjective_complaints_text', 255)->nullable();
-            $table->json('pe_findings')->nullable();
-            $table->string('pe_findings_ascites_text', 255)->nullable();
-            $table->string('pe_findings_edema_text', 255)->nullable();
-            $table->string('pe_findings_others_text', 255)->nullable();
-            $table->json('post_mental_status')->nullable();
-            $table->string('post_ambulation_status', 255)->nullable();
-            $table->string('post_subjective_complaints', 255)->nullable();
-            $table->string('post_subjective_complaints_text', 255)->nullable();
-            $table->json('post_pe_findings')->nullable();
-            $table->string('post_pe_findings_ascites_text', 255)->nullable();
-            $table->string('post_pe_findings_edema_text', 255)->nullable();
-            $table->string('post_pe_findings_others_text', 255)->nullable();
-            $table->string('vaccess', 255)->nullable();
-            $table->json('vaccess_detail')->nullable();
-            $table->json('av_fistula_detail')->nullable();
+            $table->json('mental_status')->nullable(); //
+            $table->string('ambulation_status', 255)->nullable(); //
+            $table->json('ambulation_status_j')->nullable(); //
+            $table->string('subjective_complaints', 255)->nullable(); //
+            $table->string('subjective_complaints_text', 255)->nullable(); //
+            $table->json('pe_findings')->nullable(); //
+            $table->string('pe_findings_ascites_text', 255)->nullable(); //
+            $table->string('pe_findings_edema_text', 255)->nullable(); //
+            $table->string('pe_findings_others_text', 255)->nullable(); //
+            $table->json('post_mental_status')->nullable(); //
+            $table->string('post_ambulation_status', 255)->nullable(); //
+            $table->json('post_ambulation_status_j')->nullable(); //
+            $table->string('post_subjective_complaints', 255)->nullable(); //
+            $table->string('post_subjective_complaints_text', 255)->nullable(); //
+            $table->json('post_pe_findings')->nullable(); //
+            $table->string('post_pe_findings_ascites_text', 255)->nullable(); //
+            $table->string('post_pe_findings_edema_text', 255)->nullable(); //
+            $table->string('post_pe_findings_others_text', 255)->nullable(); //
+            $table->string('vaccess', 255)->nullable(); //
+            $table->json('vaccess_j')->nullable(); //
+            $table->json('vaccess_detail')->nullable(); //
+            $table->json('av_fistula_detail')->nullable(); //
             $table->string('needle_gauge', 255)->nullable();
             $table->string('number_commultation', 255)->nullable();
-            $table->json('hd_catheter_detail')->nullable();
+            $table->json('hd_catheter_detail')->nullable(); //
             $table->string('hd_catheter_remarks', 255)->nullable();
             $table->string('hd_catheter_hgb', 255)->nullable();
             $table->string('rml', 255)->nullable();
@@ -134,13 +137,11 @@ return new class extends Migration
             $table->string('iv_iron', 255)->nullable();
             $table->string('epo', 255)->nullable();
             $table->string('hd_vac', 255)->nullable();
-            $table->text('hd_endorsement')->nullable();
-            $table->string('rml', 255)->nullable();
-            $table->string('hepa', 255)->nullable();
-            $table->string('iv_iron', 255)->nullable();
-            $table->string('epo', 255)->nullable();
-            $table->string('hd_vac', 255)->nullable();
-            $table->string('hd_endorsement', 255)->nullable();
+            $table->text('hd_endorsement')->nullable(); //
+            $table->text('shorten_reason')->nullable(); //
+            $table->text('shorten_reason')->nullable(); //
+            $table->unsignedBigInteger('treatment_number')->nullable();
+            
 
             $table->text('docNotesHPI')->nullable();
             $table->text('docNotesSubject')->nullable();
@@ -164,6 +165,8 @@ return new class extends Migration
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->unsignedBigInteger('vitals_updated_by')->nullable();
+            $table->unsignedBigInteger('hd_started_by')->nullable();
+            $table->unsignedBigInteger('hd_terminated_by')->nullable();
             $table->integer('active')->default(1);
             $table->foreign('consultation_parent_id')->references('id')->on('consultations');
             $table->foreign('advance_booking_id')->references('id')->on('consultations');

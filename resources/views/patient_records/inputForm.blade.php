@@ -1433,7 +1433,7 @@
                     </div>
                     <label>Ambulation Status</label>
                     <div class="container ml-5 mb-3">
-                      <div class="form-check">
+                      {{-- <div class="form-check">
                         <input class="form-check-input" type="radio" name="{{ $viewFolder }}[prev_ambulation_status]" value="ambulatory" id="{{ $viewFolder }}_prev_ambulation_status_ambulatory" {{ (isset($bookings[0]->ambulation_status) && $bookings[0]->ambulation_status == 'ambulatory') ? 'checked' : '' }} disabled>
                         <label class="form-check-label" for="{{ $viewFolder }}_prev_ambulation_status_ambulatory">ambulatory</label>
                       </div>
@@ -1443,6 +1443,18 @@
                       </div>
                       <div class="form-check">
                         <input class="form-check-input" type="radio" name="{{ $viewFolder }}[prev_ambulation_status]" value="wheelchair" id="{{ $viewFolder }}_prev_ambulation_status_wheelchair" {{ (isset($bookings[0]->ambulation_status) && $bookings[0]->ambulation_status == 'wheelchair') ? 'checked' : '' }} disabled>
+                        <label class="form-check-label" for="{{ $viewFolder }}_prev_ambulation_status_wheelchair">wheelchair</label>
+                      </div> --}}
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[prev_ambulation_status_j][]" value="ambulatory" id="{{ $viewFolder }}_prev_ambulation_status_ambulatory" {{ (isset($bookings[0]->ambulation_status_j) && is_array(json_decode($bookings[0]->ambulation_status_j)) && in_array('ambulatory', json_decode($bookings[0]->ambulation_status_j))) ? 'checked' : ((isset($bookings[0]->ambulation_status) && $bookings[0]->ambulation_status == 'ambulatory') ? 'checked' : '') }} disabled>
+                        <label class="form-check-label" for="{{ $viewFolder }}_prev_ambulation_status_ambulatory">ambulatory</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[prev_ambulation_status_j][]" value="w/ assistance" id="{{ $viewFolder }}_prev_ambulation_status_assistance" {{ (isset($bookings[0]->ambulation_status_j) && is_array(json_decode($bookings[0]->ambulation_status_j)) && in_array('w/ assistance', json_decode($bookings[0]->ambulation_status_j))) ? 'checked' : ((isset($bookings[0]->ambulation_status) && $bookings[0]->ambulation_status == 'w/ assistance') ? 'checked' : '') }} disabled>
+                        <label class="form-check-label" for="{{ $viewFolder }}_prev_ambulation_status_assistance">w/ assistance</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[prev_ambulation_status_j][]" value="wheelchair" id="{{ $viewFolder }}_prev_ambulation_status_wheelchair" {{ (isset($bookings[0]->ambulation_status_j) && is_array(json_decode($bookings[0]->ambulation_status_j)) && in_array('wheelchair', json_decode($bookings[0]->ambulation_status_j))) ? 'checked' : ((isset($bookings[0]->ambulation_status) && $bookings[0]->ambulation_status == 'wheelchair') ? 'checked' : '') }} disabled>
                         <label class="form-check-label" for="{{ $viewFolder }}_prev_ambulation_status_wheelchair">wheelchair</label>
                       </div>
                     </div>
@@ -1582,7 +1594,7 @@
                     </div>
                     <label>Ambulation Status</label>
                     <div class="container ml-5 mb-3">
-                      <div class="form-check">
+                      {{-- <div class="form-check">
                         <input class="form-check-input" type="radio" name="{{ $viewFolder }}[prev_post_ambulation_status]" value="ambulatory" id="{{ $viewFolder }}_prev_post_ambulation_status_ambulatory" {{ (isset($bookings[0]->post_ambulation_status) && $bookings[0]->post_ambulation_status == 'ambulatory') ? 'checked' : '' }} disabled>
                         <label class="form-check-label" for="{{ $viewFolder }}_prev_post_ambulation_status_ambulatory">ambulatory</label>
                       </div>
@@ -1592,6 +1604,18 @@
                       </div>
                       <div class="form-check">
                         <input class="form-check-input" type="radio" name="{{ $viewFolder }}[prev_post_ambulation_status]" value="wheelchair" id="{{ $viewFolder }}_prev_post_ambulation_status_wheelchair" {{ (isset($bookings[0]->post_ambulation_status) && $bookings[0]->post_ambulation_status == 'wheelchair') ? 'checked' : '' }} disabled>
+                        <label class="form-check-label" for="{{ $viewFolder }}_prev_post_ambulation_status_wheelchair">wheelchair</label>
+                      </div> --}}
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[prev_post_ambulation_status_j][]" value="ambulatory" id="{{ $viewFolder }}_prev_post_ambulation_status_ambulatory" {{ (isset($bookings[0]->post_ambulation_status_j) && is_array(json_decode($bookings[0]->post_ambulation_status_j)) && in_array('ambulatory', json_decode($bookings[0]->post_ambulation_status_j))) ? 'checked' : ((isset($bookings[0]->post_ambulation_status) && $bookings[0]->post_ambulation_status == 'ambulatory') ? 'checked' : '') }} disabled>
+                        <label class="form-check-label" for="{{ $viewFolder }}_prev_post_ambulation_status_ambulatory">ambulatory</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[prev_post_ambulation_status_j][]" value="w/ assistance" id="{{ $viewFolder }}_prev_post_ambulation_status_assistance" {{ (isset($bookings[0]->post_ambulation_status_j) && is_array(json_decode($bookings[0]->post_ambulation_status_j)) && in_array('w/ assistance', json_decode($bookings[0]->post_ambulation_status_j))) ? 'checked' : ((isset($bookings[0]->post_ambulation_status) && $bookings[0]->post_ambulation_status == 'w/ assistance') ? 'checked' : '') }} disabled>
+                        <label class="form-check-label" for="{{ $viewFolder }}_prev_post_ambulation_status_assistance">w/ assistance</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[prev_post_ambulation_status_j][]" value="wheelchair" id="{{ $viewFolder }}_prev_post_ambulation_status_wheelchair" {{ (isset($bookings[0]->post_ambulation_status_j) && is_array(json_decode($bookings[0]->post_ambulation_status_j)) && in_array('wheelchair', json_decode($bookings[0]->post_ambulation_status_j))) ? 'checked' : ((isset($bookings[0]->post_ambulation_status) && $bookings[0]->post_ambulation_status == 'wheelchair') ? 'checked' : '') }} disabled>
                         <label class="form-check-label" for="{{ $viewFolder }}_prev_post_ambulation_status_wheelchair">wheelchair</label>
                       </div>
                     </div>
@@ -1716,12 +1740,20 @@
                       <div class="col-lg-4">
                         <label>Vascular Access</label>
                         <div class="container ml-5 mb-3">
-                          <div class="form-check">
+                          {{-- <div class="form-check">
                             <input class="form-check-input" type="radio" name="{{ $viewFolder }}[prev_vaccess]" value="left" id="{{ $viewFolder }}_prev_vaccess_left" {{ (isset($bookings[0]->vaccess) && $bookings[0]->vaccess == 'left') ? 'checked' : '' }} disabled>
                             <label class="form-check-label" for="{{ $viewFolder }}_prev_vaccess_left">left</label>
                           </div>
                           <div class="form-check">
                             <input class="form-check-input" type="radio" name="{{ $viewFolder }}[prev_vaccess]" value="right" id="{{ $viewFolder }}_prev_vaccess_right" {{ (isset($bookings[0]->vaccess) && $bookings[0]->vaccess == 'right') ? 'checked' : '' }} disabled>
+                            <label class="form-check-label" for="{{ $viewFolder }}_prev_vaccess_right">right</label>
+                          </div> --}}
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[prev_vaccess_j][]" value="left" id="{{ $viewFolder }}_prev__vaccess_left" {{ (isset($bookings[0]->vaccess_j) && is_array(json_decode($bookings[0]->vaccess_j)) && in_array('left', json_decode($bookings[0]->vaccess_j))) ? 'checked' : ((isset($bookings[0]->vaccess) && $bookings[0]->vaccess == 'left') ? 'checked' : '') }} disabled>
+                            <label class="form-check-label" for="{{ $viewFolder }}_prev_vaccess_left">left</label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[prev_vaccess_j][]" value="right" id="{{ $viewFolder }}_prev_vaccess_right" {{ (isset($bookings[0]->vaccess_j) && is_array(json_decode($bookings[0]->vaccess_j)) && in_array('right', json_decode($bookings[0]->vaccess_j))) ? 'checked' : ((isset($bookings[0]->vaccess) && $datum->vaccess == 'right') ? 'checked' : '') }} disabled>
                             <label class="form-check-label" for="{{ $viewFolder }}_prev_vaccess_right">right</label>
                           </div>
                         </div>
@@ -3514,42 +3546,86 @@
             $('#{{ $viewFolder }}_prev_post_mental_status_disoriented').prop('checked', false);
           }
 
-          if(bookingObj.consultation.ambulation_status != null){
-            if(bookingObj.consultation.ambulation_status == 'ambulatory')
-              $('#{{ $viewFolder }}_prev_ambulation_status_ambulatory').prop('checked', true);
-            else
+          if(bookingObj.consultation.ambulation_status_j != null){
+            if(bookingObj.consultation.ambulation_status_j != null){
+              if(bookingObj.consultation.ambulation_status_j.includes('ambulatory'))
+                $('#{{ $viewFolder }}_prev_ambulation_status_ambulatory').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_ambulation_status_ambulatory').prop('checked', false);
+              if(bookingObj.consultation.ambulation_status_j.includes('w/ assistance'))
+                $('#{{ $viewFolder }}_prev_ambulation_status_assistance').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_ambulation_status_assistance').prop('checked', false);
+              if(bookingObj.consultation.ambulation_status_j.includes('wheelchair'))
+                $('#{{ $viewFolder }}_prev_ambulation_status_wheelchair').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_ambulation_status_wheelchair').prop('checked', false);
+              
+            }else{
               $('#{{ $viewFolder }}_prev_ambulation_status_ambulatory').prop('checked', false);
-            if(bookingObj.consultation.ambulation_status == 'w/ assistance')
-              $('#{{ $viewFolder }}_prev_ambulation_status_assistance').prop('checked', true);
-            else
               $('#{{ $viewFolder }}_prev_ambulation_status_assistance').prop('checked', false);
-            if(bookingObj.consultation.ambulation_status == 'wheelchair')
-              $('#{{ $viewFolder }}_prev_ambulation_status_wheelchair').prop('checked', true);
-            else
               $('#{{ $viewFolder }}_prev_ambulation_status_wheelchair').prop('checked', false);
-          }else{  
-            $('#{{ $viewFolder }}_prev_ambulation_status_ambulatory').prop('checked', false);
-            $('#{{ $viewFolder }}_prev_ambulation_status_assistance').prop('checked', false);
-            $('#{{ $viewFolder }}_prev_ambulation_status_wheelchair').prop('checked', false);
+            }
+          }else{
+            if(bookingObj.consultation.ambulation_status != null){
+              if(bookingObj.consultation.ambulation_status == 'ambulatory')
+                $('#{{ $viewFolder }}_prev_ambulation_status_ambulatory').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_ambulation_status_ambulatory').prop('checked', false);
+              if(bookingObj.consultation.ambulation_status == 'w/ assistance')
+                $('#{{ $viewFolder }}_prev_ambulation_status_assistance').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_ambulation_status_assistance').prop('checked', false);
+              if(bookingObj.consultation.ambulation_status == 'wheelchair')
+                $('#{{ $viewFolder }}_prev_ambulation_status_wheelchair').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_ambulation_status_wheelchair').prop('checked', false);
+            }else{  
+              $('#{{ $viewFolder }}_prev_ambulation_status_ambulatory').prop('checked', false);
+              $('#{{ $viewFolder }}_prev_ambulation_status_assistance').prop('checked', false);
+              $('#{{ $viewFolder }}_prev_ambulation_status_wheelchair').prop('checked', false);
+            }
           }
 
-          if(bookingObj.consultation.post_ambulation_status != null){
-            if(bookingObj.consultation.post_ambulation_status == 'ambulatory')
-              $('#{{ $viewFolder }}_prev_post_ambulation_status_ambulatory').prop('checked', true);
-            else
+          if(bookingObj.consultation.post_ambulation_status_j != null){
+            if(bookingObj.consultation.post_ambulation_status_j != null){
+              if(bookingObj.consultation.post_ambulation_status_j.includes('ambulatory'))
+                $('#{{ $viewFolder }}_prev_post_ambulation_status_ambulatory').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_post_ambulation_status_ambulatory').prop('checked', false);
+              if(bookingObj.consultation.post_ambulation_status_j.includes('w/ assistance'))
+                $('#{{ $viewFolder }}_prev_post_ambulation_status_assistance').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_post_ambulation_status_assistance').prop('checked', false);
+              if(bookingObj.consultation.post_ambulation_status_j.includes('wheelchair'))
+                $('#{{ $viewFolder }}_prev_post_ambulation_status_wheelchair').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_post_ambulation_status_wheelchair').prop('checked', false);
+              
+            }else{
               $('#{{ $viewFolder }}_prev_post_ambulation_status_ambulatory').prop('checked', false);
-            if(bookingObj.consultation.post_ambulation_status == 'w/ assistance')
-              $('#{{ $viewFolder }}_prev_post_ambulation_status_assistance').prop('checked', true);
-            else
               $('#{{ $viewFolder }}_prev_post_ambulation_status_assistance').prop('checked', false);
-            if(bookingObj.consultation.post_ambulation_status == 'wheelchair')
-              $('#{{ $viewFolder }}_prev_post_ambulation_status_wheelchair').prop('checked', true);
-            else
               $('#{{ $viewFolder }}_prev_post_ambulation_status_wheelchair').prop('checked', false);
-          }else{  
-            $('#{{ $viewFolder }}_prev_post_ambulation_status_ambulatory').prop('checked', false);
-            $('#{{ $viewFolder }}_prev_post_ambulation_status_assistance').prop('checked', false);
-            $('#{{ $viewFolder }}_prev_post_ambulation_status_wheelchair').prop('checked', false);
+            }
+          }else{
+            if(bookingObj.consultation.post_ambulation_status != null){
+              if(bookingObj.consultation.post_ambulation_status == 'ambulatory')
+                $('#{{ $viewFolder }}_prev_post_ambulation_status_ambulatory').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_post_ambulation_status_ambulatory').prop('checked', false);
+              if(bookingObj.consultation.post_ambulation_status == 'w/ assistance')
+                $('#{{ $viewFolder }}_prev_post_ambulation_status_assistance').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_post_ambulation_status_assistance').prop('checked', false);
+              if(bookingObj.consultation.post_ambulation_status == 'wheelchair')
+                $('#{{ $viewFolder }}_prev_post_ambulation_status_wheelchair').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_post_ambulation_status_wheelchair').prop('checked', false);
+            }else{  
+              $('#{{ $viewFolder }}_prev_post_ambulation_status_ambulatory').prop('checked', false);
+              $('#{{ $viewFolder }}_prev_post_ambulation_status_assistance').prop('checked', false);
+              $('#{{ $viewFolder }}_prev_post_ambulation_status_wheelchair').prop('checked', false);
+            }
           }
 
           if(bookingObj.consultation.subjective_complaints != null){
@@ -3710,22 +3786,41 @@
             $('#{{ $viewFolder }}_prev_post_pe_findings_others_text').val('');
           }
 
-          if(bookingObj.consultation.vaccess != null){
-            if(bookingObj.consultation.vaccess == 'left')
-              $('#{{ $viewFolder }}_prev_vaccess_left').prop('checked', true);
-            else
+          if(bookingObj.consultation.vaccess_j != null){
+            if(bookingObj.consultation.vaccess_j != null){
+              if(bookingObj.consultation.vaccess_j.includes('left'))
+                $('#{{ $viewFolder }}_prev_vaccess_left').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_vaccess_left').prop('checked', false);
+              if(bookingObj.consultation.vaccess_j.includes('right'))
+                $('#{{ $viewFolder }}_prev_vaccess_right').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_vaccess_right').prop('checked', false);
+              
+              
+            }else{
               $('#{{ $viewFolder }}_prev_vaccess_left').prop('checked', false);
-            if(bookingObj.consultation.vaccess == 'right')
-              $('#{{ $viewFolder }}_prev_vaccess_right').prop('checked', true);
-            else
               $('#{{ $viewFolder }}_prev_vaccess_right').prop('checked', false);
-            
-          }else{  
-            $('#{{ $viewFolder }}_prev_vaccess_left').prop('checked', false);
-            $('#{{ $viewFolder }}_prev_vaccess_right').prop('checked', false);
-            
+              
+            }
+          }else{
+            if(bookingObj.consultation.vaccess != null){
+              if(bookingObj.consultation.vaccess == 'left')
+                $('#{{ $viewFolder }}_prev_vaccess_left').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_vaccess_left').prop('checked', false);
+              if(bookingObj.consultation.vaccess == 'right')
+                $('#{{ $viewFolder }}_prev_vaccess_right').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_vaccess_right').prop('checked', false);
+              
+            }else{  
+              $('#{{ $viewFolder }}_prev_vaccess_left').prop('checked', false);
+              $('#{{ $viewFolder }}_prev_vaccess_right').prop('checked', false);
+              
+            }
           }
-
+          
           if(bookingObj.consultation.vaccess_detail != null){
             if(bookingObj.consultation.vaccess_detail.includes('Fistula'))
               $('#{{ $viewFolder }}_prev_fistula').prop('checked', true);

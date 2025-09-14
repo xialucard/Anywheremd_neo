@@ -1322,15 +1322,15 @@
                 <label>Ambulation Status</label>
                 <div class="container ml-5 mb-3">
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="{{ $viewFolder }}[ambulation_status]" value="ambulatory" id="{{ $viewFolder }}_ambulation_status_ambulatory" {{ (isset($datum->ambulation_status) && $datum->ambulation_status == 'ambulatory') ? 'checked' : '' }}>
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[ambulation_status_j][]" value="ambulatory" id="{{ $viewFolder }}_ambulation_status_ambulatory" {{ (isset($datum->ambulation_status_j) && is_array(json_decode($datum->ambulation_status_j)) && in_array('ambulatory', json_decode($datum->ambulation_status_j))) ? 'checked' : ((isset($datum->ambulation_status) && $datum->ambulation_status == 'ambulatory') ? 'checked' : '') }}>
                     <label class="form-check-label" for="{{ $viewFolder }}_ambulation_status_ambulatory">ambulatory</label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="{{ $viewFolder }}[ambulation_status]" value="w/ assistance" id="{{ $viewFolder }}_ambulation_status_assistance" {{ (isset($datum->ambulation_status) && $datum->ambulation_status == 'w/ assistance') ? 'checked' : '' }}>
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[ambulation_status_j][]" value="w/ assistance" id="{{ $viewFolder }}_ambulation_status_assistance" {{ (isset($datum->ambulation_status_j) && is_array(json_decode($datum->ambulation_status_j)) && in_array('w/ assistance', json_decode($datum->ambulation_status_j))) ? 'checked' : ((isset($datum->ambulation_status) && $datum->ambulation_status == 'w/ assistance') ? 'checked' : '') }}>
                     <label class="form-check-label" for="{{ $viewFolder }}_ambulation_status_assistance">w/ assistance</label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="{{ $viewFolder }}[ambulation_status]" value="wheelchair" id="{{ $viewFolder }}_ambulation_status_wheelchair" {{ (isset($datum->ambulation_status) && $datum->ambulation_status == 'wheelchair') ? 'checked' : '' }}>
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[ambulation_status_j][]" value="wheelchair" id="{{ $viewFolder }}_ambulation_status_wheelchair" {{ (isset($datum->ambulation_status_j) && is_array(json_decode($datum->ambulation_status_j)) && in_array('wheelchair', json_decode($datum->ambulation_status_j))) ? 'checked' : ((isset($datum->ambulation_status) && $datum->ambulation_status == 'wheelchair') ? 'checked' : '') }}>
                     <label class="form-check-label" for="{{ $viewFolder }}_ambulation_status_wheelchair">wheelchair</label>
                   </div>
                 </div>
@@ -1471,15 +1471,15 @@
                 <label>Ambulation Status</label>
                 <div class="container ml-5 mb-3">
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="{{ $viewFolder }}[post_ambulation_status]" value="ambulatory" id="{{ $viewFolder }}_post_ambulation_status_ambulatory" {{ (isset($datum->post_ambulation_status) && $datum->post_ambulation_status == 'ambulatory') ? 'checked' : '' }}>
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_ambulation_status_j][]" value="ambulatory" id="{{ $viewFolder }}_post_ambulation_status_ambulatory" {{ (isset($datum->post_ambulation_status_j) && is_array(json_decode($datum->post_ambulation_status_j)) && in_array('ambulatory', json_decode($datum->post_ambulation_status_j))) ? 'checked' : ((isset($datum->post_ambulation_status) && $datum->post_ambulation_status == 'ambulatory') ? 'checked' : '') }}>
                     <label class="form-check-label" for="{{ $viewFolder }}_post_ambulation_status_ambulatory">ambulatory</label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="{{ $viewFolder }}[post_ambulation_status]" value="w/ assistance" id="{{ $viewFolder }}_post_ambulation_status_assistance" {{ (isset($datum->post_ambulation_status) && $datum->post_ambulation_status == 'w/ assistance') ? 'checked' : '' }}>
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_ambulation_status_j][]" value="w/ assistance" id="{{ $viewFolder }}_post_ambulation_status_assistance" {{ (isset($datum->post_ambulation_status_j) && is_array(json_decode($datum->post_ambulation_status_j)) && in_array('w/ assistance', json_decode($datum->post_ambulation_status_j))) ? 'checked' : ((isset($datum->post_ambulation_status) && $datum->post_ambulation_status == 'w/ assistance') ? 'checked' : '') }}>
                     <label class="form-check-label" for="{{ $viewFolder }}_post_ambulation_status_assistance">w/ assistance</label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="{{ $viewFolder }}[post_ambulation_status]" value="wheelchair" id="{{ $viewFolder }}_post_ambulation_status_wheelchair" {{ (isset($datum->post_ambulation_status) && $datum->post_ambulation_status == 'wheelchair') ? 'checked' : '' }}>
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_ambulation_status_j][]" value="wheelchair" id="{{ $viewFolder }}_post_ambulation_status_wheelchair" {{ (isset($datum->post_ambulation_status_j) && is_array(json_decode($datum->post_ambulation_status_j)) && in_array('wheelchair', json_decode($datum->post_ambulation_status_j))) ? 'checked' : ((isset($datum->post_ambulation_status) && $datum->post_ambulation_status == 'wheelchair') ? 'checked' : '') }}>
                     <label class="form-check-label" for="{{ $viewFolder }}_post_ambulation_status_wheelchair">wheelchair</label>
                   </div>
                 </div>
@@ -1605,11 +1605,11 @@
                     <label>Vascular Access</label>
                     <div class="container ml-5 mb-3">
                       <div class="form-check">
-                        <input class="form-check-input" type="radio" name="{{ $viewFolder }}[vaccess]" value="left" id="{{ $viewFolder }}_vaccess_left" {{ (isset($datum->vaccess) && $datum->vaccess == 'left') ? 'checked' : '' }}>
+                        <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[vaccess_j][]" value="left" id="{{ $viewFolder }}_vaccess_left" {{ (isset($datum->vaccess_j) && is_array(json_decode($datum->vaccess_j)) && in_array('left', json_decode($datum->vaccess_j))) ? 'checked' : ((isset($datum->vaccess) && $datum->vaccess == 'left') ? 'checked' : '') }}>
                         <label class="form-check-label" for="{{ $viewFolder }}_vaccess_left">left</label>
                       </div>
                       <div class="form-check">
-                        <input class="form-check-input" type="radio" name="{{ $viewFolder }}[vaccess]" value="right" id="{{ $viewFolder }}_vaccess_right" {{ (isset($datum->vaccess) && $datum->vaccess == 'right') ? 'checked' : '' }}>
+                        <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[vaccess_j][]" value="right" id="{{ $viewFolder }}_vaccess_right" {{ (isset($datum->vaccess_j) && is_array(json_decode($datum->vaccess_j)) && in_array('right', json_decode($datum->vaccess_j))) ? 'checked' : ((isset($datum->vaccess) && $datum->vaccess == 'right') ? 'checked' : '') }}>
                         <label class="form-check-label" for="{{ $viewFolder }}_vaccess_right">right</label>
                       </div>
                     </div>

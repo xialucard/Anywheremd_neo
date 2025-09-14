@@ -441,6 +441,10 @@ class DoctorsHomeController extends Controller
             $params['mental_status'] = json_encode($params['mental_status']);
         else
             $params['mental_status'] = json_encode('');
+        if(isset($params['ambulation_status_j']))
+            $params['ambulation_status_j'] = json_encode($params['ambulation_status_j']);
+        else
+            $params['ambulation_status_j'] = json_encode('');
         if(isset($params['pe_findings']))
             $params['pe_findings'] = json_encode($params['pe_findings']);
         else
@@ -449,10 +453,18 @@ class DoctorsHomeController extends Controller
             $params['post_mental_status'] = json_encode($params['post_mental_status']);
         else
             $params['post_mental_status'] = json_encode('');
+        if(isset($params['post_ambulation_status_j']))
+            $params['post_ambulation_status_j'] = json_encode($params['post_ambulation_status_j']);
+        else
+            $params['post_ambulation_status_j'] = json_encode('');
         if(isset($params['post_pe_findings']))
             $params['post_pe_findings'] = json_encode($params['post_pe_findings']);
         else
             $params['post_pe_findings'] = json_encode('');
+        if(isset($params['vaccess_j']))
+            $params['vaccess_j'] = json_encode($params['vaccess_j']);
+        else
+            $params['vaccess_j'] = json_encode('');
         if(isset($params['vaccess_detail']))
             $params['vaccvaccess_detailess'] = json_encode($params['vaccess_detail']);
         else
