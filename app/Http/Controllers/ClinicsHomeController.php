@@ -405,7 +405,28 @@ class ClinicsHomeController extends Controller
         unset($params);
         $params = $request->input($this->viewFolder);
         // dd($params);
+        
         $userInputedDetails = $params['user'];
+        if(!empty($request->clinics_home['prc_pic'])){
+            $prc_pic = 'prc_pic_' . time() . '.' . $request->clinics_home['prc_pic']->extension();
+            $request->clinics_home['prc_pic']->storeAs('public/doctor_files', $prc_pic);
+            $userInputedDetails['prc_pic'] = $prc_pic;
+            unset($params['prc_pic']);
+        }
+        
+        if(!empty($request->clinics_home['profile_pic'])){
+            $profile_pic = 'profile_pic_' . time() . '.' . $request->clinics_home['profile_pic']->extension();
+            $request->clinics_home['profile_pic']->storeAs('public/doctor_files', $profile_pic);
+            $userInputedDetails['profile_pic'] = $profile_pic;
+            unset($params['profile_pic']);
+        }
+
+        if(!empty($request->clinics_home['sig_pic'])){
+            $sig_pic = 'sig_pic' . time() . '.' . $request->clinics_home['sig_pic']->extension();
+            $request->clinics_home['sig_pic']->storeAs('public/doctor_files', $sig_pic);
+            $userInputedDetails['sig_pic'] = $sig_pic;
+            unset($params['sig_pic']);
+        }
         unset($params['user']);
         $referer = $params['referer'];
         unset($params['referer']);
@@ -704,14 +725,14 @@ class ClinicsHomeController extends Controller
             $params['pe_findings'] = json_encode($params['pe_findings']);
         else
             $params['pe_findings'] = json_encode('');
-        if(isset($params['post_ambulation_status_j']))
-            $params['post_ambulation_status_j'] = json_encode($params['post_ambulation_status_j']);
-        else
-            $params['post_ambulation_status_j'] = json_encode('');
         if(isset($params['post_mental_status']))
             $params['post_mental_status'] = json_encode($params['post_mental_status']);
         else
             $params['post_mental_status'] = json_encode('');
+        if(isset($params['post_ambulation_status_j']))
+            $params['post_ambulation_status_j'] = json_encode($params['post_ambulation_status_j']);
+        else
+            $params['post_ambulation_status_j'] = json_encode('');
         if(isset($params['post_pe_findings']))
             $params['post_pe_findings'] = json_encode($params['post_pe_findings']);
         else

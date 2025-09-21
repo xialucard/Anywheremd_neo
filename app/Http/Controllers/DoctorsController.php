@@ -96,6 +96,7 @@ class DoctorsController extends Controller
         
         $params['name'] = $params['f_name'] . ' ' . $params['m_name'] . ' ' . $params['l_name'];
         $params['user_type'] = 'Doctor';
+        $params['approved'] = 1;
         $params['created_by'] = $user->id;
         $params['updated_by'] = $user->id;
         $params['password'] = Hash::make($this->defaultPassword);

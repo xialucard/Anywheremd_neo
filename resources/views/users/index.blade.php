@@ -27,7 +27,7 @@
                         {{ $data->withQueryString()->links() }}
                     </div>
                     <table class="table table-bordered table-striped table-hover table-sm">
-                        <thead class="table-dark">
+                        <thead class="table-{{ $bgColor }}">
                             <tr>
                                 <th class="w-25"><i class="bi bi-gear"></i></th>
                                 <th>@sortablelink('id')</th>

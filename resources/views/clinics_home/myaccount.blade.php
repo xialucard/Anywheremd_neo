@@ -1,4 +1,4 @@
-@if(($user->active == 2) || ($user->approved == 1 && $user->active == 1))
+@if(($user->active == 2) || ($user->approved == 1 && $user->active == 1) && $user->roles->pluck('name')->toArray()[0] == "Clinic Admin")
 <div class="card mb-3">
   <div class="card-header">
     Clinic Contact Info
@@ -129,6 +129,162 @@
     @endif
   </div>
 </div>
+@elseif(($user->active == 2) || ($user->approved == 1 && $user->active == 1))
+<div class="card mb-3">
+  <div class="card-header">
+    Personal Info
+  </div>
+  <div class="card-body">
+    <div class="mb-3">
+      <div class="mb-4 d-flex justify-content-center">
+          <img id="profileImage" src="{{ $datum->profile_pic != '' ? (stristr($datum->profile_pic, 'uploads') ? asset('storage/' . $datum->profile_pic) : asset('storage/doctor_files/' . $datum->profile_pic)) : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}"
+          alt="example placeholder" style="width: 300px;" />
+      </div>
+      <div class="d-flex justify-content-center">
+          <div class="btn btn-{{ $bgColor }} btn-rounded">
+              <label class="form-label text-white m-1" for="{{ $viewFolder }}_profile_pic">Profile Pic</label>
+              <input type="file" class="form-control d-none" name="{{ $viewFolder }}[profile_pic]" id="{{ $viewFolder }}_profile_pic" onchange="displaySelectedImage(event, 'profileImage')" />
+          </div>
+      </div>
+    </div>
+    <div class="form-floating mb-3">
+      <input class="form-control" type="text" name="{{ $viewFolder }}[user][f_name]" id="{{ $viewFolder }}_f_name" placeholder="" value="{{ !empty($datum->f_name) ? $datum->f_name : ''  }}" required>
+      <label for="{{ $viewFolder }}_f_name" class="form-label">First Name</label>
+      <small id="help_{{ $viewFolder }}_m_name" class="text-muted"></small>
+      <input type="hidden" class="form-control" name="{{ $viewFolder }}[user][id]" value="{{ !empty($datum->id) ? $datum->id : '' }}">
+    </div>
+    <div class="form-floating mb-3">
+      <input class="form-control" type="text" name="{{ $viewFolder }}[user][m_name]" id="{{ $viewFolder }}_m_name" placeholder="" value="{{ !empty($datum->m_name) ? $datum->m_name : ''  }}" required>
+      <label for="{{ $viewFolder }}_m_name" class="form-label">Middle Name</label>
+      <small id="help_{{ $viewFolder }}_m_name" class="text-muted"></small>
+    </div>
+    <div class="form-floating mb-3">
+      <input class="form-control" type="text" name="{{ $viewFolder }}[user][l_name]" id="{{ $viewFolder }}_l_name" placeholder="" value="{{ !empty($datum->l_name) ? $datum->l_name : ''  }}" required>
+      <label for="{{ $viewFolder }}_l_name" class="form-label">Last Name</label>
+      <small id="help_{{ $viewFolder }}_l_name" class="text-muted"></small>
+    </div>
+  </div>
+</div>
+<div class="card mb-3">
+  <div class="card-header">
+    Contact Info
+  </div>
+  <div class="card-body">
+    <div class="form-floating mb-3">
+      <input class="form-control" type="tel" pattern="[0-9]{4}-[0-9]{3}-[0-9]{4}" name="{{ $viewFolder }}[user][mobile_no]" id="{{ $viewFolder }}_rep_mobile_no" placeholder="" value="{{ !empty($datum->mobile_no) ? $datum->mobile_no : ''  }}" required>
+      <label for="{{ $viewFolder }}_rep_mobile_no" class="form-label">Mobile #</label>
+      <small id="help_{{ $viewFolder }}_rep_mobile_no" class="text-muted">Format: 0900-000-0000</small>
+    </div>
+    <div class="form-floating mb-3">
+      <input class="form-control" type="email" name="{{ $viewFolder }}[user][email]" id="{{ $viewFolder }}_rep_email" placeholder="" value="{{ !empty($datum->email) ? $datum->email : ''  }}" {{ !empty($datum->users[0]->id) ? 'disabled' : 'required' }}>
+      <label for="{{ $viewFolder }}_rep_email" class="form-label">Email</label>
+      <small id="help_{{ $viewFolder }}_rep_email" class="text-muted"></small>
+    </div>
+  </div>
+</div>
+<div class="card mb-3">
+  <div class="card-header">
+    Profession Info
+  </div>
+  <div class="card-body">
+    
+    <div class="mb-3">
+      <div class="mb-4 d-flex justify-content-center">
+          <img id="prcImage" src="{{ $datum->prc_pic != '' ? (stristr($datum->prc_pic, 'uploads') ? asset('storage/' . $datum->prc_pic) : asset('storage/doctor_files/' . $datum->prc_pic)) : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}"
+          alt="example placeholder" style="width: 300px;" />
+      </div>
+      <div class="d-flex justify-content-center">
+          <div class="btn btn-{{ $bgColor }} btn-rounded">
+              <label class="form-label text-white m-1" for="{{ $viewFolder }}_prc_pic">PRC License Pic</label>
+              <input type="file" class="form-control d-none" name="{{ $viewFolder }}[prc_pic]" id="{{ $viewFolder }}_prc_pic" onchange="displaySelectedImage(event, 'prcImage')" />
+          </div>
+      </div>
+    </div>
+    <div class="form-floating mb-3">
+      <input class="form-control" type="text" name="{{ $viewFolder }}[user][prc_number]" id="{{ $viewFolder }}_prc_number" placeholder="" value="{{ !empty($datum->prc_number) ? $datum->prc_number : ''  }}" required>
+      <label for="{{ $viewFolder }}_prc_number" class="form-label">PRC #</label>
+      <small id="help_{{ $viewFolder }}_prc_number" class="text-muted"></small>
+    </div>
+    <div class="form-floating mb-3">
+      <input class="form-control" type="date" name="{{ $viewFolder }}[user][prc_expiry]" id="{{ $viewFolder }}_prc_expiry" placeholder="" value="{{ !empty($datum->prc_expiry) ? $datum->prc_expiry : ''  }}" required>
+      <label for="{{ $viewFolder }}_prc_expiry" class="form-label">PRC Expiry</label>
+      <small id="help_{{ $viewFolder }}_prc_expiry" class="text-muted"></small>
+    </div>
+    <div class="mb-3">
+      <div class="mb-4 d-flex justify-content-center">
+          <img id="sigImage" src="{{ $datum->sig_pic != '' ? (stristr($datum->sig_pic, 'uploads') ? asset('storage/' . $datum->sig_pic) : asset('storage/doctor_files/' . $datum->sig_pic)) : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}"
+          alt="example placeholder" style="width: 300px;" />
+      </div>
+      <div class="d-flex justify-content-center">
+          <div class="btn btn-{{ $bgColor }} btn-rounded">
+              <label class="form-label text-white m-1" for="{{ $viewFolder }}_sig_pic">Signature Pic</label>
+              <input type="file" class="form-control d-none" name="{{ $viewFolder }}[sig_pic]" id="{{ $viewFolder }}_sig_pic" onchange="displaySelectedImage(event, 'sigImage')" />
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card mb-3">
+  <div class="card-header">
+    Change Password
+  </div>
+  <div class="card-body">
+    <div class="form-floating mb-3">
+      <input class="form-control" type="password" name="{{ $viewFolder }}[user][passwordOld]" id="{{ $viewFolder }}_password-old" placeholder="">
+      <label for="{{ $viewFolder }}_password-old" class="form-label">Old Password</label>
+      <small id="help_{{ $viewFolder }}_password-old" class="text-muted"></small>
+    </div>
+    <div class="form-floating mb-3">
+      <input class="form-control" type="password" name="{{ $viewFolder }}[user][passwordNew]" id="{{ $viewFolder }}_password-new" onblur="
+            if($('#{{ $viewFolder }}_password-new').val() != $('#{{ $viewFolder }}_password-reinput').val()){
+              $('#submitButton').prop('disabled', true);
+              $('#help_{{ $viewFolder }}_password-reinput').text('New password and reinput password not match.');
+            }else{
+              $('#submitButton').prop('disabled', false);
+              $('#help_{{ $viewFolder }}_password-reinput').text('');
+            }
+          " placeholder="">
+      <label for="{{ $viewFolder }}_password-new" class="form-label">New Password</label>
+      <small id="help_{{ $viewFolder }}_password-new" class="text-muted"></small>
+    </div>
+    <div class="form-floating mb-3">
+      <input class="form-control" type="password" name="{{ $viewFolder }}[user][passwordReinput]" id="{{ $viewFolder }}_password-reinput" onblur="
+            if($('#{{ $viewFolder }}_password-new').val() != $('#{{ $viewFolder }}_password-reinput').val()){
+              $('#submitButton').prop('disabled', true);
+              $('#help_{{ $viewFolder }}_password-reinput').text('New password and reinput password not match.');
+            }else{
+              $('#submitButton').prop('disabled', false);
+              $('#help_{{ $viewFolder }}_password-reinput').text('');
+            }
+          " placeholder="">
+      <label for="{{ $viewFolder }}_password-reinput" class="form-label">Reinput Password</label>
+      <small id="help_{{ $viewFolder }}_password-reinput" class="text-muted"></small>
+    </div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-body">
+    @if ($datum->created_at != null)
+    <small class="text-muted">Created at:&nbsp;{{ $datum->created_at }}&nbsp;by&nbsp;{{ $datum->creator->name ?? ""}}<br>Updated at:&nbsp;{{ $datum->updated_at }}&nbsp;by&nbsp;{{ $datum->updator->name ?? "" }}</small>
+    @endif
+  </div>
+</div>
+<script>
+  function displaySelectedImage(event, elementId) {
+    const selectedImage = document.getElementById(elementId);
+    const fileInput = event.target;
+
+    if (fileInput.files && fileInput.files[0]) {
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            selectedImage.src = e.target.result;
+        };
+
+        reader.readAsDataURL(fileInput.files[0]);
+    }
+  }
+</script>
 @endif
 
 

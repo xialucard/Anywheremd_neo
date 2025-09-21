@@ -29,12 +29,16 @@ class UserFormRequest extends FormRequest
         $user = request()->route('user');
 
         $rules = [
-            'users.name' => ['required'],
+            'users.f_name' => ['required'],
+            'users.m_name' => ['required'],
+            'users.l_name' => ['required'],
             'users.email' => ['required', 'max:255', 'unique:users'],
         ];
         if(in_array($this->method(), ['PATCH'])){
             $rules = [
-                'users.name' => ['required'],
+                'users.f_name' => ['required'],
+                'users.m_name' => ['required'],
+                'users.l_name' => ['required'],
                 'users.email' => ['required', 'max:255', 'unique:users,email,' . $user->id],
             ];
         }

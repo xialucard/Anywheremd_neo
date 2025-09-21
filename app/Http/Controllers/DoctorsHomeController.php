@@ -238,7 +238,7 @@ class DoctorsHomeController extends Controller
     public function storeClinic(Request $request)
     {
         $user = Auth::user();
-        AffiliatedDoctor::where('doctor_id', $user->id)->delete();
+        AffiliatedDoctor::where('doctor_id', $user->id)->where('active', '<>', 1)->delete();
         if(!empty($request->input($this->viewFolder)['clinic_id'])){
             foreach($request->input($this->viewFolder)['clinic_id'] as $clinic_id){
                 unset($params);
@@ -251,9 +251,9 @@ class DoctorsHomeController extends Controller
             }
         }
         $referer = $request->input($this->viewFolder)['referer'];
-        return redirect()->to($referer)->with('message', "Affiliated clinic updated.");
+        // return redirect()->to($referer)->with('message', "Affiliated clinic updated.");
 
-        // return redirect()->route($this->viewFolder . '.index')->with('message', 'Affiliated clinic updated.');
+        return redirect()->route($this->viewFolder . '.index')->with('message', 'Affiliated clinic updated.');
     }
 
     public function updateMyAccount(User $doctors_home, Request $request)

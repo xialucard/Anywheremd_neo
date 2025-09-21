@@ -98,7 +98,7 @@ class PatientRecordsController extends Controller
     {
         $condition = $this->queryBuilder('patients', !empty($search_query['patient_records']) ? $search_query['patient_records'] : '');
         // dd($search_query);
-        $data = Consultation::with(['patient'])
+        $data = Consultation::with(['patient', 'clinic'])
             ->where($condition)
             ->sortable(['patient.name' => 'asc'])
             // ->get('patients.name');

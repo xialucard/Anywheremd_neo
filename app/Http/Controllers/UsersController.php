@@ -61,6 +61,13 @@ class UsersController extends Controller
         $request->validated();
         unset($params);
         $params = $request->input($this->viewFolder);
+        if($user->clinic_id != ""){
+            $params['clinic_id'] = $user->clinic_id;
+            $params['user_type'] = 'Clinic';
+        }
+            
+        $params['name'] = $params['f_name'] . ' ' . $params['m_name'] . ' ' . $params['l_name'];
+        $params['approved'] = 1;
         $params['created_by'] = $user->id;
         $params['updated_by'] = $user->id;
         $params['password'] = Hash::make($this->defaultPassword);
@@ -68,16 +75,16 @@ class UsersController extends Controller
         unset($params['role']);
         $parentItem = User::create($params);
         $parentItem->syncRoles($selectedRole);
-        if(!empty($request->input('user_warehouses'))){
-            foreach($request->input('user_warehouses') as $user_warehouse){
-                unset($params);
-                $params = $user_warehouse;
-                //$params['user_id'] = $parentItem->id;
-                $params['created_by'] = $user->id;
-                $params['updated_by'] = $user->id;
-                $parentItem->warehouses()->create($params);
-            }
-         }
+        // if(!empty($request->input('user_warehouses'))){
+        //     foreach($request->input('user_warehouses') as $user_warehouse){
+        //         unset($params);
+        //         $params = $user_warehouse;
+        //         //$params['user_id'] = $parentItem->id;
+        //         $params['created_by'] = $user->id;
+        //         $params['updated_by'] = $user->id;
+        //         $parentItem->warehouses()->create($params);
+        //     }
+        //  }
         
         return redirect()->route($this->viewFolder . '.index')->with('message', 'New Entry has been created.');
     }
@@ -127,23 +134,24 @@ class UsersController extends Controller
         
         unset($params);
         $params = $request->input($this->viewFolder);
+        $params['name'] = $params['f_name'] . ' ' . $params['m_name'] . ' ' . $params['l_name'];
         $params['updated_by'] = $userAuth->id;
         $selectedRole = $params['role'];
         unset($params['role']);
         $user->update($params);
         $user->syncRoles($selectedRole);
         
-        $user->user_warehouses()->delete();
-        if($request->input('user_warehouses') !== null){
-            foreach($request->input('user_warehouses') as $user_warehouse){
-                unset($params);
-                $params = $user_warehouse;
-                //$params['user_id'] = $user->id;
-                $params['created_by'] = $userAuth->id;
-                $params['updated_by'] = $userAuth->id;
-                $user->user_warehouses()->create($params);
-            }
-        }
+        // $user->user_warehouses()->delete();
+        // if($request->input('user_warehouses') !== null){
+        //     foreach($request->input('user_warehouses') as $user_warehouse){
+        //         unset($params);
+        //         $params = $user_warehouse;
+        //         //$params['user_id'] = $user->id;
+        //         $params['created_by'] = $userAuth->id;
+        //         $params['updated_by'] = $userAuth->id;
+        //         $user->user_warehouses()->create($params);
+        //     }
+        // }
         return redirect()->route($this->viewFolder . '.index')->with('message', 'Entry has been updated.');
     }
 
@@ -175,9 +183,17 @@ class UsersController extends Controller
     }
 
     private function queryBuilder($model, $search_query){
+        $user = Auth::user();
         $condition[] = [$model . '.active', 1];
-        if($model == 'users')
-            $condition[] = [$model . '.user_type', 'Internal'];
+        if($model == 'users'){
+            if($user->clinic_id != ''){
+                $condition[] = [$model . '.clinic_id', $user->clinic_id];
+                $condition[] = [$model . '.user_type', 'Clinic'];
+            }else{
+                $condition[] = [$model . '.user_type', 'Internal'];
+            }
+        }
+            
         if(!empty($search_query)){
             foreach($search_query as $colName => $searchDet){
                 if($searchDet != "")
@@ -189,7 +205,11 @@ class UsersController extends Controller
 
     private function selectItems()
     {
+        $user = Auth::user();
         $selectItems['roles'] = Role::orderBy('name', 'asc')->get();
+        if($user->clinic_id != ''){
+            $selectItems['roles'] = Role::whereIn('name', ['Clinic Admin', 'Nurse'])->orderBy('name', 'asc')->get();
+        }
         return $selectItems;
     }
 }
