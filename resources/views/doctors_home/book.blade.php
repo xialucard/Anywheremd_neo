@@ -1004,6 +1004,7 @@
             $('#pastChart').hide();
             $('#pastChart').addClass('d-none');
             $('#pastChart').addClass('d-lg-none');
+            $('#carouselCur').css('max-width', '60%');
           ">hide past patient's chart</a></div>
           <div class="card-body">
             <div class="card mb-3">
@@ -3982,6 +3983,7 @@
             $('#pastChart').show();
             $('#pastChart').removeClass('d-none');
             $('#pastChart').removeClass('d-lg-none');
+            $('#carouselCur').css('max-width', '100%');
           ">show past patient's chart</a></div>
           <div class="card-body">
             <div class="card mb-3">
@@ -5131,7 +5133,7 @@
               </div>
               <div id="labCurDiv" style="display:none" class="container border border-1 mb-3 p-3">
                 <h5>Image Viewer</h5>
-                <div id="carouselCur" class="carousel carousel-dark slide mb-3" data-bs-interval="false">
+                <div id="carouselCur" class="carousel carousel-dark slide mx-auto" style="max-width: 60%" data-bs-interval="false">
                   <div class="carousel-indicators" id="labCurCarouselInd">
                     @if(!empty($datum->consultation_files[0]->file_link))
                       @foreach($datum->consultation_files as $ind=>$file)

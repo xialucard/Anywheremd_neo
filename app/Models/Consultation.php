@@ -171,6 +171,16 @@ class Consultation extends Model
         return $this->belongsTo(User::class, 'updated_by');
     }
 
+    public function hd_initiator()
+    {
+        return $this->belongsTo(User::class, 'hd_started_by');
+    }
+
+    public function hd_terminator()
+    {
+        return $this->belongsTo(User::class, 'hd_terminated_by');
+    }
+
     public function clinic()
     {
         return $this->belongsTo(Clinic::class, 'clinic_id');

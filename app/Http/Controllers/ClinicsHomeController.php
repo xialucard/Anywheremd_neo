@@ -16,6 +16,7 @@ use App\Models\NurseFile;
 use App\Models\Patient;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ClinicsHomeController extends Controller
 {
@@ -1069,6 +1070,12 @@ class ClinicsHomeController extends Controller
         }
         $doctors = User::where('name', 'like', "%{$patient_name}%")->whereIn('id', $doctorsId)->orderBy('name')->distinct()->get('name');
         return json_encode($doctors);
+    }
+
+    function pdfHD(Consultation $clinics_home){
+        $pdf = Pdf::loadView($this->viewFolder . '.pdfHD', ['datum' => $clinics_home]);
+        return $pdf->download('hd_' . $clinics_home->id . '-' . $clinics_home->treatment_number . '.pdf');
+        
     }
 
     private function getData($search_query = null)

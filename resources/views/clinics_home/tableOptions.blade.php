@@ -19,6 +19,10 @@
     @if (file_exists(public_path('storage/admitting_order_files/' . $dat->id . '_' . $dat->patient->l_name . '.pdf')))
     <div class="m-1"><a class="btn btn-{{ $bgColor }} btn-sm w-100" href="{{ asset('storage/admitting_order_files/' . (isset($referal_conso) ? $referal_conso->id : $dat->id) . '_' . (isset($referal_conso) ? $referal_conso->patient->l_name :$dat->patient->l_name) . '.pdf') }}" title="Download Admitting Order" role="button" download><i class="bi bi-file-arrow-down"></i><span class="ps-1 d-sm-none">Download Admitting Order</span></a></div>
     @endif
+
+    @if (Route::has($viewFolder . '.pdfHD') && $dat->booking_type == 'Dialysis')
+    <div class="m-1"><a class="btn btn-{{ $bgColor }} btn-sm w-100" href="{{ route($viewFolder . '.pdfHD', [isset($referal_conso) ? $referal_conso->id : $dat->id, !empty(parse_url(Request::fullUrl())['query']) ? parse_url(Request::fullUrl())['query'] : '']) }}" title="Print HD Form" role="button" download><i class="bi bi-filetype-pdf"></i><span class="ps-1 d-sm-none">Print HD Form</span></a></div>
+    @endif
     
     @if (Route::has($viewFolder . '.show') && ($dat->status == 'Done' || (!is_null($dat->temp) && !is_null($dat->vitals_updated_by) && $dat->vitals_updated_by != $user->id)))
         @can($viewFolder . '.show')
