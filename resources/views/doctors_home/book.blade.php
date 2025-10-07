@@ -5178,7 +5178,7 @@
                   
                 </div>
                 <div class="container horizontal-scrollable" style="overflow-x: auto; white-space: nowrap;">
-                  <div class="row flex-nowrap" id="image_preview" style="max-height:200px">
+                  <div class="row flex-nowrap" id="image_preview" style="max-height:500px">
                     @if(isset($datum->consultation_files))
                       @foreach($datum->consultation_files as $ind => $file)
                       @php

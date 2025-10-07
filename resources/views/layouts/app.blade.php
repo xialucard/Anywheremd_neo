@@ -33,7 +33,8 @@
     <style>
         .img-div {
             position: relative;
-            width: 46%;
+            /* width: 46%; */
+            width: 3in;
             float:left;
             margin-right:5px;
             margin-left:5px;
