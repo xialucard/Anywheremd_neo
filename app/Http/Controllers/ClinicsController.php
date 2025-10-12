@@ -115,6 +115,8 @@ class ClinicsController extends Controller
             $userC['name'] = $userC['f_name'] . ' ' . $userC['m_name'] . ' ' . $userC['l_name'];
             $userC['user_type'] = 'Clinic';
             $userC['clinic_id'] = $clinicObj->id;
+            $userC['approved'] = 1;
+            $userC['approved'] = 2;
             $userC['created_by'] = $user->id;
             $userC['updated_by'] = $user->id;
             $userC['password'] = Hash::make($this->defaultPassword);
