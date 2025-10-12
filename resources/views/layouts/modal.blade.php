@@ -6,7 +6,8 @@
 //     $referal_conso = $datum;
 //     $datum = $datum->parent_consultation;
 //   }
-  unset($referal_conso);
+    // dd($datum);
+    unset($referal_conso);
     if(isset($datum->clinic->id))
         $clinicDat = $datum->clinic->id;
     if(isset($datum->doctor->id))

@@ -89,6 +89,7 @@ class PatientRecordsController extends Controller
                 'modalSize' => $this->modalSize,
                 'user' => $user,
                 'patients' => $patients,
+                'clinic_id' => $request->input()['clinic_id'],
                 'referer' => urldecode($request->headers->get('referer'))
             ]);
         }
@@ -104,7 +105,9 @@ class PatientRecordsController extends Controller
             // ->get('patients.name');
             ->get();
             // ->paginate($this->page);
-        //dd($data);
+        // print "<pre>";
+        // print_r($data);
+        // print "</pre>";
         return $data;
         
     }
