@@ -727,7 +727,7 @@
                         <th>{{ $bp<=210 ? $bp-10 : '' }}</th>
                         <th>{{ ($flag%2) == 0 ? $temp : '' }}</th>
                         <th style="font-size: 7pt">
-                            {{ $datum->consultation_monitorings()->orderBy('id', 'asc')->get()[0]->bpS >= $bp && $datum->consultation_monitorings()->orderBy('id', 'asc')->get()[0]->bpS < $bp+10  ? 'v' : '' }}
+                            {{ isset($datum->consultation_monitorings()->orderBy('id', 'asc')->get()[0]) && $datum->consultation_monitorings()->orderBy('id', 'asc')->get()[0]->bpS >= $bp && $datum->consultation_monitorings()->orderBy('id', 'asc')->get()[0]->bpS < $bp+10  ? 'v' : '' }}
                             {{ $datum->consultation_monitorings()->orderBy('id', 'asc')->get()[0]->bpD >= $bp && $datum->consultation_monitorings()->orderBy('id', 'asc')->get()[0]->bpD < $bp+10  ? '^' : '' }}
                         </th>
                         <th style="font-size: 7pt">{{ $datum->consultation_monitorings()->orderBy('id', 'asc')->get()[0]->heart >= $bp-10 && $datum->consultation_monitorings()->orderBy('id', 'asc')->get()[0]->heart < $bp  ? 'x' : '' }}</th>
