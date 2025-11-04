@@ -231,7 +231,7 @@
           $('#SOAPLink').removeClass('active');
         ">Doctor's Info</a>
         </li>
-        @if($datum->booking_type == "Dialysis")
+        @if(isset($datum->booking_type) && $datum->booking_type == "Dialysis")
         <li class="nav-item">
           <a class="nav-link"  href="#" id="SOAPLink" onclick="
             $('#consoDocDiv').hide();  
