@@ -887,7 +887,11 @@
           </div>
           <div id="dialysisPrevDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
             @if(isset($bookings[0]->booking_type) && $bookings[0]->booking_type == 'Dialysis')
-            <div class="row">
+            @can('clinics_home.pdfHD')
+            {{-- <button type="button" class="btn btn-{{ $bgColor }} modalForm-close" data-bs-dismiss="modal">Close</button> --}}
+            <div class="m-1"><a class="btn btn-{{ $bgColor }} btn-sm w-100" href="{{ route('clinics_home.pdfHD', [isset($referal_conso) ? $referal_conso->id : $dat->id, !empty(parse_url(Request::fullUrl())['query']) ? parse_url(Request::fullUrl())['query'] : '']) }}" title="Print HD Form" role="button" download><i class="bi bi-filetype-pdf"></i><span class="ps-1 d-sm-none">Print HD Form</span></a></div>
+            @endcan
+            <div class="row mt-3">
               <div class="col-lg-4">
                 <div class="input-group mb-3">
                   <div class="form-floating">
@@ -2959,6 +2963,10 @@
                 </div>
               </div>
             </div>
+            @can('clinics_home.pdfHD')
+            {{-- <button type="button" class="btn btn-{{ $bgColor }} modalForm-close" data-bs-dismiss="modal">Close</button> --}}
+            <div class="m-1"><a class="btn btn-{{ $bgColor }} btn-sm w-100" href="{{ route('clinics_home.pdfHD', [isset($referal_conso) ? $referal_conso->id : $dat->id, !empty(parse_url(Request::fullUrl())['query']) ? parse_url(Request::fullUrl())['query'] : '']) }}" title="Print HD Form" role="button" download><i class="bi bi-filetype-pdf"></i><span class="ps-1 d-sm-none">Print HD Form</span></a></div>
+            @endcan
             @endif
           </div>
         </div>

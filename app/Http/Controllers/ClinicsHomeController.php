@@ -743,7 +743,7 @@ class ClinicsHomeController extends Controller
         else
             $params['vaccess_j'] = json_encode('');
         if(isset($params['vaccess_detail']))
-            $params['vaccvaccess_detailess'] = json_encode($params['vaccess_detail']);
+            $params['vaccess_detail'] = json_encode($params['vaccess_detail']);
         else
             $params['vaccess_detail'] = json_encode('');
         if(isset($params['av_fistula_detail']))
@@ -811,6 +811,10 @@ class ClinicsHomeController extends Controller
                     $bookingReplication['fee'] = $doctorObj->fee;
                     $bookingReplication['created_by'] = $user->id;
                     $bookingReplication['updated_by'] = $user->id;
+                    // print "<pre>";
+                    // print_r($bookingReplication);
+                    // print "</pre>";
+                    // exit();
                     $bookingReplication->save();
                     $referralIDArr[$bookingReplication->id] = $bookingReplication->id;
                 }else{

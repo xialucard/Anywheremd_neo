@@ -13,7 +13,9 @@
     if(isset($datum->doctor->id))
         $doctorDat = $datum->doctor->id;
     $key = false;
+    $origConsoID = $datum->id;
     if(isset($datum->parent_consultation)){
+        $origConsoID = $datum->id;
         $referal_conso = $datum;
         $datum = $datum->parent_consultation;
         $key = true;

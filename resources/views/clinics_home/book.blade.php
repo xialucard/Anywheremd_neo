@@ -159,11 +159,13 @@
             $('#consoPatUploadDiv').hide();
             $('#consoNurseUploadDiv').hide();
             $('#consoPatBookChartDiv').show();
+            $('#consoSOAP').hide();
             $(this).addClass('active');
             $('#docInfoLink').removeClass('active');
             $('#patInfoLink').removeClass('active');
             $('#patUploadLink').removeClass('active');
             $('#nurseUploadLink').removeClass('active');
+            $('#SOAPLink').removeClass('active');
           ">Patient's Booking Chart</a>
         </li>
         <li class="nav-item">
@@ -251,6 +253,38 @@
         @endif
       </ul>
       <div id="consoSOAP" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
+        @if(isset($datum->doctor->id))
+        <ul class="nav nav-pills mb-3">
+          <li class="nav-item">
+            <a class="nav-link docNotesLink {{ $doctor->id == $datum->doctor->id ? 'active' : ''}}" href="#" onclick="
+                $('.docNotesLink').each(function(){
+                  $(this).removeClass('active');
+                });
+                $(this).addClass('active');
+                $('.docNotesDiv').each(function(){
+                  $(this).hide();
+                });
+                $('#{{ $viewFolder }}_SUMM_{{ $datum->id }}').show();
+              ">{{ 'Dr. ' . Str::substr($datum->doctor->f_name, 0, 1) . '. ' . $datum->doctor->l_name . ' - ' . $datum->clinic->name . ' | ' . ($datum->booking_type == '' ? 'Consultations' : $datum->booking_type)}}</a>
+          </li>
+          @if(isset($datum->consultation_referals[0]->id))
+            @foreach($datum->consultation_referals as $cr)
+          <li class="nav-item">
+            <a class="nav-link docNotesLink {{ $doctor->id == $cr->doctor->id ? 'active' : ''}}" id="{{ $viewFolder }}_doctorLink_{{ $cr->id }}" href="#" onclick="
+                $('.docNotesLink').each(function(){
+                  $(this).removeClass('active');
+                });
+                $(this).addClass('active');
+                $('.docNotesDiv').each(function(){
+                  $(this).hide();
+                });
+                $('#{{ $viewFolder }}_SUMM_{{ $cr->id }}').show();
+              ">{{ 'Dr. ' . Str::substr($cr->doctor->f_name, 0, 1) . '. ' . $cr->doctor->l_name . ' - ' . $cr->clinic->name . ' | ' . ($cr->booking_type == '' ? 'Consultations' : $cr->booking_type) }}</a>
+          </li>
+            @endforeach
+          @endif
+        </ul>
+        @endif
         <div class="card mb-3">
           <div class="card-header">Scheduled Procedure</div>
           <div class="card-body" style="height: 1in; max-height: 1in">
@@ -270,7 +304,8 @@
             <p>{{ isset($datum->others) ? $datum->others : '' }}</p>
           </div>
         </div>
-        <div id="{{ $viewFolder }}_SUMM_{{ isset($datum->id) ? $datum->id : '' }}" class="docNotesDiv">
+        
+        <div id="{{ $viewFolder }}_SUMM_{{ isset($datum->id) ? $datum->id : '' }}" class="docNotesDiv" style="display: {{ $origConsoID != $datum->id ? 'none' : 'block' }}">
           <div class="card mb-3">
             <div class="card-header">Doctor's Notes</div>
             <div class="card-body table-responsive" style="height:300px; max-height: 300px">
@@ -301,6 +336,42 @@
             </div>
           </div>
         </div>
+        @if(isset($datum->consultation_referals[0]->id))
+          @foreach($datum->consultation_referals as $cr)
+          
+        <div id="{{ $viewFolder }}_SUMM_{{ $cr->id }}" class="docNotesDiv" style="display: {{ $origConsoID != $cr->id ? 'none' : 'block' }}">
+          <div class="card mb-3">
+            <div class="card-header">Doctor's Notes</div>
+            <div class="card-body table-responsive" style="height:300px; max-height: 300px">
+              <p>
+                <strong>History of Present Illness:</strong><div class="m-3">{!! isset($cr->docNotesHPI) ? nl2br($cr->docNotesHPI) : '' !!}</div><br>
+                <strong>Subjective Complaints:</strong><br><div class="m-3">{!! isset($cr->docNotesSubject) ? nl2br($cr->docNotesSubject) : '' !!}</div><br>
+                <strong>Objective Findings:</strong><br><div class="m-3">{!! isset($cr->docNotes) ? nl2br($cr->docNotes) : '' !!}</div><br>
+              </p>
+            </div>
+          </div>
+          <div class="card mb-3">
+            <div class="card-header">Assessment</div>
+            <div class="card-body table-responsive" style="height:300px; max-height: 300px">
+              <p>
+                <strong>Primary Diagnosis:</strong> {!! isset($cr->icd_code_obj) ? $cr->icd_code_obj->icd_code . ' - ' . $cr->icd_code_obj->details : '' !!}<br>
+                <strong>Secondary Diagnosis:</strong><br><div class="m-3">{!! isset($cr->assessment) ? nl2br($cr->assessment) : '' !!}</div><br>
+              </p>
+            </div>
+          </div>
+          <div class="card mb-3">
+            <div class="card-header">Plan</div>
+            <div class="card-body table-responsive" style="height:300px; max-height: 300px">
+              <p>
+                <strong>Medical Therapeutics:</strong><br><div class="m-3">{!! isset($cr->planMed) ? nl2br($cr->planMed) : '' !!}</div><br>
+                <strong>Diagnostics and Surgery:</strong><br><div class="m-3">{!! isset($cr->plan) ? nl2br($cr->plan) : '' !!}</div><br>
+                <strong>Remarks:</strong><br><div class="m-3">{!! isset($cr->planRem) ? nl2br($cr->planRem) : '' !!}</div><br>
+              </p>
+            </div>
+          </div>
+        </div>
+          @endforeach
+        @endif
       </div>
       <div id="consoPatUploadDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
         <div class="mb-3">
