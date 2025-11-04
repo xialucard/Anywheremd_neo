@@ -254,7 +254,7 @@
         <div class="card mb-3">
           <div class="card-header">Scheduled Procedure</div>
           <div class="card-body" style="height: 1in; max-height: 1in">
-            <p>{{ $datum->procedure_details }}</p>
+            <p>{{ isset($datum->procedure_details) ? $datum->procedure_details : '' }}</p>
           </div>
         </div>
         <div class="card mb-3">
