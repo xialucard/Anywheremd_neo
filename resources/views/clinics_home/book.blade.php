@@ -260,17 +260,17 @@
         <div class="card mb-3">
           <div class="card-header">Patient's Complaint</div>
           <div class="card-body" style="height: 1in; max-height: 1in">
-            <p>{{ $datum->complain }}</p>
-            <small class="text-muted">{{ $datum->duration }}</small>
+            <p>{{ isset($datum->complain) ? $datum->complain : '' }}</p>
+            <small class="text-muted">{{ isset($datum->duration) ? $datum->duration : '' }}</small>
           </div>
         </div>
         <div class="card mb-3">
           <div class="card-header">Remarks</div>
           <div class="card-body" style="height: 1in; max-height: 1in">
-            <p>{{ $datum->others }}</p>
+            <p>{{ isset($datum->others) ? $datum->others : '' }}</p>
           </div>
         </div>
-        <div id="{{ $viewFolder }}_SUMM_{{ $datum->id }}" class="docNotesDiv">
+        <div id="{{ $viewFolder }}_SUMM_{{ isset($datum->id) ? $datum->id : '' }}" class="docNotesDiv">
           <div class="card mb-3">
             <div class="card-header">Doctor's Notes</div>
             <div class="card-body table-responsive" style="height:300px; max-height: 300px">
