@@ -685,6 +685,7 @@
             </table>
         </div>
     </div>
+    <div class="page-break"></div>
     <div>
         <div class="item" style="width: 3.49in; height:410px">
             <strong>Vital Sign Graphical Sheet</strong>
