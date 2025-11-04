@@ -150,7 +150,7 @@
       @endif
     </div>
     <div class="col-lg-8">
-      <ul class="nav nav-tabs">
+      <ul class="nav nav-tabs mt-3">
         @if(isset($datum->id))
         <li class="nav-item">
           <a class="nav-link {{ !isset($datum->id) ? '' : 'active' }}"  href="#" id="patBookChartLink" onclick="
@@ -173,11 +173,13 @@
             $('#consoPatBookChartDiv').hide();
             $('#consoPatUploadDiv').show();
             $('#consoNurseUploadDiv').hide();
+            $('#consoSOAP').hide();
             $(this).addClass('active');
             $('#docInfoLink').removeClass('active');
             $('#patInfoLink').removeClass('active');
             $('#patBookChartLink').removeClass('active');
             $('#nurseUploadLink').removeClass('active');
+            $('#SOAPLink').removeClass('active');
           ">File Uploads</a>
         </li>
         <li class="nav-item">
@@ -187,11 +189,13 @@
             $('#consoPatBookChartDiv').hide();
             $('#consoPatUploadDiv').hide();
             $('#consoNurseUploadDiv').show();
+            $('#consoSOAP').hide();
             $(this).addClass('active');
             $('#docInfoLink').removeClass('active');
             $('#patInfoLink').removeClass('active');
             $('#patBookChartLink').removeClass('active');
             $('#patUploadLink').removeClass('active');
+            $('#SOAPLink').removeClass('active');
           ">Nurse's File Uploads</a>
         </li>
         @endif
@@ -202,11 +206,13 @@
             $('#consoPatUploadDiv').hide();
             $('#consoNurseUploadDiv').hide();
             $('#consoPatientDiv').show();
+            $('#consoSOAP').hide();
             $(this).addClass('active');
             $('#docInfoLink').removeClass('active');
             $('#patBookChartLink').removeClass('active');
             $('#patUploadLink').removeClass('active');
             $('#nurseUploadLink').removeClass('active');
+            $('#SOAPLink').removeClass('active');
           ">Patient's Info</a>
         </li>
         <li class="nav-item">
@@ -215,15 +221,87 @@
           $('#consoPatBookChartDiv').hide(); 
           $('#consoPatUploadDiv').hide();
           $('#consoNurseUploadDiv').hide();
-          $('#consoDocDiv').show();  
+          $('#consoDocDiv').show();
+          $('#consoSOAP').hide();
           $(this).addClass('active');
           $('#patInfoLink').removeClass('active');
           $('#patBookChartLink').removeClass('active');
           $('#patUploadLink').removeClass('active');
           $('#nurseUploadLink').removeClass('active');
+          $('#SOAPLink').removeClass('active');
         ">Doctor's Info</a>
         </li>
+        @if($datum->booking_type == "Dialysis")
+        <li class="nav-item">
+          <a class="nav-link"  href="#" id="SOAPLink" onclick="
+            $('#consoDocDiv').hide();  
+            $('#consoPatientDiv').hide();
+            $('#consoPatUploadDiv').hide();
+            $('#consoNurseUploadDiv').hide();
+            $('#consoPatBookChartDiv').hide();
+            $('#consoSOAP').show();
+            $(this).addClass('active');
+            $('#docInfoLink').removeClass('active');
+            $('#patInfoLink').removeClass('active');
+            $('#patUploadLink').removeClass('active');
+            $('#nurseUploadLink').removeClass('active');
+            $('#patBookChartLink').removeClass('active');
+          ">SOAP</a>
+        </li>
+        @endif
       </ul>
+      <div id="consoSOAP" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
+        <div class="card mb-3">
+          <div class="card-header">Scheduled Procedure</div>
+          <div class="card-body" style="height: 1in; max-height: 1in">
+            <p>{{ $datum->procedure_details }}</p>
+          </div>
+        </div>
+        <div class="card mb-3">
+          <div class="card-header">Patient's Complaint</div>
+          <div class="card-body" style="height: 1in; max-height: 1in">
+            <p>{{ $datum->complain }}</p>
+            <small class="text-muted">{{ $datum->duration }}</small>
+          </div>
+        </div>
+        <div class="card mb-3">
+          <div class="card-header">Remarks</div>
+          <div class="card-body" style="height: 1in; max-height: 1in">
+            <p>{{ $datum->others }}</p>
+          </div>
+        </div>
+        <div id="{{ $viewFolder }}_SUMM_{{ $datum->id }}" class="docNotesDiv">
+          <div class="card mb-3">
+            <div class="card-header">Doctor's Notes</div>
+            <div class="card-body table-responsive" style="height:300px; max-height: 300px">
+              <p>
+                <strong>History of Present Illness:</strong><div class="m-3">{!! isset($datum->docNotesHPI) ? nl2br($datum->docNotesHPI) : '' !!}</div><br>
+                <strong>Subjective Complaints:</strong><br><div class="m-3">{!! isset($datum->docNotesSubject) ? nl2br($datum->docNotesSubject) : '' !!}</div><br>
+                <strong>Objective Findings:</strong><br><div class="m-3">{!! isset($datum->docNotes) ? nl2br($datum->docNotes) : '' !!}</div><br>
+              </p>
+            </div>
+          </div>
+          <div class="card mb-3">
+            <div class="card-header">Assessment</div>
+            <div class="card-body table-responsive" style="height:300px; max-height: 300px">
+              <p>
+                <strong>Primary Diagnosis:</strong> {!! isset($datum->icd_code_obj) ? $datum->icd_code_obj->icd_code . ' - ' . $datum->icd_code_obj->details : '' !!}<br>
+                <strong>Secondary Diagnosis:</strong><br><div class="m-3">{!! isset($datum->assessment) ? nl2br($datum->assessment) : '' !!}</div><br>
+              </p>
+            </div>
+          </div>
+          <div class="card mb-3">
+            <div class="card-header">Plan</div>
+            <div class="card-body table-responsive" style="height:300px; max-height: 300px">
+              <p>
+                <strong>Medical Therapeutics:</strong><br><div class="m-3">{!! isset($datum->planMed) ? nl2br($datum->planMed) : '' !!}</div><br>
+                <strong>Diagnostics and Surgery:</strong><br><div class="m-3">{!! isset($datum->plan) ? nl2br($datum->plan) : '' !!}</div><br>
+                <strong>Remarks:</strong><br><div class="m-3">{!! isset($datum->planRem) ? nl2br($datum->planRem) : '' !!}</div><br>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
       <div id="consoPatUploadDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
         <div class="mb-3">
           <label for="formFileMultiple" class="form-label">File Upload/s</label>
