@@ -157,9 +157,9 @@
                 </tr>
                 <tr>
                     <td>Pre HD wt(kg)</td>
-                    <td>{{ $datum->pre_hd_weight }}</td>
+                    <td>{{ $datum->weight }}</td>
                     <td>Post HD wt(kg)</td>
-                    <td>{{ $datum->post_hd_weight }}</td>
+                    <td>{{ $datum->post_weight }}</td>
                 </tr>
                 <tr>
                     <td>Wt gain</td>
