@@ -643,7 +643,7 @@
         </div>
     </div>
     <div>
-        <div class="item" style="width: 7.12in; height:6.5in">
+        <div class="item" style="width: 7.12in; height:8in">
             <strong>Dialysis Monitoring Treatment</strong>
             <table style="width: 100%; margin:0px; padding:0px;" border="1" cellspacing="0">
                 <thead>
