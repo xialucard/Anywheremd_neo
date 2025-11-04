@@ -609,8 +609,9 @@
             </table>
         </div>
     </div>
+    <div class="page-break"></div>
     <div>
-        <div class="item" style="width: 7.12in; height:70px">
+        <div class="item" style="width: 7.12in; height:2in">
             <strong>Special Endorsement</strong>
             <table style="width: 100%; margin:0px; padding:0px;" border="1" cellspacing="0">
                 <tr>
@@ -641,9 +642,9 @@
             </table>
         </div>
     </div>
-    <div class="page-break"></div>
+    
     <div>
-        <div class="item" style="width: 7.12in; height:10.5in">
+        <div class="item" style="width: 7.12in; height:8.5in">
             <strong>Dialysis Monitoring Treatment</strong>
             <table style="width: 100%; margin:0px; padding:0px;" border="1" cellspacing="0">
                 <thead>
