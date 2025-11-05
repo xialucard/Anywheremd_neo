@@ -889,7 +889,7 @@
             @if(isset($bookings[0]->booking_type) && $bookings[0]->booking_type == 'Dialysis')
             @can('clinics_home.pdfHD')
             {{-- <button type="button" class="btn btn-{{ $bgColor }} modalForm-close" data-bs-dismiss="modal">Close</button> --}}
-            <div class="m-1"><a class="btn btn-{{ $bgColor }} btn-sm w-100" href="{{ route('clinics_home.pdfHD', [isset($referal_conso) ? $referal_conso->id : $bookings[0]->id, !empty(parse_url(Request::fullUrl())['query']) ? parse_url(Request::fullUrl())['query'] : '']) }}" title="Print HD Form" role="button" download><i class="bi bi-filetype-pdf"></i><span class="ps-1 d-sm-none">Print HD Form</span></a></div>
+            <div class="m-1"><a id="printLinkID" class="btn btn-{{ $bgColor }} btn-sm w-100 printLink" href="{{ route('clinics_home.pdfHD', [isset($referal_conso) ? $referal_conso->id : $bookings[0]->id, !empty(parse_url(Request::fullUrl())['query']) ? parse_url(Request::fullUrl())['query'] : '']) }}" title="Print HD Form" role="button" download><i class="bi bi-filetype-pdf"></i><span class="ps-1 d-sm-none">Print HD Form</span></a></div>
             @endcan
             <div class="row mt-3">
               <div class="col-lg-4">
@@ -3007,6 +3007,8 @@
       url: '{{ Route::has('doctors_home.getPrevBookingInfo') ? route('doctors_home.getPrevBookingInfo') : ''}}/' + consultation_id + '/' + index,
       success:
         function(data, status){
+          $('#printLinkID').attr('href', $('#printLinkID').attr('href').replace({{ $bookings[0]->id }}, consultation_id));
+    
           bookingObj = jQuery.parseJSON(data);
           if(bookingObj.consultation.doctor.specialty.includes('Ophtha')){
             $('#eyeExam').show();
