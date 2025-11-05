@@ -2963,10 +2963,7 @@
                 </div>
               </div>
             </div>
-            {{-- @can('clinics_home.pdfHD')
-            {{-- <button type="button" class="btn btn-{{ $bgColor }} modalForm-close" data-bs-dismiss="modal">Close</button> --}}
-            <div class="m-1"><a class="btn btn-{{ $bgColor }} btn-sm w-100" href="{{ route('clinics_home.pdfHD', [isset($referal_conso) ? $referal_conso->id : $bookings[0]->id, !empty(parse_url(Request::fullUrl())['query']) ? parse_url(Request::fullUrl())['query'] : '']) }}" title="Print HD Form" role="button" download><i class="bi bi-filetype-pdf"></i><span class="ps-1 d-sm-none">Print HD Form</span></a></div>
-            @endcan --}}
+            
             @endif
           </div>
         </div>
