@@ -3007,8 +3007,9 @@
       url: '{{ Route::has('doctors_home.getPrevBookingInfo') ? route('doctors_home.getPrevBookingInfo') : ''}}/' + consultation_id + '/' + index,
       success:
         function(data, status){
+          @if(isset($bookings[0]->id))
           $('#printLinkID').attr('href', $('#printLinkID').attr('href').replace({{ $bookings[0]->id }}, consultation_id));
-    
+          @endif
           bookingObj = jQuery.parseJSON(data);
           if(bookingObj.consultation.doctor.specialty.includes('Ophtha')){
             $('#eyeExam').show();
