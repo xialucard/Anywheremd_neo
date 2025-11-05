@@ -454,7 +454,7 @@
               <div class="col-lg-3">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="text" name="{{ $viewFolder }}[dialyzer]" id="{{ $viewFolder }}_dialyzer" value="{{ isset($datum->dialyzer) ? $datum->dialyzer : ''}}" placeholder="">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[dialyzer]" id="{{ $viewFolder }}_dialyzer" value="{{ isset($datum->dialyzer) ? $datum->dialyzer : (isset($prevBooking->dialyzer) ? $prevBooking->dialyzer : '')}}" placeholder="">
                     <label for="{{ $viewFolder }}_dialyzer" class="form-label">Dialyzer</label>
                     <small id="help_{{ $viewFolder }}_dialyzer" class="text-muted"></small>
                   </div>
@@ -463,7 +463,7 @@
               <div class="col-lg-3">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="number" step=1 min=0 name="{{ $viewFolder }}[mac_use]" id="{{ $viewFolder }}_use" value="{{ isset($datum->mac_use) ? $datum->mac_use : ''}}" placeholder="">
+                    <input class="form-control" type="number" step=1 min=1 max=5 name="{{ $viewFolder }}[mac_use]" id="{{ $viewFolder }}_use" value="{{ isset($datum->mac_use) ? $datum->mac_use : (isset($prevBooking->mac_use) ? $prevBooking->mac_use : '')}}" placeholder="">
                     <label for="{{ $viewFolder }}_use" class="form-label">Use</label>
                     <small id="help_{{ $viewFolder }}_use" class="text-muted"></small>
                   </div>
@@ -472,7 +472,7 @@
               <div class="col-lg-3">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="text" name="{{ $viewFolder }}[acid]" id="{{ $viewFolder }}_acid" value="{{ isset($datum->acid) ? $datum->acid : ''}}" placeholder="">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[acid]" id="{{ $viewFolder }}_acid" value="{{ isset($datum->acid) ? $datum->acid : (isset($prevBooking->acid) ? $prevBooking->acid : '') }}" placeholder="">
                     <label for="{{ $viewFolder }}_acid" class="form-label">Acid</label>
                     <small id="help_{{ $viewFolder }}_acid" class="text-muted"></small>
                   </div>
@@ -492,7 +492,7 @@
               <div class="col-lg-3">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="text" name="{{ $viewFolder }}[bfr]" id="{{ $viewFolder }}_bfr" value="{{ isset($datum->bfr) ? $datum->bfr : ''}}" placeholder="">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[bfr]" id="{{ $viewFolder }}_bfr" value="{{ isset($datum->bfr) ? $datum->bfr : (isset($prevBooking->bfr) ? $prevBooking->bfr : '') }}" placeholder="">
                     <label for="{{ $viewFolder }}_bfr" class="form-label">BRF</label>
                     <small id="help_{{ $viewFolder }}_bfr" class="text-muted"></small>
                   </div>
@@ -501,7 +501,7 @@
               <div class="col-lg-3">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="text" name="{{ $viewFolder }}[dfr]" id="{{ $viewFolder }}_dfr" value="{{ isset($datum->dfr) ? $datum->dfr : ''}}" placeholder="">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[dfr]" id="{{ $viewFolder }}_dfr" value="{{ isset($datum->dfr) ? $datum->dfr : (isset($prevBooking->dfr) ? $prevBooking->dfr : '') }}" placeholder="">
                     <label for="{{ $viewFolder }}_dfr" class="form-label">DFR</label>
                     <small id="help_{{ $viewFolder }}_dfr" class="text-muted"></small>
                   </div>
@@ -510,7 +510,7 @@
               <div class="col-lg-3">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="text" name="{{ $viewFolder }}[setup_prime]" id="{{ $viewFolder }}_setup_prime" value="{{ isset($datum->setup_prime) ? $datum->setup_prime : ''}}" placeholder="">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[setup_prime]" id="{{ $viewFolder }}_setup_prime" value="{{ isset($datum->setup_prime) ? $datum->setup_prime : '' }}" placeholder="">
                     <label for="{{ $viewFolder }}_setup_prime" class="form-label">Setup Prime</label>
                     <small id="help_{{ $viewFolder }}_setup_prime" class="text-muted"></small>
                   </div>
@@ -546,7 +546,7 @@
               <div class="col-lg-6">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="text" name="{{ $viewFolder }}[dry_weight]" id="{{ $viewFolder }}_dry_weight" value="{{ isset($datum->dry_weight) ? $datum->dry_weight : ''}}" placeholder="">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[dry_weight]" id="{{ $viewFolder }}_dry_weight" value="{{ isset($datum->dry_weight) ? $datum->dry_weight : (isset($prevBooking->dry_weight) ? $prevBooking->dry_weight : '') }}" placeholder="">
                     <label for="{{ $viewFolder }}_dry_weight" class="form-label">Estimate Dry Weight</label>
                     <small id="help_{{ $viewFolder }}_dry_weight" class="text-muted"></small>
                   </div>
@@ -556,7 +556,7 @@
               <div class="col-lg-6">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="number" name="{{ $viewFolder }}[prev_post_hd_weight]" min=1 step=.1 id="{{ $viewFolder }}_prev_post_hd_weight" value="{{ isset($datum->prev_post_hd_weight) ? $datum->prev_post_hd_weight : ''}}" placeholder="">
+                    <input class="form-control" type="number" name="{{ $viewFolder }}[prev_post_hd_weight]" min=1 step=.1 id="{{ $viewFolder }}_prev_post_hd_weight" value="{{ isset($datum->prev_post_hd_weight) ? $datum->prev_post_hd_weight : (isset($prevBooking->post_weight) ? $prevBooking->post_weight : '') }}" placeholder="">
                     <label for="{{ $viewFolder }}_prev_post_hd_weight" class="form-label">Prev. Post HD Weight</label>
                     <small id="help_{{ $viewFolder }}_prev_post_hd_weight" class="text-muted"></small>
                   </div>
@@ -618,7 +618,7 @@
               <div class="col-lg-4">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="number" name="{{ $viewFolder }}[hd_duration]" min=1 step=.1 id="{{ $viewFolder }}_hd_duration" value="{{ isset($datum->hd_duration) ? $datum->hd_duration : ''}}" placeholder="">
+                    <input class="form-control" type="number" name="{{ $viewFolder }}[hd_duration]" min=1 step=.1 id="{{ $viewFolder }}_hd_duration" value="{{ isset($datum->hd_duration) ? $datum->hd_duration : (isset($prevBooking->hd_duration) ? $prevBooking->hd_duration : '') }}" placeholder="">
                     <label for="{{ $viewFolder }}_hd_duration" class="form-label">Duration</label>
                     <small id="help_{{ $viewFolder }}_hd_duration" class="text-muted"></small>
                   </div>
@@ -628,7 +628,7 @@
               <div class="col-lg-4">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="number" name="{{ $viewFolder }}[frequency]" min=1 step=.1 id="{{ $viewFolder }}_frequency" value="{{ isset($datum->frequency) ? $datum->frequency : ''}}" placeholder="">
+                    <input class="form-control" type="number" name="{{ $viewFolder }}[frequency]" min=1 step=.1 id="{{ $viewFolder }}_frequency" value="{{ isset($datum->frequency) ? $datum->frequency : (isset($prevBooking->frequency) ? $prevBooking->frequency : '') }}" placeholder="">
                     <label for="{{ $viewFolder }}_frequency" class="form-label">Frequency</label>
                     <small id="help_{{ $viewFolder }}_frequency" class="text-muted"></small>
                   </div>
@@ -639,7 +639,7 @@
               <div class="col-lg-6">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="text" name="{{ $viewFolder }}[prime]" id="{{ $viewFolder }}_prime" value="{{ isset($datum->prime) ? $datum->prime : ''}}" placeholder="">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[prime]" id="{{ $viewFolder }}_prime" value="{{ isset($datum->prime) ? $datum->prime : (isset($prevBooking->prime) ? $prevBooking->prime : '') }}" placeholder="">
                     <label for="{{ $viewFolder }}_prime" class="form-label">Prime/Rinse</label>
                     <small id="help_{{ $viewFolder }}_prime" class="text-muted"></small>
                   </div>
@@ -685,7 +685,7 @@
               <div class="col-lg-4">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="text" name="{{ $viewFolder }}[brand]" id="{{ $viewFolder }}_brand" value="{{ isset($datum->brand) ? $datum->brand : ''}}" placeholder="">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[brand]" id="{{ $viewFolder }}_brand" value="{{ isset($datum->brand) ? $datum->brand : (isset($prevBooking->brand) ? $prevBooking->brand : '') }}" placeholder="">
                     <label for="{{ $viewFolder }}_brand" class="form-label">Brand Name</label>
                     <small id="help_{{ $viewFolder }}_brand" class="text-muted"></small>
                   </div>
@@ -694,7 +694,7 @@
               <div class="col-lg-4">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="text" name="{{ $viewFolder }}[dose]" id="{{ $viewFolder }}_dose" value="{{ isset($datum->dose) ? $datum->dose : ''}}" placeholder="">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[dose]" id="{{ $viewFolder }}_dose" value="{{ isset($datum->dose) ? $datum->dose : (isset($prevBooking->dose) ? $prevBooking->dose : '') }}" placeholder="">
                     <label for="{{ $viewFolder }}_dose" class="form-label">Dose</label>
                     <small id="help_{{ $viewFolder }}_dose" class="text-muted"></small>
                   </div>
@@ -703,7 +703,7 @@
               <div class="col-lg-4">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="text" name="{{ $viewFolder }}[regular_dose]" id="{{ $viewFolder }}_regular_dose" value="{{ isset($datum->regular_dose) ? $datum->regular_dose : ''}}" placeholder="">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[regular_dose]" id="{{ $viewFolder }}_regular_dose" value="{{ isset($datum->regular_dose) ? $datum->regular_dose : (isset($prevBooking->regular_dose) ? $prevBooking->regular_dose : '') }}" placeholder="">
                     <label for="{{ $viewFolder }}_regular_dose" class="form-label">Regular Dose</label>
                     <small id="help_{{ $viewFolder }}_regular_dose" class="text-muted"></small>
                   </div>
@@ -714,7 +714,7 @@
               <div class="col-lg-4">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="text" name="{{ $viewFolder }}[low_dose]" id="{{ $viewFolder }}_low_dose" value="{{ isset($datum->low_dose) ? $datum->low_dose : ''}}" placeholder="">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[low_dose]" id="{{ $viewFolder }}_low_dose" value="{{ isset($datum->low_dose) ? $datum->low_dose : (isset($prevBooking->low_dose) ? $prevBooking->low_dose : '') }}" placeholder="">
                     <label for="{{ $viewFolder }}_low_dose" class="form-label">Low Dose</label>
                     <small id="help_{{ $viewFolder }}_low_dose" class="text-muted"></small>
                   </div>
@@ -2005,21 +2005,21 @@
                   <div class="col-lg-6">
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="text" name="{{ $viewFolder }}[rml]" id="{{ $viewFolder }}_rml" placeholder="" value="{{ !empty($datum->rml) ? $datum->rml : '' }}">
+                        <input class="form-control" type="text" name="{{ $viewFolder }}[rml]" id="{{ $viewFolder }}_rml" placeholder="" value="{{ !empty($datum->rml) ? $datum->rml : (isset($prevBooking->rml) ? $prevBooking->rml : '') }}">
                         <label for="{{ $viewFolder }}_rml" class="form-label">RML</label>
                         <small id="help_{{ $viewFolder }}_rml" class="text-muted"></small>
                       </div>
                     </div>
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="text" name="{{ $viewFolder }}[hepa]" id="{{ $viewFolder }}_hepa" placeholder="" value="{{ !empty($datum->hepa) ? $datum->hepa : '' }}">
+                        <input class="form-control" type="text" name="{{ $viewFolder }}[hepa]" id="{{ $viewFolder }}_hepa" placeholder="" value="{{ !empty($datum->hepa) ? $datum->hepa : (isset($prevBooking->hepa) ? $prevBooking->hepa : '') }}">
                         <label for="{{ $viewFolder }}_hepa" class="form-label">HEPA Profile</label>
                         <small id="help_{{ $viewFolder }}_hepa" class="text-muted"></small>
                       </div>
                     </div>
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="text" name="{{ $viewFolder }}[iv_iron]" id="{{ $viewFolder }}_iv_iron" placeholder="" value="{{ !empty($datum->iv_iron) ? $datum->iv_iron : '' }}">
+                        <input class="form-control" type="text" name="{{ $viewFolder }}[iv_iron]" id="{{ $viewFolder }}_iv_iron" placeholder="" value="{{ !empty($datum->iv_iron) ? $datum->iv_iron : (isset($prevBooking->iv_iron) ? $prevBooking->iv_iron : '') }}">
                         <label for="{{ $viewFolder }}_iv_iron" class="form-label">IV Iron</label>
                         <small id="help_{{ $viewFolder }}_iv_iron" class="text-muted"></small>
                       </div>
@@ -2028,20 +2028,20 @@
                   <div class="col-lg-6">
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="text" name="{{ $viewFolder }}[epo]" id="{{ $viewFolder }}_epo" placeholder="" value="{{ !empty($datum->epo) ? $datum->epo : '' }}">
+                        <input class="form-control" type="text" name="{{ $viewFolder }}[epo]" id="{{ $viewFolder }}_epo" placeholder="" value="{{ !empty($datum->epo) ? $datum->epo : (isset($prevBooking->epo) ? $prevBooking->epo : '') }}">
                         <label for="{{ $viewFolder }}_epo" class="form-label">EPO</label>
                         <small id="help_{{ $viewFolder }}_epo" class="text-muted"></small>
                       </div>
                     </div>
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="text" name="{{ $viewFolder }}[hd_vac]" id="{{ $viewFolder }}_hd_vac" placeholder="" value="{{ !empty($datum->hd_vac) ? $datum->hd_vac : '' }}">
+                        <input class="form-control" type="text" name="{{ $viewFolder }}[hd_vac]" id="{{ $viewFolder }}_hd_vac" placeholder="" value="{{ !empty($datum->hd_vac) ? $datum->hd_vac : (isset($prevBooking->hd_vac) ? $prevBooking->hd_vac : '') }}">
                         <label for="{{ $viewFolder }}_hd_vac" class="form-label">Vaccines</label>
                         <small id="help_{{ $viewFolder }}_hd_vac" class="text-muted"></small>
                       </div>
                     </div>
                     <div class="form-floating mb-3">
-                      <textarea class="form-control" name="{{ $viewFolder }}[hd_endorsement]" id="{{ $viewFolder }}_hd_endorsement">{{ !empty($datum->hd_endorsement) ? $datum->hd_endorsement : '' }}</textarea>
+                      <textarea class="form-control" name="{{ $viewFolder }}[hd_endorsement]" id="{{ $viewFolder }}_hd_endorsement">{{ !empty($datum->hd_endorsement) ? $datum->hd_endorsement : (isset($prevBooking->hd_endorsement) ? $prevBooking->hd_endorsement : '') }}</textarea>
                       <label for="{{ $viewFolder }}_hd_endorsement" class="form-label">Endorsement Details</label>
                       <small id="help_{{ $viewFolder }}_hd_endorsement" class="text-muted"></small>
                     </div>
