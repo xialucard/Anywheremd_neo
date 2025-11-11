@@ -472,9 +472,88 @@
                 $('#admitCurDiv').hide();  
                 $('#dialysisCurDiv').show();  
               ">Dialysis Chart</a>
-            </li>
+            {{-- <li class="nav-item">
+              <a class="nav-link" id="dialysisPrevLink" href="#" onclick="
+                $('#sumPrevLink').removeClass('active');
+                $('#soapPrevLink').removeClass('active');
+                $('#labPrevLink').removeClass('active');  
+                $('#presPrevLink').removeClass('active');  
+                $('#medPrevLink').removeClass('active');
+                $('#admitPrevLink').removeClass('active');
+                $('#dialysisPrevLink').addClass('active');
+                $('#sumPrevDiv').hide();  
+                $('#soapPrevDiv').hide();  
+                $('#labPrevDiv').hide();  
+                $('#presPrevDiv').hide();  
+                $('#medPrevDiv').hide(); 
+                $('#admitPrevDiv').hide();  
+                $('#dialysisPrevDiv').show();  
+                $('#sumCurLink').removeClass('active');
+                $('#soapCurLink').removeClass('active');
+                $('#labCurLink').removeClass('active');  
+                $('#presCurLink').removeClass('active');  
+                $('#medCurLink').removeClass('active');
+                $('#admitCurLink').removeClass('active');
+                $('#dialysisCurLink').addClass('active'); 
+                $('#sumCurDiv').hide();  
+                $('#soapCurDiv').hide();  
+                $('#labCurDiv').hide();  
+                $('#presCurDiv').hide();  
+                $('#medCurDiv').hide(); 
+                $('#admitCurDiv').hide();  
+                $('#dialysisCurDiv').show();  
+              ">HD Summary Sheet</a>
+            </li> --}}
             @endif
           </ul>
+          {{-- <div id="hdSum" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
+            @can('clinics_home.pdfHDSum')
+              <div class="m-1"><a id="printLinkID" class="btn btn-{{ $bgColor }} btn-sm w-100 printLink" href="{{ route('clinics_home.pdfHDSum', [isset($referal_conso) ? $referal_conso->id : $bookings[0]->id, !empty(parse_url(Request::fullUrl())['query']) ? parse_url(Request::fullUrl())['query'] : '']) }}" title="Print HD Summary Sheet" role="button" download><i class="bi bi-file-pdf-fill"></i><span class="ps-1 d-sm-none">Print HD Summary Sheet</span></a></div>
+            @endcan
+            <div class="table-responsive" style="max-height: 300px">
+              <table class="table table-bordered table-striped table-hover table-sm medsOn">
+                <thead class="table-{{ $bgColor }}">
+                  <tr>
+                    <th>Tx No.</th>
+                    <th>Date</th>
+                    <th>Dialyzer/Use No.</th>
+                    <th>EDW</th>
+                    <th>Pre HD Weight (kg)</th>
+                    <th>Post HD Weight (kg)</th>
+                    <th>Pre HD BP</th>
+                    <th>Post HD BP</th>
+                    <th>UF Goal</th>
+                    <th>WT. Loss</th>
+                    <th>EPO Inj.</th>
+                    <th>Iron</th>
+                    <th>Dialysis Complication</th>
+                    <th>Remarks/NOD</th>
+                  </tr>
+                </thead>
+                <tbody id="medsOnboardTable{{ $datum->id }}">
+                @if(isset($allBooking))
+                  @foreach ($allBooking as $ind=>$dat)
+                  <tr id="hdBooking_{{ $dat->id }}">
+                      <td>{{ $dat->treatment_number }}</td>
+                      <td>{{ $dat->bookingDate }}</td>
+                      <td>{{ $dat->dialyzer . '/' . $dat->use }}</td>
+                      <td>{{ $dat->dry_weight }}<</td>
+                      <td>{{ $dat->weight }}</td>
+                      <td>{{ $dat->post_weight }}</td>
+                      <td>{{ $dat->bpS . '/' . $dat->bpD }}</td>
+                      <td>{{ $dat->post_bpS . '/' . $dat->post_bpD }}</td>
+                      <td>{{ $dat->total_uf_goal }}</td>
+                      <td>{{ $dat->weight_loss }}</td>
+                      <td>{{ $dat->epo }}</td>
+                      <td>{{ $dat->iv_iron }}</td>
+                      <td>{{ nl2br($dat->dialysis_complication) }}</td>
+                  </tr>
+                  @endforeach
+                @endif
+                </tbody>
+              </table>
+            </div>
+          </div> --}}
           <div id="sumCurDiv" class="container border border-1 border-top-0 mb-3 p-3">
             <div class="card mb-3">
               <div class="card-header">Scheduled Procedure</div>
@@ -971,7 +1050,6 @@
           <div id="dialysisPrevDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
             @if(isset($bookings[0]->booking_type) && $bookings[0]->booking_type == 'Dialysis')
             @can('clinics_home.pdfHD')
-            {{-- <button type="button" class="btn btn-{{ $bgColor }} modalForm-close" data-bs-dismiss="modal">Close</button> --}}
             <div class="m-1"><a id="printLinkID" class="btn btn-{{ $bgColor }} btn-sm w-100 printLink" href="{{ route('clinics_home.pdfHD', [isset($referal_conso) ? $referal_conso->id : $bookings[0]->id, !empty(parse_url(Request::fullUrl())['query']) ? parse_url(Request::fullUrl())['query'] : '']) }}" title="Print HD Form" role="button" download><i class="bi bi-filetype-pdf"></i><span class="ps-1 d-sm-none">Print HD Form</span></a></div>
             @endcan
             <div class="row mt-3">
