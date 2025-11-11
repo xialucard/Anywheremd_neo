@@ -512,11 +512,41 @@
             <div class="card mb-3">
               <div class="card-header">Plan</div>
               <div class="card-body table-responsive" style="height:300px; max-height: 300px">
+                
+                @if($bookings[0]->booking_type == 'Dialysis')
+                <p>
+                  <strong>Plan:</strong><br><div class="m-3">{!! isset($bookings[0]->planMed) ? nl2br($bookings[0]->planMed) : '' !!}</div><br>
+                  <strong>Current Meds Onboard:</strong>
+                  <div class="table-responsive" style="max-height: 300px">
+                    <table class="table table-bordered table-striped table-hover table-sm medsOn">
+                      <thead class="table-{{ $bgColor }}">
+                        <tr>
+                          <th>Meds</th>
+                          <th>Dose</th>
+                          <th>Delivery</th>
+                          <th>Duration</th>
+                        </tr>
+                      </thead>
+                      <tbody id="medsOnboardTable{{ $bookings[0]->id }}">
+                      @foreach ($bookings[0]->consultation_meds_onboards()->orderBy('id', 'desc')->get() as $dat)
+                        <tr id="{{ $dat->id }}" log="medsOnboards">
+                            <td>{{ $dat->meds }}</td>
+                            <td>{{ $dat->dose }}</td>
+                            <td>{{ $dat->delivery }}</td>
+                            <td>{{ $dat->duration }}</td>
+                        </tr>
+                      @endforeach
+                      </tbody>
+                    </table>
+                  </div>
+                </p>
+                @else
                 <p>
                   <strong>Medical Therapeutics:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_planMed">{!! nl2br(isset($bookings[0]->planMed) ? $bookings[0]->planMed : '') !!}</div><br>
                   <strong>Diagnostics and Surgery:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_plan">{!! nl2br(isset($bookings[0]->plan) ? $bookings[0]->plan : '') !!}</div><br>
                   <strong>Remarks:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_planRem">{!! nl2br(isset($bookings[0]->planRem) ? $bookings[0]->planRem : '') !!}</div><br>
                 </p>
+                @endif
               </div>
             </div>
           </div>
@@ -654,6 +684,58 @@
             <div class="card mb-3">
               <div class="card-header">Plan</div>
               <div class="card-body">
+                @if($bookings[0]->booking_type == 'Dialysis')
+                <div class="card mb-3">
+                  <div class="card-header">Plan</div>
+                  <div class="card-body">
+                    <small class="text-muted">Helper</small>
+                    <div class="input-group input-group-small flex-nowrap">
+                      <select class="form-select" placeholder="" disabled>
+                        <option value=""></option>
+                      </select>
+                      <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
+                    </div>
+                    <small class="text-muted">Content</small>
+                    <textarea class="form-control" name="{{ $viewFolder }}[planMed]" id="{{ $viewFolder }}_prev_planMed" rows=3 disabled>{{ $bookings[0]->planMed }}</textarea>
+                    <small class="text-muted">Helper Save/Edit</small>
+                    <div class="input-group input-group-small mb-3 flex-nowrap">
+                      <div class="input-group-text">
+                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                      </div>
+                      <input type="text" class="form-control" id="{{ $viewFolder }}_planMedTitle" name="{{ $viewFolder }}[planMedTitle]" disabled>
+                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                    </div>
+                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planMedEdit]" id="{{ $viewFolder }}_planMedEdit" rows=3 disabled></textarea>
+                  </div>
+                </div>
+                <div class="card mb-3">
+                  <div class="card-header">Current Meds Onboard</div>
+                  <div class="card-body">
+                    <div class="table-responsive" style="max-height: 300px">
+                      <table class="table table-bordered table-striped table-hover table-sm medsOn">
+                        <thead class="table-{{ $bgColor }}">
+                          <tr>
+                            <th>Meds</th>
+                            <th>Dose</th>
+                            <th>Delivery</th>
+                            <th>Duration</th>
+                          </tr>
+                        </thead>
+                        <tbody id="medsOnboardTable{{ $bookings[0]->id }}">
+                        @foreach ($bookings[0]->consultation_meds_onboards()->orderBy('id', 'desc')->get() as $dat)
+                          <tr id="{{ $dat->id }}" log="medsOnboards">
+                              <td>{{ $dat->meds }}</td>
+                              <td>{{ $dat->dose }}</td>
+                              <td>{{ $dat->delivery }}</td>
+                              <td>{{ $dat->duration }}</td>
+                          </tr>
+                        @endforeach
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                @else
                 <div class="card mb-3">
                   <div class="card-header">Medical Therapeutics</div>
                   <div class="card-body">
@@ -723,6 +805,7 @@
                     <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planRemEdit]" id="{{ $viewFolder }}_planRemEdit" rows=3 disabled></textarea>
                   </div>
                 </div>
+                @endif
               </div>
             </div>
           </div>

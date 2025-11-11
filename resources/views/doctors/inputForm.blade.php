@@ -9,7 +9,7 @@
           alt="example placeholder" style="width: 300px;" />
       </div>
       <div class="d-flex justify-content-center">
-          <div class="btn btn-dark btn-rounded">
+          <div class="btn btn-{{ $bgColor }} btn-rounded">
               <label class="form-label text-white m-1" for="{{ $viewFolder }}_profile_pic">Profile Pic</label>
               <input type="file" class="form-control d-none" name="{{ $viewFolder }}[profile_pic]" id="{{ $viewFolder }}_profile_pic" onchange="displaySelectedImage(event, 'profileImage')" />
           </div>
@@ -108,13 +108,13 @@
       <label for="{{ $viewFolder }}_specialty">Specialty</label>
       <small id="help_{{ $viewFolder }}_specialty" class="text-muted"></small>
     </div>
-    <div class="mb-3">
+    {{-- <div class="mb-3">
       <div class="mb-4 d-flex justify-content-center">
           <img id="prcImage" src="{{ !empty($datum->prc_pic) ? asset('storage/doctor_files/' . $datum->prc_pic) : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}"
           alt="example placeholder" style="width: 300px;" />
       </div>
       <div class="d-flex justify-content-center">
-          <div class="btn btn-dark btn-rounded">
+          <div class="btn btn-{{ $bgColor }} btn-rounded">
               <label class="form-label text-white m-1" for="{{ $viewFolder }}_prc_pic">PRC License Pic</label>
               <input type="file" class="form-control d-none" name="{{ $viewFolder }}[prc_pic]" id="{{ $viewFolder }}_prc_pic" onchange="displaySelectedImage(event, 'prcImage')" />
           </div>
@@ -136,7 +136,7 @@
           alt="example placeholder" style="width: 300px;" />
       </div>
       <div class="d-flex justify-content-center">
-          <div class="btn btn-dark btn-rounded">
+          <div class="btn btn-{{ $bgColor }} btn-rounded">
               <label class="form-label text-white m-1" for="{{ $viewFolder }}_diploma_pic">Diploma Pic</label>
               <input type="file" class="form-control d-none" name="{{ $viewFolder }}[diploma_pic]" id="{{ $viewFolder }}_diploma_pic" onchange="displaySelectedImage(event, 'diplomaImage')" />
           </div>
@@ -171,7 +171,7 @@
       <input class="form-control" type="number" name="{{ $viewFolder }}[fee]" id="{{ $viewFolder }}_fee" placeholder="" value="{{ !empty($datum->fee) ? $datum->fee : ''  }}" required>
       <label for="{{ $viewFolder }}_fee" class="form-label">Fee</label>
       <small id="help_{{ $viewFolder }}_fee" class="text-muted"></small>
-    </div>
+    </div> --}}
   </div>
   
 </div>

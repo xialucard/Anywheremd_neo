@@ -141,6 +141,7 @@ return new class extends Migration
             $table->text('shorten_reason')->nullable(); //
             $table->text('shorten_reason')->nullable(); //
             $table->unsignedBigInteger('treatment_number')->nullable();
+            $table->text('dialysis_complication')->nullable();
             
 
             $table->text('docNotesHPI')->nullable();

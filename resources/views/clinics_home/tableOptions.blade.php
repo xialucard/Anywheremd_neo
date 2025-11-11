@@ -25,6 +25,12 @@
     <div class="m-1"><a class="btn btn-{{ $bgColor }} btn-sm w-100" href="{{ route($viewFolder . '.pdfHD', [isset($referal_conso) ? $referal_conso->id : $dat->id, !empty(parse_url(Request::fullUrl())['query']) ? parse_url(Request::fullUrl())['query'] : '']) }}" title="Print HD Form" role="button" download><i class="bi bi-filetype-pdf"></i><span class="ps-1 d-sm-none">Print HD Form</span></a></div>
         @endcan
     @endif
+
+    @if (Route::has($viewFolder . '.pdfHDSum') && $dat->booking_type == 'Dialysis')
+        @can($viewFolder . '.pdfHDSum')
+    <div class="m-1"><a class="btn btn-{{ $bgColor }} btn-sm w-100" href="{{ route($viewFolder . '.pdfHDSum', [isset($referal_conso) ? $referal_conso->id : $dat->id, !empty(parse_url(Request::fullUrl())['query']) ? parse_url(Request::fullUrl())['query'] : '']) }}" title="Print HD Summary Sheet" role="button" download><i class="bi bi-filetype-pdf"></i><span class="ps-1 d-sm-none">Print HD Summary Sheet</span></a></div>
+        @endcan
+    @endif
     
     @if (Route::has($viewFolder . '.show') && ($dat->status == 'Done' || (!is_null($dat->temp) && !is_null($dat->vitals_updated_by) && $dat->vitals_updated_by != $user->id)))
         @can($viewFolder . '.show')

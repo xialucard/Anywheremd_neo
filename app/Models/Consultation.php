@@ -132,6 +132,7 @@ class Consultation extends Model
         'hd_vac',
         'hd_endorsement',
         'treatment_number',
+        'dialysis_complication',
         'shorten_min',
         'shorten_reason',
         'docNotesHPI',
@@ -224,6 +225,11 @@ class Consultation extends Model
     public function consultation_nurse_notes()
     {
         return $this->hasMany(ConsultationNurseNote::class, 'consultation_id');
+    }
+
+    public function consultation_meds_onboards()
+    {
+        return $this->hasMany(ConsultationMedsOnboard::class, 'consultation_id');
     }
 
     public function anesthesia_files()

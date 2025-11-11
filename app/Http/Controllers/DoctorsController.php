@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\DoctorFormRequest;
-use App\Models\Clinic;
+use App\Models\AffiliatedDoctor;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -101,7 +101,15 @@ class DoctorsController extends Controller
         $params['created_by'] = $user->id;
         $params['updated_by'] = $user->id;
         $params['password'] = Hash::make($this->defaultPassword);
-        User::create($params)->assignRole('Doctor');
+        $userObj = User::create($params)->assignRole('Doctor');
+
+        unset($params);
+        $params['clinic_id'] = $user->clinic_id;
+        $params['doctor_id'] = $userObj->id;
+        $params['active'] = 1;
+        $params['created_by'] = $user->id;
+        $params['updated_by'] = $user->id;
+        AffiliatedDoctor::create($params);
        
         return redirect()->route($this->viewFolder . '.index')->with('message', 'New Entry has been created.');
     }
@@ -191,21 +199,37 @@ class DoctorsController extends Controller
     {
         $condition = $this->queryBuilder('users', !empty($search_query['doctors']) ? $search_query['doctors'] : '');
         // dd($search_query);
-        $data = User::where($condition)
-            ->sortable(['id' => 'desc'])
-            ->paginate($this->page);
+        $user = Auth::user();
+        if(!is_null($user->clinic_id)){
+            $affiliated_doctorRes = AffiliatedDoctor::where('clinic_id', $user->clinic_id)->where('active', 1)->get('doctor_id');
+            unset($affiliated_doctors);
+            foreach($affiliated_doctorRes as $ad){
+                $affiliated_doctors[] = $ad->doctor_id;
+            }
+            $data = User::where($condition['where'])
+                ->whereIn('id', $affiliated_doctors)
+                ->sortable(['id' => 'desc'])
+                ->paginate($this->page);
+        
+        }else{
+            $data = User::where($condition['where'])
+                ->sortable(['id' => 'desc'])
+                ->paginate($this->page);
+            
+        }
         //dd($data);
         return $data;
         
     }
 
     private function queryBuilder($model, $search_query){
-        $condition[] = [$model . '.active', '<>', 0];
-        $condition[] = [$model . '.user_type', 'Doctor'];
+        
+        $condition['where'][] = [$model . '.active', '<>', 0];
+        $condition['where'][] = [$model . '.user_type', 'Doctor'];
         if(!empty($search_query)){
             foreach($search_query as $colName => $searchDet){
                 if($searchDet != "")
-                    $condition[] = [$model . '.' . $colName, 'like', "%" . $searchDet . "%"];
+                    $condition['where'][] = [$model . '.' . $colName, 'like', "%" . $searchDet . "%"];
             }
         }
         return $condition;

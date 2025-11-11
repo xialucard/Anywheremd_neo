@@ -160,12 +160,14 @@
             $('#consoNurseUploadDiv').hide();
             $('#consoPatBookChartDiv').show();
             $('#consoSOAP').hide();
+            $('#hdSum').hide();
             $(this).addClass('active');
             $('#docInfoLink').removeClass('active');
             $('#patInfoLink').removeClass('active');
             $('#patUploadLink').removeClass('active');
             $('#nurseUploadLink').removeClass('active');
             $('#SOAPLink').removeClass('active');
+            $('#hdSumLink').removeClass('active');
           ">Patient's Booking Chart</a>
         </li>
         <li class="nav-item">
@@ -176,12 +178,14 @@
             $('#consoPatUploadDiv').show();
             $('#consoNurseUploadDiv').hide();
             $('#consoSOAP').hide();
+            $('#hdSum').hide();
             $(this).addClass('active');
             $('#docInfoLink').removeClass('active');
             $('#patInfoLink').removeClass('active');
             $('#patBookChartLink').removeClass('active');
             $('#nurseUploadLink').removeClass('active');
             $('#SOAPLink').removeClass('active');
+            $('#hdSumLink').removeClass('active');
           ">File Uploads</a>
         </li>
         <li class="nav-item">
@@ -192,12 +196,14 @@
             $('#consoPatUploadDiv').hide();
             $('#consoNurseUploadDiv').show();
             $('#consoSOAP').hide();
+            $('#hdSum').hide();
             $(this).addClass('active');
             $('#docInfoLink').removeClass('active');
             $('#patInfoLink').removeClass('active');
             $('#patBookChartLink').removeClass('active');
             $('#patUploadLink').removeClass('active');
             $('#SOAPLink').removeClass('active');
+            $('#hdSumLink').removeClass('active');
           ">Nurse's File Uploads</a>
         </li>
         @endif
@@ -209,12 +215,14 @@
             $('#consoNurseUploadDiv').hide();
             $('#consoPatientDiv').show();
             $('#consoSOAP').hide();
+            $('#hdSum').hide();
             $(this).addClass('active');
             $('#docInfoLink').removeClass('active');
             $('#patBookChartLink').removeClass('active');
             $('#patUploadLink').removeClass('active');
             $('#nurseUploadLink').removeClass('active');
             $('#SOAPLink').removeClass('active');
+            $('#hdSumLink').removeClass('active');
           ">Patient's Info</a>
         </li>
         <li class="nav-item">
@@ -225,12 +233,14 @@
           $('#consoNurseUploadDiv').hide();
           $('#consoDocDiv').show();
           $('#consoSOAP').hide();
+          $('#hdSum').hide();
           $(this).addClass('active');
           $('#patInfoLink').removeClass('active');
           $('#patBookChartLink').removeClass('active');
           $('#patUploadLink').removeClass('active');
           $('#nurseUploadLink').removeClass('active');
           $('#SOAPLink').removeClass('active');
+          $('#hdSumLink').removeClass('active');
         ">Doctor's Info</a>
         </li>
         @if(isset($datum->booking_type) && $datum->booking_type == "Dialysis")
@@ -242,16 +252,81 @@
             $('#consoNurseUploadDiv').hide();
             $('#consoPatBookChartDiv').hide();
             $('#consoSOAP').show();
+            $('#hdSum').hide();
             $(this).addClass('active');
             $('#docInfoLink').removeClass('active');
             $('#patInfoLink').removeClass('active');
             $('#patUploadLink').removeClass('active');
             $('#nurseUploadLink').removeClass('active');
             $('#patBookChartLink').removeClass('active');
+            $('#hdSumLink').removeClass('active');
           ">SOAP</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"  href="#" id="hdSumLink" onclick="
+            $('#consoDocDiv').hide();  
+            $('#consoPatientDiv').hide();
+            $('#consoPatUploadDiv').hide();
+            $('#consoNurseUploadDiv').hide();
+            $('#consoPatBookChartDiv').hide();
+            $('#consoSOAP').hide();
+            $('#hdSum').show();
+            $(this).addClass('active');
+            $('#docInfoLink').removeClass('active');
+            $('#patInfoLink').removeClass('active');
+            $('#patUploadLink').removeClass('active');
+            $('#nurseUploadLink').removeClass('active');
+            $('#patBookChartLink').removeClass('active');
+            $('#SOAPLink').removeClass('active');
+          ">HD Summary Sheet</a>
         </li>
         @endif
       </ul>
+      <div id="hdSum" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
+        <div class="table-responsive" style="max-height: 300px">
+          <table class="table table-bordered table-striped table-hover table-sm medsOn">
+            <thead class="table-{{ $bgColor }}">
+              <tr>
+                <th>Tx No.</th>
+                <th>Date</th>
+                <th>Dialyzer/Use No.</th>
+                <th>EDW</th>
+                <th>Pre HD Weight (kg)</th>
+                <th>Post HD Weight (kg)</th>
+                <th>Pre HD BP</th>
+                <th>Post HD BP</th>
+                <th>UF Goal</th>
+                <th>WT. Loss</th>
+                <th>EPO Inj.</th>
+                <th>Iron</th>
+                <th>Dialysis Complication</th>
+                <th>Remarks/NOD</th>
+              </tr>
+            </thead>
+            <tbody id="medsOnboardTable{{ $datum->id }}">
+            @if(isset($allBooking))
+              @foreach ($allBooking as $ind=>$dat)
+              <tr id="hdBooking_{{ $dat->id }}">
+                  <td>{{ $dat->treatment_number }}</td>
+                  <td>{{ $dat->bookingDate }}</td>
+                  <td>{{ $dat->dialyzer . '/' . $dat->use }}</td>
+                  <td>{{ $dat->dry_weight }}<</td>
+                  <td>{{ $dat->weight }}</td>
+                  <td>{{ $dat->post_weight }}</td>
+                  <td>{{ $dat->bpS . '/' . $dat->bpD }}</td>
+                  <td>{{ $dat->post_bpS . '/' . $dat->post_bpD }}</td>
+                  <td>{{ $dat->total_uf_goal }}</td>
+                  <td>{{ $dat->weight_loss }}</td>
+                  <td>{{ $dat->epo }}</td>
+                  <td>{{ $dat->iv_iron }}</td>
+                  <td>{{ nl2br($dat->dialysis_complication) }}</td>
+              </tr>
+              @endforeach
+            @endif
+            </tbody>
+          </table>
+        </div>
+      </div>
       <div id="consoSOAP" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
         @if(isset($datum->doctor->id))
         <ul class="nav nav-pills mb-3">
@@ -304,7 +379,6 @@
             <p>{{ isset($datum->others) ? $datum->others : '' }}</p>
           </div>
         </div>
-        
         <div id="{{ $viewFolder }}_SUMM_{{ isset($datum->id) ? $datum->id : '' }}" class="docNotesDiv" style="display: {{ $origConsoID != $datum->id ? 'none' : 'block' }}">
           <div class="card mb-3">
             <div class="card-header">Doctor's Notes</div>
@@ -328,14 +402,44 @@
           <div class="card mb-3">
             <div class="card-header">Plan</div>
             <div class="card-body table-responsive" style="height:300px; max-height: 300px">
+              @if(isset($datum->booking_type) && $datum->booking_type == 'Dialysis')
+              <p>
+                <strong>Plan:</strong><br><div class="m-3">{!! isset($datum->planMed) ? nl2br($datum->planMed) : '' !!}</div><br>
+                <strong>Current Meds Onboard:</strong>
+                <div class="table-responsive" style="max-height: 300px">
+                  <table class="table table-bordered table-striped table-hover table-sm medsOn">
+                    <thead class="table-{{ $bgColor }}">
+                      <tr>
+                        <th>Meds</th>
+                        <th>Dose</th>
+                        <th>Delivery</th>
+                        <th>Duration</th>
+                      </tr>
+                    </thead>
+                    <tbody id="medsOnboardTable{{ $datum->id }}">
+                    @foreach ($datum->consultation_meds_onboards()->orderBy('id', 'desc')->get() as $dat)
+                      <tr id="{{ $dat->id }}" log="medsOnboards">
+                          <td>{{ $dat->meds }}</td>
+                          <td>{{ $dat->dose }}</td>
+                          <td>{{ $dat->delivery }}</td>
+                          <td>{{ $dat->duration }}</td>
+                      </tr>
+                    @endforeach
+                    </tbody>
+                  </table>
+                </div>
+              </p>
+              @else
               <p>
                 <strong>Medical Therapeutics:</strong><br><div class="m-3">{!! isset($datum->planMed) ? nl2br($datum->planMed) : '' !!}</div><br>
                 <strong>Diagnostics and Surgery:</strong><br><div class="m-3">{!! isset($datum->plan) ? nl2br($datum->plan) : '' !!}</div><br>
                 <strong>Remarks:</strong><br><div class="m-3">{!! isset($datum->planRem) ? nl2br($datum->planRem) : '' !!}</div><br>
               </p>
+              @endif
             </div>
           </div>
         </div>
+        
         @if(isset($datum->consultation_referals[0]->id))
           @foreach($datum->consultation_referals as $cr)
           
@@ -362,11 +466,40 @@
           <div class="card mb-3">
             <div class="card-header">Plan</div>
             <div class="card-body table-responsive" style="height:300px; max-height: 300px">
+              @if($cr->booking_type == 'Dialysis')
+              <p>
+                <strong>Plan:</strong><br><div class="m-3">{!! isset($cr->planMed) ? nl2br($cr->planMed) : '' !!}</div><br>
+                <strong>Current Meds Onboard:</strong>
+                <div class="table-responsive" style="max-height: 300px">
+                  <table class="table table-bordered table-striped table-hover table-sm medsOn">
+                    <thead class="table-{{ $bgColor }}">
+                      <tr>
+                        <th>Meds</th>
+                        <th>Dose</th>
+                        <th>Delivery</th>
+                        <th>Duration</th>
+                      </tr>
+                    </thead>
+                    <tbody id="medsOnboardTable{{ $datum->id }}">
+                    @foreach ($cr->consultation_meds_onboards()->orderBy('id', 'desc')->get() as $dat)
+                      <tr id="{{ $dat->id }}" log="medsOnboards">
+                          <td>{{ $dat->meds }}</td>
+                          <td>{{ $dat->dose }}</td>
+                          <td>{{ $dat->delivery }}</td>
+                          <td>{{ $dat->duration }}</td>
+                      </tr>
+                    @endforeach
+                    </tbody>
+                  </table>
+                </div>
+              </p>
+              @else
               <p>
                 <strong>Medical Therapeutics:</strong><br><div class="m-3">{!! isset($cr->planMed) ? nl2br($cr->planMed) : '' !!}</div><br>
                 <strong>Diagnostics and Surgery:</strong><br><div class="m-3">{!! isset($cr->plan) ? nl2br($cr->plan) : '' !!}</div><br>
                 <strong>Remarks:</strong><br><div class="m-3">{!! isset($cr->planRem) ? nl2br($cr->planRem) : '' !!}</div><br>
               </p>
+              @endif
             </div>
           </div>
         </div>
@@ -413,7 +546,7 @@
           <div class="col-lg-4">
             <div class="input-group mb-3">
               <div class="form-floating">
-                <input class="form-control" type="number" name="{{ $viewFolder }}[treatment_number]" id="{{ $viewFolder }}_treatment_number" value="{{ isset($datum->treatment_number) ? $datum->treatment_number : '' }}" placeholder="" >
+                <input class="form-control" type="number" name="{{ $viewFolder }}[treatment_number]" id="{{ $viewFolder }}_treatment_number" value="{{ isset($datum->treatment_number) ? $datum->treatment_number : (isset($prevBooking->treatment_number) ? $prevBooking->treatment_number+1 : '') }}" placeholder="" >
                 <label for="{{ $viewFolder }}_treatment_number" class="form-label">Treatment Number</label>
                 <small id="help_{{ $viewFolder }}_treatment_number" class="text-muted"></small>
               </div>
@@ -463,7 +596,7 @@
               <div class="col-lg-3">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="number" step=1 min=1 max=5 name="{{ $viewFolder }}[mac_use]" id="{{ $viewFolder }}_use" value="{{ isset($datum->mac_use) ? $datum->mac_use : (isset($prevBooking->mac_use) ? $prevBooking->mac_use : '')}}" placeholder="">
+                    <input class="form-control" type="number" step=1 min=1 max=5 name="{{ $viewFolder }}[mac_use]" id="{{ $viewFolder }}_use" value="{{ isset($datum->mac_use) ? $datum->mac_use : '' }}" placeholder="">
                     <label for="{{ $viewFolder }}_use" class="form-label">Use</label>
                     <small id="help_{{ $viewFolder }}_use" class="text-muted"></small>
                   </div>
@@ -2961,6 +3094,26 @@
                     @endforeach
                     </tbody>
                   </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card mb-3">
+              <div class="card-header">Dialysis Complication</div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="text" name="{{ $viewFolder }}[dialysis_complication]" id="{{ $viewFolder }}_dialysis_complication" placeholder="" value="{{ !empty($datum->dialysis_complication) ? $datum->dialysis_complication : '' }}">
+                        <label for="{{ $viewFolder }}_dialysis_complication" class="form-label">Details</label>
+                        <small id="help_{{ $viewFolder }}_dialysis_complication" class="text-muted"></small>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

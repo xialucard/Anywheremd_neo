@@ -48,6 +48,7 @@ Route::group(['middleware' => ['auth', 'permission']], function() {
     Route::get('/clinics_home/deleteUploadedFile/{id?}', [ClinicsHomeController::class, 'deleteUploadedFile'])->name('clinics_home.deleteUploadedFile');
     Route::get('/clinics_home/deleteUploadedNurseFile/{id?}', [ClinicsHomeController::class, 'deleteUploadedNurseFile'])->name('clinics_home.deleteUploadedNurseFile');
     Route::get('clinics_home/{clinics_home}/pdfHD', [ClinicsHomeController::class, 'pdfHD'])->name('clinics_home.pdfHD');
+    Route::get('clinics_home/{clinics_home}/pdfHDSum', [ClinicsHomeController::class, 'pdfHDSum'])->name('clinics_home.pdfHDSum');
     Route::post('/clinics_home/book', [ClinicsHomeController::class, 'book'])->name('clinics_home.book');
     Route::patch('/clinics_home/{clinics_home}/updateMyAccount', [ClinicsHomeController::class, 'updateMyAccount'])->name('clinics_home.updateMyAccount');
     Route::post('/clinics_home/storeBook', [ClinicsHomeController::class, 'storeBook'])->name('clinics_home.storeBook');
@@ -63,6 +64,9 @@ Route::group(['middleware' => ['auth', 'permission']], function() {
     Route::get('/doctors_home/manageSchedule', [DoctorsHomeController::class, 'manageSchedule'])->name('doctors_home.manageSchedule');
     Route::get('/doctors_home/manageClinic', [DoctorsHomeController::class, 'manageClinic'])->name('doctors_home.manageClinic');
     Route::get('/doctors_home/getIcdCode/{icd_code?}', [DoctorsHomeController::class, 'getIcdCode'])->name('doctors_home.getIcdCode');
+    Route::get('/doctors_home/deleteMedsOnboards/{id?}', [DoctorsHomeController::class, 'deleteMedsOnboards'])->name('doctors_home.deleteMedsOnboards');
+    Route::get('/doctors_home/getMedsOnboards/{id?}', [DoctorsHomeController::class, 'getMedsOnboards'])->name('doctors_home.getMedsOnboards');
+    Route::get('/doctors_home/getMedsOnboardTable/{id?}', [DoctorsHomeController::class, 'getMedsOnboardTable'])->name('doctors_home.getMedsOnboardTable');
     Route::get('doctors_home/{doctors_home}/pdfPrescription', [DoctorsHomeController::class, 'pdfPrescription'])->name('doctors_home.pdfPrescription');
     Route::get('doctors_home/{doctors_home}/pdfMedCert', [DoctorsHomeController::class, 'pdfMedCert'])->name('doctors_home.pdfMedCert');
     Route::get('doctors_home/{doctors_home}/pdfAdmitting', [DoctorsHomeController::class, 'pdfAdmitting'])->name('doctors_home.pdfAdmitting');

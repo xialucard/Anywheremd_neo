@@ -510,8 +510,11 @@ class ClinicsHomeController extends Controller
         $mon = null;
         $dayNum = null;
         $prevBooking = null;
-        if($datum->booking_type == 'Dialysis')
+        $allBooking = null;
+        if($datum->booking_type == 'Dialysis'){
             $prevBooking = Consultation::where('patient_id', $datum->patient_id)->where('booking_type', 'Dialysis')->whereNotNull('time_ended')->whereNot('id', $datum->id)->orderBy('bookingDate','desc')->first();
+            $allBooking = Consultation::where('patient_id', $datum->patient_id)->where('booking_type', 'Dialysis')->whereNotNull('time_ended')->whereNot('id', $datum->id)->where('bookingDate', '<', $datum->bookingDate)->orderBy('bookingDate','asc')->get();
+        }
         if($user->active == 2)
             return redirect()->route('home.myaccount')->with("Incomplete Form", $this->newUserMsg);
         elseif($user->approved == 0)
@@ -540,6 +543,7 @@ class ClinicsHomeController extends Controller
                     'modalSize' => 'modal-xl',
                     'booking_type' => $datum->booking_type,
                     'prevBooking' => $prevBooking,
+                    'allBooking' => $allBooking,
                     'referer' => urldecode($request->headers->get('referer'))
                 ]);
         }
@@ -551,7 +555,7 @@ class ClinicsHomeController extends Controller
         $user = Auth::user();
         unset($params);
         $params = $request->input($this->viewFolder);
-        // dd($params);
+        dd($params);
         if(isset($params['referal'])){
             $referralEntry = $params['referal'];
             unset($params['referal']);
@@ -1084,6 +1088,13 @@ class ClinicsHomeController extends Controller
     function pdfHD(Consultation $clinics_home){
         $pdf = Pdf::loadView($this->viewFolder . '.pdfHD', ['datum' => $clinics_home]);
         return $pdf->download('hd_' . $clinics_home->id . '-' . $clinics_home->treatment_number . '.pdf');
+        
+    }
+
+    function pdfHDSum(Consultation $clinics_home){
+        $allBooking = Consultation::where('patient_id', $clinics_home->patient_id)->where('booking_type', 'Dialysis')->whereNotNull('time_ended')->whereNot('id', $clinics_home->id)->where('bookingDate', '<', $clinics_home->bookingDate)->orderBy('bookingDate','asc')->get();
+        $pdf = Pdf::loadView($this->viewFolder . '.pdfHDSum', ['datum' => $clinics_home, 'allBooking' => $allBooking]);
+        return $pdf->download('hdSum_' . $clinics_home->id . '-' . $clinics_home->treatment_number . '.pdf');
         
     }
 

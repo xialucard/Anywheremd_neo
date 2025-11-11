@@ -4498,11 +4498,40 @@
                   <div class="card mb-3">
                     <div class="card-header">Plan</div>
                     <div class="card-body table-responsive" style="height:300px; max-height: 300px">
+                      @if($datum->booking_type == 'Dialysis')
+                      <p>
+                        <strong>Plan:</strong><br><div class="m-3">{!! isset($datum->planMed) ? nl2br($datum->planMed) : '' !!}</div><br>
+                        <strong>Current Meds Onboard:</strong>
+                        <div class="table-responsive" style="max-height: 300px">
+                          <table class="table table-bordered table-striped table-hover table-sm medsOn">
+                            <thead class="table-{{ $bgColor }}">
+                              <tr>
+                                <th>Meds</th>
+                                <th>Dose</th>
+                                <th>Delivery</th>
+                                <th>Duration</th>
+                              </tr>
+                            </thead>
+                            <tbody id="medsOnboardTable{{ $datum->id }}">
+                            @foreach ($datum->consultation_meds_onboards()->orderBy('id', 'desc')->get() as $dat)
+                              <tr id="{{ $dat->id }}" log="medsOnboards">
+                                  <td>{{ $dat->meds }}</td>
+                                  <td>{{ $dat->dose }}</td>
+                                  <td>{{ $dat->delivery }}</td>
+                                  <td>{{ $dat->duration }}</td>
+                              </tr>
+                            @endforeach
+                            </tbody>
+                          </table>
+                        </div>
+                      </p>
+                      @else
                       <p>
                         <strong>Medical Therapeutics:</strong><br><div class="m-3">{!! isset($datum->planMed) ? nl2br($datum->planMed) : '' !!}</div><br>
                         <strong>Diagnostics and Surgery:</strong><br><div class="m-3">{!! isset($datum->plan) ? nl2br($datum->plan) : '' !!}</div><br>
                         <strong>Remarks:</strong><br><div class="m-3">{!! isset($datum->planRem) ? nl2br($datum->planRem) : '' !!}</div><br>
                       </p>
+                      @endif
                     </div>
                   </div>
                 </div>
@@ -4531,11 +4560,40 @@
                   <div class="card mb-3">
                     <div class="card-header">Plan</div>
                     <div class="card-body table-responsive" style="height:300px; max-height: 300px">
+                      @if($cr->booking_type == 'Dialysis')
+                      <p>
+                        <strong>Plan:</strong><br><div class="m-3">{!! isset($cr->planMed) ? nl2br($cr->planMed) : '' !!}</div><br>
+                        <strong>Current Meds Onboard:</strong>
+                        <div class="table-responsive" style="max-height: 300px">
+                          <table class="table table-bordered table-striped table-hover table-sm medsOn">
+                            <thead class="table-{{ $bgColor }}">
+                              <tr>
+                                <th>Meds</th>
+                                <th>Dose</th>
+                                <th>Delivery</th>
+                                <th>Duration</th>
+                              </tr>
+                            </thead>
+                            <tbody id="medsOnboardTable{{ $cr->id }}">
+                            @foreach ($cr->consultation_meds_onboards()->orderBy('id', 'desc')->get() as $dat)
+                              <tr id="{{ $dat->id }}" log="medsOnboards">
+                                  <td>{{ $dat->meds }}</td>
+                                  <td>{{ $dat->dose }}</td>
+                                  <td>{{ $dat->delivery }}</td>
+                                  <td>{{ $dat->duration }}</td>
+                              </tr>
+                            @endforeach
+                            </tbody>
+                          </table>
+                        </div>
+                      </p>
+                      @else
                       <p>
                         <strong>Medical Therapeutics:</strong><br><div class="m-3">{!! isset($cr->planMed) ? nl2br($cr->planMed) : '' !!}</div><br>
                         <strong>Diagnostics and Surgery:</strong><br><div class="m-3">{!! isset($cr->plan) ? nl2br($cr->plan) : '' !!}</div><br>
                         <strong>Remarks:</strong><br><div class="m-3">{!! isset($cr->planRem) ? nl2br($cr->planRem) : '' !!}</div><br>
                       </p>
+                      @endif
                     </div>
                   </div>
                 </div>
@@ -4761,6 +4819,7 @@
                   <div class="card mb-3">
                     <div class="card-header">Plan</div>
                     <div class="card-body">
+                      @if($datum->booking_type != 'Dialysis')
                       <div class="card mb-3">
                         <div class="card-header">Medical Therapeutics</div>
                         <div class="card-body">
@@ -4830,6 +4889,201 @@
                           <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planRemEdit]" id="{{ $viewFolder }}_planRemEdit" rows=3 disabled></textarea>
                         </div>
                       </div>
+                      @else
+                      <div class="card mb-3">
+                        <div class="card-header">Plan</div>
+                        <div class="card-body">
+                          <small class="text-muted">Helper</small>
+                          <div class="input-group input-group-small flex-nowrap">
+                            <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                              <option value=""></option>
+                            </select>
+                            <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
+                          </div>
+                          <small class="text-muted">Content</small>
+                          <textarea class="form-control" name="{{ $viewFolder }}[planMed]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_planMed" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }}>{{ isset($datum->planMed) ? $datum->planMed : '' }}</textarea>
+                          <small class="text-muted">Helper Save/Edit</small>
+                          <div class="input-group input-group-small mb-3 flex-nowrap">
+                            <div class="input-group-text">
+                              <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                            </div>
+                            <input type="text" class="form-control" id="{{ $viewFolder }}_planMedTitle" name="{{ $viewFolder }}[planMedTitle]" disabled>
+                            <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                          </div>
+                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planMedEdit]" id="{{ $viewFolder }}_planMedEdit" rows=3 disabled></textarea>
+                        </div>
+                      </div>
+                      <div class="card mb-3">
+                        <div class="card-header">Current Meds Onboard</div>
+                        <div class="card-body">
+                          <div class="card mb-3">
+                            <div class="card-header">Add/Edit Entry</div>
+                            <div class="card-body">
+                              <div class="input-group mb-3">
+                                <div class="form-floating">
+                                  <input class="form-control" type="text" name="{{ $viewFolder }}[MedsOnboard][meds]" id="{{ $viewFolder }}_mo_meds" value="" placeholder="" onchange="
+                                    if($(this).val() != ''){
+                                      $('#{{ $viewFolder }}_mo_meds').prop('required', true);
+                                      $('#{{ $viewFolder }}_mo_dose').prop('required', true);
+                                      $('#{{ $viewFolder }}_mo_delivery').prop('required', true);
+                                      $('#{{ $viewFolder }}_mo_duration').prop('required', true);
+                                    }else{
+                                      $('#{{ $viewFolder }}_mo_meds').prop('required', false);
+                                      $('#{{ $viewFolder }}_mo_dose').prop('required', false);
+                                      $('#{{ $viewFolder }}_mo_delivery').prop('required', false);
+                                      $('#{{ $viewFolder }}_mo_duration').prop('required', false);
+                                    }
+                                    if($(this).val() != '' && $('#{{ $viewFolder }}_mo_meds').val() != '' && $('#{{ $viewFolder }}_mo_dose').val() != '' && $('#{{ $viewFolder }}_mo_delivery').val() != '' && $('#{{ $viewFolder }}_mo_duration').val() != '')
+                                      $('#addMedsOnboard{{ $datum->id }}').prop('disabled', false);
+                                    else
+                                      $('#addMedsOnboard{{ $datum->id }}').prop('disabled', true);
+                                  ">
+                                  <label for="{{ $viewFolder }}_notes_time" class="form-label">Meds</label>
+                                  <small id="help_{{ $viewFolder }}_notes_time" class="text-muted"></small>
+                                </div>
+                              </div>
+                              <div class="input-group mb-3">
+                                <div class="form-floating">
+                                  <input class="form-control" type="text" name="{{ $viewFolder }}[MedsOnboard][dose]" id="{{ $viewFolder }}_mo_dose" placeholder="" onchange="
+                                    if($('#{{ $viewFolder }}_mo_meds').val() != ''){
+                                      $('#{{ $viewFolder }}_mo_meds').prop('required', true);
+                                      $('#{{ $viewFolder }}_mo_dose').prop('required', true);
+                                      $('#{{ $viewFolder }}_mo_delivery').prop('required', true);
+                                      $('#{{ $viewFolder }}_mo_duration').prop('required', true);
+                                    }else{
+                                      $('#{{ $viewFolder }}_mo_meds').prop('required', false);
+                                      $('#{{ $viewFolder }}_mo_dose').prop('required', false);
+                                      $('#{{ $viewFolder }}_mo_delivery').prop('required', false);
+                                      $('#{{ $viewFolder }}_mo_duration').prop('required', false);
+                                    }
+                                    if($(this).val() != '' && $('#{{ $viewFolder }}_mo_meds').val() != '' && $('#{{ $viewFolder }}_mo_dose').val() != '' && $('#{{ $viewFolder }}_mo_delivery').val() != '' && $('#{{ $viewFolder }}_mo_duration').val() != '')
+                                      $('#addMedsOnboard{{ $datum->id }}').prop('disabled', false);
+                                    else
+                                      $('#addMedsOnboard{{ $datum->id }}').prop('disabled', true);
+                                  ">
+                                  
+                                  <label for="{{ $viewFolder }}_nurse_notes" class="form-label">Dose</label>
+                                  <small id="help_{{ $viewFolder }}_nurse_notes" class="text-muted"></small>
+                                </div>
+                              </div>
+                              <div class="input-group mb-3">
+                                <div class="form-floating">
+                                  <input class="form-control" type="text" name="{{ $viewFolder }}[MedsOnboard][delivery]" id="{{ $viewFolder }}_mo_delivery" placeholder="" onchange="
+                                    if($('#{{ $viewFolder }}_mo_meds').val() != ''){
+                                      $('#{{ $viewFolder }}_mo_meds').prop('required', true);
+                                      $('#{{ $viewFolder }}_mo_dose').prop('required', true);
+                                      $('#{{ $viewFolder }}_mo_delivery').prop('required', true);
+                                      $('#{{ $viewFolder }}_mo_duration').prop('required', true);
+                                    }else{
+                                      $('#{{ $viewFolder }}_mo_meds').prop('required', false);
+                                      $('#{{ $viewFolder }}_mo_dose').prop('required', false);
+                                      $('#{{ $viewFolder }}_mo_delivery').prop('required', false);
+                                      $('#{{ $viewFolder }}_mo_duration').prop('required', false);
+                                    }
+                                    if($(this).val() != '' && $('#{{ $viewFolder }}_mo_meds').val() != '' && $('#{{ $viewFolder }}_mo_dose').val() != '' && $('#{{ $viewFolder }}_mo_delivery').val() != '' && $('#{{ $viewFolder }}_mo_duration').val() != '')
+                                      $('#addMedsOnboard{{ $datum->id }}').prop('disabled', false);
+                                    else
+                                      $('#addMedsOnboard{{ $datum->id }}').prop('disabled', true);
+                                  ">
+                                  
+                                  <label for="{{ $viewFolder }}_nurse_notes" class="form-label">Delivery</label>
+                                  <small id="help_{{ $viewFolder }}_nurse_notes" class="text-muted"></small>
+                                </div>
+                              </div>
+                              <div class="input-group mb-3">
+                                <div class="form-floating">
+                                  <input class="form-control" type="text" name="{{ $viewFolder }}[MedsOnboard][duration]" id="{{ $viewFolder }}_mo_duration" placeholder="" onchange="
+                                    if($('#{{ $viewFolder }}_mo_meds').val() != ''){
+                                      $('#{{ $viewFolder }}_mo_meds').prop('required', true);
+                                      $('#{{ $viewFolder }}_mo_dose').prop('required', true);
+                                      $('#{{ $viewFolder }}_mo_delivery').prop('required', true);
+                                      $('#{{ $viewFolder }}_mo_duration').prop('required', true);
+                                    }else{
+                                      $('#{{ $viewFolder }}_mo_meds').prop('required', false);
+                                      $('#{{ $viewFolder }}_mo_dose').prop('required', false);
+                                      $('#{{ $viewFolder }}_mo_delivery').prop('required', false);
+                                      $('#{{ $viewFolder }}_mo_duration').prop('required', false);
+                                    }
+                                    if($(this).val() != '' && $('#{{ $viewFolder }}_mo_meds').val() != '' && $('#{{ $viewFolder }}_mo_dose').val() != '' && $('#{{ $viewFolder }}_mo_delivery').val() != '' && $('#{{ $viewFolder }}_mo_duration').val() != '')
+                                      $('#addMedsOnboard{{ $datum->id }}').prop('disabled', false);
+                                    else
+                                      $('#addMedsOnboard{{ $datum->id }}').prop('disabled', true);
+                                  ">
+                                  
+                                  <label for="{{ $viewFolder }}_nurse_notes" class="form-label">Duration</label>
+                                  <small id="help_{{ $viewFolder }}_nurse_notes" class="text-muted"></small>
+                                </div>
+                              </div>
+                              <input id="{{ $viewFolder }}_nurse_id" type="hidden" class="form-control" id="{{ $viewFolder }}_mo_id" name="{{ $viewFolder }}[MedsOnboard][id]" value="">
+                            </div>
+                            <div class="card-footer">
+                              <button id="addMedsOnboard{{ $datum->id }}" type="button" class="addNurseNotesLog btn btn-{{ $bgColor }} btn-sm" disabled onclick="
+                                $('#doctors_home_submit_type').val('Pause');
+                                $.ajax({
+                                  type: 'POST',
+                                  data: $('#bookMod').serialize(),
+                                  url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
+                                  success:
+                                  function (){
+                                      $.ajax({
+                                        type: 'GET',
+                                        url: '{{ Route::has($viewFolder . '.getMedsOnboardTable') ? route($viewFolder . '.getMedsOnboardTable', $datum->id) : '' }}',
+                                        success:
+                                        function (data){
+                                          medObj = jQuery.parseJSON(data);
+                                          var tr;
+                                          medObj.forEach(function (item, index){
+                                            tr += '<tr id=\'' + item.id + '\' log=\'medsOnboards\'><td><div class=\'d-sm-flex flex-sm-row\'><div class=\'m-1\'><button type=\'submit\' class=\'btn btn-{{ $bgColor }} btn-sm w-100 rowBtnEdit\'><i class=\'bi bi-pencil\'></i><span class=\'ps-1 d-sm-none\'>Edit</span></button></div><div class=\'m-1\'><button type=\'submit\' class=\'btn btn-{{ $bgColor }} btn-sm w-100 rowBtnDel\'><i class=\'bi bi-trash\'></i><span class=\'ps-1 d-sm-none\'>Delete</span></button></div></div></td><td>' + item.meds + '</td><td>' + item.dose + '</td><td>' + item.delivery + '</td><td>' + item.duration + '</td></tr>';
+                                          });
+                                          $('#medsOnboardTable{{ $datum->id }}').html(tr);
+                                        }
+                                      });
+                                      $('#{{ $viewFolder }}_mo_meds').val('')
+                                      $('#{{ $viewFolder }}_mo_dose').val('');
+                                      $('#{{ $viewFolder }}_mo_delivery').val('');
+                                      $('#{{ $viewFolder }}_mo_duration').val('');
+                                      $('#{{ $viewFolder }}_mo_dose').prop('required', false);
+                                      $('#{{ $viewFolder }}_mo_delivery').prop('required', false);
+                                      $('#{{ $viewFolder }}_mo_duration').prop('required', false);
+                                      $('#medsOnboardTable{{ $datum->id }}').prop('disabled', true);
+                                  }
+                                });
+
+                              ">Add/Edit Meds Onboard</button>
+                            </div>
+                          </div>
+                          <div class="card-body table-responsive" style="max-height: 300px">
+                            <table class="table table-bordered table-striped table-hover table-sm medsOn">
+                              <thead class="table-{{ $bgColor }}">
+                                <tr>
+                                  <th class=""><i class="bi bi-gear"></i></th>
+                                  <th>Meds</th>
+                                  <th>Dose</th>
+                                  <th>Delivery</th>
+                                  <th>Duration</th>
+                                </tr>
+                              </thead>
+                              <tbody id="medsOnboardTable{{ $datum->id }}">
+                              @foreach ($datum->consultation_meds_onboards()->orderBy('id', 'desc')->get() as $dat)
+                                <tr id="{{ $dat->id }}" log="medsOnboards">
+                                    <td>
+                                      <div class="d-sm-flex flex-sm-row">
+                                        <div class="m-1"><button type="submit" class="btn btn-{{ $bgColor }} btn-sm w-100 rowBtnEdit"><i class="bi bi-pencil"></i><span class="ps-1 d-sm-none">Edit</span></button></div>
+                                        <div class="m-1"><button type="submit" class="btn btn-{{ $bgColor }} btn-sm w-100 rowBtnDel"><i class="bi bi-trash"></i><span class="ps-1 d-sm-none">Delete</span></button></div>
+                                      </div>
+                                    </td>
+                                    <td>{{ $dat->meds }}</td>
+                                    <td>{{ $dat->dose }}</td>
+                                    <td>{{ $dat->delivery }}</td>
+                                    <td>{{ $dat->duration }}</td>
+                                </tr>
+                              @endforeach
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                      @endif
                     </div>
                   </div>
                   <div class="card mb-3">
@@ -5053,9 +5307,11 @@
                       </div>
                     </div>
                   </div>
+                  
                   <div class="card mb-3">
                     <div class="card-header">Plan</div>
                     <div class="card-body">
+                      @if($datum->booking_type != 'Dialysis')
                       <div class="card mb-3">
                         <div class="card-header">Medical Therapeutics</div>
                         <div class="card-body">
@@ -5125,6 +5381,201 @@
                           <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planRemEdit]" id="{{ $viewFolder }}_planRemEdit" rows=3 disabled></textarea>
                         </div>
                       </div>
+                      @else
+                      <div class="card mb-3">
+                        <div class="card-header">Plan</div>
+                        <div class="card-body">
+                          <small class="text-muted">Helper</small>
+                          <div class="input-group input-group-small flex-nowrap">
+                            <select class="form-select" placeholder="" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>
+                              <option value=""></option>
+                            </select>
+                            <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>Delete Helper</button>
+                          </div>
+                          <small class="text-muted">Content</small>
+                          <textarea class="form-control" name="{{ $viewFolder }}[planMed]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_planMed" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }}>{{ isset($cr->planMed) ? $cr->planMed : '' }}</textarea>
+                          <small class="text-muted">Helper Save/Edit</small>
+                          <div class="input-group input-group-small mb-3 flex-nowrap">
+                            <div class="input-group-text">
+                              <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                            </div>
+                            <input type="text" class="form-control" id="{{ $viewFolder }}_planMedTitle" name="{{ $viewFolder }}[planMedTitle]" disabled>
+                            <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                          </div>
+                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planMedEdit]" id="{{ $viewFolder }}_planMedEdit" rows=3 disabled></textarea>
+                        </div>
+                      </div>
+                      <div class="card mb-3">
+                        <div class="card-header">Current Meds Onboard</div>
+                        <div class="card-body">
+                          <div class="card mb-3">
+                            <div class="card-header">Add/Edit Entry</div>
+                            <div class="card-body">
+                              <div class="input-group mb-3">
+                                <div class="form-floating">
+                                  <input class="form-control" type="text" name="{{ $viewFolder }}[MedsOnboard][meds]" id="{{ $viewFolder }}_mo_meds" value="" placeholder="" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }} onchange="
+                                    if($(this).val() != ''){
+                                      $('#{{ $viewFolder }}_mo_meds').prop('required', true);
+                                      $('#{{ $viewFolder }}_mo_dose').prop('required', true);
+                                      $('#{{ $viewFolder }}_mo_delivery').prop('required', true);
+                                      $('#{{ $viewFolder }}_mo_duration').prop('required', true);
+                                    }else{
+                                      $('#{{ $viewFolder }}_mo_meds').prop('required', false);
+                                      $('#{{ $viewFolder }}_mo_dose').prop('required', false);
+                                      $('#{{ $viewFolder }}_mo_delivery').prop('required', false);
+                                      $('#{{ $viewFolder }}_mo_duration').prop('required', false);
+                                    }
+                                    if($(this).val() != '' && $('#{{ $viewFolder }}_mo_meds').val() != '' && $('#{{ $viewFolder }}_mo_dose').val() != '' && $('#{{ $viewFolder }}_mo_delivery').val() != '' && $('#{{ $viewFolder }}_mo_duration').val() != '')
+                                      $('#addMedsOnboard{{ $datum->id }}').prop('disabled', false);
+                                    else
+                                      $('#addMedsOnboard{{ $datum->id }}').prop('disabled', true);
+                                  ">
+                                  <label for="{{ $viewFolder }}_notes_time" class="form-label">Meds</label>
+                                  <small id="help_{{ $viewFolder }}_notes_time" class="text-muted"></small>
+                                </div>
+                              </div>
+                              <div class="input-group mb-3">
+                                <div class="form-floating">
+                                  <input class="form-control" type="text" name="{{ $viewFolder }}[MedsOnboard][dose]" id="{{ $viewFolder }}_mo_dose" placeholder="" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }} onchange="
+                                    if($('#{{ $viewFolder }}_mo_meds').val() != ''){
+                                      $('#{{ $viewFolder }}_mo_meds').prop('required', true);
+                                      $('#{{ $viewFolder }}_mo_dose').prop('required', true);
+                                      $('#{{ $viewFolder }}_mo_delivery').prop('required', true);
+                                      $('#{{ $viewFolder }}_mo_duration').prop('required', true);
+                                    }else{
+                                      $('#{{ $viewFolder }}_mo_meds').prop('required', false);
+                                      $('#{{ $viewFolder }}_mo_dose').prop('required', false);
+                                      $('#{{ $viewFolder }}_mo_delivery').prop('required', false);
+                                      $('#{{ $viewFolder }}_mo_duration').prop('required', false);
+                                    }
+                                    if($(this).val() != '' && $('#{{ $viewFolder }}_mo_meds').val() != '' && $('#{{ $viewFolder }}_mo_dose').val() != '' && $('#{{ $viewFolder }}_mo_delivery').val() != '' && $('#{{ $viewFolder }}_mo_duration').val() != '')
+                                      $('#addMedsOnboard{{ $datum->id }}').prop('disabled', false);
+                                    else
+                                      $('#addMedsOnboard{{ $datum->id }}').prop('disabled', true);
+                                  ">
+                                  
+                                  <label for="{{ $viewFolder }}_nurse_notes" class="form-label">Dose</label>
+                                  <small id="help_{{ $viewFolder }}_nurse_notes" class="text-muted"></small>
+                                </div>
+                              </div>
+                              <div class="input-group mb-3">
+                                <div class="form-floating">
+                                  <input class="form-control" type="text" name="{{ $viewFolder }}[MedsOnboard][delivery]" id="{{ $viewFolder }}_mo_delivery" placeholder="" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }} onchange="
+                                    if($('#{{ $viewFolder }}_mo_meds').val() != ''){
+                                      $('#{{ $viewFolder }}_mo_meds').prop('required', true);
+                                      $('#{{ $viewFolder }}_mo_dose').prop('required', true);
+                                      $('#{{ $viewFolder }}_mo_delivery').prop('required', true);
+                                      $('#{{ $viewFolder }}_mo_duration').prop('required', true);
+                                    }else{
+                                      $('#{{ $viewFolder }}_mo_meds').prop('required', false);
+                                      $('#{{ $viewFolder }}_mo_dose').prop('required', false);
+                                      $('#{{ $viewFolder }}_mo_delivery').prop('required', false);
+                                      $('#{{ $viewFolder }}_mo_duration').prop('required', false);
+                                    }
+                                    if($(this).val() != '' && $('#{{ $viewFolder }}_mo_meds').val() != '' && $('#{{ $viewFolder }}_mo_dose').val() != '' && $('#{{ $viewFolder }}_mo_delivery').val() != '' && $('#{{ $viewFolder }}_mo_duration').val() != '')
+                                      $('#addMedsOnboard{{ $datum->id }}').prop('disabled', false);
+                                    else
+                                      $('#addMedsOnboard{{ $datum->id }}').prop('disabled', true);
+                                  ">
+                                  
+                                  <label for="{{ $viewFolder }}_nurse_notes" class="form-label">Delivery</label>
+                                  <small id="help_{{ $viewFolder }}_nurse_notes" class="text-muted"></small>
+                                </div>
+                              </div>
+                              <div class="input-group mb-3">
+                                <div class="form-floating">
+                                  <input class="form-control" type="text" name="{{ $viewFolder }}[MedsOnboard][duration]" id="{{ $viewFolder }}_mo_duration" placeholder="" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }} onchange="
+                                    if($('#{{ $viewFolder }}_mo_meds').val() != ''){
+                                      $('#{{ $viewFolder }}_mo_meds').prop('required', true);
+                                      $('#{{ $viewFolder }}_mo_dose').prop('required', true);
+                                      $('#{{ $viewFolder }}_mo_delivery').prop('required', true);
+                                      $('#{{ $viewFolder }}_mo_duration').prop('required', true);
+                                    }else{
+                                      $('#{{ $viewFolder }}_mo_meds').prop('required', false);
+                                      $('#{{ $viewFolder }}_mo_dose').prop('required', false);
+                                      $('#{{ $viewFolder }}_mo_delivery').prop('required', false);
+                                      $('#{{ $viewFolder }}_mo_duration').prop('required', false);
+                                    }
+                                    if($(this).val() != '' && $('#{{ $viewFolder }}_mo_meds').val() != '' && $('#{{ $viewFolder }}_mo_dose').val() != '' && $('#{{ $viewFolder }}_mo_delivery').val() != '' && $('#{{ $viewFolder }}_mo_duration').val() != '')
+                                      $('#addMedsOnboard{{ $datum->id }}').prop('disabled', false);
+                                    else
+                                      $('#addMedsOnboard{{ $datum->id }}').prop('disabled', true);
+                                  ">
+                                  
+                                  <label for="{{ $viewFolder }}_nurse_notes" class="form-label">Duration</label>
+                                  <small id="help_{{ $viewFolder }}_nurse_notes" class="text-muted"></small>
+                                </div>
+                              </div>
+                              <input id="{{ $viewFolder }}_nurse_id" type="hidden" class="form-control" id="{{ $viewFolder }}_mo_id" name="{{ $viewFolder }}[MedsOnboard][id]" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }} value="">
+                            </div>
+                            <div class="card-footer">
+                              <button id="addMedsOnboard{{ $datum->id }}" type="button" class="addNurseNotesLog btn btn-{{ $bgColor }} btn-sm" disabled onclick="
+                                $('#doctors_home_submit_type').val('Pause');
+                                $.ajax({
+                                  type: 'POST',
+                                  data: $('#bookMod').serialize(),
+                                  url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
+                                  success:
+                                  function (){
+                                      $.ajax({
+                                        type: 'GET',
+                                        url: '{{ Route::has($viewFolder . '.getMedsOnboardTable') ? route($viewFolder . '.getMedsOnboardTable', $datum->id) : '' }}',
+                                        success:
+                                        function (data){
+                                          medObj = jQuery.parseJSON(data);
+                                          var tr;
+                                          medObj.forEach(function (item, index){
+                                            tr += '<tr id=\'' + item.id + '\' log=\'medsOnboards\'><td><div class=\'d-sm-flex flex-sm-row\'><div class=\'m-1\'><button type=\'submit\' class=\'btn btn-{{ $bgColor }} btn-sm w-100 rowBtnEdit\'><i class=\'bi bi-pencil\'></i><span class=\'ps-1 d-sm-none\'>Edit</span></button></div><div class=\'m-1\'><button type=\'submit\' class=\'btn btn-{{ $bgColor }} btn-sm w-100 rowBtnDel\'><i class=\'bi bi-trash\'></i><span class=\'ps-1 d-sm-none\'>Delete</span></button></div></div></td><td>' + item.meds + '</td><td>' + item.dose + '</td><td>' + item.delivery + '</td><td>' + item.duration + '</td></tr>';
+                                          });
+                                          $('#medsOnboardTable{{ $datum->id }}').html(tr);
+                                        }
+                                      });
+                                      $('#{{ $viewFolder }}_mo_meds').val('')
+                                      $('#{{ $viewFolder }}_mo_dose').val('');
+                                      $('#{{ $viewFolder }}_mo_delivery').val('');
+                                      $('#{{ $viewFolder }}_mo_duration').val('');
+                                      $('#{{ $viewFolder }}_mo_dose').prop('required', false);
+                                      $('#{{ $viewFolder }}_mo_delivery').prop('required', false);
+                                      $('#{{ $viewFolder }}_mo_duration').prop('required', false);
+                                      $('#medsOnboardTable{{ $datum->id }}').prop('disabled', true);
+                                  }
+                                });
+
+                              ">Add/Edit Meds Onboard</button>
+                            </div>
+                          </div>
+                          <div class="card-body table-responsive" style="max-height: 300px">
+                            <table class="table table-bordered table-striped table-hover table-sm medsOn">
+                              <thead class="table-{{ $bgColor }}">
+                                <tr>
+                                  <th class=""><i class="bi bi-gear"></i></th>
+                                  <th>Meds</th>
+                                  <th>Dose</th>
+                                  <th>Delivery</th>
+                                  <th>Duration</th>
+                                </tr>
+                              </thead>
+                              <tbody id="medsOnboardTable{{ $datum->id }}">
+                              @foreach ($datum->consultation_meds_onboards()->orderBy('id', 'desc')->get() as $dat)
+                                <tr id="{{ $dat->id }}" log="medsOnboards">
+                                    <td>
+                                      <div class="d-sm-flex flex-sm-row">
+                                        <div class="m-1"><button type="submit" class="btn btn-{{ $bgColor }} btn-sm w-100 rowBtnEdit" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}><i class="bi bi-pencil"></i><span class="ps-1 d-sm-none">Edit</span></button></div>
+                                        <div class="m-1"><button type="submit" class="btn btn-{{ $bgColor }} btn-sm w-100 rowBtnDel" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}><i class="bi bi-trash"></i><span class="ps-1 d-sm-none">Delete</span></button></div>
+                                      </div>
+                                    </td>
+                                    <td>{{ $dat->meds }}</td>
+                                    <td>{{ $dat->dose }}</td>
+                                    <td>{{ $dat->delivery }}</td>
+                                    <td>{{ $dat->duration }}</td>
+                                </tr>
+                              @endforeach
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                      @endif
                     </div>
                   </div>
                 </div>
@@ -8687,6 +9138,40 @@
   }
 
   $(document).ready(function() {
+    $("table.medsOn").on("click", ".rowBtnDel", function ( event ) {
+      if(!confirm('Are you sure you want to delete this?')){
+        return false;
+      }else{
+        event.preventDefault();
+        $(this).closest("tr").remove();
+        $.ajax({
+          type: 'GET',
+          url: '{{ Route::has($viewFolder . '.deleteMedsOnboards') ? route($viewFolder . '.deleteMedsOnboards') : ''}}/' + $(this).closest("tr").attr("id"),
+        });
+      }
+    });
+
+    $("table.medsOn").on("click", ".rowBtnEdit", function ( event ) {
+      if(!confirm('Are you sure you want to edit this?')){
+        return false;
+      }else{
+        event.preventDefault();
+        $.ajax({
+          type: 'GET',
+          url: '{{ Route::has($viewFolder . '.getMedsOnboards') ? route($viewFolder . '.getMedsOnboards') : ''}}/' + $(this).closest("tr").attr("id"),
+          success:function(data){
+              MedsOnObj = jQuery.parseJSON(data);
+                $("#{{ $viewFolder }}_mo_meds").val(MedsOnObj.meds);
+                $("#{{ $viewFolder }}_mo_dose").val(MedsOnObj.dose);
+                $("#{{ $viewFolder }}_mo_delivery").val(MedsOnObj.delivery);
+                $("#{{ $viewFolder }}_mo_duration").val(MedsOnObj.duration);
+                $("#{{ $viewFolder }}_mo_id").val(MedsOnObj.id);
+              
+            }
+        });
+      }
+    });
+
     $("table.hdLogs").on("click", ".rowBtnDel", function ( event ) {
       if(!confirm('Are you sure you want to delete this?')){
         return false;

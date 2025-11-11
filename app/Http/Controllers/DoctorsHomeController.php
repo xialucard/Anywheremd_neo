@@ -10,6 +10,7 @@ use App\Models\ScheduleConso;
 use App\Models\AffiliatedDoctor;
 use App\Models\ConsultationFile;
 use App\Models\ConsultationMed;
+use App\Models\ConsultationMedsOnboard;
 use App\Models\ConsultationMonitoring;
 use App\Models\ConsultationNurseNote;
 use App\Models\HealthOrganization;
@@ -437,7 +438,23 @@ class DoctorsHomeController extends Controller
             }
         }
 
-         if(isset($params['mental_status']))
+        if(isset($params['MedsOnboard'])){
+            $medsOnboard = $params['MedsOnboard'];
+            unset($params['MedsOnboard']);
+            if($medsOnboard['meds'] != ''){
+                $medsOnboard['consultation_id'] = $doctors_home->id;
+                $medsOnboard['created_by'] = $user->id;
+                $medsOnboard['updated_by'] = $user->id;
+                // dd($medication);
+                if($medsOnboard['id'] != "")
+                    ConsultationMedsOnboard::where('id', $medsOnboard['id'])->update($medsOnboard);
+                else
+                    ConsultationMedsOnboard::create($medsOnboard);
+                
+            }
+        }
+
+        if(isset($params['mental_status']))
             $params['mental_status'] = json_encode($params['mental_status']);
         else
             $params['mental_status'] = json_encode('');
@@ -829,6 +846,26 @@ class DoctorsHomeController extends Controller
     function getIcdCode($icd_code){
         $icd_code = IcdCode::where('icd_code', 'like', "%{$icd_code}%")->orWhere('details', 'like', "%{$icd_code}%")->get();
         return json_encode($icd_code);
+    }
+
+    function getMedsOnboardTable($id){
+        $medsOnboard = ConsultationMedsOnboard::where('consultation_id', $id)->orderBy('id', 'desc')->get();
+        $medsOnboardArr = $medsOnboard->toArray();
+        // foreach($medsOnboardArr as $ind=>$dat){
+        //     $medsOnboardArr[$ind]['creator'] = $dat->creator->name;
+        // }
+        return json_encode($medsOnboardArr);
+
+    }
+
+    function getMedsOnboards($id){
+        unset($medsOns);
+        $medsOns = ConsultationMedsOnboard::find($id);
+        return json_encode($medsOns);
+    }
+
+    function deleteMedsOnboards($id){
+        ConsultationMedsOnboard::destroy($id);
     }
 
     private function queryBuilder($model, $search_query){
