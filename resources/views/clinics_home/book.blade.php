@@ -283,9 +283,11 @@
         @endif
       </ul>
       <div id="hdSum" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
+        @if(isset($datum->id))
         @can('clinics_home.pdfHDSum')
           <div class="m-1"><a id="printLinkID" class="btn btn-{{ $bgColor }} btn-sm w-100 printLink" href="{{ route('clinics_home.pdfHDSum', [isset($referal_conso) ? $referal_conso->id : $datum->id, !empty(parse_url(Request::fullUrl())['query']) ? parse_url(Request::fullUrl())['query'] : '']) }}" title="Print HD Summary Sheet" role="button" download><i class="bi bi-file-pdf-fill"></i><span class="ps-1 d-sm-none">Print HD Summary Sheet</span></a></div>
         @endcan
+        @endif
         <div class="table-responsive" style="max-height: 300px">
           <table class="table table-bordered table-striped table-hover table-sm medsOn">
             <thead class="table-{{ $bgColor }}">
