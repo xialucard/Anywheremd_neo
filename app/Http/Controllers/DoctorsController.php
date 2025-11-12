@@ -104,11 +104,12 @@ class DoctorsController extends Controller
             $params['updated_by'] = $user->id;
             $params['password'] = Hash::make($this->defaultPassword);
             $userObj = User::create($params)->assignRole('Doctor');
+            unset($params);
             $params['doctor_id'] = $userObj->id;
         }else{
+            unset($params);
             $params['doctor_id'] = $doctorHit->id;
         }
-        unset($params);
         $params['clinic_id'] = $user->clinic_id;
         $params['active'] = 1;
         $params['created_by'] = $user->id;
