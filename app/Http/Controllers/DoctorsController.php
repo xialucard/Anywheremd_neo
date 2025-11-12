@@ -93,19 +93,23 @@ class DoctorsController extends Controller
             $request->doctors['diploma_pic']->storeAs('public/doctor_files', $diploma_pic);
             $params['diploma_pic'] = $diploma_pic;
         }
-        
-        $params['name'] = $params['f_name'] . ' ' . $params['m_name'] . ' ' . $params['l_name'];
-        $params['user_type'] = 'Doctor';
-        $params['approved'] = 1;
-        // $params['active'] = 2;
-        $params['created_by'] = $user->id;
-        $params['updated_by'] = $user->id;
-        $params['password'] = Hash::make($this->defaultPassword);
-        $userObj = User::create($params)->assignRole('Doctor');
 
+        $doctorHit = User::where('name', $params['f_name'] . ' ' . $params['m_name'] . ' ' . $params['l_name'])->where('dob', $params['dob'])->get();
+        if(!isset($doctorHit->id)){
+            $params['name'] = $params['f_name'] . ' ' . $params['m_name'] . ' ' . $params['l_name'];
+            $params['user_type'] = 'Doctor';
+            $params['approved'] = 1;
+            // $params['active'] = 2;
+            $params['created_by'] = $user->id;
+            $params['updated_by'] = $user->id;
+            $params['password'] = Hash::make($this->defaultPassword);
+            $userObj = User::create($params)->assignRole('Doctor');
+            $params['doctor_id'] = $userObj->id;
+        }else{
+            $params['doctor_id'] = $doctorHit->id;
+        }
         unset($params);
         $params['clinic_id'] = $user->clinic_id;
-        $params['doctor_id'] = $userObj->id;
         $params['active'] = 1;
         $params['created_by'] = $user->id;
         $params['updated_by'] = $user->id;
