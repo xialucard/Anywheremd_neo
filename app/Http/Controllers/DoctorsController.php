@@ -95,8 +95,8 @@ class DoctorsController extends Controller
         }
 
         $doctorHit = User::where('name', $params['f_name'] . ' ' . $params['m_name'] . ' ' . $params['l_name'])->where('dob', $params['dob'])->get();
-        dd($doctorHit);
-        if(!isset($doctorHit->id)){
+        dd($doctorHit->id);
+        if(!is_null($doctorHit->id)){
             $params['name'] = $params['f_name'] . ' ' . $params['m_name'] . ' ' . $params['l_name'];
             $params['user_type'] = 'Doctor';
             $params['approved'] = 1;
