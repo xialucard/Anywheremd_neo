@@ -272,4 +272,9 @@ class Consultation extends Model
         return $this->hasOne(Consultation::class, 'advance_booking_id');
     }
 
+    public function opdpatient()
+    {
+        return $this->hasOne(Opdpatient::class, 'anywheremd_id');
+    }
+
 }

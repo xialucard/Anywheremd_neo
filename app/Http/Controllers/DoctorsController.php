@@ -95,6 +95,9 @@ class DoctorsController extends Controller
         }
 
         $doctorHit = User::where('name', $params['f_name'] . ' ' . $params['m_name'] . ' ' . $params['l_name'])->where('dob', $params['dob'])->get();
+        // print "<pre>";
+        // print_r($doctorHit);
+        // print "</pre>";
         if(!isset($doctorHit[0]->id)){
             $params['name'] = $params['f_name'] . ' ' . $params['m_name'] . ' ' . $params['l_name'];
             $params['user_type'] = 'Doctor';

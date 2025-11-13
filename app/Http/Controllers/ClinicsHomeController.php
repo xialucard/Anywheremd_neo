@@ -13,6 +13,7 @@ use App\Models\ConsultationMonitoring;
 use App\Models\ConsultationNurseNote;
 use App\Models\HealthOrganization;
 use App\Models\NurseFile;
+use App\Models\Opdpatient;
 use App\Models\Patient;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -1095,6 +1096,44 @@ class ClinicsHomeController extends Controller
         $allBooking = Consultation::where('patient_id', $clinics_home->patient_id)->where('booking_type', 'Dialysis')->whereNotNull('time_ended')->whereNot('id', $clinics_home->id)->where('bookingDate', '<', $clinics_home->bookingDate)->orderBy('bookingDate','asc')->get();
         $pdf = Pdf::loadView($this->viewFolder . '.pdfHDSum', ['datum' => $clinics_home, 'allBooking' => $allBooking]);
         return $pdf->download('hdSum_' . $clinics_home->id . '-' . $clinics_home->treatment_number . '.pdf');
+        
+    }
+
+    function sendDrainwiz(Consultation $clinics_home){
+        // dd($clinics_home);
+        unset($params);
+        // $params['opid'] = "";
+        // $params['imagefile'] = "";
+        $params['lname'] = $clinics_home->patient->l_name;
+        $params['fname'] = $clinics_home->patient->f_name;
+        $params['mname'] = $clinics_home->patient->m_name;
+        $params['name'] = $clinics_home->patient->l_name . ', ' . $clinics_home->patient->f_name;
+        // $params['suffix'] = "";
+        $params['bday'] = $clinics_home->patient->birthdate;
+        $params['age'] = floor((strtotime($clinics_home->bookingDate) - strtotime($clinics_home->patient->birthdate))/(60*60*24*365.25));
+        $params['sex'] = $clinics_home->patient->gender;
+        $params['adrs'] = $clinics_home->patient->address;
+        // $params['cityadd'] = "";
+        // $params['provadd'] = "";
+        // $params['zipcode'] = "";
+        // $params['civilstatus'] = "";
+        $params['contactno'] = $clinics_home->patient->mobile_no;
+        $params['lastconsultation'] =$clinics_home->bookingDate;
+        $params['temp'] = $clinics_home->temp;
+        $params['bp'] = $clinics_home->bpS . '/' . $clinics_home->bdD;
+        $params['weight'] = $clinics_home->weight;
+        // $params['pwd'] = "";
+        // $params['phiccode'] = "";
+        // $params['phicmembr'] = "";
+        // $params['relationtomember'] = "";
+        // $params['phicpin'] = "";
+        // $params['phicmembrname'] = "";
+        $params['emailadd'] = $clinics_home->patient->email;
+        $params['anywheremd_id'] = $clinics_home->id;
+        $params['anywheremd_updated'] = date('Y-m-d H:i:s');
+        $params['status'] = "DONE ENTRY";
+        Opdpatient::create($params);
+        return redirect()->route($this->viewFolder . '.index')->with('message', 'Entry has been sent to Drainwiz.');
         
     }
 
