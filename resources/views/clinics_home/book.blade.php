@@ -1,15 +1,20 @@
 
 <datalist id="patientNameList"></datalist>
+@if(isset($cityZip))
 <datalist id="cityZipList">
   @foreach($cityZip as $cz)
     <option value="{{ $cz }}">
   @endforeach
 </datalist>
+@endif
+
+@if($provinceZip)
 <datalist id="provinceZipList">
   @foreach($provinceZip as $pz)
     <option value="{{ $pz }}">
   @endforeach
 </datalist>
+@endif
 
 <div class="container">
   <div class="row">
