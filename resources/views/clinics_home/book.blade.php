@@ -1,5 +1,15 @@
 
 <datalist id="patientNameList"></datalist>
+<datalist id="cityZipList">
+  @foreach($cityZip as $cz)
+    <option value="{{ $cz }}">
+  @endforeach
+</datalist>
+<datalist id="provinceZipList">
+  @foreach($provinceZip as $pz)
+    <option value="{{ $pz }}">
+  @endforeach
+</datalist>
 
 <div class="container">
   <div class="row">
@@ -3295,6 +3305,32 @@
                   <small id="help_{{ $viewFolder }}_address" class="text-muted"></small>
                 </div>
                 <div class="form-floating mb-3">
+                  <input class="form-control" list="cityZipList" name="{{ $viewFolder }}[Patient][cityZip]" id="{{ $viewFolder }}_cityZip" value="{{ isset($datum->patient->cityZip) ? $datum->patient->cityZip : '' }}" placeholder="" autocomplete="off" onchange = "
+                      if($(this).val() != ''){
+                        $('#{{ $viewFolder }}_provinceZip').prop('disabled', true);
+                        $('#{{ $viewFolder }}_provinceZip').prop('required', false);
+                      }else{
+                         $('#{{ $viewFolder }}_provinceZip').prop('disabled', false);
+                         $('#{{ $viewFolder }}_provinceZip').prop('required', true);
+                      }
+                    " required>
+                  <label for="{{ $viewFolder }}_cityZip" class="form-label">(NCR) City - Brgy - Zip Code</label>
+                  <small id="help_{{ $viewFolder }}_cityZip" class="text-muted">Search Zip Code/Brgy if located in NCR</small>
+                </div>
+                <div class="form-floating mb-3">
+                  <input class="form-control" list="provinceZipList" name="{{ $viewFolder }}[Patient][provinceZip]" id="{{ $viewFolder }}_provinceZip" value="{{ isset($datum->patient->provinceZip) ? $datum->patient->provinceZip : '' }}" placeholder="" autocomplete="off" onchange = "
+                      if($(this).val() != ''){
+                        $('#{{ $viewFolder }}_cityZip').prop('disabled', true);
+                        $('#{{ $viewFolder }}_cityZip').prop('required', false);
+                      }else{
+                         $('#{{ $viewFolder }}_cityZip').prop('disabled', false);
+                         $('#{{ $viewFolder }}_cityZip').prop('required', true);
+                      }
+                    " required>
+                  <label for="{{ $viewFolder }}_provinceZip" class="form-label">Province - Brgy - Zip Code</label>
+                  <small id="help_{{ $viewFolder }}_provinceZip" class="text-muted">Search Zip Code/Brgy if located not in NCR</small>
+                </div>
+                <div class="form-floating mb-3">
                   <input class="form-control" type="email" name="{{ $viewFolder }}[Patient][email]" id="{{ $viewFolder }}_email" placeholder="" value="{{ !empty($datum->patient->email) ? $datum->patient->email : '' }}">
                   <label for="{{ $viewFolder }}_email" class="form-label">Email</label>
                   <small id="help_{{ $viewFolder }}_email" class="text-muted"></small>
@@ -3719,10 +3755,30 @@
               $('#{{ $viewFolder }}_gender_male').prop('checked', false);
               $('#{{ $viewFolder }}_gender_female').prop('checked', true);
             }
+            $('#{{ $viewFolder }}_civilStatus').val(patientObj.civilStatus);
             $('#{{ $viewFolder }}_birthdate').val(patientObj.birthdate);
             $('#{{ $viewFolder }}_phil_num').val(patientObj.phil_num);
             $('#{{ $viewFolder }}_hmo_num').val(patientObj.hmo_num);
             $('#{{ $viewFolder }}_address').val(patientObj.address);
+            
+            // if(patientObj.cityZip == '' && patientObj._provinceZip == ''){
+            //   $('#{{ $viewFolder }}_provinceZip').prop('disabled', false);
+            //   $('#{{ $viewFolder }}_provinceZip').prop('required', true);
+            //   $('#{{ $viewFolder }}_cityZip').prop('disabled', false);
+            //   $('#{{ $viewFolder }}_cityZip').prop('required', true);
+            // }else{
+              if(patientObj.cityZip !== null && patientObj.cityZip != ''){
+                $('#{{ $viewFolder }}_provinceZip').prop('disabled', true);
+                $('#{{ $viewFolder }}_provinceZip').prop('required', false);
+                $('#{{ $viewFolder }}_cityZip').val(patientObj.cityZip);
+              }else if(ppatientObj.provinceZip !== null && patientObj.provinceZip != ''){
+                alert(patientObj.provinceZip);
+                $('#{{ $viewFolder }}_cityZip').prop('disabled', true);
+                $('#{{ $viewFolder }}_cityZip').prop('required', false);
+                $('#{{ $viewFolder }}_provinceZip').val(patientObj.provinceZip);
+              }
+            // }
+            
             $('#{{ $viewFolder }}_email').val(patientObj.email);
             $('#{{ $viewFolder }}_mobile_no').val(patientObj.mobile_no);
             if(patientObj.patient_type == 'Private'){

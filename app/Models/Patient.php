@@ -24,6 +24,8 @@ class Patient extends Model
         'hmo',
         'hmo_num',
         'address',
+        'cityZip',
+        'provinceZip',
         'email',
         'mobile_no',
         'patient_type',

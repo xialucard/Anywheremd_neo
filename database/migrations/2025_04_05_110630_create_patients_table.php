@@ -27,6 +27,8 @@ return new class extends Migration
             $table->string('hmo', 255)->nullable();
             $table->string('hmo_num', 255)->nullable();
             $table->text('address')->nullable();
+            $table->text('cityZip')->nullable();
+            $table->text('provinceZip')->nullable();
             $table->string('email', 255)->nullable();
             $table->string('mobile_no', 255)->nullable();
             $table->enum('patient_type', ['Private', 'In House'])->nullable();

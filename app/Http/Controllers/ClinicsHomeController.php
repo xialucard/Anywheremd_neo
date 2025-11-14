@@ -313,6 +313,10 @@ class ClinicsHomeController extends Controller
         $mon = null;
         $dayNum = null;
         $datum =  (object)['id' => null, 'created_at' => null, 'updated_at' => null];
+        $cityZip = file(storage_path('app/public/cityZip.csv', FILE_IGNORE_NEW_LINES));
+        $cityZip = array_map('trim', $cityZip);
+        $provinceZip = file(storage_path('app/public/provinceZip.csv', FILE_IGNORE_NEW_LINES));
+        $provinceZip = array_map('trim', $provinceZip);
         $doctor =  User::find($request->input($this->viewFolder)['doctor_id']);
         if($user->active == 2)
             return redirect()->route('home.myaccount')->with("Incomplete Form", $this->newUserMsg);
@@ -338,6 +342,8 @@ class ClinicsHomeController extends Controller
                     'modal' => true,
                     'dateBooking' => $request->input($this->viewFolder)['dateSched'],
                     'booking_type' => null,
+                    'cityZip' => $cityZip,
+                    'provinceZip' => $provinceZip,
                     'referer' => urldecode($request->headers->get('referer'))
                 ]);
         }
@@ -516,6 +522,10 @@ class ClinicsHomeController extends Controller
             $prevBooking = Consultation::where('patient_id', $datum->patient_id)->where('booking_type', 'Dialysis')->whereNotNull('time_ended')->whereNot('id', $datum->id)->orderBy('bookingDate','desc')->first();
             $allBooking = Consultation::where('patient_id', $datum->patient_id)->where('booking_type', 'Dialysis')->whereNotNull('time_ended')->whereNot('id', $datum->id)->where('bookingDate', '<', $datum->bookingDate)->orderBy('bookingDate','asc')->get();
         }
+        $cityZip = file(storage_path('app/public/cityZip.csv', FILE_IGNORE_NEW_LINES));
+        $cityZip = array_map('trim', $cityZip);
+        $provinceZip = file(storage_path('app/public/provinceZip.csv', FILE_IGNORE_NEW_LINES));
+        $provinceZip = array_map('trim', $provinceZip);
         if($user->active == 2)
             return redirect()->route('home.myaccount')->with("Incomplete Form", $this->newUserMsg);
         elseif($user->approved == 0)
@@ -545,6 +555,8 @@ class ClinicsHomeController extends Controller
                     'booking_type' => $datum->booking_type,
                     'prevBooking' => $prevBooking,
                     'allBooking' => $allBooking,
+                    'cityZip' => $cityZip,
+                    'provinceZip' => $provinceZip,
                     'referer' => urldecode($request->headers->get('referer'))
                 ]);
         }
@@ -1113,14 +1125,23 @@ class ClinicsHomeController extends Controller
         $params['age'] = floor((strtotime($clinics_home->bookingDate) - strtotime($clinics_home->patient->birthdate))/(60*60*24*365.25));
         $params['sex'] = $clinics_home->patient->gender;
         $params['adrs'] = $clinics_home->patient->address;
-        // $params['cityadd'] = "";
-        // $params['provadd'] = "";
-        // $params['zipcode'] = "";
+        if($clinics_home->patient->cityZip != ''){
+            $expCity = explode(",", $clinics_home->patient->cityZip);
+            $params['cityadd'] = $expCity[0];
+            $params['zipcode'] = $expCity[2];
+        }elseif($clinics_home->patient->provinceZip != ''){
+            $expProv = explode(",", $clinics_home->patient->provinceZip);
+            if(stristr($expProv[1], 'City'))
+                $params['cityadd'] = $expCity[1];
+            $params['provadd'] = $expProv[0];
+            $params['zipcode'] = $expProv[2];
+        }
+        
         $params['civilstatus'] = $clinics_home->patient->civilStatus;
         $params['contactno'] = $clinics_home->patient->mobile_no;
         $params['lastconsultation'] =$clinics_home->bookingDate;
         $params['temp'] = $clinics_home->temp;
-        $params['bp'] = $clinics_home->bpS . '/' . $clinics_home->bdD;
+        $params['bp'] = $clinics_home->bpS . '/' . $clinics_home->bpD;
         $params['weight'] = $clinics_home->weight;
         // $params['pwd'] = "";
         // $params['phiccode'] = "";
