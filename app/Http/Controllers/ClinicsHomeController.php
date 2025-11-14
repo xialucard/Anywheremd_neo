@@ -1116,7 +1116,7 @@ class ClinicsHomeController extends Controller
         // $params['cityadd'] = "";
         // $params['provadd'] = "";
         // $params['zipcode'] = "";
-        // $params['civilstatus'] = "";
+        $params['civilstatus'] = $clinics_home->patient->civilStatus;
         $params['contactno'] = $clinics_home->patient->mobile_no;
         $params['lastconsultation'] =$clinics_home->bookingDate;
         $params['temp'] = $clinics_home->temp;
