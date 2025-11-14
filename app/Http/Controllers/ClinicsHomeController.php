@@ -1126,7 +1126,7 @@ class ClinicsHomeController extends Controller
         // $params['phiccode'] = "";
         // $params['phicmembr'] = "";
         // $params['relationtomember'] = "";
-        // $params['phicpin'] = "";
+        $params['phicpin'] = $clinics_home->patient->hmo_num;
         // $params['phicmembrname'] = "";
         $params['emailadd'] = $clinics_home->patient->email;
         $params['anywheremd_id'] = $clinics_home->id;
@@ -1166,6 +1166,7 @@ class ClinicsHomeController extends Controller
         $selectItems['doctors'] = User::where('user_type', 'Doctor')->where('active', 1)->orderBy('name', 'asc')->get();
         // $selectItems['patients'] = $user->patients->sortBy('name');
         $selectItems['hmos'] = HealthOrganization::all()->sortBy('name');
+        $selectItems['civilStatus'] = $this->civilStatus;
         return $selectItems;
     }
     

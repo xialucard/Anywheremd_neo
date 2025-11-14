@@ -18,6 +18,7 @@ class Patient extends Model
         'l_name',
         'name',
         'gender',
+        'civilStatus',
         'birthdate',
         'phil_num',
         'hmo',

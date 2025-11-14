@@ -154,6 +154,13 @@ class Controller extends BaseController
         
     );
 
+    public $civilStatus = array(
+        "Single",
+        "Married",
+        "Widower",
+        "Separated"
+    );
+    
     public function moduleList()
     {
         $moduleArr['Dashboard'] = array('link' => '/');

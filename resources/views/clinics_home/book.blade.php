@@ -3255,6 +3255,16 @@
                   </div>
                 </div>
                 <div class="form-floating mb-3">
+                  <select class="form-select" name="{{ $viewFolder }}[Patient][civilStatus]" id="{{ $viewFolder }}_civilStatus" placeholder="" required>
+                    <option value=""></option>
+                  @foreach($selectItems['civilStatus'] as $cs)
+                    <option value="{{ $cs }}" {{ !empty($datum->patient->civilStatus) && $cs == $datum->patient->civilStatus ? 'selected' : '' }}>{{ $cs }}</option>
+                  @endforeach
+                  </select>
+                  <label for="{{ $viewFolder }}_civilStatus">Civil Status</label>
+                  <small id="help_{{ $viewFolder }}_civilStatus" class="text-muted"></small>
+                </div>
+                <div class="form-floating mb-3">
                   <input class="form-control" type="date" name="{{ $viewFolder }}[Patient][birthdate]" id="{{ $viewFolder }}_birthdate" placeholder="" value="{{ !empty($datum->patient->birthdate) ? $datum->patient->birthdate : '' }}" required>
                   <label for="{{ $viewFolder }}_birthdate" class="form-label">Birth Date</label>
                   <small id="help_{{ $viewFolder }}_birthdate" class="text-muted"></small>

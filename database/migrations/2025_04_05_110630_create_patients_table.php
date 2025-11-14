@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('name', 255);
             $table->string('relation', 255)->nullable();
             $table->enum('gender', ['male', 'female']);
+            $table->enum('civilStatus', ['Single', 'Marrried', 'Widower', 'Separated']);
             $table->date('birthdate')->nullable();
             $table->string('phil_num', 255)->nullable();
             $table->string('hmo', 255)->nullable();
