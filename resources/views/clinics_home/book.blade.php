@@ -3318,7 +3318,7 @@
                          $('#{{ $viewFolder }}_provinceZip').prop('disabled', false);
                          $('#{{ $viewFolder }}_provinceZip').prop('required', true);
                       }
-                    " required>
+                    " {{ isset($datum->patient->provinceZip) ? 'disabled' : 'required' }}>
                   <label for="{{ $viewFolder }}_cityZip" class="form-label">(NCR) City - Brgy - Zip Code</label>
                   <small id="help_{{ $viewFolder }}_cityZip" class="text-muted">Search Zip Code/Brgy if located in NCR</small>
                 </div>
@@ -3331,7 +3331,7 @@
                          $('#{{ $viewFolder }}_cityZip').prop('disabled', false);
                          $('#{{ $viewFolder }}_cityZip').prop('required', true);
                       }
-                    " required>
+                    " {{ isset($datum->patient->cityZip) ? 'disabled' : 'required' }}>
                   <label for="{{ $viewFolder }}_provinceZip" class="form-label">Province - Brgy - Zip Code</label>
                   <small id="help_{{ $viewFolder }}_provinceZip" class="text-muted">Search Zip Code/Brgy if located not in NCR</small>
                 </div>
