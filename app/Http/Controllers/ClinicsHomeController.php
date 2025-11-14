@@ -1132,7 +1132,7 @@ class ClinicsHomeController extends Controller
         }elseif($clinics_home->patient->provinceZip != ''){
             $expProv = explode(",", $clinics_home->patient->provinceZip);
             if(stristr($expProv[1], 'City'))
-                $params['cityadd'] = $expCity[1];
+                $params['cityadd'] = $expProv[1];
             $params['provadd'] = $expProv[0];
             $params['zipcode'] = $expProv[2];
         }
@@ -1147,7 +1147,7 @@ class ClinicsHomeController extends Controller
         // $params['phiccode'] = "";
         // $params['phicmembr'] = "";
         // $params['relationtomember'] = "";
-        $params['phicpin'] = $clinics_home->patient->hmo_num;
+        $params['phicpin'] = $clinics_home->patient->phil_num;
         // $params['phicmembrname'] = "";
         $params['emailadd'] = $clinics_home->patient->email;
         $params['anywheremd_id'] = $clinics_home->id;
