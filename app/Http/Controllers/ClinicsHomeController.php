@@ -1129,7 +1129,7 @@ class ClinicsHomeController extends Controller
             $expCity = explode(",", $clinics_home->patient->cityZip);
             $params['cityadd'] = $expCity[0];
             if(isset($expCity[2]))
-                params['zipcode'] = $expCity[2];
+                $params['zipcode'] = $expCity[2];
         }elseif($clinics_home->patient->provinceZip != ''){
             $expProv = explode(",", $clinics_home->patient->provinceZip);
             if(stristr($expProv[1], 'City'))
