@@ -15,6 +15,7 @@ use App\Models\HealthOrganization;
 use App\Models\NurseFile;
 use App\Models\Opdpatient;
 use App\Models\Patient;
+use App\Models\Schedule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -70,11 +71,14 @@ class ClinicsHomeController extends Controller
         unset($doctorArr);
         foreach($user->clinic->affiliated_doctors()->get('doctor_id') as $docObj){
             if(!is_null($docObj->doctor_id)){
-                $docRes = User::find($docObj->doctor_id);
-                if(isset($docRes)){
-                    foreach($docRes->schedules()->where('dateSched', $yr . '-' . $mon . '-' . $dayNum)->get('doctor_id') as $doc){
-                        $doctorArr[$doc->doctor_id] = $doc->doctor_id;
-                    }
+                // $docRes = User::find($docObj->doctor_id);
+                // if(isset($docRes)){
+                //     foreach($docRes->schedules()->where('dateSched', $yr . '-' . $mon . '-' . $dayNum)->get('doctor_id') as $doc){
+                //         $doctorArr[$doc->doctor_id] = $doc->doctor_id;
+                //     }
+                // }
+                foreach(Schedule::where('dateSched', $yr . '-' . $mon . '-' . $dayNum)->where('doctor_id', $docObj->doctor_id)->get('doctor_id') as $doc){
+                    $doctorArr[$doc->doctor_id] = $doc->doctor_id;
                 }
             }
             
@@ -82,11 +86,14 @@ class ClinicsHomeController extends Controller
         unset($doctorArrMon);
         foreach($user->clinic->affiliated_doctors()->get('doctor_id') as $docObj){
             if(!is_null($docObj->doctor_id)){
-                $docRes = User::find($docObj->doctor_id);
-                if(isset($docRes)){
-                    foreach($docRes->schedules()->whereYear('dateSched', $yr)->whereMonth('dateSched', $mon)->get('doctor_id') as $doc){
-                        $doctorArrMon[$doc->doctor_id] = $doc->doctor_id;
-                    }
+                // $docRes = User::find($docObj->doctor_id);
+                // if(isset($docRes)){
+                //     foreach($docRes->schedules()->whereYear('dateSched', $yr)->whereMonth('dateSched', $mon)->get('doctor_id') as $doc){
+                //         $doctorArrMon[$doc->doctor_id] = $doc->doctor_id;
+                //     }
+                // }
+                foreach(Schedule::whereYear('dateSched', $yr)->whereMonth('dateSched', $mon)->where('doctor_id', $docObj->doctor_id)->get('doctor_id') as $doc){
+                    $doctorArrMon[$doc->doctor_id] = $doc->doctor_id;
                 }
             }
         }
