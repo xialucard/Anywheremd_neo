@@ -131,16 +131,16 @@ class ClinicsHomeController extends Controller
 
         if(!is_null($patientArr) && !is_null($doctorArr)){
             // $bookings = $user->clinic->bookings()->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->whereIn('patient_id', $patientArr)->whereIn('doctor_id', $doctorArr)->get();
-            $bookings = Consultation::where('clinic_id', $user->clinic_id)->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->whereIn('patient_id', $patientArr)->whereIn('doctor_id', $doctorArr)->get();
+            $bookings = Consultation::where('clinic_id', $user->clinic_id)->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->whereIn('patient_id', $patientArr)->whereIn('doctor_id', $doctorArr)->get('id');
         }elseif(!is_null($patientArr)){
             // $bookings = $user->clinic->bookings()->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->whereIn('patient_id', $patientArr)->get();
-            $bookings = Consultation::where('clinic_id', $user->clinic_id)->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->whereIn('patient_id', $patientArr)->get();
+            $bookings = Consultation::where('clinic_id', $user->clinic_id)->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->whereIn('patient_id', $patientArr)->get('id');
         }elseif(!is_null($doctorArr)){
             // $bookings = $user->clinic->bookings()->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->whereIn('doctor_id', $doctorArr)->get();
-            $bookings = Consultation::where('clinic_id', $user->clinic_id)->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->whereIn('doctor_id', $doctorArr)->get();
+            $bookings = Consultation::where('clinic_id', $user->clinic_id)->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->whereIn('doctor_id', $doctorArr)->get('id');
         }else{
             // $bookings = $user->clinic->bookings()->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->get();
-            $bookings = Consultation::where('clinic_id', $user->clinic_id)->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->get();
+            $bookings = Consultation::where('clinic_id', $user->clinic_id)->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->get('id');
         }
 
         $booking_type_arr = array('Diagnostics' => 0, 'Dialysis' => 0, 'Surgery' => 0, 'Laser' => 0, 'Laboratory' => 0, 'Referral' => 0, 'Consultation' => 0);
