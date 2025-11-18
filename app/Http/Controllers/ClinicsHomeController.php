@@ -207,12 +207,14 @@ class ClinicsHomeController extends Controller
                 //             $calendarArr[date('d', strtotime($sched->dateSched))][$sched->doctor_id] += 1;
                 //     }    
                 // }
-                foreach(Schedule::whereYear('dateSched', $yr)->whereMonth('dateSched', $mon)->where('doctor_id', $docObj->doctor_id)->get() as $sched){
-                    if(!isset($calendarArr[date('d', strtotime($sched->dateSched))][$sched->doctor_id]))
-                        $calendarArr[date('d', strtotime($sched->dateSched))][$sched->doctor_id] = 1;
-                    else
-                        $calendarArr[date('d', strtotime($sched->dateSched))][$sched->doctor_id] += 1;
-                }   
+                if(!is_null($docObj->doctor_id)){
+                    foreach(Schedule::whereYear('dateSched', $yr)->whereMonth('dateSched', $mon)->where('doctor_id', $docObj->doctor_id)->get() as $sched){
+                        if(!isset($calendarArr[date('d', strtotime($sched->dateSched))][$sched->doctor_id]))
+                            $calendarArr[date('d', strtotime($sched->dateSched))][$sched->doctor_id] = 1;
+                        else
+                            $calendarArr[date('d', strtotime($sched->dateSched))][$sched->doctor_id] += 1;
+                    }
+                }
             }
         }
 
