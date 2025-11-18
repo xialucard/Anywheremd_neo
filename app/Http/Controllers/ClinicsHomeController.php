@@ -242,6 +242,26 @@ class ClinicsHomeController extends Controller
             else
                 $bookingArr[date('d', strtotime($booking->bookingDate))] += 1;
         }
+        unset($bookingArrList);
+        if(!empty($booking_type) && $booking_type == 'Referral'){
+            if(!is_null($patientArr) && !is_null($doctorArr))
+                $bookingArrList = Consultation::whereNotNull('consultation_parent_id', )->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->whereIn('patient_id', $patientArr)->whereIn('doctor_id', $doctorArr)->get();
+            elseif(!is_null($patientArr))
+                $bookingArrList = Consultation::whereNotNull('consultation_parent_id', )->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->whereIn('patient_id', $patientArr)->get();
+            elseif(!is_null($doctorArr))
+                $bookingArrList = Consultation::whereNotNull('consultation_parent_id', )->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->whereIn('doctor_id', $doctorArr)->get();
+            else
+                $bookingArrList = Consultation::whereNotNull('consultation_parent_id', )->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->get();
+        }else{
+            if(!is_null($patientArr) && !is_null($doctorArr))
+                $bookingArrList = Consultation::where('booking_type', $booking_type == 'Consultation' ? '' : $booking_type)->whereNull('consultation_parent_id')->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->whereIn('patient_id', $patientArr)->whereIn('doctor_id', $doctorArr)->get();
+            elseif(!is_null($patientArr))
+                $bookingArrList = Consultation::where('booking_type', $booking_type == 'Consultation' ? '' : $booking_type)->whereNull('consultation_parent_id')->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->whereIn('patient_id', $patientArr)->get();
+            elseif(!is_null($doctorArr))
+                $bookingArrList = Consultation::where('booking_type', $booking_type == 'Consultation' ? '' : $booking_type)->whereNull('consultation_parent_id')->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->whereIn('doctor_id', $doctorArr)->get();
+            else
+                $bookingArrList = Consultation::where('booking_type', $booking_type == 'Consultation' ? '' : $booking_type)->whereNull('consultation_parent_id')->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->get();
+        }
         
 
         if($user->active == 2)
@@ -266,6 +286,7 @@ class ClinicsHomeController extends Controller
                 'schedules'=>$schedules,
                 'schedulesMon'=>$schedulesMon,
                 'bookingArr'=>$bookingArr,
+                'bookingArrList'=>$bookingArrList,
                 'calendarArr'=>$calendarArr,
                 'user' => $user,
                 'inputFormHeader' => 'Booking',
