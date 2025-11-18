@@ -69,20 +69,24 @@ class ClinicsHomeController extends Controller
 
         unset($doctorArr);
         foreach($user->clinic->affiliated_doctors()->get('doctor_id') as $docObj){
-            $docRes = User::find($docObj->doctor_id);
-            if(isset($docRes)){
-                foreach($docRes->schedules()->where('dateSched', $yr . '-' . $mon . '-' . $dayNum)->get('doctor_id') as $doc){
-                    $doctorArr[$doc->doctor_id] = $doc->doctor_id;
+            if($docObj->doctor_id != ""){
+                $docRes = User::find($docObj->doctor_id);
+                if(isset($docRes)){
+                    foreach($docRes->schedules()->where('dateSched', $yr . '-' . $mon . '-' . $dayNum)->get('doctor_id') as $doc){
+                        $doctorArr[$doc->doctor_id] = $doc->doctor_id;
+                    }
                 }
             }
             
         }
         unset($doctorArrMon);
         foreach($user->clinic->affiliated_doctors()->get('doctor_id') as $docObj){
-            $docRes = User::find($docObj->doctor_id);
-            if(isset($docRes)){
-                foreach($docRes->schedules()->whereYear('dateSched', $yr)->whereMonth('dateSched', $mon)->get('doctor_id') as $doc){
-                    $doctorArrMon[$doc->doctor_id] = $doc->doctor_id;
+            if($docObj->doctor_id != ""){
+                $docRes = User::find($docObj->doctor_id);
+                if(isset($docRes)){
+                    foreach($docRes->schedules()->whereYear('dateSched', $yr)->whereMonth('dateSched', $mon)->get('doctor_id') as $doc){
+                        $doctorArrMon[$doc->doctor_id] = $doc->doctor_id;
+                    }
                 }
             }
         }
