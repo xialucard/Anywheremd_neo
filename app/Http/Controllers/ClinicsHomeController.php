@@ -68,7 +68,7 @@ class ClinicsHomeController extends Controller
         }
 
         unset($doctorArr);
-        foreach($user->clinic->affiliated_doctors()->get() as $docObj){
+        foreach($user->clinic->affiliated_doctors()->get('doctor_id') as $docObj){
             $docRes = User::find($docObj->doctor_id);
             if(isset($docRes)){
                 foreach($docRes->schedules()->where('dateSched', $yr . '-' . $mon . '-' . $dayNum)->get('doctor_id') as $doc){
@@ -78,7 +78,7 @@ class ClinicsHomeController extends Controller
             
         }
         unset($doctorArrMon);
-        foreach($user->clinic->affiliated_doctors()->get() as $docObj){
+        foreach($user->clinic->affiliated_doctors()->get('doctor_id') as $docObj){
             $docRes = User::find($docObj->doctor_id);
             if(isset($docRes)){
                 foreach($docRes->schedules()->whereYear('dateSched', $yr)->whereMonth('dateSched', $mon)->get('doctor_id') as $doc){
@@ -96,17 +96,17 @@ class ClinicsHomeController extends Controller
                     $specialty = $schedules->get()[0]->specialty;
             }
             if(isset($doctorArrMon))
-                $schedulesMon = User::whereIn('id', $doctorArrMon)->where('id', $doctor_id);
+                $schedulesMon = User::whereIn('id', $doctorArrMon)->where('id', $doctor_id)->count();
         }elseif(isset($specialty)){
             if(isset($doctorArr))
                 $schedules = User::whereIn('id', $doctorArr)->where('specialty', $specialty);
             if(isset($doctorArrMon))
-                $schedulesMon = User::whereIn('id', $doctorArrMon)->where('specialty', $specialty);
+                $schedulesMon = User::whereIn('id', $doctorArrMon)->where('specialty', $specialty)->count();
         }else{
             if(isset($doctorArr))
                 $schedules = User::whereIn('id', $doctorArr);
             if(isset($doctorArrMon))
-                $schedulesMon = User::whereIn('id', $doctorArrMon);
+                $schedulesMon = User::whereIn('id', $doctorArrMon)->count();
         }
         // if(!is_null($schedulesMon))
         //     $doctor_list_id = $schedulesMon->get('id');
@@ -198,16 +198,16 @@ class ClinicsHomeController extends Controller
 
         if(!is_null($patientArr) && !is_null($doctorArr)){
             // $bookingsMon = $user->clinic->bookings()->whereYear('bookingDate', $yr)->whereMonth('bookingDate', $mon)->whereIn('patient_id', $patientArr)->whereIn('doctor_id', $doctorArr)->get();
-            $bookingsMon = Consultation::where('clinic_id', $user->clinic_id)->whereYear('bookingDate', $yr)->whereMonth('bookingDate', $mon)->whereIn('patient_id', $patientArr)->whereIn('doctor_id', $doctorArr)->get();
+            $bookingsMon = Consultation::where('clinic_id', $user->clinic_id)->whereYear('bookingDate', $yr)->whereMonth('bookingDate', $mon)->whereIn('patient_id', $patientArr)->whereIn('doctor_id', $doctorArr)->get('bookingDate');
         }elseif(!is_null($patientArr)){
             // $bookingsMon = $user->clinic->bookings()->whereYear('bookingDate', $yr)->whereMonth('bookingDate', $mon)->whereIn('patient_id', $patientArr)->get();
-            $bookingsMon = Consultation::where('clinic_id', $user->clinic_id)->whereYear('bookingDate', $yr)->whereMonth('bookingDate', $mon)->whereIn('patient_id', $patientArr)->get();
+            $bookingsMon = Consultation::where('clinic_id', $user->clinic_id)->whereYear('bookingDate', $yr)->whereMonth('bookingDate', $mon)->whereIn('patient_id', $patientArr)->get('bookingDate');
         }elseif(!is_null($doctorArr)){
             // $bookingsMon = $user->clinic->bookings()->whereYear('bookingDate', $yr)->whereMonth('bookingDate', $mon)->whereIn('doctor_id', $doctorArr)->get();
-            $bookingsMon = Consultation::where('clinic_id', $user->clinic_id)->whereYear('bookingDate', $yr)->whereMonth('bookingDate', $mon)->whereIn('doctor_id', $doctorArr)->get();
+            $bookingsMon = Consultation::where('clinic_id', $user->clinic_id)->whereYear('bookingDate', $yr)->whereMonth('bookingDate', $mon)->whereIn('doctor_id', $doctorArr)->get('bookingDate');
         }else{
             // $bookingsMon = $user->clinic->bookings()->whereYear('bookingDate', $yr)->whereMonth('bookingDate', $mon)->get();
-            $bookingsMon = Consultation::where('clinic_id', $user->clinic_id)->whereYear('bookingDate', $yr)->whereMonth('bookingDate', $mon)->get();
+            $bookingsMon = Consultation::where('clinic_id', $user->clinic_id)->whereYear('bookingDate', $yr)->whereMonth('bookingDate', $mon)->get('bookingDate');
         }
         // print "<pre>";
         // print_r($bookingsMon);
