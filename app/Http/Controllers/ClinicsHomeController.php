@@ -196,16 +196,23 @@ class ClinicsHomeController extends Controller
         
         $calendarArr = null;
         if(!is_null($schedulesMon)){
-            foreach($user->clinic->affiliated_doctors()->get() as $docObj){
-                $docRes = User::find($docObj->doctor_id);
-                if(isset($docRes)){
-                    foreach($docRes->schedules()->whereYear('dateSched', $yr)->whereMonth('dateSched', $mon)->get() as $sched){
-                        if(!isset($calendarArr[date('d', strtotime($sched->dateSched))][$sched->doctor_id]))
-                            $calendarArr[date('d', strtotime($sched->dateSched))][$sched->doctor_id] = 1;
-                        else
-                            $calendarArr[date('d', strtotime($sched->dateSched))][$sched->doctor_id] += 1;
-                    }    
-                }
+            // foreach($user->clinic->affiliated_doctors()->get() as $docObj){
+            foreach(AffiliatedDoctor::where('clinic_id', $user->clinic_id)->get('doctor_id') as $docObj){
+                // $docRes = User::find($docObj->doctor_id);
+                // if(isset($docRes)){
+                //     foreach($docRes->schedules()->whereYear('dateSched', $yr)->whereMonth('dateSched', $mon)->get() as $sched){
+                //         if(!isset($calendarArr[date('d', strtotime($sched->dateSched))][$sched->doctor_id]))
+                //             $calendarArr[date('d', strtotime($sched->dateSched))][$sched->doctor_id] = 1;
+                //         else
+                //             $calendarArr[date('d', strtotime($sched->dateSched))][$sched->doctor_id] += 1;
+                //     }    
+                // }
+                foreach(Schedule::whereYear('dateSched', $yr)->whereMonth('dateSched', $mon)->where('doctor_id', $docObj->doctor_id)->get() as $sched){
+                    if(!isset($calendarArr[date('d', strtotime($sched->dateSched))][$sched->doctor_id]))
+                        $calendarArr[date('d', strtotime($sched->dateSched))][$sched->doctor_id] = 1;
+                    else
+                        $calendarArr[date('d', strtotime($sched->dateSched))][$sched->doctor_id] += 1;
+                }   
             }
         }
 
