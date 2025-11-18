@@ -337,28 +337,28 @@
                                         @if(isset($booking_type_arr))    
                                             @if(!empty($yr))
                                                 @php
-                                                    // if(!empty($booking_type) && $booking_type == 'Referral'){
-                                                    //     if(!is_null($patientArr) && !is_null($doctorArr))
-                                                    //         $bookingArr = $user->clinic->bookings()->whereNotNull('consultation_parent_id', )->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->whereIn('patient_id', $patientArr)->whereIn('doctor_id', $doctorArr)->get();
-                                                    //     elseif(!is_null($patientArr))
-                                                    //         $bookingArr = $user->clinic->bookings()->whereNotNull('consultation_parent_id', )->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->whereIn('patient_id', $patientArr)->get();
-                                                    //     elseif(!is_null($doctorArr))
-                                                    //         $bookingArr = $user->clinic->bookings()->whereNotNull('consultation_parent_id', )->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->whereIn('doctor_id', $doctorArr)->get();
-                                                    //     else
-                                                    //         $bookingArr = $user->clinic->bookings()->whereNotNull('consultation_parent_id', )->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->get();
-                                                    // }else{
-                                                    //     if(!is_null($patientArr) && !is_null($doctorArr))
-                                                    //         $bookingArr = $user->clinic->bookings()->where('booking_type', $booking_type == 'Consultation' ? '' : $booking_type)->whereNull('consultation_parent_id')->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->whereIn('patient_id', $patientArr)->whereIn('doctor_id', $doctorArr)->get();
-                                                    //     elseif(!is_null($patientArr))
-                                                    //         $bookingArr = $user->clinic->bookings()->where('booking_type', $booking_type == 'Consultation' ? '' : $booking_type)->whereNull('consultation_parent_id')->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->whereIn('patient_id', $patientArr)->get();
-                                                    //     elseif(!is_null($doctorArr))
-                                                    //         $bookingArr = $user->clinic->bookings()->where('booking_type', $booking_type == 'Consultation' ? '' : $booking_type)->whereNull('consultation_parent_id')->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->whereIn('doctor_id', $doctorArr)->get();
-                                                    //     else
-                                                    //         $bookingArr = $user->clinic->bookings()->where('booking_type', $booking_type == 'Consultation' ? '' : $booking_type)->whereNull('consultation_parent_id')->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->get();
-                                                    // }
+                                                    if(!empty($booking_type) && $booking_type == 'Referral'){
+                                                        if(!is_null($patientArr) && !is_null($doctorArr))
+                                                            $bookingArr = $user->clinic->bookings()->whereNotNull('consultation_parent_id', )->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->whereIn('patient_id', $patientArr)->whereIn('doctor_id', $doctorArr)->get();
+                                                        elseif(!is_null($patientArr))
+                                                            $bookingArr = $user->clinic->bookings()->whereNotNull('consultation_parent_id', )->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->whereIn('patient_id', $patientArr)->get();
+                                                        elseif(!is_null($doctorArr))
+                                                            $bookingArr = $user->clinic->bookings()->whereNotNull('consultation_parent_id', )->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->whereIn('doctor_id', $doctorArr)->get();
+                                                        else
+                                                            $bookingArr = $user->clinic->bookings()->whereNotNull('consultation_parent_id', )->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->get();
+                                                    }else{
+                                                        if(!is_null($patientArr) && !is_null($doctorArr))
+                                                            $bookingArr = $user->clinic->bookings()->where('booking_type', $booking_type == 'Consultation' ? '' : $booking_type)->whereNull('consultation_parent_id')->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->whereIn('patient_id', $patientArr)->whereIn('doctor_id', $doctorArr)->get();
+                                                        elseif(!is_null($patientArr))
+                                                            $bookingArr = $user->clinic->bookings()->where('booking_type', $booking_type == 'Consultation' ? '' : $booking_type)->whereNull('consultation_parent_id')->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->whereIn('patient_id', $patientArr)->get();
+                                                        elseif(!is_null($doctorArr))
+                                                            $bookingArr = $user->clinic->bookings()->where('booking_type', $booking_type == 'Consultation' ? '' : $booking_type)->whereNull('consultation_parent_id')->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->whereIn('doctor_id', $doctorArr)->get();
+                                                        else
+                                                            $bookingArr = $user->clinic->bookings()->where('booking_type', $booking_type == 'Consultation' ? '' : $booking_type)->whereNull('consultation_parent_id')->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->get();
+                                                    }
                                                     // $bookingArr = array();
                                                 @endphp
-                                                @foreach($bookingArrList as $dat)
+                                                @foreach($bookingArr as $dat)
                                                 
                                             <tr>
                                                 <td>@include($viewFolder . '.tableOptions')</td>
