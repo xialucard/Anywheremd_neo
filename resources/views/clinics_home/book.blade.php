@@ -748,6 +748,18 @@
               </div>
             </div>
             <div class="row">
+              <div class="col-lg-6">
+                <div class="input-group mb-3">
+                  <div class="form-floating">
+                    <input class="form-control" type="number" name="{{ $viewFolder }}[height]" min=1 step=.1 id="{{ $viewFolder }}_height" value="{{ isset($datum->height) ? $datum->height : (isset($prevBooking->height) ? $prevBooking->height : '') }}" placeholder="" >
+                    <label for="{{ $viewFolder }}_height" class="form-label">Height</label>
+                    <small id="help_{{ $viewFolder }}_height" class="text-muted"></small>
+                  </div>
+                  <span class="input-group-text">cm</span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
               <div class="col-lg-4">
                 <div class="input-group mb-3">
                   <div class="form-floating">
@@ -3283,6 +3295,11 @@
                   <input class="form-control" type="date" name="{{ $viewFolder }}[Patient][birthdate]" id="{{ $viewFolder }}_birthdate" placeholder="" value="{{ !empty($datum->patient->birthdate) ? $datum->patient->birthdate : '' }}" required>
                   <label for="{{ $viewFolder }}_birthdate" class="form-label">Birth Date</label>
                   <small id="help_{{ $viewFolder }}_birthdate" class="text-muted"></small>
+                </div>
+                <div class="form-floating mb-3">
+                  <input class="form-control" type="number" id="{{ $viewFolder }}_age" placeholder="" value="{{ !empty($datum->patient->birthdate) ? floor((strtotime(date('Y-m-d')) - strtotime($datum->patient->birthdate))/(60*60*24*365.25)) : '' }}" disabled>
+                  <label for="{{ $viewFolder }}_age" class="form-label">Age</label>
+                  <small id="help_{{ $viewFolder }}_age" class="text-muted"></small>
                 </div>
                 <div class="form-floating mb-3">
                   <input class="form-control" type="text" name="{{ $viewFolder }}[Patient][phil_num]" id="{{ $viewFolder }}_phil_num" placeholder="" value="{{ !empty($datum->patient->phil_num) ? $datum->patient->phil_num : '' }}" {{ isset($datum->payment_mode) && ($datum->payment_mode == 'Both' || $datum->payment_mode == 'Both Cash' || $datum->payment_mode == 'Philhealth') ? '' : 'disabled' }}>
