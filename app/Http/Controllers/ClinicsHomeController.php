@@ -108,8 +108,8 @@ class ClinicsHomeController extends Controller
             if(isset($doctorArrMon))
                 $schedulesMon = User::whereIn('id', $doctorArrMon);
         }
-        if(!is_null($schedulesMon))
-            $doctor_list_id = $schedulesMon->get('id');
+        // if(!is_null($schedulesMon))
+        //     $doctor_list_id = $schedulesMon->get('id');
         
         
         $patientArr = null;
@@ -1153,6 +1153,7 @@ class ClinicsHomeController extends Controller
         $params['anywheremd_id'] = $clinics_home->id;
         $params['anywheremd_updated'] = date('Y-m-d H:i:s');
         $params['status'] = "DONE ENTRY";
+        $params['client_id'] = $clinics_home->clinic_id;
         Opdpatient::create($params);
         return redirect()->route($this->viewFolder . '.index')->with('message', 'Entry has been sent to Drainwiz.');
         

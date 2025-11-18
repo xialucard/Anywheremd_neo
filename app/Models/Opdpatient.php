@@ -42,7 +42,8 @@ class Opdpatient extends Model
         'anywheremd_updated',
         'drainwiz_refno',
         'drainwiz_updated',
-        'status'
+        'status',
+        'client_id'
     ];
 
     
