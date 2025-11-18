@@ -69,7 +69,8 @@ class ClinicsHomeController extends Controller
         }
 
         unset($doctorArr);
-        foreach($user->clinic->affiliated_doctors()->get('doctor_id') as $docObj){
+        // foreach($user->clinic->affiliated_doctors()->get('doctor_id') as $docObj){
+        foreach(AffiliatedDoctor::where('clinic_id', $user->clinic_id)->get('doctor_id') as $docObj){
             if(!is_null($docObj->doctor_id)){
                 // $docRes = User::find($docObj->doctor_id);
                 // if(isset($docRes)){
@@ -84,7 +85,8 @@ class ClinicsHomeController extends Controller
             
         }
         unset($doctorArrMon);
-        foreach($user->clinic->affiliated_doctors()->get('doctor_id') as $docObj){
+        // foreach($user->clinic->affiliated_doctors()->get('doctor_id') as $docObj){
+         foreach(AffiliatedDoctor::where('clinic_id', $user->clinic_id)->get('doctor_id') as $docObj){
             if(!is_null($docObj->doctor_id)){
                 // $docRes = User::find($docObj->doctor_id);
                 // if(isset($docRes)){
