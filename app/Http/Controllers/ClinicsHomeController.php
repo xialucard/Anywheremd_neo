@@ -69,7 +69,7 @@ class ClinicsHomeController extends Controller
 
         unset($doctorArr);
         foreach($user->clinic->affiliated_doctors()->get('doctor_id') as $docObj){
-            if($docObj->doctor_id != ""){
+            if(!is_null($docObj->doctor_id)){
                 $docRes = User::find($docObj->doctor_id);
                 if(isset($docRes)){
                     foreach($docRes->schedules()->where('dateSched', $yr . '-' . $mon . '-' . $dayNum)->get('doctor_id') as $doc){
@@ -81,7 +81,7 @@ class ClinicsHomeController extends Controller
         }
         unset($doctorArrMon);
         foreach($user->clinic->affiliated_doctors()->get('doctor_id') as $docObj){
-            if($docObj->doctor_id != ""){
+            if(!is_null($docObj->doctor_id)){
                 $docRes = User::find($docObj->doctor_id);
                 if(isset($docRes)){
                     foreach($docRes->schedules()->whereYear('dateSched', $yr)->whereMonth('dateSched', $mon)->get('doctor_id') as $doc){
