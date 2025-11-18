@@ -356,6 +356,7 @@
                                                         else
                                                             $bookingArr = $user->clinic->bookings()->where('booking_type', $booking_type == 'Consultation' ? '' : $booking_type)->whereNull('consultation_parent_id')->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->get();
                                                     }
+                                                    $bookingArr = array();
                                                 @endphp
                                                 @foreach($bookingArr as $dat)
                                                 
