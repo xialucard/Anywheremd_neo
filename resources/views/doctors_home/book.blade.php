@@ -4512,7 +4512,7 @@
                                 <th>Duration</th>
                               </tr>
                             </thead>
-                            <tbody id="medsOnboardTable{{ $datum->id }}">
+                            <tbody>
                             @foreach ($datum->consultation_meds_onboards()->orderBy('id', 'desc')->get() as $dat)
                               <tr id="{{ $dat->id }}" log="medsOnboards">
                                   <td>{{ $dat->meds }}</td>
