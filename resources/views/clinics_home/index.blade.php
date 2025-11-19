@@ -24,18 +24,18 @@
                         //     $getDayKey = true;
                         //     $dayNum = date('d');
                         // }
-                        // unset($doctor_list);
-                        // unset($specialty_list);
-                        // if(!empty($schedules)){
-                        //     if($dayNumSet){
-                        //         $doctor_list = $schedules->get(['id', 'name', 'specialty'])->sortBy('name');
-                        //         $specialty_list = $schedules->distinct()->get('specialty')->sortBy('specialty');
-                        //     }else{
-                        //         $doctor_list = $schedules->get(['id', 'name', 'specialty'])->sortBy('name');
-                        //         $specialty_list = $schedules->distinct()->get('specialty')->sortBy('specialty');
-                        //     }
-                        //     // $doctor_list_id = $schedulesMon->get('id');
-                        // }
+                        unset($doctor_list);
+                        unset($specialty_list);
+                        if(!empty($schedules)){
+                            if($dayNumSet){
+                                $doctor_list = $schedules->get(['id', 'name', 'specialty'])->sortBy('name');
+                                $specialty_list = $schedules->distinct()->get('specialty')->sortBy('specialty');
+                            }else{
+                                $doctor_list = $schedules->get(['id', 'name', 'specialty'])->sortBy('name');
+                                $specialty_list = $schedules->distinct()->get('specialty')->sortBy('specialty');
+                            }
+                            // $doctor_list_id = $schedulesMon->get('id');
+                        }
                         
                         
                         $dayArr[] = 'Sun';
