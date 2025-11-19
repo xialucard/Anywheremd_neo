@@ -67,37 +67,35 @@ class ClinicsHomeController extends Controller
         }elseif(!isset($dayNum)){
             $dayNum = 1;
         }
-        $affDocArr = AffiliatedDoctor::where('clinic_id', $user->clinic_id)->distinct()->get('doctor_id');
-        unset($doctorArr);
+        $affDocRes = AffiliatedDoctor::where('clinic_id', $user->clinic_id)->distinct()->get('doctor_id');
+        unset($affDocArr);
         // foreach($user->clinic->affiliated_doctors()->get('doctor_id') as $docObj){
-        foreach($affDocArr  as $docObj){
+        foreach($affDocRes  as $docObj){
             if(!is_null($docObj->doctor_id)){
-                // $docRes = User::find($docObj->doctor_id);
-                // if(isset($docRes)){
-                //     foreach($docRes->schedules()->where('dateSched', $yr . '-' . $mon . '-' . $dayNum)->get('doctor_id') as $doc){
-                //         $doctorArr[$doc->doctor_id] = $doc->doctor_id;
-                //     }
-                // }
-                foreach(Schedule::where('dateSched', $yr . '-' . $mon . '-' . $dayNum)->where('doctor_id', $docObj->doctor_id)->distinct()->get('doctor_id') as $doc){
-                    $doctorArr[$doc->doctor_id] = $doc->doctor_id;
-                }
+                $affDocArr[$docObj->doctor_id] = $docObj->doctor_id;
             }
             
         }
-        unset($doctorArrMon);
+        unset($doctorArr);
+        foreach(Schedule::where('dateSched', $yr . '-' . $mon . '-' . $dayNum)->whereIn('doctor_id', $affDocArr)->distinct()->get('doctor_id') as $doc){
+            $doctorArr[$doc->doctor_id] = $doc->doctor_id;
+        }
+        
         // foreach($user->clinic->affiliated_doctors()->get('doctor_id') as $docObj){
-         foreach($affDocArr  as $docObj){
-            if(!is_null($docObj->doctor_id)){
-                // $docRes = User::find($docObj->doctor_id);
-                // if(isset($docRes)){
-                //     foreach($docRes->schedules()->whereYear('dateSched', $yr)->whereMonth('dateSched', $mon)->get('doctor_id') as $doc){
-                //         $doctorArrMon[$doc->doctor_id] = $doc->doctor_id;
-                //     }
-                // }
-                foreach(Schedule::whereYear('dateSched', $yr)->whereMonth('dateSched', $mon)->where('doctor_id', $docObj->doctor_id)->distinct()->get('doctor_id') as $doc){
-                    $doctorArrMon[$doc->doctor_id] = $doc->doctor_id;
-                }
-            }
+        // foreach($affDocRes  as $docObj){
+        //     if(!is_null($docObj->doctor_id)){
+        //         // $docRes = User::find($docObj->doctor_id);
+        //         // if(isset($docRes)){
+        //         //     foreach($docRes->schedules()->whereYear('dateSched', $yr)->whereMonth('dateSched', $mon)->get('doctor_id') as $doc){
+        //         //         $doctorArrMon[$doc->doctor_id] = $doc->doctor_id;
+        //         //     }
+        //         // }
+                
+        //     }
+        // }
+        unset($doctorArrMon);
+        foreach(Schedule::whereYear('dateSched', $yr)->whereMonth('dateSched', $mon)->whereIn('doctor_id', $affDocArr)->distinct()->get('doctor_id') as $doc){
+            $doctorArrMon[$doc->doctor_id] = $doc->doctor_id;
         }
         $schedules = null;
         $schedulesMon = null;
@@ -197,24 +195,30 @@ class ClinicsHomeController extends Controller
         $calendarArr = null;
         if(!is_null($schedulesMon)){
             // foreach($user->clinic->affiliated_doctors()->get() as $docObj){
-            foreach($affDocArr as $docObj){
-                // $docRes = User::find($docObj->doctor_id);
-                // if(isset($docRes)){
-                //     foreach($docRes->schedules()->whereYear('dateSched', $yr)->whereMonth('dateSched', $mon)->get() as $sched){
-                //         if(!isset($calendarArr[date('d', strtotime($sched->dateSched))][$sched->doctor_id]))
-                //             $calendarArr[date('d', strtotime($sched->dateSched))][$sched->doctor_id] = 1;
-                //         else
-                //             $calendarArr[date('d', strtotime($sched->dateSched))][$sched->doctor_id] += 1;
-                //     }    
-                // }
-                if(!is_null($docObj->doctor_id)){
-                    foreach(Schedule::whereYear('dateSched', $yr)->whereMonth('dateSched', $mon)->where('doctor_id', $docObj->doctor_id)->get() as $sched){
-                        if(!isset($calendarArr[date('d', strtotime($sched->dateSched))][$sched->doctor_id]))
-                            $calendarArr[date('d', strtotime($sched->dateSched))][$sched->doctor_id] = 1;
-                        else
-                            $calendarArr[date('d', strtotime($sched->dateSched))][$sched->doctor_id] += 1;
-                    }
-                }
+            // foreach($affDocRes as $docObj){
+            //     // $docRes = User::find($docObj->doctor_id);
+            //     // if(isset($docRes)){
+            //     //     foreach($docRes->schedules()->whereYear('dateSched', $yr)->whereMonth('dateSched', $mon)->get() as $sched){
+            //     //         if(!isset($calendarArr[date('d', strtotime($sched->dateSched))][$sched->doctor_id]))
+            //     //             $calendarArr[date('d', strtotime($sched->dateSched))][$sched->doctor_id] = 1;
+            //     //         else
+            //     //             $calendarArr[date('d', strtotime($sched->dateSched))][$sched->doctor_id] += 1;
+            //     //     }    
+            //     // }
+            //     if(!is_null($docObj->doctor_id)){
+            //         foreach(Schedule::whereYear('dateSched', $yr)->whereMonth('dateSched', $mon)->where('doctor_id', $docObj->doctor_id)->get() as $sched){
+            //             if(!isset($calendarArr[date('d', strtotime($sched->dateSched))][$sched->doctor_id]))
+            //                 $calendarArr[date('d', strtotime($sched->dateSched))][$sched->doctor_id] = 1;
+            //             else
+            //                 $calendarArr[date('d', strtotime($sched->dateSched))][$sched->doctor_id] += 1;
+            //         }
+            //     }
+            // }
+            foreach(Schedule::whereYear('dateSched', $yr)->whereMonth('dateSched', $mon)->whereIn('doctor_id', $affDocArr)->get() as $sched){
+                if(!isset($calendarArr[date('d', strtotime($sched->dateSched))][$sched->doctor_id]))
+                    $calendarArr[date('d', strtotime($sched->dateSched))][$sched->doctor_id] = 1;
+                else
+                    $calendarArr[date('d', strtotime($sched->dateSched))][$sched->doctor_id] += 1;
             }
         }
 
