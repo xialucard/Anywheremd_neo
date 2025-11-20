@@ -4574,7 +4574,7 @@
                                 <th>Duration</th>
                               </tr>
                             </thead>
-                            <tbody id="medsOnboardTable{{ $cr->id }}">
+                            <tbody>
                             @foreach ($cr->consultation_meds_onboards()->orderBy('id', 'desc')->get() as $dat)
                               <tr id="{{ $dat->id }}" log="medsOnboards">
                                   <td>{{ $dat->meds }}</td>
@@ -5063,7 +5063,7 @@
                                   <th>Duration</th>
                                 </tr>
                               </thead>
-                              <tbody id="medsOnboardTable{{ $datum->id }}">
+                              <tbody id="{{ !isset($referal_conso)  ? 'medsOnboardTable' . $datum->id : '' }}">
                               @foreach ($datum->consultation_meds_onboards()->orderBy('id', 'desc')->get() as $dat)
                                 <tr id="{{ $dat->id }}" log="medsOnboards">
                                     <td>
@@ -5555,7 +5555,7 @@
                                   <th>Duration</th>
                                 </tr>
                               </thead>
-                              <tbody id="medsOnboardTable{{ $datum->id }}">
+                              <tbody id="{{ isset($referal_conso) && $referal_conso->id == $cr->id ? 'medsOnboardTable' . $datum->id : '' }}">
                               @foreach ($datum->consultation_meds_onboards()->orderBy('id', 'desc')->get() as $dat)
                                 <tr id="{{ $dat->id }}" log="medsOnboards">
                                     <td>
