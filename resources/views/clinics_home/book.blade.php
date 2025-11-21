@@ -329,7 +329,7 @@
               <tr id="hdBooking_{{ $dat->id }}">
                   <td>{{ $dat->treatment_number }}</td>
                   <td>{{ $dat->bookingDate }}</td>
-                  <td>{{ $dat->dialyzer . '/' . $dat->use }}</td>
+                  <td>{{ $dat->mac_use }}</td>
                   <td>{{ $dat->dry_weight }}<</td>
                   <td>{{ $dat->weight }}</td>
                   <td>{{ $dat->post_weight }}</td>
@@ -337,8 +337,8 @@
                   <td>{{ $dat->post_bpS . '/' . $dat->post_bpD }}</td>
                   <td>{{ $dat->total_uf_goal }}</td>
                   <td>{{ $dat->weight_loss }}</td>
-                  <td>{{ $dat->epo }}</td>
-                  <td>{{ $dat->iv_iron }}</td>
+                  <td>{{ isset($dat->consultation_meds()->where('medication', 'like', '%epo%')->get()[0]->dosage) ? $dat->consultation_meds()->where('medication', 'like', '%epo%')->get()[0]->dosage : '' }}</td>
+                  <td>{{ isset($dat->consultation_meds()->where('medication', 'like', '%iron%')->get()[0]->dosage) ? $dat->consultation_meds()->where('medication', 'like', '%iron%')->get()[0]->dosage : '' }}</td>
                   <td>{{ nl2br($dat->dialysis_complication) }}</td>
               </tr>
               @endforeach
