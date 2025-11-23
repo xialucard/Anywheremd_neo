@@ -63,7 +63,7 @@
                                             window.location.href = '{{ route($viewFolder . '.index') }}/' + $(this).val() + '/' + $('#doctor_home_mon').val();
                                         ">
                                         @can($viewFolder . '.manageSchedule')
-                                        <span class="input-group-text"><a class="btn btn-sm" href="{{ route($viewFolder . '.manageSchedule') }}" title="Manage Schedule" role="button"><i class="bi bi-gear"></i></a></span>
+                                        {{-- <span class="input-group-text"><a class="btn btn-sm" href="{{ route($viewFolder . '.manageSchedule') }}" title="Manage Schedule" role="button"><i class="bi bi-gear"></i></a></span> --}}
                                         @endcan
                                         @can($viewFolder . '.manageClinic')
                                         <span class="input-group-text"><a class="btn btn-sm" href="{{ route($viewFolder . '.manageClinic') }}" title="Manage Clinic" role="button"><i class="bi bi-hospital"></i></a></span>

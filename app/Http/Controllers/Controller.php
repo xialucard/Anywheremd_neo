@@ -160,7 +160,7 @@ class Controller extends BaseController
         "Widower",
         "Separated"
     );
-    
+
     public function moduleList()
     {
         $moduleArr['Dashboard'] = array('link' => '/');
