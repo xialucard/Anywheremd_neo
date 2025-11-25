@@ -188,6 +188,7 @@ class DoctorsController extends Controller
         $params['user_type'] = 'Doctor';
         $params['updated_by'] = $user->id;
         $doctor->update($params);
+        $doctor->assignRole('Doctor');
         return redirect()->route($this->viewFolder . '.index')->with('message', 'Entry has been updated.');
     }
 
