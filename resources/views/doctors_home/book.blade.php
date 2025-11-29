@@ -260,7 +260,7 @@
             $('#dialysisCurDiv').show();  
           ">Dialysis Chart</a>
         </li>
-        <li class="nav-item">
+        {{-- <li class="nav-item">
           <a class="nav-link" id="hdSummaryPrevLink" href="#" onclick="
             $('#sumPrevLink').removeClass('active');
             $('#soapPrevLink').removeClass('active');
@@ -292,7 +292,7 @@
             $('#admitCurDiv').hide();  
             $('#dialysisCurDiv').show();  
           ">HD Summary Sheet</a>
-        </li>
+        </li> --}}
         @endif
       </ul>
     </div>
