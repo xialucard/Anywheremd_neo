@@ -37,6 +37,7 @@
             $('#medPrevLink').removeClass('active');  
             $('#admitPrevLink').removeClass('active');
             $('#dialysisPrevLink').removeClass('active');
+            $('#hdSummaryPrevLink').removeClass('active');
             $('#sumPrevDiv').show();  
             $('#soapPrevDiv').hide();  
             $('#labPrevDiv').hide();  
@@ -69,6 +70,7 @@
             $('#medPrevLink').removeClass('active');  
             $('#admitPrevLink').removeClass('active');
             $('#dialysisPrevLink').removeClass('active');
+            $('#hdSummaryPrevLink').removeClass('active');
             $('#soapPrevDiv').show();  
             $('#sumPrevDiv').hide();  
             $('#labPrevDiv').hide();  
@@ -101,6 +103,7 @@
             $('#medPrevLink').removeClass('active');  
             $('#admitPrevLink').removeClass('active');
             $('#dialysisPrevLink').removeClass('active');
+            $('#hdSummaryPrevLink').removeClass('active');
             $('#sumPrevDiv').hide();  
             $('#soapPrevDiv').hide();  
             $('#labPrevDiv').show();  
@@ -133,6 +136,7 @@
             $('#medPrevLink').removeClass('active');  
             $('#admitPrevLink').removeClass('active');
             $('#dialysisPrevLink').removeClass('active');
+            $('#hdSummaryPrevLink').removeClass('active');
             $('#sumPrevDiv').hide();  
             $('#soapPrevDiv').hide();  
             $('#labPrevDiv').hide();  
@@ -165,6 +169,7 @@
             $('#medPrevLink').addClass('active');  
             $('#admitPrevLink').removeClass('active');
             $('#dialysisPrevLink').removeClass('active');
+            $('#hdSummaryPrevLink').removeClass('active');
             $('#sumPrevDiv').hide();  
             $('#soapPrevDiv').hide();  
             $('#labPrevDiv').hide();  
@@ -197,6 +202,7 @@
             $('#medPrevLink').removeClass('active');
             $('#admitPrevLink').addClass('active'); 
             $('#dialysisPrevLink').removeClass('active');
+            $('#hdSummaryPrevLink').removeClass('active');
             $('#sumPrevDiv').hide();  
             $('#soapPrevDiv').hide();  
             $('#labPrevDiv').hide();  
@@ -230,6 +236,7 @@
             $('#medPrevLink').removeClass('active');
             $('#admitPrevLink').removeClass('active');
             $('#dialysisPrevLink').addClass('active');
+            $('#hdSummaryPrevLink').removeClass('active');
             $('#sumPrevDiv').hide();  
             $('#soapPrevDiv').hide();  
             $('#labPrevDiv').hide();  
@@ -252,6 +259,39 @@
             $('#admitCurDiv').hide();  
             $('#dialysisCurDiv').show();  
           ">Dialysis Chart</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="hdSummaryPrevLink" href="#" onclick="
+            $('#sumPrevLink').removeClass('active');
+            $('#soapPrevLink').removeClass('active');
+            $('#labPrevLink').removeClass('active');  
+            $('#presPrevLink').removeClass('active');  
+            $('#medPrevLink').removeClass('active');
+            $('#admitPrevLink').removeClass('active');
+            $('#dialysisPrevLink').removeClass('active');
+            $('#hdSummaryPrevLink').addClass('active');
+            $('#sumPrevDiv').hide();  
+            $('#soapPrevDiv').hide();  
+            $('#labPrevDiv').hide();  
+            $('#presPrevDiv').hide();  
+            $('#medPrevDiv').hide(); 
+            $('#admitPrevDiv').hide();  
+            $('#dialysisPrevDiv').show();  
+            $('#sumCurLink').removeClass('active');
+            $('#soapCurLink').removeClass('active');
+            $('#labCurLink').removeClass('active');  
+            $('#presCurLink').removeClass('active');  
+            $('#medCurLink').removeClass('active');
+            $('#admitCurLink').removeClass('active');
+            $('#dialysisCurLink').addClass('active'); 
+            $('#sumCurDiv').hide();  
+            $('#soapCurDiv').hide();  
+            $('#labCurDiv').hide();  
+            $('#presCurDiv').hide();  
+            $('#medCurDiv').hide(); 
+            $('#admitCurDiv').hide();  
+            $('#dialysisCurDiv').show();  
+          ">HD Summary Sheet</a>
         </li>
         @endif
       </ul>
