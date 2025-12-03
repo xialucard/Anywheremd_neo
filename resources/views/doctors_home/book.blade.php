@@ -5054,7 +5054,7 @@
                                   <small id="help_{{ $viewFolder }}_nurse_notes" class="text-muted"></small>
                                 </div>
                               </div>
-                              <input id="{{ $viewFolder }}_nurse_id" type="hidden" class="form-control" @if(!isset($referal_conso)) id="{{ $viewFolder }}_mo_id" @endif name="{{ $viewFolder }}[MedsOnboard][id]" value="">
+                              <input type="hidden" class="form-control" @if(!isset($referal_conso)) id="{{ $viewFolder }}_mo_id" @endif name="{{ $viewFolder }}[MedsOnboard][id]" value="">
                             </div>
                             <div class="card-footer">
                               <button id="{{ !isset($referal_conso)  ? 'addMedsOnboard' . $datum->id : '' }}" type="button" class="addNurseNotesLog btn btn-{{ $bgColor }} btn-sm" disabled onclick="
@@ -5546,7 +5546,7 @@
                                   <small id="help_{{ $viewFolder }}_nurse_notes" class="text-muted"></small>
                                 </div>
                               </div>
-                              <input id="{{ $viewFolder }}_nurse_id" type="hidden" class="form-control" @if(isset($referal_conso) && $referal_conso->id == $cr->id) id="{{ $viewFolder }}_mo_id" @endif name="{{ $viewFolder }}[MedsOnboard][id]" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }} value="">
+                              <input type="hidden" class="form-control" @if(isset($referal_conso) && $referal_conso->id == $cr->id) id="{{ $viewFolder }}_mo_id" @endif name="{{ $viewFolder }}[MedsOnboard][id]" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }} value="">
                             </div>
                             <div class="card-footer">
                               <button id="{{ isset($referal_conso) && $referal_conso->id == $cr->id ? 'addMedsOnboard' . $datum->id : '' }}" type="button" class="addNurseNotesLog btn btn-{{ $bgColor }} btn-sm" disabled onclick="
