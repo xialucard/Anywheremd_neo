@@ -263,6 +263,9 @@ class DoctorsHomeController extends Controller
         unset($params);
         $params = $request->input($this->viewFolder);
         $params['updated_by'] = $user->id;
+        $specialtyArr = $params['specialty'];
+        unset($params['specialty']);
+        $params['specialty'] = implode(",", $specialtyArr);
         if(!empty($request->doctors_home['prc_pic'])){
             $prc_pic = 'prc_pic_' . time() . '.' . $request->doctors_home['prc_pic']->extension();
             $request->doctors_home['prc_pic']->storeAs('public/doctor_files', $prc_pic);

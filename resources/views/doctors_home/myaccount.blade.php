@@ -85,11 +85,18 @@
     Profession Info
   </div>
   <div class="card-body">
-    <div class="form-floating mb-3">
+    <div class="mb-3">
       @php
           ksort($selectItems['specialty']);
+          if(isset($datum->specialty))
+            $specialtyArr = explode(",", $datum->specialty);
+          // print "<pre>";
+          // print_r($specialtyArr);
+          // print "</pre>";
+        
       @endphp
-      <select class="form-select" name="{{ $viewFolder }}[specialty]" id="{{ $viewFolder }}_specialty" placeholder="Select One" required>
+      <label for="{{ $viewFolder }}_specialty">Specialty</label>
+      <select class="form-select" name="{{ $viewFolder }}[specialty][]" id="{{ $viewFolder }}_specialty" placeholder="Select One" multiple required>
         @foreach ($selectItems['specialty'] as $ind => $item)
           @if (!empty($item[0]))
         <optgroup label="{{ $ind }}">
@@ -97,18 +104,18 @@
                 sort($item);
             @endphp
             @foreach ($item as $itemSub)
-            <option value="{{ $itemSub != ' ' ? $ind . ' - ' . $itemSub : $ind }}" {{ (!empty($datum->specialty) && $datum->specialty == ($itemSub != ' ' ? $ind . ' - ' . $itemSub : $ind)) ? 'selected' : '' }}>{{ $itemSub != ' ' ? $ind . ' - ' . $itemSub : $ind }}</option>
+            <option value="{{ $itemSub != ' ' ? $ind . ' - ' . $itemSub : $ind }}" {{ (!empty($datum->specialty) && in_array(($itemSub != ' ' ? $ind . ' - ' . $itemSub : $ind), $specialtyArr)) ? 'selected' : '' }}>{{ $itemSub != ' ' ? $ind . ' - ' . $itemSub : $ind }}</option>
             @endforeach
         </optgroup>
           @else
-        <option value="{{ $ind }}" {{ (!empty($datum->specialty) && $datum->specialty == $ind) ? 'selected' : '' }}>{{ $ind }}</option>
+        <option value="{{ $ind }}" {{ (!empty($datum->specialty) && in_array($ind, $specialtyArr)) ? 'selected' : '' }}>{{ $ind }}</option>
           @endif
           
         @endforeach
       </select>
-      <label for="{{ $viewFolder }}_specialty">Specialty</label>
       <small id="help_{{ $viewFolder }}_specialty" class="text-muted"></small>
     </div>
+    
     <div class="mb-3">
       <div class="mb-4 d-flex justify-content-center">
           <img id="prcImage" src="{{ $datum->prc_pic != '' ? (stristr($datum->prc_pic, 'uploads') ? asset('storage/' . $datum->prc_pic) : asset('storage/doctor_files/' . $datum->prc_pic)) : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}"

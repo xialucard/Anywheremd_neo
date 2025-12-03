@@ -4961,7 +4961,7 @@
                             <div class="card-body">
                               <div class="input-group mb-3">
                                 <div class="form-floating">
-                                  <input class="form-control" type="text" name="{{ $viewFolder }}[MedsOnboard][meds]" id="{{ $viewFolder }}_mo_meds" value="" placeholder="" onchange="
+                                  <input class="form-control" type="text" name="{{ $viewFolder }}[MedsOnboard][meds]" @if(!isset($referal_conso)) id="{{ $viewFolder }}_mo_meds" @endif value="" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }} onchange="
                                     if($(this).val() != ''){
                                       $('#{{ $viewFolder }}_mo_meds').prop('required', true);
                                       $('#{{ $viewFolder }}_mo_dose').prop('required', true);
@@ -4984,7 +4984,7 @@
                               </div>
                               <div class="input-group mb-3">
                                 <div class="form-floating">
-                                  <input class="form-control" type="text" name="{{ $viewFolder }}[MedsOnboard][dose]" id="{{ $viewFolder }}_mo_dose" placeholder="" onchange="
+                                  <input class="form-control" type="text" name="{{ $viewFolder }}[MedsOnboard][dose]" @if(!isset($referal_conso)) id="{{ $viewFolder }}_mo_dose" @endif placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }} onchange="
                                     if($('#{{ $viewFolder }}_mo_meds').val() != ''){
                                       $('#{{ $viewFolder }}_mo_meds').prop('required', true);
                                       $('#{{ $viewFolder }}_mo_dose').prop('required', true);
@@ -5008,7 +5008,7 @@
                               </div>
                               <div class="input-group mb-3">
                                 <div class="form-floating">
-                                  <input class="form-control" type="text" name="{{ $viewFolder }}[MedsOnboard][delivery]" id="{{ $viewFolder }}_mo_delivery" placeholder="" onchange="
+                                  <input class="form-control" type="text" name="{{ $viewFolder }}[MedsOnboard][delivery]" @if(!isset($referal_conso)) id="{{ $viewFolder }}_mo_delivery" @endif placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }} onchange="
                                     if($('#{{ $viewFolder }}_mo_meds').val() != ''){
                                       $('#{{ $viewFolder }}_mo_meds').prop('required', true);
                                       $('#{{ $viewFolder }}_mo_dose').prop('required', true);
@@ -5032,7 +5032,7 @@
                               </div>
                               <div class="input-group mb-3">
                                 <div class="form-floating">
-                                  <input class="form-control" type="text" name="{{ $viewFolder }}[MedsOnboard][duration]" id="{{ $viewFolder }}_mo_duration" placeholder="" onchange="
+                                  <input class="form-control" type="text" name="{{ $viewFolder }}[MedsOnboard][duration]" @if(!isset($referal_conso)) id="{{ $viewFolder }}_mo_duration" @endif placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }} onchange="
                                     if($('#{{ $viewFolder }}_mo_meds').val() != ''){
                                       $('#{{ $viewFolder }}_mo_meds').prop('required', true);
                                       $('#{{ $viewFolder }}_mo_dose').prop('required', true);
@@ -5054,10 +5054,10 @@
                                   <small id="help_{{ $viewFolder }}_nurse_notes" class="text-muted"></small>
                                 </div>
                               </div>
-                              <input id="{{ $viewFolder }}_nurse_id" type="hidden" class="form-control" id="{{ $viewFolder }}_mo_id" name="{{ $viewFolder }}[MedsOnboard][id]" value="">
+                              <input id="{{ $viewFolder }}_nurse_id" type="hidden" class="form-control" @if(!isset($referal_conso)) id="{{ $viewFolder }}_mo_id" @endif name="{{ $viewFolder }}[MedsOnboard][id]" value="">
                             </div>
                             <div class="card-footer">
-                              <button id="addMedsOnboard{{ $datum->id }}" type="button" class="addNurseNotesLog btn btn-{{ $bgColor }} btn-sm" disabled onclick="
+                              <button id="{{ !isset($referal_conso)  ? 'addMedsOnboard' . $datum->id : '' }}" type="button" class="addNurseNotesLog btn btn-{{ $bgColor }} btn-sm" disabled onclick="
                                 $('#doctors_home_submit_type').val('Pause');
                                 $.ajax({
                                   type: 'POST',
@@ -5453,7 +5453,7 @@
                             <div class="card-body">
                               <div class="input-group mb-3">
                                 <div class="form-floating">
-                                  <input class="form-control" type="text" name="{{ $viewFolder }}[MedsOnboard][meds]" id="{{ $viewFolder }}_mo_meds" value="" placeholder="" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }} onchange="
+                                  <input class="form-control" type="text" name="{{ $viewFolder }}[MedsOnboard][meds]" @if(isset($referal_conso) && $referal_conso->id == $cr->id) id="{{ $viewFolder }}_mo_meds" @endif value="" placeholder="" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }} onchange="
                                     if($(this).val() != ''){
                                       $('#{{ $viewFolder }}_mo_meds').prop('required', true);
                                       $('#{{ $viewFolder }}_mo_dose').prop('required', true);
@@ -5476,7 +5476,7 @@
                               </div>
                               <div class="input-group mb-3">
                                 <div class="form-floating">
-                                  <input class="form-control" type="text" name="{{ $viewFolder }}[MedsOnboard][dose]" id="{{ $viewFolder }}_mo_dose" placeholder="" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }} onchange="
+                                  <input class="form-control" type="text" name="{{ $viewFolder }}[MedsOnboard][dose]" @if(isset($referal_conso) && $referal_conso->id == $cr->id) id="{{ $viewFolder }}_mo_dose" @endif placeholder="" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }} onchange="
                                     if($('#{{ $viewFolder }}_mo_meds').val() != ''){
                                       $('#{{ $viewFolder }}_mo_meds').prop('required', true);
                                       $('#{{ $viewFolder }}_mo_dose').prop('required', true);
@@ -5500,7 +5500,7 @@
                               </div>
                               <div class="input-group mb-3">
                                 <div class="form-floating">
-                                  <input class="form-control" type="text" name="{{ $viewFolder }}[MedsOnboard][delivery]" id="{{ $viewFolder }}_mo_delivery" placeholder="" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }} onchange="
+                                  <input class="form-control" type="text" name="{{ $viewFolder }}[MedsOnboard][delivery]" @if(isset($referal_conso) && $referal_conso->id == $cr->id) id="{{ $viewFolder }}_mo_delivery" @endif placeholder="" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }} onchange="
                                     if($('#{{ $viewFolder }}_mo_meds').val() != ''){
                                       $('#{{ $viewFolder }}_mo_meds').prop('required', true);
                                       $('#{{ $viewFolder }}_mo_dose').prop('required', true);
@@ -5546,10 +5546,10 @@
                                   <small id="help_{{ $viewFolder }}_nurse_notes" class="text-muted"></small>
                                 </div>
                               </div>
-                              <input id="{{ $viewFolder }}_nurse_id" type="hidden" class="form-control" id="{{ $viewFolder }}_mo_id" name="{{ $viewFolder }}[MedsOnboard][id]" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }} value="">
+                              <input id="{{ $viewFolder }}_nurse_id" type="hidden" class="form-control" @if(isset($referal_conso) && $referal_conso->id == $cr->id) id="{{ $viewFolder }}_mo_id" @endif name="{{ $viewFolder }}[MedsOnboard][id]" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }} value="">
                             </div>
                             <div class="card-footer">
-                              <button id="addMedsOnboard{{ $datum->id }}" type="button" class="addNurseNotesLog btn btn-{{ $bgColor }} btn-sm" disabled onclick="
+                              <button id="{{ isset($referal_conso) && $referal_conso->id == $cr->id ? 'addMedsOnboard' . $datum->id : '' }}" type="button" class="addNurseNotesLog btn btn-{{ $bgColor }} btn-sm" disabled onclick="
                                 $('#doctors_home_submit_type').val('Pause');
                                 $.ajax({
                                   type: 'POST',

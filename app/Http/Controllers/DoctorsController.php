@@ -113,6 +113,9 @@ class DoctorsController extends Controller
             unset($params);
             $params['doctor_id'] = $doctorHit[0]->id;
         }
+        $specialtyArr = $params['specialty'];
+        unset($params['specialty']);
+        $params['specialty'] = implode(",", $specialtyArr);
         $params['clinic_id'] = $user->clinic_id;
         $params['active'] = 1;
         $params['created_by'] = $user->id;
@@ -164,7 +167,7 @@ class DoctorsController extends Controller
         $request->validated();
         unset($params);
         $params = $request->input($this->viewFolder);
-        
+
         if(!empty($request->doctors['prc_pic'])){
             $prc_pic = 'prc_pic_' . time() . '.' . $request->doctors['prc_pic']->extension();
             $request->doctors['prc_pic']->storeAs('public/doctor_files', $prc_pic);
@@ -184,6 +187,9 @@ class DoctorsController extends Controller
             $params['diploma_pic'] = $diploma_pic;
         }
         
+        $specialtyArr = $params['specialty'];
+        unset($params['specialty']);
+        $params['specialty'] = implode(",", $specialtyArr);
         $params['name'] = $params['f_name'] . ' ' . $params['m_name'] . ' ' . $params['l_name'];
         $params['user_type'] = 'Doctor';
         $params['updated_by'] = $user->id;
