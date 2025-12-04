@@ -8,7 +8,7 @@
 </datalist>
 @endif
 
-@if($provinceZip)
+@if(isset($provinceZip))
 <datalist id="provinceZipList">
   @foreach($provinceZip as $pz)
     <option value="{{ $pz }}">
@@ -16,7 +16,7 @@
 </datalist>
 @endif
 
-@if($referalList)
+@if(isset($referalList))
 <datalist id="referalList">
   @foreach($referalList as $rl)
     <option value="{{ $rl['name'] }}">{{ $rl['name'] }}</option>
