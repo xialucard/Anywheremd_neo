@@ -16,6 +16,14 @@
 </datalist>
 @endif
 
+@if($referalList)
+<datalist id="referalList">
+  @foreach($referalList as $rl)
+    <option value="{{ $rl['name'] }}">{{ $rl['name'] }}</option>
+  @endforeach
+</datalist>
+@endif
+
 <div class="container">
   <div class="row">
     <div class="col-lg-4 mb-3">
@@ -158,7 +166,7 @@
       <div class="card">
         <div class="card-header">Refer a Doctor</div>
         <div class="card-body">
-          <input class="form-control" id="{{ $viewFolder }}_referal" name="{{ $viewFolder }}[referal]" value="{{ isset($referedDoctorArr) ? implode(',', $referedDoctorArr) : '' }}" {{ isset($referedDoctorArr) ? 'disabled' : '' }} autocomplete="off">
+          <input class="form-control" list="referalList" id="{{ $viewFolder }}_referal" name="{{ $viewFolder }}[referal]" value="{{ isset($referedDoctorArr) ? implode(',', $referedDoctorArr) : '' }}" {{ isset($referedDoctorArr) ? 'disabled' : '' }} autocomplete="off">
           <small class="text-muted">Please type doctor's name then select the booking type, date and clinic in the option that will appear.</small>
         </div>
       </div>
@@ -4001,16 +4009,16 @@
   
   @if(isset($datum->id) && !isset($datum->consultation_parent_id) && !isset($referal_conso))
   $('#{{ $viewFolder }}_referal').flexdatalist({
-    url:'{{ Route::has($viewFolder . '.getReferralList') ? route($viewFolder . '.getReferralList', [$dateBooking, $doctor->id, ($datum->booking_type == "" ? "Consultation" : $datum->booking_type)]) : ''}}/',
-    data: {},
+    // url:'{{ Route::has($viewFolder . '.getReferralList') ? route($viewFolder . '.getReferralList', [$dateBooking, $doctor->id, ($datum->booking_type == "" ? "Consultation" : $datum->booking_type)]) : ''}}/',
+    // data: {},
     selectionRequired: 1,
     searchContain:true,
     multiple:true,
     minLength: 3,
-    maxShownResults: 1000000,
-    searchIn: 'name',
-    requestType: 'get',
-    dataType: 'json'
+    // maxShownResults: 1000000,
+    // searchIn: 'name',
+    // requestType: 'get',
+    // dataType: 'json'
   });
   @else
   $('.flexdatalist').flexdatalist({

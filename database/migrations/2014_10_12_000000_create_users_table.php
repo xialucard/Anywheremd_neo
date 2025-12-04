@@ -28,7 +28,7 @@ class CreateUsersTable extends Migration
             $table->string('mobile_no')->nullable();
             $table->string('email')->unique();
             $table->string('designation')->nullable();
-            $table->string('specialty')->nullable();
+            $table->text('specialty')->nullable();
             $table->string('prc_pic')->nullable();
             $table->string('prc_number')->nullable();
             $table->date('prc_expiry')->nullable();
