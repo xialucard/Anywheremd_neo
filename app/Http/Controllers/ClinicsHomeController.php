@@ -600,7 +600,7 @@ class ClinicsHomeController extends Controller
         $docObj = User::whereIn('id', $affDocArr)->get();
         $cnt = 0;
         foreach($docObj as $doc){
-            if(isset($doc->affiliated_clinics)){
+            if(isset($doc->affiliated_clinics) && $doc->id != ""){
                 foreach($doc->affiliated_clinics->sortBy('name') as $clin){
                     for($i = date('Y-m-d'); $i <= date('Y-m-d', strtotime($datum->bookingDate . ' + 7 days')); $i = date('Y-m-d', strtotime($i . ' + 1 day'))){
                     // if($booking_type != 'Consultation'){
