@@ -602,7 +602,7 @@ class ClinicsHomeController extends Controller
         foreach($docObj as $doc){
             if(isset($doc->affiliated_clinics)){
                 foreach($doc->affiliated_clinics->sortBy('name') as $clin){
-                    for($i = date('Y-m-d'); $i <= date('Y-m-d', strtotime($datum->bookingDate . ' + 7 days')); $i = date('Y-m-d', strtotime($i . ' + 1 day'))){
+                    for($i = date('Y-m-d'); $i <= date('Y-m-d', strtotime($datum->bookingDate . ' + 30 days')); $i = date('Y-m-d', strtotime($i . ' + 1 day'))){
                         if(isset($clin->clinic->id )){
                         // if($booking_type != 'Consultation'){
                             // $datalist[$cnt]['id'] = 'Consultation - ' . $i . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->id . ' - Dr. ' . $doc->name;
