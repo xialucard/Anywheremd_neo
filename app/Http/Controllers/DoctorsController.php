@@ -75,6 +75,7 @@ class DoctorsController extends Controller
         unset($params);
         
         $params = $request->input($this->viewFolder);
+        // dd($params);
         if(!empty($request->doctors['prc_pic'])){
             $prc_pic = 'prc_pic_' . time() . '.' . $request->doctors['prc_pic']->extension();
             $request->doctors['prc_pic']->storeAs('public/doctor_files', $prc_pic);
@@ -103,6 +104,9 @@ class DoctorsController extends Controller
             $params['user_type'] = 'Doctor';
             $params['approved'] = 1;
             // $params['active'] = 2;
+            $specialtyArr = $params['specialty'];
+            unset($params['specialty']);
+            $params['specialty'] = implode(",", $specialtyArr);
             $params['created_by'] = $user->id;
             $params['updated_by'] = $user->id;
             $params['password'] = Hash::make($this->defaultPassword);
@@ -113,9 +117,6 @@ class DoctorsController extends Controller
             unset($params);
             $params['doctor_id'] = $doctorHit[0]->id;
         }
-        $specialtyArr = $params['specialty'];
-        unset($params['specialty']);
-        $params['specialty'] = implode(",", $specialtyArr);
         $params['clinic_id'] = $user->clinic_id;
         $params['active'] = 1;
         $params['created_by'] = $user->id;
