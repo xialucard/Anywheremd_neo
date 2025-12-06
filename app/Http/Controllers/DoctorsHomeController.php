@@ -78,22 +78,28 @@ class DoctorsHomeController extends Controller
         if(!isset($booking_type_arr))
             $booking_type_arr = null;
 
-        $calendarArr = null;
-        if(isset($user->schedules()->whereYear('dateSched', $yr)->whereMonth('dateSched', $mon)->get()[0])){
-            foreach($user->schedules()->whereYear('dateSched', $yr)->whereMonth('dateSched', $mon)->get() as $sched){
-                if(!isset($calendarArr[date('d', strtotime($sched->dateSched))]))
-                    $calendarArr[date('d', strtotime($sched->dateSched))] = 1;
-                else
-                    $calendarArr[date('d', strtotime($sched->dateSched))] += 1;
-            }
-        }
+        
+        
+        // if(isset($user->schedules()->whereYear('dateSched', $yr)->whereMonth('dateSched', $mon)->get()[0])){
+        //     foreach($user->schedules()->whereYear('dateSched', $yr)->whereMonth('dateSched', $mon)->get() as $sched){
+        //         if(!isset($calendarArr[date('d', strtotime($sched->dateSched))]))
+        //             $calendarArr[date('d', strtotime($sched->dateSched))] = 1;
+        //         else
+        //             $calendarArr[date('d', strtotime($sched->dateSched))] += 1;
+        //     }
+        // }
 
         $bookingArr = null;
+        $calendarArr = null;
         foreach($user->bookings()->whereYear('bookingDate', $yr)->whereMonth('bookingDate', $mon)->get() as $booking){
             if(!isset($bookingArr[date('d', strtotime($booking->bookingDate))]))
                 $bookingArr[date('d', strtotime($booking->bookingDate))] = 1;
             else
                 $bookingArr[date('d', strtotime($booking->bookingDate))] += 1;
+            if(!isset($calendarArr[date('d', strtotime($booking->bookingDate))]))
+                $calendarArr[date('d', strtotime($booking->bookingDate))] = 1;
+            else
+                $calendarArr[date('d', strtotime($booking->bookingDate))] += 1;
         }
 
         if($user->active == 2)

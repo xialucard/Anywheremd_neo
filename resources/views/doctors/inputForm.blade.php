@@ -95,7 +95,7 @@
         
       @endphp
       <label for="{{ $viewFolder }}_specialty">Specialty</label>
-      <select class="form-select" name="{{ $viewFolder }}[specialty][]" id="{{ $viewFolder }}_specialty" placeholder="Select One" multiple required>
+      <select class="form-select" name="{{ $viewFolder }}[specialty][]" id="{{ $viewFolder }}_specialty" placeholder="Select One" required>
         @foreach ($selectItems['specialty'] as $ind => $item)
           @if (!empty($item[0]))
         <optgroup label="{{ $ind }}">
