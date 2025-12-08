@@ -3806,6 +3806,7 @@
             $('#{{ $viewFolder }}_civilStatus').val(patientObj.civilStatus);
             $('#{{ $viewFolder }}_birthdate').val(patientObj.birthdate);
             $('#{{ $viewFolder }}_phil_num').val(patientObj.phil_num);
+            $('#{{ $viewFolder }}_phil_mem_type').val(patientObj.phil_mem_type);
             $('#{{ $viewFolder }}_hmo_num').val(patientObj.hmo_num);
             $('#{{ $viewFolder }}_address').val(patientObj.address);
             
