@@ -162,6 +162,27 @@ class Controller extends BaseController
         "Separated"
     );
 
+    public $phicMemType = array(
+        "GME"=>"Government Member",
+        "GDE"=>"Government Dependent",
+        "PME"=>"Private Member",
+        "PDE"=>"Private Dependent",
+        "SMI"=>"Self-Employed Member",
+        "SDI"=>"Self-Employed Dependent",
+        "OFM"=>"OFW Member",
+        "OFD"=>"OFW Dependent",
+        "OTM"=>"Others Member",
+        "OTD"=>"Others Dependent",
+        "IMI"=>"Indigent Member",
+        "IDI"=>"Indigent Dependent",
+        "LGM"=>"LGU/Pvt Sponsored Member",
+        "LGD"=>"LGU/Pvt Sponsored Dependent",
+        "PRM"=>"Pensioner/Retiree Member",
+        "PRD"=>"Pensioner/Retiree Dependent",
+        "SCM"=>"Senior Citizen",
+        "NHP"=>"Non-NHIP"
+    );
+
     public function moduleList()
     {
         $moduleArr['Dashboard'] = array('link' => '/');

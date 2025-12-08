@@ -114,6 +114,8 @@
                 if($(this).val() == 'Both' || $(this).val() == 'Both Cash'){
                   $('#{{ $viewFolder }}_phil_num').prop('disabled', false);
                   $('#{{ $viewFolder }}_phil_num').prop('required', true);
+                  $('#{{ $viewFolder }}_phil_mem_type').prop('disabled', false);
+                  $('#{{ $viewFolder }}_phil_mem_type').prop('required', true);
                   $('#{{ $viewFolder }}_hmo').prop('disabled', false);
                   $('#{{ $viewFolder }}_hmo').prop('required', true);
                   $('#{{ $viewFolder }}_hmo_num').prop('disabled', false);
@@ -121,6 +123,8 @@
                 }else if($(this).val() == 'Philhealth'){
                   $('#{{ $viewFolder }}_phil_num').prop('disabled', false);
                   $('#{{ $viewFolder }}_phil_num').prop('required', true);
+                  $('#{{ $viewFolder }}_phil_mem_type').prop('disabled', false);
+                  $('#{{ $viewFolder }}_phil_mem_type').prop('required', true);
                   $('#{{ $viewFolder }}_hmo').prop('disabled', true);
                   $('#{{ $viewFolder }}_hmo').prop('required', false);
                   $('#{{ $viewFolder }}_hmo_num').prop('disabled', true);
@@ -128,6 +132,8 @@
                 }else if($(this).val() == 'HMO'){
                   $('#{{ $viewFolder }}_phil_num').prop('disabled', true);
                   $('#{{ $viewFolder }}_phil_num').prop('required', false);
+                  $('#{{ $viewFolder }}_phil_mem_type').prop('disabled', true);
+                  $('#{{ $viewFolder }}_phil_mem_type').prop('required', false);
                   $('#{{ $viewFolder }}_hmo').prop('disabled', false);
                   $('#{{ $viewFolder }}_hmo').prop('required', true);
                   $('#{{ $viewFolder }}_hmo_num').prop('disabled', false);
@@ -135,6 +141,8 @@
                 }else{
                   $('#{{ $viewFolder }}_phil_num').prop('disabled', true);
                   $('#{{ $viewFolder }}_phil_num').prop('required', false);
+                  $('#{{ $viewFolder }}_phil_mem_type').prop('disabled', true);
+                  $('#{{ $viewFolder }}_phil_mem_type').prop('required', false);
                   $('#{{ $viewFolder }}_hmo').prop('disabled', true);
                   $('#{{ $viewFolder }}_hmo').prop('required', false);
                   $('#{{ $viewFolder }}_hmo_num').prop('disabled', true);
@@ -3310,9 +3318,19 @@
                   <small id="help_{{ $viewFolder }}_age" class="text-muted"></small>
                 </div>
                 <div class="form-floating mb-3">
-                  <input class="form-control" type="text" name="{{ $viewFolder }}[Patient][phil_num]" id="{{ $viewFolder }}_phil_num" placeholder="" value="{{ !empty($datum->patient->phil_num) ? $datum->patient->phil_num : '' }}" {{ isset($datum->payment_mode) && ($datum->payment_mode == 'Both' || $datum->payment_mode == 'Both Cash' || $datum->payment_mode == 'Philhealth') ? '' : 'disabled' }}>
+                  <input class="form-control" type="text" name="{{ $viewFolder }}[Patient][phil_num]" id="{{ $viewFolder }}_phil_num" placeholder="" value="{{ !empty($datum->patient->phil_num) ? $datum->patient->phil_num : '' }}" {{ isset($datum->payment_mode) && ($datum->payment_mode == 'Both' || $datum->payment_mode == 'Both Cash' || $datum->payment_mode == 'Philhealth') ? 'required' : 'disabled' }}>
                   <label for="{{ $viewFolder }}_phil_num" class="form-label">Philhealth #</label>
                   <small id="help_{{ $viewFolder }}_phil_num" class="text-muted"></small>
+                </div>
+                <div class="form-floating mb-3">
+                  <select class="form-select" name="{{ $viewFolder }}[Patient][phil_mem_type]" id="{{ $viewFolder }}_phil_mem_type" placeholder="" {{ isset($datum->payment_mode) && ($datum->payment_mode == 'Both' || $datum->payment_mode == 'Both Cash' || $datum->payment_mode == 'Philhealth') ? 'required' : 'disabled' }}>
+                    <option value=""></option>
+                  @foreach($selectItems['phicMemType'] as $ind=>$cs)
+                    <option value="{{ $ind }}" {{ !empty($datum->patient->phil_mem_type) && $ind == $datum->patient->phil_mem_type ? 'selected' : '' }}>{{ $cs }}</option>
+                  @endforeach
+                  </select>
+                  <label for="{{ $viewFolder }}_phil_mem_type">Philhealth Member Type</label>
+                  <small id="help_{{ $viewFolder }}_phil_mem_type" class="text-muted"></small>
                 </div>
                 <div class="form-floating mb-3">
                   <select class="form-select" name="{{ $viewFolder }}[Patient][hmo]" id="{{ $viewFolder }}_hmo" placeholder="" {{ isset($datum->payment_mode) && ($datum->payment_mode == 'Both' || $datum->payment_mode == 'Both Cash' || $datum->payment_mode == 'HMO') ? '' : 'disabled' }}>

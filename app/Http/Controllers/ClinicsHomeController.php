@@ -1335,8 +1335,8 @@ class ClinicsHomeController extends Controller
         $params['bp'] = $clinics_home->bpS . '/' . $clinics_home->bpD;
         $params['weight'] = $clinics_home->weight;
         // $params['pwd'] = "";
-        // $params['phiccode'] = "";
-        // $params['phicmembr'] = "";
+        $params['phiccode'] = $clinics_home->patient->phil_mem_type;
+        $params['phicmembr'] = $this->phicMemType[$clinics_home->patient->phil_mem_type];
         // $params['relationtomember'] = "";
         $params['phicpin'] = $clinics_home->patient->phil_num;
         // $params['phicmembrname'] = "";
@@ -1380,6 +1380,7 @@ class ClinicsHomeController extends Controller
         // $selectItems['patients'] = $user->patients->sortBy('name');
         $selectItems['hmos'] = HealthOrganization::all()->sortBy('name');
         $selectItems['civilStatus'] = $this->civilStatus;
+        $selectItems['phicMemType'] = $this->phicMemType;
         return $selectItems;
     }
     

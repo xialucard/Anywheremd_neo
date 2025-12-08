@@ -21,6 +21,7 @@ class Patient extends Model
         'civilStatus',
         'birthdate',
         'phil_num',
+        'phil_mem_type',
         'hmo',
         'hmo_num',
         'address',

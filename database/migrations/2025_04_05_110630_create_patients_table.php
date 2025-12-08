@@ -24,6 +24,7 @@ return new class extends Migration
             $table->enum('civilStatus', ['Single', 'Marrried', 'Widower', 'Separated']);
             $table->date('birthdate')->nullable();
             $table->string('phil_num', 255)->nullable();
+            $table->string('phil_mem_type', 255)->nullable();
             $table->string('hmo', 255)->nullable();
             $table->string('hmo_num', 255)->nullable();
             $table->text('address')->nullable();
