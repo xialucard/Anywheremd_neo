@@ -19,14 +19,16 @@
             <strong>Name:</strong> {{ !empty($datum->name) ? $datum->name : '' }} | 
             <strong>Age:</strong> {{ !empty($datum->birthdate) ? floor((strtotime(date('Y-m-d')) - strtotime($datum->birthdate))/(60*60*24*365.25)) : '' }} | 
             <strong>Birthday:</strong> {{ !empty($datum->birthdate) ? $datum->birthdate : '' }} | 
-            <strong>Gender:</strong> {{ !empty($datum->gender) ? $datum->gender : '' }}<br>
+            <strong>Gender:</strong> {{ !empty($datum->gender) ? $datum->gender : '' }} | 
+            <strong>Civil Status:</strong> {{ !empty($datum->civilStatus) ? $datum->civilStatus : '' }}<br>
             <strong>Address:</strong> {{ !empty($datum->address) ? $datum->address : '' }}<br>
             <strong>Email:</strong> {{ !empty($datum->email) ? $datum->email : '' }} | 
             <strong>Tel #:</strong> {{ !empty($datum->tel) ? $datum->tel : '' }} | 
             <strong>Mobile #:</strong> {{ !empty($datum->mobile_no) ? $datum->mobile_no : '' }}<br>
             <strong>Patient Type:</strong> {{ !empty($datum->patient_type) ? $datum->patient_type : '' }} | 
             <strong>Patient Sub Type: </strong>{{ !empty($datum->patient_sub_type) ? $datum->patient_sub_type . ' ' . $datum->referral_from : '' }}<br>
-            <strong>Philhealth #: </strong>{{ !empty($datum->phil_num) ? $datum->phil_num : '' }}<br>
+            <strong>Philhealth #: </strong>{{ !empty($datum->phil_num) ? $datum->phil_num : '' }} | 
+            <strong>Philhealth Member Type:</strong> {{ !empty($datum->phil_mem_type) ? $datum->phil_mem_type : '' }}<br>
             <strong>HMO:</strong> {{ !empty($datum->hmo) ? $datum->hmo : '' }} | 
             <strong>HMO #:</strong> {{ !empty($datum->hmo_num) ? $datum->hmo_num : '' }}<br>
           </p>  

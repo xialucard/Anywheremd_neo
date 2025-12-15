@@ -315,13 +315,15 @@
                   <strong>Name:</strong> {{ $datum->patient->name }} | 
                   <strong>Age:</strong> {{ floor((strtotime($datum->bookingDate) - strtotime($datum->patient->birthdate))/(60*60*24*365.25)) }} | 
                   <strong>Birthday:</strong> {{ $datum->patient->birthdate }} | 
-                  <strong>Gender:</strong> {{ $datum->patient->gender }}<br>
+                  <strong>Gender:</strong> {{ $datum->patient->gender }} | 
+                  <strong>Civil Status:</strong> {{ $datum->patient->civilStatus }}<br>
                   <strong>Address:</strong> {{ $datum->patient->address }}<br>
                   <strong>Email:</strong> {{ $datum->patient->email }} | 
                   <strong>Mobile #:</strong> {{ $datum->patient->mobile_no }}<br>
                   <strong>Patient Type:</strong> {{ $datum->patient->patient_type }} | 
                   <strong>Patient Sub Type: </strong>{{ $datum->patient->patient_sub_type . ' ' . $datum->patient->referral_from }}<br>
-                  <strong>Philhealth #: </strong>{{ $datum->patient->phil_num }}<br>
+                  <strong>Philhealth #: </strong>{{ $datum->patient->phil_num }} | 
+                  <strong>Philhealth Member Type:</strong> {{ $datum->patient->phil_mem_type }}<br>
                   <strong>HMO:</strong> {{ $datum->patient->hmo }} | 
                   <strong>HMO #:</strong> {{ $datum->patient->hmo_num }}<br>
                 </p>
