@@ -348,7 +348,10 @@
                   </thead>
                   <tbody>
                     @php
-                      $bookings = $datum->patient->consultations()->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+                      if($user->specialty = "POD")
+                        $bookings = $datum->patient->consultations()->where('clinic_id', $user->clinic_id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+                      else
+                        $bookings = $datum->patient->consultations()->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
                       // print "<pre>";
                       // print_r($bookings->icd_code_obj->icd_code);
                       // print "</pre>";  

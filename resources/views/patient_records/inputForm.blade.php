@@ -103,7 +103,7 @@
             @if(isset($datum->id))
             <tbody>
               @php
-                if($user->user_type == 'Clinic')
+                if($user->user_type == 'Clinic' || $user->specialty == 'POD')
                   $bookings = $datum->consultations()->where('clinic_id', $user->clinic_id)->orderByDesc('bookingDate')->get();
                 elseif($user->user_type == 'Doctor')
                   $bookings = $datum->consultations()->where('doctor_id', $user->id)->where('clinic_id', $clinic_id)->orderByDesc('bookingDate')->get();
@@ -442,8 +442,7 @@
                 $('#dialysisCurDiv').hide();  
               ">Admitting Orders</a>
             </li>
-            @if($bookings[0]->booking_type == 'Dialysis')
-            <li class="nav-item">
+            <li class="nav-item" id="dChart" @if($bookings[0]->booking_type == 'Dialysis') style="display:block" @else style="display:none" @endif>
               <a class="nav-link" id="dialysisPrevLink" href="#" onclick="
                 $('#sumPrevLink').removeClass('active');
                 $('#soapPrevLink').removeClass('active');
@@ -474,6 +473,7 @@
                 $('#admitCurDiv').hide();  
                 $('#dialysisCurDiv').show();  
               ">Dialysis Chart</a>
+            </li>
             {{-- <li class="nav-item">
               <a class="nav-link" id="dialysisPrevLink" href="#" onclick="
                 $('#sumPrevLink').removeClass('active');
@@ -506,7 +506,7 @@
                 $('#dialysisCurDiv').show();  
               ">HD Summary Sheet</a>
             </li> --}}
-            @endif
+            
           </ul>
           {{-- <div id="hdSum" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
             @can('clinics_home.pdfHDSum')
@@ -3454,6 +3454,19 @@
             $('#{{ $viewFolder }}_prev_sum_planRem').html('');
           }
 
+          if(bookingObj.consultation.booking_type == 'Dialysis'){
+            $('#dChart').show();
+            $('#dialysisPrevDiv').hide();
+            $('#dialysisPrevLink').removeClass('active');
+            $('#sumPrevLink').addClass('active');
+            $('#sumCurDiv').show();
+          }else{
+            $('#dChart').hide();
+            $('#dialysisPrevLink').removeClass('active');
+            $('#dialysisPrevDiv').hide();
+            $('#sumPrevLink').addClass('active');
+            $('#sumCurDiv').show();
+          }
           if(bookingObj.consultation.id != null){
             $('#{{ $viewFolder }}_prev_treatment_id').val(bookingObj.consultation.id);
           }else{
