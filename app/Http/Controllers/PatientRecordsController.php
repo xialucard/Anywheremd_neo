@@ -115,7 +115,7 @@ class PatientRecordsController extends Controller
     private function queryBuilder($model, $search_query){
         $user = Auth::user();
         $condition[] = [$model . '.active', 1];
-        if($user->user_type != 'Internal' && $user->user_type != 'Doctor')
+        if(($user->user_type != 'Internal' && $user->user_type != 'Doctor') || $user->specialty == 'POD')
             $condition[] = ['consultations.clinic_id', $user->clinic_id];
         elseif($user->user_type == 'Doctor')
             $condition[] = ['consultations.doctor_id', $user->id];
