@@ -103,7 +103,7 @@
             @if(isset($datum->id))
             <tbody>
               @php
-                if($user->user_type == 'Clinic' || $user->specialty == 'POD')
+                if($user->user_type == 'Clinic')
                   $bookings = $datum->consultations()->where('clinic_id', $user->clinic_id)->orderByDesc('bookingDate')->get();
                 elseif($user->user_type == 'Doctor')
                   $bookings = $datum->consultations()->where('doctor_id', $user->id)->where('clinic_id', $clinic_id)->orderByDesc('bookingDate')->get();
