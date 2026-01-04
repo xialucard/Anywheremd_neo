@@ -66,6 +66,9 @@ class PatientRecordsController extends Controller
     public function show(Patient $patient_record, Request $request)
     {
         $user = Auth::user();
+        $doctorClinic = null;
+        if($user->user_type == 'Doctor')
+            $doctorClinic = $user->affiliated_clinics->pluck('clinic_id')->toArray();
         $data = null;
         if(!empty($request->input()))
             $data = $this->getData($request->input());
@@ -90,6 +93,7 @@ class PatientRecordsController extends Controller
                 'user' => $user,
                 'patients' => $patients,
                 'clinic_id' => $request->input()['clinic_id'],
+                'doctorClinic' => $doctorClinic,
                 'referer' => urldecode($request->headers->get('referer'))
             ]);
         }
@@ -99,30 +103,44 @@ class PatientRecordsController extends Controller
     {
         $condition = $this->queryBuilder('patients', !empty($search_query['patient_records']) ? $search_query['patient_records'] : '');
         // dd($search_query);
-        $data = Consultation::with(['patient', 'clinic'])
-            ->where($condition)
-            ->sortable(['patient.name' => 'asc'])
-            // ->get('patients.name');
-            ->get();
-            // ->paginate($this->page);
-        // print "<pre>";
-        // print_r($data);
-        // print "</pre>";
-        return $data;
+        if(!empty($condition['whereIn'])){
+            $data = Consultation::with(['patient', 'clinic'])
+                ->where($condition['where'])
+                ->whereIn('consultations.clinic_id', $condition['whereIn'])
+                ->sortable(['patient.name' => 'asc'])
+                // ->get('patients.name');
+                ->get();
+        }else{
+            $data = Consultation::with(['patient', 'clinic'])
+                ->where($condition['where'])
+                ->sortable(['patient.name' => 'asc'])
+                // ->get('patients.name');
+                ->get();
+        }
+      return $data;
         
     }
 
     private function queryBuilder($model, $search_query){
         $user = Auth::user();
-        $condition[] = [$model . '.active', 1];
+        $doctorClinic = null;
+        if($user->user_type == 'Doctor')
+            $doctorClinic = $user->affiliated_clinics->pluck('clinic_id')->toArray();
+
+        $condition['where'][] = [$model . '.active', 1];
         if(($user->user_type != 'Internal' && $user->user_type != 'Doctor'))
-            $condition[] = ['consultations.clinic_id', $user->clinic_id];
-        elseif($user->user_type == 'Doctor')
-            $condition[] = ['consultations.doctor_id', $user->id];
+            $condition['where'][] = ['consultations.clinic_id', $user->clinic_id];
+        elseif($user->user_type == 'Doctor'){
+            if($user->specialty == 'POD')
+                $condition['whereIn'] = $doctorClinic;
+            else
+                $condition['where'][] = ['consultations.doctor_id', $user->id];
+        }
+            
         if(!empty($search_query)){
             foreach($search_query as $colName => $searchDet){
                 if($searchDet != "")
-                    $condition[] = [$model . '.' . $colName, 'like', "%" . $searchDet . "%"];
+                    $condition['where'][] = [$model . '.' . $colName, 'like', "%" . $searchDet . "%"];
             }
         }
         return $condition;

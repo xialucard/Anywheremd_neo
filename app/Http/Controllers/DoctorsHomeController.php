@@ -20,6 +20,9 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+
+use function PHPUnit\Framework\isNull;
+
 // use Spatie\LaravelPdf\Facades\Pdf;
 
 class DoctorsHomeController extends Controller
@@ -363,6 +366,10 @@ class DoctorsHomeController extends Controller
     {
         $data = $this->getData($request->input());
         $user = Auth::user();
+        $doctorClinic = null;
+        if($user->user_type == 'Doctor')
+            $doctorClinic = $user->affiliated_clinics->pluck('clinic_id')->toArray();
+
         $datum = $doctors_home;
         
         $yr = null;
@@ -396,6 +403,7 @@ class DoctorsHomeController extends Controller
                     'viewFolder' => $this->viewFolder, 
                     'modalSize' => 'modal-fullscreen',
                     'maxDateSched' =>$datum->doctor->schedules()->max('dateSched'),
+                    'doctorClinic' =>$doctorClinic,
                     'referer' => urldecode($request->headers->get('referer'))
                 ]);
         }
@@ -681,7 +689,7 @@ class DoctorsHomeController extends Controller
         
     }
 
-    function getPrevBookingInfo(Consultation $doctors_home, int $index){
+    function getPrevBookingInfo(Consultation $doctors_home, $index = null){
         $user = Auth::user();
         // $prevBookingInfo = $doctors_home->patient->consultations()->where('doctor_id', $user->id)->where('id', '<', $doctors_home->id)->orderByDesc('bookingDate')->get();
         // $prevBookingArr['consultation'] = $prevBookingInfo[$index];
@@ -692,7 +700,9 @@ class DoctorsHomeController extends Controller
         // foreach($prevBookingInfo[$index]->consultation_files as $ind=>$consultation_file){
         //     $prevBookingArr['consultation_files'][$ind]['file_link'] = asset($consultation_file->file_link);
         // }
-        if(isset($doctors_home->parent_consultation))
+        $prevBookingArr['index'] = $index;
+
+        if(isset($doctors_home->parent_consultation) && $index != 'false')
             $prevBookingArr['parent_consultation'] = $doctors_home->parent_consultation;
         $prevBookingArr['consultation'] = $doctors_home;
         if(isset($doctors_home->icd_code_obj->icd_code)){
@@ -717,6 +727,7 @@ class DoctorsHomeController extends Controller
                 $prevBookingArr['consultation_nurse_notes'][$ind]['creator'] = $dat->creator;
             }
         }
+        
         $prevBookingArr['consultation']['doctor'] = $doctors_home->doctor;
         $prevBookingArr['consultation']['clinic'] = $doctors_home->clinic;
         $prevBookingArr['consultation']['iframePrevPrescSrc'] = file_exists(public_path('storage/prescription_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf')) ? asset('storage/prescription_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf') : (file_exists(public_path('storage/uploads/prescription_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf')) ? asset('storage//uploads/prescription_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg');
@@ -725,11 +736,18 @@ class DoctorsHomeController extends Controller
         $prevBookingArr['patient'] = $doctors_home->patient;
 
         if(isset($doctors_home->parent_consultation)){
+            // $prevBookingArr['parent_doctor'] = $doctors_home->parent_consultation;
+            // $prevBookingArr['parent_doctor']['doctor'] = $doctors_home->parent_consultation->doctor;
+            // $prevBookingArr['parent_doctor']['clinic'] = $doctors_home->parent_consultation->clinic;
             foreach($doctors_home->parent_consultation->consultation_files as $ind=>$consultation_file){
                 $prevBookingArr['consultation_files'][$ind]['file_link'] = asset($consultation_file->file_link);
                 $prevBookingArr['consultation_files'][$ind]['id'] = $consultation_file->id;
             }
         }else{
+            // $prevBookingArr['parent_doctor']['doctor']['name'] = '';
+            // $prevBookingArr['parent_doctor']['doctor']['f_name'] = '';
+            // $prevBookingArr['parent_doctor']['doctor']['l_name'] = '';
+            // $prevBookingArr['parent_doctor']['clinic']['name'] = '';
             foreach($doctors_home->consultation_files as $ind=>$consultation_file){
                 $prevBookingArr['consultation_files'][$ind]['file_link'] = asset($consultation_file->file_link);
                 $prevBookingArr['consultation_files'][$ind]['id'] = $consultation_file->id;
@@ -761,6 +779,14 @@ class DoctorsHomeController extends Controller
         }else{
             $prevBookingArr['consultation_referals'][0]['id'] = '';
         }
+
+        if(isset($doctors_home->consultation_meds_onboards[0]->id)){
+            $prevBookingArr['consultation_meds_onboards'] = $doctors_home->consultation_meds_onboards;
+        }else{
+            $prevBookingArr['consultation_meds_onboards'][0]['id'] = '';
+        }
+
+
         if(isset($doctors_home->parent_consultation->id)){
             $prevBookingArr['parent_consultation'] = $doctors_home->parent_consultation;
             $prevBookingArr['parent_consultation']['doctor'] = $doctors_home->parent_consultation->doctor;

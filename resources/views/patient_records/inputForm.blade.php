@@ -87,16 +87,16 @@
                     <th>Date</th>
                     <th>Parent Booking ID</th>
                     <th>Booking ID</th>
+                    <@if($user->user_type != 'Clinic')
                     <th>Clinic</th>
+                    @endif
                     <th>Booking Type</th>
                     <th>Procedure Details</th>
-                    @if($user->user_type != 'Doctor')
+                    @if($user->user_type != 'Doctor' || $user->specialty == 'POD')
                     <th>Doctor's Name</th>
                     <th>Remarks</th>
                     @endif
-                    @if($user->user_type != 'Clinic')
-                    <th>Clinic</th>
-                    @endif
+                    
                     <th>Status</th>
                 </tr>
             </thead>
@@ -105,9 +105,12 @@
               @php
                 if($user->user_type == 'Clinic')
                   $bookings = $datum->consultations()->where('clinic_id', $user->clinic_id)->orderByDesc('bookingDate')->get();
-                elseif($user->user_type == 'Doctor')
-                  $bookings = $datum->consultations()->where('doctor_id', $user->id)->where('clinic_id', $clinic_id)->orderByDesc('bookingDate')->get();
-                else
+                elseif($user->user_type == 'Doctor'){
+                  if($user->specialty = "POD")
+                    $bookings = $datum->consultations()->whereIn('clinic_id', $doctorClinic)->orderByDesc('bookingDate')->get();
+                  else
+                    $bookings = $datum->consultations()->where('doctor_id', $user->id)->where('clinic_id', $clinic_id)->orderByDesc('bookingDate')->get();
+                }else
                   $bookings = $datum->consultations()->orderByDesc('bookingDate')->get();
               @endphp
               @foreach($bookings as $ind=>$dat)
@@ -120,16 +123,15 @@
                   <td>{{ $dat->bookingDate }}</td>
                   <td>{{ $dat->consultation_parent_id }}</td>
                   <td>{{ $dat->id }}</td>
+                  @if($user->user_type != 'Clinic')
                   <td>{{ $dat->clinic->name }}</td>
+                  @endif
                   <td>{{ $dat->booking_type == '' ? 'Consultation' : $dat->booking_type }}</td>
                   {{-- <td>{{ $dat->patient->name }}</td> --}}
                   <td>{{ $dat->procedure_details }}</td>
-                  @if($user->user_type != 'Doctor')
+                  @if($user->user_type != 'Doctor' || $user->specialty == 'POD')
                   <td>{{ $dat->doctor->name }}</td>
                   <td>{{ $dat->others }}</td>
-                  @endif
-                  @if($user->user_type != 'Clinic')
-                  <td>{{ $dat->clinic->name }}</td>
                   @endif
                   <td>{{ $dat->status }}</td>
                 </tr>

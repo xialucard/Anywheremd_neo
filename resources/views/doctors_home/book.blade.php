@@ -14,6 +14,22 @@
   // print($datum->doctor_id) . '<br>';
   // print($user->id);
 @endphp
+@php
+  if($user->specialty == "POD")
+    $bookings = $datum->patient->consultations()->where('booking_type', $datum->booking_type)->whereNull('consultation_parent_id')->whereIn('clinic_id', $doctorClinic)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+  else
+    $bookings = $datum->patient->consultations()->where('booking_type', $datum->booking_type)->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+  // print "<pre>";
+  // print_r($bookings[0]);
+  // print "</pre>";
+  unset($dialysisType);
+  foreach($bookings as $book){
+    if($book->booking_type == 'Dialysis'){
+      $dialysisType = true;
+      break;
+    }
+  }
+@endphp
 
 <style>
         .doctor-conso-nav{
@@ -226,7 +242,7 @@
             $('#dialysisCurDiv').hide();  
           ">Admitting Orders</a>
         </li>
-        @if($datum->booking_type == 'Dialysis')
+        @if($datum->booking_type == 'Dialysis' || isset($dialysisType))
         <li class="nav-item">
           <a class="nav-link" id="dialysisPrevLink" href="#" onclick="
             $('#sumPrevLink').removeClass('active');
@@ -294,6 +310,16 @@
           ">HD Summary Sheet</a>
         </li> --}}
         @endif
+        <li class="nav-item">
+          <a class="nav-link" id="dialysisPrevLink" href="#" onclick="
+            $('#curChart').removeClass('col-lg-12');
+            $('#curChart').addClass('col-lg-6');
+            $('#pastChart').show();
+            $('#pastChart').removeClass('d-none');
+            $('#pastChart').removeClass('d-lg-none');
+            $('#carouselCur').css('max-width', '100%');
+            ">Show Past Patient's Chart</a>
+        </li>
       </ul>
     </div>
   </div>
@@ -343,19 +369,14 @@
                           <th class=""><i class="bi bi-gear"></i></th>
                           <th>Date</th>
                           <th>Booking Type</th>
+                          @if($user->specialty == "POD")
+                          <th>Doctor Name</th>
+                          @endif
                           <th>Procedure Details</th>
                       </tr>
                   </thead>
                   <tbody>
-                    @php
-                      // if($user->specialty = "POD")
-                      //   $bookings = $datum->patient->consultations()->where('clinic_id', $user->clinic_id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
-                      // else
-                        $bookings = $datum->patient->consultations()->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
-                      // print "<pre>";
-                      // print_r($bookings->icd_code_obj->icd_code);
-                      // print "</pre>";  
-                    @endphp
+                    
                     @foreach($bookings as $ind=>$dat)
                       <tr>
                         <td>
@@ -373,6 +394,9 @@
                         <td>{{ $dat->bookingDate }}</td>
                         <td>{{ $dat->booking_type == '' ? 'Consultation' : $dat->booking_type }}</td>
                         {{-- <td>{{ $dat->patient->name }}</td> --}}
+                        @if($user->specialty == "POD")
+                        <td>{{ $dat->doctor->name }}</td>
+                        @endif
                         <td>{{ $dat->procedure_details }}</td>
                       </tr>
                     @endforeach
@@ -993,7 +1017,7 @@
               </thead>
               <tbody>
                 @php
-                  $bookings = $datum->patient->consultations()->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+                  // $bookings = $datum->patient->consultations()->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
                   // print "<pre>";
                   // print_r($bookings->icd_code_obj->icd_code);
                   // print "</pre>";  
@@ -1052,7 +1076,7 @@
             $('#carouselCur').css('max-width', '60%');
           ">hide past patient's chart</a></div>
           <div class="card-body">
-            <div class="card mb-3">
+            <div class="card mb-3" id="vitalsPrev">
               <div class="card-header">Vitals</div>
               <div class="card-body">
                 <p id="prevVitaler">
@@ -1066,10 +1090,15 @@
                 </p>
               </div>
             </div>
-            <ul class="nav nav-pills mb-3">
+            <ul class="nav nav-pills mb-3" id="referral_pill">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">{{ $user->name == $bookings[0]->doctor->name ? 'Yours' : 'Dr. ' . Str::substr($bookings[0]->doctor->f_name, 0, 1) . '. ' . $bookings[0]->doctor->l_name }}</a>
+                <a class="nav-link docNotesLinkPrev active" consultation-id="{{ $bookings[0]->id }}" aria-current="page" href="#">{{ $user->name == $bookings[0]->doctor->name ? 'Yours - ' . $bookings[0]->clinic->name . ' | ' . (!empty($bookings[0]->booking_type) ? $bookings[0]->booking_type : 'Consultation') : 'Dr. ' . Str::substr($bookings[0]->doctor->f_name, 0, 1) . '. ' . $bookings[0]->doctor->l_name . ' - ' . $bookings[0]->clinic->name . ' | ' . (!empty($bookings[0]->booking_type) ? $bookings[0]->booking_type : 'Consultation') }}</a>
               </li>
+              @foreach($bookings[0]->consultation_referals()->get() as $ref)
+              <li class="nav-item">
+                <a class="nav-link docNotesLinkPrev" consultation-id="{{ $ref->id }}" aria-current="page" href="#">{{ $user->name == $ref->doctor->name ? 'Yours - ' . $ref->clinic->name . ' | ' . (!empty($ref->booking_type) ? $ref->booking_type : 'Consultation') : 'Dr. ' . Str::substr($ref->doctor->f_name, 0, 1) . '. ' . $ref->doctor->l_name . ' - ' . $ref->clinic->name . ' | ' . (!empty($ref->booking_type) ? $ref->booking_type : 'Consultation') }}</a>
+              </li>
+              @endforeach
             </ul>
             <ul class="nav nav-tabs d-xs-block d-lg-none">
               <li class="nav-item">
@@ -1264,7 +1293,7 @@
                   $('#dialysisCurDiv').hide();  
                 ">Admitting Orders</a>
               </li>
-              @if($datum->booking_type == 'Dialysis')
+              @if($datum->booking_type == 'Dialysis' || isset($dialysisType))
               <li class="nav-item">
                 <a class="nav-link" id="dialysisPrevLink" href="#" onclick="
                   $('#sumPrevLink').removeClass('active');
@@ -1298,6 +1327,16 @@
                 ">Dialysis Chart</a>
               </li>
               @endif
+              <li class="nav-item">
+                <a class="nav-link" id="dialysisPrevLink" href="#" onclick="
+                  $('#curChart').removeClass('col-lg-12');
+                  $('#curChart').addClass('col-lg-6');
+                  $('#pastChart').show();
+                  $('#pastChart').removeClass('d-none');
+                  $('#pastChart').removeClass('d-lg-none');
+                  $('#carouselCur').css('max-width', '100%');
+                  ">Show Past Patient's Chart</a>
+              </li>
             </ul>
             <div id="prevDiv" class="card-body table-responsive p-0" style="max-height: 600px">
               <div id="sumPrevDiv" class="container border border-1 mb-3 p-3">
@@ -1321,7 +1360,7 @@
                   </div>
                 </div>
                 @if(stristr($datum->doctor->specialty, 'Ophtha') && $datum->booking_type != "Dialysis")
-                <div class="card mb-3">
+                <div class="card mb-3" id="eeInfoPrev">
                   <div class="card-header">Eye Examination Information</div>
                   <div class="card-body table-responsive">
                     {{-- <p id="prevEyerSumBack">
@@ -1413,18 +1452,47 @@
                   <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                     <p>
                       <strong>Primary Diagnosis:</strong> <span id="{{ $viewFolder }}_prev_sum_icd_code">{!! isset($bookings[0]->icd_code_obj) ? $bookings[0]->icd_code_obj->icd_code . ' - ' . $bookings[0]->icd_code_obj->details : '' !!}</span><br>
-                      <strong>Secondary Diagnosis:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_assessment">{!! isset($bookings[0]->assessment) ? nl2br($bookings[0]->assessment) : '' !!}</div><br>
+                      <strong>Secondary Diagnosis:</strong><br><span class="m-3" id="{{ $viewFolder }}_prev_sum_assessment">{!! isset($bookings[0]->assessment) ? nl2br($bookings[0]->assessment) : '' !!}</span><br>
                     </p>
                   </div>
                 </div>
                 <div class="card mb-3">
                   <div class="card-header">Plan</div>
                   <div class="card-body table-responsive" style="height:300px; max-height: 300px">
+                    @if($bookings[0]->booking_type == 'Dialysis')
+                    <p>
+                      <strong>Plan:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_planMed">{!! isset($bookings[0]->planMed) ? nl2br($bookings[0]->planMed) : '' !!}</div><br>
+                      <strong>Current Meds Onboard:</strong>
+                      <div class="table-responsive" style="max-height: 300px">
+                        <table class="table table-bordered table-striped table-hover table-sm medsOn">
+                          <thead class="table-{{ $bgColor }}">
+                            <tr>
+                              <th>Meds</th>
+                              <th>Dose</th>
+                              <th>Delivery</th>
+                              <th>Duration</th>
+                            </tr>
+                          </thead>
+                          <tbody id="medsOnboardTableSumPrev">
+                          @foreach ($bookings[0]->consultation_meds_onboards()->orderBy('id', 'desc')->get() as $dat)
+                            <tr id="{{ $dat->id }}" log="medsOnboards">
+                                <td>{{ $dat->meds }}</td>
+                                <td>{{ $dat->dose }}</td>
+                                <td>{{ $dat->delivery }}</td>
+                                <td>{{ $dat->duration }}</td>
+                            </tr>
+                          @endforeach
+                          </tbody>
+                        </table>
+                      </div>
+                    </p>
+                    @else
                     <p>
                       <strong>Medical Therapeutics:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_planMed">{!! isset($bookings[0]->planMed) ? nl2br($bookings[0]->planMed) : '' !!}</div><br>
                       <strong>Diagnostics and Surgery:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_plan">{!! isset($bookings[0]->plan) ? nl2br($bookings[0]->plan) : '' !!}</div><br>
                       <strong>Remarks:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_planRem">{!! isset($bookings[0]->planRem) ? nl2br($bookings[0]->planRem) : '' !!}</div><br>
                     </p>
+                    @endif
                   </div>
                 </div>
               </div>
@@ -1504,7 +1572,7 @@
                       <div class="card-header">Previous Objective Findings</div>
                       <div class="card-body">
                         @if(stristr($datum->doctor->specialty, 'Ophtha') && $datum->booking_type != "Dialysis")
-                        <div class="card mb-3">
+                        <div class="card mb-3" id="eeInfoPrev1">
                           <div class="card-header">Eye Examination Information</div>
                           <div class="card-body">
                             {{-- <p id="prevEyerBack">
@@ -1642,6 +1710,194 @@
                 <div class="card mb-3">
                   <div class="card-header">Previous Plan</div>
                   <div class="card-body">
+                    @if($bookings[0]->booking_type == 'Dialysis')
+                    <div class="card mb-3">
+                      <div class="card-header">Previous Plan</div>
+                      <div class="card-body">
+                        <small class="text-muted">Helper</small>
+                        <div class="input-group input-group-small flex-nowrap">
+                          <select class="form-select" placeholder="" disabled>
+                            <option value=""></option>
+                          </select>
+                          <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
+                        </div>
+                        <small class="text-muted">Content</small>
+                        <textarea class="form-control" name="{{ $viewFolder }}[planMed]" id="{{ $viewFolder }}_prev_planMed" rows=3 disabled>{{ $bookings[0]->planMed }}</textarea>
+                        <small class="text-muted">Helper Save/Edit</small>
+                        <div class="input-group input-group-small mb-3 flex-nowrap">
+                          <div class="input-group-text">
+                            <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                          </div>
+                          <input type="text" class="form-control" id="{{ $viewFolder }}_planMedTitle" name="{{ $viewFolder }}[planMedTitle]" disabled>
+                          <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                        </div>
+                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planMedEdit]" id="{{ $viewFolder }}_planMedEdit" rows=3 disabled></textarea>
+                      </div>
+                    </div>
+                    <div class="card mb-3">
+                      <div class="card-header">Current Meds Onboard</div>
+                      <div class="card-body">
+                        <div class="card mb-3">
+                          <div class="card-header">Add/Edit Entry</div>
+                          <div class="card-body">
+                            <div class="input-group mb-3">
+                              <div class="form-floating">
+                                <input class="form-control" type="text" name="{{ $viewFolder }}[MedsOnboard][meds]" @if(!isset($referal_conso)) id="{{ $viewFolder }}_mo_meds" @endif value="" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }} onchange="
+                                  if($(this).val() != ''){
+                                    $('#{{ $viewFolder }}_mo_meds').prop('required', true);
+                                    $('#{{ $viewFolder }}_mo_dose').prop('required', true);
+                                    $('#{{ $viewFolder }}_mo_delivery').prop('required', true);
+                                    $('#{{ $viewFolder }}_mo_duration').prop('required', true);
+                                  }else{
+                                    $('#{{ $viewFolder }}_mo_meds').prop('required', false);
+                                    $('#{{ $viewFolder }}_mo_dose').prop('required', false);
+                                    $('#{{ $viewFolder }}_mo_delivery').prop('required', false);
+                                    $('#{{ $viewFolder }}_mo_duration').prop('required', false);
+                                  }
+                                  if($(this).val() != '' && $('#{{ $viewFolder }}_mo_meds').val() != '' && $('#{{ $viewFolder }}_mo_dose').val() != '' && $('#{{ $viewFolder }}_mo_delivery').val() != '' && $('#{{ $viewFolder }}_mo_duration').val() != '')
+                                    $('#addMedsOnboard{{ $datum->id }}').prop('disabled', false);
+                                  else
+                                    $('#addMedsOnboard{{ $datum->id }}').prop('disabled', true);
+                                " disabled>
+                                <label for="{{ $viewFolder }}_notes_time" class="form-label">Meds</label>
+                                <small id="help_{{ $viewFolder }}_notes_time" class="text-muted"></small>
+                              </div>
+                            </div>
+                            <div class="input-group mb-3">
+                              <div class="form-floating">
+                                <input class="form-control" type="text" name="{{ $viewFolder }}[MedsOnboard][dose]" @if(!isset($referal_conso)) id="{{ $viewFolder }}_mo_dose" @endif placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }} onchange="
+                                  if($('#{{ $viewFolder }}_mo_meds').val() != ''){
+                                    $('#{{ $viewFolder }}_mo_meds').prop('required', true);
+                                    $('#{{ $viewFolder }}_mo_dose').prop('required', true);
+                                    $('#{{ $viewFolder }}_mo_delivery').prop('required', true);
+                                    $('#{{ $viewFolder }}_mo_duration').prop('required', true);
+                                  }else{
+                                    $('#{{ $viewFolder }}_mo_meds').prop('required', false);
+                                    $('#{{ $viewFolder }}_mo_dose').prop('required', false);
+                                    $('#{{ $viewFolder }}_mo_delivery').prop('required', false);
+                                    $('#{{ $viewFolder }}_mo_duration').prop('required', false);
+                                  }
+                                  if($(this).val() != '' && $('#{{ $viewFolder }}_mo_meds').val() != '' && $('#{{ $viewFolder }}_mo_dose').val() != '' && $('#{{ $viewFolder }}_mo_delivery').val() != '' && $('#{{ $viewFolder }}_mo_duration').val() != '')
+                                    $('#addMedsOnboard{{ $datum->id }}').prop('disabled', false);
+                                  else
+                                    $('#addMedsOnboard{{ $datum->id }}').prop('disabled', true);
+                                " disabled>
+                                
+                                <label for="{{ $viewFolder }}_nurse_notes" class="form-label">Dose</label>
+                                <small id="help_{{ $viewFolder }}_nurse_notes" class="text-muted"></small>
+                              </div>
+                            </div>
+                            <div class="input-group mb-3">
+                              <div class="form-floating">
+                                <input class="form-control" type="text" name="{{ $viewFolder }}[MedsOnboard][delivery]" @if(!isset($referal_conso)) id="{{ $viewFolder }}_mo_delivery" @endif placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }} onchange="
+                                  if($('#{{ $viewFolder }}_mo_meds').val() != ''){
+                                    $('#{{ $viewFolder }}_mo_meds').prop('required', true);
+                                    $('#{{ $viewFolder }}_mo_dose').prop('required', true);
+                                    $('#{{ $viewFolder }}_mo_delivery').prop('required', true);
+                                    $('#{{ $viewFolder }}_mo_duration').prop('required', true);
+                                  }else{
+                                    $('#{{ $viewFolder }}_mo_meds').prop('required', false);
+                                    $('#{{ $viewFolder }}_mo_dose').prop('required', false);
+                                    $('#{{ $viewFolder }}_mo_delivery').prop('required', false);
+                                    $('#{{ $viewFolder }}_mo_duration').prop('required', false);
+                                  }
+                                  if($(this).val() != '' && $('#{{ $viewFolder }}_mo_meds').val() != '' && $('#{{ $viewFolder }}_mo_dose').val() != '' && $('#{{ $viewFolder }}_mo_delivery').val() != '' && $('#{{ $viewFolder }}_mo_duration').val() != '')
+                                    $('#addMedsOnboard{{ $datum->id }}').prop('disabled', false);
+                                  else
+                                    $('#addMedsOnboard{{ $datum->id }}').prop('disabled', true);
+                                " disabled>
+                                
+                                <label for="{{ $viewFolder }}_nurse_notes" class="form-label">Delivery</label>
+                                <small id="help_{{ $viewFolder }}_nurse_notes" class="text-muted"></small>
+                              </div>
+                            </div>
+                            <div class="input-group mb-3">
+                              <div class="form-floating">
+                                <input class="form-control" type="text" name="{{ $viewFolder }}[MedsOnboard][duration]" @if(!isset($referal_conso)) id="{{ $viewFolder }}_mo_duration" @endif placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }} onchange="
+                                  if($('#{{ $viewFolder }}_mo_meds').val() != ''){
+                                    $('#{{ $viewFolder }}_mo_meds').prop('required', true);
+                                    $('#{{ $viewFolder }}_mo_dose').prop('required', true);
+                                    $('#{{ $viewFolder }}_mo_delivery').prop('required', true);
+                                    $('#{{ $viewFolder }}_mo_duration').prop('required', true);
+                                  }else{
+                                    $('#{{ $viewFolder }}_mo_meds').prop('required', false);
+                                    $('#{{ $viewFolder }}_mo_dose').prop('required', false);
+                                    $('#{{ $viewFolder }}_mo_delivery').prop('required', false);
+                                    $('#{{ $viewFolder }}_mo_duration').prop('required', false);
+                                  }
+                                  if($(this).val() != '' && $('#{{ $viewFolder }}_mo_meds').val() != '' && $('#{{ $viewFolder }}_mo_dose').val() != '' && $('#{{ $viewFolder }}_mo_delivery').val() != '' && $('#{{ $viewFolder }}_mo_duration').val() != '')
+                                    $('#addMedsOnboard{{ $datum->id }}').prop('disabled', false);
+                                  else
+                                    $('#addMedsOnboard{{ $datum->id }}').prop('disabled', true);
+                                " disabled>
+                                
+                                <label for="{{ $viewFolder }}_nurse_notes" class="form-label">Duration</label>
+                                <small id="help_{{ $viewFolder }}_nurse_notes" class="text-muted"></small>
+                              </div>
+                            </div>
+                            <input type="hidden" class="form-control" @if(!isset($referal_conso)) id="{{ $viewFolder }}_mo_id" @endif name="{{ $viewFolder }}[MedsOnboard][id]" value="" disabled>
+                          </div>
+                          <div class="card-footer">
+                            <button id="{{ !isset($referal_conso)  ? 'addMedsOnboard' . $datum->id : '' }}" type="button" class="addNurseNotesLog btn btn-{{ $bgColor }} btn-sm" disabled onclick="
+                              $('#doctors_home_submit_type').val('Pause');
+                              $.ajax({
+                                type: 'POST',
+                                data: $('#bookMod').serialize(),
+                                url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
+                                success:
+                                function (){
+                                    $.ajax({
+                                      type: 'GET',
+                                      url: '{{ Route::has($viewFolder . '.getMedsOnboardTable') ? route($viewFolder . '.getMedsOnboardTable', $datum->id) : '' }}',
+                                      success:
+                                      function (data){
+                                        medObj = jQuery.parseJSON(data);
+                                        var tr;
+                                        medObj.forEach(function (item, index){
+                                          tr += '<tr id=\'' + item.id + '\' log=\'medsOnboards\'><td><div class=\'d-sm-flex flex-sm-row\'><div class=\'m-1\'><button type=\'submit\' class=\'btn btn-{{ $bgColor }} btn-sm w-100 rowBtnEdit\'><i class=\'bi bi-pencil\'></i><span class=\'ps-1 d-sm-none\'>Edit</span></button></div><div class=\'m-1\'><button type=\'submit\' class=\'btn btn-{{ $bgColor }} btn-sm w-100 rowBtnDel\'><i class=\'bi bi-trash\'></i><span class=\'ps-1 d-sm-none\'>Delete</span></button></div></div></td><td>' + item.meds + '</td><td>' + item.dose + '</td><td>' + item.delivery + '</td><td>' + item.duration + '</td></tr>';
+                                        });
+                                        $('#medsOnboardTable{{ $datum->id }}').html(tr);
+                                      }
+                                    });
+                                    $('#{{ $viewFolder }}_mo_meds').val('')
+                                    $('#{{ $viewFolder }}_mo_dose').val('');
+                                    $('#{{ $viewFolder }}_mo_delivery').val('');
+                                    $('#{{ $viewFolder }}_mo_duration').val('');
+                                    $('#{{ $viewFolder }}_mo_dose').prop('required', false);
+                                    $('#{{ $viewFolder }}_mo_delivery').prop('required', false);
+                                    $('#{{ $viewFolder }}_mo_duration').prop('required', false);
+                                    $('#medsOnboardTable{{ $datum->id }}').prop('disabled', true);
+                                }
+                              });
+
+                            " disabled>Add/Edit Meds Onboard</button>
+                          </div>
+                        </div>
+                        <div class="card-body table-responsive" style="max-height: 300px">
+                          <table class="table table-bordered table-striped table-hover table-sm medsOn">
+                            <thead class="table-{{ $bgColor }}">
+                              <tr>
+                                <th>Meds</th>
+                                <th>Dose</th>
+                                <th>Delivery</th>
+                                <th>Duration</th>
+                              </tr>
+                            </thead>
+                            <tbody id="medsOnboardTablePrev">
+                            @foreach ($bookings[0]->consultation_meds_onboards()->orderBy('id', 'desc')->get() as $dat)
+                              <tr id="{{ $dat->id }}" log="medsOnboards">
+                                  <td>{{ $dat->meds }}</td>
+                                  <td>{{ $dat->dose }}</td>
+                                  <td>{{ $dat->delivery }}</td>
+                                  <td>{{ $dat->duration }}</td>
+                              </tr>
+                            @endforeach
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                    @else
                     <div class="card mb-3">
                       <div class="card-header">Previous Medical Therapeutics</div>
                       <div class="card-body">
@@ -1711,6 +1967,7 @@
                         <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planRemEdit]" id="{{ $viewFolder }}_planRemEdit" rows=3 disabled></textarea>
                       </div>
                     </div>
+                    @endif
                   </div>
                 </div>
               </div>
@@ -1937,7 +2194,7 @@
                 </div>
               </div>
               <div id="dialysisPrevDiv" style="display:none" class="container border border-1 mb-3 p-3">
-                @if(isset($datum->booking_type) && $datum->booking_type == 'Dialysis')
+                @if((isset($datum->booking_type) && $datum->booking_type == 'Dialysis') || isset($dialysisType))
                 <div class="row">
                   <div class="col-lg-4">
                     <div class="input-group mb-3">
@@ -4386,7 +4643,7 @@
                   $('#dialysisCurDiv').hide(); 
                 ">Admitting Orders</a>
               </li>
-              @if($datum->booking_type == 'Dialysis')
+              @if($datum->booking_type == 'Dialysis' || isset($dialysisType))
               <li class="nav-item">
                 <a class="nav-link" id="dialysisCurLink" href="#" onclick="
                   $('#sumPrevLink').removeClass('active');
@@ -4420,6 +4677,16 @@
                 ">Dialysis Chart</a>
               </li>
               @endif
+              {{-- <li class="nav-item">
+                <a class="nav-link" id="dialysisCurLink" href="#" onclick="
+                  $('#curChart').removeClass('col-lg-12');
+                  $('#curChart').addClass('col-lg-6');
+                  $('#pastChart').show();
+                  $('#pastChart').removeClass('d-none');
+                  $('#pastChart').removeClass('d-lg-none');
+                  $('#carouselCur').css('max-width', '100%');
+                  ">Show Past Patient's Chart</a>
+              </li> --}}
             </ul>
             <div id="curDiv" class="card-body table-responsive p-0" style="max-height: 600px">
               <div id="sumCurDiv" class="container border border-1 mb-3 p-3">
@@ -6074,7 +6341,7 @@
                 </div>
               </div>
               <div id="dialysisCurDiv" style="display:none" class="container border border-1 mb-3 p-3">
-                @if(isset($datum->booking_type) && $datum->booking_type == 'Dialysis')
+                @if((isset($datum->booking_type) && $datum->booking_type == 'Dialysis'))
                 <div class="row">
                   <div class="col-lg-4">
                     <div class="input-group mb-3">
@@ -8198,13 +8465,78 @@
 
     return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
   }
-  function loadPrevBooking(consultation_id, index){
+ function loadPrevBooking(consultation_id, index){
     $.ajax({
       type: 'GET',
       url: '{{ Route::has($viewFolder . '.getPrevBookingInfo') ? route($viewFolder . '.getPrevBookingInfo') : ''}}/' + consultation_id + '/' + index,
       success:
         function(data, status){
           bookingObj = jQuery.parseJSON(data);
+          if(bookingObj.index != 'false'){
+            $('#referral_pill').empty();
+            if(bookingObj.consultation.booking_type == '')
+              bookingObj.consultation.booking_type = 'Consultation';
+            if(typeof bookingObj.parent_doctor !== 'undefined'){
+              if(bookingObj.parent_doctor.booking_type == '')
+                bookingObj.parent_doctor.booking_type = 'Consultation';
+            }
+            var activeKey = true;
+            
+            if(typeof bookingObj.parent_doctor !== 'undefined'){
+              if(('{{ $user->name }}' ==  bookingObj.parent_doctor.doctor.name && bookingObj.parent_doctor.doctor.name != '') || (bookingObj.parent_doctor.doctor.name == '' && '{{ $user->name }}' ==  bookingObj.consultation.doctor.name)){
+                $('#referral_pill').append('<li class="nav-item"><a class="nav-link docNotesLinkPrev active" consultation-id="' + bookingObj.consultation.id + '" href="#">Yours - ' + bookingObj.consultation.clinic.name + ' | ' + bookingObj.consultation.booking_type + '</a></li>');
+              }else{
+                $('#referral_pill').append('<li class="nav-item"><a class="nav-link docNotesLinkPrev" consultation-id="' + bookingObj.consultation.consultation_parent_id + '" href="#">Dr. ' + bookingObj.parent_doctor.doctor.f_name.substring(0, 1) + '. ' + bookingObj.parent_doctor.doctor.l_name + ' - ' + bookingObj.parent_doctor.clinic.name + ' | ' + bookingObj.parent_doctor.booking_type + '</a></li>');
+              }
+            }else if('{{ $user->name }}' == bookingObj.consultation.doctor.name){
+              $('#referral_pill').append('<li class="nav-item"><a class="nav-link docNotesLinkPrev active" consultation-id="' + bookingObj.consultation.id + '" href="#">Yours - ' + bookingObj.consultation.clinic.name + ' | ' + bookingObj.consultation.booking_type + '</a></li>');
+            }else{
+              $('#referral_pill').append('<li class="nav-item"><a class="nav-link docNotesLinkPrev active" consultation-id="' + bookingObj.consultation.id + '" href="#">Dr. ' + bookingObj.consultation.doctor.f_name.substring(0, 1) + '. ' + bookingObj.consultation.doctor.l_name + ' - ' + bookingObj.consultation.clinic.name + ' | ' + bookingObj.consultation.booking_type + '</a></li>');
+            }
+            $.each(bookingObj.consultation_referals, function(index, element){
+              if(typeof element.doctor !== 'undefined'){
+                if(element.booking_type == '')
+                  element.booking_type = 'Consultation';
+                if('{{ $user->name }}' ==  element.doctor.name && !activeKey){
+                  $('#referral_pill').append('<li class="nav-item"><a class="nav-link docNotesLinkPrev active" consultation-id="' + element.id + '" href="#">Yours - ' + element.clinic.name + ' | ' + element.booking_type + '</a></li>');
+                }else{
+                  $('#referral_pill').append('<li class="nav-item"><a class="nav-link docNotesLinkPrev" consultation-id="' + element.id + '" href="#">Dr. ' + element.doctor.f_name.substring(0, 1) + '. ' + element.doctor.l_name + ' - ' + element.clinic.name + ' | ' + element.booking_type + '</a></li>');
+                }
+              }
+            });
+            
+            $(".docNotesLinkPrev").on("click", function ( event ) {
+              // alert($(this).attr('consultation-id'));
+              $('.docNotesLinkPrev').each(function(element){
+                $(this).removeClass('active');
+              });
+              $(this).addClass('active');
+              loadPrevBooking($(this).attr('consultation-id'), false);
+            });
+          }
+          
+
+          $('#medsOnboardTableSumPrev').empty();
+          $('#medsOnboardTablePrev').empty();
+          $.each(bookingObj.consultation_meds_onboards, function(index, element){
+              if(element.id != ''){
+                $('#medsOnboardTableSumPrev').append('<tr><td>' + element.meds + '</td><td>' + element.dose + '</td><td>' + element.delivery + '</td><td>' + element.duration + '</td></tr>');
+                $('#medsOnboardTablePrev').append('<tr><td>' + element.meds + '</td><td>' + element.dose + '</td><td>' + element.delivery + '</td><td>' + element.duration + '</td></tr>');
+              }
+              
+          });
+          
+          if(bookingObj.consultation.booking_type != 'Dialysis'){
+            $('#dialysisPrevDiv').hide();
+            $('#eeInfoPrev').show();
+            $('#eeInfoPrev1').show();
+            // $('#vitalsPrev').show();
+          }else{
+            $('#dialysisPrevDiv').show();
+            $('#eeInfoPrev').hide();
+            $('#eeInfoPrev1').hide();
+            // $('#vitalsPrev').hide();
+          }
 
           if(bookingObj.parent_consultation.id != ''){
             orig_booking = bookingObj.consultation;
@@ -9107,30 +9439,34 @@
           }else{
             $('#{{ $viewFolder }}_prev_shorten_reason').val('');
           }
-          $('#medTable{{ $datum->id }}').empty();
-          $.each(bookingObj.consultation_meds, function(index, element){
-            if(index == 0){
-              $('#medTable{{ $datum->id }}').empty().append('<tr id=\'' + element.id + '\' log=\'meds\'><td></td><td>' + element.time_given + '</td><td>' + element.medication + '</td><td>' + element.dosage + '</td><td>' + element.creator.name + '</td></tr>');
-            }else{
-              $('#medTable{{ $datum->id }}').append('<tr id=\'' + element.id + '\' log=\'meds\'><td></td><td>' + element.time_given + '</td><td>' + element.medication + '</td><td>' + element.dosage + '</td><td>' + element.creator.name + '</td></tr>');
-            }
-          });
-          $('#monTable{{ $datum->id }}').empty();
-          $.each(bookingObj.consultation_monitorings, function(index, element){
-            if(index == 0){
-              $('#monTable{{ $datum->id }}').empty().append('<tr id=\'' + element.id + '\' log=\'moni\'><td></td><td>' + element.time_given + '</td><td>' + element.bpS + '/' + element.bpD + '</td><td>' + element.heart + 'BPM</td><td>' + element.o2 + '%</td><td>' + element.ap + '</td><td>' + element.vp + '</td><td>' + element.tmp + '</td><td>' + element.bfr + '</td><td>' + element.nss + '</td><td>' + element.ufr + '</td><td>' + element.ufv + '</td><td>' + element.remarks + '</td><td>' + element.creator.name + '</td></tr>');
-            }else{
-              $('#monTable{{ $datum->id }}').append('<tr id=\'' + element.id + '\' log=\'moni\'><td></td><td>' + element.time_given + '</td><td>' + element.bpS + '/' + element.bpD + '</td><td>' + element.heart + 'BPM</td><td>' + element.o2 + '%</td><td>' + element.ap + '</td><td>' + element.vp + '</td><td>' + element.tmp + '</td><td>' + element.bfr + '</td><td>' + element.nss + '</td><td>' + element.ufr + '</td><td>' + element.ufv + '</td><td>' + element.remarks + '</td><td>' + element.creator.name + '</td></tr>');
-            }
-          });
-          $('#nurseNotesTable{{ $datum->id }}').empty();
-          $.each(bookingObj.consultation_nurse_notes, function(index, element){
-            if(index == 0){
-              $('#nurseNotesTable{{ $datum->id }}').empty().append('<tr id=\'' + element.id + '\' log=\'nurseNotes\'><td></td><td>' + element.time_given + '</td><td>' + element.shorten_reason + '</td><td>' + element.creator.name + '</td></tr>');
-            }else{
-              $('#nurseNotesTable{{ $datum->id }}').append('<tr id=\'' + element.id + '\' log=\'nurseNotes\'><td></td><td>' + element.time_given + '</td><td>' + element.shorten_reason + '</td><td>' + element.creator.name + '</td></tr>');
-            }
-          });
+
+          if(bookingObj.index != 'false'){
+            $('#medTable{{ $datum->id }}').empty();
+            $.each(bookingObj.consultation_meds, function(index, element){
+              if(index == 0){
+                $('#medTable{{ $datum->id }}').empty().append('<tr id=\'' + element.id + '\' log=\'meds\'><td></td><td>' + element.time_given + '</td><td>' + element.medication + '</td><td>' + element.dosage + '</td><td>' + element.creator.name + '</td></tr>');
+              }else{
+                $('#medTable{{ $datum->id }}').append('<tr id=\'' + element.id + '\' log=\'meds\'><td></td><td>' + element.time_given + '</td><td>' + element.medication + '</td><td>' + element.dosage + '</td><td>' + element.creator.name + '</td></tr>');
+              }
+            });
+            $('#monTable{{ $datum->id }}').empty();
+            $.each(bookingObj.consultation_monitorings, function(index, element){
+              if(index == 0){
+                $('#monTable{{ $datum->id }}').empty().append('<tr id=\'' + element.id + '\' log=\'moni\'><td></td><td>' + element.time_given + '</td><td>' + element.bpS + '/' + element.bpD + '</td><td>' + element.heart + 'BPM</td><td>' + element.o2 + '%</td><td>' + element.ap + '</td><td>' + element.vp + '</td><td>' + element.tmp + '</td><td>' + element.bfr + '</td><td>' + element.nss + '</td><td>' + element.ufr + '</td><td>' + element.ufv + '</td><td>' + element.remarks + '</td><td>' + element.creator.name + '</td></tr>');
+              }else{
+                $('#monTable{{ $datum->id }}').append('<tr id=\'' + element.id + '\' log=\'moni\'><td></td><td>' + element.time_given + '</td><td>' + element.bpS + '/' + element.bpD + '</td><td>' + element.heart + 'BPM</td><td>' + element.o2 + '%</td><td>' + element.ap + '</td><td>' + element.vp + '</td><td>' + element.tmp + '</td><td>' + element.bfr + '</td><td>' + element.nss + '</td><td>' + element.ufr + '</td><td>' + element.ufv + '</td><td>' + element.remarks + '</td><td>' + element.creator.name + '</td></tr>');
+              }
+            });
+            $('#nurseNotesTable{{ $datum->id }}').empty();
+            $.each(bookingObj.consultation_nurse_notes, function(index, element){
+              if(index == 0){
+                $('#nurseNotesTable{{ $datum->id }}').empty().append('<tr id=\'' + element.id + '\' log=\'nurseNotes\'><td></td><td>' + element.time_given + '</td><td>' + element.shorten_reason + '</td><td>' + element.creator.name + '</td></tr>');
+              }else{
+                $('#nurseNotesTable{{ $datum->id }}').append('<tr id=\'' + element.id + '\' log=\'nurseNotes\'><td></td><td>' + element.time_given + '</td><td>' + element.shorten_reason + '</td><td>' + element.creator.name + '</td></tr>');
+              }
+            });
+          }
+          
           
 
           // $('#{{ $viewFolder }}_findings').val(bookingObj.consultation.findings);
@@ -9194,6 +9530,15 @@
           url: '{{ Route::has($viewFolder . '.deleteMedsOnboards') ? route($viewFolder . '.deleteMedsOnboards') : ''}}/' + $(this).closest("tr").attr("id"),
         });
       }
+    });
+
+    $(".docNotesLinkPrev").on("click", function ( event ) {
+      // alert($(this).attr('consultation-id'));
+      $('.docNotesLinkPrev').each(function(element){
+        $(this).removeClass('active');
+      });
+      $(this).addClass('active');
+      loadPrevBooking($(this).attr('consultation-id'), false);
     });
 
     $("table.medsOn").on("click", ".rowBtnEdit", function ( event ) {
