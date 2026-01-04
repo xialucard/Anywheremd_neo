@@ -87,7 +87,7 @@
                     <th>Date</th>
                     <th>Parent Booking ID</th>
                     <th>Booking ID</th>
-                    <@if($user->user_type != 'Clinic')
+                    @if($user->user_type != 'Clinic')
                     <th>Clinic</th>
                     @endif
                     <th>Booking Type</th>
