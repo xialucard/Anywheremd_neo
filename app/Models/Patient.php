@@ -69,7 +69,7 @@ class Patient extends Model
         return $this->belongsTo(User::class, 'client_id');
     }
 
-    public function hmo()
+    public function health_org()
     {
         return $this->belongsTo(HealthOrganization::class, 'hmo');
     }

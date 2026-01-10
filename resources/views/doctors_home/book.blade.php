@@ -15,10 +15,17 @@
   // print($user->id);
 @endphp
 @php
-  if($user->specialty == "POD")
-    $bookings = $datum->patient->consultations()->where('booking_type', $datum->booking_type)->whereNull('consultation_parent_id')->whereIn('clinic_id', $doctorClinic)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
-  else
-    $bookings = $datum->patient->consultations()->where('booking_type', $datum->booking_type)->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+  if($user->specialty == "POD"){
+    if($datum->booking_type != 'Dialysis')
+      $bookings = $datum->patient->consultations()->whereNot('booking_type', 'Dialysis')->whereNull('consultation_parent_id')->whereIn('clinic_id', $doctorClinic)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+    else  
+      $bookings = $datum->patient->consultations()->where('booking_type', $datum->booking_type)->whereNull('consultation_parent_id')->whereIn('clinic_id', $doctorClinic)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+  }else{
+    if($datum->booking_type != 'Dialysis')
+      $bookings = $datum->patient->consultations()->whereNot('booking_type', 'Dialysis')->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+    else  
+      $bookings = $datum->patient->consultations()->where('booking_type', $datum->booking_type)->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+  }
   // print "<pre>";
   // print_r($bookings[0]);
   // print "</pre>";
@@ -318,7 +325,26 @@
             $('#pastChart').removeClass('d-none');
             $('#pastChart').removeClass('d-lg-none');
             $('#carouselCur').css('max-width', '100%');
-            ">Show Past Patient's Chart</a>
+            ">Show Past Px's Chart</a>
+        </li>
+        <li class="nav-item">
+          <div class="mt-2">
+            <label for="{{ $viewFolder }}_b-history">Booking History</label>
+            <select id="{{ $viewFolder }}_b-history" onchange="
+              // alert($(this).val());
+              // alert($('option:selected', this).attr('optIndex'));
+              loadPrevBooking($(this).val(), $('option:selected', this).attr('optIndex'));
+              $('#curChart').removeClass('col-lg-12');
+              $('#curChart').addClass('col-lg-6');
+              $('#pastChart').show();
+              $('#pastChart').removeClass('d-none');
+              $('#pastChart').removeClass('d-lg-none');
+            ">
+              @foreach($bookings as $ind=>$dat)
+              <option value="{{ $dat->id }}" optIndex="{{ $ind }}">{{ $dat->bookingDate }} - {{ $dat->booking_type == "" ? 'Consultation' : $dat->booking_type }}</option>
+              @endforeach
+            </select>
+          </div>
         </li>
       </ul>
     </div>
@@ -350,8 +376,11 @@
                   <strong>Patient Sub Type: </strong>{{ $datum->patient->patient_sub_type . ' ' . $datum->patient->referral_from }}<br>
                   <strong>Philhealth #: </strong>{{ $datum->patient->phil_num }} | 
                   <strong>Philhealth Member Type:</strong> {{ $datum->patient->phil_mem_type }}<br>
-                  <strong>HMO:</strong> {{ $datum->patient->hmo }} | 
+                  <strong>HMO:</strong> {{ $datum->patient->hmo == '' ? '' : $datum->patient->health_org->name}} | 
                   <strong>HMO #:</strong> {{ $datum->patient->hmo_num }}<br>
+                  {{-- @php
+                    print_r($datum->patient->health_org->name);
+                  @endphp --}}
                 </p>
                 <div class="form-floating mb-3">
                   <textarea class="form-control" name="{{ $viewFolder }}[Patient][notes]" id="{{ $viewFolder }}_notes" rows=3>{{ !empty($datum->patient->notes) ? $datum->patient->notes : '' }}</textarea>
@@ -360,7 +389,7 @@
                 </div>
               </div>
             </div>
-            <div class="card mb-3 d-none d-lg-block">
+            {{-- <div class="card mb-3 d-none d-lg-block">
               <div class="card-header">Booking History <small id="help_{{ $viewFolder }}_notes" class="text-muted">(select previous booking to compare with current booking)</small></div>
               <div class="card-body table-responsive" style="max-height: 300px">
                 <table class="table table-bordered table-striped table-hover table-sm">
@@ -393,7 +422,7 @@
                         </td>
                         <td>{{ $dat->bookingDate }}</td>
                         <td>{{ $dat->booking_type == '' ? 'Consultation' : $dat->booking_type }}</td>
-                        {{-- <td>{{ $dat->patient->name }}</td> --}}
+                        {{-- <td>{{ $dat->patient->name }}</td> -}}
                         @if($user->specialty == "POD")
                         <td>{{ $dat->doctor->name }}</td>
                         @endif
@@ -403,7 +432,7 @@
                   </tbody>
                 </table>
               </div>
-            </div>
+            </div> --}}
             {{-- <div class="card mb-3">
               <div class="card-header">Patient's Basic Info</div>
               <div class="card-body">
@@ -545,7 +574,7 @@
           <div class="col-lg-6">
             <div class="card mb-3">
               <div class="card-header">Patient's Medical History</div>
-              <div class="card-body table-responsive" style="max-height: 780px">
+              <div class="card-body table-responsive" style="max-height: 420px">
                 <label>Past Medical History</label>
                 <div class="container ml-5 mb-3">
                   <div class="form-check">
@@ -1003,7 +1032,7 @@
     </div>
     <div class="row">
       <div class="col-lg-6">
-        <div class="card mb-3 d-xs-block d-lg-none">
+        {{-- <div class="card mb-3 d-xs-block d-lg-none">
           <div class="card-header">Booking History</div>
           <div class="card-body table-responsive" style="max-height: 300px">
             <table class="table table-bordered table-striped table-hover table-sm">
@@ -1031,14 +1060,14 @@
                     </td>
                     <td>{{ $dat->bookingDate }}</td>
                     <td>{{ $dat->booking_type == '' ? 'Consultation' : $dat->booking_type }}</td>
-                    {{-- <td>{{ $dat->patient->name }}</td> --}}
+                    {{-- <td>{{ $dat->patient->name }}</td> -}}
                     <td>{{ $dat->procedure_details }}</td>
                   </tr>
                 @endforeach
               </tbody>
             </table>
           </div>
-        </div>
+        </div> --}}
         <ul class="nav nav-pills mb-3 d-xs-block d-lg-none">
           <li class="nav-item">
             <a class="nav-link chartTab" href="#" onclick="
@@ -1335,7 +1364,26 @@
                   $('#pastChart').removeClass('d-none');
                   $('#pastChart').removeClass('d-lg-none');
                   $('#carouselCur').css('max-width', '100%');
-                  ">Show Past Patient's Chart</a>
+                  ">Show Past Px's Chart</a>
+              </li>
+              <li class="nav-item">
+                <div class="mt-2">
+                  <label for="{{ $viewFolder }}_b-history">Booking History</label>
+                  <select id="{{ $viewFolder }}_b-history" onchange="
+                    // alert($(this).val());
+                    // alert($('option:selected', this).attr('optIndex'));
+                    loadPrevBooking($(this).val(), $('option:selected', this).attr('optIndex'));
+                    $('#curChart').removeClass('col-lg-12');
+                    $('#curChart').addClass('col-lg-6');
+                    $('#pastChart').show();
+                    $('#pastChart').removeClass('d-none');
+                    $('#pastChart').removeClass('d-lg-none');
+                  ">
+                    @foreach($bookings as $ind=>$dat)
+                    <option value="{{ $dat->id }}" optIndex="{{ $ind }}">{{ $dat->bookingDate }} - {{ $dat->booking_type == "" ? 'Consultation' : $dat->booking_type }}</option>
+                    @endforeach
+                  </select>
+                </div>
               </li>
             </ul>
             <div id="prevDiv" class="card-body table-responsive p-0" style="max-height: 600px">

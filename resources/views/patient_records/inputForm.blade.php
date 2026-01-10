@@ -29,8 +29,10 @@
             <strong>Patient Sub Type: </strong>{{ !empty($datum->patient_sub_type) ? $datum->patient_sub_type . ' ' . $datum->referral_from : '' }}<br>
             <strong>Philhealth #: </strong>{{ !empty($datum->phil_num) ? $datum->phil_num : '' }} | 
             <strong>Philhealth Member Type:</strong> {{ !empty($datum->phil_mem_type) ? $datum->phil_mem_type : '' }}<br>
-            <strong>HMO:</strong> {{ !empty($datum->hmo) ? $datum->hmo : '' }} | 
+            <strong>HMO:</strong> {{ empty($datum->hmo) ? '' : $datum->health_org->name}} | 
             <strong>HMO #:</strong> {{ !empty($datum->hmo_num) ? $datum->hmo_num : '' }}<br>
+            {{-- <strong>HMO:</strong> {{ !empty($datum->hmo) ? $datum->hmo : '' }} | 
+            <strong>HMO #:</strong> {{ !empty($datum->hmo_num) ? $datum->hmo_num : '' }}<br> --}}
           </p>  
         </div>
       </div>
