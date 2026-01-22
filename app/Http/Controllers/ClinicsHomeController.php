@@ -18,6 +18,7 @@ use App\Models\Patient;
 use App\Models\Schedule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade\Pdf;
 use PSpell\Config;
 
@@ -574,6 +575,37 @@ class ClinicsHomeController extends Controller
                 ]);
         }
     }
+
+    // public function dynamic_form(Consultation $clinics_home, Request $request)
+    // {
+    //     $user = Auth::user();
+    //     $datum = $clinics_home;
+    //     $yr = null;
+    //     $mon = null;
+    //     $dayNum = null;
+    //     return view($this->viewFolder . '.index', [
+    //                 'moduleList' => $this->moduleList(), 
+    //                 'moduleActive' => $this->module, 
+    //                 'datum' => $datum, 
+    //                 'inputFormHeader' => 'Dynamic Forms', 
+    //                 'formId' => 'dynamicForm',
+    //                 'formAction' => 'dynamic_form', 
+    //                 'viewFolder' => $this->viewFolder, 
+    //                 'action'=> 'dynamic_form', 
+    //                 'selectItems' => $this->selectItems(),
+    //                 'doctor' => $datum->doctor,
+    //                 'yr' => $yr, 
+    //                 'mon' => $mon, 
+    //                 'dayNum' => $dayNum,
+    //                 'modalSize' => 'modal-xl', 
+    //                 'modal' => true,
+    //                 'dateBooking' => $datum->bookingDate,
+    //                 'viewFolder' => $this->viewFolder, 
+    //                 'modalSize' => 'modal-xl',
+    //                 'booking_type' => $datum->booking_type,
+    //                 'referer' => urldecode($request->headers->get('referer'))
+    //             ]);
+    // }
 
     public function edit(Consultation $clinics_home, Request $request)
     {
@@ -1297,6 +1329,16 @@ class ClinicsHomeController extends Controller
         $allBooking = Consultation::where('patient_id', $clinics_home->patient_id)->where('booking_type', 'Dialysis')->whereNotNull('time_ended')->whereNot('id', $clinics_home->id)->where('bookingDate', '<', $clinics_home->bookingDate)->orderBy('bookingDate','asc')->get();
         $pdf = Pdf::loadView($this->viewFolder . '.pdfHDSum', ['datum' => $clinics_home, 'allBooking' => $allBooking]);
         return $pdf->download('hdSum_' . $clinics_home->id . '-' . $clinics_home->treatment_number . '.pdf');
+        
+    }
+
+    function pdfPrintableForms(Consultation $clinics_home, $template){
+        $user = Auth::user();
+        $pdf = Pdf::loadView($this->viewFolder . '.' . $template, ['datum' => $clinics_home, 'user' => $user]);
+        Storage::put('public/printable_forms_files/' . $template . '_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf', $pdf->output());
+        $src = asset('storage/printable_forms_files/' . $template . '_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf');
+        return $src;
+        // return $pdf->download('hd_' . $clinics_home->id . '-' . $clinics_home->treatment_number . '.pdf');
         
     }
 

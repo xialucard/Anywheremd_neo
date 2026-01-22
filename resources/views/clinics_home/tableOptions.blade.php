@@ -10,6 +10,11 @@
 //   print($user->id);
 @endphp
 <div class="d-sm-flex flex-sm-row">
+    @if (Route::has($viewFolder . '.dynamic_form'))
+        @can($viewFolder . '.dynamic_form')
+    <div class="m-1"><a class="btn btn-{{ $bgColor }} btn-sm w-100" href="{{ route($viewFolder . '.dynamic_form', [isset($referal_conso) ? $referal_conso->id : $dat->id, !empty(parse_url(Request::fullUrl())['query']) ? parse_url(Request::fullUrl())['query'] : '']) }}" title="Dynamic Forms" role="button"><i class="bi bi-file-earmark-medical"></i><span class="ps-1 d-sm-none">Edit</span></a></div>
+        @endcan
+    @endif
     @if (file_exists(public_path('storage/prescription_files/' . $dat->id . '_' . $dat->patient->l_name . '.pdf')))
     <div class="m-1"><a class="btn btn-{{ $bgColor }} btn-sm w-100" href="{{ asset('storage/prescription_files/' . (isset($referal_conso) ? $referal_conso->id : $dat->id) . '_' . (isset($referal_conso) ? $referal_conso->patient->l_name : $dat->patient->l_name) . '.pdf') }}" title="Download Prescription" role="button" download><i class="bi bi-prescription"></i><span class="ps-1 d-sm-none">Download Prescription</span></a></div>
     @endif
@@ -48,6 +53,7 @@
     <div class="m-1"><a class="btn btn-{{ $bgColor }} btn-sm w-100" href="{{ route($viewFolder . '.edit', [isset($referal_conso) ? $referal_conso->id : $dat->id, !empty(parse_url(Request::fullUrl())['query']) ? parse_url(Request::fullUrl())['query'] : '']) }}" title="Edit" role="button"><i class="bi bi-pencil"></i><span class="ps-1 d-sm-none">Edit</span></a></div>
         @endcan
     @endif
+    
     @if (Route::has($viewFolder . '.destroy') && $dat->status != 'Done')
         @can($viewFolder . '.destroy')
     <form action="{{ route($viewFolder . '.destroy', isset($referal_conso) ? $referal_conso->id : $dat->id) }}" method="POST">

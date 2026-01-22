@@ -192,6 +192,7 @@
             $('#consoPatBookChartDiv').show();
             $('#consoSOAP').hide();
             $('#hdSum').hide();
+            $('#printableFormsDiv').hide();
             $(this).addClass('active');
             $('#docInfoLink').removeClass('active');
             $('#patInfoLink').removeClass('active');
@@ -199,6 +200,7 @@
             $('#nurseUploadLink').removeClass('active');
             $('#SOAPLink').removeClass('active');
             $('#hdSumLink').removeClass('active');
+            $('#printableFormsLink').removeClass('active');
           ">Patient's Booking Chart</a>
         </li>
         <li class="nav-item">
@@ -210,6 +212,7 @@
             $('#consoNurseUploadDiv').hide();
             $('#consoSOAP').hide();
             $('#hdSum').hide();
+            $('#printableFormsDiv').hide();
             $(this).addClass('active');
             $('#docInfoLink').removeClass('active');
             $('#patInfoLink').removeClass('active');
@@ -217,6 +220,7 @@
             $('#nurseUploadLink').removeClass('active');
             $('#SOAPLink').removeClass('active');
             $('#hdSumLink').removeClass('active');
+            $('#printableFormsLink').removeClass('active');
           ">File Uploads</a>
         </li>
         <li class="nav-item">
@@ -228,6 +232,7 @@
             $('#consoNurseUploadDiv').show();
             $('#consoSOAP').hide();
             $('#hdSum').hide();
+            $('#printableFormsDiv').hide();
             $(this).addClass('active');
             $('#docInfoLink').removeClass('active');
             $('#patInfoLink').removeClass('active');
@@ -235,6 +240,7 @@
             $('#patUploadLink').removeClass('active');
             $('#SOAPLink').removeClass('active');
             $('#hdSumLink').removeClass('active');
+            $('#printableFormsLink').removeClass('active');
           ">Nurse's File Uploads</a>
         </li>
         @endif
@@ -247,6 +253,7 @@
             $('#consoPatientDiv').show();
             $('#consoSOAP').hide();
             $('#hdSum').hide();
+            $('#printableFormsDiv').hide();
             $(this).addClass('active');
             $('#docInfoLink').removeClass('active');
             $('#patBookChartLink').removeClass('active');
@@ -254,6 +261,7 @@
             $('#nurseUploadLink').removeClass('active');
             $('#SOAPLink').removeClass('active');
             $('#hdSumLink').removeClass('active');
+            $('#printableFormsLink').removeClass('active');
           ">Patient's Info</a>
         </li>
         <li class="nav-item">
@@ -265,6 +273,7 @@
           $('#consoDocDiv').show();
           $('#consoSOAP').hide();
           $('#hdSum').hide();
+          $('#printableFormsDiv').hide();
           $(this).addClass('active');
           $('#patInfoLink').removeClass('active');
           $('#patBookChartLink').removeClass('active');
@@ -272,6 +281,7 @@
           $('#nurseUploadLink').removeClass('active');
           $('#SOAPLink').removeClass('active');
           $('#hdSumLink').removeClass('active');
+          $('#printableFormsLink').removeClass('active');
         ">Doctor's Info</a>
         </li>
         @if(isset($datum->booking_type) && $datum->booking_type == "Dialysis")
@@ -284,6 +294,7 @@
             $('#consoPatBookChartDiv').hide();
             $('#consoSOAP').show();
             $('#hdSum').hide();
+            $('#printableFormsDiv').hide();
             $(this).addClass('active');
             $('#docInfoLink').removeClass('active');
             $('#patInfoLink').removeClass('active');
@@ -291,6 +302,7 @@
             $('#nurseUploadLink').removeClass('active');
             $('#patBookChartLink').removeClass('active');
             $('#hdSumLink').removeClass('active');
+            $('#printableFormsLink').removeClass('active');
           ">SOAP</a>
         </li>
         <li class="nav-item">
@@ -302,6 +314,7 @@
             $('#consoPatBookChartDiv').hide();
             $('#consoSOAP').hide();
             $('#hdSum').show();
+            $('#printableFormsDiv').hide();
             $(this).addClass('active');
             $('#docInfoLink').removeClass('active');
             $('#patInfoLink').removeClass('active');
@@ -309,10 +322,264 @@
             $('#nurseUploadLink').removeClass('active');
             $('#patBookChartLink').removeClass('active');
             $('#SOAPLink').removeClass('active');
+            $('#printableFormsLink').removeClass('active');
           ">HD Summary Sheet</a>
         </li>
         @endif
+        @if(isset($datum->id))
+        <li class="nav-item">
+          <a class="nav-link {{ !isset($datum->id) ? 'active' : '' }}" id="printableFormsLink" href="#" onclick="
+          $('#consoPatientDiv').hide();  
+          $('#consoPatBookChartDiv').hide(); 
+          $('#consoPatUploadDiv').hide();
+          $('#consoNurseUploadDiv').hide();
+          $('#consoDocDiv').hide();
+          $('#consoSOAP').hide();
+          $('#hdSum').hide();
+          $('#printableFormsDiv').show();
+          $(this).addClass('active');
+          $('#patInfoLink').removeClass('active');
+          $('#patBookChartLink').removeClass('active');
+          $('#patUploadLink').removeClass('active');
+          $('#nurseUploadLink').removeClass('active');
+          $('#SOAPLink').removeClass('active');
+          $('#hdSumLink').removeClass('active');
+        ">Printable Forms</a>
+        </li>
+        @endif
       </ul>
+      @if(isset($datum->id))
+      <div id="printableFormsDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
+        <div class="card mb-3">
+            <div class="card-header">Forms</div>
+            <div class="card-body">
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action active" id="generalConsentLink" onclick="
+                        $(this).addClass('active');
+                        $('#dataPrivacyConsentLink').removeClass('active');
+                        $('#dischargeSummaryLink').removeClass('active');
+                        $('#nurseNotesLink').removeClass('active');
+                        $('#undertakingLink').removeClass('active');
+                        $('#orTechLink').removeClass('active');
+                        $('#postOpLink').removeClass('active');
+                        $('#opAdmitLink').removeClass('active');
+                        $.ajax({
+                          type: 'POST',
+                          data: $('#bookMod').serialize(),
+                          url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
+                          success:
+                          function (){
+                              $.ajax({
+                                type: 'GET',
+                                url: '{{ Route::has($viewFolder . '.pdfPrintableForms') ? route($viewFolder . '.pdfPrintableForms', [$datum->id, 'pdfGeneralConsent']) : '' }}',
+                                success:
+                                function (data){
+                                  $('#iframeDynaForm').attr('src', data);
+                                }
+                              });
+                          }
+                        });
+                    ">General Consent</a>
+                    <a href="#" class="list-group-item list-group-item-action" id="dataPrivacyConsentLink" onclick="
+                        $(this).addClass('active');
+                        $('#generalConsentLink').removeClass('active');
+                        $('#dischargeSummaryLink').removeClass('active');
+                        $('#nurseNotesLink').removeClass('active');
+                        $('#undertakingLink').removeClass('active');
+                        $('#orTechLink').removeClass('active');
+                        $('#postOpLink').removeClass('active');
+                        $('#opAdmitLink').removeClass('active');
+                        $.ajax({
+                          type: 'POST',
+                          data: $('#bookMod').serialize(),
+                          url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
+                          success:
+                          function (){
+                              $.ajax({
+                                type: 'GET',
+                                url: '{{ Route::has($viewFolder . '.pdfPrintableForms') ? route($viewFolder . '.pdfPrintableForms', [$datum->id, 'pdfDataPrivacyConsent']) : '' }}',
+                                success:
+                                function (data){
+                                  $('#iframeDynaForm').attr('src', data);
+                                }
+                              });
+                          }
+                        });
+                    ">Data Privacy Consent</a>
+                    @if($datum->booking_type == 'Surgery' || $datum->booking_type == 'Laser')
+                    <a href="#" class="list-group-item list-group-item-action" id="dischargeSummaryLink" onclick="
+                        $(this).addClass('active');
+                        $('#generalConsentLink').removeClass('active');
+                        $('#dataPrivacyConsentLink').removeClass('active');
+                        $('#nurseNotesLink').removeClass('active');
+                        $('#undertakingLink').removeClass('active');
+                        $('#orTechLink').removeClass('active');
+                        $('#postOpLink').removeClass('active');
+                        $('#opAdmitLink').removeClass('active');
+                        $.ajax({
+                          type: 'POST',
+                          data: $('#bookMod').serialize(),
+                          url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
+                          success:
+                          function (){
+                              $.ajax({
+                                type: 'GET',
+                                url: '{{ Route::has($viewFolder . '.pdfPrintableForms') ? route($viewFolder . '.pdfPrintableForms', [$datum->id, 'pdfDischargeSum']) : '' }}',
+                                success:
+                                function (data){
+                                  $('#iframeDynaForm').attr('src', data);
+                                }
+                              });
+                          }
+                        });
+                    ">Discharge Summary</a>
+                    @endif
+                    <a href="#" class="list-group-item list-group-item-action" id="nurseNotesLink" onclick="
+                        $(this).addClass('active');
+                        $('#generalConsentLink').removeClass('active');
+                        $('#dataPrivacyConsentLink').removeClass('active');
+                        $('#dischargeSummaryLink').removeClass('active');
+                        $('#undertakingLink').removeClass('active');
+                        $('#orTechLink').removeClass('active');
+                        $('#postOpLink').removeClass('active');
+                        $('#opAdmitLink').removeClass('active');
+                        $.ajax({
+                          type: 'POST',
+                          data: $('#bookMod').serialize(),
+                          url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
+                          success:
+                          function (){
+                              $.ajax({
+                                type: 'GET',
+                                url: '{{ Route::has($viewFolder . '.pdfPrintableForms') ? route($viewFolder . '.pdfPrintableForms', [$datum->id, 'pdfNurseNotes']) : '' }}',
+                                success:
+                                function (data){
+                                  $('#iframeDynaForm').attr('src', data);
+                                }
+                              });
+                          }
+                        });
+                    ">Nurse Notes</a>
+                    @if(stristr($datum->doctor->specialty, 'Ophthalmology') && ($datum->booking_type == 'Surgery' || $datum->booking_type == 'Laser'))
+                    <a href="#" class="list-group-item list-group-item-action" id="opAdmitLink" onclick="
+                        $(this).addClass('active');
+                        $('#generalConsentLink').removeClass('active');
+                        $('#dataPrivacyConsentLink').removeClass('active');
+                        $('#dischargeSummaryLink').removeClass('active');
+                        $('#nurseNotesLink').removeClass('active');
+                        $('#undertakingLink').removeClass('active');
+                        $('#postOpLink').removeClass('active');
+                        $('#orTechLink').removeClass('active');
+                        $.ajax({
+                          type: 'POST',
+                          data: $('#bookMod').serialize(),
+                          url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
+                          success:
+                          function (){
+                              $.ajax({
+                                type: 'GET',
+                                url: '{{ Route::has($viewFolder . '.pdfPrintableForms') ? route($viewFolder . '.pdfPrintableForms', [$datum->id, 'pdfOpAdmit']) : '' }}',
+                                success:
+                                function (data){
+                                  $('#iframeDynaForm').attr('src', data);
+                                }
+                              });
+                          }
+                        });
+                    ">Ophthalmology Admitting and Peri-Op</a>
+                    @endif
+                    @if($datum->booking_type == 'Surgery' || $datum->booking_type == 'Laser')
+                    <a href="#" class="list-group-item list-group-item-action" id="orTechLink" onclick="
+                        $(this).addClass('active');
+                        $('#generalConsentLink').removeClass('active');
+                        $('#dataPrivacyConsentLink').removeClass('active');
+                        $('#dischargeSummaryLink').removeClass('active');
+                        $('#nurseNotesLink').removeClass('active');
+                        $('#undertakingLink').removeClass('active');
+                        $('#postOpLink').removeClass('active');
+                        $('#opAdmitLink').removeClass('active');
+                        $.ajax({
+                          type: 'POST',
+                          data: $('#bookMod').serialize(),
+                          url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
+                          success:
+                          function (){
+                              $.ajax({
+                                type: 'GET',
+                                url: '{{ Route::has($viewFolder . '.pdfPrintableForms') ? route($viewFolder . '.pdfPrintableForms', [$datum->id, 'pdfORTech']) : '' }}',
+                                success:
+                                function (data){
+                                  $('#iframeDynaForm').attr('src', data);
+                                }
+                              });
+                          }
+                        });
+                    ">OR Tech</a>
+                    <a href="#" class="list-group-item list-group-item-action" id="postOpLink" onclick="
+                        $(this).addClass('active');
+                        $('#generalConsentLink').removeClass('active');
+                        $('#dataPrivacyConsentLink').removeClass('active');
+                        $('#dischargeSummaryLink').removeClass('active');
+                        $('#nurseNotesLink').removeClass('active');
+                        $('#undertakingLink').removeClass('active');
+                        $('#orTechLink').removeClass('active');
+                        $('#opAdmitLink').removeClass('active');
+                        $.ajax({
+                          type: 'POST',
+                          data: $('#bookMod').serialize(),
+                          url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
+                          success:
+                          function (){
+                              $.ajax({
+                                type: 'GET',
+                                url: '{{ Route::has($viewFolder . '.pdfPrintableForms') ? route($viewFolder . '.pdfPrintableForms', [$datum->id, 'pdfPostOp']) : '' }}',
+                                success:
+                                function (data){
+                                  $('#iframeDynaForm').attr('src', data);
+                                }
+                              });
+                          }
+                        });
+                    ">Post Operative Instructions</a>
+                    @endif
+                    <a href="#" class="list-group-item list-group-item-action" id="undertakingLink" onclick="
+                        $(this).addClass('active');
+                        $('#generalConsentLink').removeClass('active');
+                        $('#dataPrivacyConsentLink').removeClass('active');
+                        $('#dischargeSummaryLink').removeClass('active');
+                        $('#nurseNotesLink').removeClass('active');
+                        $('#orTechLink').removeClass('active');
+                        $('#postOpLink').removeClass('active');
+                        $('#opAdmitLink').removeClass('active');
+                        $.ajax({
+                          type: 'POST',
+                          data: $('#bookMod').serialize(),
+                          url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
+                          success:
+                          function (){
+                              $.ajax({
+                                type: 'GET',
+                                url: '{{ Route::has($viewFolder . '.pdfPrintableForms') ? route($viewFolder . '.pdfPrintableForms', [$datum->id, 'pdfUndertaking']) : '' }}',
+                                success:
+                                function (data){
+                                  $('#iframeDynaForm').attr('src', data);
+                                }
+                              });
+                          }
+                        });
+                    ">Undertaking</a>
+                </div>
+            </div>
+        </div>
+        <div class="card mb-3">
+            <div class="card-header">Form Preview</div>
+            <div class="card-body">
+                <iframe id="iframeDynaForm" src="{{ file_exists(public_path('storage/med_cert_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf')) ? asset('storage/med_cert_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
+                <small class="form-text text-muted">To print or download check the upper right part</small>
+            </div>
+        </div>
+      </div>
+      @endif
       <div id="hdSum" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
         @if(isset($datum->id))
         @can('clinics_home.pdfHDSum')

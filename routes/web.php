@@ -35,6 +35,8 @@ Route::group(['middleware' => ['auth', 'permission']], function() {
     Route::get('myaccount', [HomeController::class, 'myaccount'])->name('home.myaccount');
     Route::resource('clinics_home', ClinicsHomeController::class)->only(['edit', 'update', 'destroy']);
     Route::get('/clinics_home/show/{clinics_home}', [ClinicsHomeController::class, 'show'])->name('clinics_home.show');
+    // Route::get('/clinics_home/dynamic_form/{clinics_home}', [ClinicsHomeController::class, 'dynamic_form'])->name('clinics_home.dynamic_form');
+    Route::get('clinics_home/pdfPrintableForms/{clinics_home}/{id?}', [ClinicsHomeController::class, 'pdfPrintableForms'])->name('clinics_home.pdfPrintableForms');
     Route::get('/clinics_home/manageDoctor', [ClinicsHomeController::class, 'manageDoctor'])->name('clinics_home.manageDoctor');
     Route::get('/clinics_home/getPatientList/{patient_id?}/{conso?}', [ClinicsHomeController::class, 'getPatientList'])->name('clinics_home.getPatientList');
     Route::get('/clinics_home/getDoctorList/{doctor_id?}', [ClinicsHomeController::class, 'getDoctorList'])->name('clinics_home.getDoctorList');

@@ -20,11 +20,13 @@
       $bookings = $datum->patient->consultations()->whereNot('booking_type', 'Dialysis')->whereNull('consultation_parent_id')->whereIn('clinic_id', $doctorClinic)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
     else  
       $bookings = $datum->patient->consultations()->where('booking_type', $datum->booking_type)->whereNull('consultation_parent_id')->whereIn('clinic_id', $doctorClinic)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+    $carryOverBookings = $datum->patient->consultations()->whereNull('consultation_parent_id')->whereIn('clinic_id', $doctorClinic)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
   }else{
     if($datum->booking_type != 'Dialysis'){
       $bookings = $datum->patient->consultations()->whereNot('booking_type', 'Dialysis')->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
     }else  
       $bookings = $datum->patient->consultations()->where('booking_type', $datum->booking_type)->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+    $carryOverBookings = $datum->patient->consultations()->whereNull('consultation_parent_id')->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
   }
   // print "<pre>";
   // print_r($bookings[0]);
@@ -322,10 +324,24 @@
             $('#curChart').removeClass('col-lg-12');
             $('#curChart').addClass('col-lg-6');
             $('#pastChart').show();
+            $('#dialysisPrevLinkHide').show();
+            $(this).hide();
             $('#pastChart').removeClass('d-none');
             $('#pastChart').removeClass('d-lg-none');
             $('#carouselCur').css('max-width', '100%');
             ">Show Past Px's Chart</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="display:none" id="dialysisPrevLinkHide" href="#" onclick="
+            $('#curChart').removeClass('col-lg-6');
+            $('#curChart').addClass('col-lg-12');
+            $('#pastChart').hide();
+            $('#dialysisPrevLink').show();
+            $(this).hide();
+            $('#pastChart').addClass('d-none');
+            $('#pastChart').addClass('d-lg-none');
+            $('#carouselCur').css('max-width', '60%');
+            ">Hide Past Px's Chart</a>
         </li>
         <li class="nav-item">
           <div class="mt-2">
@@ -1440,8 +1456,8 @@
                       <tbody id="prevEyerSum">
                         <tr>
                             <td>AR</td>
-                            <td>{{ $bookings[0]->arod_sphere != 'No Target' ? ($bookings[0]->arod_sphere) . ' - ' . ($bookings[0]->arod_cylinder) . ' x ' . $bookings[0]->arod_axis : 'No Refraction Possible' }}</td>
-                            <td>{{ $bookings[0]->aros_sphere != 'No Target' ? ($bookings[0]->aros_sphere) . ' - ' . ($bookings[0]->aros_cylinder) . ' x ' . $bookings[0]->aros_axis : 'No Refraction Possible' }}</td>
+                            <td>{{ $bookings[0]->arod_sphere != 'No Target' ? ( $bookings[0]->arod_sphere > 0 ? '+' . $bookings[0]->arod_sphere : $bookings[0]->arod_sphere ) . ' - ' . ($bookings[0]->arod_cylinder > 0 ? '+' . $bookings[0]->arod_cylinder : $bookings[0]->arod_cylinder) . ' x ' . $bookings[0]->arod_axis : 'No Refraction Possible' }}</td>
+                            <td>{{ $bookings[0]->aros_sphere != 'No Target' ? ( $bookings[0]->aros_sphere > 0 ? '+' . $bookings[0]->aros_sphere : $bookings[0]->aros_sphere ) . ' - ' . ($bookings[0]->aros_cylinder > 0 ? '+' . $bookings[0]->aros_cylinder : $bookings[0]->aros_cylinder) . ' x ' . $bookings[0]->aros_axis : 'No Refraction Possible' }}</td>
                             <td>&nbsp;</td>
                         </tr>
                         <tr>
@@ -4756,7 +4772,7 @@
                   <div class="card-body" style="height: 1in; max-height: 1in">
                     <p>{{ $datum->others }}</p>
                   </div>
-                </div>
+                </div> 
                 @if(stristr($datum->doctor->specialty, 'Ophtha') && $datum->booking_type != "Dialysis")
                 <div class="card mb-3">
                   <div class="card-header">Eye Examination Information</div>
@@ -4790,8 +4806,8 @@
                       <tbody id="prevEyerSum">
                         <tr>
                             <td>AR</td>
-                            <td>{{ $datum->arod_sphere != 'No Target' ? ($datum->arod_sphere) . ' - ' . ($datum->arod_cylinder) . ' x ' . $datum->arod_axis : 'No Refraction Possible' }}</td>
-                            <td>{{ $datum->aros_sphere != 'No Target' ? ($datum->aros_sphere) . ' - ' . ($datum->aros_cylinder) . ' x ' . $datum->aros_axis : 'No Refraction Possible' }}</td>
+                            <td>{{ $datum->arod_sphere != 'No Target' ? ( $datum->arod_sphere > 0 ? '+' . $datum->arod_sphere : $datum->arod_sphere ) . ' - ' . ( $datum->arod_cylinder > 0 ? '+' . $datum->arod_cylinder : $datum->arod_cylinder ) . ' x ' . $datum->arod_axis : 'No Refraction Possible' }}</td>
+                            <td>{{ $datum->aros_sphere != 'No Target' ? ( $datum->aros_sphere > 0 ? '+' . $datum->aros_sphere : $datum->aros_sphere ) . ' - ' . ( $datum->aros_cylinder > 0 ? '+' . $datum->aros_cylinder : $datum->aros_cylinder ) . ' x ' . $datum->aros_axis : 'No Refraction Possible' }}</td>
                             <td>&nbsp;</td>
                         </tr>
                         <tr>
@@ -4851,7 +4867,7 @@
                     <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                       <p>
                         <strong>Primary Diagnosis:</strong> {!! isset($datum->icd_code_obj) ? $datum->icd_code_obj->icd_code . ' - ' . $datum->icd_code_obj->details : '' !!}<br>
-                        <strong>Secondary Diagnosis:</strong><br><div class="m-3">{!! isset($datum->assessment) ? nl2br($datum->assessment) : '' !!}</div><br>
+                        <strong>Secondary Diagnosis:</strong><br><div class="m-3">{!! isset($datum->assessment) ? nl2br($datum->assessment) : nl2br($carryOverBookings[0]->assessment) !!}</div><br>
                       </p>
                     </div>
                   </div>
@@ -4913,7 +4929,7 @@
                     <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                       <p>
                         <strong>Primary Diagnosis:</strong> {!! isset($cr->icd_code_obj) ? $cr->icd_code_obj->icd_code . ' - ' . $cr->icd_code_obj->details : '' !!}<br>
-                        <strong>Secondary Diagnosis:</strong><br><div class="m-3">{!! isset($cr->assessment) ? nl2br($cr->assessment) : '' !!}</div><br>
+                        <strong>Secondary Diagnosis:</strong><br><div class="m-3">{!! isset($cr->assessment) ? nl2br($cr->assessment) : nl2br($carryOverBookings[0]->assessment) !!}</div><br>
                       </p>
                     </div>
                   </div>
@@ -5069,8 +5085,8 @@
                                 <tbody id="prevEyerSum">
                                   <tr>
                                       <td>AR</td>
-                                      <td>{{ $datum->arod_sphere != 'No Target' ? ($datum->arod_sphere) . ' - ' . ($datum->arod_cylinder) . ' x ' . $datum->arod_axis : 'No Refraction Possible' }}</td>
-                                      <td>{{ $datum->aros_sphere != 'No Target' ? ($datum->aros_sphere) . ' - ' . ($datum->aros_cylinder) . ' x ' . $datum->aros_axis : 'No Refraction Possible' }}</td>
+                                      <td>{{ $datum->arod_sphere != 'No Target' ? ( $datum->arod_sphere > 0 ? '+' . $datum->arod_sphere : $datum->arod_sphere ) . ' - ' . ( $datum->arod_cylinder > 0 ? '+' . $datum->arod_cylinder : $datum->arod_cylinder ) . ' x ' . $datum->arod_axis : 'No Refraction Possible' }}</td>
+                                      <td>{{ $datum->aros_sphere != 'No Target' ? ( $datum->aros_sphere > 0 ? '+' . $datum->aros_sphere : $datum->aros_sphere ) . ' - ' . ( $datum->aros_cylinder > 0 ? '+' . $datum->aros_cylinder : $datum->aros_cylinder ) . ' x ' . $datum->aros_axis : 'No Refraction Possible' }}</td>
                                       <td>&nbsp;</td>
                                   </tr>
                                   <tr>
@@ -5162,7 +5178,7 @@
                           <small class="text-muted">Content</small>
                           <textarea class="form-control" name="{{ $viewFolder }}[assessment]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_assessment" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }} onchange="
                             $('#{{ $viewFolder }}_diagnosis').val($(this).val());
-                          ">{{ isset($datum->assessment) ? $datum->assessment : '' }}</textarea>
+                          ">{{ isset($datum->assessment) ? $datum->assessment : $carryOverBookings[0]->assessment }}</textarea>
                           <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
@@ -5560,8 +5576,8 @@
                                 <tbody id="prevEyerSum">
                                   <tr>
                                       <td>AR</td>
-                                      <td>{{ $datum->arod_sphere != 'No Target' ? ($datum->arod_sphere) . ' - ' . ($datum->arod_cylinder) . ' x ' . $datum->arod_axis : 'No Refraction Possible' }}</td>
-                                      <td>{{ $datum->aros_sphere != 'No Target' ? ($datum->aros_sphere) . ' - ' . ($datum->aros_cylinder) . ' x ' . $datum->aros_axis : 'No Refraction Possible' }}</td>
+                                      <td>{{ $datum->arod_sphere != 'No Target' ? ( $datum->arod_sphere > 0 ? '+' . $datum->arod_sphere : $datum->arod_sphere ) . ' - ' . ( $datum->arod_cylinder > 0 ? '+' . $datum->arod_cylinder : $datum->arod_cylinder ) . ' x ' . $datum->arod_axis : 'No Refraction Possible' }}</td>
+                                      <td>{{ $datum->aros_sphere != 'No Target' ? ( $datum->aros_sphere > 0 ? '+' . $datum->aros_sphere : $datum->aros_sphere ) . ' - ' . ( $datum->aros_cylinder > 0 ? '+' . $datum->aros_cylinder : $datum->aros_cylinder ) . ' x ' . $datum->aros_axis : 'No Refraction Possible' }}</td>
                                       <td>&nbsp;</td>
                                   </tr>
                                   <tr>
@@ -5653,7 +5669,7 @@
                           <small class="text-muted">Content</small>
                           <textarea class="form-control" name="{{ $viewFolder }}[assessment]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_assessment" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }}  onchange="
                             $('#{{ $viewFolder }}_diagnosis').val($(this).val());
-                          ">{{ isset($cr->assessment) ? $cr->assessment : '' }}</textarea>
+                          ">{{ isset($cr->assessment) ? $cr->assessment : $carryOverBookings[0]->assessment }}</textarea>
                           <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
