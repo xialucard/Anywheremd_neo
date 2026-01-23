@@ -102,7 +102,7 @@
     
     <center><h3>OPERATIVE TECHNIQUE</h3></center>
 
-    <p>
+    {{-- <p>
         One drop of topical anesthesia applied to both eyes <br>
         Periorbital area scrubbed with 10% Povidone iodine solution <br>
         Patient is draped <br>
@@ -125,10 +125,37 @@
         Intracameral injection of antibiotic <br>
         Tested for leak <br>
         Lid retractors removed
-    </p>
+    </p> --}}
     
     
     <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
     <br>
     <br>
     <br>
