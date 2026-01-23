@@ -20,13 +20,13 @@
       $bookings = $datum->patient->consultations()->whereNot('booking_type', 'Dialysis')->whereNull('consultation_parent_id')->whereIn('clinic_id', $doctorClinic)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
     else  
       $bookings = $datum->patient->consultations()->where('booking_type', $datum->booking_type)->whereNull('consultation_parent_id')->whereIn('clinic_id', $doctorClinic)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
-    $carryOverBookings = $datum->patient->consultations()->whereNull('consultation_parent_id')->whereIn('clinic_id', $doctorClinic)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+    $carryOverBookings = $datum->patient->consultations()->whereNotNull('assessment')->whereNull('consultation_parent_id')->whereIn('clinic_id', $doctorClinic)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
   }else{
     if($datum->booking_type != 'Dialysis'){
       $bookings = $datum->patient->consultations()->whereNot('booking_type', 'Dialysis')->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
     }else  
       $bookings = $datum->patient->consultations()->where('booking_type', $datum->booking_type)->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
-    $carryOverBookings = $datum->patient->consultations()->whereNull('consultation_parent_id')->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+    $carryOverBookings = $datum->patient->consultations()->whereNotNull('assessment')->whereNull('consultation_parent_id')->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
   }
   // print "<pre>";
   // print_r($bookings[0]);
@@ -4867,7 +4867,7 @@
                     <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                       <p>
                         <strong>Primary Diagnosis:</strong> {!! isset($datum->icd_code_obj) ? $datum->icd_code_obj->icd_code . ' - ' . $datum->icd_code_obj->details : '' !!}<br>
-                        <strong>Secondary Diagnosis:</strong><br><div class="m-3">{!! isset($datum->assessment) ? nl2br($datum->assessment) : nl2br($carryOverBookings[0]->assessment) !!}</div><br>
+                        <strong>Secondary Diagnosis:</strong><br><div class="m-3">{!! isset($datum->assessment) ? nl2br($datum->assessment) : nl2br(isset($carryOverBookings[0]->assessment) ? $carryOverBookings[0]->assessment : '') !!}</div><br>
                       </p>
                     </div>
                   </div>
@@ -4929,7 +4929,7 @@
                     <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                       <p>
                         <strong>Primary Diagnosis:</strong> {!! isset($cr->icd_code_obj) ? $cr->icd_code_obj->icd_code . ' - ' . $cr->icd_code_obj->details : '' !!}<br>
-                        <strong>Secondary Diagnosis:</strong><br><div class="m-3">{!! isset($cr->assessment) ? nl2br($cr->assessment) : nl2br($carryOverBookings[0]->assessment) !!}</div><br>
+                        <strong>Secondary Diagnosis:</strong><br><div class="m-3">{!! isset($cr->assessment) ? nl2br($cr->assessment) : nl2br(isset($carryOverBookings[0]->assessment) ? $carryOverBookings[0]->assessment : '') !!}</div><br>
                       </p>
                     </div>
                   </div>
@@ -5178,7 +5178,7 @@
                           <small class="text-muted">Content</small>
                           <textarea class="form-control" name="{{ $viewFolder }}[assessment]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_assessment" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }} onchange="
                             $('#{{ $viewFolder }}_diagnosis').val($(this).val());
-                          ">{{ isset($datum->assessment) ? $datum->assessment : $carryOverBookings[0]->assessment }}</textarea>
+                          ">{{ isset($datum->assessment) ? $datum->assessment : (isset($carryOverBookings[0]->assessment) ? $carryOverBookings[0]->assessment : '') }}</textarea>
                           <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
@@ -5669,7 +5669,7 @@
                           <small class="text-muted">Content</small>
                           <textarea class="form-control" name="{{ $viewFolder }}[assessment]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_assessment" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }}  onchange="
                             $('#{{ $viewFolder }}_diagnosis').val($(this).val());
-                          ">{{ isset($cr->assessment) ? $cr->assessment : $carryOverBookings[0]->assessment }}</textarea>
+                          ">{{ isset($cr->assessment) ? $cr->assessment : (isset($carryOverBookings[0]->assessment) ? $carryOverBookings[0]->assessment : '') }}</textarea>
                           <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
