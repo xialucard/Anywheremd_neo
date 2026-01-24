@@ -21,12 +21,14 @@
     else  
       $bookings = $datum->patient->consultations()->where('booking_type', $datum->booking_type)->whereNull('consultation_parent_id')->whereIn('clinic_id', $doctorClinic)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
     $carryOverBookings = $datum->patient->consultations()->whereNotNull('assessment')->whereNull('consultation_parent_id')->whereIn('clinic_id', $doctorClinic)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+    $carryOverBookingsHPI = $datum->patient->consultations()->whereNotNull('docNotesHPI')->whereNull('consultation_parent_id')->whereIn('clinic_id', $doctorClinic)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
   }else{
     if($datum->booking_type != 'Dialysis'){
       $bookings = $datum->patient->consultations()->whereNot('booking_type', 'Dialysis')->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
     }else  
       $bookings = $datum->patient->consultations()->where('booking_type', $datum->booking_type)->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
     $carryOverBookings = $datum->patient->consultations()->whereNotNull('assessment')->whereNull('consultation_parent_id')->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+    $carryOverBookingsHPI = $datum->patient->consultations()->whereNotNull('docNotesHPI')->whereNull('consultation_parent_id')->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
   }
   // print "<pre>";
   // print_r($bookings[0]);
@@ -320,11 +322,11 @@
         </li> --}}
         @endif
         <li class="nav-item">
-          <a class="nav-link" id="dialysisPrevLink" href="#" onclick="
+          <a class="nav-link" id="showPrevLink" href="#" onclick="
             $('#curChart').removeClass('col-lg-12');
             $('#curChart').addClass('col-lg-6');
             $('#pastChart').show();
-            $('#dialysisPrevLinkHide').show();
+            $('#showPrevLinkHide').show();
             $(this).hide();
             $('#pastChart').removeClass('d-none');
             $('#pastChart').removeClass('d-lg-none');
@@ -332,11 +334,11 @@
             ">Show Past Px's Chart</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" style="display:none" id="dialysisPrevLinkHide" href="#" onclick="
+          <a class="nav-link" style="display:none" id="showPrevLinkHide" href="#" onclick="
             $('#curChart').removeClass('col-lg-6');
             $('#curChart').addClass('col-lg-12');
             $('#pastChart').hide();
-            $('#dialysisPrevLink').show();
+            $('#showPrevLink').show();
             $(this).hide();
             $('#pastChart').addClass('d-none');
             $('#pastChart').addClass('d-lg-none');
@@ -4856,7 +4858,7 @@
                     <div class="card-header">Doctor's Notes</div>
                     <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                       <p>
-                        <strong>History of Present Illness:</strong><div class="m-3">{!! isset($datum->docNotesHPI) ? nl2br($datum->docNotesHPI) : '' !!}</div><br>
+                        <strong>History of Present Illness:</strong><div class="m-3">{!! isset($datum->docNotesHPI) ? nl2br($datum->docNotesHPI) : nl2br((isset($carryOverBookingsHPI[0]->docNotesHPI) ? $carryOverBookingsHPI[0]->docNotesHPI : '')) !!}</div><br>
                         <strong>Subjective Complaints:</strong><br><div class="m-3">{!! isset($datum->docNotesSubject) ? nl2br($datum->docNotesSubject) : '' !!}</div><br>
                         <strong>Objective Findings:</strong><br><div class="m-3">{!! isset($datum->docNotes) ? nl2br($datum->docNotes) : '' !!}</div><br>
                       </p>
@@ -4918,7 +4920,7 @@
                     <div class="card-header">Doctor's Notes</div>
                     <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                       <p>
-                        <strong>History of Present Illness:</strong><div class="m-3">{!! isset($cr->docNotesHPI) ? nl2br($cr->docNotesHPI) : '' !!}</div><br>
+                        <strong>History of Present Illness:</strong><div class="m-3">{!! isset($cr->docNotesHPI) ? nl2br($cr->docNotesHPI) : nl2br((isset($carryOverBookingsHPI[0]->docNotesHPI) ? $carryOverBookingsHPI[0]->docNotesHPI : '')) !!}</div><br>
                         <strong>Subjective Complaints:</strong><br><div class="m-3">{!! isset($cr->docNotesSubject) ? nl2br($cr->docNotesSubject) : '' !!}</div><br>
                         <strong>Objective Findings:</strong><br><div class="m-3">{!! isset($cr->docNotes) ? nl2br($cr->docNotes) : '' !!}</div><br>
                       </p>
@@ -5012,7 +5014,7 @@
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso) ? '' : 'disabled' }}>Delete Helper</button>
                           </div>
                           <small class="text-muted">Content</small>
-                          <textarea class="form-control" name="{{ $viewFolder }}[docNotesHPI]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_docNotesHPI" @endif rows=3 {{ !isset($referal_conso)  ? '' : 'disabled' }}>{{ isset($datum->docNotesHPI) ? $datum->docNotesHPI : '' }}</textarea>
+                          <textarea class="form-control" name="{{ $viewFolder }}[docNotesHPI]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_docNotesHPI" @endif rows=3 {{ !isset($referal_conso)  ? '' : 'disabled' }}>{{ isset($datum->docNotesHPI) ? $datum->docNotesHPI : (isset($carryOverBookingsHPI[0]->docNotesHPI) ? $carryOverBookingsHPI[0]->docNotesHPI : '') }}</textarea>
                           <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
@@ -5503,7 +5505,7 @@
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>Delete Helper</button>
                           </div>
                           <small class="text-muted">Content</small>
-                          <textarea class="form-control" name="{{ $viewFolder }}[docNotesHPI]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_docNotesHPI" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>{{ isset($cr->docNotesHPI) ? $cr->docNotesHPI : '' }}</textarea>
+                          <textarea class="form-control" name="{{ $viewFolder }}[docNotesHPI]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_docNotesHPI" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>{{ isset($cr->docNotesHPI) ? $cr->docNotesHPI : nl2br((isset($carryOverBookingsHPI[0]->docNotesHPI) ? $carryOverBookingsHPI[0]->docNotesHPI : '')) }}</textarea>
                           <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
@@ -6410,7 +6412,7 @@
                   <div class="col-lg-4">
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="text" name="{{ $viewFolder }}[treatment_number]" id="{{ $viewFolder }}_treatment_number" value="{{ isset($datum->treatment_number) ? $datum->treatment_number : '' }}" placeholder="" {{ !isset($referal_conso)  ? 'readonly' : 'disabled' }}>
+                        <input class="form-control" type="text" name="{{ $viewFolder }}[treatment_number]" id="{{ $viewFolder }}_treatment_number" value="{{ isset($datum->treatment_number) ? $datum->treatment_number : '' }}" placeholder="" {{ !isset($referal_conso)  ? '' : '' }}>
                         <label for="{{ $viewFolder }}_id" class="form-label">Treatment Number</label>
                         <small id="help_{{ $viewFolder }}_id" class="text-muted"></small>
                       </div>
@@ -6419,7 +6421,7 @@
                   <div class="col-lg-4">
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="time" name="{{ $viewFolder }}[time_started]" id="{{ $viewFolder }}_time_started" value="{{ isset($datum->time_started) ? $datum->time_started : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                        <input class="form-control" type="time" name="{{ $viewFolder }}[time_started]" id="{{ $viewFolder }}_time_started" value="{{ isset($datum->time_started) ? $datum->time_started : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : '' }}>
                         <label for="{{ $viewFolder }}_time_started" class="form-label">Time Started</label>
                         <small id="help_{{ $viewFolder }}_time_started" class="text-muted"></small>
                       </div>
@@ -6428,7 +6430,7 @@
                   <div class="col-lg-4">
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="time" name="{{ $viewFolder }}[time_ended]" id="{{ $viewFolder }}_time_ended" value="{{ isset($datum->time_ended) ? $datum->time_ended : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                        <input class="form-control" type="time" name="{{ $viewFolder }}[time_ended]" id="{{ $viewFolder }}_time_ended" value="{{ isset($datum->time_ended) ? $datum->time_ended : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : '' }}>
                         <label for="{{ $viewFolder }}_time_ended" class="form-label">Time Ended</label>
                         <small id="help_{{ $viewFolder }}_time_ended" class="text-muted"></small>
                       </div>
@@ -6442,7 +6444,7 @@
                       <div class="col-lg-3">
                         <div class="input-group mb-3">
                           <div class="form-floating">
-                            <input class="form-control" type="text" name="{{ $viewFolder }}[machine_number]" id="{{ $viewFolder }}_machine_number" value="{{ isset($datum->machine_number) ? $datum->machine_number : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-control" type="text" name="{{ $viewFolder }}[machine_number]" id="{{ $viewFolder }}_machine_number" value="{{ isset($datum->machine_number) ? $datum->machine_number : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : '' }}>
                             <label for="{{ $viewFolder }}_machine_number" class="form-label">Machine Number</label>
                             <small id="help_{{ $viewFolder }}_machine_number" class="text-muted"></small>
                           </div>
@@ -6451,7 +6453,7 @@
                       <div class="col-lg-3">
                         <div class="input-group mb-3">
                           <div class="form-floating">
-                            <input class="form-control" type="text" name="{{ $viewFolder }}[dialyzer]" id="{{ $viewFolder }}_dialyzer" value="{{ isset($datum->dialyzer) ? $datum->dialyzer : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-control" type="text" name="{{ $viewFolder }}[dialyzer]" id="{{ $viewFolder }}_dialyzer" value="{{ isset($datum->dialyzer) ? $datum->dialyzer : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : '' }}>
                             <label for="{{ $viewFolder }}_dialyzer" class="form-label">Dialyzer</label>
                             <small id="help_{{ $viewFolder }}_dialyzer" class="text-muted"></small>
                           </div>
@@ -6460,7 +6462,7 @@
                       <div class="col-lg-3">
                         <div class="input-group mb-3">
                           <div class="form-floating">
-                            <input class="form-control" type="number" step=1 min=0 name="{{ $viewFolder }}[mac_use]" id="{{ $viewFolder }}_use" value="{{ isset($datum->mac_use) ? $datum->mac_use : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-control" type="number" step=1 min=0 name="{{ $viewFolder }}[mac_use]" id="{{ $viewFolder }}_use" value="{{ isset($datum->mac_use) ? $datum->mac_use : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : '' }}>
                             <label for="{{ $viewFolder }}_use" class="form-label">Use</label>
                             <small id="help_{{ $viewFolder }}_use" class="text-muted"></small>
                           </div>
@@ -6469,7 +6471,7 @@
                       <div class="col-lg-3">
                         <div class="input-group mb-3">
                           <div class="form-floating">
-                            <input class="form-control" type="text" name="{{ $viewFolder }}[acid]" id="{{ $viewFolder }}_acid" value="{{ isset($datum->acid) ? $datum->acid : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-control" type="text" name="{{ $viewFolder }}[acid]" id="{{ $viewFolder }}_acid" value="{{ isset($datum->acid) ? $datum->acid : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : '' }}>
                             <label for="{{ $viewFolder }}_acid" class="form-label">Acid</label>
                             <small id="help_{{ $viewFolder }}_acid" class="text-muted"></small>
                           </div>
@@ -6480,7 +6482,7 @@
                       <div class="col-lg-3">
                         <div class="input-group mb-3">
                           <div class="form-floating">
-                            <input class="form-control" type="text" name="{{ $viewFolder }}[mac_add]" id="{{ $viewFolder }}_add" value="{{ isset($datum->mac_add) ? $datum->mac_add : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-control" type="text" name="{{ $viewFolder }}[mac_add]" id="{{ $viewFolder }}_add" value="{{ isset($datum->mac_add) ? $datum->mac_add : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : '' }}>
                             <label for="{{ $viewFolder }}_add" class="form-label">Add</label>
                             <small id="help_{{ $viewFolder }}_add" class="text-muted"></small>
                           </div>
@@ -6489,7 +6491,7 @@
                       <div class="col-lg-3">
                         <div class="input-group mb-3">
                           <div class="form-floating">
-                            <input class="form-control" type="text" name="{{ $viewFolder }}[bfr]" id="{{ $viewFolder }}_bfr" value="{{ isset($datum->bfr) ? $datum->bfr : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-control" type="text" name="{{ $viewFolder }}[bfr]" id="{{ $viewFolder }}_bfr" value="{{ isset($datum->bfr) ? $datum->bfr : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : '' }}>
                             <label for="{{ $viewFolder }}_bfr" class="form-label">BRF</label>
                             <small id="help_{{ $viewFolder }}_bfr" class="text-muted"></small>
                           </div>
@@ -6498,7 +6500,7 @@
                       <div class="col-lg-3">
                         <div class="input-group mb-3">
                           <div class="form-floating">
-                            <input class="form-control" type="text" name="{{ $viewFolder }}[dfr]" id="{{ $viewFolder }}_dfr" value="{{ isset($datum->dfr) ? $datum->dfr : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-control" type="text" name="{{ $viewFolder }}[dfr]" id="{{ $viewFolder }}_dfr" value="{{ isset($datum->dfr) ? $datum->dfr : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : '' }}>
                             <label for="{{ $viewFolder }}_dfr" class="form-label">DFR</label>
                             <small id="help_{{ $viewFolder }}_dfr" class="text-muted"></small>
                           </div>
@@ -6507,7 +6509,7 @@
                       <div class="col-lg-3">
                         <div class="input-group mb-3">
                           <div class="form-floating">
-                            <input class="form-control" type="text" name="{{ $viewFolder }}[setup_prime]" id="{{ $viewFolder }}_setup_prime" value="{{ isset($datum->setup_prime) ? $datum->setup_prime : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-control" type="text" name="{{ $viewFolder }}[setup_prime]" id="{{ $viewFolder }}_setup_prime" value="{{ isset($datum->setup_prime) ? $datum->setup_prime : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : '' }}>
                             <label for="{{ $viewFolder }}_setup_prime" class="form-label">Setup Prime</label>
                             <small id="help_{{ $viewFolder }}_setup_prime" class="text-muted"></small>
                           </div>
@@ -6518,7 +6520,7 @@
                       <div class="col-lg-6">
                         <div class="input-group mb-3">
                           <div class="form-floating">
-                            <textarea class="form-control" name="{{ $viewFolder }}[safety_check]" id="{{ $viewFolder }}_safety_check" rows=3 {{ !isset($referal_conso)  ? '' : 'disabled' }}>{{ isset($datum->safety_check) ? $datum->safety_check : ''}}</textarea>
+                            <textarea class="form-control" name="{{ $viewFolder }}[safety_check]" id="{{ $viewFolder }}_safety_check" rows=3 {{ !isset($referal_conso)  ? '' : '' }}>{{ isset($datum->safety_check) ? $datum->safety_check : ''}}</textarea>
                             <label for="{{ $viewFolder }}_safety_check" class="form-label">Safety Check</label>
                             <small id="help_{{ $viewFolder }}_safety_check" class="text-muted"></small>
                           </div>
@@ -6527,7 +6529,7 @@
                       <div class="col-lg-6">
                         <div class="input-group mb-3">
                           <div class="form-floating">
-                            <textarea class="form-control" name="{{ $viewFolder }}[residual_test]" id="{{ $viewFolder }}_residual_test" rows=3 {{ !isset($referal_conso)  ? '' : 'disabled' }}>{{ isset($datum->residual_test) ? $datum->residual_test : ''}}</textarea>
+                            <textarea class="form-control" name="{{ $viewFolder }}[residual_test]" id="{{ $viewFolder }}_residual_test" rows=3 {{ !isset($referal_conso)  ? '' : '' }}>{{ isset($datum->residual_test) ? $datum->residual_test : ''}}</textarea>
                             <label for="{{ $viewFolder }}_residual_test" class="form-label">Residual Test</label>
                             <small id="help_{{ $viewFolder }}_residual_test" class="text-muted"></small>
                           </div>
@@ -6543,7 +6545,7 @@
                       <div class="col-lg-6">
                         <div class="input-group mb-3">
                           <div class="form-floating">
-                            <input class="form-control" type="text" name="{{ $viewFolder }}[dry_weight]" id="{{ $viewFolder }}_dry_weight" value="{{ isset($datum->dry_weight) ? $datum->dry_weight : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-control" type="text" name="{{ $viewFolder }}[dry_weight]" id="{{ $viewFolder }}_dry_weight" value="{{ isset($datum->dry_weight) ? $datum->dry_weight : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : '' }}>
                             <label for="{{ $viewFolder }}_dry_weight" class="form-label">Estimate Dry Weight</label>
                             <small id="help_{{ $viewFolder }}_dry_weight" class="text-muted"></small>
                           </div>
@@ -6553,7 +6555,7 @@
                       <div class="col-lg-6">
                         <div class="input-group mb-3">
                           <div class="form-floating">
-                            <input class="form-control" type="number" name="{{ $viewFolder }}[prev_post_hd_weight]" min=1 step=.1 id="{{ $viewFolder }}_prev_post_hd_weight" value="{{ isset($datum->prev_post_hd_weight) ? $datum->prev_post_hd_weight : ''}}" placeholder=""  {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-control" type="number" name="{{ $viewFolder }}[prev_post_hd_weight]" min=1 step=.1 id="{{ $viewFolder }}_prev_post_hd_weight" value="{{ isset($datum->prev_post_hd_weight) ? $datum->prev_post_hd_weight : ''}}" placeholder=""  {{ !isset($referal_conso)  ? '' : '' }}>
                             <label for="{{ $viewFolder }}_prev_post_hd_weight" class="form-label">Prev. Post HD Weight</label>
                             <small id="help_{{ $viewFolder }}_prev_post_hd_weight" class="text-muted"></small>
                           </div>
@@ -6569,7 +6571,7 @@
                               if($('#{{ $viewFolder }}_pre_hd_weight').val() != '' &&  $('#{{ $viewFolder }}_post_hd_weight').val() != ''){
                                 $('#{{ $viewFolder }}_weight_loss').val($('#{{ $viewFolder }}_pre_hd_weight').val() - $('#{{ $viewFolder }}_post_hd_weight').val());
                               }
-                            " {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            " {{ !isset($referal_conso)  ? '' : '' }}>
                             <label for="{{ $viewFolder }}_pre_hd_weight" class="form-label">Pre HD Weight</label>
                             <small id="help_{{ $viewFolder }}_pre_hd_weight" class="text-muted"></small>
                           </div>
@@ -6583,7 +6585,7 @@
                               if($('#{{ $viewFolder }}_pre_hd_weight').val() != '' &&  $('#{{ $viewFolder }}_post_hd_weight').val() != ''){
                                 $('#{{ $viewFolder }}_weight_loss').val($('#{{ $viewFolder }}_pre_hd_weight').val() - $('#{{ $viewFolder }}_post_hd_weight').val());
                               }
-                            " {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            " {{ !isset($referal_conso)  ? '' : '' }}>
                             <label for="{{ $viewFolder }}_post_hd_weight" class="form-label">Post HD Weight</label>
                             <small id="help_{{ $viewFolder }}_post_hd_weight" class="text-muted"></small>
                           </div>
@@ -6595,7 +6597,7 @@
                       <div class="col-lg-4">
                         <div class="input-group mb-3">
                           <div class="form-floating">
-                            <input class="form-control" type="text" name="{{ $viewFolder }}[ktv]" id="{{ $viewFolder }}_ktv" value="{{ isset($datum->ktv) ? $datum->ktv : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-control" type="text" name="{{ $viewFolder }}[ktv]" id="{{ $viewFolder }}_ktv" value="{{ isset($datum->ktv) ? $datum->ktv : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : '' }}>
                             <label for="{{ $viewFolder }}_ktv" class="form-label">KT/V</label>
                             <small id="help_{{ $viewFolder }}_ktv" class="text-muted"></small>
                           </div>
@@ -6606,7 +6608,7 @@
                       <div class="col-lg-4">
                         <div class="input-group mb-3">
                           <div class="form-floating">
-                            <input class="form-control" type="text" name="{{ $viewFolder }}[net_uf]" id="{{ $viewFolder }}_net_uf" value="{{ isset($datum->net_uf) ? $datum->net_uf : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-control" type="text" name="{{ $viewFolder }}[net_uf]" id="{{ $viewFolder }}_net_uf" value="{{ isset($datum->net_uf) ? $datum->net_uf : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : '' }}>
                             <label for="{{ $viewFolder }}_net_uf" class="form-label">Net UF</label>
                             <small id="help_{{ $viewFolder }}_net_uf" class="text-muted"></small>
                           </div>
@@ -6615,7 +6617,7 @@
                       <div class="col-lg-4">
                         <div class="input-group mb-3">
                           <div class="form-floating">
-                            <input class="form-control" type="number" name="{{ $viewFolder }}[hd_duration]" min=1 step=.1 id="{{ $viewFolder }}_hd_duration" value="{{ isset($datum->hd_duration) ? $datum->hd_duration : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-control" type="number" name="{{ $viewFolder }}[hd_duration]" min=1 step=.1 id="{{ $viewFolder }}_hd_duration" value="{{ isset($datum->hd_duration) ? $datum->hd_duration : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : '' }}>
                             <label for="{{ $viewFolder }}_hd_duration" class="form-label">Duration</label>
                             <small id="help_{{ $viewFolder }}_hd_duration" class="text-muted"></small>
                           </div>
@@ -6625,7 +6627,7 @@
                       <div class="col-lg-4">
                         <div class="input-group mb-3">
                           <div class="form-floating">
-                            <input class="form-control" type="number" name="{{ $viewFolder }}[frequency]" min=1 step=.1 id="{{ $viewFolder }}_frequency" value="{{ isset($datum->frequency) ? $datum->frequency : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-control" type="number" name="{{ $viewFolder }}[frequency]" min=1 step=.1 id="{{ $viewFolder }}_frequency" value="{{ isset($datum->frequency) ? $datum->frequency : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : '' }}>
                             <label for="{{ $viewFolder }}_frequency" class="form-label">Frequency</label>
                             <small id="help_{{ $viewFolder }}_frequency" class="text-muted"></small>
                           </div>
@@ -6636,7 +6638,7 @@
                       <div class="col-lg-6">
                         <div class="input-group mb-3">
                           <div class="form-floating">
-                            <input class="form-control" type="text" name="{{ $viewFolder }}[prime]" id="{{ $viewFolder }}_prime" value="{{ isset($datum->prime) ? $datum->prime : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-control" type="text" name="{{ $viewFolder }}[prime]" id="{{ $viewFolder }}_prime" value="{{ isset($datum->prime) ? $datum->prime : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : '' }}>
                             <label for="{{ $viewFolder }}_prime" class="form-label">Prime/Rinse</label>
                             <small id="help_{{ $viewFolder }}_prime" class="text-muted"></small>
                           </div>
@@ -6645,7 +6647,7 @@
                       <div class="col-lg-6">
                         <div class="input-group mb-3">
                           <div class="form-floating">
-                            <input class="form-control" type="text" name="{{ $viewFolder }}[other_fluids]" id="{{ $viewFolder }}_other_fluids" value="{{ isset($datum->other_fluids) ? $datum->other_fluids : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-control" type="text" name="{{ $viewFolder }}[other_fluids]" id="{{ $viewFolder }}_other_fluids" value="{{ isset($datum->other_fluids) ? $datum->other_fluids : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : '' }}>
                             <label for="{{ $viewFolder }}_other_fluids" class="form-label">Other Fluids</label>
                             <small id="help_{{ $viewFolder }}_other_fluids" class="text-muted"></small>
                           </div>
@@ -6656,7 +6658,7 @@
                       <div class="col-lg-6">
                         <div class="input-group mb-3">
                           <div class="form-floating">
-                            <input class="form-control" type="text" name="{{ $viewFolder }}[total_uf_goal]" id="{{ $viewFolder }}_total_uf_goal" value="{{ isset($datum->total_uf_goal) ? $datum->total_uf_goal : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-control" type="text" name="{{ $viewFolder }}[total_uf_goal]" id="{{ $viewFolder }}_total_uf_goal" value="{{ isset($datum->total_uf_goal) ? $datum->total_uf_goal : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : '' }}>
                             <label for="{{ $viewFolder }}_total_uf_goal" class="form-label">Total UF Goal</label>
                             <small id="help_{{ $viewFolder }}_total_uf_goal" class="text-muted"></small>
                           </div>
@@ -6665,7 +6667,7 @@
                       <div class="col-lg-6">
                         <div class="input-group mb-3">
                           <div class="form-floating">
-                            <input class="form-control" type="number" name="{{ $viewFolder }}[weight_loss]" min=0 step=.1 id="{{ $viewFolder }}_weight_loss" value="{{ isset($datum->weight_loss) ? $datum->weight_loss : ''}}" placeholder=""  {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-control" type="number" name="{{ $viewFolder }}[weight_loss]" min=0 step=.1 id="{{ $viewFolder }}_weight_loss" value="{{ isset($datum->weight_loss) ? $datum->weight_loss : ''}}" placeholder=""  {{ !isset($referal_conso)  ? '' : '' }}>
                             <label for="{{ $viewFolder }}_weight_loss" class="form-label">Weight Loss</label>
                             <small id="help_{{ $viewFolder }}_weight_loss" class="text-muted"></small>
                           </div>
@@ -6683,7 +6685,7 @@
                       <div class="col-lg-4">
                         <div class="input-group mb-3">
                           <div class="form-floating">
-                            <input class="form-control" type="text" name="{{ $viewFolder }}[brand]" id="{{ $viewFolder }}_brand" value="{{ isset($datum->brand) ? $datum->brand : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-control" type="text" name="{{ $viewFolder }}[brand]" id="{{ $viewFolder }}_brand" value="{{ isset($datum->brand) ? $datum->brand : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : '' }}>
                             <label for="{{ $viewFolder }}_brand" class="form-label">Brand Name</label>
                             <small id="help_{{ $viewFolder }}_brand" class="text-muted"></small>
                           </div>
@@ -6692,7 +6694,7 @@
                       <div class="col-lg-4">
                         <div class="input-group mb-3">
                           <div class="form-floating">
-                            <input class="form-control" type="text" name="{{ $viewFolder }}[dose]" id="{{ $viewFolder }}_dose" value="{{ isset($datum->dose) ? $datum->dose : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-control" type="text" name="{{ $viewFolder }}[dose]" id="{{ $viewFolder }}_dose" value="{{ isset($datum->dose) ? $datum->dose : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : '' }}>
                             <label for="{{ $viewFolder }}_dose" class="form-label">Dose</label>
                             <small id="help_{{ $viewFolder }}_dose" class="text-muted"></small>
                           </div>
@@ -6701,7 +6703,7 @@
                       <div class="col-lg-4">
                         <div class="input-group mb-3">
                           <div class="form-floating">
-                            <input class="form-control" type="text" name="{{ $viewFolder }}[regular_dose]" id="{{ $viewFolder }}_regular_dose" value="{{ isset($datum->regular_dose) ? $datum->regular_dose : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-control" type="text" name="{{ $viewFolder }}[regular_dose]" id="{{ $viewFolder }}_regular_dose" value="{{ isset($datum->regular_dose) ? $datum->regular_dose : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : '' }}>
                             <label for="{{ $viewFolder }}_regular_dose" class="form-label">Regular Dose</label>
                             <small id="help_{{ $viewFolder }}_regular_dose" class="text-muted"></small>
                           </div>
@@ -6712,7 +6714,7 @@
                       <div class="col-lg-4">
                         <div class="input-group mb-3">
                           <div class="form-floating">
-                            <input class="form-control" type="text" name="{{ $viewFolder }}[low_dose]" id="{{ $viewFolder }}_low_dose" value="{{ isset($datum->low_dose) ? $datum->low_dose : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-control" type="text" name="{{ $viewFolder }}[low_dose]" id="{{ $viewFolder }}_low_dose" value="{{ isset($datum->low_dose) ? $datum->low_dose : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : '' }}>
                             <label for="{{ $viewFolder }}_low_dose" class="form-label">Low Dose</label>
                             <small id="help_{{ $viewFolder }}_low_dose" class="text-muted"></small>
                           </div>
@@ -6721,7 +6723,7 @@
                       <div class="col-lg-4">
                         <div class="input-group mb-3">
                           <div class="form-floating">
-                            <input class="form-control" type="text" name="{{ $viewFolder }}[lmwh]" id="{{ $viewFolder }}_lmwh" value="{{ isset($datum->lmwh) ? $datum->lmwh : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-control" type="text" name="{{ $viewFolder }}[lmwh]" id="{{ $viewFolder }}_lmwh" value="{{ isset($datum->lmwh) ? $datum->lmwh : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : '' }}>
                             <label for="{{ $viewFolder }}_lmwh" class="form-label">LMWH</label>
                             <small id="help_{{ $viewFolder }}_lmwh" class="text-muted"></small>
                           </div>
@@ -6730,7 +6732,7 @@
                       <div class="col-lg-4">
                         <div class="input-group mb-3">
                           <div class="form-floating">
-                            <input class="form-control" type="text" name="{{ $viewFolder }}[flushing]" id="{{ $viewFolder }}_flushing" value="{{ isset($datum->flushing) ? $datum->flushing : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-control" type="text" name="{{ $viewFolder }}[flushing]" id="{{ $viewFolder }}_flushing" value="{{ isset($datum->flushing) ? $datum->flushing : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : '' }}>
                             <label for="{{ $viewFolder }}_flushing" class="form-label">NSS Flushing</label>
                             <small id="help_{{ $viewFolder }}_flushing" class="text-muted"></small>
                           </div>
@@ -6747,7 +6749,7 @@
                       <div class="card-body">
                         <div class="input-group mb-3">
                           <div class="form-floating">
-                            <input class="form-control" type="number" name="{{ $viewFolder }}[temp]" min=30 step=.1 id="{{ $viewFolder }}_temp" value="{{ isset($datum->temp) ? $datum->temp : ''}}" placeholder="" {{ isset($datum->id) ? '' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-control" type="number" name="{{ $viewFolder }}[temp]" min=30 step=.1 id="{{ $viewFolder }}_temp" value="{{ isset($datum->temp) ? $datum->temp : ''}}" placeholder="" {{ isset($datum->id) ? '' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                             <label for="{{ $viewFolder }}_temp" class="form-label">Temperature</label>
                             <small id="help_{{ $viewFolder }}_temp" class="text-muted"></small>
                           </div>
@@ -6800,13 +6802,13 @@
                         @endif
                         <label for="{{ $viewFolder }}_bpS" class="form-label">BP</label>
                         <div class="input-group mb-3">
-                          <input class="form-control" type="number" name="{{ $viewFolder }}[bpS]" min=50 max=250 step=1 id="{{ $viewFolder }}_bpS" value="{{ isset($datum->bpS) ? $datum->bpS : '' }}" placeholder="Systolic" {{ isset($datum->id) ? '' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                          <input class="form-control" type="number" name="{{ $viewFolder }}[bpS]" min=50 max=250 step=1 id="{{ $viewFolder }}_bpS" value="{{ isset($datum->bpS) ? $datum->bpS : '' }}" placeholder="Systolic" {{ isset($datum->id) ? '' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                           <span class="input-group-text">/</span>
-                          <input class="form-control" type="number" name="{{ $viewFolder }}[bpD]" min=30 max=150 step=1 id="{{ $viewFolder }}_bpD" value="{{ isset($datum->bpD) ? $datum->bpD : '' }}" placeholder="Diastolic" {{ isset($datum->id) ? '' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                          <input class="form-control" type="number" name="{{ $viewFolder }}[bpD]" min=30 max=150 step=1 id="{{ $viewFolder }}_bpD" value="{{ isset($datum->bpD) ? $datum->bpD : '' }}" placeholder="Diastolic" {{ isset($datum->id) ? '' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                         </div>
                         <div class="input-group mb-3">
                           <div class="form-floating">
-                            <input class="form-control" type="number" name="{{ $viewFolder }}[o2]" min=1 id="{{ $viewFolder }}_o2" value="{{ isset($datum->o2) ? $datum->o2 : '' }}" placeholder="" {{ isset($datum->id) ? '' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-control" type="number" name="{{ $viewFolder }}[o2]" min=1 id="{{ $viewFolder }}_o2" value="{{ isset($datum->o2) ? $datum->o2 : '' }}" placeholder="" {{ isset($datum->id) ? '' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                             <label for="{{ $viewFolder }}_o2" class="form-label">O2 Sat</label>
                             <small id="help_{{ $viewFolder }}_o2" class="text-muted"></small>
                           </div>
@@ -6814,7 +6816,7 @@
                         </div>
                         <div class="input-group mb-3">
                           <div class="form-floating">
-                            <input class="form-control" type="number" name="{{ $viewFolder }}[heart]" min=1 id="{{ $viewFolder }}_heart" value="{{ isset($datum->heart) ? $datum->heart : '' }}" placeholder="" {{ isset($datum->id) ? '' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-control" type="number" name="{{ $viewFolder }}[heart]" min=1 id="{{ $viewFolder }}_heart" value="{{ isset($datum->heart) ? $datum->heart : '' }}" placeholder="" {{ isset($datum->id) ? '' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                             <label for="{{ $viewFolder }}_heart" class="form-label">Heart/Pulse Rate</label>
                             <small id="help_{{ $viewFolder }}_heart" class="text-muted"></small>
                           </div>
@@ -6823,7 +6825,7 @@
                         @if(isset($datum->booking_type) && $datum->booking_type == 'Dialysis')
                         <div class="input-group mb-3">
                           <div class="form-floating">
-                            <input class="form-control" type="number" name="{{ $viewFolder }}[resp]" min=1 id="{{ $viewFolder }}_resp" value="{{ isset($datum->resp) ? $datum->resp : '' }}" placeholder="" {{ isset($datum->id) ? '' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-control" type="number" name="{{ $viewFolder }}[resp]" min=1 id="{{ $viewFolder }}_resp" value="{{ isset($datum->resp) ? $datum->resp : '' }}" placeholder="" {{ isset($datum->id) ? '' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                             <label for="{{ $viewFolder }}_resp" class="form-label">Resp</label>
                             <small id="help_{{ $viewFolder }}_resp" class="text-muted"></small>
                           </div>
@@ -6840,7 +6842,7 @@
                       <div class="card-body">
                         <div class="input-group mb-3">
                           <div class="form-floating">
-                            <input class="form-control" type="number" name="{{ $viewFolder }}[post_temp]" min=30 step=.1 id="{{ $viewFolder }}_post_temp" value="{{ isset($datum->post_temp) ? $datum->post_temp : ''}}" placeholder="" {{ isset($datum->id) ? '' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-control" type="number" name="{{ $viewFolder }}[post_temp]" min=30 step=.1 id="{{ $viewFolder }}_post_temp" value="{{ isset($datum->post_temp) ? $datum->post_temp : ''}}" placeholder="" {{ isset($datum->id) ? '' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                             <label for="{{ $viewFolder }}_post_temp" class="form-label">Temperature</label>
                             <small id="help_{{ $viewFolder }}_post_temp" class="text-muted"></small>
                           </div>
@@ -6893,13 +6895,13 @@
                         @endif
                         <label for="{{ $viewFolder }}_bpS" class="form-label">BP</label>
                         <div class="input-group mb-3">
-                          <input class="form-control" type="number" name="{{ $viewFolder }}[post_bpS]" min=50 max=250 step=1 id="{{ $viewFolder }}_post_bpS" value="{{ isset($datum->post_bpS) ? $datum->post_bpS : '' }}" placeholder="Systolic" {{ isset($datum->id) ? '' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                          <input class="form-control" type="number" name="{{ $viewFolder }}[post_bpS]" min=50 max=250 step=1 id="{{ $viewFolder }}_post_bpS" value="{{ isset($datum->post_bpS) ? $datum->post_bpS : '' }}" placeholder="Systolic" {{ isset($datum->id) ? '' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                           <span class="input-group-text">/</span>
-                          <input class="form-control" type="number" name="{{ $viewFolder }}[post_bpD]" min=30 max=150 step=1 id="{{ $viewFolder }}_post_bpD" value="{{ isset($datum->post_bpD) ? $datum->post_bpD : '' }}" placeholder="Diastolic" {{ isset($datum->id) ? '' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                          <input class="form-control" type="number" name="{{ $viewFolder }}[post_bpD]" min=30 max=150 step=1 id="{{ $viewFolder }}_post_bpD" value="{{ isset($datum->post_bpD) ? $datum->post_bpD : '' }}" placeholder="Diastolic" {{ isset($datum->id) ? '' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                         </div>
                         <div class="input-group mb-3">
                           <div class="form-floating">
-                            <input class="form-control" type="number" name="{{ $viewFolder }}[post_o2]" min=1 id="{{ $viewFolder }}_post_o2" value="{{ isset($datum->post_o2) ? $datum->post_o2 : '' }}" placeholder="" {{ isset($datum->id) ? '' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-control" type="number" name="{{ $viewFolder }}[post_o2]" min=1 id="{{ $viewFolder }}_post_o2" value="{{ isset($datum->post_o2) ? $datum->post_o2 : '' }}" placeholder="" {{ isset($datum->id) ? '' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                             <label for="{{ $viewFolder }}_post_o2" class="form-label">O2 Sat</label>
                             <small id="help_{{ $viewFolder }}_post_o2" class="text-muted"></small>
                           </div>
@@ -6907,7 +6909,7 @@
                         </div>
                         <div class="input-group mb-3">
                           <div class="form-floating">
-                            <input class="form-control" type="number" name="{{ $viewFolder }}[post_heart]" min=1 id="{{ $viewFolder }}_post_heart" value="{{ isset($datum->post_heart) ? $datum->post_heart : '' }}" placeholder="" {{ isset($datum->id) ? '' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-control" type="number" name="{{ $viewFolder }}[post_heart]" min=1 id="{{ $viewFolder }}_post_heart" value="{{ isset($datum->post_heart) ? $datum->post_heart : '' }}" placeholder="" {{ isset($datum->id) ? '' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                             <label for="{{ $viewFolder }}_post_heart" class="form-label">Heart/Pulse Rate</label>
                             <small id="help_{{ $viewFolder }}_post_heart" class="text-muted"></small>
                           </div>
@@ -6915,7 +6917,7 @@
                         </div>
                         <div class="input-group mb-3">
                           <div class="form-floating">
-                            <input class="form-control" type="number" name="{{ $viewFolder }}[post_resp]" min=1 id="{{ $viewFolder }}_post_resp" value="{{ isset($datum->post_resp) ? $datum->post_resp : '' }}" placeholder="" {{ isset($datum->id) ? '' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-control" type="number" name="{{ $viewFolder }}[post_resp]" min=1 id="{{ $viewFolder }}_post_resp" value="{{ isset($datum->post_resp) ? $datum->post_resp : '' }}" placeholder="" {{ isset($datum->id) ? '' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                             <label for="{{ $viewFolder }}_post_resp" class="form-label">Resp</label>
                             <small id="help_{{ $viewFolder }}_post_resp" class="text-muted"></small>
                           </div>
@@ -6937,19 +6939,19 @@
                         <label>Mental Status</label>
                         <div class="container ml-5 mb-3">
                           <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[mental_status][]" value="awake" id="{{ $viewFolder }}_mental_status_awake" {{ (isset($datum->mental_status) && is_array(json_decode($datum->mental_status)) && in_array('awake', json_decode($datum->mental_status))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[mental_status][]" value="awake" id="{{ $viewFolder }}_mental_status_awake" {{ (isset($datum->mental_status) && is_array(json_decode($datum->mental_status)) && in_array('awake', json_decode($datum->mental_status))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                             <label class="form-check-label" for="{{ $viewFolder }}_mental_status_awake">awake</label>
                           </div>
                           <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[mental_status][]" value="oriented" id="{{ $viewFolder }}_mental_status_oriented" {{ (isset($datum->mental_status) && is_array(json_decode($datum->mental_status)) && in_array('oriented', json_decode($datum->mental_status))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[mental_status][]" value="oriented" id="{{ $viewFolder }}_mental_status_oriented" {{ (isset($datum->mental_status) && is_array(json_decode($datum->mental_status)) && in_array('oriented', json_decode($datum->mental_status))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                             <label class="form-check-label" for="{{ $viewFolder }}_mental_status_oriented">oriented</label>
                           </div>
                           <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[mental_status][]" value="drowsy" id="{{ $viewFolder }}_mental_status_drowsy" {{ (isset($datum->mental_status) && is_array(json_decode($datum->mental_status)) && in_array('drowsy', json_decode($datum->mental_status))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[mental_status][]" value="drowsy" id="{{ $viewFolder }}_mental_status_drowsy" {{ (isset($datum->mental_status) && is_array(json_decode($datum->mental_status)) && in_array('drowsy', json_decode($datum->mental_status))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                             <label class="form-check-label" for="{{ $viewFolder }}_mental_status_drowsy">drowsy</label>
                           </div>
                           <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[mental_status][]" value="disoriented" id="{{ $viewFolder }}_mental_status_disoriented" {{ (isset($datum->mental_status) && is_array(json_decode($datum->mental_status)) && in_array('disoriented', json_decode($datum->mental_status))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[mental_status][]" value="disoriented" id="{{ $viewFolder }}_mental_status_disoriented" {{ (isset($datum->mental_status) && is_array(json_decode($datum->mental_status)) && in_array('disoriented', json_decode($datum->mental_status))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                             <label class="form-check-label" for="{{ $viewFolder }}_mental_status_disoriented">disoriented</label>
                           </div>
                         </div>
@@ -6992,7 +6994,7 @@
                                   $('#{{ $viewFolder }}_subjective_complaints_text').prop('required', false);
                                   $('#{{ $viewFolder }}_subjective_complaints_text').val('');
                                 }
-                              " {{ (isset($datum->subjective_complaints) && $datum->ambulation_status == 'none') ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                              " {{ (isset($datum->subjective_complaints) && $datum->ambulation_status == 'none') ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                             <label class="form-check-label" for="{{ $viewFolder }}_subjective_complaints_none">none</label>
                           </div>
                           <div class="form-check">
@@ -7005,7 +7007,7 @@
                                   $('#{{ $viewFolder }}_subjective_complaints_text').prop('required', false);
                                   $('#{{ $viewFolder }}_subjective_complaints_text').val('');
                                 }
-                              "  {{ (isset($datum->subjective_complaints) && $datum->subjective_complaints == 'yes') ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                              "  {{ (isset($datum->subjective_complaints) && $datum->subjective_complaints == 'yes') ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                             <label class="form-check-label" for="{{ $viewFolder }}_subjective_complaints_yes">yes</label>
                           </div>
                           <textarea class="form-control" name="{{ $viewFolder }}[subjective_complaints_text]" id="{{ $viewFolder }}_subjective_complaints_text" rows=3 {{ (isset($datum->subjective_complaints) && $datum->subjective_complaints == 'yes') ? '' : 'disabled' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>{{ isset($datum->subjective_complaints_text) ? $datum->subjective_complaints_text : '' }}</textarea>
@@ -7013,27 +7015,27 @@
                         <label>Significant PE Findings</label>
                         <div class="container ml-5 mb-3">
                           <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Pallor" id="{{ $viewFolder }}_pe_findings_pallor" {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Pallor', json_decode($datum->pe_findings))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Pallor" id="{{ $viewFolder }}_pe_findings_pallor" {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Pallor', json_decode($datum->pe_findings))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                             <label class="form-check-label" for="{{ $viewFolder }}_pe_findings_pallor">Pallor</label>
                           </div>
                           <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Distended Neck Vein" id="{{ $viewFolder }}_pe_findings_neck_vein" {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Distended Neck Vein', json_decode($datum->pe_findings))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Distended Neck Vein" id="{{ $viewFolder }}_pe_findings_neck_vein" {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Distended Neck Vein', json_decode($datum->pe_findings))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                             <label class="form-check-label" for="{{ $viewFolder }}_pe_findings_neck_vein">Distended Neck Vein</label>
                           </div>
                           <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Abnormal Rhythm/Rate" id="{{ $viewFolder }}_pe_findings_rhythm" {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Abnormal Rhythm/Rate', json_decode($datum->pe_findings))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Abnormal Rhythm/Rate" id="{{ $viewFolder }}_pe_findings_rhythm" {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Abnormal Rhythm/Rate', json_decode($datum->pe_findings))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                             <label class="form-check-label" for="{{ $viewFolder }}_pe_findings_rhythm">Abnormal Rhythm/Rate</label>
                           </div>
                           <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Rales" id="{{ $viewFolder }}_pe_findings_rales" {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Rales', json_decode($datum->pe_findings))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Rales" id="{{ $viewFolder }}_pe_findings_rales" {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Rales', json_decode($datum->pe_findings))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                             <label class="form-check-label" for="{{ $viewFolder }}_pe_findings_rales">Rales</label>
                           </div>
                           <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Wheezing" id="{{ $viewFolder }}_pe_findings_wheezing" {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Wheezing', json_decode($datum->pe_findings))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Wheezing" id="{{ $viewFolder }}_pe_findings_wheezing" {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Wheezing', json_decode($datum->pe_findings))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                             <label class="form-check-label" for="{{ $viewFolder }}_pe_findings_wheezing">Wheezing</label>
                           </div>
                           <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Decreased Breath Sounds" id="{{ $viewFolder }}_pe_findings_breath_sounds" {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Decreased Breath Sounds', json_decode($datum->pe_findings))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Decreased Breath Sounds" id="{{ $viewFolder }}_pe_findings_breath_sounds" {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Decreased Breath Sounds', json_decode($datum->pe_findings))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                             <label class="form-check-label" for="{{ $viewFolder }}_pe_findings_breath_sounds">Decreased Breath Sounds</label>
                           </div>
                           <div class="form-check">
@@ -7046,10 +7048,10 @@
                                   $('#{{ $viewFolder }}_pe_findings_ascites_text').prop('required', false);
                                   $('#{{ $viewFolder }}_pe_findings_ascites_text').val('');
                                 }
-                              " {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Ascites - Abdominal Girth', json_decode($datum->pe_findings))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                              " {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Ascites - Abdominal Girth', json_decode($datum->pe_findings))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                             <label class="form-check-label" for="{{ $viewFolder }}_pe_findings_ascites">Ascites - Abdominal Girth:</label>
                           </div>
-                          <textarea class="form-control" name="{{ $viewFolder }}[pe_findings_ascites_text]" id="{{ $viewFolder }}_pe_findings_ascites_text" rows=3 {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Ascites - Abdominal Girth', json_decode($datum->pe_findings))) ? '' : 'disabled' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>{{ isset($datum->pe_findings_ascites_text) ? $datum->pe_findings_ascites_text : '' }}</textarea>
+                          <textarea class="form-control" name="{{ $viewFolder }}[pe_findings_ascites_text]" id="{{ $viewFolder }}_pe_findings_ascites_text" rows=3 {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Ascites - Abdominal Girth', json_decode($datum->pe_findings))) ? '' : 'disabled' }} {{ !isset($referal_conso)  ? '' : '' }}>{{ isset($datum->pe_findings_ascites_text) ? $datum->pe_findings_ascites_text : '' }}</textarea>
                           {{-- <div class="form-check">
                             <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Decreased Breath Sounds" id="{{ $viewFolder }}_pe_findings_breath_sounds">
                             <label class="form-check-label" for="{{ $viewFolder }}_pe_findings_breath_sounds">Decreased Breath Sounds</label>
@@ -7065,12 +7067,12 @@
                                   $('#{{ $viewFolder }}_pe_findings_edema_text').prop('required', false);
                                   $('#{{ $viewFolder }}_pe_findings_edema_text').val('');
                                 }
-                              " {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Edema Grade', json_decode($datum->pe_findings))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                              " {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Edema Grade', json_decode($datum->pe_findings))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                             <label class="form-check-label" for="{{ $viewFolder }}_pe_findings_edema">Edema Grade:</label>
                           </div>
-                          <textarea class="form-control" name="{{ $viewFolder }}[pe_findings_edema_text]" id="{{ $viewFolder }}_pe_findings_edema_text" rows=3 {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Edema Grade', json_decode($datum->pe_findings))) ? '' : 'disabled' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>{{ isset($datum->pe_findings_edema_text) ? $datum->pe_findings_edema_text : '' }}</textarea>
+                          <textarea class="form-control" name="{{ $viewFolder }}[pe_findings_edema_text]" id="{{ $viewFolder }}_pe_findings_edema_text" rows=3 {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Edema Grade', json_decode($datum->pe_findings))) ? '' : 'disabled' }} {{ !isset($referal_conso)  ? '' : '' }}>{{ isset($datum->pe_findings_edema_text) ? $datum->pe_findings_edema_text : '' }}</textarea>
                           <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Bleeding" id="{{ $viewFolder }}_pe_findings_bleeding" {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Bleeding', json_decode($datum->pe_findings))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Bleeding" id="{{ $viewFolder }}_pe_findings_bleeding" {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Bleeding', json_decode($datum->pe_findings))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                             <label class="form-check-label" for="{{ $viewFolder }}_pe_findings_bleeding">Bleeding</label>
                           </div>
                           <div class="form-check">
@@ -7083,7 +7085,7 @@
                                   $('#{{ $viewFolder }}_pe_findings_others_text').prop('required', false);
                                   $('#{{ $viewFolder }}_pe_findings_others_text').val('');
                                 }
-                              " {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Others', json_decode($datum->pe_findings))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                              " {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Others', json_decode($datum->pe_findings))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                             <label class="form-check-label" for="{{ $viewFolder }}_pe_findings_others">Others:</label>
                           </div>
                           <textarea class="form-control" name="{{ $viewFolder }}[pe_findings_others_text]" id="{{ $viewFolder }}_pe_findings_others_text" rows=3 {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Others', json_decode($datum->pe_findings))) ? '' : 'disabled' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>{{ isset($datum->pe_findings_others_text) ? $datum->pe_findings_others_text : '' }}</textarea>
@@ -7098,19 +7100,19 @@
                         <label>Mental Status</label>
                         <div class="container ml-5 mb-3">
                           <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_mental_status][]" value="awake" id="{{ $viewFolder }}_post_mental_status_awake" {{ (isset($datum->post_mental_status) && is_array(json_decode($datum->post_mental_status)) && in_array('awake', json_decode($datum->post_mental_status))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_mental_status][]" value="awake" id="{{ $viewFolder }}_post_mental_status_awake" {{ (isset($datum->post_mental_status) && is_array(json_decode($datum->post_mental_status)) && in_array('awake', json_decode($datum->post_mental_status))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                             <label class="form-check-label" for="{{ $viewFolder }}_post_mental_status_awake">awake</label>
                           </div>
                           <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_mental_status][]" value="oriented" id="{{ $viewFolder }}_post_mental_status_oriented" {{ (isset($datum->post_mental_status) && is_array(json_decode($datum->post_mental_status)) && in_array('oriented', json_decode($datum->post_mental_status))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_mental_status][]" value="oriented" id="{{ $viewFolder }}_post_mental_status_oriented" {{ (isset($datum->post_mental_status) && is_array(json_decode($datum->post_mental_status)) && in_array('oriented', json_decode($datum->post_mental_status))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                             <label class="form-check-label" for="{{ $viewFolder }}_post_mental_status_oriented">oriented</label>
                           </div>
                           <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_mental_status][]" value="drowsy" id="{{ $viewFolder }}_post_mental_status_drowsy" {{ (isset($datum->post_mental_status) && is_array(json_decode($datum->post_mental_status)) && in_array('drowsy', json_decode($datum->post_mental_status))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_mental_status][]" value="drowsy" id="{{ $viewFolder }}_post_mental_status_drowsy" {{ (isset($datum->post_mental_status) && is_array(json_decode($datum->post_mental_status)) && in_array('drowsy', json_decode($datum->post_mental_status))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                             <label class="form-check-label" for="{{ $viewFolder }}_post_mental_status_drowsy">drowsy</label>
                           </div>
                           <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_mental_status][]" value="disoriented" id="{{ $viewFolder }}_post_mental_status_disoriented" {{ (isset($datum->post_mental_status) && is_array(json_decode($datum->post_mental_status)) && in_array('disoriented', json_decode($datum->post_mental_status))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_mental_status][]" value="disoriented" id="{{ $viewFolder }}_post_mental_status_disoriented" {{ (isset($datum->post_mental_status) && is_array(json_decode($datum->post_mental_status)) && in_array('disoriented', json_decode($datum->post_mental_status))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                             <label class="form-check-label" for="{{ $viewFolder }}_post_mental_status_disoriented">disoriented</label>
                           </div>
                         </div>
@@ -7153,7 +7155,7 @@
                                   $('#{{ $viewFolder }}_post_subjective_complaints_text').prop('required', false);
                                   $('#{{ $viewFolder }}_post_subjective_complaints_text').val('');
                                 }
-                              " {{ (isset($datum->post_subjective_complaints) && $datum->post_subjective_complaints == 'none') ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                              " {{ (isset($datum->post_subjective_complaints) && $datum->post_subjective_complaints == 'none') ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                             <label class="form-check-label" for="{{ $viewFolder }}_post_subjective_complaints_none">none</label>
                           </div>
                           <div class="form-check">
@@ -7166,35 +7168,35 @@
                                   $('#{{ $viewFolder }}_post_subjective_complaints_text').prop('required', false);
                                   $('#{{ $viewFolder }}_post_subjective_complaints_text').val('');
                                 }
-                              " {{ (isset($datum->post_subjective_complaints) && $datum->post_subjective_complaints == 'yes') ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                              " {{ (isset($datum->post_subjective_complaints) && $datum->post_subjective_complaints == 'yes') ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                             <label class="form-check-label" for="{{ $viewFolder }}_post_subjective_complaints_yes">yes</label>
                           </div>
-                          <textarea class="form-control" name="{{ $viewFolder }}[post_subjective_complaints_text]" id="{{ $viewFolder }}_post_subjective_complaints_text" rows=3 {{ (isset($datum->post_subjective_complaints) && $datum->post_subjective_complaints == 'yes') ? '' : 'disabled' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>{{ isset($datum->post_subjective_complaints_text) ? $datum->post_subjective_complaints_text : '' }}</textarea>
+                          <textarea class="form-control" name="{{ $viewFolder }}[post_subjective_complaints_text]" id="{{ $viewFolder }}_post_subjective_complaints_text" rows=3 {{ (isset($datum->post_subjective_complaints) && $datum->post_subjective_complaints == 'yes') ? '' : 'disabled' }} {{ !isset($referal_conso)  ? '' : '' }}>{{ isset($datum->post_subjective_complaints_text) ? $datum->post_subjective_complaints_text : '' }}</textarea>
                         </div>
                         <label>Significant PE Findings</label>
                         <div class="container ml-5 mb-3">
                           <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Pallor" id="{{ $viewFolder }}_post_pe_findings_pallor" {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Pallor', json_decode($datum->post_pe_findings))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Pallor" id="{{ $viewFolder }}_post_pe_findings_pallor" {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Pallor', json_decode($datum->post_pe_findings))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                             <label class="form-check-label" for="{{ $viewFolder }}_post_pe_findings_pallor">Pallor</label>
                           </div>
                           <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Distended Neck Vein" id="{{ $viewFolder }}_post_pe_findings_neck_vein" {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Distended Neck Vein', json_decode($datum->post_pe_findings))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Distended Neck Vein" id="{{ $viewFolder }}_post_pe_findings_neck_vein" {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Distended Neck Vein', json_decode($datum->post_pe_findings))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                             <label class="form-check-label" for="{{ $viewFolder }}_post_pe_findings_neck_vein">Distended Neck Vein</label>
                           </div>
                           <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Abnormal Rhythm/Rate" id="{{ $viewFolder }}_post_pe_findings_rhythm" {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Abnormal Rhythm/Rate', json_decode($datum->post_pe_findings))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Abnormal Rhythm/Rate" id="{{ $viewFolder }}_post_pe_findings_rhythm" {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Abnormal Rhythm/Rate', json_decode($datum->post_pe_findings))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                             <label class="form-check-label" for="{{ $viewFolder }}_post_pe_findings_rhythm">Abnormal Rhythm/Rate</label>
                           </div>
                           <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Rales" id="{{ $viewFolder }}_post_pe_findings_rales" {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Rales', json_decode($datum->post_pe_findings))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Rales" id="{{ $viewFolder }}_post_pe_findings_rales" {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Rales', json_decode($datum->post_pe_findings))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                             <label class="form-check-label" for="{{ $viewFolder }}_post_pe_findings_rales">Rales</label>
                           </div>
                           <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Wheezing" id="{{ $viewFolder }}_post_pe_findings_wheezing" {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Wheezing', json_decode($datum->post_pe_findings))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Wheezing" id="{{ $viewFolder }}_post_pe_findings_wheezing" {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Wheezing', json_decode($datum->post_pe_findings))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                             <label class="form-check-label" for="{{ $viewFolder }}_post_pe_findings_wheezing">Wheezing</label>
                           </div>
                           <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Decreased Breath Sounds" id="{{ $viewFolder }}_post_pe_findings_breath_sounds" {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Decreased Breath Sounds', json_decode($datum->post_pe_findings))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Decreased Breath Sounds" id="{{ $viewFolder }}_post_pe_findings_breath_sounds" {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Decreased Breath Sounds', json_decode($datum->post_pe_findings))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                             <label class="form-check-label" for="{{ $viewFolder }}_post_pe_findings_breath_sounds">Decreased Breath Sounds</label>
                           </div>
                           <div class="form-check">
@@ -7207,10 +7209,10 @@
                                   $('#{{ $viewFolder }}_post_pe_findings_ascites_text').prop('required', false);
                                   $('#{{ $viewFolder }}_post_pe_findings_ascites_text').val('');
                                 }
-                              " {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Ascites - Abdominal Girth', json_decode($datum->post_pe_findings))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                              " {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Ascites - Abdominal Girth', json_decode($datum->post_pe_findings))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                             <label class="form-check-label" for="{{ $viewFolder }}_post_pe_findings_ascites">Ascites - Abdominal Girth:</label>
                           </div>
-                          <textarea class="form-control" name="{{ $viewFolder }}[post_pe_findings_ascites_text]" id="{{ $viewFolder }}_post_pe_findings_ascites_text" rows=3 {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Ascites - Abdominal Girth', json_decode($datum->post_pe_findings))) ? '' : 'disabled' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>{{ isset($datum->post_pe_findings_ascites_text) ? $datum->post_pe_findings_ascites_text : '' }}</textarea>
+                          <textarea class="form-control" name="{{ $viewFolder }}[post_pe_findings_ascites_text]" id="{{ $viewFolder }}_post_pe_findings_ascites_text" rows=3 {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Ascites - Abdominal Girth', json_decode($datum->post_pe_findings))) ? '' : 'disabled' }} {{ !isset($referal_conso)  ? '' : '' }}>{{ isset($datum->post_pe_findings_ascites_text) ? $datum->post_pe_findings_ascites_text : '' }}</textarea>
                           {{-- <div class="form-check">
                             <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Decreased Breath Sounds" id="{{ $viewFolder }}_post_pe_findings_breath_sounds">
                             <label class="form-check-label" for="{{ $viewFolder }}_post_pe_findings_breath_sounds">Decreased Breath Sounds</label>
@@ -7226,10 +7228,10 @@
                                   $('#{{ $viewFolder }}_post_pe_findings_edema_text').prop('required', false);
                                   $('#{{ $viewFolder }}_post_pe_findings_edema_text').val('');
                                 }
-                              " {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Edema Grade', json_decode($datum->post_pe_findings))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                              " {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Edema Grade', json_decode($datum->post_pe_findings))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                             <label class="form-check-label" for="{{ $viewFolder }}_post_pe_findings_edema">Edema Grade:</label>
                           </div>
-                          <textarea class="form-control" name="{{ $viewFolder }}[post_pe_findings_edema_text]" id="{{ $viewFolder }}_post_pe_findings_edema_text" rows=3 {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Edema Grade', json_decode($datum->post_pe_findings))) ? '' : 'disabled' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>{{ isset($datum->post_pe_findings_edema_text) ? $datum->post_pe_findings_edema_text : '' }}</textarea>
+                          <textarea class="form-control" name="{{ $viewFolder }}[post_pe_findings_edema_text]" id="{{ $viewFolder }}_post_pe_findings_edema_text" rows=3 {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Edema Grade', json_decode($datum->post_pe_findings))) ? '' : 'disabled' }} {{ !isset($referal_conso)  ? '' : '' }}>{{ isset($datum->post_pe_findings_edema_text) ? $datum->post_pe_findings_edema_text : '' }}</textarea>
                           <div class="form-check">
                             <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Bleeding" id="{{ $viewFolder }}_post_pe_findings_bleeding" {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Bleeding', json_decode($datum->post_pe_findings))) ? 'checked' : '' }}>
                             <label class="form-check-label" for="{{ $viewFolder }}_post_pe_findings_bleeding">Bleeding</label>
@@ -7244,10 +7246,10 @@
                                   $('#{{ $viewFolder }}_post_pe_findings_others_text').prop('required', false);
                                   $('#{{ $viewFolder }}_post_pe_findings_others_text').val('');
                                 }
-                              " {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Others', json_decode($datum->post_pe_findings))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                              " {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Others', json_decode($datum->post_pe_findings))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                             <label class="form-check-label" for="{{ $viewFolder }}_post_pe_findings_others">Others:</label>
                           </div>
-                          <textarea class="form-control" name="{{ $viewFolder }}[post_pe_findings_others_text]" id="{{ $viewFolder }}_post_pe_findings_others_text" rows=3 {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Others', json_decode($datum->post_pe_findings))) ? '' : 'disabled' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>{{ isset($datum->post_pe_findings_others_text) ? $datum->post_pe_findings_others_text : '' }}</textarea>
+                          <textarea class="form-control" name="{{ $viewFolder }}[post_pe_findings_others_text]" id="{{ $viewFolder }}_post_pe_findings_others_text" rows=3 {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Others', json_decode($datum->post_pe_findings))) ? '' : 'disabled' }} {{ !isset($referal_conso)  ? '' : '' }}>{{ isset($datum->post_pe_findings_others_text) ? $datum->post_pe_findings_others_text : '' }}</textarea>
                         </div>
                       </div>
                     </div>
@@ -7274,15 +7276,15 @@
                           </div>
                           <div class="col-lg-8">
                             <div class="form-check">
-                              <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[vaccess_detail][]" value="Fistula" id="{{ $viewFolder }}_fistula" {{ (isset($datum->vaccess_detail) && is_array(json_decode($datum->vaccess_detail)) && in_array('Fistula', json_decode($datum->vaccess_detail))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                              <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[vaccess_detail][]" value="Fistula" id="{{ $viewFolder }}_fistula" {{ (isset($datum->vaccess_detail) && is_array(json_decode($datum->vaccess_detail)) && in_array('Fistula', json_decode($datum->vaccess_detail))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                               <label class="form-check-label" for="{{ $viewFolder }}_fistula">Fistula</label>
                             </div>
                             <div class="form-check">
-                              <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[vaccess_detail][]" value="Graft" id="{{ $viewFolder }}_graft" {{ (isset($datum->vaccess_detail) && is_array(json_decode($datum->vaccess_detail)) && in_array('Graft', json_decode($datum->vaccess_detail))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                              <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[vaccess_detail][]" value="Graft" id="{{ $viewFolder }}_graft" {{ (isset($datum->vaccess_detail) && is_array(json_decode($datum->vaccess_detail)) && in_array('Graft', json_decode($datum->vaccess_detail))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                               <label class="form-check-label" for="{{ $viewFolder }}_graft">Graft</label>
                             </div>
                             <div class="form-check">
-                              <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[vaccess_detail][]" value="CVC" id="{{ $viewFolder }}_cvc" {{ (isset($datum->vaccess_detail) && is_array(json_decode($datum->vaccess_detail)) && in_array('CVC', json_decode($datum->vaccess_detail))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                              <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[vaccess_detail][]" value="CVC" id="{{ $viewFolder }}_cvc" {{ (isset($datum->vaccess_detail) && is_array(json_decode($datum->vaccess_detail)) && in_array('CVC', json_decode($datum->vaccess_detail))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                               <label class="form-check-label" for="{{ $viewFolder }}_cvc">CVC / PERM / others</label>
                             </div>
                           </div>
@@ -7299,31 +7301,31 @@
                         <div class="row">
                           <div class="col-lg-12">
                             <div class="form-check">
-                              <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[av_fistula_detail][]" value="Strong Thrill" id="{{ $viewFolder }}_strong_thrill" {{ (isset($datum->av_fistula_detail) && is_array(json_decode($datum->av_fistula_detail)) && in_array('Strong Thrill', json_decode($datum->av_fistula_detail))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                              <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[av_fistula_detail][]" value="Strong Thrill" id="{{ $viewFolder }}_strong_thrill" {{ (isset($datum->av_fistula_detail) && is_array(json_decode($datum->av_fistula_detail)) && in_array('Strong Thrill', json_decode($datum->av_fistula_detail))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                               <label class="form-check-label" for="{{ $viewFolder }}_strong_thrill">Strong Thrill</label>
                             </div>
                             <div class="form-check">
-                              <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[av_fistula_detail][]" value="Weak Thrill" id="{{ $viewFolder }}_weak_thrill" {{ (isset($datum->av_fistula_detail) && is_array(json_decode($datum->av_fistula_detail)) && in_array('Weak Thrill', json_decode($datum->av_fistula_detail))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                              <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[av_fistula_detail][]" value="Weak Thrill" id="{{ $viewFolder }}_weak_thrill" {{ (isset($datum->av_fistula_detail) && is_array(json_decode($datum->av_fistula_detail)) && in_array('Weak Thrill', json_decode($datum->av_fistula_detail))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                               <label class="form-check-label" for="{{ $viewFolder }}_weak_thrill">Weak Thrill</label>
                             </div>
                             <div class="form-check">
-                              <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[av_fistula_detail][]" value="Absent Thrill w/ Bruit" id="{{ $viewFolder }}_absent_thrill_with" {{ (isset($datum->av_fistula_detail) && is_array(json_decode($datum->av_fistula_detail)) && in_array('Absent Thrill w/ Bruit', json_decode($datum->av_fistula_detail))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                              <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[av_fistula_detail][]" value="Absent Thrill w/ Bruit" id="{{ $viewFolder }}_absent_thrill_with" {{ (isset($datum->av_fistula_detail) && is_array(json_decode($datum->av_fistula_detail)) && in_array('Absent Thrill w/ Bruit', json_decode($datum->av_fistula_detail))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                               <label class="form-check-label" for="{{ $viewFolder }}_absent_thrill_with">Absent Thrill w/ Bruit</label>
                             </div>
                             <div class="form-check">
-                              <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[av_fistula_detail][]" value="Absent Thrill no Bruit" id="{{ $viewFolder }}_absent_thrill_no" {{ (isset($datum->av_fistula_detail) && is_array(json_decode($datum->av_fistula_detail)) && in_array('Absent Thrill no Bruit', json_decode($datum->av_fistula_detail))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                              <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[av_fistula_detail][]" value="Absent Thrill no Bruit" id="{{ $viewFolder }}_absent_thrill_no" {{ (isset($datum->av_fistula_detail) && is_array(json_decode($datum->av_fistula_detail)) && in_array('Absent Thrill no Bruit', json_decode($datum->av_fistula_detail))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                               <label class="form-check-label" for="{{ $viewFolder }}_absent_thrill_no">Absent Thrill no Bruit</label>
                             </div>
                             <div class="input-group mb-3 mt-3">
                               <div class="form-floating">
-                                <input class="form-control" type="text" name="{{ $viewFolder }}[needle_gauge]" id="{{ $viewFolder }}_needle_gauge" placeholder="" value="{{ !empty($datum->needle_gauge) ? $datum->needle_gauge : '' }}" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                                <input class="form-control" type="text" name="{{ $viewFolder }}[needle_gauge]" id="{{ $viewFolder }}_needle_gauge" placeholder="" value="{{ !empty($datum->needle_gauge) ? $datum->needle_gauge : '' }}" {{ !isset($referal_conso)  ? '' : '' }}>
                                 <label for="{{ $viewFolder }}_needle_gauge" class="form-label">Needle Gauge</label>
                                 <small id="help_{{ $viewFolder }}_needle_gauge" class="text-muted"></small>
                               </div>
                             </div>
                             <div class="input-group mb-3">
                               <div class="form-floating">
-                                <input class="form-control" type="number" step="1" name="{{ $viewFolder }}[number_commultation]" id="{{ $viewFolder }}_number_commultation" placeholder="" value="{{ !empty($datum->number_commultation) ? $datum->number_commultation : '' }}" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                                <input class="form-control" type="number" step="1" name="{{ $viewFolder }}[number_commultation]" id="{{ $viewFolder }}_number_commultation" placeholder="" value="{{ !empty($datum->number_commultation) ? $datum->number_commultation : '' }}" {{ !isset($referal_conso)  ? '' : '' }}>
                                 <label for="{{ $viewFolder }}_number_commultation" class="form-label"># of Cannulation</label>
                                 <small id="help_{{ $viewFolder }}_number_commultation" class="text-muted"></small>
                               </div>
@@ -7340,27 +7342,27 @@
                         <div class="row">
                           <div class="col-lg-12">
                             <div class="form-check">
-                              <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[hd_catheter_detail][]" value="Both Patent" id="{{ $viewFolder }}_both_patent" {{ (isset($datum->hd_catheter_detail) && is_array(json_decode($datum->hd_catheter_detail)) && in_array('Both Patent', json_decode($datum->hd_catheter_detail))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                              <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[hd_catheter_detail][]" value="Both Patent" id="{{ $viewFolder }}_both_patent" {{ (isset($datum->hd_catheter_detail) && is_array(json_decode($datum->hd_catheter_detail)) && in_array('Both Patent', json_decode($datum->hd_catheter_detail))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                               <label class="form-check-label" for="{{ $viewFolder }}_both_patent">Both Patent</label>
                             </div>
                             <div class="form-check">
-                              <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[hd_catheter_detail][]" value="A Clotted" id="{{ $viewFolder }}_a_clotted" {{ (isset($datum->hd_catheter_detail) && is_array(json_decode($datum->hd_catheter_detail)) && in_array('A Clotted', json_decode($datum->hd_catheter_detail))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                              <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[hd_catheter_detail][]" value="A Clotted" id="{{ $viewFolder }}_a_clotted" {{ (isset($datum->hd_catheter_detail) && is_array(json_decode($datum->hd_catheter_detail)) && in_array('A Clotted', json_decode($datum->hd_catheter_detail))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                               <label class="form-check-label" for="{{ $viewFolder }}_a_clotted">A Clotted</label>
                             </div>
                             <div class="form-check">
-                              <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[hd_catheter_detail][]" value="V Clotted" id="{{ $viewFolder }}_v_clotted" {{ (isset($datum->hd_catheter_detail) && is_array(json_decode($datum->hd_catheter_detail)) && in_array('V Clotted', json_decode($datum->hd_catheter_detail))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                              <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[hd_catheter_detail][]" value="V Clotted" id="{{ $viewFolder }}_v_clotted" {{ (isset($datum->hd_catheter_detail) && is_array(json_decode($datum->hd_catheter_detail)) && in_array('V Clotted', json_decode($datum->hd_catheter_detail))) ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                               <label class="form-check-label" for="{{ $viewFolder }}_v_clotted">V Clotted</label>
                             </div>
                             <div class="input-group mb-3 mt-3">
                               <div class="form-floating">
-                                <input class="form-control" type="text" name="{{ $viewFolder }}[hd_catheter_remarks]" id="{{ $viewFolder }}_hd_catheter_remarks" placeholder="" value="{{ !empty($datum->hd_catheter_remarks) ? $datum->hd_catheter_remarks : '' }}" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                                <input class="form-control" type="text" name="{{ $viewFolder }}[hd_catheter_remarks]" id="{{ $viewFolder }}_hd_catheter_remarks" placeholder="" value="{{ !empty($datum->hd_catheter_remarks) ? $datum->hd_catheter_remarks : '' }}" {{ !isset($referal_conso)  ? '' : '' }}>
                                 <label for="{{ $viewFolder }}_hd_catheter_remarks" class="form-label">Remarks</label>
                                 <small id="help_{{ $viewFolder }}_hd_catheter_remarks" class="text-muted"></small>
                               </div>
                             </div>
                             <div class="input-group mb-3">
                               <div class="form-floating">
-                                <input class="form-control" type="text" name="{{ $viewFolder }}[hd_catheter_hgb]" id="{{ $viewFolder }}_hd_catheter_hgb" placeholder="" value="{{ !empty($datum->hd_catheter_hgb) ? $datum->hd_catheter_hgb : '' }}" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                                <input class="form-control" type="text" name="{{ $viewFolder }}[hd_catheter_hgb]" id="{{ $viewFolder }}_hd_catheter_hgb" placeholder="" value="{{ !empty($datum->hd_catheter_hgb) ? $datum->hd_catheter_hgb : '' }}" {{ !isset($referal_conso)  ? '' : '' }}>
                                 <label for="{{ $viewFolder }}_hd_catheter_hgb" class="form-label">Latest HGB</label>
                                 <small id="help_{{ $viewFolder }}_hd_catheter_hgb" class="text-muted"></small>
                               </div>
@@ -7507,21 +7509,21 @@
                           <div class="col-lg-6">
                             <div class="input-group mb-3">
                               <div class="form-floating">
-                                <input class="form-control" type="text" name="{{ $viewFolder }}[rml]" id="{{ $viewFolder }}_rml" placeholder="" value="{{ !empty($datum->rml) ? $datum->rml : '' }}" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                                <input class="form-control" type="text" name="{{ $viewFolder }}[rml]" id="{{ $viewFolder }}_rml" placeholder="" value="{{ !empty($datum->rml) ? $datum->rml : '' }}" {{ !isset($referal_conso)  ? '' : '' }}>
                                 <label for="{{ $viewFolder }}_rml" class="form-label">RML</label>
                                 <small id="help_{{ $viewFolder }}_rml" class="text-muted"></small>
                               </div>
                             </div>
                             <div class="input-group mb-3">
                               <div class="form-floating">
-                                <input class="form-control" type="text" name="{{ $viewFolder }}[hepa]" id="{{ $viewFolder }}_hepa" placeholder="" value="{{ !empty($datum->hepa) ? $datum->hepa : '' }}" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                                <input class="form-control" type="text" name="{{ $viewFolder }}[hepa]" id="{{ $viewFolder }}_hepa" placeholder="" value="{{ !empty($datum->hepa) ? $datum->hepa : '' }}" {{ !isset($referal_conso)  ? '' : '' }}>
                                 <label for="{{ $viewFolder }}_hepa" class="form-label">HEPA Profile</label>
                                 <small id="help_{{ $viewFolder }}_hepa" class="text-muted"></small>
                               </div>
                             </div>
                             <div class="input-group mb-3">
                               <div class="form-floating">
-                                <input class="form-control" type="text" name="{{ $viewFolder }}[iv_iron]" id="{{ $viewFolder }}_iv_iron" placeholder="" value="{{ !empty($datum->iv_iron) ? $datum->iv_iron : '' }}" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                                <input class="form-control" type="text" name="{{ $viewFolder }}[iv_iron]" id="{{ $viewFolder }}_iv_iron" placeholder="" value="{{ !empty($datum->iv_iron) ? $datum->iv_iron : '' }}" {{ !isset($referal_conso)  ? '' : '' }}>
                                 <label for="{{ $viewFolder }}_iv_iron" class="form-label">IV Iron</label>
                                 <small id="help_{{ $viewFolder }}_iv_iron" class="text-muted"></small>
                               </div>
@@ -7530,20 +7532,20 @@
                           <div class="col-lg-6">
                             <div class="input-group mb-3">
                               <div class="form-floating">
-                                <input class="form-control" type="text" name="{{ $viewFolder }}[epo]" id="{{ $viewFolder }}_epo" placeholder="" value="{{ !empty($datum->epo) ? $datum->epo : '' }}" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                                <input class="form-control" type="text" name="{{ $viewFolder }}[epo]" id="{{ $viewFolder }}_epo" placeholder="" value="{{ !empty($datum->epo) ? $datum->epo : '' }}" {{ !isset($referal_conso)  ? '' : '' }}>
                                 <label for="{{ $viewFolder }}_epo" class="form-label">EPO</label>
                                 <small id="help_{{ $viewFolder }}_epo" class="text-muted"></small>
                               </div>
                             </div>
                             <div class="input-group mb-3">
                               <div class="form-floating">
-                                <input class="form-control" type="text" name="{{ $viewFolder }}[hd_vac]" id="{{ $viewFolder }}_hd_vac" placeholder="" value="{{ !empty($datum->hd_vac) ? $datum->hd_vac : '' }}" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                                <input class="form-control" type="text" name="{{ $viewFolder }}[hd_vac]" id="{{ $viewFolder }}_hd_vac" placeholder="" value="{{ !empty($datum->hd_vac) ? $datum->hd_vac : '' }}" {{ !isset($referal_conso)  ? '' : '' }}>
                                 <label for="{{ $viewFolder }}_hd_vac" class="form-label">Vaccines</label>
                                 <small id="help_{{ $viewFolder }}_hd_vac" class="text-muted"></small>
                               </div>
                             </div>
                             <div class="form-floating mb-3">
-                              <textarea class="form-control" name="{{ $viewFolder }}[hd_endorsement]" id="{{ $viewFolder }}_hd_endorsement" {{ !isset($referal_conso)  ? '' : 'disabled' }}>{{ !empty($datum->hd_endorsement) ? $datum->hd_endorsement : '' }}</textarea>
+                              <textarea class="form-control" name="{{ $viewFolder }}[hd_endorsement]" id="{{ $viewFolder }}_hd_endorsement" {{ !isset($referal_conso)  ? '' : '' }}>{{ !empty($datum->hd_endorsement) ? $datum->hd_endorsement : '' }}</textarea>
                               <label for="{{ $viewFolder }}_hd_endorsement" class="form-label">Endorsement Details</label>
                               <small id="help_{{ $viewFolder }}_hd_endorsement" class="text-muted"></small>
                             </div>
