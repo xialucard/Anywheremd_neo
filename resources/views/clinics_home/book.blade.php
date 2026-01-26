@@ -406,7 +406,7 @@
                           }
                         });
                     ">Data Privacy Consent</a>
-                    @if($datum->booking_type == 'Surgery' || $datum->booking_type == 'Laser')
+                    @if($datum->booking_type == 'Surgery' || $datum->booking_type == 'Laser' || $datum->booking_type == 'Diagnostics')
                     <a href="#" class="list-group-item list-group-item-action" id="dischargeSummaryLink" onclick="
                         $(this).addClass('active');
                         $('#generalConsentLink').removeClass('active');
@@ -488,7 +488,7 @@
                         });
                     ">Ophthalmology Admitting and Peri-Op</a>
                     @endif
-                    @if($datum->booking_type == 'Surgery' || $datum->booking_type == 'Laser')
+                    @if($datum->booking_type == 'Surgery' || $datum->booking_type == 'Laser' || $datum->booking_type == 'Diagnostics')
                     <a href="#" class="list-group-item list-group-item-action" id="orTechLink" onclick="
                         $(this).addClass('active');
                         $('#generalConsentLink').removeClass('active');
