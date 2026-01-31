@@ -3463,12 +3463,24 @@
             $('#dialysisPrevDiv').hide();
             $('#dialysisPrevLink').removeClass('active');
             $('#sumPrevLink').addClass('active');
+            $('#soapPrevLink').removeClass('active');  
+            $('#labPrevLink').removeClass('active');  
+            $('#presPrevLink').removeClass('active');  
+            $('#medPrevLink').removeClass('active');  
+            $('#admitPrevLink').removeClass('active');
+            $('#dialysisPrevLink').removeClass('active');
             $('#sumCurDiv').show();
           }else{
             $('#dChart').hide();
             $('#dialysisPrevLink').removeClass('active');
             $('#dialysisPrevDiv').hide();
             $('#sumPrevLink').addClass('active');
+            $('#soapPrevLink').removeClass('active');  
+            $('#labPrevLink').removeClass('active');  
+            $('#presPrevLink').removeClass('active');  
+            $('#medPrevLink').removeClass('active');  
+            $('#admitPrevLink').removeClass('active');
+            $('#dialysisPrevLink').removeClass('active');
             $('#sumCurDiv').show();
           }
           if(bookingObj.consultation.id != null){
