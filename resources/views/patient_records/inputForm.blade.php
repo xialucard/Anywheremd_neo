@@ -1392,9 +1392,9 @@
             </div>
             @endif
             <div class="row">
-              <div class="col-lg-{{ stristr($user->specialty, 'Ophtha') && (isset($bookings[0]->booking_type) && $bookings[0]->booking_type != 'Dialysis') ? 4 : (isset($bookings[0]->booking_type) && $bookings[0]->booking_type == 'Dialysis' ? 6 : 12) }}">
+              <div class="col-lg-{{ stristr($user->specialty, 'Ophtha') && (isset($bookings[0]->booking_type) ? 4 : (isset($bookings[0]->booking_type) && $bookings[0]->booking_type == 'Dialysis' ? 6 : 12) }}">
                 <div class="card mb-3">
-                  <div class="card-header">{{ isset($bookings[0]->booking_type) && $bookings[0]->booking_type == 'Dialysis' ? 'Pre-HD ' : '' }}Vitals</div>
+                  <div class="card-header">{{ isset($bookings[0]->booking_type) ? 'Pre-HD ' : '' }}Vitals</div>
                   <div class="card-body">
                     <div class="input-group mb-3">
                       <div class="form-floating">
@@ -1404,7 +1404,7 @@
                       </div>
                       <span class="input-group-text">C</span>
                     </div>
-                    @if(isset($bookings[0]->booking_type) && $bookings[0]->booking_type != 'Dialysis')
+                    @if(isset($bookings[0]->booking_type))
                     <div class="input-group mb-3">
                       <div class="form-floating">
                         <input class="form-control" type="number" name="{{ $viewFolder }}[height]" min=1 step=.1 id="{{ $viewFolder }}_prev_height" value="{{ isset($bookings[0]->height) ? $bookings[0]->height : '' }}" placeholder="" {{ isset($bookings[0]->id) ? '' : '' }} onblur="
