@@ -597,7 +597,7 @@
             <div class="card mb-3">
               <div class="card-header">Plan</div>
               <div class="card-body table-responsive" style="height:300px; max-height: 300px">
-                
+                <span id="{{ $viewFolder }}_prev_planMed">{!! nl2br(isset($bookings[0]->planMed) ? $bookings[0]->planMed : '') !!}</span><br>
                 @if($bookings[0]->booking_type == 'Dialysis')
                 <p>
                   <strong>Plan:</strong><br><div class="m-3">{!! isset($bookings[0]->planMed) ? nl2br($bookings[0]->planMed) : '' !!}</div><br>
