@@ -108,7 +108,7 @@
                 if($user->user_type == 'Clinic')
                   $bookings = $datum->consultations()->where('clinic_id', $user->clinic_id)->orderByDesc('bookingDate')->get();
                 elseif($user->user_type == 'Doctor'){
-                  if($user->specialty = "POD")
+                  if($user->specialty == "POD")
                     $bookings = $datum->consultations()->whereIn('clinic_id', $doctorClinic)->orderByDesc('bookingDate')->get();
                   else
                     $bookings = $datum->consultations()->where('doctor_id', $user->id)->where('clinic_id', $clinic_id)->orderByDesc('bookingDate')->get();
@@ -1055,9 +1055,9 @@
           </div>
           <div id="dialysisPrevDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
             @if(isset($bookings[0]->booking_type) && $bookings[0]->booking_type == 'Dialysis')
-            @can('clinics_home.pdfHD')
+            {{-- @can('clinics_home.pdfHD') --}}
             <div class="m-1"><a id="printLinkID" class="btn btn-{{ $bgColor }} btn-sm w-100 printLink" href="{{ route('clinics_home.pdfHD', [isset($referal_conso) ? $referal_conso->id : $bookings[0]->id, !empty(parse_url(Request::fullUrl())['query']) ? parse_url(Request::fullUrl())['query'] : '']) }}" title="Print HD Form" role="button" download><i class="bi bi-filetype-pdf"></i><span class="ps-1 d-sm-none">Print HD Form</span></a></div>
-            @endcan
+            {{-- @endcan --}}
             <div class="row mt-3">
               <div class="col-lg-4">
                 <div class="input-group mb-3">
