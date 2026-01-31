@@ -1484,7 +1484,8 @@
                   </div>
                 </div>
               </div>
-              @if(isset($bookings[0]->booking_type) && $bookings[0]->booking_type == 'Dialysis')
+              {{-- @if(isset($bookings[0]->booking_type) && $bookings[0]->booking_type == 'Dialysis') --}}
+              @if(isset($bookings[0]->booking_type))
               <div class="col-lg-6">
                 <div class="card mb-3">
                   <div class="card-header">Post-HD Vitals</div>
@@ -1577,7 +1578,8 @@
               </div>
               @endif
             </div>
-            @if(isset($bookings[0]->booking_type) && $bookings[0]->booking_type == 'Dialysis')
+            {{-- @if(isset($bookings[0]->booking_type) && $bookings[0]->booking_type == 'Dialysis') --}}
+            @if(isset($bookings[0]->booking_type))
             
             <div class="row">
               <div class="col-lg-6">
