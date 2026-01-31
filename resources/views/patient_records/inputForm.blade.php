@@ -597,10 +597,9 @@
             <div class="card mb-3">
               <div class="card-header">Plan</div>
               <div class="card-body table-responsive" style="height:300px; max-height: 300px">
-                <span id="{{ $viewFolder }}_prev_planMed">{!! nl2br(isset($bookings[0]->planMed) ? $bookings[0]->planMed : '') !!}</span><br>
                 @if($bookings[0]->booking_type == 'Dialysis')
                 <p>
-                  <strong>Plan:</strong><br><div class="m-3">{!! isset($bookings[0]->planMed) ? nl2br($bookings[0]->planMed) : '' !!}</div><br>
+                  <strong>Plan:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_planMed">{!! isset($bookings[0]->planMed) ? nl2br($bookings[0]->planMed) : '' !!}</div><br>
                   <strong>Current Meds Onboard:</strong>
                   <div class="table-responsive" style="max-height: 300px">
                     <table class="table table-bordered table-striped table-hover table-sm medsOn">
@@ -649,11 +648,11 @@
                 <small class="text-muted" id="prevPatCompDur">{{ $bookings[0]->duration }}</small>
               </div>
             </div>
-            <ul class="nav nav-pills mb-3">
+            {{-- <ul class="nav nav-pills mb-3">
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="#">{{ $user->name == $bookings[0]->doctor->name ? 'Yours' : 'Dr. ' . Str::substr($bookings[0]->doctor->f_name, 0, 1) . '. ' . $bookings[0]->doctor->l_name }}</a>
               </li>
-            </ul>
+            </ul> --}}
             <div class="card mb-3">
               <div class="card-header">Doctor's Notes</div>
               <div class="card-body">
@@ -3472,6 +3471,12 @@
             $('#medPrevLink').removeClass('active');  
             $('#admitPrevLink').removeClass('active');
             $('#dialysisPrevLink').removeClass('active');
+            $('#soapPrevDiv').hide();  
+            $('#labPrevDiv').hide();  
+            $('#presPrevDiv').hide();  
+            $('#medPrevDiv').hide();  
+            $('#admitPrevDiv').hide();
+            $('#dialysisPrevDiv').hide();
             $('#sumCurDiv').show();
           }else{
             $('#dChart').hide();
@@ -3484,6 +3489,12 @@
             $('#medPrevLink').removeClass('active');  
             $('#admitPrevLink').removeClass('active');
             $('#dialysisPrevLink').removeClass('active');
+            $('#soapPrevDiv').hide();  
+            $('#labPrevDiv').hide();  
+            $('#presPrevDiv').hide();  
+            $('#medPrevDiv').hide();  
+            $('#admitPrevDiv').hide();
+            $('#dialysisPrevDiv').hide();
             $('#sumCurDiv').show();
           }
           if(bookingObj.consultation.id != null){
