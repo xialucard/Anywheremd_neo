@@ -1392,7 +1392,7 @@
             </div>
             @endif
             <div class="row">
-              <div class="col-lg-{{ stristr($user->specialty, 'Ophtha') && (isset($bookings[0]->booking_type) ? 4 : (isset($bookings[0]->booking_type) && $bookings[0]->booking_type == 'Dialysis' ? 6 : 12) }}">
+              <div class="col-lg-{{ stristr($user->specialty, 'Ophtha') && isset($bookings[0]->booking_type) ? 4 : (isset($bookings[0]->booking_type) && $bookings[0]->booking_type == 'Dialysis' ? 6 : 12) }}">
                 <div class="card mb-3">
                   <div class="card-header">{{ isset($bookings[0]->booking_type) ? 'Pre-HD ' : '' }}Vitals</div>
                   <div class="card-body">
