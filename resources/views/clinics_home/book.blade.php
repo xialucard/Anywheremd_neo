@@ -623,6 +623,7 @@
                   <td>{{ isset($dat->consultation_meds()->where('medication', 'like', '%epo%')->get()[0]->dosage) ? $dat->consultation_meds()->where('medication', 'like', '%epo%')->get()[0]->dosage : '' }}</td>
                   <td>{{ isset($dat->consultation_meds()->where('medication', 'like', '%iron%')->get()[0]->dosage) ? $dat->consultation_meds()->where('medication', 'like', '%iron%')->get()[0]->dosage : '' }}</td>
                   <td>{{ nl2br($dat->dialysis_complication) }}</td>
+                  <td>{{ $dat->creator->name }}</td>
               </tr>
               @endforeach
             @endif
