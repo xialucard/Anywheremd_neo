@@ -325,6 +325,9 @@ class DoctorsHomeController extends Controller
     {
         $data = $this->getData($request->input());
         $user = Auth::user();
+         $doctorClinic = null;
+        if($user->user_type == 'Doctor')
+            $doctorClinic = $user->affiliated_clinics->pluck('clinic_id')->toArray();
         $datum = $doctors_home;
         // dd($datum);
         $yr = null;
@@ -357,6 +360,8 @@ class DoctorsHomeController extends Controller
                     'patients'=>$patients, 
                     'viewFolder' => $this->viewFolder, 
                     'modalSize' => 'modal-fullscreen',
+                    'maxDateSched' =>$datum->doctor->schedules()->max('dateSched'),
+                    'doctorClinic' =>$doctorClinic,
                     'referer' => urldecode($request->headers->get('referer'))
                 ]);
         }

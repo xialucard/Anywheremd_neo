@@ -1,6 +1,12 @@
 <div class="d-sm-flex flex-sm-row">
-    @if($dat->assessment == '' || $dat->planMed == '' || $dat->plan == '')
-    <div class="m-1"><a class="btn pe-none"><i class="bi bi-exclamation-triangle-fill text-danger"></i></a></div>
+    @if($dat->booking_type == 'Dialysis')
+         @if($dat->assessment == '' || $dat->planMed == '')
+        <div class="m-1"><a class="btn pe-none"><i class="bi bi-exclamation-triangle-fill text-danger"></i></a></div>
+        @endif
+    @else
+        @if($dat->assessment == '' || $dat->planMed == '' || $dat->plan == '')
+        <div class="m-1"><a class="btn pe-none"><i class="bi bi-exclamation-triangle-fill text-danger"></i></a></div>
+        @endif
     @endif
     @if (Route::has($viewFolder . '.show') && $dat->status == 'Done')
         @can($viewFolder . '.show')
