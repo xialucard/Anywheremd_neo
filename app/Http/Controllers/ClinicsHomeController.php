@@ -543,6 +543,12 @@ class ClinicsHomeController extends Controller
         $yr = null;
         $mon = null;
         $dayNum = null;
+        $prevBooking = null;
+        $allBooking = null;
+        if($datum->booking_type == 'Dialysis'){
+            $prevBooking = Consultation::where('patient_id', $datum->patient_id)->where('booking_type', 'Dialysis')->whereNotNull('time_ended')->whereNot('id', $datum->id)->orderBy('bookingDate','desc')->first();
+            $allBooking = Consultation::where('patient_id', $datum->patient_id)->where('booking_type', 'Dialysis')->whereNotNull('time_ended')->whereNot('id', $datum->id)->where('bookingDate', '<', $datum->bookingDate)->orderBy('bookingDate','asc')->get();
+        }
         if($user->active == 2)
             return redirect()->route('home.myaccount')->with("Incomplete Form", $this->newUserMsg);
         elseif($user->approved == 0)
@@ -571,6 +577,8 @@ class ClinicsHomeController extends Controller
                     'modalSize' => 'modal-xl',
                     // 'users' => $user,
                     'booking_type' => $datum->booking_type,
+                    'prevBooking' => $prevBooking,
+                    'allBooking' => $allBooking,
                     'referer' => urldecode($request->headers->get('referer'))
                 ]);
         }
