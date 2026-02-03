@@ -1391,7 +1391,7 @@
             </div>
             @endif
             <div class="row">
-              <div class="col-lg-{{ stristr($user->specialty, 'Ophtha') && isset($bookings[0]->booking_type) ? 6 : 12 }}">
+              <div class="col-lg-{{ stristr($user->specialty, 'Ophtha') && true ? 6 : 12 }}">
                 <div class="card mb-3">
                   <div class="card-header">{{ isset($bookings[0]->booking_type) ? 'Pre-HD ' : '' }}Vitals</div>
                   <div class="card-body">
@@ -1403,7 +1403,8 @@
                       </div>
                       <span class="input-group-text">C</span>
                     </div>
-                    @if(isset($bookings[0]->booking_type))
+                    {{-- @if(isset($bookings[0]->booking_type)) --}}
+                    @if(false)
                     <div class="input-group mb-3">
                       <div class="form-floating">
                         <input class="form-control" type="number" name="{{ $viewFolder }}[height]" min=1 step=.1 id="{{ $viewFolder }}_prev_height" value="{{ isset($bookings[0]->height) ? $bookings[0]->height : '' }}" placeholder="" {{ isset($bookings[0]->id) ? '' : '' }} onblur="
@@ -1497,7 +1498,8 @@
                       </div>
                       <span class="input-group-text">C</span>
                     </div>
-                    @if(isset($bookings[0]->booking_type) && $bookings[0]->booking_type != 'Dialysis')
+                    {{-- @if(isset($bookings[0]->booking_type) && $bookings[0]->booking_type != 'Dialysis') --}}
+                    @if(false)
                     <div class="input-group mb-3">
                       <div class="form-floating">
                         <input class="form-control" type="number" name="{{ $viewFolder }}[post_height]" min=1 step=.1 id="{{ $viewFolder }}_prev_post_height" value="{{ isset($bookings[0]->post_height) ? $bookings[0]->post_height : '' }}" placeholder="" {{ isset($bookings[0]->id) ? '' : '' }} onblur="
