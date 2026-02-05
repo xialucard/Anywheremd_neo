@@ -25,9 +25,9 @@
 @endif
 
 @php
-  print "<pre>";
-    print_r($datum);
-  print "</pre>";
+  // print "<pre>";
+  //   print_r($datum);
+  // print "</pre>";
 @endphp
 
 <div class="container">
