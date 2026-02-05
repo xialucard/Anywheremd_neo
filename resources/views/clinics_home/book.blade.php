@@ -24,6 +24,12 @@
 </datalist>
 @endif
 
+@php
+  print "<pre>";
+    print_r($datum);
+  print "</pre>";
+@endphp
+
 <div class="container">
   <div class="row">
     <div class="col-lg-4 mb-3">
