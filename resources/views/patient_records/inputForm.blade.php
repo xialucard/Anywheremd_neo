@@ -3175,11 +3175,12 @@
       url: '{{ Route::has('doctors_home.getPrevBookingInfo') ? route('doctors_home.getPrevBookingInfo') : ''}}/' + consultation_id + '/' + index,
       success:
         function(data, status){
-          @if(isset($bookings[0]->id) && $bookings[0]->booking_type == 'Dialysis')
-          $('#printLinkID').attr('href', $('#printLinkID').attr('href').replace($('#patient_records_prev_treatment_id').val(), consultation_id));
-          @endif
           bookingObj = jQuery.parseJSON(data);
-          if(bookingObj.consultation.doctor.specialty.includes('Ophtha')){
+          // if(bookingObj.consultation.booking_type == 'Dialysis'){
+            alert($('#patient_records_prev_treatment_id').val());
+            $('#printLinkID').attr('href', $('#printLinkID').attr('href').replace($('#patient_records_prev_treatment_id').val(), consultation_id));
+          // }
+            if(bookingObj.consultation.doctor.specialty.includes('Ophtha')){
             $('#eyeExam').show();
           }else{
             $('#eyeExam').hide();
