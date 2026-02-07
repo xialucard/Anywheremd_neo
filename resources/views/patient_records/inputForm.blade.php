@@ -3177,7 +3177,7 @@
         function(data, status){
           bookingObj = jQuery.parseJSON(data);
           // if(bookingObj.consultation.booking_type == 'Dialysis'){
-            alert($('#patient_records_prev_treatment_id').val());
+            // alert($('#patient_records_prev_treatment_id').val());
             $('#printLinkID').attr('href', $('#printLinkID').attr('href').replace($('#patient_records_prev_treatment_id').val(), consultation_id));
           // }
             if(bookingObj.consultation.doctor.specialty.includes('Ophtha')){
