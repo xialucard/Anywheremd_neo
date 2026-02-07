@@ -119,7 +119,7 @@
                 <tr>
                   <td>
                     <div class="d-sm-flex flex-sm-row">
-                      <div class="m-1"><a class="btn btn-{{ $bgColor }} btn-sm w-100" href="#" title="View" role="button" onclick="loadPrevBooking({{ $dat->id }}, {{ $ind }})"><i class="bi bi-binoculars"></i><span class="ps-1 d-sm-none">View</span></a></div>
+                      <div class="m-1"><a class="btn btn-{{ $bgColor }} btn-sm w-100" href="#" title="View" role="button" onclick="loadPrevBooking({{ $dat->consultation_parent_id != '' ? $dat->consultation_parent_id : $dat->id }}, {{ $ind }})"><i class="bi bi-binoculars"></i><span class="ps-1 d-sm-none">View</span></a></div>
                     </div>
                   </td>
                   <td>{{ $dat->bookingDate }}</td>
@@ -157,7 +157,7 @@
             @if(isset($bookings[0]->consultation_referals[0]->id))
               @foreach($bookings[0]->consultation_referals as $cr)
             <li class="nav-item">
-              <a class="nav-link docNotesLink" id="{{ $viewFolder }}_doctorLink_{{ $cr->id }}" href="#"  onclick="loadPrevBooking({{ $cr->id }}, 0)">{{'Dr. ' . Str::substr($cr->doctor->f_name, 0, 1) . '. ' . $cr->doctor->l_name . ' - ' . $cr->clinic->name . ' | ' . ($cr->booking_type == '' ? 'Consultation' : $cr->booking_type) }}</a>
+              <a class="nav-link docNotesLink" id="{{ $viewFolder }}_doctorLink_{{ $cr->id }}" href="#"  onclick="loadPrevBooking({{ $cr->id }}, 'ref')">{{'Dr. ' . Str::substr($cr->doctor->f_name, 0, 1) . '. ' . $cr->doctor->l_name . ' - ' . $cr->clinic->name . ' | ' . ($cr->booking_type == '' ? 'Consultation' : $cr->booking_type) }}</a>
             </li>
               @endforeach
             @endif
@@ -3215,7 +3215,7 @@
               activeStr = '';
               if(value.id == consultation_id)
                 activeStr = 'active';
-              var newItem = '<li class="nav-item"><a class="nav-link docNotesLink ' + activeStr + '" href="#" onclick="loadPrevBooking(' + value.id + ', 0)">Dr. ' + value.doctor.f_name.substring(0, 1) + '. ' + value.doctor.l_name + ' - ' + value.clinic.name + ' | ' + value.booking_type + '</a></li>';
+              var newItem = '<li class="nav-item"><a class="nav-link docNotesLink ' + activeStr + '" href="#" onclick="loadPrevBooking(' + value.id + ', \'ref\')">Dr. ' + value.doctor.f_name.substring(0, 1) + '. ' + value.doctor.l_name + ' - ' + value.clinic.name + ' | ' + value.booking_type + '</a></li>';
               $('#referral_list').append(newItem);
             });
           }
@@ -3503,686 +3503,687 @@
             $('#dialysisPrevDiv').hide();
             $('#sumCurDiv').show();
           }
-          if(bookingObj.consultation.id != null){
-            $('#{{ $viewFolder }}_prev_treatment_id').val(bookingObj.consultation.id);
-          }else{
-            $('#{{ $viewFolder }}_prev_treatment_id').val('');
-          }
-          if(bookingObj.consultation.time_started != null){
-            $('#{{ $viewFolder }}_prev_time_started').val(bookingObj.consultation.time_started);
-          }else{
-            $('#{{ $viewFolder }}_prev_time_started').val('');
-          }
-          if(bookingObj.consultation.time_ended != null){
-            $('#{{ $viewFolder }}_prev_time_ended').val(bookingObj.consultation.time_ended);
-          }else{
-            $('#{{ $viewFolder }}_prev_time_ended').val('');
-          }
-          if(bookingObj.consultation.machine_number != null){
-            $('#{{ $viewFolder }}_prev_machine_number').val(bookingObj.consultation.machine_number);
-          }else{
-            $('#{{ $viewFolder }}_prev_machine_number').val('');
-          }
-          if(bookingObj.consultation.dialyzer != null){
-            $('#{{ $viewFolder }}_prev_dialyzer').val(bookingObj.consultation.dialyzer);
-          }else{
-            $('#{{ $viewFolder }}_prev_dialyzer').val('');
-          }
-          if(bookingObj.consultation.mac_use != null){
-            $('#{{ $viewFolder }}_prev_mac_use').val(bookingObj.consultation.mac_use);
-          }else{
-            $('#{{ $viewFolder }}_prev_mac_use').val('');
-          }
-          if(bookingObj.consultation.acid != null){
-            $('#{{ $viewFolder }}_prev_acid').val(bookingObj.consultation.acid);
-          }else{
-            $('#{{ $viewFolder }}_prev_acid').val('');
-          }
-          if(bookingObj.consultation.mac_add != null){
-            $('#{{ $viewFolder }}_prev_add').val(bookingObj.consultation.mac_add);
-          }else{
-            $('#{{ $viewFolder }}_prev_add').val('');
-          }
-          if(bookingObj.consultation.bfr != null){
-            $('#{{ $viewFolder }}_prev_bfr').val(bookingObj.consultation.bfr);
-          }else{
-            $('#{{ $viewFolder }}_prev_bfr').val('');
-          }
-          if(bookingObj.consultation.dfr != null){
-            $('#{{ $viewFolder }}_prev_dfr').val(bookingObj.consultation.dfr);
-          }else{
-            $('#{{ $viewFolder }}_prev_dfr').val('');
-          }
-          if(bookingObj.consultation.setup_prime != null){
-            $('#{{ $viewFolder }}_prev_setup_prime').val(bookingObj.consultation.setup_prime);
-          }else{
-            $('#{{ $viewFolder }}_prev_setup_prime').val('');
-          }
-          if(bookingObj.consultation.safety_check != null){
-            $('#{{ $viewFolder }}_prev_safety_check').val(bookingObj.consultation.safety_check);
-          }else{
-            $('#{{ $viewFolder }}_prev_safety_check').val('');
-          }
-          if(bookingObj.consultation.residual_test != null){
-            $('#{{ $viewFolder }}_prev_residual_test').val(bookingObj.consultation.residual_test);
-          }else{
-            $('#{{ $viewFolder }}_prev_residual_test').val('');
-          }
-          if(bookingObj.consultation.dry_weight != null){
-            $('#{{ $viewFolder }}_prev_dry_weight').val(bookingObj.consultation.dry_weight);
-          }else{
-            $('#{{ $viewFolder }}_prev_dry_weight').val('');
-          }
-          if(bookingObj.consultation.prev_post_hd_weight != null){
-            $('#{{ $viewFolder }}_prev_dry_prev_post_hd_weight').val(bookingObj.consultation.prev_post_hd_weight);
-          }else{
-            $('#{{ $viewFolder }}_prev_dry_prev_post_hd_weight').val('');
-          }
-          if(bookingObj.consultation.pre_hd_weight != null){
-            $('#{{ $viewFolder }}_prev_pre_hd_weight').val(bookingObj.consultation.pre_hd_weight);
-          }else{
-            $('#{{ $viewFolder }}_prev_pre_hd_weight').val('');
-          }
-          if(bookingObj.consultation.post_hd_weight != null){
-            $('#{{ $viewFolder }}_prev_post_hd_weight').val(bookingObj.consultation.post_hd_weight);
-          }else{
-            $('#{{ $viewFolder }}_prev_post_hd_weight').val('');
-          }
-          if(bookingObj.consultation.ktv != null){
-            $('#{{ $viewFolder }}_prev_ktv').val(bookingObj.consultation.ktv);
-          }else{
-            $('#{{ $viewFolder }}_prev_ktv').val('');
-          }
-          if(bookingObj.consultation.net_uf != null){
-            $('#{{ $viewFolder }}_prev_net_uf').val(bookingObj.consultation.net_uf);
-          }else{
-            $('#{{ $viewFolder }}_prev_net_uf').val('');
-          }
-          if(bookingObj.consultation.hd_duration != null){
-            $('#{{ $viewFolder }}_prev_hd_duration').val(bookingObj.consultation.hd_duration);
-          }else{
-            $('#{{ $viewFolder }}_prev_hd_duration').val('');
-          }
-          if(bookingObj.consultation.frequency != null){
-            $('#{{ $viewFolder }}_prev_frequency').val(bookingObj.consultation.frequency);
-          }else{
-            $('#{{ $viewFolder }}_prev_frequency').val('');
-          }
-          if(bookingObj.consultation.prime != null){
-            $('#{{ $viewFolder }}_prev_prime').val(bookingObj.consultation.prime);
-          }else{
-            $('#{{ $viewFolder }}_prev_prime').val('');
-          }
-          if(bookingObj.consultation.other_fluids != null){
-            $('#{{ $viewFolder }}_prev_other_fluids').val(bookingObj.consultation.other_fluids);
-          }else{
-            $('#{{ $viewFolder }}_prev_other_fluids').val('');
-          }
-          if(bookingObj.consultation.total_uf_goal != null){
-            $('#{{ $viewFolder }}_prev_total_uf_goal').val(bookingObj.consultation.total_uf_goal);
-          }else{
-            $('#{{ $viewFolder }}_prev_total_uf_goal').val('');
-          }
-          if(bookingObj.consultation.weight_loss != null){
-            $('#{{ $viewFolder }}_prev_weight_loss').val(bookingObj.consultation.weight_loss);
-          }else{
-            $('#{{ $viewFolder }}_prev_weight_loss').val('');
-          }
-          if(bookingObj.consultation.brand != null){
-            $('#{{ $viewFolder }}_prev_brand').val(bookingObj.consultation.brand);
-          }else{
-            $('#{{ $viewFolder }}_prev_brand').val('');
-          }
-          if(bookingObj.consultation.dose != null){
-            $('#{{ $viewFolder }}_prev_dose').val(bookingObj.consultation.dose);
-          }else{
-            $('#{{ $viewFolder }}_prev_dose').val('');
-          }
-          if(bookingObj.consultation.regular_dose != null){
-            $('#{{ $viewFolder }}_prev_regular_dose').val(bookingObj.consultation.regular_dose);
-          }else{
-            $('#{{ $viewFolder }}_prev_regular_dose').val('');
-          }
-          if(bookingObj.consultation.low_dose != null){
-            $('#{{ $viewFolder }}_prev_low_dose').val(bookingObj.consultation.low_dose);
-          }else{
-            $('#{{ $viewFolder }}_prev_low_dose').val('');
-          }
-          if(bookingObj.consultation.lmwh != null){
-            $('#{{ $viewFolder }}_prev_lmwh').val(bookingObj.consultation.lmwh);
-          }else{
-            $('#{{ $viewFolder }}_prev_lmwh').val('');
-          }
-          if(bookingObj.consultation.flushing != null){
-            $('#{{ $viewFolder }}_prev_flushing').val(bookingObj.consultation.flushing);
-          }else{
-            $('#{{ $viewFolder }}_prev_flushing').val('');
-          }
-          if(bookingObj.consultation.temp != null){
-            $('#{{ $viewFolder }}_prev_temp').val(bookingObj.consultation.temp);
-          }else{
-            $('#{{ $viewFolder }}_prev_temp').val('');
-          }
-          if(bookingObj.consultation.bpS != null){
-            $('#{{ $viewFolder }}_prev_bpS').val(bookingObj.consultation.bpS);
-          }else{
-            $('#{{ $viewFolder }}_prev_bpS').val('');
-          }
-          if(bookingObj.consultation.bpD != null){
-            $('#{{ $viewFolder }}_prev_bpD').val(bookingObj.consultation.bpD);
-          }else{
-            $('#{{ $viewFolder }}_prev_bpD').val('');
-          }
-          if(bookingObj.consultation.o2 != null){
-            $('#{{ $viewFolder }}_prev_o2').val(bookingObj.consultation.o2);
-          }else{
-            $('#{{ $viewFolder }}_prev_o2').val('');
-          }
-          if(bookingObj.consultation.heart != null){
-            $('#{{ $viewFolder }}_prev_heart').val(bookingObj.consultation.heart);
-          }else{
-            $('#{{ $viewFolder }}_prev_heart').val('');
-          }
-          if(bookingObj.consultation.resp != null){
-            $('#{{ $viewFolder }}_prev_resp').val(bookingObj.consultation.resp);
-          }else{
-            $('#{{ $viewFolder }}_prev_resp').val('');
-          }
-          if(bookingObj.consultation.post_temp != null){
-            $('#{{ $viewFolder }}_prev_post_temp').val(bookingObj.consultation.post_temp);
-          }else{
-            $('#{{ $viewFolder }}_prev_post_temp').val('');
-          }
-          if(bookingObj.consultation.post_bpS != null){
-            $('#{{ $viewFolder }}_prev_post_bpS').val(bookingObj.consultation.post_bpS);
-          }else{
-            $('#{{ $viewFolder }}_prev_post_bpS').val('');
-          }
-          if(bookingObj.consultation.post_bpD != null){
-            $('#{{ $viewFolder }}_prev_post_bpD').val(bookingObj.consultation.post_bpD);
-          }else{
-            $('#{{ $viewFolder }}_prev_post_bpD').val('');
-          }
-          if(bookingObj.consultation.post_o2 != null){
-            $('#{{ $viewFolder }}_prev_post_o2').val(bookingObj.consultation.post_o2);
-          }else{
-            $('#{{ $viewFolder }}_prev_post_o2').val('');
-          }
-          if(bookingObj.consultation.post_heart != null){
-            $('#{{ $viewFolder }}_prev_post_heart').val(bookingObj.consultation.post_heart);
-          }else{
-            $('#{{ $viewFolder }}_prev_post_heart').val('');
-          }
-          if(bookingObj.consultation.post_resp != null){
-            $('#{{ $viewFolder }}_prev_post_resp').val(bookingObj.consultation.post_resp);
-          }else{
-            $('#{{ $viewFolder }}_prev_post_resp').val('');
-          }
-          if(bookingObj.consultation.mental_status != null){
-            if(bookingObj.consultation.mental_status.includes('awake'))
-              $('#{{ $viewFolder }}_prev_mental_status_awake').prop('checked', true);
-            else
+          if(index != 'ref'){
+            if(bookingObj.consultation.id != null){
+              $('#{{ $viewFolder }}_prev_treatment_id').val(bookingObj.consultation.id);
+            }else{
+              $('#{{ $viewFolder }}_prev_treatment_id').val('');
+            }
+            if(bookingObj.consultation.time_started != null){
+              $('#{{ $viewFolder }}_prev_time_started').val(bookingObj.consultation.time_started);
+            }else{
+              $('#{{ $viewFolder }}_prev_time_started').val('');
+            }
+            if(bookingObj.consultation.time_ended != null){
+              $('#{{ $viewFolder }}_prev_time_ended').val(bookingObj.consultation.time_ended);
+            }else{
+              $('#{{ $viewFolder }}_prev_time_ended').val('');
+            }
+            if(bookingObj.consultation.machine_number != null){
+              $('#{{ $viewFolder }}_prev_machine_number').val(bookingObj.consultation.machine_number);
+            }else{
+              $('#{{ $viewFolder }}_prev_machine_number').val('');
+            }
+            if(bookingObj.consultation.dialyzer != null){
+              $('#{{ $viewFolder }}_prev_dialyzer').val(bookingObj.consultation.dialyzer);
+            }else{
+              $('#{{ $viewFolder }}_prev_dialyzer').val('');
+            }
+            if(bookingObj.consultation.mac_use != null){
+              $('#{{ $viewFolder }}_prev_mac_use').val(bookingObj.consultation.mac_use);
+            }else{
+              $('#{{ $viewFolder }}_prev_mac_use').val('');
+            }
+            if(bookingObj.consultation.acid != null){
+              $('#{{ $viewFolder }}_prev_acid').val(bookingObj.consultation.acid);
+            }else{
+              $('#{{ $viewFolder }}_prev_acid').val('');
+            }
+            if(bookingObj.consultation.mac_add != null){
+              $('#{{ $viewFolder }}_prev_add').val(bookingObj.consultation.mac_add);
+            }else{
+              $('#{{ $viewFolder }}_prev_add').val('');
+            }
+            if(bookingObj.consultation.bfr != null){
+              $('#{{ $viewFolder }}_prev_bfr').val(bookingObj.consultation.bfr);
+            }else{
+              $('#{{ $viewFolder }}_prev_bfr').val('');
+            }
+            if(bookingObj.consultation.dfr != null){
+              $('#{{ $viewFolder }}_prev_dfr').val(bookingObj.consultation.dfr);
+            }else{
+              $('#{{ $viewFolder }}_prev_dfr').val('');
+            }
+            if(bookingObj.consultation.setup_prime != null){
+              $('#{{ $viewFolder }}_prev_setup_prime').val(bookingObj.consultation.setup_prime);
+            }else{
+              $('#{{ $viewFolder }}_prev_setup_prime').val('');
+            }
+            if(bookingObj.consultation.safety_check != null){
+              $('#{{ $viewFolder }}_prev_safety_check').val(bookingObj.consultation.safety_check);
+            }else{
+              $('#{{ $viewFolder }}_prev_safety_check').val('');
+            }
+            if(bookingObj.consultation.residual_test != null){
+              $('#{{ $viewFolder }}_prev_residual_test').val(bookingObj.consultation.residual_test);
+            }else{
+              $('#{{ $viewFolder }}_prev_residual_test').val('');
+            }
+            if(bookingObj.consultation.dry_weight != null){
+              $('#{{ $viewFolder }}_prev_dry_weight').val(bookingObj.consultation.dry_weight);
+            }else{
+              $('#{{ $viewFolder }}_prev_dry_weight').val('');
+            }
+            if(bookingObj.consultation.prev_post_hd_weight != null){
+              $('#{{ $viewFolder }}_prev_dry_prev_post_hd_weight').val(bookingObj.consultation.prev_post_hd_weight);
+            }else{
+              $('#{{ $viewFolder }}_prev_dry_prev_post_hd_weight').val('');
+            }
+            if(bookingObj.consultation.pre_hd_weight != null){
+              $('#{{ $viewFolder }}_prev_pre_hd_weight').val(bookingObj.consultation.pre_hd_weight);
+            }else{
+              $('#{{ $viewFolder }}_prev_pre_hd_weight').val('');
+            }
+            if(bookingObj.consultation.post_hd_weight != null){
+              $('#{{ $viewFolder }}_prev_post_hd_weight').val(bookingObj.consultation.post_hd_weight);
+            }else{
+              $('#{{ $viewFolder }}_prev_post_hd_weight').val('');
+            }
+            if(bookingObj.consultation.ktv != null){
+              $('#{{ $viewFolder }}_prev_ktv').val(bookingObj.consultation.ktv);
+            }else{
+              $('#{{ $viewFolder }}_prev_ktv').val('');
+            }
+            if(bookingObj.consultation.net_uf != null){
+              $('#{{ $viewFolder }}_prev_net_uf').val(bookingObj.consultation.net_uf);
+            }else{
+              $('#{{ $viewFolder }}_prev_net_uf').val('');
+            }
+            if(bookingObj.consultation.hd_duration != null){
+              $('#{{ $viewFolder }}_prev_hd_duration').val(bookingObj.consultation.hd_duration);
+            }else{
+              $('#{{ $viewFolder }}_prev_hd_duration').val('');
+            }
+            if(bookingObj.consultation.frequency != null){
+              $('#{{ $viewFolder }}_prev_frequency').val(bookingObj.consultation.frequency);
+            }else{
+              $('#{{ $viewFolder }}_prev_frequency').val('');
+            }
+            if(bookingObj.consultation.prime != null){
+              $('#{{ $viewFolder }}_prev_prime').val(bookingObj.consultation.prime);
+            }else{
+              $('#{{ $viewFolder }}_prev_prime').val('');
+            }
+            if(bookingObj.consultation.other_fluids != null){
+              $('#{{ $viewFolder }}_prev_other_fluids').val(bookingObj.consultation.other_fluids);
+            }else{
+              $('#{{ $viewFolder }}_prev_other_fluids').val('');
+            }
+            if(bookingObj.consultation.total_uf_goal != null){
+              $('#{{ $viewFolder }}_prev_total_uf_goal').val(bookingObj.consultation.total_uf_goal);
+            }else{
+              $('#{{ $viewFolder }}_prev_total_uf_goal').val('');
+            }
+            if(bookingObj.consultation.weight_loss != null){
+              $('#{{ $viewFolder }}_prev_weight_loss').val(bookingObj.consultation.weight_loss);
+            }else{
+              $('#{{ $viewFolder }}_prev_weight_loss').val('');
+            }
+            if(bookingObj.consultation.brand != null){
+              $('#{{ $viewFolder }}_prev_brand').val(bookingObj.consultation.brand);
+            }else{
+              $('#{{ $viewFolder }}_prev_brand').val('');
+            }
+            if(bookingObj.consultation.dose != null){
+              $('#{{ $viewFolder }}_prev_dose').val(bookingObj.consultation.dose);
+            }else{
+              $('#{{ $viewFolder }}_prev_dose').val('');
+            }
+            if(bookingObj.consultation.regular_dose != null){
+              $('#{{ $viewFolder }}_prev_regular_dose').val(bookingObj.consultation.regular_dose);
+            }else{
+              $('#{{ $viewFolder }}_prev_regular_dose').val('');
+            }
+            if(bookingObj.consultation.low_dose != null){
+              $('#{{ $viewFolder }}_prev_low_dose').val(bookingObj.consultation.low_dose);
+            }else{
+              $('#{{ $viewFolder }}_prev_low_dose').val('');
+            }
+            if(bookingObj.consultation.lmwh != null){
+              $('#{{ $viewFolder }}_prev_lmwh').val(bookingObj.consultation.lmwh);
+            }else{
+              $('#{{ $viewFolder }}_prev_lmwh').val('');
+            }
+            if(bookingObj.consultation.flushing != null){
+              $('#{{ $viewFolder }}_prev_flushing').val(bookingObj.consultation.flushing);
+            }else{
+              $('#{{ $viewFolder }}_prev_flushing').val('');
+            }
+            if(bookingObj.consultation.temp != null){
+              $('#{{ $viewFolder }}_prev_temp').val(bookingObj.consultation.temp);
+            }else{
+              $('#{{ $viewFolder }}_prev_temp').val('');
+            }
+            if(bookingObj.consultation.bpS != null){
+              $('#{{ $viewFolder }}_prev_bpS').val(bookingObj.consultation.bpS);
+            }else{
+              $('#{{ $viewFolder }}_prev_bpS').val('');
+            }
+            if(bookingObj.consultation.bpD != null){
+              $('#{{ $viewFolder }}_prev_bpD').val(bookingObj.consultation.bpD);
+            }else{
+              $('#{{ $viewFolder }}_prev_bpD').val('');
+            }
+            if(bookingObj.consultation.o2 != null){
+              $('#{{ $viewFolder }}_prev_o2').val(bookingObj.consultation.o2);
+            }else{
+              $('#{{ $viewFolder }}_prev_o2').val('');
+            }
+            if(bookingObj.consultation.heart != null){
+              $('#{{ $viewFolder }}_prev_heart').val(bookingObj.consultation.heart);
+            }else{
+              $('#{{ $viewFolder }}_prev_heart').val('');
+            }
+            if(bookingObj.consultation.resp != null){
+              $('#{{ $viewFolder }}_prev_resp').val(bookingObj.consultation.resp);
+            }else{
+              $('#{{ $viewFolder }}_prev_resp').val('');
+            }
+            if(bookingObj.consultation.post_temp != null){
+              $('#{{ $viewFolder }}_prev_post_temp').val(bookingObj.consultation.post_temp);
+            }else{
+              $('#{{ $viewFolder }}_prev_post_temp').val('');
+            }
+            if(bookingObj.consultation.post_bpS != null){
+              $('#{{ $viewFolder }}_prev_post_bpS').val(bookingObj.consultation.post_bpS);
+            }else{
+              $('#{{ $viewFolder }}_prev_post_bpS').val('');
+            }
+            if(bookingObj.consultation.post_bpD != null){
+              $('#{{ $viewFolder }}_prev_post_bpD').val(bookingObj.consultation.post_bpD);
+            }else{
+              $('#{{ $viewFolder }}_prev_post_bpD').val('');
+            }
+            if(bookingObj.consultation.post_o2 != null){
+              $('#{{ $viewFolder }}_prev_post_o2').val(bookingObj.consultation.post_o2);
+            }else{
+              $('#{{ $viewFolder }}_prev_post_o2').val('');
+            }
+            if(bookingObj.consultation.post_heart != null){
+              $('#{{ $viewFolder }}_prev_post_heart').val(bookingObj.consultation.post_heart);
+            }else{
+              $('#{{ $viewFolder }}_prev_post_heart').val('');
+            }
+            if(bookingObj.consultation.post_resp != null){
+              $('#{{ $viewFolder }}_prev_post_resp').val(bookingObj.consultation.post_resp);
+            }else{
+              $('#{{ $viewFolder }}_prev_post_resp').val('');
+            }
+            if(bookingObj.consultation.mental_status != null){
+              if(bookingObj.consultation.mental_status.includes('awake'))
+                $('#{{ $viewFolder }}_prev_mental_status_awake').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_mental_status_awake').prop('checked', false);
+              if(bookingObj.consultation.mental_status.includes('oriented'))
+                $('#{{ $viewFolder }}_prev_mental_status_oriented').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_mental_status_oriented').prop('checked', false);
+              if(bookingObj.consultation.mental_status.includes('drowsy'))
+                $('#{{ $viewFolder }}_prev_mental_status_drowsy').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_mental_status_drowsy').prop('checked', false);
+              if(bookingObj.consultation.mental_status.includes('disoriented'))
+                $('#{{ $viewFolder }}_prev_mental_status_disoriented').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_mental_status_disoriented').prop('checked', false);
+            }else{
               $('#{{ $viewFolder }}_prev_mental_status_awake').prop('checked', false);
-            if(bookingObj.consultation.mental_status.includes('oriented'))
-              $('#{{ $viewFolder }}_prev_mental_status_oriented').prop('checked', true);
-            else
               $('#{{ $viewFolder }}_prev_mental_status_oriented').prop('checked', false);
-            if(bookingObj.consultation.mental_status.includes('drowsy'))
-              $('#{{ $viewFolder }}_prev_mental_status_drowsy').prop('checked', true);
-            else
               $('#{{ $viewFolder }}_prev_mental_status_drowsy').prop('checked', false);
-            if(bookingObj.consultation.mental_status.includes('disoriented'))
-              $('#{{ $viewFolder }}_prev_mental_status_disoriented').prop('checked', true);
-            else
               $('#{{ $viewFolder }}_prev_mental_status_disoriented').prop('checked', false);
-          }else{
-            $('#{{ $viewFolder }}_prev_mental_status_awake').prop('checked', false);
-            $('#{{ $viewFolder }}_prev_mental_status_oriented').prop('checked', false);
-            $('#{{ $viewFolder }}_prev_mental_status_drowsy').prop('checked', false);
-            $('#{{ $viewFolder }}_prev_mental_status_disoriented').prop('checked', false);
-          }
-          
-          if(bookingObj.consultation.post_mental_status != null){
-            if(bookingObj.consultation.post_mental_status.includes('awake'))
-              $('#{{ $viewFolder }}_prev_post_mental_status_awake').prop('checked', true);
-            else
+            }
+            
+            if(bookingObj.consultation.post_mental_status != null){
+              if(bookingObj.consultation.post_mental_status.includes('awake'))
+                $('#{{ $viewFolder }}_prev_post_mental_status_awake').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_post_mental_status_awake').prop('checked', false);
+              if(bookingObj.consultation.post_mental_status.includes('oriented'))
+                $('#{{ $viewFolder }}_prev_post_mental_status_oriented').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_post_mental_status_oriented').prop('checked', false);
+              if(bookingObj.consultation.post_mental_status.includes('drowsy'))
+                $('#{{ $viewFolder }}_prev_post_mental_status_drowsy').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_post_mental_status_drowsy').prop('checked', false);
+              if(bookingObj.consultation.post_mental_status.includes('disoriented'))
+                $('#{{ $viewFolder }}_prev_post_mental_status_disoriented').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_post_mental_status_disoriented').prop('checked', false);
+            }else{
               $('#{{ $viewFolder }}_prev_post_mental_status_awake').prop('checked', false);
-            if(bookingObj.consultation.post_mental_status.includes('oriented'))
-              $('#{{ $viewFolder }}_prev_post_mental_status_oriented').prop('checked', true);
-            else
               $('#{{ $viewFolder }}_prev_post_mental_status_oriented').prop('checked', false);
-            if(bookingObj.consultation.post_mental_status.includes('drowsy'))
-              $('#{{ $viewFolder }}_prev_post_mental_status_drowsy').prop('checked', true);
-            else
               $('#{{ $viewFolder }}_prev_post_mental_status_drowsy').prop('checked', false);
-            if(bookingObj.consultation.post_mental_status.includes('disoriented'))
-              $('#{{ $viewFolder }}_prev_post_mental_status_disoriented').prop('checked', true);
-            else
               $('#{{ $viewFolder }}_prev_post_mental_status_disoriented').prop('checked', false);
-          }else{
-            $('#{{ $viewFolder }}_prev_post_mental_status_awake').prop('checked', false);
-            $('#{{ $viewFolder }}_prev_post_mental_status_oriented').prop('checked', false);
-            $('#{{ $viewFolder }}_prev_post_mental_status_drowsy').prop('checked', false);
-            $('#{{ $viewFolder }}_prev_post_mental_status_disoriented').prop('checked', false);
-          }
+            }
 
-          if(bookingObj.consultation.ambulation_status_j != null){
             if(bookingObj.consultation.ambulation_status_j != null){
-              if(bookingObj.consultation.ambulation_status_j.includes('ambulatory'))
-                $('#{{ $viewFolder }}_prev_ambulation_status_ambulatory').prop('checked', true);
-              else
+              if(bookingObj.consultation.ambulation_status_j != null){
+                if(bookingObj.consultation.ambulation_status_j.includes('ambulatory'))
+                  $('#{{ $viewFolder }}_prev_ambulation_status_ambulatory').prop('checked', true);
+                else
+                  $('#{{ $viewFolder }}_prev_ambulation_status_ambulatory').prop('checked', false);
+                if(bookingObj.consultation.ambulation_status_j.includes('w/ assistance'))
+                  $('#{{ $viewFolder }}_prev_ambulation_status_assistance').prop('checked', true);
+                else
+                  $('#{{ $viewFolder }}_prev_ambulation_status_assistance').prop('checked', false);
+                if(bookingObj.consultation.ambulation_status_j.includes('wheelchair'))
+                  $('#{{ $viewFolder }}_prev_ambulation_status_wheelchair').prop('checked', true);
+                else
+                  $('#{{ $viewFolder }}_prev_ambulation_status_wheelchair').prop('checked', false);
+                
+              }else{
                 $('#{{ $viewFolder }}_prev_ambulation_status_ambulatory').prop('checked', false);
-              if(bookingObj.consultation.ambulation_status_j.includes('w/ assistance'))
-                $('#{{ $viewFolder }}_prev_ambulation_status_assistance').prop('checked', true);
-              else
                 $('#{{ $viewFolder }}_prev_ambulation_status_assistance').prop('checked', false);
-              if(bookingObj.consultation.ambulation_status_j.includes('wheelchair'))
-                $('#{{ $viewFolder }}_prev_ambulation_status_wheelchair').prop('checked', true);
-              else
                 $('#{{ $viewFolder }}_prev_ambulation_status_wheelchair').prop('checked', false);
-              
+              }
             }else{
-              $('#{{ $viewFolder }}_prev_ambulation_status_ambulatory').prop('checked', false);
-              $('#{{ $viewFolder }}_prev_ambulation_status_assistance').prop('checked', false);
-              $('#{{ $viewFolder }}_prev_ambulation_status_wheelchair').prop('checked', false);
-            }
-          }else{
-            if(bookingObj.consultation.ambulation_status != null){
-              if(bookingObj.consultation.ambulation_status == 'ambulatory')
-                $('#{{ $viewFolder }}_prev_ambulation_status_ambulatory').prop('checked', true);
-              else
+              if(bookingObj.consultation.ambulation_status != null){
+                if(bookingObj.consultation.ambulation_status == 'ambulatory')
+                  $('#{{ $viewFolder }}_prev_ambulation_status_ambulatory').prop('checked', true);
+                else
+                  $('#{{ $viewFolder }}_prev_ambulation_status_ambulatory').prop('checked', false);
+                if(bookingObj.consultation.ambulation_status == 'w/ assistance')
+                  $('#{{ $viewFolder }}_prev_ambulation_status_assistance').prop('checked', true);
+                else
+                  $('#{{ $viewFolder }}_prev_ambulation_status_assistance').prop('checked', false);
+                if(bookingObj.consultation.ambulation_status == 'wheelchair')
+                  $('#{{ $viewFolder }}_prev_ambulation_status_wheelchair').prop('checked', true);
+                else
+                  $('#{{ $viewFolder }}_prev_ambulation_status_wheelchair').prop('checked', false);
+              }else{  
                 $('#{{ $viewFolder }}_prev_ambulation_status_ambulatory').prop('checked', false);
-              if(bookingObj.consultation.ambulation_status == 'w/ assistance')
-                $('#{{ $viewFolder }}_prev_ambulation_status_assistance').prop('checked', true);
-              else
                 $('#{{ $viewFolder }}_prev_ambulation_status_assistance').prop('checked', false);
-              if(bookingObj.consultation.ambulation_status == 'wheelchair')
-                $('#{{ $viewFolder }}_prev_ambulation_status_wheelchair').prop('checked', true);
-              else
                 $('#{{ $viewFolder }}_prev_ambulation_status_wheelchair').prop('checked', false);
-            }else{  
-              $('#{{ $viewFolder }}_prev_ambulation_status_ambulatory').prop('checked', false);
-              $('#{{ $viewFolder }}_prev_ambulation_status_assistance').prop('checked', false);
-              $('#{{ $viewFolder }}_prev_ambulation_status_wheelchair').prop('checked', false);
+              }
             }
-          }
 
-          if(bookingObj.consultation.post_ambulation_status_j != null){
             if(bookingObj.consultation.post_ambulation_status_j != null){
-              if(bookingObj.consultation.post_ambulation_status_j.includes('ambulatory'))
-                $('#{{ $viewFolder }}_prev_post_ambulation_status_ambulatory').prop('checked', true);
-              else
+              if(bookingObj.consultation.post_ambulation_status_j != null){
+                if(bookingObj.consultation.post_ambulation_status_j.includes('ambulatory'))
+                  $('#{{ $viewFolder }}_prev_post_ambulation_status_ambulatory').prop('checked', true);
+                else
+                  $('#{{ $viewFolder }}_prev_post_ambulation_status_ambulatory').prop('checked', false);
+                if(bookingObj.consultation.post_ambulation_status_j.includes('w/ assistance'))
+                  $('#{{ $viewFolder }}_prev_post_ambulation_status_assistance').prop('checked', true);
+                else
+                  $('#{{ $viewFolder }}_prev_post_ambulation_status_assistance').prop('checked', false);
+                if(bookingObj.consultation.post_ambulation_status_j.includes('wheelchair'))
+                  $('#{{ $viewFolder }}_prev_post_ambulation_status_wheelchair').prop('checked', true);
+                else
+                  $('#{{ $viewFolder }}_prev_post_ambulation_status_wheelchair').prop('checked', false);
+                
+              }else{
                 $('#{{ $viewFolder }}_prev_post_ambulation_status_ambulatory').prop('checked', false);
-              if(bookingObj.consultation.post_ambulation_status_j.includes('w/ assistance'))
-                $('#{{ $viewFolder }}_prev_post_ambulation_status_assistance').prop('checked', true);
-              else
                 $('#{{ $viewFolder }}_prev_post_ambulation_status_assistance').prop('checked', false);
-              if(bookingObj.consultation.post_ambulation_status_j.includes('wheelchair'))
-                $('#{{ $viewFolder }}_prev_post_ambulation_status_wheelchair').prop('checked', true);
-              else
                 $('#{{ $viewFolder }}_prev_post_ambulation_status_wheelchair').prop('checked', false);
-              
+              }
             }else{
-              $('#{{ $viewFolder }}_prev_post_ambulation_status_ambulatory').prop('checked', false);
-              $('#{{ $viewFolder }}_prev_post_ambulation_status_assistance').prop('checked', false);
-              $('#{{ $viewFolder }}_prev_post_ambulation_status_wheelchair').prop('checked', false);
-            }
-          }else{
-            if(bookingObj.consultation.post_ambulation_status != null){
-              if(bookingObj.consultation.post_ambulation_status == 'ambulatory')
-                $('#{{ $viewFolder }}_prev_post_ambulation_status_ambulatory').prop('checked', true);
-              else
+              if(bookingObj.consultation.post_ambulation_status != null){
+                if(bookingObj.consultation.post_ambulation_status == 'ambulatory')
+                  $('#{{ $viewFolder }}_prev_post_ambulation_status_ambulatory').prop('checked', true);
+                else
+                  $('#{{ $viewFolder }}_prev_post_ambulation_status_ambulatory').prop('checked', false);
+                if(bookingObj.consultation.post_ambulation_status == 'w/ assistance')
+                  $('#{{ $viewFolder }}_prev_post_ambulation_status_assistance').prop('checked', true);
+                else
+                  $('#{{ $viewFolder }}_prev_post_ambulation_status_assistance').prop('checked', false);
+                if(bookingObj.consultation.post_ambulation_status == 'wheelchair')
+                  $('#{{ $viewFolder }}_prev_post_ambulation_status_wheelchair').prop('checked', true);
+                else
+                  $('#{{ $viewFolder }}_prev_post_ambulation_status_wheelchair').prop('checked', false);
+              }else{  
                 $('#{{ $viewFolder }}_prev_post_ambulation_status_ambulatory').prop('checked', false);
-              if(bookingObj.consultation.post_ambulation_status == 'w/ assistance')
-                $('#{{ $viewFolder }}_prev_post_ambulation_status_assistance').prop('checked', true);
-              else
                 $('#{{ $viewFolder }}_prev_post_ambulation_status_assistance').prop('checked', false);
-              if(bookingObj.consultation.post_ambulation_status == 'wheelchair')
-                $('#{{ $viewFolder }}_prev_post_ambulation_status_wheelchair').prop('checked', true);
-              else
                 $('#{{ $viewFolder }}_prev_post_ambulation_status_wheelchair').prop('checked', false);
-            }else{  
-              $('#{{ $viewFolder }}_prev_post_ambulation_status_ambulatory').prop('checked', false);
-              $('#{{ $viewFolder }}_prev_post_ambulation_status_assistance').prop('checked', false);
-              $('#{{ $viewFolder }}_prev_post_ambulation_status_wheelchair').prop('checked', false);
+              }
             }
-          }
 
-          if(bookingObj.consultation.subjective_complaints != null){
-            if(bookingObj.consultation.subjective_complaints == 'none')
-              $('#{{ $viewFolder }}_prev_subjective_complaints_none').prop('checked', true);
-            else
+            if(bookingObj.consultation.subjective_complaints != null){
+              if(bookingObj.consultation.subjective_complaints == 'none')
+                $('#{{ $viewFolder }}_prev_subjective_complaints_none').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_subjective_complaints_none').prop('checked', false);
+              if(bookingObj.consultation.subjective_complaints == 'yes')
+                $('#{{ $viewFolder }}_prev_subjective_complaints_yes').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_subjective_complaints_yes').prop('checked', false);
+              $('#{{ $viewFolder }}_prev_subjective_complaints_text').val(bookingObj.consultation.subjective_complaints_text);
+            
+            }else{  
               $('#{{ $viewFolder }}_prev_subjective_complaints_none').prop('checked', false);
-            if(bookingObj.consultation.subjective_complaints == 'yes')
-              $('#{{ $viewFolder }}_prev_subjective_complaints_yes').prop('checked', true);
-            else
               $('#{{ $viewFolder }}_prev_subjective_complaints_yes').prop('checked', false);
-            $('#{{ $viewFolder }}_prev_subjective_complaints_text').val(bookingObj.consultation.subjective_complaints_text);
-           
-          }else{  
-            $('#{{ $viewFolder }}_prev_subjective_complaints_none').prop('checked', false);
-            $('#{{ $viewFolder }}_prev_subjective_complaints_yes').prop('checked', false);
-            $('#{{ $viewFolder }}_prev_subjective_complaints_text').val('');
-            
-          }
-
-          if(bookingObj.consultation.post_subjective_complaints != null){
-            if(bookingObj.consultation.post_subjective_complaints == 'none')
-              $('#{{ $viewFolder }}_prev_post_subjective_complaints_none').prop('checked', true);
-            else
-              $('#{{ $viewFolder }}_prev_post_subjective_complaints_none').prop('checked', false);
-            if(bookingObj.consultation.post_subjective_complaints == 'yes')
-              $('#{{ $viewFolder }}_prev_post_subjective_complaints_yes').prop('checked', true);
-            else
-              $('#{{ $viewFolder }}_prev_post_subjective_complaints_yes').prop('checked', false);
-            $('#{{ $viewFolder }}_prev_post_subjective_complaints_text').val(bookingObj.consultation.post_subjective_complaints_text);
-           
-          }else{  
-            $('#{{ $viewFolder }}_prev_post_subjective_complaints_none').prop('checked', false);
-            $('#{{ $viewFolder }}_prev_post_subjective_complaints_yes').prop('checked', false);
-            $('#{{ $viewFolder }}_prev_post_subjective_complaints_text').val('');
-            
-          }
-
-          if(bookingObj.consultation.pe_findings != null){
-            if(bookingObj.consultation.pe_findings.includes('Pallor'))
-              $('#{{ $viewFolder }}_prev_pe_findings_pallor').prop('checked', true);
-            else
-              $('#{{ $viewFolder }}_prev_pe_findings_pallor').prop('checked', false);
-            if(bookingObj.consultation.pe_findings.includes('Distended Neck Vein'))
-              $('#{{ $viewFolder }}_prev_pe_findings_neck_vein').prop('checked', true);
-            else
-              $('#{{ $viewFolder }}_prev_pe_findings_neck_vein').prop('checked', false);
-            if(bookingObj.consultation.pe_findings.includes('Abnormal Rhythm/Rate'))
-              $('#{{ $viewFolder }}_prev_pe_findings_rhythm').prop('checked', true);
-            else
-              $('#{{ $viewFolder }}_prev_pe_findings_rhythym').prop('checked', false);
-            if(bookingObj.consultation.pe_findings.includes('Rales'))
-              $('#{{ $viewFolder }}_prev_pe_findings_rales').prop('checked', true);
-            else
-              $('#{{ $viewFolder }}_prev_pe_findings_rales').prop('checked', false);
-            if(bookingObj.consultation.pe_findings.includes('Wheezing'))
-              $('#{{ $viewFolder }}_prev_pe_findings_wheezing').prop('checked', true);
-            else
-              $('#{{ $viewFolder }}_prev_pe_findings_wheezing').prop('checked', false);
-            if(bookingObj.consultation.pe_findings.includes('Decreased Breath Sounds'))
-              $('#{{ $viewFolder }}_prev_pe_findings_breath_sounds').prop('checked', true);
-            else
-              $('#{{ $viewFolder }}_prev_pe_findings_breath_sounds').prop('checked', false);
-            if(bookingObj.consultation.pe_findings.includes('Ascites - Abdominal Girth'))
-              $('#{{ $viewFolder }}_prev_pe_findings_ascites').prop('checked', true);
-            else
-              $('#{{ $viewFolder }}_prev_pe_findings_ascites').prop('checked', false);
-            if(bookingObj.consultation.pe_findings.includes('Edema Grade'))
-              $('#{{ $viewFolder }}_prev_pe_findings_edema').prop('checked', true);
-            else
-              $('#{{ $viewFolder }}_prev_pe_findings_edema').prop('checked', false);
-            if(bookingObj.consultation.pe_findings.includes('Bleeding'))
-              $('#{{ $viewFolder }}_prev_pe_findings_bleeding').prop('checked', true);
-            else
-              $('#{{ $viewFolder }}_prev_pe_findings_bleeding').prop('checked', false);
-            if(bookingObj.consultation.pe_findings.includes('Others'))
-              $('#{{ $viewFolder }}_prev_pe_findings_others').prop('checked', true);
-            else
-              $('#{{ $viewFolder }}_prev_pe_findings_others').prop('checked', false);
-            $('#{{ $viewFolder }}_prev_pe_findings_ascites_text').val(bookingObj.consultation.pe_findings_ascites_text);
-            $('#{{ $viewFolder }}_prev_pe_findings_edema_text').val(bookingObj.consultation.pe_findings_edema_text);
-            $('#{{ $viewFolder }}_prev_pe_findings_others_text').val(bookingObj.consultation.pe_findings_others_text);
-            
-          }else{
-            $('#{{ $viewFolder }}_prev_pe_findings_pallor').prop('checked', false);
-            $('#{{ $viewFolder }}_prev_pe_findings_neck_vein').prop('checked', false);
-            $('#{{ $viewFolder }}_prev_pe_findings_rhythm').prop('checked', false);
-            $('#{{ $viewFolder }}_prev_pe_findings_rales').prop('checked', false);
-            $('#{{ $viewFolder }}_prev_pe_findings_wheezing').prop('checked', false);
-            $('#{{ $viewFolder }}_prev_pe_findings_breath_sounds').prop('checked', false);
-            $('#{{ $viewFolder }}_prev_pe_findings_ascites').prop('checked', false);
-            $('#{{ $viewFolder }}_prev_pe_findings_edema').prop('checked', false);
-            $('#{{ $viewFolder }}_prev_pe_findings_bleeding').prop('checked', false);
-            $('#{{ $viewFolder }}_prev_pe_findings_others').prop('checked', false);
-            $('#{{ $viewFolder }}_prev_pe_findings_ascites_text').val('');
-            $('#{{ $viewFolder }}_prev_pe_findings_edema_text').val('');
-            $('#{{ $viewFolder }}_prev_pe_findings_others_text').val('');
-          }
-
-          if(bookingObj.consultation.post_pe_findings != null){
-            if(bookingObj.consultation.post_pe_findings.includes('Pallor'))
-              $('#{{ $viewFolder }}_prev_post_pe_findings_pallor').prop('checked', true);
-            else
-              $('#{{ $viewFolder }}_prev_post_pe_findings_pallor').prop('checked', false);
-            if(bookingObj.consultation.post_pe_findings.includes('Distended Neck Vein'))
-              $('#{{ $viewFolder }}_prev_post_pe_findings_neck_vein').prop('checked', true);
-            else
-              $('#{{ $viewFolder }}_prev_post_pe_findings_neck_vein').prop('checked', false);
-            if(bookingObj.consultation.post_pe_findings.includes('Abnormal Rhythm/Rate'))
-              $('#{{ $viewFolder }}_prev_post_pe_findings_rhythm').prop('checked', true);
-            else
-              $('#{{ $viewFolder }}_prev_post_pe_findings_rhythym').prop('checked', false);
-            if(bookingObj.consultation.post_pe_findings.includes('Rales'))
-              $('#{{ $viewFolder }}_prev_post_pe_findings_rales').prop('checked', true);
-            else
-              $('#{{ $viewFolder }}_prev_post_pe_findings_rales').prop('checked', false);
-            if(bookingObj.consultation.post_pe_findings.includes('Wheezing'))
-              $('#{{ $viewFolder }}_prev_post_pe_findings_wheezing').prop('checked', true);
-            else
-              $('#{{ $viewFolder }}_prev_post_pe_findings_wheezing').prop('checked', false);
-            if(bookingObj.consultation.post_pe_findings.includes('Decreased Breath Sounds'))
-              $('#{{ $viewFolder }}_prev_post_pe_findings_breath_sounds').prop('checked', true);
-            else
-              $('#{{ $viewFolder }}_prev_post_pe_findings_breath_sounds').prop('checked', false);
-            if(bookingObj.consultation.post_pe_findings.includes('Ascites - Abdominal Girth'))
-              $('#{{ $viewFolder }}_prev_post_pe_findings_ascites').prop('checked', true);
-            else
-              $('#{{ $viewFolder }}_prev_post_pe_findings_ascites').prop('checked', false);
-            if(bookingObj.consultation.post_pe_findings.includes('Edema Grade'))
-              $('#{{ $viewFolder }}_prev_post_pe_findings_edema').prop('checked', true);
-            else
-              $('#{{ $viewFolder }}_prev_post_pe_findings_edema').prop('checked', false);
-            if(bookingObj.consultation.post_pe_findings.includes('Bleeding'))
-              $('#{{ $viewFolder }}_prev_post_pe_findings_bleeding').prop('checked', true);
-            else
-              $('#{{ $viewFolder }}_prev_post_pe_findings_bleeding').prop('checked', false);
-            if(bookingObj.consultation.post_pe_findings.includes('Others'))
-              $('#{{ $viewFolder }}_prev_post_pe_findings_others').prop('checked', true);
-            else
-              $('#{{ $viewFolder }}_prev_post_pe_findings_others').prop('checked', false);
-            $('#{{ $viewFolder }}_prev_post_pe_findings_ascites_text').val(bookingObj.consultation.post_pe_findings_ascites_text);
-            $('#{{ $viewFolder }}_prev_post_pe_findings_edema_text').val(bookingObj.consultation.post_pe_findings_edema_text);
-            $('#{{ $viewFolder }}_prev_post_pe_findings_others_text').val(bookingObj.consultation.post_pe_findings_others_text);
-            
-          }else{
-            $('#{{ $viewFolder }}_prev_post_pe_findings_pallor').prop('checked', false);
-            $('#{{ $viewFolder }}_prev_post_pe_findings_neck_vein').prop('checked', false);
-            $('#{{ $viewFolder }}_prev_post_pe_findings_rhythm').prop('checked', false);
-            $('#{{ $viewFolder }}_prev_post_pe_findings_rales').prop('checked', false);
-            $('#{{ $viewFolder }}_prev_post_pe_findings_wheezing').prop('checked', false);
-            $('#{{ $viewFolder }}_prev_post_pe_findings_breath_sounds').prop('checked', false);
-            $('#{{ $viewFolder }}_prev_post_pe_findings_ascites').prop('checked', false);
-            $('#{{ $viewFolder }}_prev_post_pe_findings_edema').prop('checked', false);
-            $('#{{ $viewFolder }}_prev_post_pe_findings_bleeding').prop('checked', false);
-            $('#{{ $viewFolder }}_prev_post_pe_findings_others').prop('checked', false);
-            $('#{{ $viewFolder }}_prev_post_pe_findings_ascites_text').val('');
-            $('#{{ $viewFolder }}_prev_post_pe_findings_edema_text').val('');
-            $('#{{ $viewFolder }}_prev_post_pe_findings_others_text').val('');
-          }
-
-          if(bookingObj.consultation.vaccess_j != null){
-            if(bookingObj.consultation.vaccess_j != null){
-              if(bookingObj.consultation.vaccess_j.includes('left'))
-                $('#{{ $viewFolder }}_prev_vaccess_left').prop('checked', true);
-              else
-                $('#{{ $viewFolder }}_prev_vaccess_left').prop('checked', false);
-              if(bookingObj.consultation.vaccess_j.includes('right'))
-                $('#{{ $viewFolder }}_prev_vaccess_right').prop('checked', true);
-              else
-                $('#{{ $viewFolder }}_prev_vaccess_right').prop('checked', false);
-              
-              
-            }else{
-              $('#{{ $viewFolder }}_prev_vaccess_left').prop('checked', false);
-              $('#{{ $viewFolder }}_prev_vaccess_right').prop('checked', false);
+              $('#{{ $viewFolder }}_prev_subjective_complaints_text').val('');
               
             }
-          }else{
-            if(bookingObj.consultation.vaccess != null){
-              if(bookingObj.consultation.vaccess == 'left')
-                $('#{{ $viewFolder }}_prev_vaccess_left').prop('checked', true);
+
+            if(bookingObj.consultation.post_subjective_complaints != null){
+              if(bookingObj.consultation.post_subjective_complaints == 'none')
+                $('#{{ $viewFolder }}_prev_post_subjective_complaints_none').prop('checked', true);
               else
-                $('#{{ $viewFolder }}_prev_vaccess_left').prop('checked', false);
-              if(bookingObj.consultation.vaccess == 'right')
-                $('#{{ $viewFolder }}_prev_vaccess_right').prop('checked', true);
+                $('#{{ $viewFolder }}_prev_post_subjective_complaints_none').prop('checked', false);
+              if(bookingObj.consultation.post_subjective_complaints == 'yes')
+                $('#{{ $viewFolder }}_prev_post_subjective_complaints_yes').prop('checked', true);
               else
-                $('#{{ $viewFolder }}_prev_vaccess_right').prop('checked', false);
-              
+                $('#{{ $viewFolder }}_prev_post_subjective_complaints_yes').prop('checked', false);
+              $('#{{ $viewFolder }}_prev_post_subjective_complaints_text').val(bookingObj.consultation.post_subjective_complaints_text);
+            
             }else{  
-              $('#{{ $viewFolder }}_prev_vaccess_left').prop('checked', false);
-              $('#{{ $viewFolder }}_prev_vaccess_right').prop('checked', false);
+              $('#{{ $viewFolder }}_prev_post_subjective_complaints_none').prop('checked', false);
+              $('#{{ $viewFolder }}_prev_post_subjective_complaints_yes').prop('checked', false);
+              $('#{{ $viewFolder }}_prev_post_subjective_complaints_text').val('');
               
             }
-          }
-          
-          if(bookingObj.consultation.vaccess_detail != null){
-            if(bookingObj.consultation.vaccess_detail.includes('Fistula'))
-              $('#{{ $viewFolder }}_prev_fistula').prop('checked', true);
-            else
-              $('#{{ $viewFolder }}_prev_fistula').prop('checked', false);
-            if(bookingObj.consultation.vaccess_detail.includes('Graft'))
-              $('#{{ $viewFolder }}_prev_graft').prop('checked', true);
-            else
-              $('#{{ $viewFolder }}_prev_graft').prop('checked', false);
-            if(bookingObj.consultation.vaccess_detail.includes('CVC'))
-              $('#{{ $viewFolder }}_prev_cvc').prop('checked', true);
-            else
-              $('#{{ $viewFolder }}_prev_cvc').prop('checked', false);
-          }else{
-            $('#{{ $viewFolder }}_prev_fistula').prop('checked', false);
-            $('#{{ $viewFolder }}_prev_graft').prop('checked', false);
-            $('#{{ $viewFolder }}_prev_cvc').prop('checked', false);
-            
-          }
-          if(bookingObj.consultation.av_fistula_detail != null){
-            // alert(bookingObj.consultation.av_fistula_detail);
-            if(bookingObj.consultation.av_fistula_detail.includes('Strong Thrill'))
-              $('#{{ $viewFolder }}_prev_strong_thrill').prop('checked', true);
-            else
-              $('#{{ $viewFolder }}_prev_strong_thrill').prop('checked', false);
-            if(bookingObj.consultation.av_fistula_detail.includes('Strong Thrill'))
-              $('#{{ $viewFolder }}_prev_weak_thrill').prop('checked', true);
-            else
-              $('#{{ $viewFolder }}_prev_weak_thrill').prop('checked', false);
-            if(bookingObj.consultation.av_fistula_detail.includes('Absent Thrill w/ Bruit'))
-              $('#{{ $viewFolder }}_prev_absent_thrill_with').prop('checked', true);
-            else
-              $('#{{ $viewFolder }}_prev_absent_thrill_with').prop('checked', false);
-            if(bookingObj.consultation.av_fistula_detail.includes('Absent Thrill no Bruit'))
-              $('#{{ $viewFolder }}_prev_absent_thrill_no').prop('checked', true);
-            else
-              $('#{{ $viewFolder }}_prev_absent_thrill_no').prop('checked', false);
-            $('#{{ $viewFolder }}_prev_needle_gauge').val(bookingObj.consultation.needle_gauge);
-            $('#{{ $viewFolder }}_prev_number_commultation').val(bookingObj.consultation.number_commultation);
-            
-          }else{
-            $('#{{ $viewFolder }}_prev_strong_thrill').prop('checked', false);
-            $('#{{ $viewFolder }}_prev_weak_thrill').prop('checked', false);
-            $('#{{ $viewFolder }}_prev_absent_thrill_with').prop('checked', false);
-            $('#{{ $viewFolder }}_prev_absent_thrill_no').prop('checked', false);
-            $('#{{ $viewFolder }}_prev_needle_gauge').val('');
-            $('#{{ $viewFolder }}_prev_number_commultation').val('');
-            
-          }
-          if(bookingObj.consultation.hd_catheter_detail != null){
-            // alert(bookingObj.consultation.av_fistula_detail);
-            if(bookingObj.consultation.hd_catheter_detail.includes('Both Patent'))
-              $('#{{ $viewFolder }}_prev_both_patent').prop('checked', true);
-            else
-              $('#{{ $viewFolder }}_prev_both_patent').prop('checked', false);
-            if(bookingObj.consultation.hd_catheter_detail.includes('A Clotted'))
-              $('#{{ $viewFolder }}_prev_a_clotted').prop('checked', true);
-            else
-              $('#{{ $viewFolder }}_prev_a_clotted').prop('checked', false);
-            if(bookingObj.consultation.hd_catheter_detail.includes('V Clotted'))
-              $('#{{ $viewFolder }}_prev_v_clotted').prop('checked', true);
-            else
-              $('#{{ $viewFolder }}_prev_v_clotted').prop('checked', false);
-            
-            $('#{{ $viewFolder }}_prev_hd_catheter_remarks').val(bookingObj.consultation.hd_catheter_remarks);
-            $('#{{ $viewFolder }}_prev_hd_catheter_hgb').val(bookingObj.consultation.hd_catheter_hgb);
-            
-          }else{
-            $('#{{ $viewFolder }}_prev_both_patent').prop('checked', false);
-            $('#{{ $viewFolder }}_prev_a_clotted').prop('checked', false);
-            $('#{{ $viewFolder }}_prev_v_clotted').prop('checked', false);
-            $('#{{ $viewFolder }}_prev_hd_catheter_remarks').val('');
-            $('#{{ $viewFolder }}_prev_hd_catheter_hgb').val('');
-            
-          }
 
-          if(bookingObj.consultation.rml != null){
-            $('#{{ $viewFolder }}_prev_rml').val(bookingObj.consultation.rml);
-          }else{
-            $('#{{ $viewFolder }}_prev_rml').val('');
-          }
-          if(bookingObj.consultation.hepa != null){
-            $('#{{ $viewFolder }}_prev_hepa').val(bookingObj.consultation.hepa);
-          }else{
-            $('#{{ $viewFolder }}_prev_hepa').val('');
-          }
-          if(bookingObj.consultation.iv_iron != null){
-            $('#{{ $viewFolder }}_prev_iv_iron').val(bookingObj.consultation.iv_iron);
-          }else{
-            $('#{{ $viewFolder }}_prev_iv_iron').val('');
-          }
-          if(bookingObj.consultation.epo != null){
-            $('#{{ $viewFolder }}_prev_epo').val(bookingObj.consultation.epo);
-          }else{
-            $('#{{ $viewFolder }}_prev_epo').val('');
-          }
-          if(bookingObj.consultation.hd_vac != null){
-            $('#{{ $viewFolder }}_prev_hd_vac').val(bookingObj.consultation.hd_vac);
-          }else{
-            $('#{{ $viewFolder }}_prev_hd_vac').val('');
-          }
-          if(bookingObj.consultation.hd_endorsement != null){
-            $('#{{ $viewFolder }}_prev_hd_endorsement').val(bookingObj.consultation.hd_endorsement);
-          }else{
-            $('#{{ $viewFolder }}_prev_hd_endorsement').val('');
-          }
-          if(bookingObj.consultation.shorten_min != null){
-            $('#{{ $viewFolder }}_prev_shorten_min').val(bookingObj.consultation.shorten_min);
-          }else{
-            $('#{{ $viewFolder }}_prev_shorten_min').val('');
-          }
-          if(bookingObj.consultation.shorten_reason != null){
-            $('#{{ $viewFolder }}_prev_shorten_reason').val(bookingObj.consultation.shorten_reason);
-          }else{
-            $('#{{ $viewFolder }}_prev_shorten_reason').val('');
-          }
-          $('#medTable{{ isset($bookings[0]->id) ? $bookings[0]->id : '' }}').empty();
-          $.each(bookingObj.consultation_meds, function(index, element){
+            if(bookingObj.consultation.pe_findings != null){
+              if(bookingObj.consultation.pe_findings.includes('Pallor'))
+                $('#{{ $viewFolder }}_prev_pe_findings_pallor').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_pe_findings_pallor').prop('checked', false);
+              if(bookingObj.consultation.pe_findings.includes('Distended Neck Vein'))
+                $('#{{ $viewFolder }}_prev_pe_findings_neck_vein').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_pe_findings_neck_vein').prop('checked', false);
+              if(bookingObj.consultation.pe_findings.includes('Abnormal Rhythm/Rate'))
+                $('#{{ $viewFolder }}_prev_pe_findings_rhythm').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_pe_findings_rhythym').prop('checked', false);
+              if(bookingObj.consultation.pe_findings.includes('Rales'))
+                $('#{{ $viewFolder }}_prev_pe_findings_rales').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_pe_findings_rales').prop('checked', false);
+              if(bookingObj.consultation.pe_findings.includes('Wheezing'))
+                $('#{{ $viewFolder }}_prev_pe_findings_wheezing').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_pe_findings_wheezing').prop('checked', false);
+              if(bookingObj.consultation.pe_findings.includes('Decreased Breath Sounds'))
+                $('#{{ $viewFolder }}_prev_pe_findings_breath_sounds').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_pe_findings_breath_sounds').prop('checked', false);
+              if(bookingObj.consultation.pe_findings.includes('Ascites - Abdominal Girth'))
+                $('#{{ $viewFolder }}_prev_pe_findings_ascites').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_pe_findings_ascites').prop('checked', false);
+              if(bookingObj.consultation.pe_findings.includes('Edema Grade'))
+                $('#{{ $viewFolder }}_prev_pe_findings_edema').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_pe_findings_edema').prop('checked', false);
+              if(bookingObj.consultation.pe_findings.includes('Bleeding'))
+                $('#{{ $viewFolder }}_prev_pe_findings_bleeding').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_pe_findings_bleeding').prop('checked', false);
+              if(bookingObj.consultation.pe_findings.includes('Others'))
+                $('#{{ $viewFolder }}_prev_pe_findings_others').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_pe_findings_others').prop('checked', false);
+              $('#{{ $viewFolder }}_prev_pe_findings_ascites_text').val(bookingObj.consultation.pe_findings_ascites_text);
+              $('#{{ $viewFolder }}_prev_pe_findings_edema_text').val(bookingObj.consultation.pe_findings_edema_text);
+              $('#{{ $viewFolder }}_prev_pe_findings_others_text').val(bookingObj.consultation.pe_findings_others_text);
+              
+            }else{
+              $('#{{ $viewFolder }}_prev_pe_findings_pallor').prop('checked', false);
+              $('#{{ $viewFolder }}_prev_pe_findings_neck_vein').prop('checked', false);
+              $('#{{ $viewFolder }}_prev_pe_findings_rhythm').prop('checked', false);
+              $('#{{ $viewFolder }}_prev_pe_findings_rales').prop('checked', false);
+              $('#{{ $viewFolder }}_prev_pe_findings_wheezing').prop('checked', false);
+              $('#{{ $viewFolder }}_prev_pe_findings_breath_sounds').prop('checked', false);
+              $('#{{ $viewFolder }}_prev_pe_findings_ascites').prop('checked', false);
+              $('#{{ $viewFolder }}_prev_pe_findings_edema').prop('checked', false);
+              $('#{{ $viewFolder }}_prev_pe_findings_bleeding').prop('checked', false);
+              $('#{{ $viewFolder }}_prev_pe_findings_others').prop('checked', false);
+              $('#{{ $viewFolder }}_prev_pe_findings_ascites_text').val('');
+              $('#{{ $viewFolder }}_prev_pe_findings_edema_text').val('');
+              $('#{{ $viewFolder }}_prev_pe_findings_others_text').val('');
+            }
+
+            if(bookingObj.consultation.post_pe_findings != null){
+              if(bookingObj.consultation.post_pe_findings.includes('Pallor'))
+                $('#{{ $viewFolder }}_prev_post_pe_findings_pallor').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_post_pe_findings_pallor').prop('checked', false);
+              if(bookingObj.consultation.post_pe_findings.includes('Distended Neck Vein'))
+                $('#{{ $viewFolder }}_prev_post_pe_findings_neck_vein').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_post_pe_findings_neck_vein').prop('checked', false);
+              if(bookingObj.consultation.post_pe_findings.includes('Abnormal Rhythm/Rate'))
+                $('#{{ $viewFolder }}_prev_post_pe_findings_rhythm').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_post_pe_findings_rhythym').prop('checked', false);
+              if(bookingObj.consultation.post_pe_findings.includes('Rales'))
+                $('#{{ $viewFolder }}_prev_post_pe_findings_rales').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_post_pe_findings_rales').prop('checked', false);
+              if(bookingObj.consultation.post_pe_findings.includes('Wheezing'))
+                $('#{{ $viewFolder }}_prev_post_pe_findings_wheezing').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_post_pe_findings_wheezing').prop('checked', false);
+              if(bookingObj.consultation.post_pe_findings.includes('Decreased Breath Sounds'))
+                $('#{{ $viewFolder }}_prev_post_pe_findings_breath_sounds').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_post_pe_findings_breath_sounds').prop('checked', false);
+              if(bookingObj.consultation.post_pe_findings.includes('Ascites - Abdominal Girth'))
+                $('#{{ $viewFolder }}_prev_post_pe_findings_ascites').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_post_pe_findings_ascites').prop('checked', false);
+              if(bookingObj.consultation.post_pe_findings.includes('Edema Grade'))
+                $('#{{ $viewFolder }}_prev_post_pe_findings_edema').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_post_pe_findings_edema').prop('checked', false);
+              if(bookingObj.consultation.post_pe_findings.includes('Bleeding'))
+                $('#{{ $viewFolder }}_prev_post_pe_findings_bleeding').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_post_pe_findings_bleeding').prop('checked', false);
+              if(bookingObj.consultation.post_pe_findings.includes('Others'))
+                $('#{{ $viewFolder }}_prev_post_pe_findings_others').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_post_pe_findings_others').prop('checked', false);
+              $('#{{ $viewFolder }}_prev_post_pe_findings_ascites_text').val(bookingObj.consultation.post_pe_findings_ascites_text);
+              $('#{{ $viewFolder }}_prev_post_pe_findings_edema_text').val(bookingObj.consultation.post_pe_findings_edema_text);
+              $('#{{ $viewFolder }}_prev_post_pe_findings_others_text').val(bookingObj.consultation.post_pe_findings_others_text);
+              
+            }else{
+              $('#{{ $viewFolder }}_prev_post_pe_findings_pallor').prop('checked', false);
+              $('#{{ $viewFolder }}_prev_post_pe_findings_neck_vein').prop('checked', false);
+              $('#{{ $viewFolder }}_prev_post_pe_findings_rhythm').prop('checked', false);
+              $('#{{ $viewFolder }}_prev_post_pe_findings_rales').prop('checked', false);
+              $('#{{ $viewFolder }}_prev_post_pe_findings_wheezing').prop('checked', false);
+              $('#{{ $viewFolder }}_prev_post_pe_findings_breath_sounds').prop('checked', false);
+              $('#{{ $viewFolder }}_prev_post_pe_findings_ascites').prop('checked', false);
+              $('#{{ $viewFolder }}_prev_post_pe_findings_edema').prop('checked', false);
+              $('#{{ $viewFolder }}_prev_post_pe_findings_bleeding').prop('checked', false);
+              $('#{{ $viewFolder }}_prev_post_pe_findings_others').prop('checked', false);
+              $('#{{ $viewFolder }}_prev_post_pe_findings_ascites_text').val('');
+              $('#{{ $viewFolder }}_prev_post_pe_findings_edema_text').val('');
+              $('#{{ $viewFolder }}_prev_post_pe_findings_others_text').val('');
+            }
+
+            if(bookingObj.consultation.vaccess_j != null){
+              if(bookingObj.consultation.vaccess_j != null){
+                if(bookingObj.consultation.vaccess_j.includes('left'))
+                  $('#{{ $viewFolder }}_prev_vaccess_left').prop('checked', true);
+                else
+                  $('#{{ $viewFolder }}_prev_vaccess_left').prop('checked', false);
+                if(bookingObj.consultation.vaccess_j.includes('right'))
+                  $('#{{ $viewFolder }}_prev_vaccess_right').prop('checked', true);
+                else
+                  $('#{{ $viewFolder }}_prev_vaccess_right').prop('checked', false);
+                
+                
+              }else{
+                $('#{{ $viewFolder }}_prev_vaccess_left').prop('checked', false);
+                $('#{{ $viewFolder }}_prev_vaccess_right').prop('checked', false);
+                
+              }
+            }else{
+              if(bookingObj.consultation.vaccess != null){
+                if(bookingObj.consultation.vaccess == 'left')
+                  $('#{{ $viewFolder }}_prev_vaccess_left').prop('checked', true);
+                else
+                  $('#{{ $viewFolder }}_prev_vaccess_left').prop('checked', false);
+                if(bookingObj.consultation.vaccess == 'right')
+                  $('#{{ $viewFolder }}_prev_vaccess_right').prop('checked', true);
+                else
+                  $('#{{ $viewFolder }}_prev_vaccess_right').prop('checked', false);
+                
+              }else{  
+                $('#{{ $viewFolder }}_prev_vaccess_left').prop('checked', false);
+                $('#{{ $viewFolder }}_prev_vaccess_right').prop('checked', false);
+                
+              }
+            }
             
-            if(index == 0){
-              $('#medTable{{ isset($bookings[0]->id) ? $bookings[0]->id : '' }}').empty().append('<tr id=\'' + element.id + '\' log=\'meds\'><td></td><td>' + element.time_given + '</td><td>' + element.medication + '</td><td>' + element.dosage + '</td><td>' + element.creator.name + '</td></tr>');
+            if(bookingObj.consultation.vaccess_detail != null){
+              if(bookingObj.consultation.vaccess_detail.includes('Fistula'))
+                $('#{{ $viewFolder }}_prev_fistula').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_fistula').prop('checked', false);
+              if(bookingObj.consultation.vaccess_detail.includes('Graft'))
+                $('#{{ $viewFolder }}_prev_graft').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_graft').prop('checked', false);
+              if(bookingObj.consultation.vaccess_detail.includes('CVC'))
+                $('#{{ $viewFolder }}_prev_cvc').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_cvc').prop('checked', false);
             }else{
-              $('#medTable{{ isset($bookings[0]->id) ? $bookings[0]->id : '' }}').append('<tr id=\'' + element.id + '\' log=\'meds\'><td></td><td>' + element.time_given + '</td><td>' + element.medication + '</td><td>' + element.dosage + '</td><td>' + element.creator.name + '</td></tr>');
+              $('#{{ $viewFolder }}_prev_fistula').prop('checked', false);
+              $('#{{ $viewFolder }}_prev_graft').prop('checked', false);
+              $('#{{ $viewFolder }}_prev_cvc').prop('checked', false);
+              
             }
-          });
-          $('#monTable{{ isset($bookings[0]->id) ? $bookings[0]->id : '' }}').empty();
-          $.each(bookingObj.consultation_monitorings, function(index, element){
-            if(index == 0){
-              $('#monTable{{ isset($bookings[0]->id) ? $bookings[0]->id : '' }}').empty().append('<tr id=\'' + element.id + '\' log=\'moni\'><td></td><td>' + element.time_given + '</td><td>' + element.bpS + '/' + element.bpD + '</td><td>' + element.heart + 'BPM</td><td>' + element.o2 + '%</td><td>' + element.ap + '</td><td>' + element.vp + '</td><td>' + element.tmp + '</td><td>' + element.bfr + '</td><td>' + element.nss + '</td><td>' + element.ufr + '</td><td>' + element.ufv + '</td><td>' + element.remarks + '</td><td>' + element.creator.name + '</td></tr>');
+            if(bookingObj.consultation.av_fistula_detail != null){
+              // alert(bookingObj.consultation.av_fistula_detail);
+              if(bookingObj.consultation.av_fistula_detail.includes('Strong Thrill'))
+                $('#{{ $viewFolder }}_prev_strong_thrill').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_strong_thrill').prop('checked', false);
+              if(bookingObj.consultation.av_fistula_detail.includes('Strong Thrill'))
+                $('#{{ $viewFolder }}_prev_weak_thrill').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_weak_thrill').prop('checked', false);
+              if(bookingObj.consultation.av_fistula_detail.includes('Absent Thrill w/ Bruit'))
+                $('#{{ $viewFolder }}_prev_absent_thrill_with').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_absent_thrill_with').prop('checked', false);
+              if(bookingObj.consultation.av_fistula_detail.includes('Absent Thrill no Bruit'))
+                $('#{{ $viewFolder }}_prev_absent_thrill_no').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_absent_thrill_no').prop('checked', false);
+              $('#{{ $viewFolder }}_prev_needle_gauge').val(bookingObj.consultation.needle_gauge);
+              $('#{{ $viewFolder }}_prev_number_commultation').val(bookingObj.consultation.number_commultation);
+              
             }else{
-              $('#monTable{{ isset($bookings[0]->id) ? $bookings[0]->id : '' }}').append('<tr id=\'' + element.id + '\' log=\'moni\'><td></td><td>' + element.time_given + '</td><td>' + element.bpS + '/' + element.bpD + '</td><td>' + element.heart + 'BPM</td><td>' + element.o2 + '%</td><td>' + element.ap + '</td><td>' + element.vp + '</td><td>' + element.tmp + '</td><td>' + element.bfr + '</td><td>' + element.nss + '</td><td>' + element.ufr + '</td><td>' + element.ufv + '</td><td>' + element.remarks + '</td><td>' + element.creator.name + '</td></tr>');
+              $('#{{ $viewFolder }}_prev_strong_thrill').prop('checked', false);
+              $('#{{ $viewFolder }}_prev_weak_thrill').prop('checked', false);
+              $('#{{ $viewFolder }}_prev_absent_thrill_with').prop('checked', false);
+              $('#{{ $viewFolder }}_prev_absent_thrill_no').prop('checked', false);
+              $('#{{ $viewFolder }}_prev_needle_gauge').val('');
+              $('#{{ $viewFolder }}_prev_number_commultation').val('');
+              
             }
-          });
-          $('#nurseNotesTable{{ isset($bookings[0]->id) ? $bookings[0]->id : '' }}').empty();
-          $.each(bookingObj.consultation_nurse_notes, function(index, element){
-            if(index == 0){
-              $('#nurseNotesTable{{ isset($bookings[0]->id) ? $bookings[0]->id : '' }}').empty().append('<tr id=\'' + element.id + '\' log=\'nurseNotes\'><td></td><td>' + element.time_given + '</td><td>' + element.notes + '</td><td>' + element.creator.name + '</td></tr>');
+            if(bookingObj.consultation.hd_catheter_detail != null){
+              // alert(bookingObj.consultation.av_fistula_detail);
+              if(bookingObj.consultation.hd_catheter_detail.includes('Both Patent'))
+                $('#{{ $viewFolder }}_prev_both_patent').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_both_patent').prop('checked', false);
+              if(bookingObj.consultation.hd_catheter_detail.includes('A Clotted'))
+                $('#{{ $viewFolder }}_prev_a_clotted').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_a_clotted').prop('checked', false);
+              if(bookingObj.consultation.hd_catheter_detail.includes('V Clotted'))
+                $('#{{ $viewFolder }}_prev_v_clotted').prop('checked', true);
+              else
+                $('#{{ $viewFolder }}_prev_v_clotted').prop('checked', false);
+              
+              $('#{{ $viewFolder }}_prev_hd_catheter_remarks').val(bookingObj.consultation.hd_catheter_remarks);
+              $('#{{ $viewFolder }}_prev_hd_catheter_hgb').val(bookingObj.consultation.hd_catheter_hgb);
+              
             }else{
-              $('#nurseNotesTable{{ isset($bookings[0]->id) ? $bookings[0]->id : '' }}').append('<tr id=\'' + element.id + '\' log=\'nurseNotes\'><td></td><td>' + element.time_given + '</td><td>' + element.notes + '</td><td>' + element.creator.name + '</td></tr>');
+              $('#{{ $viewFolder }}_prev_both_patent').prop('checked', false);
+              $('#{{ $viewFolder }}_prev_a_clotted').prop('checked', false);
+              $('#{{ $viewFolder }}_prev_v_clotted').prop('checked', false);
+              $('#{{ $viewFolder }}_prev_hd_catheter_remarks').val('');
+              $('#{{ $viewFolder }}_prev_hd_catheter_hgb').val('');
+              
             }
-          });
-          
+
+            if(bookingObj.consultation.rml != null){
+              $('#{{ $viewFolder }}_prev_rml').val(bookingObj.consultation.rml);
+            }else{
+              $('#{{ $viewFolder }}_prev_rml').val('');
+            }
+            if(bookingObj.consultation.hepa != null){
+              $('#{{ $viewFolder }}_prev_hepa').val(bookingObj.consultation.hepa);
+            }else{
+              $('#{{ $viewFolder }}_prev_hepa').val('');
+            }
+            if(bookingObj.consultation.iv_iron != null){
+              $('#{{ $viewFolder }}_prev_iv_iron').val(bookingObj.consultation.iv_iron);
+            }else{
+              $('#{{ $viewFolder }}_prev_iv_iron').val('');
+            }
+            if(bookingObj.consultation.epo != null){
+              $('#{{ $viewFolder }}_prev_epo').val(bookingObj.consultation.epo);
+            }else{
+              $('#{{ $viewFolder }}_prev_epo').val('');
+            }
+            if(bookingObj.consultation.hd_vac != null){
+              $('#{{ $viewFolder }}_prev_hd_vac').val(bookingObj.consultation.hd_vac);
+            }else{
+              $('#{{ $viewFolder }}_prev_hd_vac').val('');
+            }
+            if(bookingObj.consultation.hd_endorsement != null){
+              $('#{{ $viewFolder }}_prev_hd_endorsement').val(bookingObj.consultation.hd_endorsement);
+            }else{
+              $('#{{ $viewFolder }}_prev_hd_endorsement').val('');
+            }
+            if(bookingObj.consultation.shorten_min != null){
+              $('#{{ $viewFolder }}_prev_shorten_min').val(bookingObj.consultation.shorten_min);
+            }else{
+              $('#{{ $viewFolder }}_prev_shorten_min').val('');
+            }
+            if(bookingObj.consultation.shorten_reason != null){
+              $('#{{ $viewFolder }}_prev_shorten_reason').val(bookingObj.consultation.shorten_reason);
+            }else{
+              $('#{{ $viewFolder }}_prev_shorten_reason').val('');
+            }
+            $('#medTable{{ isset($bookings[0]->id) ? $bookings[0]->id : '' }}').empty();
+            $.each(bookingObj.consultation_meds, function(index, element){
+              
+              if(index == 0){
+                $('#medTable{{ isset($bookings[0]->id) ? $bookings[0]->id : '' }}').empty().append('<tr id=\'' + element.id + '\' log=\'meds\'><td></td><td>' + element.time_given + '</td><td>' + element.medication + '</td><td>' + element.dosage + '</td><td>' + element.creator.name + '</td></tr>');
+              }else{
+                $('#medTable{{ isset($bookings[0]->id) ? $bookings[0]->id : '' }}').append('<tr id=\'' + element.id + '\' log=\'meds\'><td></td><td>' + element.time_given + '</td><td>' + element.medication + '</td><td>' + element.dosage + '</td><td>' + element.creator.name + '</td></tr>');
+              }
+            });
+            $('#monTable{{ isset($bookings[0]->id) ? $bookings[0]->id : '' }}').empty();
+            $.each(bookingObj.consultation_monitorings, function(index, element){
+              if(index == 0){
+                $('#monTable{{ isset($bookings[0]->id) ? $bookings[0]->id : '' }}').empty().append('<tr id=\'' + element.id + '\' log=\'moni\'><td></td><td>' + element.time_given + '</td><td>' + element.bpS + '/' + element.bpD + '</td><td>' + element.heart + 'BPM</td><td>' + element.o2 + '%</td><td>' + element.ap + '</td><td>' + element.vp + '</td><td>' + element.tmp + '</td><td>' + element.bfr + '</td><td>' + element.nss + '</td><td>' + element.ufr + '</td><td>' + element.ufv + '</td><td>' + element.remarks + '</td><td>' + element.creator.name + '</td></tr>');
+              }else{
+                $('#monTable{{ isset($bookings[0]->id) ? $bookings[0]->id : '' }}').append('<tr id=\'' + element.id + '\' log=\'moni\'><td></td><td>' + element.time_given + '</td><td>' + element.bpS + '/' + element.bpD + '</td><td>' + element.heart + 'BPM</td><td>' + element.o2 + '%</td><td>' + element.ap + '</td><td>' + element.vp + '</td><td>' + element.tmp + '</td><td>' + element.bfr + '</td><td>' + element.nss + '</td><td>' + element.ufr + '</td><td>' + element.ufv + '</td><td>' + element.remarks + '</td><td>' + element.creator.name + '</td></tr>');
+              }
+            });
+            $('#nurseNotesTable{{ isset($bookings[0]->id) ? $bookings[0]->id : '' }}').empty();
+            $.each(bookingObj.consultation_nurse_notes, function(index, element){
+              if(index == 0){
+                $('#nurseNotesTable{{ isset($bookings[0]->id) ? $bookings[0]->id : '' }}').empty().append('<tr id=\'' + element.id + '\' log=\'nurseNotes\'><td></td><td>' + element.time_given + '</td><td>' + element.notes + '</td><td>' + element.creator.name + '</td></tr>');
+              }else{
+                $('#nurseNotesTable{{ isset($bookings[0]->id) ? $bookings[0]->id : '' }}').append('<tr id=\'' + element.id + '\' log=\'nurseNotes\'><td></td><td>' + element.time_given + '</td><td>' + element.notes + '</td><td>' + element.creator.name + '</td></tr>');
+              }
+            });
+          }
 
           // $('#{{ $viewFolder }}_findings').val(bookingObj.consultation.findings);
           // $('#{{ $viewFolder }}_diagnosis').val(bookingObj.consultation.diagnosis);
