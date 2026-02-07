@@ -3176,7 +3176,7 @@
       success:
         function(data, status){
           @if(isset($bookings[0]->id) && $bookings[0]->booking_type == 'Dialysis')
-          $('#printLinkID').attr('href', $('#printLinkID').attr('href').replace({{ $bookings[0]->id }}, consultation_id));
+          $('#printLinkID').attr('href', $('#printLinkID').attr('href').replace($('#patient_records_prev_treatment_id').val(), consultation_id));
           @endif
           bookingObj = jQuery.parseJSON(data);
           if(bookingObj.consultation.doctor.specialty.includes('Ophtha')){
