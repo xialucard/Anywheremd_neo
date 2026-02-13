@@ -4095,7 +4095,7 @@
                 $('#{{ $viewFolder }}_provinceZip').prop('required', false);
                 $('#{{ $viewFolder }}_cityZip').val(patientObj.cityZip);
               }else if(patientObj.provinceZip !== null && patientObj.provinceZip != ''){
-                alert(patientObj.provinceZip);
+                // alert(patientObj.provinceZip);
                 $('#{{ $viewFolder }}_cityZip').prop('disabled', true);
                 $('#{{ $viewFolder }}_cityZip').prop('required', false);
                 $('#{{ $viewFolder }}_provinceZip').val(patientObj.provinceZip);
