@@ -851,9 +851,12 @@
                   <th>Details</th>
                 </tr>
                 @php
-                  $temp = json_decode($datum->printable_form['datetime_nurse_notes']);
-                  unset($datum->printable_form['datetime_nurse_notes']);
-                  $datum->printable_form['datetime_nurse_notes'] = $temp;
+                  if(isset($datum->printable_form['datetime_nurse_notes'])){
+                    $temp = json_decode($datum->printable_form['datetime_nurse_notes']);
+                    unset($datum->printable_form['datetime_nurse_notes']);
+                    $datum->printable_form['datetime_nurse_notes'] = $temp;
+                  }
+                  
                 @endphp
                 <tr>
                   <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][0]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ isset($datum->printable_form['datetime_nurse_notes'][0]) ? $datum->printable_form['datetime_nurse_notes'][0] : '' }}"></td>
