@@ -15,6 +15,7 @@ use App\Models\HealthOrganization;
 use App\Models\NurseFile;
 use App\Models\Opdpatient;
 use App\Models\Patient;
+use App\Models\PrintableForm;
 use App\Models\Schedule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -766,6 +767,20 @@ class ClinicsHomeController extends Controller
         unset($params);
         $params = $request->input($this->viewFolder);
         // dd($params);
+
+        if(isset($params['PrintableForm'])){
+            $printableForm = $params['PrintableForm'];
+            unset($params['PrintableForm']);
+            $jsonTemp = json_encode($printableForm['datetime_nurse_notes']);
+            $printableForm['datetime_nurse_notes'] = $jsonTemp;
+            $printableForm['updated_by'] = $user->id;
+            if($printableForm['id'] == ''){
+                $printableForm['created_by'] = $user->id;
+                PrintableForm::create($printableForm);
+            }else
+                PrintableForm::where('id', $printableForm['id'])->update($printableForm);
+        }
+
         if(isset($params['referal'])){
             $referralEntry = $params['referal'];
             unset($params['referal']);
@@ -1347,6 +1362,32 @@ class ClinicsHomeController extends Controller
         $src = asset('storage/printable_forms_files/' . $template . '_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf');
         return $src;
         // return $pdf->download('hd_' . $clinics_home->id . '-' . $clinics_home->treatment_number . '.pdf');
+        
+    }
+
+    function pdfOpAdmit(Consultation $clinics_home){
+        $pdf = Pdf::setOptions(['defaultFont' => 'sans-serif', 'chroot' => public_path('storage/' . $clinics_home->doctor->sig_pic)])->loadView($this->viewFolder . '.pdfOpAdmit', ['datum' => $clinics_home]);
+        
+        Storage::put('public/printable_forms_files/pdfOpAdmit_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf', $pdf->output());
+        $src = asset('storage/printable_forms_files/pdfOpAdmit_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf');
+        return $src;
+    }
+
+    function pdfORTech(Consultation $clinics_home){
+        $pdf = Pdf::setOptions(['defaultFont' => 'sans-serif', 'chroot' => public_path('storage/' . $clinics_home->doctor->sig_pic)])->loadView($this->viewFolder . '.pdfORTech', ['datum' => $clinics_home]);
+        
+        Storage::put('public/printable_forms_files/pdfORTech_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf', $pdf->output());
+        $src = asset('storage/printable_forms_files/pdfORTech_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf');
+        return $src;
+    }
+
+    function pdfNurseNotes(Consultation $clinics_home){
+        $user = Auth::user();
+        $pdf = Pdf::setOptions(['defaultFont' => 'sans-serif', 'chroot' => public_path('storage/' . $clinics_home->doctor->sig_pic)])->loadView($this->viewFolder . '.pdfNurseNotes', ['datum' => $clinics_home, 'user' => $user]);
+        
+        Storage::put('public/printable_forms_files/pdfORTech_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf', $pdf->output());
+        $src = asset('storage/printable_forms_files/pdfORTech_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf');
+        return $src;
         
     }
 

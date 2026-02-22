@@ -212,6 +212,10 @@ class Consultation extends Model
         return $this->hasMany(ConsultationFile::class, 'consultation_id');
     }
 
+    public function printable_form()
+    {
+        return $this->hasOne(PrintableForm::class, 'consultation_id');
+    }
     public function consultation_meds()
     {
         return $this->hasMany(ConsultationMed::class, 'consultation_id');

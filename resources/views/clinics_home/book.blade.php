@@ -369,6 +369,12 @@
                         $('#orTechLink').removeClass('active');
                         $('#postOpLink').removeClass('active');
                         $('#opAdmitLink').removeClass('active');
+                        $('#AdmitOpInput').hide();
+                        $('#CreatePDFAdmitOpDiv').hide();
+                        $('#ORTechInput').hide();
+                        $('#CreatePDFORTechDiv').hide();
+                        $('#NurseNotesInput').hide();
+                        $('#CreatePDFNurseNotesDiv').hide();
                         $.ajax({
                           type: 'POST',
                           data: $('#bookMod').serialize(),
@@ -395,6 +401,12 @@
                         $('#orTechLink').removeClass('active');
                         $('#postOpLink').removeClass('active');
                         $('#opAdmitLink').removeClass('active');
+                        $('#AdmitOpInput').hide();
+                        $('#CreatePDFAdmitOpDiv').hide();
+                        $('#ORTechInput').hide();
+                        $('#CreatePDFORTechDiv').hide();
+                        $('#NurseNotesInput').hide();
+                        $('#CreatePDFNurseNotesDiv').hide();
                         $.ajax({
                           type: 'POST',
                           data: $('#bookMod').serialize(),
@@ -422,6 +434,12 @@
                         $('#orTechLink').removeClass('active');
                         $('#postOpLink').removeClass('active');
                         $('#opAdmitLink').removeClass('active');
+                        $('#AdmitOpInput').hide();
+                        $('#CreatePDFAdmitOpDiv').hide();
+                        $('#ORTechInput').hide();
+                        $('#CreatePDFORTechDiv').hide();
+                        $('#NurseNotesInput').hide();
+                        $('#CreatePDFNurseNotesDiv').hide();
                         $.ajax({
                           type: 'POST',
                           data: $('#bookMod').serialize(),
@@ -449,6 +467,12 @@
                         $('#orTechLink').removeClass('active');
                         $('#postOpLink').removeClass('active');
                         $('#opAdmitLink').removeClass('active');
+                        $('#AdmitOpInput').hide();
+                        $('#CreatePDFAdmitOpDiv').hide();
+                        $('#ORTechInput').hide();
+                        $('#CreatePDFORTechDiv').hide();
+                        $('#NurseNotesInput').show();
+                        $('#CreatePDFNurseNotesDiv').show();
                         $.ajax({
                           type: 'POST',
                           data: $('#bookMod').serialize(),
@@ -476,6 +500,12 @@
                         $('#undertakingLink').removeClass('active');
                         $('#postOpLink').removeClass('active');
                         $('#orTechLink').removeClass('active');
+                        $('#AdmitOpInput').show();
+                        $('#CreatePDFAdmitOpDiv').show();
+                        $('#ORTechInput').hide();
+                        $('#CreatePDFORTechDiv').hide();
+                        $('#NurseNotesInput').hide();
+                        $('#CreatePDFNurseNotesDiv').hide();
                         $.ajax({
                           type: 'POST',
                           data: $('#bookMod').serialize(),
@@ -504,6 +534,12 @@
                         $('#undertakingLink').removeClass('active');
                         $('#postOpLink').removeClass('active');
                         $('#opAdmitLink').removeClass('active');
+                        $('#AdmitOpInput').hide();
+                        $('#CreatePDFAdmitOpDiv').hide();
+                        $('#ORTechInput').show();
+                        $('#CreatePDFORTechDiv').show();
+                        $('#NurseNotesInput').hide();
+                        $('#CreatePDFNurseNotesDiv').hide();
                         $.ajax({
                           type: 'POST',
                           data: $('#bookMod').serialize(),
@@ -530,6 +566,12 @@
                         $('#undertakingLink').removeClass('active');
                         $('#orTechLink').removeClass('active');
                         $('#opAdmitLink').removeClass('active');
+                        $('#AdmitOpInput').hide();
+                        $('#CreatePDFAdmitOpDiv').hide();
+                        $('#ORTechInput').hide();
+                        $('#CreatePDFORTechDiv').hide();
+                        $('#NurseNotesInput').hide();
+                        $('#CreatePDFNurseNotesDiv').hide();
                         $.ajax({
                           type: 'POST',
                           data: $('#bookMod').serialize(),
@@ -557,6 +599,12 @@
                         $('#orTechLink').removeClass('active');
                         $('#postOpLink').removeClass('active');
                         $('#opAdmitLink').removeClass('active');
+                        $('#AdmitOpInput').hide();
+                        $('#CreatePDFAdmitOpDiv').hide();
+                        $('#ORTechInput').hide();
+                        $('#CreatePDFORTechDiv').hide();
+                        $('#NurseNotesInput').hide();
+                        $('#CreatePDFNurseNotesDiv').hide();
                         $.ajax({
                           type: 'POST',
                           data: $('#bookMod').serialize(),
@@ -582,6 +630,300 @@
             <div class="card-body">
                 <iframe id="iframeDynaForm" src="{{ file_exists(public_path('storage/med_cert_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf')) ? asset('storage/med_cert_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
                 <small class="form-text text-muted">To print or download check the upper right part</small>
+            </div>
+            <div class="card-footer" id="CreatePDFAdmitOpDiv" style="display:none">
+              <button id="createPDFButAdmitOp{{ $datum->id }}" type="button" class="createPDFButAdmitOp btn btn-{{ $bgColor }} btn-sm" onclick="
+                $.ajax({
+                  type: 'POST',
+                  data: $('#bookMod').serialize(),
+                  url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
+                  success:
+                  function (){
+                      $.ajax({
+                        type: 'GET',
+                        url: '{{ Route::has($viewFolder . '.pdfOpAdmit') ? route($viewFolder . '.pdfOpAdmit', $datum->id) : '' }}',
+                        success:
+                        function (data){
+                          $('#iframeDynaForm').attr('src', data);
+                        }
+                      });
+                  }
+                });
+              ">Create PDF</button>
+            </div>
+            <div class="card-footer" id="CreatePDFORTechDiv" style="display:none">
+              <button id="createPDFButORTech{{ $datum->id }}" type="button" class="createPDFButORTech btn btn-{{ $bgColor }} btn-sm" onclick="
+                $.ajax({
+                  type: 'POST',
+                  data: $('#bookMod').serialize(),
+                  url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
+                  success:
+                  function (){
+                      $.ajax({
+                        type: 'GET',
+                        url: '{{ Route::has($viewFolder . '.pdfORTech') ? route($viewFolder . '.pdfORTech', $datum->id) : '' }}',
+                        success:
+                        function (data){
+                          $('#iframeDynaForm').attr('src', data);
+                        }
+                      });
+                  }
+                });
+              ">Create PDF</button>
+            </div>
+            <div class="card-footer" id="CreatePDFNurseNotesDiv" style="display:none">
+              <button id="createPDFButNurseNotes{{ $datum->id }}" type="button" class="createPDFButNurseNotes btn btn-{{ $bgColor }} btn-sm" onclick="
+                $.ajax({
+                  type: 'POST',
+                  data: $('#bookMod').serialize(),
+                  url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
+                  success:
+                  function (){
+                      $.ajax({
+                        type: 'GET',
+                        url: '{{ Route::has($viewFolder . '.pdfNurseNotes') ? route($viewFolder . '.pdfNurseNotes', $datum->id) : '' }}',
+                        success:
+                        function (data){
+                          $('#iframeDynaForm').attr('src', data);
+                        }
+                      });
+                  }
+                });
+              ">Create PDF</button>
+            </div>
+        </div>
+        <div class="card mb-3" id="AdmitOpInput" style="display:none">
+            <div class="card-header">Form Inputs</div>
+            <div class="card-body">
+              <div class="input-group mb-3">
+                <div class="input-group-text">
+                  <input class="form-check-input mt-0" type="checkbox" onchange="
+                    if($(this).prop('checked'))
+                      $('#{{ $viewFolder }}_intake_blood_thinner').prop('disabled', false);
+                    else{
+                      $('#{{ $viewFolder }}_intake_blood_thinner').prop('disabled', true);
+                      $('#{{ $viewFolder }}_intake_blood_thinner').val('');
+                    }
+                  " {{ isset($datum->printable_form['intake_blood_thinner']) ? 'checked' : ''}}>
+                </div>
+                <span class="input-group-text">Intake of blood thinner or anti-coagulants. if yes? date and time last intake:</span>
+                <input type="text" class="form-control" id="{{ $viewFolder }}_intake_blood_thinner" name="{{ $viewFolder }}[PrintableForm][intake_blood_thinner]" value="{{ isset($datum->printable_form['intake_blood_thinner']) ? $datum->printable_form['intake_blood_thinner'] : '' }}" {{ isset($datum->printable_form['intake_blood_thinner']) ? '' : 'disabled' }} onblur="
+                    if($('#{{ $viewFolder }}_room').val() == '' && $('#{{ $viewFolder }}_dilate').val() == '' && $('#{{ $viewFolder }}_constrict').val() == '' && $('#{{ $viewFolder }}_intake_blood_thinner').val() == '' && $('#{{ $viewFolder }}_intake_maintenance_meds').val() == '' && $('#{{ $viewFolder }}_additional_orders').val() == ''){
+                      $('.createPDFButOpAdmit').each(function(){
+                        $(this).prop('disabled', true);
+                      });
+                    }else{
+                      $('.createPDFButOpAdmit').each(function(){
+                        $(this).prop('disabled', false);
+                      });
+                    }
+                  ">
+              </div>
+              <div class="input-group mb-3">
+                <div class="input-group-text">
+                  <input class="form-check-input mt-0" type="checkbox" onchange="
+                    if($(this).prop('checked'))
+                      $('#{{ $viewFolder }}_intake_maintenance_meds').prop('disabled', false);
+                    else{
+                      $('#{{ $viewFolder }}_intake_maintenance_meds').prop('disabled', true);
+                      $('#{{ $viewFolder }}_intake_maintenance_meds').val('');
+                    }
+                  " {{ isset($datum->printable_form['intake_maintenance_meds']) ? 'checked' : '' }}>
+                </div>
+                <span class="input-group-text">Intake of maintenance meds. if yes? date and time last intake:</span>
+                <input type="text" class="form-control" id="{{ $viewFolder }}_intake_maintenance_meds" name="{{ $viewFolder }}[PrintableForm][intake_maintenance_meds]" value="{{ isset($datum->printable_form['intake_maintenance_meds']) ? $datum->printable_form['intake_maintenance_meds'] : '' }}" {{ isset($datum->printable_form['intake_maintenance_meds']) ? '' : 'disabled' }} onblur="
+                    if($('#{{ $viewFolder }}_room').val() == '' && $('#{{ $viewFolder }}_dilate').val() == '' && $('#{{ $viewFolder }}_constrict').val() == '' && $('#{{ $viewFolder }}_intake_blood_thinner').val() == '' && $('#{{ $viewFolder }}_intake_maintenance_meds').val() == '' && $('#{{ $viewFolder }}_additional_orders').val() == ''){
+                      $('.createPDFButOpAdmit').each(function(){
+                        $(this).prop('disabled', true);
+                      });
+                    }else{
+                      $('.createPDFButOpAdmit').each(function(){
+                        $(this).prop('disabled', false);
+                      });
+                    }
+                  ">
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="card mb-3">
+                    <div class="card-header">Intraoperative Vital Signs</div>
+                    <div class="card-body">
+                      <div class="input-group mb-3">
+                        <div class="form-floating">
+                          <input class="form-control" type="number" name="{{ $viewFolder }}[PrintableForm][i_temp]" min=30 step=.1 id="{{ $viewFolder }}_i_temp" value="{{ isset($datum->printable_form['i_temp']) ? $datum->printable_form['i_temp'] : ''}}" placeholder="">
+                          <label for="{{ $viewFolder }}_i_temp" class="form-label">Temperature</label>
+                          <small id="help_{{ $viewFolder }}_i_temp" class="text-muted"></small>
+                        </div>
+                        <span class="input-group-text">C</span>
+                      </div>
+                      <label for="{{ $viewFolder }}_bpS" class="form-label">BP</label>
+                      <div class="input-group mb-3">
+                        <input class="form-control" type="number" name="{{ $viewFolder }}[PrintableForm][i_bpS]" min=50 max=250 step=1 id="{{ $viewFolder }}_i_bpS" value="{{ isset($datum->printable_form['i_bpS']) ? $datum->printable_form['i_bpS'] : '' }}" placeholder="Systolic">
+                        <span class="input-group-text">/</span>
+                        <input class="form-control" type="number" name="{{ $viewFolder }}[PrintableForm][i_bpD]" min=30 max=150 step=1 id="{{ $viewFolder }}_i_bpD" value="{{ isset($datum->printable_form['i_bpS']) ? $datum->printable_form['i_bpS'] : '' }}" placeholder="Diastolic">
+                      </div>
+                      <div class="input-group mb-3">
+                        <div class="form-floating">
+                          <input class="form-control" type="number" name="{{ $viewFolder }}[i_o2]" min=1 id="{{ $viewFolder }}_i_o2" value="{{ isset($datum->printable_form['i_o2']) ? $datum->printable_form['i_o2'] : '' }}" placeholder="">
+                          <label for="{{ $viewFolder }}_i_o2" class="form-label">O2 Sat</label>
+                          <small id="help_{{ $viewFolder }}_i_o2" class="text-muted"></small>
+                        </div>
+                        <span class="input-group-text">%</span>
+                      </div>
+                      <label for="{{ $viewFolder }}_i_remarks" class="form-label">Remarks</label>
+                      <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][i_remarks]" id="{{ $viewFolder }}_i_remarks" rows=3>{{ isset($datum->printable_form['i_remarks']) ? $datum->printable_form['i_remarks'] : '' }}</textarea>
+                      <div class="form-floating mt-3">
+                        <input class="form-control" type="text" name="{{ $viewFolder }}[PrintableForm][c_nurse]" id="{{ $viewFolder }}_c_nurse" placeholder="" value="{{ isset($datum->printable_form['c_nurse']) ? $datum->printable_form['c_nurse'] : '' }}">
+                        <label for="{{ $viewFolder }}_c_nurse" class="form-label">Circulating Nurse</label>
+                        <small id="help_{{ $viewFolder }}_c_nurse" class="text-muted"></small>
+                      </div>
+                      <input type="hidden" id="{{ $viewFolder }}_printable_form_consultation_id" class="form-control" name="{{ $viewFolder }}[PrintableForm][consultation_id]" value="{{ $datum->id }}">
+                      <input type="hidden" id="{{ $viewFolder }}_printable_form_id" class="form-control" name="{{ $viewFolder }}[PrintableForm][id]" value="{{ isset($datum->printable_form['id']) ? $datum->printable_form['id'] : '' }}">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="card mb-3">
+                    <div class="card-header">Post Operative Vital Signs</div>
+                    <div class="card-body">
+                      <div class="input-group mb-3">
+                        <div class="form-floating">
+                          <input class="form-control" type="number" name="{{ $viewFolder }}[PrintableForm][o_temp]" min=30 step=.1 id="{{ $viewFolder }}_o_temp" value="{{ isset($datum->printable_form['o_temp']) ? $datum->printable_form['o_temp'] : ''}}" placeholder="">
+                          <label for="{{ $viewFolder }}_o_temp" class="form-label">Temperature</label>
+                          <small id="help_{{ $viewFolder }}_o_temp" class="text-muted"></small>
+                        </div>
+                        <span class="input-group-text">C</span>
+                      </div>
+                      <label for="{{ $viewFolder }}_bpS" class="form-label">BP</label>
+                      <div class="input-group mb-3">
+                        <input class="form-control" type="number" name="{{ $viewFolder }}[PrintableForm][o_bpS]" min=50 max=250 step=1 id="{{ $viewFolder }}_o_bpS" value="{{ isset($datum->printable_form['o_bpS']) ? $datum->printable_form['o_bpS'] : '' }}" placeholder="Systolic">
+                        <span class="input-group-text">/</span>
+                        <input class="form-control" type="number" name="{{ $viewFolder }}[PrintableForm][o_bpD]" min=30 max=150 step=1 id="{{ $viewFolder }}_o_bpD" value="{{ isset($datum->printable_form['o_bpS']) ? $datum->printable_form['o_bpS'] : '' }}" placeholder="Diastolic">
+                      </div>
+                      <div class="input-group mb-3">
+                        <div class="form-floating">
+                          <input class="form-control" type="number" name="{{ $viewFolder }}[o_o2]" min=1 id="{{ $viewFolder }}_o_o2" value="{{ isset($datum->printable_form['o_o2']) ? $datum->printable_form['o_o2'] : '' }}" placeholder="">
+                          <label for="{{ $viewFolder }}_o_o2" class="form-label">O2 Sat</label>
+                          <small id="help_{{ $viewFolder }}_o_o2" class="text-muted"></small>
+                        </div>
+                        <span class="input-group-text">%</span>
+                      </div>
+                      <label for="{{ $viewFolder }}_o_remarks" class="form-label">Remarks</label>
+                      <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][o_remarks]" id="{{ $viewFolder }}_o_remarks" rows=3>{{ isset($datum->printable_form['o_remarks']) ? $datum->printable_form['o_remarks'] : '' }}</textarea>
+                      <div class="form-floating mt-3">
+                        <input class="form-control" type="text" name="{{ $viewFolder }}[PrintableForm][r_nurse]" id="{{ $viewFolder }}_r_nurse" placeholder="" value="{{ isset($datum->printable_form['r_nurse']) ? $datum->printable_form['r_nurse'] : '' }}">
+                        <label for="{{ $viewFolder }}_r_nurse" class="form-label">Recovery Room Nurse</label>
+                        <small id="help_{{ $viewFolder }}_r_nurse" class="text-muted"></small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="card mb-3" id="ORTechInput" style="display:none">
+            <div class="card-header">Form Inputs</div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-floating mb-3">
+                    <input class="form-control" type="time" name="{{ $viewFolder }}[PrintableForm][time_admitted]" id="{{ $viewFolder }}_time_admitted" placeholder="" value="{{ isset($datum->printable_form['time_admitted']) ? $datum->printable_form['time_admitted'] : '' }}">
+                    <label for="{{ $viewFolder }}_time_admitted" class="form-label">Time Admittef</label>
+                    <small id="help_{{ $viewFolder }}_time_admitted" class="text-muted"></small>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-floating mb-3">
+                    <input class="form-control" type="time" name="{{ $viewFolder }}[PrintableForm][time_discharged]" id="{{ $viewFolder }}_time_discharged" placeholder="" value="{{ isset($datum->printable_form['time_discharged']) ? $datum->printable_form['time_discharged'] : '' }}">
+                    <label for="{{ $viewFolder }}_time_discharged" class="form-label">Time Admittef</label>
+                    <small id="help_{{ $viewFolder }}_time_discharged" class="text-muted"></small>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="card mb-3" id="NurseNotesInput" style="display:none">
+            <div class="card-header">Form Inputs</div>
+            <div class="card-body">
+              <table class="table table-bordered table-striped table-hover table-sm">
+                <tr>
+                  <th>Date/Time</th>
+                  <th>Details</th>
+                </tr>
+                @php
+                  $temp = json_decode($datum->printable_form['datetime_nurse_notes']);
+                  unset($datum->printable_form['datetime_nurse_notes']);
+                  $datum->printable_form['datetime_nurse_notes'] = $temp;
+                @endphp
+                <tr>
+                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][0]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ isset($datum->printable_form['datetime_nurse_notes'][0]) ? $datum->printable_form['datetime_nurse_notes'][0] : '' }}"></td>
+                  <td>> Received patient ambulatory</td>
+                </tr>
+                <tr>
+                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][1]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ isset($datum->printable_form['datetime_nurse_notes'][1]) ? $datum->printable_form['datetime_nurse_notes'][1] : '' }}"></td>
+                  <td>> Informed consent secured and signed by patient</td>
+                </tr>
+                <tr>
+                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][2]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ isset($datum->printable_form['datetime_nurse_notes'][2]) ? $datum->printable_form['datetime_nurse_notes'][2] : '' }}"></td>
+                  <td>> Vital signs taken and recorded</td>
+                </tr>
+                <tr>
+                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][3]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ isset($datum->printable_form['datetime_nurse_notes'][3]) ? $datum->printable_form['datetime_nurse_notes'][3] : '' }}"></td>
+                  <td>> Patient placed on OR bed in supine position</td>
+                </tr>
+                <tr>
+                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][4]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ isset($datum->printable_form['datetime_nurse_notes'][4]) ? $datum->printable_form['datetime_nurse_notes'][4] : '' }}"></td>
+                  <td>> Given O2 @ 2L/min via nasal cannula</td>
+                </tr>
+                <tr>
+                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][5]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ isset($datum->printable_form['datetime_nurse_notes'][5]) ? $datum->printable_form['datetime_nurse_notes'][5] : '' }}"></td>
+                  <td>> Cardiac monitor placed</td>
+                </tr>
+                <tr>
+                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][6]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ isset($datum->printable_form['datetime_nurse_notes'][6]) ? $datum->printable_form['datetime_nurse_notes'][6] : '' }}"></td>
+                  <td>> Topical anesthesia applied</td>
+                </tr>
+                <tr>
+                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][7]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ isset($datum->printable_form['datetime_nurse_notes'][7]) ? $datum->printable_form['datetime_nurse_notes'][7] : '' }}"></td>
+                  <td>> Asepsis/ antisepsis technique done</td>
+                </tr>
+                <tr>
+                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][8]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ isset($datum->printable_form['datetime_nurse_notes'][8]) ? $datum->printable_form['datetime_nurse_notes'][8] : '' }}"></td>
+                  <td>> Sterile drapes placed aseptically</td>
+                </tr>
+                <tr>
+                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][9]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ isset($datum->printable_form['datetime_nurse_notes'][9]) ? $datum->printable_form['datetime_nurse_notes'][9] : '' }}"></td>
+                  <td>> {{ $datum->assessment }}</td>
+                </tr>
+                <tr>
+                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][10]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ isset($datum->printable_form['datetime_nurse_notes'][10]) ? $datum->printable_form['datetime_nurse_notes'][10] : '' }}"></td>
+                  <td>> Surgery performed by Dr. {{ $datum->doctor->name }}</td>
+                </tr>
+                <tr>
+                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][11]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ isset($datum->printable_form['datetime_nurse_notes'][11]) ? $datum->printable_form['datetime_nurse_notes'][11] : '' }}"></td>
+                  <td>> Topical antibiotic given by doctor’s order</td>
+                </tr>
+                <tr>
+                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][12]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ isset($datum->printable_form['datetime_nurse_notes'][12]) ? $datum->printable_form['datetime_nurse_notes'][12] : '' }}"></td>
+                  <td>> Drapes removed</td>
+                </tr>
+                <tr>
+                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][13]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ isset($datum->printable_form['datetime_nurse_notes'][13]) ? $datum->printable_form['datetime_nurse_notes'][13] : '' }}"></td>
+                  <td>> Transferred to Recovery Room, vital signs monitored</td>
+                </tr>
+                <tr>
+                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][14]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ isset($datum->printable_form['datetime_nurse_notes'][14]) ? $datum->printable_form['datetime_nurse_notes'][14] : '' }}"></td>
+                  <td>> Post – operative care rendered</td>
+                </tr>
+                <tr>
+                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][15]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ isset($datum->printable_form['datetime_nurse_notes'][15]) ? $datum->printable_form['datetime_nurse_notes'][15] : '' }}"></td>
+                  <td>> Endorsed to Peri-operative nurse for post-op instructions</td>
+                </tr>
+                <tr>
+                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][16]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ isset($datum->printable_form['datetime_nurse_notes'][16]) ? $datum->printable_form['datetime_nurse_notes'][16] : '' }}"></td>
+                  <td>> Discharged patient ambulatory</td>
+                </tr>
+              </table>
             </div>
         </div>
       </div>

@@ -11,7 +11,6 @@
                         <a href="#" class="list-group-item list-group-item-action">Nurse Notes</a>
                     </div>
                 </div>
-                
             </div>
         </div>
         <div class="col-lg-8 mb-3">

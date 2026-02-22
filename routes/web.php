@@ -51,6 +51,9 @@ Route::group(['middleware' => ['auth', 'permission']], function() {
     Route::get('/clinics_home/deleteUploadedNurseFile/{id?}', [ClinicsHomeController::class, 'deleteUploadedNurseFile'])->name('clinics_home.deleteUploadedNurseFile');
     Route::get('clinics_home/{clinics_home}/pdfHD', [ClinicsHomeController::class, 'pdfHD'])->name('clinics_home.pdfHD');
     Route::get('clinics_home/{clinics_home}/pdfHDSum', [ClinicsHomeController::class, 'pdfHDSum'])->name('clinics_home.pdfHDSum');
+    Route::get('clinics_home/{clinics_home}/pdfOpAdmit', [ClinicsHomeController::class, 'pdfOpAdmit'])->name('clinics_home.pdfOpAdmit');
+    Route::get('clinics_home/{clinics_home}/pdfORTech', [ClinicsHomeController::class, 'pdfORTech'])->name('clinics_home.pdfORTech');
+    Route::get('clinics_home/{clinics_home}/pdfNurseNotes', [ClinicsHomeController::class, 'pdfNurseNotes'])->name('clinics_home.pdfNurseNotes');
     Route::get('clinics_home/{clinics_home}/sendDrainwiz', [ClinicsHomeController::class, 'sendDrainwiz'])->name('clinics_home.sendDrainwiz');
     Route::post('/clinics_home/book', [ClinicsHomeController::class, 'book'])->name('clinics_home.book');
     Route::patch('/clinics_home/{clinics_home}/updateMyAccount', [ClinicsHomeController::class, 'updateMyAccount'])->name('clinics_home.updateMyAccount');
@@ -73,6 +76,9 @@ Route::group(['middleware' => ['auth', 'permission']], function() {
     Route::get('doctors_home/{doctors_home}/pdfPrescription', [DoctorsHomeController::class, 'pdfPrescription'])->name('doctors_home.pdfPrescription');
     Route::get('doctors_home/{doctors_home}/pdfMedCert', [DoctorsHomeController::class, 'pdfMedCert'])->name('doctors_home.pdfMedCert');
     Route::get('doctors_home/{doctors_home}/pdfAdmitting', [DoctorsHomeController::class, 'pdfAdmitting'])->name('doctors_home.pdfAdmitting');
+    Route::get('doctors_home/{doctors_home}/pdfORTech', [DoctorsHomeController::class, 'pdfORTech'])->name('doctors_home.pdfORTech');
+    Route::get('doctors_home/{doctors_home}/pdfPostOp', [DoctorsHomeController::class, 'pdfPostOp'])->name('doctors_home.pdfPostOp');
+    Route::get('doctors_home/{doctors_home}/pdfOpAdmit', [DoctorsHomeController::class, 'pdfOpAdmit'])->name('doctors_home.pdfOpAdmit');
     Route::get('/doctors_home/{yr?}/{mon?}/{dayNum?}/{specialty?}', [DoctorsHomeController::class, 'index'])->name('doctors_home.index');
     Route::resource('roles', RolesController::class);
     Route::resource('users', UsersController::class);
