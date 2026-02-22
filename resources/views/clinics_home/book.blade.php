@@ -425,7 +425,7 @@
                         });
                     ">Data Privacy Consent</a>
                     @if($datum->booking_type == 'Surgery' || $datum->booking_type == 'Laser' || $datum->booking_type == 'Diagnostics')
-                    <a href="#" class="list-group-item list-group-item-action" id="dischargeSummaryLink" onclick="
+                    {{-- <a href="#" class="list-group-item list-group-item-action" id="dischargeSummaryLink" onclick="
                         $(this).addClass('active');
                         $('#generalConsentLink').removeClass('active');
                         $('#dataPrivacyConsentLink').removeClass('active');
@@ -456,7 +456,7 @@
                               });
                           }
                         });
-                    ">Discharge Summary</a>
+                    ">Discharge Summary</a> --}}
                     @endif
                     <a href="#" class="list-group-item list-group-item-action" id="nurseNotesLink" onclick="
                         $(this).addClass('active');
@@ -856,7 +856,6 @@
                     unset($datum->printable_form['datetime_nurse_notes']);
                     $datum->printable_form['datetime_nurse_notes'] = $temp;
                   }
-                  
                 @endphp
                 <tr>
                   <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][0]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ isset($datum->printable_form['datetime_nurse_notes'][0]) ? $datum->printable_form['datetime_nurse_notes'][0] : '' }}"></td>
