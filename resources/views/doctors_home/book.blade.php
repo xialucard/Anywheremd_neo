@@ -8098,7 +8098,7 @@
                   </div>
                   <div class="card-footer">
                     @if(isset($referal_conso) && $referal_conso->id == $cr->id)
-                    <button id="createPDFButPostOp{{ $cr->id }}" type="button" class="createPDFButPostOp btn btn-{{ $bgColor }} btn-sm" {{ ($cr->printable_form['after_proc'] != '' || $cr->printable_form['things_watch_out'] != '' || $cr->printable_form['things_avoid'] != '' || $cr->printable_form['wound_care'] != '' || $cr->printable_form['medication'] != '') ? 'disabled' : '' }} onclick="
+                    <button id="createPDFButPostOp{{ $cr->id }}" type="button" class="createPDFButPostOp btn btn-{{ $bgColor }} btn-sm" {{ isset($cr->printable_form['after_proc']) && ($cr->printable_form['after_proc'] != '' || $cr->printable_form['things_watch_out'] != '' || $cr->printable_form['things_avoid'] != '' || $cr->printable_form['wound_care'] != '' || $cr->printable_form['medication'] != '') ? 'disabled' : '' }} onclick="
                       $('#doctors_home_submit_type').val('Pause');
                       $.ajax({
                         type: 'POST',
