@@ -764,7 +764,7 @@
                       </div>
                       <div class="input-group mb-3">
                         <div class="form-floating">
-                          <input class="form-control" type="number" name="{{ $viewFolder }}[PrintableForm][i_o2]" min=1 id="{{ $viewFolder }}_i_o2" value="{{ isset($referal_conso->printable_form['i_o2']) ? $referal_conso->printable_form['i_o2'] : (!isset($referal_conso) && isset$datum->printable_form['i_o2']) ? $datum->printable_form['i_o2'] : '') }}" placeholder="">
+                          <input class="form-control" type="number" name="{{ $viewFolder }}[PrintableForm][i_o2]" min=1 id="{{ $viewFolder }}_i_o2" value="{{ isset($referal_conso->printable_form['i_o2']) ? $referal_conso->printable_form['i_o2'] : (!isset($referal_conso) && isset($datum->printable_form['i_o2']) ? $datum->printable_form['i_o2'] : '') }}" placeholder="">
                           <label for="{{ $viewFolder }}_i_o2" class="form-label">O2 Sat</label>
                           <small id="help_{{ $viewFolder }}_i_o2" class="text-muted"></small>
                         </div>
