@@ -1,6 +1,6 @@
 @php
     unset($referal_conso);
-    $referal_conso = array();
+    // $referal_conso = array();
     if(isset($datum->clinic->id))
         $clinicDat = $datum->clinic->id;
     if(isset($datum->doctor->id))
@@ -80,24 +80,24 @@
             <td>Sex<br>{{ $datum->patient->gender }}<</td>
         </tr>
         <tr>
-            <td>Attending Physician <br>Dr. {{ $datum->doctor->name }}</td>
-            <td>Diagnosis<br>{{ $datum->assessment }}</td>
-            <td>Procedure<br>{{ $datum->procedure_details }} {{ $datum->procedure_plan }}</td>
+            <td>Attending Physician <br>Dr. {{ isset($referal_conso->doctor->name) ? $referal_conso->doctor->name : (!isset($referal_conso) ? $datum->doctor->name : '') }}</td>
+            <td>Diagnosis<br>{{ isset($referal_conso->assessment) ? $referal_conso->assessment : (!isset($referal_conso) ? $datum->assessment : '') }}</td>
+            <td>Procedure<br>{{ isset($referal_conso->procedure_details) ? $referal_conso->procedure_details : (!isset($referal_conso) ? $datum->procedure_details : '') }}</td>
         </tr>
         <tr>
-            <td colspan="3">Things to expect after the procedure:<br>{!! nl2br(isset($datum->printable_form['after_proc']) ? $datum->printable_form['after_proc'] : '') !!}</td>
+            <td colspan="3">Things to expect after the procedure:<br>{!! nl2br(isset($referal_conso->printable_form['after_proc']) ? $referal_conso->printable_form['after_proc'] : (!isset($referal_conso) ? $datum->printable_form['after_proc'] : '')) !!}</td>
         </tr>
         <tr>
-            <td colspan="3">Things to watch out for:<br>{!! nl2br(isset($datum->printable_form['things_watch_out']) ? $datum->printable_form['things_watch_out'] : '') !!}</td>
+            <td colspan="3">Things to watch out for:<br>{!! nl2br(isset($referal_conso->printable_form['things_watch_out']) ? $referal_conso->printable_form['things_watch_out'] : (!isset($referal_conso) ? $datum->printable_form['things_watch_out'] : '')) !!}</td>
         </tr>
         <tr>
-            <td colspan="3">Things to avoid:<br>{!! nl2br(isset($datum->printable_form['things_avoid']) ? $datum->printable_form['things_avoid'] : '') !!}</td>
+            <td colspan="3">Things to avoid:<br>{!! nl2br(isset($referal_conso->printable_form['things_avoid']) ? $referal_conso->printable_form['things_avoid'] : (!isset($referal_conso) ? $datum->printable_form['things_avoid'] : '')) !!}</td>
         </tr>
         <tr>
-            <td colspan="3">Wound care:<br>{!! nl2br(isset($datum->printable_form['wound_care']) ? $datum->printable_form['wound_care'] : '') !!}</td>
+            <td colspan="3">Wound care:<br>{!! nl2br(isset($referal_conso->printable_form['wound_care']) ? $referal_conso->printable_form['wound_care'] : (!isset($referal_conso) ? $datum->printable_form['wound_care'] : '')) !!}</td>
         </tr>
         <tr>
-            <td colspan="3">Medications:<br>{!! nl2br(isset($datum->printable_form['medication']) ? $datum->printable_form['medication'] : '') !!}</td>
+            <td colspan="3">Medications:<br>{!! nl2br(isset($referal_conso->printable_form['medication']) ? $referal_conso->printable_form['medication'] : (!isset($referal_conso) ? $datum->printable_form['medication'] : '')) !!}</td>
         </tr>
         <tr>
             <td colspan="3">Follow up schedule:<br><br><br></td>
@@ -120,10 +120,10 @@
         </tr>
         <tr>
             <td>
-                @if($datum->doctor->sig_pic != '')
-                <img src="{{ public_path('storage/' . $datum->doctor->sig_pic) }}" style="width:1in"><br>
+                @if($datum->doctor->sig_pic != '' || $referal_conso->doctor->sig_pic)
+                <img src="{{ public_path('storage/' . (isset($referal_conso->doctor->sig_pic) ? $referal_conso->doctor->sig_pic : (!isset($referal_conso) ? $datum->doctor->sig_pic : ''))) }}" style="width:1in"><br>
                 @endif
-                Dr. {{ $datum->doctor->name }} {{ date('Y-m-d') }}
+                Dr. {{ isset($referal_conso->doctor->name) ? $referal_conso->doctor->name : (!isset($referal_conso) ? $datum->doctor->name : '') }} {{ date('Y-m-d') }}
                 <p><strong>Attending Physician/ Surgeon</strong></p>
                 <p>Printed Name and Signature / Date</p>
             </td>

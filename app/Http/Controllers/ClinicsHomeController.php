@@ -774,11 +774,12 @@ class ClinicsHomeController extends Controller
             $jsonTemp = json_encode($printableForm['datetime_nurse_notes']);
             $printableForm['datetime_nurse_notes'] = $jsonTemp;
             $printableForm['updated_by'] = $user->id;
-            if($printableForm['id'] == ''){
+            $tempPF = PrintableForm::where('consultation_id', $printableForm['consultation_id'])->get();
+            if(!isset($tempPF[0]->id)){
                 $printableForm['created_by'] = $user->id;
                 PrintableForm::create($printableForm);
             }else
-                PrintableForm::where('id', $printableForm['id'])->update($printableForm);
+                PrintableForm::where('consultation_id', $printableForm['consultation_id'])->update($printableForm);
         }
 
         if(isset($params['referal'])){

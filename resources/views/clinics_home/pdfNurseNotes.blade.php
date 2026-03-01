@@ -1,6 +1,6 @@
 @php
     unset($referal_conso);
-    $referal_conso = array();
+    // $referal_conso = array();
     if(isset($datum->clinic->id))
         $clinicDat = $datum->clinic->id;
     if(isset($datum->doctor->id))
@@ -85,26 +85,26 @@
         </tr>
         <tr>
             <th align="left">SURGEON:</th>
-            <td>Dr. {{ $datum->doctor->name }}</td>
+            <td>Dr. {{ isset($referal_conso->doctor->name) ? $referal_conso->doctor->name : (!isset($referal_conso) ? $datum->doctor->name : '') }}</td>
         </tr>
         <tr>
             <th align="left">DIAGNOSIS:</th>
-            <td>{{ $datum->assessment }}</td>
+            <td>{{ isset($referal_conso->assessment) ? $referal_conso->assessment : (!isset($referal_conso) ? $datum->assessment : '') }}</td>
         </tr>
         <tr>
             <th align="left">PROCEDURE:</th>
-            <td>{{ $datum->procedure_details }} {{ $datum->procedure_plan }}</td>
+            <td>{{ isset($referal_conso->procedure_details) ? $referal_conso->procedure_details : (!isset($referal_conso) ? $datum->procedure_details : '') }}</td>
         </tr>
         <tr>
             <th align="left">ANESTHESIOLOGIST:</th>
-            <td>{{ $datum->anesthesiologist_ao }}</td>
+            <td>{{ isset($referal_conso->anesthesiologist_ao) ? $referal_conso->anesthesiologist_ao : (!isset($referal_conso) ? $datum->anesthesiologist_ao : '') }}</td>
         </tr>
     </table>
     <br>
     @php
-        $temp = json_decode($datum->printable_form['datetime_nurse_notes']);
-        unset($datum->printable_form['datetime_nurse_notes']);
-        $datum->printable_form['datetime_nurse_notes'] = $temp;
+        $temp = json_decode(isset($referal_conso->printable_form['datetime_nurse_notes']) ? $referal_conso->printable_form['datetime_nurse_notes'] : (!isset($referal_conso) ? $datum->printable_form['datetime_nurse_notes'] : ''));
+        // unset($datum->printable_form['datetime_nurse_notes']);
+        // $datum->printable_form['datetime_nurse_notes'] = $temp;
     @endphp
     <table border="1" cellspacing="0" cellpadding="5" width="100%">
         <tr>
@@ -112,71 +112,71 @@
             <th>Details</th>
         </tr>
         <tr>
-            <td>{{ isset($datum->printable_form['datetime_nurse_notes'][0]) ? date('Y-m-d H:i:s', strtotime($datum->printable_form['datetime_nurse_notes'][0])) : '' }}</td>
+            <td>{{ isset($temp[0]) ? date('Y-m-d H:i:s', strtotime($temp[0])) : '' }}</td>
             <td>> Received patient ambulatory</td>
         </tr>
         <tr>
-            <td>{{ isset($datum->printable_form['datetime_nurse_notes'][1]) ? date('Y-m-d H:i:s', strtotime($datum->printable_form['datetime_nurse_notes'][1])) : '' }}</td>
+            <td>{{ isset($temp[1]) ? date('Y-m-d H:i:s', strtotime($temp[1])) : '' }}</td>
             <td>> Informed consent secured and signed by patient</td>
         </tr>
         <tr>
-            <td>{{ isset($datum->printable_form['datetime_nurse_notes'][2]) ? date('Y-m-d H:i:s', strtotime($datum->printable_form['datetime_nurse_notes'][2])) : '' }}</td>
+            <td>{{ isset($temp[2]) ? date('Y-m-d H:i:s', strtotime($temp[2])) : '' }}</td>
             <td>> Vital signs taken and recorded</td>
         </tr>
         <tr>
-            <td>{{ isset($datum->printable_form['datetime_nurse_notes'][3]) ? date('Y-m-d H:i:s', strtotime($datum->printable_form['datetime_nurse_notes'][3])) : '' }}</td>
+            <td>{{ isset($temp[3]) ? date('Y-m-d H:i:s', strtotime($temp[3])) : '' }}</td>
             <td>> Patient placed on OR bed in supine position</td>
         </tr>
         <tr>
-            <td>{{ isset($datum->printable_form['datetime_nurse_notes'][4]) ? date('Y-m-d H:i:s', strtotime($datum->printable_form['datetime_nurse_notes'][4])) : '' }}</td>
+            <td>{{ isset($temp[4]) ? date('Y-m-d H:i:s', strtotime($temp[4])) : '' }}</td>
             <td>> Given O2 @ 2L/min via nasal cannula</td>
         </tr>
         <tr>
-            <td>{{ isset($datum->printable_form['datetime_nurse_notes'][5]) ? date('Y-m-d H:i:s', strtotime($datum->printable_form['datetime_nurse_notes'][5])) : '' }}</td>
+            <td>{{ isset($temp[5]) ? date('Y-m-d H:i:s', strtotime($temp[5])) : '' }}</td>
             <td>> Cardiac monitor placed</td>
         </tr>
         <tr>
-            <td>{{ isset($datum->printable_form['datetime_nurse_notes'][6]) ? date('Y-m-d H:i:s', strtotime($datum->printable_form['datetime_nurse_notes'][6])) : '' }}</td>
+            <td>{{ isset($temp[6]) ? date('Y-m-d H:i:s', strtotime($temp[6])) : '' }}</td>
             <td>> Topical anesthesia applied</td>
         </tr>
         <tr>
-            <td>{{ isset($datum->printable_form['datetime_nurse_notes'][7]) ? date('Y-m-d H:i:s', strtotime($datum->printable_form['datetime_nurse_notes'][7])) : '' }}</td>
+            <td>{{ isset($temp[7]) ? date('Y-m-d H:i:s', strtotime($temp[7])) : '' }}</td>
             <td>> Asepsis/ antisepsis technique done</td>
         </tr>
         <tr>
-            <td>{{ isset($datum->printable_form['datetime_nurse_notes'][8]) ? date('Y-m-d H:i:s', strtotime($datum->printable_form['datetime_nurse_notes'][8])) : '' }}</td>
+            <td>{{ isset($temp[8]) ? date('Y-m-d H:i:s', strtotime($temp[8])) : '' }}</td>
             <td>> Sterile drapes placed aseptically</td>
         </tr>
         <tr>
-            <td>{{ isset($datum->printable_form['datetime_nurse_notes'][9]) ? date('Y-m-d H:i:s', strtotime($datum->printable_form['datetime_nurse_notes'][9])) : '' }}</td>
+            <td>{{ isset($temp[9]) ? date('Y-m-d H:i:s', strtotime($temp[9])) : '' }}</td>
             <td>> (PROCEDURE)</td>
         </tr>
         <tr>
-            <td>{{ isset($datum->printable_form['datetime_nurse_notes'][10]) ? date('Y-m-d H:i:s', strtotime($datum->printable_form['datetime_nurse_notes'][10])) : '' }}</td>
+            <td>{{ isset($temp[10]) ? date('Y-m-d H:i:s', strtotime($temp[10])) : '' }}</td>
             <td>> Surgery performed by Dr. {{ $datum->patient->name }}</td>
         </tr>
         <tr>
-            <td>{{ isset($datum->printable_form['datetime_nurse_notes'][11]) ? date('Y-m-d H:i:s', strtotime($datum->printable_form['datetime_nurse_notes'][11])) : '' }}</td>
+            <td>{{ isset($temp[11]) ? date('Y-m-d H:i:s', strtotime($temp[11])) : '' }}</td>
             <td>> Topical antibiotic given by doctor’s order</td>
         </tr>
         <tr>
-            <td>{{ isset($datum->printable_form['datetime_nurse_notes'][12]) ? date('Y-m-d H:i:s', strtotime($datum->printable_form['datetime_nurse_notes'][12])) : '' }}</td>
+            <td>{{ isset($temp[12]) ? date('Y-m-d H:i:s', strtotime($temp[12])) : '' }}</td>
             <td>> Drapes removed</td>
         </tr>
         <tr>
-            <td>{{ isset($datum->printable_form['datetime_nurse_notes'][13]) ? date('Y-m-d H:i:s', strtotime($datum->printable_form['datetime_nurse_notes'][13])) : '' }}</td>
+            <td>{{ isset($temp[13]) ? date('Y-m-d H:i:s', strtotime($temp[13])) : '' }}</td>
             <td>> Transferred to Recovery Room, vital signs monitored</td>
         </tr>
         <tr>
-            <td>{{ isset($datum->printable_form['datetime_nurse_notes'][14]) ? date('Y-m-d H:i:s', strtotime($datum->printable_form['datetime_nurse_notes'][14])) : '' }}</td>
+            <td>{{ isset($temp[14]) ? date('Y-m-d H:i:s', strtotime($temp[14])) : '' }}</td>
             <td>> Post – operative care rendered</td>
         </tr>
         <tr>
-            <td>{{ isset($datum->printable_form['datetime_nurse_notes'][15]) ? date('Y-m-d H:i:s', strtotime($datum->printable_form['datetime_nurse_notes'][15])) : '' }}</td>
+            <td>{{ isset($temp[15]) ? date('Y-m-d H:i:s', strtotime($temp[15])) : '' }}</td>
             <td>> Endorsed to Peri-operative nurse for post-op instructions</td>
         </tr>
         <tr>
-            <td>{{ isset($datum->printable_form['datetime_nurse_notes'][16]) ? date('Y-m-d H:i:s', strtotime($datum->printable_form['datetime_nurse_notes'][16])) : '' }}</td>
+            <td>{{ isset($temp[16]) ? date('Y-m-d H:i:s', strtotime($temp[16])) : '' }}</td>
             <td>> Discharged patient ambulatory</td>
         </tr>
     </table>

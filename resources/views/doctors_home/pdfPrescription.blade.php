@@ -1,3 +1,17 @@
+@php
+    unset($referal_conso);
+    // $referal_conso = array();
+    if(isset($datum->clinic->id))
+        $clinicDat = $datum->clinic->id;
+    if(isset($datum->doctor->id))
+        $doctorDat = $datum->doctor->id;
+    $key = false;
+    if(isset($datum->parent_consultation)){
+        $referal_conso = $datum;
+        $datum = $datum->parent_consultation;
+        $key = true;
+    }
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,22 +72,22 @@
 
 </head>
 <body>
-    <h3 class="text-center m-0 mb-1">{{ $datum->doctor->name }} M.D.</h3>
-    <p class="text-center m-0 mb-1 p-0">{{ $datum->doctor->sub_header_1 }}</p>
-    <p class="text-center m-0 mb-3 p-0">{{ $datum->doctor->sub_header_2 }}</p>
+    <h3 class="text-center m-0 mb-1">{{ isset($referal_conso->doctor->name) ? $referal_conso->doctor->name : (!isset($referal_conso) ? $datum->doctor->name : '') }} M.D.</h3>
+    <p class="text-center m-0 mb-1 p-0">{{ isset($referal_conso->doctor->sub_header_1) ? $referal_conso->doctor->sub_header_1 : (!isset($referal_conso) ? $datum->doctor->sub_header_1 : '') }}</p>
+    <p class="text-center m-0 mb-3 p-0">{{ isset($referal_conso->doctor->sub_header_2) ? $referal_conso->doctor->sub_header_2 : (!isset($referal_conso) ? $datum->doctor->sub_header_2 : '') }}</p>
     <p><strong>Name:</strong> {{ $datum->patient->name }}</p>
     <p><strong>Age:</strong> {{ floor((strtotime($datum->bookingDate) - strtotime($datum->patient->birthdate))/(60*60*24*365.25)) }}</p>
     <img src="{{ public_path('img/rx.jpg') }}" style="width:2in">
     @php
-        $datum->prescription = nl2br($datum->prescription);
+        // $datum->prescription = nl2br($datum->prescription);
     @endphp
-    <p>{!!html_entity_decode($datum->prescription)!!}</p>
+    <p>{!!html_entity_decode(nl2br(isset($referal_conso->prescription) ? $referal_conso->prescription : (!isset($referal_conso) ? $datum->prescription : '')))!!}</p>
     <div class="position-absolute top-100 start-100 text-end mt-5">
         {{-- <img src="{{ public_path('storage/' . $datum->doctor->sig_pic)  }}" style="width:1.5in"><br> --}}
         {{ str_pad("", strlen($datum->doctor->name), "_", STR_PAD_LEFT) }}<br>
-        Dr. {{ $datum->doctor->name }}<br>
-        PRC#: {{ $datum->doctor->prc_number }}<br>
-        PTR#: {{ $datum->doctor->prc_number }}
+        Dr. {{ isset($referal_conso->doctor->name) ? $referal_conso->doctor->name : (!isset($referal_conso) ? $datum->doctor->name : '') }}<br>
+        PRC#: {{ isset($referal_conso->doctor->prc_number) ? $referal_conso->doctor->prc_number : (!isset($referal_conso) ? $datum->doctor->prc_number : '') }}<br>
+        PTR#: {{ isset($referal_conso->doctor->prc_number) ? $referal_conso->doctor->prc_number : (!isset($referal_conso) ? $datum->doctor->prc_number : '') }}
     </div>
     
 

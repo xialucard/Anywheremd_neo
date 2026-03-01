@@ -433,16 +433,30 @@ class DoctorsHomeController extends Controller
         unset($params);
         $params = $request->input($this->viewFolder);
         // dd($params);
+        if(isset($params['anesthesia_type_ot'])){
+            $params['anesthesia_type_ao'] = $params['anesthesia_type_ot'];
+            unset($params['anesthesia_type_ot']);
+        }
+        if(isset($params['anesthesiologist_ot'])){
+            $params['anesthesiologist_ao'] = $params['anesthesiologist_ot'];
+            unset($params['anesthesiologist_ao']);
+        }
         
         if(isset($params['PrintableForm'])){
             $printableForm = $params['PrintableForm'];
             unset($params['PrintableForm']);
             $printableForm['updated_by'] = $user->id;
-            if($printableForm['id'] == ''){
+            if(!isset($printableForm['complication_specify']))
+                $printableForm['complication_specify'] = '';
+            if(!isset($printableForm['diet_remarks']))
+                $printableForm['diet_remarks'] = '';
+
+            $tempPF = PrintableForm::where('consultation_id', $printableForm['consultation_id'])->get();
+            if(!isset($tempPF[0]->id)){
                 $printableForm['created_by'] = $user->id;
                 PrintableForm::create($printableForm);
             }else
-                PrintableForm::where('id', $printableForm['id'])->update($printableForm);
+                PrintableForm::where('consultation_id', $printableForm['consultation_id'])->update($printableForm);
         }
 
         if(isset($params['Med'])){
@@ -764,6 +778,8 @@ class DoctorsHomeController extends Controller
         $prevBookingArr['consultation']['iframePrevAdmittingSrc'] = file_exists(public_path('storage/admitting_order_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf')) ? asset('storage/admitting_order_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf') : (file_exists(public_path('storage/uploads/admitting_order_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf')) ? asset('storage//uploads/admitting_order_files/' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg');
         $prevBookingArr['consultation']['iframePrevORTechSrc'] = file_exists(public_path('storage/printable_forms_files/pdfORTech_' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf')) ? asset('storage/printable_forms_files/pdfORTech_' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf') : (file_exists(public_path('storage/uploads/printable_forms_files/pdfORTech_' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf')) ? asset('storage//uploads/printable_forms_files/pdfORTech_' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg');
         $prevBookingArr['consultation']['iframePrevPostOpSrc'] = file_exists(public_path('storage/printable_forms_files/pdfPostOp_' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf')) ? asset('storage/printable_forms_files/pdfPostOp_' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf') : (file_exists(public_path('storage/uploads/printable_forms_files/pdfPostOp_' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf')) ? asset('storage//uploads/printable_forms_files/pdfPostOp_' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg');
+        $prevBookingArr['consultation']['iframePrevOpAdmitSrc'] = file_exists(public_path('storage/printable_forms_files/pdfOpAdmit_' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf')) ? asset('storage/printable_forms_files/pdfOpAdmit_' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf') : (file_exists(public_path('storage/uploads/printable_forms_files/pdfOpAdmit_' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf')) ? asset('storage//uploads/printable_forms_files/pdfDischargeSum_' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg');
+        $prevBookingArr['consultation']['iframePrevDischargeSumSrc'] = file_exists(public_path('storage/printable_forms_files/pdfDischargeSum_' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf')) ? asset('storage/printable_forms_files/pdfDischargeSum_' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf') : (file_exists(public_path('storage/uploads/printable_forms_files/pdfDischargeSum_' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf')) ? asset('storage//uploads/printable_forms_files/pdfDischargeSum_' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg');
         $prevBookingArr['patient'] = $doctors_home->patient;
 
         if(isset($doctors_home->parent_consultation)){
@@ -924,7 +940,6 @@ class DoctorsHomeController extends Controller
     }
 
     function pdfPostOp(Consultation $doctors_home){
-        // dd($doctors_home);
         $pdf = Pdf::setOptions(['defaultFont' => 'sans-serif', 'chroot' => public_path('storage/' . $doctors_home->doctor->sig_pic)])->loadView($this->viewFolder . '.pdfPostOp', ['datum' => $doctors_home]);
         
         Storage::put('public/printable_forms_files/pdfPostOp_' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf', $pdf->output());
@@ -939,6 +954,17 @@ class DoctorsHomeController extends Controller
         
         Storage::put('public/printable_forms_files/pdfOpAdmit_' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf', $pdf->output());
         $src = asset('storage/printable_forms_files/pdfOpAdmit_' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf');
+        return $src;
+        // return redirect()->route($this->viewFolder . '.index')->with('message', 'Admitting Order PDF is created.');
+    }
+
+    function pdfDischargeSum(Consultation $doctors_home){
+        $user = Auth::user();
+        // dd($doctors_home);
+        $pdf = Pdf::setOptions(['defaultFont' => 'sans-serif', 'chroot' => public_path('storage/' . $doctors_home->doctor->sig_pic)])->loadView($this->viewFolder . '.pdfDischargeSum', ['datum' => $doctors_home, 'user' => $user]);
+        
+        Storage::put('public/printable_forms_files/pdfDischargeSum_' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf', $pdf->output());
+        $src = asset('storage/printable_forms_files/pdfDischargeSum_' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf');
         return $src;
         // return redirect()->route($this->viewFolder . '.index')->with('message', 'Admitting Order PDF is created.');
     }

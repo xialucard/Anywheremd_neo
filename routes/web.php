@@ -79,6 +79,7 @@ Route::group(['middleware' => ['auth', 'permission']], function() {
     Route::get('doctors_home/{doctors_home}/pdfORTech', [DoctorsHomeController::class, 'pdfORTech'])->name('doctors_home.pdfORTech');
     Route::get('doctors_home/{doctors_home}/pdfPostOp', [DoctorsHomeController::class, 'pdfPostOp'])->name('doctors_home.pdfPostOp');
     Route::get('doctors_home/{doctors_home}/pdfOpAdmit', [DoctorsHomeController::class, 'pdfOpAdmit'])->name('doctors_home.pdfOpAdmit');
+    Route::get('doctors_home/{doctors_home}/pdfDischargeSum', [DoctorsHomeController::class, 'pdfDischargeSum'])->name('doctors_home.pdfDischargeSum');
     Route::get('/doctors_home/{yr?}/{mon?}/{dayNum?}/{specialty?}', [DoctorsHomeController::class, 'index'])->name('doctors_home.index');
     Route::resource('roles', RolesController::class);
     Route::resource('users', UsersController::class);

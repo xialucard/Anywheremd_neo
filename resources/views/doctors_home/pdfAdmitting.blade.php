@@ -1,6 +1,6 @@
 @php
     unset($referal_conso);
-    $referal_conso = array();
+    // $referal_conso = array();
     if(isset($datum->clinic->id))
         $clinicDat = $datum->clinic->id;
     if(isset($datum->doctor->id))
@@ -73,25 +73,25 @@
     <p>
         Name of patient: {{ $datum->patient->name }}<br>
         Age/Sex: {{ floor((strtotime($datum->bookingDate) - strtotime($datum->patient->birthdate))/(60*60*24*365.25)) }}/{{ $datum->patient->gender }}<br>
-        Contemplated date of procedure: {{ date('F d, Y', strtotime(isset($referal_conso->con_date_ao) ? $referal_conso->con_date_ao : $datum->con_date_ao)) }}<br>
-        Procedure: {!!html_entity_decode(isset($referal_conso->procedure_ao) ? $referal_conso->procedure_ao : $datum->procedure_ao)!!}<br>
-        Attending MD: {{ isset($referal_conso->doctor->name) ? $referal_conso->doctor->name : $datum->doctor->name }} M.D.<br>
-        Type of Anesthesia: {{ isset($referal_conso->anesthesia_type_ao) ? $referal_conso->anesthesia_type_ao : $datum->anesthesia_type_ao }}<br>
-        Anesthesiologist: {{ isset($referal_conso->anesthesiologist_ao) ? $referal_conso->anesthesiologist_ao : $datum->anesthesiologist_ao }} M.D.
+        Contemplated date of procedure: {{ date('F d, Y', strtotime(isset($referal_conso->con_date_ao) ? $referal_conso->con_date_ao : (!isset($referal_conso) ? $datum->con_date_ao : ''))) }}<br>
+        Procedure: {!!html_entity_decode(isset($referal_conso->procedure_ao) ? $referal_conso->procedure_ao : (!isset($referal_conso) ? $datum->procedure_ao : ''))!!}<br>
+        Attending MD: {{ isset($referal_conso->doctor->name) ? $referal_conso->doctor->name : (!isset($referal_conso) ? $datum->doctor->name : '') }} M.D.<br>
+        Type of Anesthesia: {{ isset($referal_conso->anesthesia_type_ao) ? $referal_conso->anesthesia_type_ao : (!isset($referal_conso) ? $datum->anesthesia_type_ao : '') }}<br>
+        Anesthesiologist: {{ isset($referal_conso->anesthesiologist_ao) ? $referal_conso->anesthesiologist_ao : (!isset($referal_conso) ? $datum->anesthesiologist_ao : '') }} M.D.
     </p>
     <h1 class='text-center'>Admitting Order</h1>
     <br>
-    <p>{!!html_entity_decode(isset($referal_conso->admittingOrder) ? $referal_conso->admittingOrder : $datum->admittingOrder)!!}</p>
+    <p>{!!html_entity_decode(isset($referal_conso->admittingOrder) ? $referal_conso->admittingOrder : (!isset($referal_conso) ? $datum->admittingOrder : ''))!!}</p>
     <br>
     <br>
     <br>
     <div class="position-absolute top-100 start-100 text-end mt-5">
-        @if((isset($referal_conso->doctor->sig_pic) ? $referal_conso->doctor->sig_pic : $datum->doctor->sig_pic) != "")
-        <img src="{{ public_path('storage/' . (isset($referal_conso->doctor->sig_pic) ? $referal_conso->doctor->sig_pic : $datum->doctor->sig_pic)) }}" style="width:1in"><br>
+        @if((isset($referal_conso->doctor->sig_pic) ? $referal_conso->doctor->sig_pic : (!isset($referal_conso) ? $datum->doctor->sig_pic : '')) != "")
+        <img src="{{ public_path('storage/' . (isset($referal_conso->doctor->sig_pic) ? $referal_conso->doctor->sig_pic : (!isset($referal_conso) ? $datum->doctor->sig_pic : ''))) }}" style="width:1in"><br>
         @endif
-        {{ str_pad("", strlen(isset($referal_conso->doctor->sig_pic) ? $referal_conso->doctor->name : $datum->doctor->name), "_", STR_PAD_LEFT) }}<br>
-        Dr. {{ isset($referal_conso->doctor->name) ? $referal_conso->doctor->name : $datum->doctor->name }}<br>
-        PRC#: {{ isset($referal_conso->doctor->prc_number) ? $referal_conso->doctor->prc_number : $datum->doctor->prc_number }}
+        {{ str_pad("", strlen(isset($referal_conso->doctor->sig_pic) ? $referal_conso->doctor->name : (!isset($referal_conso) ? $datum->doctor->name : '')), "_", STR_PAD_LEFT) }}<br>
+        Dr. {{ isset($referal_conso->doctor->name) ? $referal_conso->doctor->name : (!isset($referal_conso) ? $datum->doctor->name : '') }}<br>
+        PRC#: {{ isset($referal_conso->doctor->prc_number) ? $referal_conso->doctor->prc_number : (!isset($referal_conso) ? $datum->doctor->prc_number : '') }}
     </div>
 </body>
 

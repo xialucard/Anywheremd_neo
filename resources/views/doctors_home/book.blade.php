@@ -82,6 +82,7 @@
             $('#admitPeriBigLink').removeClass('active');
             $('#orTechBigLink').removeClass('active');
             $('#postOpBigLink').removeClass('active');
+            $('#dischargeSumBigLink').removeClass('active');
 
             $('#sumPrevLink').addClass('active');  
             $('#soapPrevLink').removeClass('active');  
@@ -95,6 +96,7 @@
             $('#admitPeriPrevLink').removeClass('active');
             $('#orTechPrevLink').removeClass('active');
             $('#postOpPrevLink').removeClass('active');
+            $('#dischargeSumPrevLink').removeClass('active');
             
             $('#sumPrevDiv').show();  
             $('#soapPrevDiv').hide();  
@@ -106,6 +108,7 @@
             $('#admitPeriPrevDiv').hide();  
             $('#orTechPrevDiv').hide();  
             $('#postOpPrevDiv').hide();
+            $('#dischargeSumPrevDiv').hide();
 
             $('#sumCurLink').addClass('active');  
             $('#soapCurLink').removeClass('active');  
@@ -118,6 +121,7 @@
             $('#admitPeriCurLink').removeClass('active');
             $('#orTechCurLink').removeClass('active');
             $('#postOpCurLink').removeClass('active');
+            $('#dischargeSumCurLink').removeClass('active');
             
             $('#sumCurDiv').show();  
             $('#soapCurDiv').hide();  
@@ -129,6 +133,7 @@
             $('#admitPeriCurDiv').hide();  
             $('#orTechCurDiv').hide();  
             $('#postOpCurDiv').hide();
+            $('#dischargeSumCurDiv').hide();
           ">Summary</a>
         </li>
         <li class="nav-item">
@@ -145,6 +150,7 @@
             $('#admitPeriBigLink').removeClass('active');
             $('#orTechBigLink').removeClass('active');
             $('#postOpBigLink').removeClass('active');
+            $('#dischargeSumBigLink').removeClass('active');
 
             $('#soapPrevLink').addClass('active');  
             $('#sumPrevLink').removeClass('active');  
@@ -158,6 +164,7 @@
             $('#admitPeriPrevLink').removeClass('active');
             $('#orTechPrevLink').removeClass('active');
             $('#postOpPrevLink').removeClass('active');
+            $('#dischargeSumPrevLink').removeClass('active');
 
             $('#soapPrevDiv').show();  
             $('#sumPrevDiv').hide();  
@@ -169,6 +176,7 @@
             $('#admitPeriPrevDiv').hide();  
             $('#orTechPrevDiv').hide();  
             $('#postOpPrevDiv').hide();
+            $('#dischargeSumPrevDiv').hide();
 
 
             $('#soapCurLink').addClass('active');  
@@ -182,6 +190,7 @@
             $('#admitPeriCurLink').removeClass('active');
             $('#orTechCurLink').removeClass('active');
             $('#postOpCurLink').removeClass('active');
+            $('#dischargeSumCurLink').removeClass('active');
             
             $('#soapCurDiv').show();  
             $('#sumCurDiv').hide();  
@@ -193,6 +202,7 @@
             $('#admitPeriCurDiv').hide();  
             $('#orTechCurDiv').hide();  
             $('#postOpCurDiv').hide();
+            $('#dischargeSumCurDiv').hide();
 
           ">SOAP</a>
         </li>
@@ -210,6 +220,7 @@
             $('#admitPeriBigLink').removeClass('active');
             $('#orTechBigLink').removeClass('active');
             $('#postOpBigLink').removeClass('active');
+            $('#dischargeSumBigLink').removeClass('active');
 
             $('#sumPrevLink').removeClass('active');
             $('#soapPrevLink').removeClass('active');
@@ -223,6 +234,7 @@
             $('#admitPeriPrevLink').removeClass('active');
             $('#orTechPrevLink').removeClass('active');
             $('#postOpPrevLink').removeClass('active');
+            $('#dischargeSumPrevLink').removeClass('active');
             
             $('#sumPrevDiv').hide();  
             $('#soapPrevDiv').hide();  
@@ -234,6 +246,7 @@
             $('#admitPeriPrevDiv').hide();  
             $('#orTechPrevDiv').hide();  
             $('#postOpPrevDiv').hide();
+            $('#dischargeSumPrevDiv').hide();
 
 
             $('#sumCurLink').removeClass('active');
@@ -247,6 +260,7 @@
             $('#admitPeriCurLink').removeClass('active');
             $('#orTechCurLink').removeClass('active');
             $('#postOpCurLink').removeClass('active');
+            $('#dischargeSumCurLink').removeClass('active');
             
             $('#sumCurDiv').hide();  
             $('#soapCurDiv').hide();  
@@ -258,6 +272,7 @@
             $('#admitPeriCurDiv').hide();  
             $('#orTechCurDiv').hide();  
             $('#postOpCurDiv').hide();
+            $('#dischargeSumCurDiv').hide();
 
           ">File Uploads</a>
         </li>
@@ -278,6 +293,7 @@
                 $('#admitPeriBigLink').removeClass('active');
                 $('#orTechBigLink').removeClass('active');
                 $('#postOpBigLink').removeClass('active');
+                $('#dischargeSumBigLink').removeClass('active');
                 
                 $('#sumPrevLink').removeClass('active');
                 $('#soapPrevLink').removeClass('active');
@@ -291,6 +307,7 @@
                 $('#admitPeriPrevLink').removeClass('active');
                 $('#orTechPrevLink').removeClass('active');
                 $('#postOpPrevLink').removeClass('active');
+                $('#dischargeSumPrevLink').removeClass('active');
 
                 $('#sumPrevDiv').hide();  
                 $('#soapPrevDiv').hide();  
@@ -302,6 +319,7 @@
                 $('#admitPeriPrevDiv').hide();  
                 $('#orTechPrevDiv').hide();  
                 $('#postOpPrevDiv').hide();
+                $('#dischargeSumPrevDiv').hide();
 
 
                 $('#sumCurLink').removeClass('active');
@@ -315,6 +333,7 @@
                 $('#admitPeriCurLink').removeClass('active');
                 $('#orTechCurLink').removeClass('active');
                 $('#postOpCurLink').removeClass('active');
+                $('#dischargeSumCurLink').removeClass('active');
 
                 $('#sumCurDiv').hide();  
                 $('#soapCurDiv').hide();  
@@ -326,11 +345,12 @@
                 $('#admitPeriCurDiv').hide();  
                 $('#orTechCurDiv').hide();  
                 $('#postOpCurDiv').hide();
+                $('#dischargeSumCurDiv').hide();
 
-                $('#{{ $viewFolder }}_anesthesia_type_ot').prop('disabled', true);
-                $('#{{ $viewFolder }}_anesthesiologist_ot').prop('disabled', true);
-                $('#{{ $viewFolder }}_anesthesia_type_ao').prop('disabled', false);
-                $('#{{ $viewFolder }}_anesthesiologist_ao').prop('disabled', false);
+                // $('#{{ $viewFolder }}_anesthesia_type_ot').prop('disabled', true);
+                // $('#{{ $viewFolder }}_anesthesiologist_ot').prop('disabled', true);
+                // $('#{{ $viewFolder }}_anesthesia_type_ao').prop('disabled', true);
+                // $('#{{ $viewFolder }}_anesthesiologist_ao').prop('disabled', true);
 
               ">Admitting Orders</a>
             </li>
@@ -348,6 +368,7 @@
                 $('#admitPeriBigLink').removeClass('active');
                 $('#orTechBigLink').removeClass('active');
                 $('#postOpBigLink').removeClass('active');
+                $('#dischargeSumBigLink').removeClass('active');
                 
                 $('#sumPrevLink').removeClass('active');
                 $('#soapPrevLink').removeClass('active');
@@ -361,6 +382,7 @@
                 $('#admitPeriPrevLink').removeClass('active');
                 $('#orTechPrevLink').removeClass('active');
                 $('#postOpPrevLink').removeClass('active');
+                $('#dischargeSumPrevLink').removeClass('active');
 
                 $('#sumPrevDiv').hide();  
                 $('#soapPrevDiv').hide();  
@@ -372,6 +394,7 @@
                 $('#admitPeriPrevDiv').hide();  
                 $('#orTechPrevDiv').hide();  
                 $('#postOpPrevDiv').hide();
+                $('#dischargeSumPrevDiv').hide();
 
 
                 $('#sumCurLink').removeClass('active');
@@ -385,6 +408,7 @@
                 $('#admitPeriCurLink').removeClass('active');
                 $('#orTechCurLink').removeClass('active');
                 $('#postOpCurLink').removeClass('active');
+                $('#dischargeSumCurLink').removeClass('active');
                 
                 $('#sumCurDiv').hide();  
                 $('#soapCurDiv').hide();  
@@ -396,6 +420,7 @@
                 $('#admitPeriCurDiv').hide();  
                 $('#orTechCurDiv').hide();  
                 $('#postOpCurDiv').hide();
+                $('#dischargeSumCurDiv').hide();
 
               ">E-Prescription</a>
             </li>
@@ -413,6 +438,7 @@
                 $('#admitPeriBigLink').removeClass('active');
                 $('#orTechBigLink').removeClass('active');
                 $('#postOpBigLink').removeClass('active');
+                $('#dischargeSumBigLink').removeClass('active');
                 
                 $('#sumPrevLink').removeClass('active');
                 $('#soapPrevLink').removeClass('active');
@@ -426,6 +452,7 @@
                 $('#admitPeriPrevLink').removeClass('active');
                 $('#orTechPrevLink').removeClass('active');
                 $('#postOpPrevLink').removeClass('active');
+                $('#dischargeSumPrevLink').removeClass('active');
 
                 $('#sumPrevDiv').hide();  
                 $('#soapPrevDiv').hide();  
@@ -437,6 +464,7 @@
                 $('#admitPeriPrevDiv').hide();  
                 $('#orTechPrevDiv').hide();  
                 $('#postOpPrevDiv').hide();
+                $('#dischargeSumPrevDiv').hide();
 
                 
                 $('#sumCurLink').removeClass('active');
@@ -450,6 +478,7 @@
                 $('#admitPeriCurLink').removeClass('active');
                 $('#orTechCurLink').removeClass('active');
                 $('#postOpCurLink').removeClass('active');
+                $('#dischargeSumCurLink').removeClass('active');
                 
                 $('#sumCurDiv').hide();  
                 $('#soapCurDiv').hide();  
@@ -461,11 +490,80 @@
                 $('#admitPeriCurDiv').hide();  
                 $('#orTechCurDiv').hide();  
                 $('#postOpCurDiv').hide();
+                $('#dischargeSumCurDiv').hide();
 
               ">Med Cert</a>
             </li>
             @if($datum->booking_type == 'Surgery' || $datum->booking_type == 'Laser' || $datum->booking_type == 'Diagnostics')
             <li><hr class="dropdown-divider"></li>
+            <li>
+              <a class="dropdown-item" id="dischargeSumBigLink" href="#" onclick="
+                $('#sumBigLink').removeClass('active');
+                $('#soapBigLink').removeClass('active');
+                $('#labBigLink').removeClass('active');  
+                $('#presBigLink').removeClass('active');  
+                $('#medBigLink').removeClass('active');
+                $('#admitBigLink').removeClass('active');
+                $('#dialysisBigLink').removeClass('active');
+                // $('#hdSummaryBigLink').removeClass('active');
+                $('#admitPeriBigLink').removeClass('active');
+                $('#printableFormsBigLink').addClass('active'); 
+                $('#orTechBigLink').removeClass('active');
+                $('#postOpBigLink').removeClass('active');
+                $('#dischargeSumBigLink').addClass('active');
+
+                $('#sumPrevLink').removeClass('active');
+                $('#soapPrevLink').removeClass('active');
+                $('#labPrevLink').removeClass('active');  
+                $('#presPrevLink').removeClass('active');  
+                $('#medPrevLink').removeClass('active');
+                $('#admitPrevLink').removeClass('active'); 
+                $('#dialysisPrevLink').removeClass('active');
+                // $('#hdSummaryPrevLink').removeClass('active');
+                $('#admitPeriPrevLink').removeClass('active');
+                $('#printableFormsPrevLink').addClass('active'); 
+                $('#orTechPrevLink').removeClass('active');
+                $('#postOpPrevLink').removeClass('active');
+                $('#dischargeSumPrevLink').addClass('active');
+
+                $('#sumPrevDiv').hide();  
+                $('#soapPrevDiv').hide();  
+                $('#labPrevDiv').hide();  
+                $('#presPrevDiv').hide();  
+                $('#medPrevDiv').hide(); 
+                $('#admitPrevDiv').hide();
+                $('#dialysisPrevDiv').hide();  
+                $('#admitPeriPrevDiv').hide();  
+                $('#orTechPrevDiv').hide();  
+                $('#postOpPrevDiv').hide(); 
+                $('#dischargeSumPrevDiv').show(); 
+
+                $('#sumCurLink').removeClass('active');
+                $('#soapCurLink').removeClass('active');
+                $('#labCurLink').removeClass('active');  
+                $('#presCurLink').removeClass('active');  
+                $('#medCurLink').removeClass('active');
+                $('#admitCurLink').removeClass('active'); 
+                $('#dialysisCurLink').removeClass('active');
+                $('#admitPeriCurLink').removeClass('active');
+                $('#printableFormsCurLink').addClass('active'); 
+                $('#orTechCurLink').removeClass('active');
+                $('#postOpCurLink').removeClass('active');
+                $('#dischargeSumCurLink').addClass('active');
+
+                $('#sumCurDiv').hide();  
+                $('#soapCurDiv').hide();  
+                $('#labCurDiv').hide();  
+                $('#presCurDiv').hide();  
+                $('#medCurDiv').hide(); 
+                $('#admitCurDiv').hide();  
+                $('#dialysisCurDiv').hide();
+                $('#admitPeriCurDiv').hide();  
+                $('#orTechCurDiv').hide();  
+                $('#postOpCurDiv').hide();
+                $('#dischargeSumCurDiv').show();
+              ">Discharge Summary</a>
+            </li>
             <li>
               <a class="dropdown-item" id="admitPeriBigLink" href="#" onclick="
                 $('#sumBigLink').removeClass('active');
@@ -480,6 +578,7 @@
                 $('#printableFormsBigLink').addClass('active'); 
                 $('#orTechBigLink').removeClass('active');
                 $('#postOpBigLink').removeClass('active');
+                $('#dischargeSumBigLink').removeClass('active');
 
                 $('#sumPrevLink').removeClass('active');
                 $('#soapPrevLink').removeClass('active');
@@ -493,6 +592,7 @@
                 $('#printableFormsPrevLink').addClass('active'); 
                 $('#orTechPrevLink').removeClass('active');
                 $('#postOpPrevLink').removeClass('active');
+                $('#dischargeSumPrevLink').removeClass('active');
 
                 $('#sumPrevDiv').hide();  
                 $('#soapPrevDiv').hide();  
@@ -504,6 +604,7 @@
                 $('#admitPeriPrevDiv').show();  
                 $('#orTechPrevDiv').hide();  
                 $('#postOpPrevDiv').hide(); 
+                $('#dischargeSumPrevDiv').hide(); 
 
                 $('#sumCurLink').removeClass('active');
                 $('#soapCurLink').removeClass('active');
@@ -516,6 +617,7 @@
                 $('#printableFormsCurLink').addClass('active'); 
                 $('#orTechCurLink').removeClass('active');
                 $('#postOpCurLink').removeClass('active');
+                $('#dischargeSumCurLink').removeClass('active');
 
                 $('#sumCurDiv').hide();  
                 $('#soapCurDiv').hide();  
@@ -527,6 +629,7 @@
                 $('#admitPeriCurDiv').show();  
                 $('#orTechCurDiv').hide();  
                 $('#postOpCurDiv').hide();
+                $('#dischargeSumCurDiv').hide();
               ">Ophthalmology Admitting and Peri-Op</a>
             </li>
             <li>
@@ -543,6 +646,7 @@
                 $('#orTechBigLink').addClass('active');
                 $('#printableFormsBigLink').addClass('active'); 
                 $('#postOpBigLink').removeClass('active');
+                $('#dischargeSumBigLink').removeClass('active');
 
                 $('#sumPrevLink').removeClass('active');
                 $('#soapPrevLink').removeClass('active');
@@ -556,6 +660,7 @@
                 $('#orTechPrevLink').addClass('active');
                 $('#printableFormsPrevLink').addClass('active'); 
                 $('#postOpPrevLink').removeClass('active');
+                $('#dischargeSumPrevLink').removeClass('active');
 
                 $('#sumPrevDiv').hide();  
                 $('#soapPrevDiv').hide();  
@@ -567,6 +672,7 @@
                 $('#admitPeriPrevDiv').hide();  
                 $('#orTechPrevDiv').show();  
                 $('#postOpPrevDiv').hide();
+                $('#dischargeSumPrevDiv').hide();
 
                 $('#sumCurLink').removeClass('active');
                 $('#soapCurLink').removeClass('active');
@@ -579,6 +685,7 @@
                 $('#orTechCurLink').addClass('active');
                 $('#printableFormsCurLink').addClass('active'); 
                 $('#postOpCurLink').removeClass('active');
+                $('#dischargeSumCurLink').removeClass('active');
 
                 $('#sumCurDiv').hide();  
                 $('#soapCurDiv').hide();  
@@ -590,11 +697,12 @@
                 $('#admitPeriCurDiv').hide();  
                 $('#orTechCurDiv').show();  
                 $('#postOpCurDiv').hide();
+                $('#dischargeSumCurDiv').hide();
 
-                $('#{{ $viewFolder }}_anesthesia_type_ot').prop('disabled', false);
-                $('#{{ $viewFolder }}_anesthesiologist_ot').prop('disabled', false);
-                $('#{{ $viewFolder }}_anesthesia_type_ao').prop('disabled', true);
-                $('#{{ $viewFolder }}_anesthesiologist_ao').prop('disabled', true);
+                // $('#{{ $viewFolder }}_anesthesia_type_ot').prop('disabled', true);
+                // $('#{{ $viewFolder }}_anesthesiologist_ot').prop('disabled', true);
+                // $('#{{ $viewFolder }}_anesthesia_type_ao').prop('disabled', true);
+                // $('#{{ $viewFolder }}_anesthesiologist_ao').prop('disabled', true);
               ">OR Tech</a>
             </li>
             <li>
@@ -611,6 +719,7 @@
                 $('#orTechBigLink').removeClass('active');
                 $('#postOpBigLink').addClass('active');
                 $('#printableFormsBigLink').addClass('active'); 
+                $('#dischargeSumBigLink').removeClass('active'); 
                 
                 $('#sumPrevLink').removeClass('active');
                 $('#soapPrevLink').removeClass('active');
@@ -624,6 +733,7 @@
                 $('#orTechPrevLink').removeClass('active');
                 $('#postOpPrevLink').addClass('active');
                 $('#printableFormsPrevLink').addClass('active'); 
+                $('#dischargeSumPrevLink').removeClass('active');
 
                 $('#sumPrevDiv').hide();  
                 $('#soapPrevDiv').hide();  
@@ -635,6 +745,7 @@
                 $('#admitPeriPrevDiv').hide();  
                 $('#orTechPrevDiv').hide();  
                 $('#postOpPrevDiv').show();
+                $('#dischargeSumPrevDiv').hide();
 
                 $('#sumCurLink').removeClass('active');
                 $('#soapCurLink').removeClass('active');
@@ -647,6 +758,7 @@
                 $('#orTechCurLink').removeClass('active');
                 $('#postOpCurLink').addClass('active');
                 $('#printableFormsCurLink').addClass('active'); 
+                $('#dischargeSumCurLink').removeClass('active');
 
                 $('#sumCurDiv').hide();  
                 $('#soapCurDiv').hide();  
@@ -658,6 +770,7 @@
                 $('#admitPeriCurDiv').hide();  
                 $('#orTechCurDiv').hide();  
                 $('#postOpCurDiv').show();
+                 $('#dischargeSumCurDiv').hide();  
               ">Post Operative Instructions</a>
             </li>
             @endif
@@ -678,6 +791,7 @@
             $('#admitPeriBigLink').removeClass('active');
             $('#orTechBigLink').removeClass('active');
             $('#postOpBigLink').removeClass('active');
+            $('#dischargeSumBigLink').removeClass('active');
             
             $('#sumPrevLink').removeClass('active');
             $('#soapPrevLink').removeClass('active');
@@ -691,6 +805,7 @@
             $('#admitPeriPrevLink').removeClass('active');
             $('#orTechPrevLink').removeClass('active');
             $('#postOpPrevLink').removeClass('active');
+            $('#dischargeSumPrevLink').removeClass('active');
             
             $('#sumPrevDiv').hide();  
             $('#soapPrevDiv').hide();  
@@ -702,6 +817,7 @@
             $('#admitPeriPrevDiv').hide();  
             $('#orTechPrevDiv').hide();  
             $('#postOpPrevDiv').hide(); 
+            $('#dischargeSumPrevDiv').hide(); 
             
             $('#sumCurLink').removeClass('active');
             $('#soapCurLink').removeClass('active');
@@ -713,6 +829,7 @@
             $('#admitPeriCurLink').removeClass('active');
             $('#orTechCurLink').removeClass('active');
             $('#postOpCurLink').removeClass('active');
+            $('#dischargeSumCurLink').removeClass('active');
             
             
             $('#sumCurDiv').hide();  
@@ -725,6 +842,7 @@
             $('#admitPeriCurDiv').hide();  
             $('#orTechCurDiv').hide();  
             $('#postOpCurDiv').hide();
+            $('#dischargeSumCurDiv').hide();
           ">Dialysis Chart</a>
         </li>
         {{-- <li class="nav-item">
@@ -1598,6 +1716,10 @@
                   $('#admitBigLink').removeClass('active');
                   $('#dialysisBigLink').removeClass('active');
                   $('#printableFormsBigLink').removeClass('active');
+                  $('#admitPeriBigLink').removeClass('active');
+                  $('#orTechBigLink').removeClass('active');
+                  $('#postOpBigLink').removeClass('active');
+                  $('#dischargeSumBigLink').removeClass('active');
                   
                   $('#sumPrevLink').addClass('active');  
                   $('#soapPrevLink').removeClass('active');  
@@ -1607,6 +1729,10 @@
                   $('#admitPrevLink').removeClass('active');
                   $('#dialysisPrevLink').removeClass('active');
                   $('#printableFormsPrevLink').removeClass('active');
+                  $('#admitPeriPrevLink').removeClass('active');
+                  $('#orTechPrevLink').removeClass('active');
+                  $('#postOpPrevLink').removeClass('active');
+                  $('#dischargeSumPrevLink').removeClass('active');
 
                   $('#sumPrevDiv').show();  
                   $('#soapPrevDiv').hide();  
@@ -1618,6 +1744,7 @@
                   $('#admitPeriPrevDiv').hide();  
                   $('#orTechPrevDiv').hide();  
                   $('#postOpPrevDiv').hide();
+                  $('#dischargeSumPrevDiv').hide();
 
                   
                   $('#sumCurLink').addClass('active');  
@@ -1628,6 +1755,10 @@
                   $('#admitCurLink').removeClass('active');
                   $('#dialysisCurLink').removeClass('active');
                   $('#printableFormsCurLink').removeClass('active');
+                  $('#admitPeriCurLink').removeClass('active');
+                  $('#orTechCurLink').removeClass('active');
+                  $('#postOpCurLink').removeClass('active');
+                  $('#dischargeSumCurLink').removeClass('active');
                   
                   $('#sumCurDiv').show();  
                   $('#soapCurDiv').hide();  
@@ -1639,6 +1770,7 @@
                   $('#admitPeriCurDiv').hide();  
                   $('#orTechCurDiv').hide();  
                   $('#postOpCurDiv').hide();
+                  $('#dischargeSumCurDiv').hide();
                 ">Summary</a>
               </li>
               <li class="nav-item">
@@ -1651,6 +1783,10 @@
                   $('#admitBigLink').removeClass('active');
                   $('#dialysisBigLink').removeClass('active');
                   $('#printableFormsBigLink').removeClass('active');
+                  $('#admitPeriBigLink').removeClass('active');
+                  $('#orTechBigLink').removeClass('active');
+                  $('#postOpBigLink').removeClass('active');
+                  $('#dischargeSumBigLink').removeClass('active');
                   
                   $('#soapPrevLink').addClass('active');  
                   $('#sumPrevLink').removeClass('active');  
@@ -1660,6 +1796,10 @@
                   $('#admitPrevLink').removeClass('active');
                   $('#dialysisPrevLink').removeClass('active');
                   $('#printableFormsPrevLink').removeClass('active');
+                  $('#admitPeriPrevLink').removeClass('active');
+                  $('#orTechPrevLink').removeClass('active');
+                  $('#postOpPrevLink').removeClass('active');
+                  $('#dischargeSumPrevLink').removeClass('active');
 
                   $('#soapPrevDiv').show();  
                   $('#sumPrevDiv').hide();  
@@ -1671,6 +1811,7 @@
                   $('#admitPeriPrevDiv').hide();  
                   $('#orTechPrevDiv').hide();  
                   $('#postOpPrevDiv').hide();
+                  $('#dischargeSumPrevDiv').hide();
                   
                   $('#soapCurLink').addClass('active');  
                   $('#sumCurLink').removeClass('active');  
@@ -1680,6 +1821,10 @@
                   $('#admitCurLink').removeClass('active');
                   $('#dialysisCurLink').removeClass('active');
                   $('#printableFormsCurLink').removeClass('active');
+                  $('#admitPeriCurLink').removeClass('active');
+                  $('#orTechCurLink').removeClass('active');
+                  $('#postOpCurLink').removeClass('active');
+                  $('#dischargeSumCurLink').removeClass('active');
 
                   $('#soapCurDiv').show();  
                   $('#sumCurDiv').hide();  
@@ -1691,6 +1836,7 @@
                   $('#admitPeriCurDiv').hide();  
                   $('#orTechCurDiv').hide();  
                   $('#postOpCurDiv').hide();
+                  $('#dischargeSumCurDiv').hide();
                 ">SOAP</a>
               </li>
               <li class="nav-item">
@@ -1703,6 +1849,10 @@
                   $('#admitBigLink').removeClass('active');
                   $('#dialysisBigLink').removeClass('active');
                   $('#printableFormsBigLink').removeClass('active');
+                  $('#admitPeriBigLink').removeClass('active');
+                  $('#orTechBigLink').removeClass('active');
+                  $('#postOpBigLink').removeClass('active');
+                  $('#dischargeSumBigLink').removeClass('active');
                   
                   $('#sumPrevLink').removeClass('active');
                   $('#soapPrevLink').removeClass('active');
@@ -1712,6 +1862,10 @@
                   $('#admitPrevLink').removeClass('active');
                   $('#dialysisPrevLink').removeClass('active');
                   $('#printableFormsPrevLink').removeClass('active');
+                  $('#admitPeriPrevLink').removeClass('active');
+                  $('#orTechPrevLink').removeClass('active');
+                  $('#postOpPrevLink').removeClass('active');
+                  $('#dischargeSumPrevLink').removeClass('active');
 
                   $('#sumPrevDiv').hide();  
                   $('#soapPrevDiv').hide();  
@@ -1723,6 +1877,7 @@
                   $('#admitPeriPrevDiv').hide();  
                   $('#orTechPrevDiv').hide();  
                   $('#postOpPrevDiv').hide();
+                  $('#dischargeSumPrevDiv').hide();
 
                   $('#sumCurLink').removeClass('active');
                   $('#soapCurLink').removeClass('active');
@@ -1732,6 +1887,10 @@
                   $('#admitCurLink').removeClass('active');
                   $('#dialysisCurLink').removeClass('active');
                   $('#printableFormsCurLink').removeClass('active');
+                  $('#admitPeriCurLink').removeClass('active');
+                  $('#orTechCurLink').removeClass('active');
+                  $('#postOpCurLink').removeClass('active');
+                  $('#dischargeSumCurLink').removeClass('active');
 
                   $('#sumCurDiv').hide();  
                   $('#soapCurDiv').hide();  
@@ -1743,6 +1902,7 @@
                   $('#admitPeriCurDiv').hide();  
                   $('#orTechCurDiv').hide();  
                   $('#postOpCurDiv').hide();
+                  $('#dischargeSumCurDiv').hide();
                 ">File Uploads</a>
               </li>
               <li class="nav-item dropdown">
@@ -1758,6 +1918,10 @@
                       $('#admitBigLink').addClass('active'); 
                       $('#printableFormsBigLink').addClass('active');
                       $('#dialysisBigLink').removeClass('active');
+                      $('#admitPeriBigLink').removeClass('active');
+                      $('#orTechBigLink').removeClass('active');
+                      $('#postOpBigLink').removeClass('active');
+                      $('#dischargeSumBigLink').removeClass('active');
                       
                       $('#sumPrevLink').removeClass('active');
                       $('#soapPrevLink').removeClass('active');
@@ -1767,6 +1931,10 @@
                       $('#admitPrevLink').addClass('active'); 
                       $('#printableFormsPrevLink').addClass('active');
                       $('#dialysisPrevLink').removeClass('active');
+                      $('#admitPeriPrevLink').removeClass('active');
+                      $('#orTechPrevLink').removeClass('active');
+                      $('#postOpPrevLink').removeClass('active');
+                      $('#dischargeSumPrevLink').removeClass('active');
 
                       $('#sumPrevDiv').hide();  
                       $('#soapPrevDiv').hide();  
@@ -1778,6 +1946,7 @@
                       $('#admitPeriPrevDiv').hide();  
                       $('#orTechPrevDiv').hide();  
                       $('#postOpPrevDiv').hide(); 
+                      $('#dischargeSumPrevDiv').hide(); 
                       
                       $('#sumCurLink').removeClass('active');
                       $('#soapCurLink').removeClass('active');
@@ -1787,6 +1956,10 @@
                       $('#admitCurLink').addClass('active');
                       $('#printableFormsCurLink').addClass('active');
                       $('#dialysisCurLink').removeClass('active');
+                      $('#admitPeriCurLink').removeClass('active');
+                      $('#orTechCurLink').removeClass('active');
+                      $('#postOpCurLink').removeClass('active');
+                      $('#dischargeSumCurLink').removeClass('active');
                       
                       $('#sumCurDiv').hide();  
                       $('#soapCurDiv').hide();  
@@ -1798,11 +1971,12 @@
                       $('#admitPeriCurDiv').hide();  
                       $('#orTechCurDiv').hide();  
                       $('#postOpCurDiv').hide(); 
+                      $('#dischargeSumCurDiv').hide(); 
 
-                      $('#{{ $viewFolder }}_anesthesia_type_ot').prop('disabled', true);
-                      $('#{{ $viewFolder }}_anesthesiologist_ot').prop('disabled', true);
-                      $('#{{ $viewFolder }}_anesthesia_type_ao').prop('disabled', false);
-                      $('#{{ $viewFolder }}_anesthesiologist_ao').prop('disabled', false);
+                      // $('#{{ $viewFolder }}_anesthesia_type_ot').prop('disabled', true);
+                      // $('#{{ $viewFolder }}_anesthesiologist_ot').prop('disabled', true);
+                      // $('#{{ $viewFolder }}_anesthesia_type_ao').prop('disabled', true);
+                      // $('#{{ $viewFolder }}_anesthesiologist_ao').prop('disabled', true);
                     ">Admitting Orders</a>
                   </li>
                   <li>
@@ -1815,6 +1989,10 @@
                       $('#medBigLink').removeClass('active');  
                       $('#admitBigLink').removeClass('active');
                       $('#dialysisBigLink').removeClass('active');
+                      $('#admitPeriBigLink').removeClass('active');
+                      $('#orTechBigLink').removeClass('active');
+                      $('#postOpBigLink').removeClass('active');
+                      $('#dischargeSumBigLink').removeClass('active');
                       
                       $('#sumPrevLink').removeClass('active');
                       $('#soapPrevLink').removeClass('active');
@@ -1824,6 +2002,10 @@
                       $('#medPrevLink').removeClass('active');  
                       $('#admitPrevLink').removeClass('active');
                       $('#dialysisPrevLink').removeClass('active');
+                      $('#admitPeriPrevLink').removeClass('active');
+                      $('#orTechPrevLink').removeClass('active');
+                      $('#postOpPrevLink').removeClass('active');
+                      $('#dischargeSumPrevLink').removeClass('active');
 
                       $('#sumPrevDiv').hide();  
                       $('#soapPrevDiv').hide();  
@@ -1835,6 +2017,7 @@
                       $('#admitPeriPrevDiv').hide();  
                       $('#orTechPrevDiv').hide();  
                       $('#postOpPrevDiv').hide();
+                      $('#dischargeSumPrevDiv').hide();
 
                       $('#sumCurLink').removeClass('active');
                       $('#soapCurLink').removeClass('active');
@@ -1844,6 +2027,10 @@
                       $('#medCurLink').removeClass('active');  
                       $('#admitCurLink').removeClass('active');
                       $('#dialysisCurLink').removeClass('active');
+                      $('#admitPeriCurLink').removeClass('active');
+                      $('#orTechCurLink').removeClass('active');
+                      $('#postOpCurLink').removeClass('active');
+                      $('#dischargeSumCurLink').removeClass('active');
 
                       $('#sumCurDiv').hide();  
                       $('#soapCurDiv').hide();  
@@ -1855,6 +2042,7 @@
                       $('#admitPeriCurDiv').hide();  
                       $('#orTechCurDiv').hide();  
                       $('#postOpCurDiv').hide();
+                      $('#dischargeSumCurDiv').hide();
                     ">E-Prescription</a>
                   </li>
                   <li>
@@ -1867,6 +2055,10 @@
                       $('#printableFormsBigLink').addClass('active');
                       $('#admitBigLink').removeClass('active');
                       $('#dialysisBigLink').removeClass('active');
+                      $('#admitPeriBigLink').removeClass('active');
+                      $('#orTechBigLink').removeClass('active');
+                      $('#postOpBigLink').removeClass('active');
+                      $('#dischargeSumBigLink').removeClass('active');
                       
                       $('#sumPrevLink').removeClass('active');
                       $('#soapPrevLink').removeClass('active');
@@ -1876,6 +2068,10 @@
                       $('#printableFormsPrevLink').addClass('active');
                       $('#admitPrevLink').removeClass('active');
                       $('#dialysisPrevLink').removeClass('active');
+                      $('#admitPeriPrevLink').removeClass('active');
+                      $('#orTechPrevLink').removeClass('active');
+                      $('#postOpPrevLink').removeClass('active');
+                      $('#dischargeSumPrevLink').removeClass('active');
 
                       $('#sumPrevDiv').hide();  
                       $('#soapPrevDiv').hide();  
@@ -1887,6 +2083,7 @@
                       $('#admitPeriPrevDiv').hide();  
                       $('#orTechPrevDiv').hide();  
                       $('#postOpPrevDiv').hide();
+                      $('#dischargeSumPrevDiv').hide();
 
                       $('#sumCurLink').removeClass('active');
                       $('#soapCurLink').removeClass('active');
@@ -1896,6 +2093,10 @@
                       $('#printableFormsCurLink').addClass('active'); 
                       $('#admitCurLink').removeClass('active');
                       $('#dialysisCurLink').removeClass('active');
+                      $('#admitPeriCurLink').removeClass('active');
+                      $('#orTechCurLink').removeClass('active');
+                      $('#postOpCurLink').removeClass('active');
+                      $('#dischargeSumCurLink').removeClass('active');
 
                       $('#sumCurDiv').hide();  
                       $('#soapCurDiv').hide();  
@@ -1907,9 +2108,78 @@
                       $('#admitPeriCurDiv').hide();  
                       $('#orTechCurDiv').hide();  
                       $('#postOpCurDiv').hide();
+                      $('#dischargeSumCurDiv').hide();
                     ">Med Cert</a>
                   </li>
                   <li><hr class="dropdown-divider"></li>
+                  <li>
+                    <a class="dropdown-item" id="dischargeSumPrevLink" href="#" onclick="
+                      $('#sumBigLink').removeClass('active');
+                      $('#soapBigLink').removeClass('active');
+                      $('#labBigLink').removeClass('active');  
+                      $('#presBigLink').removeClass('active');  
+                      $('#medBigLink').removeClass('active');
+                      $('#admitBigLink').removeClass('active');
+                      $('#dialysisBigLink').removeClass('active');
+                      // $('#hdSummaryBigLink').removeClass('active');
+                      $('#admitPeriBigLink').removeClass('active');
+                      $('#printableFormsBigLink').addClass('active'); 
+                      $('#orTechBigLink').removeClass('active');
+                      $('#postOpBigLink').removeClass('active');
+                      $('#dischargeSumBigLink').addClass('active');
+
+                      $('#sumPrevLink').removeClass('active');
+                      $('#soapPrevLink').removeClass('active');
+                      $('#labPrevLink').removeClass('active');  
+                      $('#presPrevLink').removeClass('active');  
+                      $('#medPrevLink').removeClass('active');
+                      $('#admitPrevLink').removeClass('active'); 
+                      $('#dialysisPrevLink').removeClass('active');
+                      // $('#hdSummaryPrevLink').removeClass('active');
+                      $('#admitPeriPrevLink').removeClass('active');
+                      $('#printableFormsPrevLink').addClass('active'); 
+                      $('#orTechPrevLink').removeClass('active');
+                      $('#postOpPrevLink').removeClass('active');
+                      $('#dischargeSumPrevLink').addClass('active');
+
+                      $('#sumPrevDiv').hide();  
+                      $('#soapPrevDiv').hide();  
+                      $('#labPrevDiv').hide();  
+                      $('#presPrevDiv').hide();  
+                      $('#medPrevDiv').hide(); 
+                      $('#admitPrevDiv').hide();
+                      $('#dialysisPrevDiv').hide();  
+                      $('#admitPeriPrevDiv').hide();  
+                      $('#orTechPrevDiv').hide();  
+                      $('#postOpPrevDiv').hide(); 
+                      $('#dischargeSumPrevDiv').show(); 
+
+                      $('#sumCurLink').removeClass('active');
+                      $('#soapCurLink').removeClass('active');
+                      $('#labCurLink').removeClass('active');  
+                      $('#presCurLink').removeClass('active');  
+                      $('#medCurLink').removeClass('active');
+                      $('#admitCurLink').removeClass('active'); 
+                      $('#dialysisCurLink').removeClass('active');
+                      $('#admitPeriCurLink').removeClass('active');
+                      $('#printableFormsCurLink').addClass('active'); 
+                      $('#orTechCurLink').removeClass('active');
+                      $('#postOpCurLink').removeClass('active');
+                      $('#dischargeSumCurLink').addClass('active');
+
+                      $('#sumCurDiv').hide();  
+                      $('#soapCurDiv').hide();  
+                      $('#labCurDiv').hide();  
+                      $('#presCurDiv').hide();  
+                      $('#medCurDiv').hide(); 
+                      $('#admitCurDiv').hide();  
+                      $('#dialysisCurDiv').hide();
+                      $('#admitPeriCurDiv').hide();  
+                      $('#orTechCurDiv').hide();  
+                      $('#postOpCurDiv').hide();
+                      $('#dischargeSumCurDiv').show();
+                    ">Discharge Summary</a>
+                  </li>
                   <li>
                     <a class="dropdown-item" id="admitPeriPrevLink" href="#" onclick="
                       $('#sumBigLink').removeClass('active');
@@ -1924,6 +2194,7 @@
                       $('#printableFormsBigLink').addClass('active'); 
                       $('#orTechBigLink').removeClass('active');
                       $('#postOpBigLink').removeClass('active');
+                      $('#dischargeSumBigLink').removeClass('active');
 
                       $('#sumPrevLink').removeClass('active');
                       $('#soapPrevLink').removeClass('active');
@@ -1937,6 +2208,7 @@
                       $('#printableFormsPrevLink').addClass('active'); 
                       $('#orTechPrevLink').removeClass('active');
                       $('#postOpPrevLink').removeClass('active');
+                      $('#dischargeSumPrevLink').removeClass('active');
 
                       $('#sumPrevDiv').hide();  
                       $('#soapPrevDiv').hide();  
@@ -1948,6 +2220,7 @@
                       $('#admitPeriPrevDiv').show();  
                       $('#orTechPrevDiv').hide();  
                       $('#postOpPrevDiv').hide(); 
+                      $('#dischargeSumPrevDiv').hide(); 
 
                       $('#sumCurLink').removeClass('active');
                       $('#soapCurLink').removeClass('active');
@@ -1960,6 +2233,7 @@
                       $('#printableFormsCurLink').addClass('active'); 
                       $('#orTechCurLink').removeClass('active');
                       $('#postOpCurLink').removeClass('active');
+                      $('#dischargeSumCurLink').removeClass('active');
 
                       $('#sumCurDiv').hide();  
                       $('#soapCurDiv').hide();  
@@ -1971,6 +2245,7 @@
                       $('#admitPeriCurDiv').show();  
                       $('#orTechCurDiv').hide();  
                       $('#postOpCurDiv').hide();
+                      $('#dischargeSumCurDiv').hide();
                     ">Ophthalmology Admitting and Peri-Op</a>
                   </li>
                   <li>
@@ -1987,6 +2262,7 @@
                       $('#orTechBigLink').addClass('active');
                       $('#printableFormsBigLink').addClass('active'); 
                       $('#postOpBigLink').removeClass('active');
+                      $('#dischargeSumBigLink').removeClass('active');
 
                       $('#sumPrevLink').removeClass('active');
                       $('#soapPrevLink').removeClass('active');
@@ -2000,6 +2276,7 @@
                       $('#orTechPrevLink').addClass('active');
                       $('#printableFormsPrevLink').addClass('active'); 
                       $('#postOpPrevLink').removeClass('active');
+                      $('#dischargeSumPrevLink').removeClass('active');
 
                       $('#sumPrevDiv').hide();  
                       $('#soapPrevDiv').hide();  
@@ -2011,6 +2288,7 @@
                       $('#admitPeriPrevDiv').hide();  
                       $('#orTechPrevDiv').show();  
                       $('#postOpPrevDiv').hide();
+                      $('#dischargeSumPrevDiv').hide();
 
                       $('#sumCurLink').removeClass('active');
                       $('#soapCurLink').removeClass('active');
@@ -2023,6 +2301,7 @@
                       $('#orTechCurLink').addClass('active');
                       $('#printableFormsCurLink').addClass('active'); 
                       $('#postOpCurLink').removeClass('active');
+                      $('#dischargeSumCurLink').removeClass('active');
 
                       $('#sumCurDiv').hide();  
                       $('#soapCurDiv').hide();  
@@ -2034,11 +2313,12 @@
                       $('#admitPeriCurDiv').hide();  
                       $('#orTechCurDiv').show();  
                       $('#postOpCurDiv').hide();
+                      $('#dischargeSumCurDiv').hide();
 
-                      $('#{{ $viewFolder }}_anesthesia_type_ot').prop('disabled', false);
-                      $('#{{ $viewFolder }}_anesthesiologist_ot').prop('disabled', false);
-                      $('#{{ $viewFolder }}_anesthesia_type_ao').prop('disabled', true);
-                      $('#{{ $viewFolder }}_anesthesiologist_ao').prop('disabled', true);
+                      // $('#{{ $viewFolder }}_anesthesia_type_ot').prop('disabled', true);
+                      // $('#{{ $viewFolder }}_anesthesiologist_ot').prop('disabled', true);
+                      // $('#{{ $viewFolder }}_anesthesia_type_ao').prop('disabled', true);
+                      // $('#{{ $viewFolder }}_anesthesiologist_ao').prop('disabled', true);
                     ">OR Tech</a>
                   </li>
                   <li>
@@ -2053,6 +2333,7 @@
                       // $('#hdSummaryBigLink').removeClass('active');
                       $('#admitPeriBigLink').removeClass('active');
                       $('#orTechBigLink').removeClass('active');
+                      $('#dischargeSumBigLink').removeClass('active');
                       $('#postOpBigLink').addClass('active');
                       $('#printableFormsBigLink').addClass('active'); 
                       
@@ -2066,6 +2347,7 @@
                       // $('#hdSummaryPrevLink').removeClass('active');
                       $('#admitPeriPrevLink').removeClass('active');
                       $('#orTechPrevLink').removeClass('active');
+                      $('#dischargeSumPrevLink').removeClass('active');
                       $('#postOpPrevLink').addClass('active');
                       $('#printableFormsPrevLink').addClass('active'); 
 
@@ -2078,6 +2360,7 @@
                       $('#dialysisPrevDiv').hide();
                       $('#admitPeriPrevDiv').hide();  
                       $('#orTechPrevDiv').hide();  
+                      $('#dischargeSumPrevDiv').hide();  
                       $('#postOpPrevDiv').show();
 
                       $('#sumCurLink').removeClass('active');
@@ -2089,6 +2372,7 @@
                       $('#dialysisCurLink').removeClass('active');
                       $('#admitPeriCurLink').removeClass('active');
                       $('#orTechCurLink').removeClass('active');
+                      $('#dischargeSumCurLink').removeClass('active');
                       $('#postOpCurLink').addClass('active');
                       $('#printableFormsCurLink').addClass('active'); 
 
@@ -2101,6 +2385,7 @@
                       $('#dialysisCurDiv').hide();
                       $('#admitPeriCurDiv').hide();  
                       $('#orTechCurDiv').hide();  
+                      $('#dischargeSumCurDiv').hide();  
                       $('#postOpCurDiv').show();
                     ">Post Operative Instructions</a>
                   </li>
@@ -2117,6 +2402,10 @@
                   $('#admitBigLink').removeClass('active');
                   $('#dialysisBigLink').addClass('active');
                   $('#printableFormsBigLink').removeClass('active');
+                  $('#admitPeriBigLink').removeClass('active');
+                  $('#orTechBigLink').removeClass('active');
+                  $('#postOpBigLink').removeClass('active');
+                  $('#dischargeSumBigLink').removeClass('active');
                   
                   $('#sumPrevLink').removeClass('active');
                   $('#soapPrevLink').removeClass('active');
@@ -2126,6 +2415,10 @@
                   $('#admitPrevLink').removeClass('active');
                   $('#dialysisPrevLink').addClass('active');
                   $('#printableFormsPrevLink').removeClass('active');
+                  $('#admitPeriPrevLink').removeClass('active');
+                  $('#orTechPrevLink').removeClass('active');
+                  $('#postOpPrevLink').removeClass('active');
+                  $('#dischargeSumPrevLink').removeClass('active');
 
                   $('#sumPrevDiv').hide();  
                   $('#soapPrevDiv').hide();  
@@ -2136,7 +2429,8 @@
                   $('#dialysisPrevDiv').show(); 
                   $('#admitPeriPrevDiv').hide();  
                   $('#orTechPrevDiv').hide();  
-                  $('#postOpPrevDiv').hide(); 
+                  $('#orTechPrevDiv').hide();  
+                  $('#dischargeSumPrevDiv').hide(); 
                   
                   $('#sumCurLink').removeClass('active');
                   $('#soapCurLink').removeClass('active');
@@ -2146,6 +2440,10 @@
                   $('#admitCurLink').removeClass('active');
                   $('#dialysisCurLink').addClass('active'); 
                   $('#printableFormsCurLink').removeClass('active');
+                  $('#admitPeriCurLink').removeClass('active');
+                  $('#orTechCurLink').removeClass('active');
+                  $('#postOpCurLink').removeClass('active');
+                  $('#dischargeSumCurLink').removeClass('active');
 
                   $('#sumCurDiv').hide();  
                   $('#soapCurDiv').hide();  
@@ -2157,6 +2455,7 @@
                   $('#admitPeriCurDiv').hide();  
                   $('#orTechCurDiv').hide();  
                   $('#postOpCurDiv').hide();
+                  $('#dischargeSumCurDiv').hide();
                 ">Dialysis Chart</a>
               </li>
               @endif
@@ -3045,11 +3344,20 @@
                   </div>
                 </div>
               </div>
+              <div id="dischargeSumPrevDiv" style="display:none" class="container border border-1 mb-3 p-3">
+                <div class="card mb-3">
+                  <div class="card-header">Previous Discharge Summary Preview</div>
+                  <div class="card-body">
+                    <iframe id="iframePrevDischargeSum" src="{{ file_exists(public_path('storage/printable_forms_files/pdfDischargeSum_' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf')) ? asset('storage/printable_forms_files/pdfDischargeSum_' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
+                    <small class="form-text text-muted">To print or download go to Tools</small>
+                  </div>
+                </div>
+              </div>
               <div id="admitPeriPrevDiv" style="display:none" class="container border border-1 mb-3 p-3">
                 <div class="card mb-3">
                   <div class="card-header">Previous Ophthalmology Admitting and Peri-Op Preview</div>
                   <div class="card-body">
-                    <iframe id="iframePrevAdmitting" src="{{ file_exists(public_path('storage/admitting_order_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf')) ? asset('storage/admitting_order_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
+                    <iframe id="iframePrevOpAdmit" src="{{ file_exists(public_path('storage/printable_forms_files/pdfOpAdmit_' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf')) ? asset('storage/printable_forms_files/pdfOpAdmit_' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
                     <small class="form-text text-muted">To print or download go to Tools</small>
                   </div>
                 </div>
@@ -5199,6 +5507,7 @@
                     $('#{{ $viewFolder }}_OpTech_{{ $datum->id }}').show();
                     $('#{{ $viewFolder }}_PostOp_{{ $datum->id }}').show();
                     $('#{{ $viewFolder }}_OpAdmit_{{ $datum->id }}').show();
+                    $('#{{ $viewFolder }}_DischargeSum_{{ $datum->id }}').show();
 
                     @if(!isset($referal_conso))
                     $('#{{ $viewFolder }}_prescription').prop('disabled', false);
@@ -5224,6 +5533,42 @@
                     $('#{{ $viewFolder }}_things_avoid').prop('disabled', false);
                     $('#{{ $viewFolder }}_wound_care').prop('disabled', false);
                     $('#{{ $viewFolder }}_medication_post').prop('disabled', false);
+
+                    $('#{{ $viewFolder }}_anesthesia_type_ot').prop('disabled', false);
+                    $('#{{ $viewFolder }}_anesthesiologist_ot').prop('disabled', false);
+                    $('#{{ $viewFolder }}_room').prop('disabled', false);
+                    $('#{{ $viewFolder }}_dilate_check').prop('disabled', false);
+                    $('#{{ $viewFolder }}_dilate').prop('disabled', false);
+                    $('#{{ $viewFolder }}_constrict_check').prop('disabled', false);
+                    $('#{{ $viewFolder }}_constrict').prop('disabled', false);
+                    $('#{{ $viewFolder }}_intake_blood_thinner_check').prop('disabled', false);
+                    $('#{{ $viewFolder }}_intake_blood_thinner').prop('disabled', false);
+                    $('#{{ $viewFolder }}_intake_maintenance_meds_check').prop('disabled', false);
+                    $('#{{ $viewFolder }}_intake_maintenance_meds').prop('disabled', false);
+                    $('#{{ $viewFolder }}_additional_orders').prop('disabled', false);
+
+                    $('#{{ $viewFolder }}_pre_op_diagnosis').prop('disabled', false);
+                    $('#{{ $viewFolder }}_post_op_diagnosis').prop('disabled', false);
+                    $('#{{ $viewFolder }}_procedure_performed').prop('disabled', false);
+                    $('#{{ $viewFolder }}_intraoperative_findings').prop('disabled', false);
+                    $('#{{ $viewFolder }}_intraoperative_course_unremarkable').prop('disabled', false);
+                    $('#{{ $viewFolder }}_intraoperative_course_with_complications').prop('disabled', false);
+                    $('#{{ $viewFolder }}_complication_specify').prop('disabled', false);
+                    $('#{{ $viewFolder }}_blood_loss').prop('disabled', false);
+                    $('#{{ $viewFolder }}_specimen_sent_yes').prop('disabled', false);
+                    $('#{{ $viewFolder }}_specimen_sent_no').prop('disabled', false);
+                    $('#{{ $viewFolder }}_specimen_sent_remarks').prop('disabled', false);
+                    $('#{{ $viewFolder }}_post_operative_condition_stable').prop('disabled', false);
+                    $('#{{ $viewFolder }}_post_operative_condition_requires').prop('disabled', false);
+                    $('#{{ $viewFolder }}_post_operative_condition_remarks').prop('disabled', false);
+                    $('#{{ $viewFolder }}_medication_given_recovery').prop('disabled', false);
+                    $('#{{ $viewFolder }}_discharge_medication').prop('disabled', false);
+                    $('#{{ $viewFolder }}_avoid_days').prop('disabled', false);
+                    $('#{{ $viewFolder }}_diet_regular').prop('disabled', false);
+                    $('#{{ $viewFolder }}_diet_soft').prop('disabled', false);
+                    $('#{{ $viewFolder }}_diet_others').prop('disabled', false);
+                    $('#{{ $viewFolder }}_diet_remarks').prop('disabled', false);
+                    
                     @else
                     $('#{{ $viewFolder }}_prescription').prop('disabled', true);
                     $('#{{ $viewFolder }}_prescriptionSelect').prop('disabled', true);
@@ -5248,6 +5593,40 @@
                     $('#{{ $viewFolder }}_things_avoid').prop('disabled', true);
                     $('#{{ $viewFolder }}_wound_care').prop('disabled', true);
                     $('#{{ $viewFolder }}_medication_post').prop('disabled', true);
+
+                    $('#{{ $viewFolder }}_room').prop('disabled', true);
+                    $('#{{ $viewFolder }}_dilate_check').prop('disabled', true);
+                    $('#{{ $viewFolder }}_dilate').prop('disabled', true);
+                    $('#{{ $viewFolder }}_constrict_check').prop('disabled', true);
+                    $('#{{ $viewFolder }}_constrict').prop('disabled', true);
+                    $('#{{ $viewFolder }}_intake_blood_thinner_check').prop('disabled', true);
+                    $('#{{ $viewFolder }}_intake_blood_thinner').prop('disabled', true);
+                    $('#{{ $viewFolder }}_intake_maintenance_meds_check').prop('disabled', true);
+                    $('#{{ $viewFolder }}_intake_maintenance_meds').prop('disabled', true);
+                    $('#{{ $viewFolder }}_additional_orders').prop('disabled', true);
+
+                    $('#{{ $viewFolder }}_pre_op_diagnosis').prop('disabled', true);
+                    $('#{{ $viewFolder }}_post_op_diagnosis').prop('disabled', true);
+                    $('#{{ $viewFolder }}_procedure_performed').prop('disabled', true);
+                    $('#{{ $viewFolder }}_intraoperative_findings').prop('disabled', true);
+                    $('#{{ $viewFolder }}_intraoperative_course_unremarkable').prop('disabled', true);
+                    $('#{{ $viewFolder }}_intraoperative_course_with_complications').prop('disabled', true);
+                    $('#{{ $viewFolder }}_complication_specify').prop('disabled', true);
+                    $('#{{ $viewFolder }}_blood_loss').prop('disabled', true);
+                    $('#{{ $viewFolder }}_specimen_sent_yes').prop('disabled', true);
+                    $('#{{ $viewFolder }}_specimen_sent_no').prop('disabled', true);
+                    $('#{{ $viewFolder }}_specimen_sent_remarks').prop('disabled', true);
+                    $('#{{ $viewFolder }}_post_operative_condition_stable').prop('disabled', true);
+                    $('#{{ $viewFolder }}_post_operative_condition_requires').prop('disabled', true);
+                    $('#{{ $viewFolder }}_post_operative_condition_remarks').prop('disabled', true);
+                    $('#{{ $viewFolder }}_medication_given_recovery').prop('disabled', true);
+                    $('#{{ $viewFolder }}_discharge_medication').prop('disabled', true);
+                    $('#{{ $viewFolder }}_avoid_days').prop('disabled', true);
+                    $('#{{ $viewFolder }}_diet_regular').prop('disabled', true);
+                    $('#{{ $viewFolder }}_diet_soft').prop('disabled', true);
+                    $('#{{ $viewFolder }}_diet_others').prop('disabled', true);
+                    $('#{{ $viewFolder }}_diet_remarks').prop('disabled', true);
+
                     @endif
                     $('#{{ $viewFolder }}_prescription').val($('#{{ $viewFolder }}_parent_prescription_hidden').val());
                     $('#{{ $viewFolder }}_findings').val($('#{{ $viewFolder }}_parent_findings_hidden').val());
@@ -5267,6 +5646,66 @@
                     $('#{{ $viewFolder }}_things_avoid').val($('#{{ $viewFolder }}_parent_things_avoid_hidden').val());
                     $('#{{ $viewFolder }}_wound_care').val($('#{{ $viewFolder }}_parent_wound_care_hidden').val());
                     $('#{{ $viewFolder }}_medication_post').val($('#{{ $viewFolder }}_parent_medication_post_hidden').val());
+                    $('#{{ $viewFolder }}_room').val($('#{{ $viewFolder }}_parent_room_hidden').val());
+                    if($('#{{ $viewFolder }}_parent_dilate_hidden').val() != ''){
+                      $('#{{ $viewFolder }}_dilate_check').prop('checked', true);
+                      // $('#{{ $viewFolder }}_dilate').prop('disabled', false);
+                    }else{
+                      $('#{{ $viewFolder }}_dilate_check').prop('checked', false);
+                      // $('#{{ $viewFolder }}_dilate').prop('disabled', true);
+                    }
+                    $('#{{ $viewFolder }}_dilate').val($('#{{ $viewFolder }}_parent_dilate_hidden').val());
+
+                    if($('#{{ $viewFolder }}_parent_constrict_hidden').val() != ''){
+                      $('#{{ $viewFolder }}_constrict_check').prop('checked', true);
+                      // $('#{{ $viewFolder }}_constrict').prop('disabled', false);
+                    }else{
+                      $('#{{ $viewFolder }}_constrict_check').prop('checked', false);
+                      // $('#{{ $viewFolder }}_constrict').prop('disabled', true);
+                    }
+                    $('#{{ $viewFolder }}_constrict').val($('#{{ $viewFolder }}_parent_constrict_hidden').val());
+                    $('#{{ $viewFolder }}_additional_orders').val($('#{{ $viewFolder }}_parent_additional_orders_hidden').val());
+
+                    $('#{{ $viewFolder }}_pre_op_diagnosis').val($('#{{ $viewFolder }}_parent_pre_op_diagnosis_hidden').val());
+                    $('#{{ $viewFolder }}_post_op_diagnosis').val($('#{{ $viewFolder }}_parent_post_op_diagnosis_hidden').val());
+                    $('#{{ $viewFolder }}_procedure_performed').val($('#{{ $viewFolder }}_parent_procedure_performed_hidden').val());
+                    $('#{{ $viewFolder }}_intraoperative_findings').val($('#{{ $viewFolder }}_parent_intraoperative_findings_hidden').val());
+                    if($('#{{ $viewFolder }}_parent_intraoperative_course_hidden').val() == 'Unremarkable'){
+                      $('#{{ $viewFolder }}_intraoperative_course_unremarkable').prop('checked', true);
+                      $('#{{ $viewFolder }}_complication_specify').prop('disabled', true);
+                    }else{
+                      $('#{{ $viewFolder }}_intraoperative_course_with_complications').prop('checked', true);
+                      // $('#{{ $viewFolder }}_complication_specify').prop('disabled', false);
+                    }
+                    $('#{{ $viewFolder }}_complication_specify').val($('#{{ $viewFolder }}_parent_complication_specify_hidden').val());
+                    $('#{{ $viewFolder }}_blood_loss').val($('#{{ $viewFolder }}_parent_blood_loss_hidden').val());
+                    if($('#{{ $viewFolder }}_parent_specimen_sent_hidden').val() == 'no'){
+                      $('#{{ $viewFolder }}_specimen_sent_no').prop('checked', true);
+                    }else{
+                      $('#{{ $viewFolder }}_specimen_sent_yes').prop('checked', true);
+                    }
+                    $('#{{ $viewFolder }}_specimen_sent_remarks').val($('#{{ $viewFolder }}_parent_specimen_sent_remarks_hidden').val());
+                    if($('#{{ $viewFolder }}_parent_post_operative_condition_hidden').val() == 'Stable'){
+                      $('#{{ $viewFolder }}_post_operative_condition_stable').prop('checked', true);
+                    }else{
+                      $('#{{ $viewFolder }}_post_operative_condition_requires').prop('checked', true);
+                    }
+                    $('#{{ $viewFolder }}_post_operative_condition_remarks').val($('#{{ $viewFolder }}_parent_post_operative_condition_remarks_hidden').val());
+                    $('#{{ $viewFolder }}_medication_given_recovery').val($('#{{ $viewFolder }}_parent_medication_given_recovery_hidden').val());
+                    $('#{{ $viewFolder }}_discharge_medication').val($('#{{ $viewFolder }}_parent_discharge_medication_hidden').val());
+                    $('#{{ $viewFolder }}_avoid_days').val($('#{{ $viewFolder }}_parent_avoid_days_hidden').val());
+                    if($('#{{ $viewFolder }}_parent_diet_hidden').val() == 'Regular'){
+                      $('#{{ $viewFolder }}_diet_regular').prop('checked', true);
+                      $('#{{ $viewFolder }}_diet_remarks').prop('disabled', true);
+                    }else if($('#{{ $viewFolder }}_parent_diet_hidden').val() == 'Soft'){
+                      $('#{{ $viewFolder }}_diet_soft').prop('checked', true);
+                      $('#{{ $viewFolder }}_diet_remarks').prop('disabled', true);
+                    }else{
+                      $('#{{ $viewFolder }}_diet_others').prop('checked', true);
+                      // $('#{{ $viewFolder }}_diet_remarks').prop('disabled', false);
+                    }
+                    $('#{{ $viewFolder }}_diet_remarks').val($('#{{ $viewFolder }}_parent_diet_remarks_hidden').val());
+
                   ">{{ !isset($referal_conso) ? 'Yours - ' . $datum->clinic->name . ' | ' . ($datum->booking_type == '' ? 'Consultations' : $datum->booking_type) : 'Dr. ' . Str::substr($datum->doctor->f_name, 0, 1) . '. ' . $datum->doctor->l_name . ' - ' . $datum->clinic->name . ' | ' . ($datum->booking_type == '' ? 'Consultations' : $datum->booking_type)}}</a>
               </li>
               <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_prescription_hidden" value="{{ addslashes($datum->prescription) }}">
@@ -5288,6 +5727,28 @@
               <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_things_avoid_hidden" value="{{ isset($datum->printable_form['things_avoid']) ? addslashes($datum->printable_form['things_avoid']) : '' }}">
               <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_wound_care_hidden" value="{{ isset($datum->printable_form['wound_care']) ? addslashes($datum->printable_form['wound_care']) : '' }}">
               <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_medication_post_hidden" value="{{ isset($datum->printable_form['medication']) ? addslashes($datum->printable_form['medication']) : '' }}">
+              <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_room_hidden" value="{{ isset($datum->printable_form['room']) ? addslashes($datum->printable_form['room']) : '' }}">
+              <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_dilate_hidden" value="{{ isset($datum->printable_form['dilate']) ? addslashes($datum->printable_form['dilate']) : '' }}">
+              <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_constrict_hidden" value="{{ isset($datum->printable_form['constrict']) ? addslashes($datum->printable_form['constrict']) : '' }}">
+              <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_additional_orders_hidden" value="{{ isset($datum->printable_form['additional_orders']) ? addslashes($datum->printable_form['additional_orders']) : '' }}">
+              
+              <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_pre_op_diagnosis_hidden" value="{{ isset($datum->printable_form['pre_op_diagnosis']) ? addslashes($datum->printable_form['pre_op_diagnosis']) : '' }}">
+              <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_post_op_diagnosis_hidden" value="{{ isset($datum->printable_form['post_op_diagnosis']) ? addslashes($datum->printable_form['post_op_diagnosis']) : '' }}">
+              <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_procedure_performed_hidden" value="{{ isset($datum->printable_form['procedure_performed']) ? addslashes($datum->printable_form['procedure_performed']) : '' }}">
+              <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_intraoperative_course_hidden" value="{{ isset($datum->printable_form['intraoperative_course']) ? addslashes($datum->printable_form['intraoperative_course']) : '' }}">
+              <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_intraoperative_findings_hidden" value="{{ isset($datum->printable_form['intraoperative_findings']) ? addslashes($datum->printable_form['intraoperative_findings']) : '' }}">
+              <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_complication_specify_hidden" value="{{ isset($datum->printable_form['complication_specify']) ? addslashes($datum->printable_form['complication_specify']) : '' }}">
+              <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_blood_loss_hidden" value="{{ isset($datum->printable_form['blood_loss']) ? addslashes($datum->printable_form['blood_loss']) : '' }}">
+              <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_specimen_sent_hidden" value="{{ isset($datum->printable_form['specimen_sent']) ? addslashes($datum->printable_form['specimen_sent']) : '' }}">
+              <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_specimen_sent_remarks_hidden" value="{{ isset($datum->printable_form['specimen_sent_remarks']) ? addslashes($datum->printable_form['specimen_sent_remarks']) : '' }}">
+              <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_post_operative_condition_hidden" value="{{ isset($datum->printable_form['post_operative_condition']) ? addslashes($datum->printable_form['post_operative_condition']) : '' }}">
+              <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_post_operative_condition_remarks_hidden" value="{{ isset($datum->printable_form['post_operative_condition_remarks']) ? addslashes($datum->printable_form['post_operative_condition_remarks']) : '' }}">
+              <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_medication_given_recovery_hidden" value="{{ isset($datum->printable_form['medication_given_recovery']) ? addslashes($datum->printable_form['medication_given_recovery']) : '' }}">
+              <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_discharge_medication_hidden" value="{{ isset($datum->printable_form['discharge_medication']) ? addslashes($datum->printable_form['discharge_medication']) : '' }}">
+              <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_avoid_days_hidden" value="{{ isset($datum->printable_form['avoid_days']) ? addslashes($datum->printable_form['avoid_days']) : '' }}">
+              <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_diet_hidden" value="{{ isset($datum->printable_form['diet']) ? addslashes($datum->printable_form['diet']) : '' }}">
+              <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_diet_remarks_hidden" value="{{ isset($datum->printable_form['diet_remarks']) ? addslashes($datum->printable_form['diet_remarks']) : '' }}">
+              
               @if(isset($datum->consultation_referals[0]->id))
                 @foreach($datum->consultation_referals as $cr)
               <li class="nav-item">
@@ -5307,8 +5768,8 @@
                     $('#{{ $viewFolder }}_OpTech_{{ $cr->id }}').show();
                     $('#{{ $viewFolder }}_PostOp_{{ $cr->id }}').show();
                     $('#{{ $viewFolder }}_OpAdmit_{{ $cr->id }}').show();
+                    $('#{{ $viewFolder }}_DischargeSum_{{ $cr->id }}').show();
                     
-
                     @if(isset($referal_conso) && $referal_conso->id == $cr->id)
                     $('#{{ $viewFolder }}_prescription').prop('disabled', false);
                     $('#{{ $viewFolder }}_prescriptionSelect').prop('disabled', false);
@@ -5333,6 +5794,41 @@
                     $('#{{ $viewFolder }}_things_avoid').prop('disabled', false);
                     $('#{{ $viewFolder }}_wound_care').prop('disabled', false);
                     $('#{{ $viewFolder }}_medication_post').prop('disabled', false);
+
+                    $('#{{ $viewFolder }}_anesthesia_type_ot').prop('disabled', false);
+                    $('#{{ $viewFolder }}_anesthesiologist_ot').prop('disabled', false);
+                    $('#{{ $viewFolder }}_room').prop('disabled', false);
+                    $('#{{ $viewFolder }}_dilate_check').prop('disabled', false);
+                    $('#{{ $viewFolder }}_dilate').prop('disabled', false);
+                    $('#{{ $viewFolder }}_constrict_check').prop('disabled', false);
+                    $('#{{ $viewFolder }}_constrict').prop('disabled', false);
+                    $('#{{ $viewFolder }}_intake_blood_thinner_check').prop('disabled', false);
+                    $('#{{ $viewFolder }}_intake_blood_thinner').prop('disabled', false);
+                    $('#{{ $viewFolder }}_intake_maintenance_meds_check').prop('disabled', false);
+                    $('#{{ $viewFolder }}_intake_maintenance_meds').prop('disabled', false);
+                    $('#{{ $viewFolder }}_additional_orders').prop('disabled', false);
+
+                    $('#{{ $viewFolder }}_pre_op_diagnosis').prop('disabled', false);
+                    $('#{{ $viewFolder }}_post_op_diagnosis').prop('disabled', false);
+                    $('#{{ $viewFolder }}_procedure_performed').prop('disabled', false);
+                    $('#{{ $viewFolder }}_intraoperative_findings').prop('disabled', false);
+                    $('#{{ $viewFolder }}_intraoperative_course_unremarkable').prop('disabled', false);
+                    $('#{{ $viewFolder }}_intraoperative_course_with_complications').prop('disabled', false);
+                    $('#{{ $viewFolder }}_complication_specify').prop('disabled', false);
+                    $('#{{ $viewFolder }}_blood_loss').prop('disabled', false);
+                    $('#{{ $viewFolder }}_specimen_sent_yes').prop('disabled', false);
+                    $('#{{ $viewFolder }}_specimen_sent_no').prop('disabled', false);
+                    $('#{{ $viewFolder }}_specimen_sent_remarks').prop('disabled', false);
+                    $('#{{ $viewFolder }}_post_operative_condition_stable').prop('disabled', false);
+                    $('#{{ $viewFolder }}_post_operative_condition_requires').prop('disabled', false);
+                    $('#{{ $viewFolder }}_post_operative_condition_remarks').prop('disabled', false);
+                    $('#{{ $viewFolder }}_medication_given_recovery').prop('disabled', false);
+                    $('#{{ $viewFolder }}_discharge_medication').prop('disabled', false);
+                    $('#{{ $viewFolder }}_avoid_days').prop('disabled', false);
+                    $('#{{ $viewFolder }}_diet_regular').prop('disabled', false);
+                    $('#{{ $viewFolder }}_diet_soft').prop('disabled', false);
+                    $('#{{ $viewFolder }}_diet_others').prop('disabled', false);
+                    $('#{{ $viewFolder }}_diet_remarks').prop('disabled', false);
                     @else
                     $('#{{ $viewFolder }}_prescription').prop('disabled', true);
                     $('#{{ $viewFolder }}_prescriptionSelect').prop('disabled', true);
@@ -5357,8 +5853,42 @@
                     $('#{{ $viewFolder }}_things_avoid').prop('disabled', true);
                     $('#{{ $viewFolder }}_wound_care').prop('disabled', true);
                     $('#{{ $viewFolder }}_medication_post').prop('disabled', true);
-                    @endif
 
+                    $('#{{ $viewFolder }}_anesthesia_type_ot').prop('disabled', true);
+                    $('#{{ $viewFolder }}_anesthesiologist_ot').prop('disabled', true);
+                    $('#{{ $viewFolder }}_room').prop('disabled', true);
+                    $('#{{ $viewFolder }}_dilate_check').prop('disabled', true);
+                    $('#{{ $viewFolder }}_dilate').prop('disabled', true);
+                    $('#{{ $viewFolder }}_constrict_check').prop('disabled', true);
+                    $('#{{ $viewFolder }}_constrict').prop('disabled', true);
+                    $('#{{ $viewFolder }}_intake_blood_thinner_check').prop('disabled', true);
+                    $('#{{ $viewFolder }}_intake_blood_thinner').prop('disabled', true);
+                    $('#{{ $viewFolder }}_intake_maintenance_meds_check').prop('disabled', true);
+                    $('#{{ $viewFolder }}_intake_maintenance_meds').prop('disabled', true);
+                    $('#{{ $viewFolder }}_additional_orders').prop('disabled', true);
+
+                    $('#{{ $viewFolder }}_pre_op_diagnosis').prop('disabled', true);
+                    $('#{{ $viewFolder }}_post_op_diagnosis').prop('disabled', true);
+                    $('#{{ $viewFolder }}_procedure_performed').prop('disabled', true);
+                    $('#{{ $viewFolder }}_intraoperative_findings').prop('disabled', true);
+                    $('#{{ $viewFolder }}_intraoperative_course_unremarkable').prop('disabled', true);
+                    $('#{{ $viewFolder }}_intraoperative_course_with_complications').prop('disabled', true);
+                    $('#{{ $viewFolder }}_complication_specify').prop('disabled', true);
+                    $('#{{ $viewFolder }}_blood_loss').prop('disabled', true);
+                    $('#{{ $viewFolder }}_specimen_sent_yes').prop('disabled', true);
+                    $('#{{ $viewFolder }}_specimen_sent_no').prop('disabled', true);
+                    $('#{{ $viewFolder }}_specimen_sent_remarks').prop('disabled', true);
+                    $('#{{ $viewFolder }}_post_operative_condition_stable').prop('disabled', true);
+                    $('#{{ $viewFolder }}_post_operative_condition_requires').prop('disabled', true);
+                    $('#{{ $viewFolder }}_post_operative_condition_remarks').prop('disabled', true);
+                    $('#{{ $viewFolder }}_medication_given_recovery').prop('disabled', true);
+                    $('#{{ $viewFolder }}_discharge_medication').prop('disabled', true);
+                    $('#{{ $viewFolder }}_avoid_days').prop('disabled', true);
+                    $('#{{ $viewFolder }}_diet_regular').prop('disabled', true);
+                    $('#{{ $viewFolder }}_diet_soft').prop('disabled', true);
+                    $('#{{ $viewFolder }}_diet_others').prop('disabled', true);
+                    $('#{{ $viewFolder }}_diet_remarks').prop('disabled', true);
+                    @endif
                     $('#{{ $viewFolder }}_prescription').val($('#{{ $viewFolder . $cr->id }}_prescription_hidden').val());
                     $('#{{ $viewFolder }}_findings').val($('#{{ $viewFolder . $cr->id }}_findings_hidden').val());
                     $('#{{ $viewFolder }}_diagnosis').val($('#{{ $viewFolder . $cr->id }}_diagnosis_hidden').val());
@@ -5377,7 +5907,65 @@
                     $('#{{ $viewFolder }}_things_avoid').val($('#{{ $viewFolder . $cr->id }}_things_avoid_hidden').val());
                     $('#{{ $viewFolder }}_wound_care').val($('#{{ $viewFolder . $cr->id }}_wound_care_hidden').val());
                     $('#{{ $viewFolder }}_medication_post').val($('#{{ $viewFolder . $cr->id }}_medication_post_hidden').val());
+                    $('#{{ $viewFolder }}_room').val($('#{{ $viewFolder . $cr->id }}_room_hidden').val());
+                    if($('#{{ $viewFolder . $cr->id }}_dilate_hidden').val() != ''){
+                      $('#{{ $viewFolder }}_dilate_check').prop('checked', true);
+                      // $('#{{ $viewFolder }}_dilate').prop('disabled', false);
+                    }else{
+                      $('#{{ $viewFolder }}_dilate_check').prop('checked', false);
+                      // $('#{{ $viewFolder }}_dilate').prop('disabled', true);
+                    }
+                    $('#{{ $viewFolder }}_dilate').val($('#{{ $viewFolder . $cr->id }}_dilate_hidden').val());
 
+                    if($('#{{ $viewFolder . $cr->id }}_constrict_hidden').val() != ''){
+                      $('#{{ $viewFolder }}_constrict_check').prop('checked', true);
+                      // $('#{{ $viewFolder }}_constrict').prop('disabled', false);
+                    }else{
+                      $('#{{ $viewFolder }}_constrict_check').prop('checked', false);
+                      // $('#{{ $viewFolder }}_constrict').prop('disabled', true);
+                    }
+                    $('#{{ $viewFolder }}_constrict').val($('#{{ $viewFolder . $cr->id }}_constrict_hidden').val());
+                    $('#{{ $viewFolder }}_additional_orders').val($('#{{ $viewFolder . $cr->id }}_additional_orders_hidden').val());
+
+                    $('#{{ $viewFolder }}_pre_op_diagnosis').val($('#{{ $viewFolder . $cr->id }}_pre_op_diagnosis_hidden').val());
+                    $('#{{ $viewFolder }}_post_op_diagnosis').val($('#{{ $viewFolder . $cr->id }}_post_op_diagnosis_hidden').val());
+                    $('#{{ $viewFolder }}_procedure_performed').val($('#{{ $viewFolder . $cr->id }}_procedure_performed_hidden').val());
+                    $('#{{ $viewFolder }}_intraoperative_findings').val($('#{{ $viewFolder . $cr->id }}_intraoperative_findings_hidden').val());
+                    if($('#{{ $viewFolder . $cr->id }}_intraoperative_course_hidden').val() == 'Unremarkable'){
+                      $('#{{ $viewFolder }}_intraoperative_course_unremarkable').prop('checked', true);
+                      $('#{{ $viewFolder }}_complication_specify').prop('disabled', true);
+                    }else{
+                      $('#{{ $viewFolder }}_intraoperative_course_with_complications').prop('checked', true);
+                      // $('#{{ $viewFolder }}_complication_specify').prop('disabled', false);
+                    }
+                    $('#{{ $viewFolder }}_complication_specify').val($('#{{ $viewFolder . $cr->id }}_complication_specify_hidden').val());
+                    $('#{{ $viewFolder }}_blood_loss').val($('#{{ $viewFolder . $cr->id }}_blood_loss_hidden').val());
+                    if($('#{{ $viewFolder . $cr->id }}_specimen_sent_hidden').val() == 'no'){
+                      $('#{{ $viewFolder }}_specimen_sent_no').prop('checked', true);
+                    }else{
+                      $('#{{ $viewFolder }}_specimen_sent_yes').prop('checked', true);
+                    }
+                    $('#{{ $viewFolder }}_specimen_sent_remarks').val($('#{{ $viewFolder . $cr->id }}_specimen_sent_remarks_hidden').val());
+                    if($('#{{ $viewFolder . $cr->id }}_post_operative_condition_hidden').val() == 'Stable'){
+                      $('#{{ $viewFolder }}_post_operative_condition_stable').prop('checked', true);
+                    }else{
+                      $('#{{ $viewFolder }}_post_operative_condition_requires').prop('checked', true);
+                    }
+                    $('#{{ $viewFolder }}_post_operative_condition_remarks').val($('#{{ $viewFolder . $cr->id }}_post_operative_condition_remarks_hidden').val());
+                    $('#{{ $viewFolder }}_medication_given_recovery').val($('#{{ $viewFolder . $cr->id }}_medication_given_recovery_hidden').val());
+                    $('#{{ $viewFolder }}_discharge_medication').val($('#{{ $viewFolder . $cr->id }}_discharge_medication_hidden').val());
+                    $('#{{ $viewFolder }}_avoid_days').val($('#{{ $viewFolder . $cr->id }}_avoid_days_hidden').val());
+                    if($('#{{ $viewFolder . $cr->id }}_diet_hidden').val() == 'Regular'){
+                      $('#{{ $viewFolder }}_diet_regular').prop('checked', true);
+                      $('#{{ $viewFolder }}_diet_remarks').prop('disabled', true);
+                    }else if($('#{{ $viewFolder . $cr->id }}_diet_hidden').val() == 'Soft'){
+                      $('#{{ $viewFolder }}_diet_soft').prop('checked', true);
+                      $('#{{ $viewFolder }}_diet_remarks').prop('disabled', true);
+                    }else{
+                      $('#{{ $viewFolder }}_diet_others').prop('checked', true);
+                      // $('#{{ $viewFolder }}_diet_remarks').prop('disabled', false);
+                    }
+                    $('#{{ $viewFolder }}_diet_remarks').val($('#{{ $viewFolder . $cr->id }}_diet_remarks_hidden').val());
                 ">{{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'Yours - ' . $cr->clinic->name . ' | ' . ($cr->booking_type == '' ? 'Consultations' : $cr->booking_type) : 'Dr. ' . Str::substr($cr->doctor->f_name, 0, 1) . '. ' . $cr->doctor->l_name . ' - ' . $cr->clinic->name . ' | ' . ($cr->booking_type == '' ? 'Consultations' : $cr->booking_type) }}</a>
               </li>
                 <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_prescription_hidden" value="{{ addslashes($cr->prescription) }}">
@@ -5394,11 +5982,32 @@
                 <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_anesthesia_type_ot_hidden" value="{{ addslashes($cr->anesthesia_type_ao) }}">
                 <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_anesthesiologist_ot_hidden" value="{{ addslashes($cr->anesthesiologist_ao) }}">
                 <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_operative_tech_hidden" value="{{ isset($cr->printable_form['operative_tech']) ? addslashes($cr->printable_form['operative_tech']) : '' }}">
-                <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id  }}_after_proc_hidden" value="{{ isset($cr->printable_form['after_proc']) ? addslashes($cr->printable_form['after_proc']) : '' }}">
-                <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id  }}_things_watch_out_hidden" value="{{ isset($cr->printable_form['things_watch_out']) ? addslashes($cr->printable_form['things_watch_out']) : '' }}">
-                <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id  }}_things_avoid_hidden" value="{{ isset($cr->printable_form['things_avoid']) ? addslashes($cr->printable_form['things_avoid']) : '' }}">
-                <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id  }}_wound_care_hidden" value="{{ isset($cr->printable_form['wound_care']) ? addslashes($cr->printable_form['wound_care']) : '' }}">
-                <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id  }}_medication_post_hidden" value="{{ isset($cr->printable_form['medication']) ? addslashes($cr->printable_form['medication']) : '' }}">
+                <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_after_proc_hidden" value="{{ isset($cr->printable_form['after_proc']) ? addslashes($cr->printable_form['after_proc']) : '' }}">
+                <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_things_watch_out_hidden" value="{{ isset($cr->printable_form['things_watch_out']) ? addslashes($cr->printable_form['things_watch_out']) : '' }}">
+                <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_things_avoid_hidden" value="{{ isset($cr->printable_form['things_avoid']) ? addslashes($cr->printable_form['things_avoid']) : '' }}">
+                <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_wound_care_hidden" value="{{ isset($cr->printable_form['wound_care']) ? addslashes($cr->printable_form['wound_care']) : '' }}">
+                <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_medication_post_hidden" value="{{ isset($cr->printable_form['medication']) ? addslashes($cr->printable_form['medication']) : '' }}">
+                <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_room_hidden" value="{{ isset($cr->printable_form['room']) ? addslashes($cr->printable_form['room']) : '' }}">
+                <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_dilate_hidden" value="{{ isset($cr->printable_form['dilate']) ? addslashes($cr->printable_form['dilate']) : '' }}">
+                <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_constrict_hidden" value="{{ isset($cr->printable_form['constrict']) ? addslashes($cr->printable_form['constrict']) : '' }}">
+                <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_additional_orders_hidden" value="{{ isset($cr->printable_form['additional_orders']) ? addslashes($cr->printable_form['additional_orders']) : '' }}">
+                
+                <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_pre_op_diagnosis_hidden" value="{{ isset($cr->printable_form['pre_op_diagnosis']) ? addslashes($cr->printable_form['pre_op_diagnosis']) : '' }}">
+                <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_post_op_diagnosis_hidden" value="{{ isset($cr->printable_form['post_op_diagnosis']) ? addslashes($cr->printable_form['post_op_diagnosis']) : '' }}">
+                <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_procedure_performed_hidden" value="{{ isset($cr->printable_form['procedure_performed']) ? addslashes($cr->printable_form['procedure_performed']) : '' }}">
+                <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_intraoperative_course_hidden" value="{{ isset($cr->printable_form['intraoperative_course']) ? addslashes($cr->printable_form['intraoperative_course']) : '' }}">
+                <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_intraoperative_findings_hidden" value="{{ isset($cr->printable_form['intraoperative_findings']) ? addslashes($cr->printable_form['intraoperative_findings']) : '' }}">
+                <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_complication_specify_hidden" value="{{ isset($cr->printable_form['complication_specify']) ? addslashes($cr->printable_form['complication_specify']) : '' }}">
+                <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_blood_loss_hidden" value="{{ isset($cr->printable_form['blood_loss']) ? addslashes($cr->printable_form['blood_loss']) : '' }}">
+                <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_specimen_sent_hidden" value="{{ isset($cr->printable_form['specimen_sent']) ? addslashes($cr->printable_form['specimen_sent']) : '' }}">
+                <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_specimen_sent_remarks_hidden" value="{{ isset($cr->printable_form['specimen_sent_remarks']) ? addslashes($cr->printable_form['specimen_sent_remarks']) : '' }}">
+                <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_post_operative_condition_hidden" value="{{ isset($cr->printable_form['post_operative_condition']) ? addslashes($cr->printable_form['post_operative_condition']) : '' }}">
+                <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_post_operative_condition_remarks_hidden" value="{{ isset($cr->printable_form['post_operative_condition_remarks']) ? addslashes($cr->printable_form['post_operative_condition_remarks']) : '' }}">
+                <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_medication_given_recovery_hidden" value="{{ isset($cr->printable_form['medication_given_recovery']) ? addslashes($cr->printable_form['medication_given_recovery']) : '' }}">
+                <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_discharge_medication_hidden" value="{{ isset($cr->printable_form['discharge_medication']) ? addslashes($cr->printable_form['discharge_medication']) : '' }}">
+                <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_avoid_days_hidden" value="{{ isset($cr->printable_form['avoid_days']) ? addslashes($cr->printable_form['avoid_days']) : '' }}">
+                <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_diet_hidden" value="{{ isset($cr->printable_form['diet']) ? addslashes($cr->printable_form['diet']) : '' }}">
+                <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_diet_remarks_hidden" value="{{ isset($cr->printable_form['diet_remarks']) ? addslashes($cr->printable_form['diet_remarks']) : '' }}">
                 @endforeach
               @endif
             </ul>
@@ -5413,6 +6022,10 @@
                   $('#admitBigLink').removeClass('active');
                   $('#dialysisBigLink').removeClass('active');
                   $('#printableFormsBigLink').removeClass('active');
+                  $('#admitPeriBigLink').removeClass('active');
+                  $('#orTechBigLink').removeClass('active');
+                  $('#postOpBigLink').removeClass('active');
+                  $('#dischargeSumBigLink').addClass('active');
                   
                   $('#sumPrevLink').addClass('active');  
                   $('#soapPrevLink').removeClass('active');  
@@ -5422,6 +6035,10 @@
                   $('#admitPrevLink').removeClass('active');
                   $('#dialysisPrevLink').removeClass('active');
                   $('#printableFormsPrevLink').removeClass('active');
+                  $('#admitPeriPrevLink').removeClass('active');
+                  $('#orTechPrevLink').removeClass('active');
+                  $('#postOpPrevLink').removeClass('active');
+                  $('#dischargeSumPrevLink').addClass('active');
 
                   $('#sumPrevDiv').show();  
                   $('#soapPrevDiv').hide();  
@@ -5433,6 +6050,7 @@
                   $('#admitPeriPrevDiv').hide();  
                   $('#orTechPrevDiv').hide();  
                   $('#postOpPrevDiv').hide();
+                  $('#dischargeSumPrevDiv').hide();
 
                   $('#sumCurLink').addClass('active');  
                   $('#soapCurLink').removeClass('active');  
@@ -5442,6 +6060,10 @@
                   $('#admitCurLink').removeClass('active');
                   $('#dialysisCurLink').removeClass('active');
                   $('#printableFormsCurLink').removeClass('active');
+                  $('#admitPeriCurLink').removeClass('active');
+                  $('#orTechCurLink').removeClass('active');
+                  $('#postOpCurLink').removeClass('active');
+                  $('#dischargeSumCurLink').addClass('active');
 
                   $('#sumCurDiv').show();  
                   $('#soapCurDiv').hide();  
@@ -5453,6 +6075,7 @@
                   $('#admitPeriCurDiv').hide();  
                   $('#orTechCurDiv').hide();  
                   $('#postOpCurDiv').hide();
+                  $('#dischargeSumCurDiv').hide();
                 ">Summary</a>
               </li>
               <li class="nav-item">
@@ -5465,6 +6088,10 @@
                   $('#admitBigLink').removeClass('active');
                   $('#dialysisBigLink').removeClass('active');
                   $('#printableFormsBigLink').removeClass('active');
+                  $('#admitPeriBigLink').removeClass('active');
+                  $('#orTechBigLink').removeClass('active');
+                  $('#postOpBigLink').removeClass('active');
+                  $('#dischargeSumBigLink').addClass('active');
                   
                   $('#soapPrevLink').addClass('active');  
                   $('#sumPrevLink').removeClass('active');  
@@ -5474,6 +6101,10 @@
                   $('#admitPrevLink').removeClass('active');
                   $('#dialysisPrevLink').removeClass('active');
                   $('#printableFormsPrevLink').removeClass('active');
+                  $('#admitPeriPrevLink').removeClass('active');
+                  $('#orTechPrevLink').removeClass('active');
+                  $('#postOpPrevLink').removeClass('active');
+                  $('#dischargeSumPrevLink').addClass('active');
 
                   $('#soapPrevDiv').show();  
                   $('#sumPrevDiv').hide();  
@@ -5485,6 +6116,7 @@
                   $('#admitPeriPrevDiv').hide();  
                   $('#orTechPrevDiv').hide();  
                   $('#postOpPrevDiv').hide();
+                  $('#dischargeSumPrevDiv').hide();
 
                   $('#soapCurLink').addClass('active');  
                   $('#sumCurLink').removeClass('active');  
@@ -5494,6 +6126,10 @@
                   $('#admitCurLink').removeClass('active');
                   $('#dialysisCurLink').removeClass('active');
                   $('#printableFormsCurLink').removeClass('active');
+                  $('#admitPeriCURLink').removeClass('active');
+                  $('#orTechCURLink').removeClass('active');
+                  $('#postOpCURLink').removeClass('active');
+                  $('#dischargeSumCurLink').addClass('active');
 
                   $('#soapCurDiv').show();  
                   $('#sumCurDiv').hide();  
@@ -5505,6 +6141,7 @@
                   $('#admitPeriCurDiv').hide();  
                   $('#orTechCurDiv').hide();  
                   $('#postOpCurDiv').hide();
+                  $('#dischargeSumCurDiv').hide();
 
                 ">SOAP</a>
               </li>
@@ -5518,6 +6155,10 @@
                   $('#admitBigLink').removeClass('active');
                   $('#dialysisBigLink').removeClass('active');
                   $('#printableFormsBigLink').removeClass('active');
+                  $('#admitPeriBigLink').removeClass('active');
+                  $('#orTechBigLink').removeClass('active');
+                  $('#postOpBigLink').removeClass('active');
+                  $('#dischargeSumBigLink').addClass('active');
                   
                   $('#sumPrevLink').removeClass('active');
                   $('#soapPrevLink').removeClass('active');
@@ -5527,6 +6168,10 @@
                   $('#admitPrevLink').removeClass('active');
                   $('#dialysisPrevLink').removeClass('active');
                   $('#printableFormsPrevLink').removeClass('active');
+                  $('#admitPeriPrevLink').removeClass('active');
+                  $('#orTechPrevLink').removeClass('active');
+                  $('#postOpPrevLink').removeClass('active');
+                  $('#dischargeSumPrevLink').addClass('active');
 
                   $('#sumPrevDiv').hide();  
                   $('#soapPrevDiv').hide();  
@@ -5538,6 +6183,7 @@
                   $('#admitPeriPrevDiv').hide();  
                   $('#orTechPrevDiv').hide();  
                   $('#postOpPrevDiv').hide();
+                  $('#dischargeSumPrevDiv').hide();
 
                   $('#sumCurLink').removeClass('active');
                   $('#soapCurLink').removeClass('active');
@@ -5547,6 +6193,10 @@
                   $('#admitCurLink').removeClass('active');
                   $('#dialysisCurLink').removeClass('active');
                   $('#printableFormsCurLink').removeClass('active');
+                  $('#admitPeriCurLink').removeClass('active');
+                  $('#orTechCurLink').removeClass('active');
+                  $('#postOpCurLink').removeClass('active');
+                  $('#dischargeSumCurLink').addClass('active');
 
                   $('#sumCurDiv').hide();  
                   $('#soapCurDiv').hide();  
@@ -5558,6 +6208,7 @@
                   $('#admitPeriCurDiv').hide();  
                   $('#orTechCurDiv').hide();  
                   $('#postOpCurDiv').hide();
+                  $('#dischargeSumCurDiv').hide();
                 ">File Uploads</a>
               </li>
               <li class="nav-item dropdown">
@@ -5573,6 +6224,10 @@
                       $('#admitBigLink').addClass('active');
                       $('#printableFormsBigLink').addClass('active');
                       $('#dialysisBigLink').removeClass('active');
+                      $('#admitPeriBigLink').removeClass('active');
+                      $('#orTechBigLink').removeClass('active');
+                      $('#postOpBigLink').removeClass('active');
+                      $('#dischargeSumBigLink').addClass('active');
                       
                       $('#sumPrevLink').removeClass('active');
                       $('#soapPrevLink').removeClass('active');
@@ -5582,6 +6237,10 @@
                       $('#admitPrevLink').addClass('active');
                       $('#printableFormsPrevLink').addClass('active');
                       $('#dialysisPrevLink').removeClass('active');
+                      $('#admitPeriPrevLink').removeClass('active');
+                      $('#orTechPrevLink').removeClass('active');
+                      $('#postOpPrevLink').removeClass('active');
+                      $('#dischargeSumPrevLink').addClass('active');
 
                       $('#sumPrevDiv').hide();  
                       $('#soapPrevDiv').hide();  
@@ -5593,6 +6252,7 @@
                       $('#admitPeriPrevDiv').hide();  
                       $('#orTechPrevDiv').hide();  
                       $('#postOpPrevDiv').hide();
+                      $('#dischargeSumPrevDiv').hide();
 
                       $('#sumCurLink').removeClass('active');
                       $('#soapCurLink').removeClass('active');
@@ -5602,6 +6262,10 @@
                       $('#admitCurLink').addClass('active'); 
                       $('#printableFormsCurLink').addClass('active');
                       $('#dialysisCurLink').removeClass('active');
+                      $('#admitPeriCurLink').removeClass('active');
+                      $('#orTechCurLink').removeClass('active');
+                      $('#postOpCurLink').removeClass('active');
+                      $('#dischargeSumCurLink').addClass('active');
 
                       $('#sumCurDiv').hide();  
                       $('#soapCurDiv').hide();  
@@ -5613,11 +6277,12 @@
                       $('#admitPeriCurDiv').hide();  
                       $('#orTechCurDiv').hide();  
                       $('#postOpCurDiv').hide();
+                      $('#dischargeSumCurDiv').hide();
 
-                      $('#{{ $viewFolder }}_anesthesia_type_ot').prop('disabled', true);
-                      $('#{{ $viewFolder }}_anesthesiologist_ot').prop('disabled', true);
-                      $('#{{ $viewFolder }}_anesthesia_type_ao').prop('disabled', false);
-                      $('#{{ $viewFolder }}_anesthesiologist_ao').prop('disabled', false);
+                      // $('#{{ $viewFolder }}_anesthesia_type_ot').prop('disabled', true);
+                      // $('#{{ $viewFolder }}_anesthesiologist_ot').prop('disabled', true);
+                      // $('#{{ $viewFolder }}_anesthesia_type_ao').prop('disabled', false);
+                      // $('#{{ $viewFolder }}_anesthesiologist_ao').prop('disabled', false);
                     ">Admitting Orders</a>
                   </li>
                   <li>
@@ -5630,6 +6295,10 @@
                       $('#medBigLink').removeClass('active');  
                       $('#admitBigLink').removeClass('active');
                       $('#dialysisBigLink').removeClass('active');
+                      $('#admitPeriBigLink').removeClass('active');
+                      $('#orTechBigLink').removeClass('active');
+                      $('#postOpBigLink').removeClass('active');
+                      $('#dischargeSumBigLink').addClass('active');
                       
                       $('#sumPrevLink').removeClass('active');
                       $('#soapPrevLink').removeClass('active');
@@ -5639,6 +6308,10 @@
                       $('#medPrevLink').removeClass('active');  
                       $('#admitPrevLink').removeClass('active');
                       $('#dialysisPrevLink').removeClass('active');
+                      $('#admitPeriPrevLink').removeClass('active');
+                      $('#orTechPrevLink').removeClass('active');
+                      $('#postOpPrevLink').removeClass('active');
+                      $('#dischargeSumPrevLink').addClass('active');
 
                       $('#sumPrevDiv').hide();  
                       $('#soapPrevDiv').hide();  
@@ -5650,6 +6323,7 @@
                       $('#admitPeriPrevDiv').hide();  
                       $('#orTechPrevDiv').hide();  
                       $('#postOpPrevDiv').hide();
+                      $('#dischargeSumPrevDiv').hide();
 
                       $('#sumCurLink').removeClass('active');
                       $('#soapCurLink').removeClass('active');
@@ -5659,6 +6333,10 @@
                       $('#medCurLink').removeClass('active');  
                       $('#admitCurLink').removeClass('active');
                       $('#dialysisCurLink').removeClass('active');
+                      $('#admitPeriCurLink').removeClass('active');
+                      $('#orTechCurLink').removeClass('active');
+                      $('#postOpCurLink').removeClass('active');
+                      $('#dischargeSumCurLink').addClass('active');
 
                       $('#sumCurDiv').hide();  
                       $('#soapCurDiv').hide();  
@@ -5670,6 +6348,7 @@
                       $('#admitPeriCurDiv').hide();  
                       $('#orTechCurDiv').hide();  
                       $('#postOpCurDiv').hide();
+                      $('#dischargeSumCurDiv').hide();
                     ">E-Prescription</a>
                   </li>
                   <li>
@@ -5682,6 +6361,10 @@
                       $('#printableFormsBigLink').addClass('active');
                       $('#admitBigLink').removeClass('active');
                       $('#dialysisBigLink').removeClass('active');
+                      $('#admitPeriBigLink').removeClass('active');
+                      $('#orTechBigLink').removeClass('active');
+                      $('#postOpBigLink').removeClass('active');
+                      $('#dischargeSumBigLink').addClass('active');
                       
                       $('#sumPrevLink').removeClass('active');
                       $('#soapPrevLink').removeClass('active');
@@ -5691,6 +6374,10 @@
                       $('#printableFormsPrevLink').addClass('active');
                       $('#admitPrevLink').removeClass('active');
                       $('#dialysisPrevLink').removeClass('active');
+                      $('#admitPeriPrevLink').removeClass('active');
+                      $('#orTechPrevLink').removeClass('active');
+                      $('#postOpPrevLink').removeClass('active');
+                      $('#dischargeSumPrevLink').addClass('active');
 
                       $('#sumPrevDiv').hide();  
                       $('#soapPrevDiv').hide();  
@@ -5702,6 +6389,7 @@
                       $('#admitPeriPrevDiv').hide();  
                       $('#orTechPrevDiv').hide();  
                       $('#postOpPrevDiv').hide();
+                      $('#dischargeSumPrevDiv').hide();
 
                       $('#sumCurLink').removeClass('active');
                       $('#soapCurLink').removeClass('active');
@@ -5711,6 +6399,10 @@
                       $('#printableFormsCurLink').addClass('active');
                       $('#admitCurLink').removeClass('active');
                       $('#dialysisCurLink').removeClass('active');
+                      $('#admitPeriCurLink').removeClass('active');
+                      $('#orTechCurLink').removeClass('active');
+                      $('#postOpCurLink').removeClass('active');
+                      $('#dischargeSumCurLink').addClass('active');
 
                       $('#sumCurDiv').hide();  
                       $('#soapCurDiv').hide();  
@@ -5722,9 +6414,78 @@
                       $('#admitPeriCurDiv').hide();  
                       $('#orTechCurDiv').hide();  
                       $('#postOpCurDiv').hide();
+                      $('#dischargeSumCurDiv').hide();
                     ">Med Cert</a>
                   </li>
                   <li><hr class="dropdown-divider"></li>
+                  <li>
+                    <a class="dropdown-item" id="dischargeSumCurLink" href="#" onclick="
+                      $('#sumBigLink').removeClass('active');
+                      $('#soapBigLink').removeClass('active');
+                      $('#labBigLink').removeClass('active');  
+                      $('#presBigLink').removeClass('active');  
+                      $('#medBigLink').removeClass('active');
+                      $('#admitBigLink').removeClass('active');
+                      $('#dialysisBigLink').removeClass('active');
+                      // $('#hdSummaryBigLink').removeClass('active');
+                      $('#admitPeriBigLink').removeClass('active');
+                      $('#printableFormsBigLink').addClass('active'); 
+                      $('#orTechBigLink').removeClass('active');
+                      $('#postOpBigLink').removeClass('active');
+                      $('#dischargeSumBigLink').addClass('active');
+
+                      $('#sumPrevLink').removeClass('active');
+                      $('#soapPrevLink').removeClass('active');
+                      $('#labPrevLink').removeClass('active');  
+                      $('#presPrevLink').removeClass('active');  
+                      $('#medPrevLink').removeClass('active');
+                      $('#admitPrevLink').removeClass('active'); 
+                      $('#dialysisPrevLink').removeClass('active');
+                      // $('#hdSummaryPrevLink').removeClass('active');
+                      $('#admitPeriPrevLink').removeClass('active');
+                      $('#printableFormsPrevLink').addClass('active'); 
+                      $('#orTechPrevLink').removeClass('active');
+                      $('#postOpPrevLink').removeClass('active');
+                      $('#dischargeSumPrevLink').addClass('active');
+
+                      $('#sumPrevDiv').hide();  
+                      $('#soapPrevDiv').hide();  
+                      $('#labPrevDiv').hide();  
+                      $('#presPrevDiv').hide();  
+                      $('#medPrevDiv').hide(); 
+                      $('#admitPrevDiv').hide();
+                      $('#dialysisPrevDiv').hide();  
+                      $('#admitPeriPrevDiv').hide();  
+                      $('#orTechPrevDiv').hide();  
+                      $('#postOpPrevDiv').hide(); 
+                      $('#dischargeSumPrevDiv').show(); 
+
+                      $('#sumCurLink').removeClass('active');
+                      $('#soapCurLink').removeClass('active');
+                      $('#labCurLink').removeClass('active');  
+                      $('#presCurLink').removeClass('active');  
+                      $('#medCurLink').removeClass('active');
+                      $('#admitCurLink').removeClass('active'); 
+                      $('#dialysisCurLink').removeClass('active');
+                      $('#admitPeriCurLink').removeClass('active');
+                      $('#printableFormsCurLink').addClass('active'); 
+                      $('#orTechCurLink').removeClass('active');
+                      $('#postOpCurLink').removeClass('active');
+                      $('#dischargeSumCurLink').addClass('active');
+
+                      $('#sumCurDiv').hide();  
+                      $('#soapCurDiv').hide();  
+                      $('#labCurDiv').hide();  
+                      $('#presCurDiv').hide();  
+                      $('#medCurDiv').hide(); 
+                      $('#admitCurDiv').hide();  
+                      $('#dialysisCurDiv').hide();
+                      $('#admitPeriCurDiv').show();  
+                      $('#orTechCurDiv').hide();  
+                      $('#postOpCurDiv').hide();
+                      $('#dischargeSumCurDiv').hide();
+                    ">Discharge Summary</a>
+                  </li>
                   <li>
                     <a class="dropdown-item" id="admitPeriCurLink" href="#" onclick="
                       $('#sumBigLink').removeClass('active');
@@ -5739,6 +6500,7 @@
                       $('#printableFormsBigLink').addClass('active'); 
                       $('#orTechBigLink').removeClass('active');
                       $('#postOpBigLink').removeClass('active');
+                      $('#dischargeSumBigLink').removeClass('active');
 
                       $('#sumPrevLink').removeClass('active');
                       $('#soapPrevLink').removeClass('active');
@@ -5752,6 +6514,7 @@
                       $('#printableFormsPrevLink').addClass('active'); 
                       $('#orTechPrevLink').removeClass('active');
                       $('#postOpPrevLink').removeClass('active');
+                      $('#dischargeSumPrevLink').removeClass('active');
 
                       $('#sumPrevDiv').hide();  
                       $('#soapPrevDiv').hide();  
@@ -5763,6 +6526,7 @@
                       $('#admitPeriPrevDiv').show();  
                       $('#orTechPrevDiv').hide();  
                       $('#postOpPrevDiv').hide(); 
+                      $('#dischargeSumPrevDiv').hide(); 
 
                       $('#sumCurLink').removeClass('active');
                       $('#soapCurLink').removeClass('active');
@@ -5775,6 +6539,7 @@
                       $('#printableFormsCurLink').addClass('active'); 
                       $('#orTechCurLink').removeClass('active');
                       $('#postOpCurLink').removeClass('active');
+                      $('#dischargeSumCurLink').removeClass('active');
 
                       $('#sumCurDiv').hide();  
                       $('#soapCurDiv').hide();  
@@ -5786,6 +6551,7 @@
                       $('#admitPeriCurDiv').show();  
                       $('#orTechCurDiv').hide();  
                       $('#postOpCurDiv').hide();
+                      $('#dischargeSumCurDiv').hide();
                     ">Ophthalmology Admitting and Peri-Op</a>
                   </li>
                   <li>
@@ -5802,6 +6568,7 @@
                       $('#orTechBigLink').addClass('active');
                       $('#printableFormsBigLink').addClass('active'); 
                       $('#postOpBigLink').removeClass('active');
+                      $('#dischargeSumBigLink').removeClass('active');
 
                       $('#sumPrevLink').removeClass('active');
                       $('#soapPrevLink').removeClass('active');
@@ -5815,6 +6582,7 @@
                       $('#orTechPrevLink').addClass('active');
                       $('#printableFormsPrevLink').addClass('active'); 
                       $('#postOpPrevLink').removeClass('active');
+                      $('#dischargeSumPrevLink').removeClass('active');
 
                       $('#sumPrevDiv').hide();  
                       $('#soapPrevDiv').hide();  
@@ -5826,6 +6594,7 @@
                       $('#admitPeriPrevDiv').hide();  
                       $('#orTechPrevDiv').show();  
                       $('#postOpPrevDiv').hide();
+                      $('#dischargeSumPrevDiv').hide();
 
                       $('#sumCurLink').removeClass('active');
                       $('#soapCurLink').removeClass('active');
@@ -5838,6 +6607,7 @@
                       $('#orTechCurLink').addClass('active');
                       $('#printableFormsCurLink').addClass('active'); 
                       $('#postOpCurLink').removeClass('active');
+                      $('#dischargeSumCurLink').removeClass('active');
 
                       $('#sumCurDiv').hide();  
                       $('#soapCurDiv').hide();  
@@ -5849,11 +6619,12 @@
                       $('#admitPeriCurDiv').hide();  
                       $('#orTechCurDiv').show();  
                       $('#postOpCurDiv').hide();
+                      $('#dischargeSumCurDiv').hide();
 
-                      $('#{{ $viewFolder }}_anesthesia_type_ot').prop('disabled', false);
-                      $('#{{ $viewFolder }}_anesthesiologist_ot').prop('disabled', false);
-                      $('#{{ $viewFolder }}_anesthesia_type_ao').prop('disabled', true);
-                      $('#{{ $viewFolder }}_anesthesiologist_ao').prop('disabled', true);
+                      // $('#{{ $viewFolder }}_anesthesia_type_ot').prop('disabled', false);
+                      // $('#{{ $viewFolder }}_anesthesiologist_ot').prop('disabled', false);
+                      // $('#{{ $viewFolder }}_anesthesia_type_ao').prop('disabled', true);
+                      // $('#{{ $viewFolder }}_anesthesiologist_ao').prop('disabled', true);
                     ">OR Tech</a>
                   </li>
                   <li>
@@ -5868,6 +6639,7 @@
                       // $('#hdSummaryBigLink').removeClass('active');
                       $('#admitPeriBigLink').removeClass('active');
                       $('#orTechBigLink').removeClass('active');
+                      $('#dischargeSumBigLink').removeClass('active');
                       $('#postOpBigLink').addClass('active');
                       $('#printableFormsBigLink').addClass('active'); 
                       
@@ -5881,6 +6653,7 @@
                       // $('#hdSummaryPrevLink').removeClass('active');
                       $('#admitPeriPrevLink').removeClass('active');
                       $('#orTechPrevLink').removeClass('active');
+                      $('#dischargeSumPrevLink').removeClass('active');
                       $('#postOpPrevLink').addClass('active');
                       $('#printableFormsPrevLink').addClass('active'); 
 
@@ -5893,6 +6666,7 @@
                       $('#dialysisPrevDiv').hide();
                       $('#admitPeriPrevDiv').hide();  
                       $('#orTechPrevDiv').hide();  
+                      $('#dischargeSumPrevDiv').hide();  
                       $('#postOpPrevDiv').show();
 
                       $('#sumCurLink').removeClass('active');
@@ -5904,6 +6678,7 @@
                       $('#dialysisCurLink').removeClass('active');
                       $('#admitPeriCurLink').removeClass('active');
                       $('#orTechCurLink').removeClass('active');
+                      $('#dischargeSumCurLink').removeClass('active');
                       $('#postOpCurLink').addClass('active');
                       $('#printableFormsCurLink').addClass('active'); 
 
@@ -5916,6 +6691,7 @@
                       $('#dialysisCurDiv').hide();
                       $('#admitPeriCurDiv').hide();  
                       $('#orTechCurDiv').hide();  
+                      $('#dischargeSumCurDiv').hide();  
                       $('#postOpCurDiv').show();
                     ">Post Operative Instructions</a>
                   </li>
@@ -6028,6 +6804,10 @@
                   $('#admitBigLink').removeClass('active');
                   $('#dialysisBigLink').addClass('active');
                   $('#printableFormsBigLink').removeClass('active');
+                  $('#admitPeriBigLink').removeClass('active');
+                  $('#orTechBigLink').removeClass('active');
+                  $('#postOpBigLink').removeClass('active');
+                  $('#dischargeSumBigLink').addClass('active');
                   
                   $('#sumPrevLink').removeClass('active');
                   $('#soapPrevLink').removeClass('active');
@@ -6037,6 +6817,10 @@
                   $('#admitPrevLink').removeClass('active');
                   $('#dialysisPrevLink').addClass('active');
                   $('#printableFormsPrevLink').removeClass('active');
+                  $('#admitPeriPrevLink').removeClass('active');
+                  $('#orTechPrevLink').removeClass('active');
+                  $('#postOpPrevLink').removeClass('active');
+                  $('#dischargeSumPrevLink').addClass('active');
 
                   $('#sumPrevDiv').hide();  
                   $('#soapPrevDiv').hide();  
@@ -6048,6 +6832,7 @@
                   $('#admitPeriPrevDiv').hide();  
                   $('#orTechPrevDiv').hide();  
                   $('#postOpPrevDiv').hide();
+                  $('#dischargeSumPrevDiv').hide();
 
                   $('#sumCurLink').removeClass('active');
                   $('#soapCurLink').removeClass('active');
@@ -6057,6 +6842,10 @@
                   $('#admitCurLink').removeClass('active');
                   $('#dialysisCurLink').addClass('active');
                   $('#printableFormsCurLink').removeClass('active');
+                  $('#admitPeriCurLink').removeClass('active');
+                  $('#orTechCurLink').removeClass('active');
+                  $('#postOpCurLink').removeClass('active');
+                  $('#dischargeSumCurLink').addClass('active');
 
                   $('#sumCurDiv').hide();  
                   $('#soapCurDiv').hide();  
@@ -6068,6 +6857,7 @@
                   $('#admitPeriCurDiv').hide();  
                   $('#orTechCurDiv').hide();  
                   $('#postOpCurDiv').hide();
+                  $('#dischargeSumCurDiv').hide();
                 ">Dialysis Chart</a>
               </li>
               @endif
@@ -7419,47 +8209,52 @@
                 </div>
                   @endforeach
                 @endif
-                <div class="form-floating mb-3">
-                  <textarea class="form-control" name="{{ $viewFolder }}[Doctor][sub_header_1]" id="{{ $viewFolder }}_sub_header_1" rows=3>{{ isset($datum->doctor->sub_header_1) ? $datum->doctor->sub_header_1 : '' }}</textarea>
-                  <label for="{{ $viewFolder }}_sub_header_1" class="form-label">MD Specialty/sub-specialty</label>
-                  <small id="help_{{ $viewFolder }}_sub_header_1" class="text-muted"></small>
-                </div>
-                <div class="form-floating mb-3">
-                  <textarea class="form-control" name="{{ $viewFolder }}[Doctor][sub_header_2]" id="{{ $viewFolder }}_sub_header_2" rows=3>{{ isset($datum->doctor->sub_header_2) ? $datum->doctor->sub_header_2 : '' }}</textarea>
-                  <label for="{{ $viewFolder }}_sub_header_2" class="form-label">MD Clinic and Clinic Address:</label>
-                  <small id="help_{{ $viewFolder }}_sub_header_2" class="text-muted"></small>
-                </div>
                 <div class="card mb-3">
-                  <div class="card-header">Prescription</div>
+                  <div class="card-header">Form Inputs</div>
                   <div class="card-body">
-                    <small class="text-muted">Helper</small>
-                    <div class="input-group input-group-small flex-nowrap">
-                      <select class="form-select" placeholder="" id="{{ $viewFolder }}_prescriptionSelect" {{ !isset($referal_conso) ? '' : 'disabled' }}>
-                        <option value=""></option>
-                      </select>
-                      <button class="btn btn-outline-secondary" type="button" id="{{ $viewFolder }}_prescriptionDeleteHelper" {{ !isset($referal_conso) ? '' : 'disabled' }}>Delete Helper</button>
+                    <div class="form-floating mb-3">
+                      <textarea class="form-control" name="{{ $viewFolder }}[Doctor][sub_header_1]" id="{{ $viewFolder }}_sub_header_1" rows=3>{{ isset($datum->doctor->sub_header_1) ? $datum->doctor->sub_header_1 : '' }}</textarea>
+                      <label for="{{ $viewFolder }}_sub_header_1" class="form-label">MD Specialty/sub-specialty</label>
+                      <small id="help_{{ $viewFolder }}_sub_header_1" class="text-muted"></small>
                     </div>
-                    <small class="text-muted">Content</small>
-                    <textarea class="form-control" name="{{ $viewFolder }}[prescription]" id="{{ $viewFolder }}_prescription" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
-                      if($(this).val() == ''){
-                        $('.createPDFButPresc').each(function(){
-                          $(this).prop('disabled', true);
-                        });
-                      }else{
-                        $('.createPDFButPresc').each(function(){
-                          $(this).prop('disabled', false);
-                        });
-                      }
-                    ">{{ isset($datum->prescription) ? $datum->prescription : '' }}</textarea>
-                    <small class="text-muted">Helper Save/Edit</small>
-                    <div class="input-group input-group-small mb-3 flex-nowrap">
-                      <div class="input-group-text">
-                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                    <div class="form-floating mb-3">
+                      <textarea class="form-control" name="{{ $viewFolder }}[Doctor][sub_header_2]" id="{{ $viewFolder }}_sub_header_2" rows=3>{{ isset($datum->doctor->sub_header_2) ? $datum->doctor->sub_header_2 : '' }}</textarea>
+                      <label for="{{ $viewFolder }}_sub_header_2" class="form-label">MD Clinic and Clinic Address:</label>
+                      <small id="help_{{ $viewFolder }}_sub_header_2" class="text-muted"></small>
+                    </div>
+                    <div class="card mb-3">
+                      <div class="card-header">Prescription</div>
+                      <div class="card-body">
+                        <small class="text-muted">Helper</small>
+                        <div class="input-group input-group-small flex-nowrap">
+                          <select class="form-select" placeholder="" id="{{ $viewFolder }}_prescriptionSelect" {{ !isset($referal_conso) ? '' : 'disabled' }}>
+                            <option value=""></option>
+                          </select>
+                          <button class="btn btn-outline-secondary" type="button" id="{{ $viewFolder }}_prescriptionDeleteHelper" {{ !isset($referal_conso) ? '' : 'disabled' }}>Delete Helper</button>
+                        </div>
+                        <small class="text-muted">Content</small>
+                        <textarea class="form-control" name="{{ $viewFolder }}[prescription]" id="{{ $viewFolder }}_prescription" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
+                          if($(this).val() == ''){
+                            $('.createPDFButPresc').each(function(){
+                              $(this).prop('disabled', true);
+                            });
+                          }else{
+                            $('.createPDFButPresc').each(function(){
+                              $(this).prop('disabled', false);
+                            });
+                          }
+                        ">{{ isset($datum->prescription) ? $datum->prescription : '' }}</textarea>
+                        <small class="text-muted">Helper Save/Edit</small>
+                        <div class="input-group input-group-small mb-3 flex-nowrap">
+                          <div class="input-group-text">
+                            <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                          </div>
+                          <input type="text" class="form-control" name="{{ $viewFolder }}[prescriptionTitle]" disabled>
+                          <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                        </div>
+                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[prescriptionEdit]" id="{{ $viewFolder }}_prescriptionEdit" rows=3 disabled></textarea>
                       </div>
-                      <input type="text" class="form-control" name="{{ $viewFolder }}[prescriptionTitle]" disabled>
-                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                     </div>
-                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[prescriptionEdit]" id="{{ $viewFolder }}_prescriptionEdit" rows=3 disabled></textarea>
                   </div>
                 </div>
               </div>
@@ -7530,50 +8325,55 @@
                 </div>
                   @endforeach
                 @endif
-                <div class="form-floating mb-3">
-                  <textarea class="form-control" name="{{ $viewFolder }}[findings]" id="{{ $viewFolder }}_findings" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
-                      if($('#{{ $viewFolder }}_findings').val() == '' || $('#{{ $viewFolder }}_diagnosis').val() == '' || $('#{{ $viewFolder }}_recommendations').val() == ''){
-                        $('.createPDFButMedCert').each(function(){
-                          $(this).prop('disabled', true);
-                        });
-                      }else{
-                        $('.createPDFButMedCert').each(function(){
-                          $(this).prop('disabled', false);
-                        });
-                      }
-                    ">{{ isset($datum->findings) ? $datum->findings : '' }}</textarea>
-                  <label for="{{ $viewFolder }}_findings" class="form-label">Findings</label>
-                  <small id="help_{{ $viewFolder }}_findings" class="text-muted"></small>
-                </div>
-                <div class="form-floating mb-3">
-                  <textarea class="form-control" name="{{ $viewFolder }}[diagnosis]" id="{{ $viewFolder }}_diagnosis" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
-                      if($('#{{ $viewFolder }}_findings').val() == '' || $('#{{ $viewFolder }}_diagnosis').val() == '' || $('#{{ $viewFolder }}_recommendations').val() == ''){
-                        $('.createPDFButMedCert').each(function(){
-                          $(this).prop('disabled', true);
-                        });
-                      }else{
-                        $('.createPDFButMedCert').each(function(){
-                          $(this).prop('disabled', false);
-                        });
-                      }
-                    ">{{ isset($datum->diagnosis) ? $datum->diagnosis : '' }}</textarea>
-                  <label for="{{ $viewFolder }}_diagnosis" class="form-label">Diagnosis</label>
-                  <small id="help_{{ $viewFolder }}_diagnosis" class="text-muted"></small>
-                </div>
-                <div class="form-floating mb-3">
-                  <textarea class="form-control" name="{{ $viewFolder }}[recommendations]" id="{{ $viewFolder }}_recommendations" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
-                      if($('#{{ $viewFolder }}_findings').val() == '' || $('#{{ $viewFolder }}_diagnosis').val() == '' || $('#{{ $viewFolder }}_recommendations').val() == ''){
-                        $('.createPDFButMedCert').each(function(){
-                          $(this).prop('disabled', true);
-                        });
-                      }else{
-                        $('.createPDFButMedCert').each(function(){
-                          $(this).prop('disabled', false);
-                        });
-                      }
-                    ">{{ isset($datum->recommendations) ? $datum->recommendations : '' }}</textarea>
-                  <label for="{{ $viewFolder }}_recommendations" class="form-label">Recommendations</label>
-                  <small id="help_{{ $viewFolder }}_recommendations" class="text-muted"></small>
+                <div class="card mb-3">
+                  <div class="card-header">Form Inputs</div>
+                  <div class="card-body">
+                    <div class="form-floating mb-3">
+                      <textarea class="form-control" name="{{ $viewFolder }}[findings]" id="{{ $viewFolder }}_findings" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
+                          if($('#{{ $viewFolder }}_findings').val() == '' || $('#{{ $viewFolder }}_diagnosis').val() == '' || $('#{{ $viewFolder }}_recommendations').val() == ''){
+                            $('.createPDFButMedCert').each(function(){
+                              $(this).prop('disabled', true);
+                            });
+                          }else{
+                            $('.createPDFButMedCert').each(function(){
+                              $(this).prop('disabled', false);
+                            });
+                          }
+                        ">{{ isset($datum->findings) ? $datum->findings : '' }}</textarea>
+                      <label for="{{ $viewFolder }}_findings" class="form-label">Findings</label>
+                      <small id="help_{{ $viewFolder }}_findings" class="text-muted"></small>
+                    </div>
+                    <div class="form-floating mb-3">
+                      <textarea class="form-control" name="{{ $viewFolder }}[diagnosis]" id="{{ $viewFolder }}_diagnosis" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
+                          if($('#{{ $viewFolder }}_findings').val() == '' || $('#{{ $viewFolder }}_diagnosis').val() == '' || $('#{{ $viewFolder }}_recommendations').val() == ''){
+                            $('.createPDFButMedCert').each(function(){
+                              $(this).prop('disabled', true);
+                            });
+                          }else{
+                            $('.createPDFButMedCert').each(function(){
+                              $(this).prop('disabled', false);
+                            });
+                          }
+                        ">{{ isset($datum->diagnosis) ? $datum->diagnosis : '' }}</textarea>
+                      <label for="{{ $viewFolder }}_diagnosis" class="form-label">Diagnosis</label>
+                      <small id="help_{{ $viewFolder }}_diagnosis" class="text-muted"></small>
+                    </div>
+                    <div class="form-floating mb-3">
+                      <textarea class="form-control" name="{{ $viewFolder }}[recommendations]" id="{{ $viewFolder }}_recommendations" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
+                          if($('#{{ $viewFolder }}_findings').val() == '' || $('#{{ $viewFolder }}_diagnosis').val() == '' || $('#{{ $viewFolder }}_recommendations').val() == ''){
+                            $('.createPDFButMedCert').each(function(){
+                              $(this).prop('disabled', true);
+                            });
+                          }else{
+                            $('.createPDFButMedCert').each(function(){
+                              $(this).prop('disabled', false);
+                            });
+                          }
+                        ">{{ isset($datum->recommendations) ? $datum->recommendations : '' }}</textarea>
+                      <label for="{{ $viewFolder }}_recommendations" class="form-label">Recommendations</label>
+                      <small id="help_{{ $viewFolder }}_recommendations" class="text-muted"></small>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div id="admitCurDiv" style="display:none" class="container border border-1 mb-3 p-3">
@@ -7647,6 +8447,9 @@
                 </div>
                   @endforeach
                 @endif
+                <div class="card mb-3">
+                  <div class="card-header">Form Inputs</div>
+                  <div class="card-body">
                 <div class="form-floating mb-3">
                   <input class="form-control" type="date" name="{{ $viewFolder }}[con_date_ao]" id="{{ $viewFolder }}_con_date_ao" value="{{ isset($datum->con_date_ao) ? $datum->con_date_ao : '' }}" placeholder="" {{ !isset($referal_conso) ? '' : 'disabled' }}>
                   <label for="{{ $viewFolder }}_con_date_ao" class="form-label">Contemplated Date of Procedure</label>
@@ -7731,14 +8534,288 @@
                         }
                       ">{{ isset($datum->admittingOrder) ? $datum->admittingOrder : '' }}</textarea>
                     <small class="text-muted">Helper Save/Edit</small>
-                    <div class="input-group input-group-small mb-3 flex-nowrap">
-                      <div class="input-group-text">
-                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                        <div class="input-group input-group-small mb-3 flex-nowrap">
+                          <div class="input-group-text">
+                            <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                          </div>
+                          <input type="text" class="form-control" name="{{ $viewFolder }}[admittingOrderTitle]" disabled>
+                          <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                        </div>
+                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[admittingOrderEdit]" id="{{ $viewFolder }}_admittingOrderEdit" rows=3 disabled></textarea>
                       </div>
-                      <input type="text" class="form-control" name="{{ $viewFolder }}[admittingOrderTitle]" disabled>
-                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                     </div>
-                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[admittingOrderEdit]" id="{{ $viewFolder }}_admittingOrderEdit" rows=3 disabled></textarea>
+                  </div>
+                </div>
+              </div>
+              <div id="dischargeSumCurDiv" style="display:none" class="container border border-1 mb-3 p-3">
+                <div class="docNotesDiv card mb-3" id="{{ $viewFolder }}_DischargeSum_{{ $datum->id }}">
+                  <div class="card-header">Discharge Summary View</div>
+                  <div class="card-body">
+                    <iframe id="iframecDischargeSum{{ $datum->id }}" src="{{ file_exists(public_path('storage/printable_forms_files/pdfDischargeSum_' . $datum->id . '_' . $datum->patient->l_name . '.pdf')) ? asset('storage/printable_forms_files/pdfDischargeSum_' . $datum->id . '_' . $datum->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
+                    <small class="form-text text-muted">To print or download check the upper right part</small>
+                  </div>
+                  <div class="card-footer">
+                    @if(!isset($referal_conso))
+                    <button id="createPDFDischargeSum{{ $datum->id }}" type="button" class="createPDFDischargeSum btn btn-{{ $bgColor }} btn-sm" {{ !isset($datum->printable_form['operative_tech']) ? 'disabled' : '' }} onclick="
+                      $('#doctors_home_submit_type').val('Pause');
+                      $.ajax({
+                        type: 'POST',
+                        data: $('#bookMod').serialize(),
+                        url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
+                        success:
+                        function (){
+                            $.ajax({
+                              type: 'GET',
+                              url: '{{ Route::has($viewFolder . '.pdfDischargeSum') ? route($viewFolder . '.pdfDischargeSum', $datum->id) : '' }}',
+                              success:
+                              function (data){
+                                $('#iframecDischargeSum{{ $datum->id }}').attr('src', data);
+                              }
+                            });
+                        }
+                      });
+
+                    ">Create PDF</button>
+                    @endif
+                  </div>
+                </div>
+                @if(isset($datum->consultation_referals[0]->id))
+                  @foreach($datum->consultation_referals as $cr)
+                <div class="docNotesDiv card mb-3" id="{{ $viewFolder }}_DischargeSum_{{ $cr->id }}" style="display:none">
+                  <div class="card-header">Discharge Summary View</div>
+                  <div class="card-body">
+                    <iframe id="iframecDischargeSum{{ $cr->id }}" src="{{ file_exists(public_path('storage/printable_forms_files/pdfDischargeSum_' . $cr->id . '_' . $cr->patient->l_name . '.pdf')) ? asset('storage/printable_forms_files/pdfDischargeSum_' . $cr->id . '_' . $cr->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
+                    <small class="form-text text-muted">To print or download check the upper right part</small>
+                  </div>
+                  <div class="card-footer">
+                    @if(isset($referal_conso) && $referal_conso->id == $cr->id)
+                    <button id="createPDFDischargeSum{{ $cr->id }}" type="button" class="createPDFDischargeSum btn btn-{{ $bgColor }} btn-sm" {{ !isset($cr->printable_form['operative_tech']) ? 'disabled' : '' }} onclick="
+                      $('#doctors_home_submit_type').val('Pause');
+                      $.ajax({
+                        type: 'POST',
+                        data: $('#bookMod').serialize(),
+                        url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
+                        success:
+                        function (){
+                            $.ajax({
+                              type: 'GET',
+                              url: '{{ Route::has($viewFolder . '.pdfDischargeSum') ? route($viewFolder . '.pdfDischargeSum', $cr->id) : '' }}',
+                              success:
+                              function (data){
+                                $('#iframecDischargeSum{{ $cr->id }}').attr('src', data);
+                              }
+                            });
+                        }
+                      });
+
+                    ">Create PDF</button>
+                    @endif
+                  </div>
+                </div>
+                  @endforeach
+                @endif
+                <div class="card mb-3">
+                  <div class="card-header">Form Inputs</div>
+                  <div class="card-body">
+                    <label for="{{ $viewFolder }}_pre_op_diagnosis" class="form-label">Pre-Operative Diagnosis</label>
+                    <textarea class="form-control mb-3" name="{{ $viewFolder }}[PrintableForm][pre_op_diagnosis]" id="{{ $viewFolder }}_pre_op_diagnosis" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
+                          if($('#{{ $viewFolder }}_pre_op_diagnosis').val() == ''){
+                            $('.createPDFDischargeSum').each(function(){
+                              $(this).prop('disabled', true);
+                            });
+                          }else{
+                            $('.createPDFDischargeSum').each(function(){
+                              $(this).prop('disabled', false);
+                            });
+                          }
+                        ">{{ isset($datum->printable_form['pre_op_diagnosis']) ? $datum->printable_form['pre_op_diagnosis'] : '' }}</textarea>
+                    <label for="{{ $viewFolder }}_post_op_diagnosis" class="form-label">Post-Operative Diagnosis</label>
+                    <textarea class="form-control mb-3" name="{{ $viewFolder }}[PrintableForm][post_op_diagnosis]" id="{{ $viewFolder }}_post_op_diagnosis" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
+                          if($('#{{ $viewFolder }}_post_op_diagnosis').val() == ''){
+                            $('.createPDFDischargeSum').each(function(){
+                              $(this).prop('disabled', true);
+                            });
+                          }else{
+                            $('.createPDFDischargeSum').each(function(){
+                              $(this).prop('disabled', false);
+                            });
+                          }
+                        ">{{ isset($datum->printable_form['post_op_diagnosis']) ? $datum->printable_form['post_op_diagnosis'] : '' }}</textarea>
+                    <label for="{{ $viewFolder }}_procedure_performed" class="form-label">Procedure Performed</label>
+                    <textarea class="form-control mb-3" name="{{ $viewFolder }}[PrintableForm][procedure_performed]" id="{{ $viewFolder }}_procedure_performed" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
+                          if($('#{{ $viewFolder }}_procedure_performed').val() == ''){
+                            $('.createPDFDischargeSum').each(function(){
+                              $(this).prop('disabled', true);
+                            });
+                          }else{
+                            $('.createPDFDischargeSum').each(function(){
+                              $(this).prop('disabled', false);
+                            });
+                          }
+                        ">{{ isset($datum->printable_form['procedure_performed']) ? $datum->printable_form['procedure_performed'] : '' }}</textarea>
+                    <label for="{{ $viewFolder }}_intraoperative_findings" class="form-label">Intraoperative Findings</label>
+                    <textarea class="form-control mb-3" name="{{ $viewFolder }}[PrintableForm][intraoperative_findings]" id="{{ $viewFolder }}_intraoperative_findings" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
+                          if($('#{{ $viewFolder }}_intraoperative_findings').val() == ''){
+                            $('.createPDFDischargeSum').each(function(){
+                              $(this).prop('disabled', true);
+                            });
+                          }else{
+                            $('.createPDFDischargeSum').each(function(){
+                              $(this).prop('disabled', false);
+                            });
+                          }
+                        ">{{ isset($datum->printable_form['intraoperative_findings']) ? $datum->printable_form['intraoperative_findings'] : '' }}</textarea>
+                    <label class="form-label">Intraoperative Course</label>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="{{ $viewFolder }}[PrintableForm][intraoperative_course]" value="Unremarkable" id="{{ $viewFolder }}_intraoperative_course_unremarkable" onchange="
+                          if($(this).prop('checked'))
+                            $('#{{ $viewFolder }}_complication_specify').prop('disabled', true);
+                          else
+                            $('#{{ $viewFolder }}_complication_specify').prop('disabled', false);
+                        " {{ (isset($datum->printable_form['intraoperative_course']) && $datum->printable_form['intraoperative_course'] == 'Unremarkable') ? 'checked' : '' }}>
+                      <label class="form-check-label" for="{{ $viewFolder }}_intraoperative_course_unremarkable">Unremarkable</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="{{ $viewFolder }}[PrintableForm][intraoperative_course]" value="With Complications" id="{{ $viewFolder }}_intraoperative_course_with_complications" onchange="
+                          if($(this).prop('checked'))
+                            $('#{{ $viewFolder }}_complication_specify').prop('disabled', false);
+                          else
+                            $('#{{ $viewFolder }}_complication_specify').prop('disabled', true);
+                        " {{ (isset($datum->printable_form['intraoperative_course']) && $datum->printable_form['intraoperative_course'] == 'With Complications') ? 'checked' : '' }}>
+                      <label class="form-check-label" for="{{ $viewFolder }}_intraoperative_course_with_complications">With Complications (specify)</label>
+                    </div>
+                    <textarea class="form-control mb-3" name="{{ $viewFolder }}[PrintableForm][complication_specify]" id="{{ $viewFolder }}_complication_specify" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
+                          if($('#{{ $viewFolder }}_complication_specify').val() == ''){
+                            $('.createPDFDischargeSum').each(function(){
+                              $(this).prop('disabled', true);
+                            });
+                          }else{
+                            $('.createPDFDischargeSum').each(function(){
+                              $(this).prop('disabled', false);
+                            });
+                          }
+                        " {{ (isset($datum->printable_form['intraoperative_course']) && $datum->printable_form['intraoperative_course'] == 'With Complications') ? '' : 'disabled' }}>{{ isset($datum->printable_form['complication_specify']) ? $datum->printable_form['complication_specify'] : '' }}</textarea>
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" name="{{ $viewFolder }}[PrintableForm][blood_loss]" min=30 step=.1 id="{{ $viewFolder }}_blood_loss" value="{{ isset($datum->printable_form['blood_loss']) ? $datum->printable_form['blood_loss'] : ''}}" placeholder="">
+                        <label for="{{ $viewFolder }}_blood_loss" class="form-label">Estimated Blood Loss</label>
+                        <small id="help_{{ $viewFolder }}_blood_loss" class="text-muted"></small>
+                      </div>
+                      <span class="input-group-text">mL</span>
+                    </div>
+                    <label class="form-label">Specimen Sent</label>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="{{ $viewFolder }}[PrintableForm][specimen_sent]" value="yes" id="{{ $viewFolder }}_specimen_sent_yes" {{ (isset($datum->printable_form['specimen_sent']) && $datum->printable_form['specimen_sent'] == 'yes') ? 'checked' : '' }}>
+                      <label class="form-check-label" for="{{ $viewFolder }}_specimen_sent_yes">Yes</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="{{ $viewFolder }}[PrintableForm][specimen_sent]" value="no" id="{{ $viewFolder }}_specimen_sent_no" {{ (isset($datum->printable_form['specimen_sent']) && $datum->printable_form['specimen_sent'] == 'no') ? 'checked' : '' }}>
+                      <label class="form-check-label" for="{{ $viewFolder }}_specimen_sent_no">No</label>
+                    </div>
+                    <label class="form-label" for="{{ $viewFolder }}_specimen_sent_remarks">Remarks</label>
+                    <textarea class="form-control mb-3" name="{{ $viewFolder }}[PrintableForm][specimen_sent_remarks]" id="{{ $viewFolder }}_specimen_sent_remarks" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
+                          if($('#{{ $viewFolder }}_specimen_sent_remarks').val() == ''){
+                            $('.createPDFDischargeSum').each(function(){
+                              $(this).prop('disabled', true);
+                            });
+                          }else{
+                            $('.createPDFDischargeSum').each(function(){
+                              $(this).prop('disabled', false);
+                            });
+                          }
+                        ">{{ isset($datum->printable_form['specimen_sent_remarks']) ? $datum->printable_form['specimen_sent_remarks'] : '' }}</textarea>
+                    <label class="form-label">Post-Operative Condition</label>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="{{ $viewFolder }}[PrintableForm][post_operative_condition]" value="Stable" id="{{ $viewFolder }}_post_operative_condition_stable" {{ (isset($datum->printable_form['post_operative_condition']) && $datum->printable_form['post_operative_condition'] == 'Stable') ? 'checked' : '' }}>
+                      <label class="form-check-label" for="{{ $viewFolder }}_post_operative_condition_stable">Stable</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="{{ $viewFolder }}[PrintableForm][post_operative_condition]" value="Requires Observation" id="{{ $viewFolder }}_post_operative_condition_requires" {{ (isset($datum->printable_form['post_operative_condition']) && $datum->printable_form['post_operative_condition'] == 'Requires Observation') ? 'checked' : '' }}>
+                      <label class="form-check-label" for="{{ $viewFolder }}_post_operative_condition_requires">Requires Observation</label>
+                    </div>
+                    <label class="form-label" for="{{ $viewFolder }}_post_operative_condition_remarks">Remarks</label>
+                    <textarea class="form-control mb-3" name="{{ $viewFolder }}[PrintableForm][post_operative_condition_remarks]" id="{{ $viewFolder }}_post_operative_condition_remarks" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
+                          if($('#{{ $viewFolder }}_post_operative_condition_remarks').val() == ''){
+                            $('.createPDFDischargeSum').each(function(){
+                              $(this).prop('disabled', true);
+                            });
+                          }else{
+                            $('.createPDFDischargeSum').each(function(){
+                              $(this).prop('disabled', false);
+                            });
+                          }
+                        ">{{ isset($datum->printable_form['post_operative_condition_remarks']) ? $datum->printable_form['post_operative_condition_remarks'] : '' }}</textarea>
+                    <label class="form-label" for="{{ $viewFolder }}_medication_given_recovery">Medication Given in Recovery</label>
+                    <textarea class="form-control mb-3" name="{{ $viewFolder }}[PrintableForm][medication_given_recovery]" id="{{ $viewFolder }}_medication_given_recovery" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
+                          if($('#{{ $viewFolder }}_medication_given_recovery').val() == ''){
+                            $('.createPDFDischargeSum').each(function(){
+                              $(this).prop('disabled', true);
+                            });
+                          }else{
+                            $('.createPDFDischargeSum').each(function(){
+                              $(this).prop('disabled', false);
+                            });
+                          }
+                        ">{{ isset($datum->printable_form['medication_given_recovery']) ? $datum->printable_form['medication_given_recovery'] : '' }}</textarea>
+                    <label class="form-label" for="{{ $viewFolder }}_discharge_medication">Discharge Medications (dose, frequency, duration)</label>
+                    <textarea class="form-control mb-3" name="{{ $viewFolder }}[PrintableForm][discharge_medication]" id="{{ $viewFolder }}_discharge_medication" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
+                          if($('#{{ $viewFolder }}_discharge_medication').val() == ''){
+                            $('.createPDFDischargeSum').each(function(){
+                              $(this).prop('disabled', true);
+                            });
+                          }else{
+                            $('.createPDFDischargeSum').each(function(){
+                              $(this).prop('disabled', false);
+                            });
+                          }
+                        ">{{ isset($datum->printable_form['discharge_medication']) ? $datum->printable_form['discharge_medication'] : '' }}</textarea>
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" name="{{ $viewFolder }}[PrintableForm][avoid_days]" min=30 step=.1 id="{{ $viewFolder }}_avoid_days" value="{{ isset($datum->printable_form['avoid_days']) ? $datum->printable_form['avoid_days'] : ''}}" placeholder="">
+                        <label for="{{ $viewFolder }}_avoid_days" class="form-label">Avoid strenuous activity for</label>
+                        <small id="help_{{ $viewFolder }}_avoid_days" class="text-muted"></small>
+                      </div>
+                      <span class="input-group-text">days</span>
+                    </div>
+                    <label class="form-label">Diet</label>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="{{ $viewFolder }}[PrintableForm][diet]" value="Regular" id="{{ $viewFolder }}_diet_regular" onchange="
+                          if($(this).prop('checked'))
+                            $('#{{ $viewFolder }}_diet_remarks').prop('disabled', true);
+                          else
+                            $('#{{ $viewFolder }}_diet_remarks').prop('disabled', false);
+                        " {{ (isset($datum->printable_form['diet']) && $datum->printable_form['diet'] == 'Regular') ? 'checked' : '' }}>
+                      <label class="form-check-label" for="{{ $viewFolder }}_diet_regular">Regular</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="{{ $viewFolder }}[PrintableForm][diet]" value="Soft" id="{{ $viewFolder }}_diet_soft" onchange="
+                          if($(this).prop('checked'))
+                            $('#{{ $viewFolder }}_diet_remarks').prop('disabled', true);
+                          else
+                            $('#{{ $viewFolder }}_diet_remarks').prop('disabled', false);
+                        " {{ (isset($datum->printable_form['diet']) && $datum->printable_form['diet'] == 'Soft') ? 'checked' : '' }}>
+                      <label class="form-check-label" for="{{ $viewFolder }}_diet_soft">Soft</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="{{ $viewFolder }}[PrintableForm][diet]" value="Others" id="{{ $viewFolder }}_diet_others" onchange="
+                          if($(this).prop('checked'))
+                            $('#{{ $viewFolder }}_diet_remarks').prop('disabled', false);
+                          else
+                            $('#{{ $viewFolder }}_diet_remarks').prop('disabled', true);
+                        " {{ (isset($datum->printable_form['diet']) && $datum->printable_form['diet'] == 'Others') ? 'checked' : '' }}>
+                      <label class="form-check-label" for="{{ $viewFolder }}_diet_others">Others</label>
+                    </div>
+                    <textarea class="form-control mb-3" name="{{ $viewFolder }}[PrintableForm][diet_remarks]" id="{{ $viewFolder }}_diet_remarks" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
+                          if($('#{{ $viewFolder }}_post_operative_condition_remarks').val() == ''){
+                            $('.createPDFDischargeSum').each(function(){
+                              $(this).prop('disabled', true);
+                            });
+                          }else{
+                            $('.createPDFDischargeSum').each(function(){
+                              $(this).prop('disabled', false);
+                            });
+                          }
+                        " {{ (isset($datum->printable_form['diet']) && $datum->printable_form['diet'] == 'Others') ? '' : 'disabled' }}>{{ isset($datum->printable_form['diet_remarks']) ? $datum->printable_form['diet_remarks'] : '' }}</textarea>
                   </div>
                 </div>
               </div>
@@ -7809,129 +8886,134 @@
                 </div>
                   @endforeach
                 @endif
-                <div class="form-floating mb-3">
-                  <input class="form-control" type="number" name="{{ $viewFolder }}[PrintableForm][room]" id="{{ $viewFolder }}_room" placeholder="" value="{{ isset($datum->printable_form['room']) ? $datum->printable_form['room'] : '' }}" {{ !isset($referal_conso) ? '' : 'disabled' }} onblur="
-                      if($('#{{ $viewFolder }}_room').val() == '' && $('#{{ $viewFolder }}_dilate').val() == '' && $('#{{ $viewFolder }}_constrict').val() == '' && $('#{{ $viewFolder }}_intake_blood_thinner').val() == '' && $('#{{ $viewFolder }}_intake_maintenance_meds').val() == '' && $('#{{ $viewFolder }}_additional_orders').val() == ''){
-                        $('.createPDFButOpAdmit').each(function(){
-                          $(this).prop('disabled', true);
-                        });
-                      }else{
-                        $('.createPDFButOpAdmit').each(function(){
-                          $(this).prop('disabled', false);
-                        });
-                      }
-                    ">
-                  <label for="{{ $viewFolder }}_room" class="form-label">Admit to Room #</label>
-                  <small id="help_{{ $viewFolder }}_room" class="text-muted"></small>
-                </div>
-                <div class="input-group mb-3">
-                  <div class="input-group-text">
-                    <input class="form-check-input mt-0" type="checkbox" onchange="
-                      if($(this).prop('checked'))
-                        $('#{{ $viewFolder }}_dilate').prop('disabled', false);
-                      else{
-                        $('#{{ $viewFolder }}_dilate').prop('disabled', true);
-                        $('#{{ $viewFolder }}_dilate').val('');
-                      }
-                    " {{ isset($datum->printable_form['dilate']) ? 'checked' : ''}}  {{ !isset($referal_conso) ? '' : 'disabled' }}>
+                <div class="card mb-3">
+                  <div class="card-header">Form Inputs</div>
+                  <div class="card-body">
+                    <div class="form-floating mb-3">
+                      <input class="form-control" type="number" name="{{ $viewFolder }}[PrintableForm][room]" id="{{ $viewFolder }}_room" placeholder="" value="{{ isset($datum->printable_form['room']) ? $datum->printable_form['room'] : '' }}" {{ !isset($referal_conso) ? '' : 'disabled' }} onblur="
+                          if($('#{{ $viewFolder }}_room').val() == '' && $('#{{ $viewFolder }}_dilate').val() == '' && $('#{{ $viewFolder }}_constrict').val() == '' && $('#{{ $viewFolder }}_intake_blood_thinner').val() == '' && $('#{{ $viewFolder }}_intake_maintenance_meds').val() == '' && $('#{{ $viewFolder }}_additional_orders').val() == ''){
+                            $('.createPDFButOpAdmit').each(function(){
+                              $(this).prop('disabled', true);
+                            });
+                          }else{
+                            $('.createPDFButOpAdmit').each(function(){
+                              $(this).prop('disabled', false);
+                            });
+                          }
+                        ">
+                      <label for="{{ $viewFolder }}_room" class="form-label">Admit to Room #</label>
+                      <small id="help_{{ $viewFolder }}_room" class="text-muted"></small>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="input-group-text">
+                        <input class="form-check-input mt-0" type="checkbox" id="{{ $viewFolder }}_dilate_check" onchange="
+                          if($(this).prop('checked'))
+                            $('#{{ $viewFolder }}_dilate').prop('disabled', false);
+                          else{
+                            $('#{{ $viewFolder }}_dilate').prop('disabled', true);
+                            $('#{{ $viewFolder }}_dilate').val('');
+                          }
+                        " {{ isset($datum->printable_form['dilate']) ? 'checked' : ''}}  {{ !isset($referal_conso) ? '' : 'disabled' }}>
+                      </div>
+                      <span class="input-group-text">Dilate with:</span>
+                      <input type="text" class="form-control" id="{{ $viewFolder }}_dilate" name="{{ $viewFolder }}[PrintableForm][dilate]" value="{{ isset($datum->printable_form['dilate']) ? $datum->printable_form['dilate'] : '' }}" {{ !isset($referal_conso) ? '' : 'disabled' }} onblur="
+                          if($('#{{ $viewFolder }}_room').val() == '' && $('#{{ $viewFolder }}_dilate').val() == '' && $('#{{ $viewFolder }}_constrict').val() == '' && $('#{{ $viewFolder }}_intake_blood_thinner').val() == '' && $('#{{ $viewFolder }}_intake_maintenance_meds').val() == '' && $('#{{ $viewFolder }}_additional_orders').val() == ''){
+                            $('.createPDFButOpAdmit').each(function(){
+                              $(this).prop('disabled', true);
+                            });
+                          }else{
+                            $('.createPDFButOpAdmit').each(function(){
+                              $(this).prop('disabled', false);
+                            });
+                          }
+                        ">
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="input-group-text">
+                        <input class="form-check-input mt-0" type="checkbox" id="{{ $viewFolder }}_constrict_check" onchange="
+                          if($(this).prop('checked'))
+                            $('#{{ $viewFolder }}_constrict').prop('disabled', false);
+                          else{
+                            $('#{{ $viewFolder }}_constrict').prop('disabled', true);
+                            $('#{{ $viewFolder }}_constrict').val('');
+                          }
+                        " {{ isset($datum->printable_form['constrict']) ? 'checked' : ''}} {{ !isset($referal_conso) ? '' : 'disabled' }}>
+                      </div>
+                      <span class="input-group-text">Constrict with:</span>
+                      <input type="text" class="form-control" id="{{ $viewFolder }}_constrict" name="{{ $viewFolder }}[PrintableForm][constrict]" value="{{ isset($datum->printable_form['constrict']) ? $datum->printable_form['constrict'] : '' }}" {{ !isset($referal_conso) ? '' : 'disabled' }} onblur="
+                          if($('#{{ $viewFolder }}_room').val() == '' && $('#{{ $viewFolder }}_dilate').val() == '' && $('#{{ $viewFolder }}_constrict').val() == '' && $('#{{ $viewFolder }}_intake_blood_thinner').val() == '' && $('#{{ $viewFolder }}_intake_maintenance_meds').val() == '' && $('#{{ $viewFolder }}_additional_orders').val() == ''){
+                            $('.createPDFButOpAdmit').each(function(){
+                              $(this).prop('disabled', true);
+                            });
+                          }else{
+                            $('.createPDFButOpAdmit').each(function(){
+                              $(this).prop('disabled', false);
+                            });
+                          }
+                        ">
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="input-group-text">
+                        <input class="form-check-input mt-0" type="checkbox" id="{{ $viewFolder }}_intake_blood_thinner_check" onchange="
+                          if($(this).prop('checked'))
+                            $('#{{ $viewFolder }}_intake_blood_thinner').prop('disabled', false);
+                          else{
+                            $('#{{ $viewFolder }}_intake_blood_thinner').prop('disabled', true);
+                            $('#{{ $viewFolder }}_intake_blood_thinner').val('');
+                          }
+                        " {{ isset($datum->printable_form['intake_blood_thinner']) ? 'checked' : ''}}  {{ !isset($referal_conso) ? '' : 'disabled' }}>
+                      </div>
+                      <span class="input-group-text">Intake of blood thinner or anti-coagulants. if yes? date and time last intake:</span>
+                      <input type="text" class="form-control" id="{{ $viewFolder }}_intake_blood_thinner" name="{{ $viewFolder }}[PrintableForm][intake_blood_thinner]" value="{{ isset($datum->printable_form['intake_blood_thinner']) ? $datum->printable_form['intake_blood_thinner'] : '' }}" {{ !isset($referal_conso) ? '' : 'disabled' }} onblur="
+                          if($('#{{ $viewFolder }}_room').val() == '' && $('#{{ $viewFolder }}_dilate').val() == '' && $('#{{ $viewFolder }}_constrict').val() == '' && $('#{{ $viewFolder }}_intake_blood_thinner').val() == '' && $('#{{ $viewFolder }}_intake_maintenance_meds').val() == '' && $('#{{ $viewFolder }}_additional_orders').val() == ''){
+                            $('.createPDFButOpAdmit').each(function(){
+                              $(this).prop('disabled', true);
+                            });
+                          }else{
+                            $('.createPDFButOpAdmit').each(function(){
+                              $(this).prop('disabled', false);
+                            });
+                          }
+                        ">
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="input-group-text">
+                        <input class="form-check-input mt-0" type="checkbox" id="{{ $viewFolder }}_intake_maintenance_meds_check" onchange="
+                          if($(this).prop('checked'))
+                            $('#{{ $viewFolder }}_intake_maintenance_meds').prop('disabled', false);
+                          else{
+                            $('#{{ $viewFolder }}_intake_maintenance_meds').prop('disabled', true);
+                            $('#{{ $viewFolder }}_intake_maintenance_meds').val('');
+                          }
+                        " {{ isset($datum->printable_form['intake_maintenance_meds']) ? 'checked' : ''}}  {{ !isset($referal_conso) ? '' : 'disabled' }}>
+                      </div>
+                      <span class="input-group-text">Intake of maintenance meds. if yes? date and time last intake:</span>
+                      <input type="text" class="form-control" id="{{ $viewFolder }}_intake_maintenance_meds" name="{{ $viewFolder }}[PrintableForm][intake_maintenance_meds]" value="{{ isset($datum->printable_form['intake_maintenance_meds']) ? $datum->printable_form['intake_maintenance_meds'] : '' }}" {{ !isset($referal_conso) ? '' : 'disabled' }} onblur="
+                          if($('#{{ $viewFolder }}_room').val() == '' && $('#{{ $viewFolder }}_dilate').val() == '' && $('#{{ $viewFolder }}_constrict').val() == '' && $('#{{ $viewFolder }}_intake_blood_thinner').val() == '' && $('#{{ $viewFolder }}_intake_maintenance_meds').val() == '' && $('#{{ $viewFolder }}_additional_orders').val() == ''){
+                            $('.createPDFButOpAdmit').each(function(){
+                              $(this).prop('disabled', true);
+                            });
+                          }else{
+                            $('.createPDFButOpAdmit').each(function(){
+                              $(this).prop('disabled', false);
+                            });
+                          }
+                        ">
+                    </div>
+                    <label for="{{ $viewFolder }}_additional_orders" class="form-label">Additional Peri-Operative Orders</label>
+                    <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][additional_orders]" id="{{ $viewFolder }}_additional_orders" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
+                          if($('#{{ $viewFolder }}_room').val() == '' && $('#{{ $viewFolder }}_dilate').val() == '' && $('#{{ $viewFolder }}_constrict').val() == '' && $('#{{ $viewFolder }}_intake_blood_thinner').val() == '' && $('#{{ $viewFolder }}_intake_maintenance_meds').val() == '' && $('#{{ $viewFolder }}_additional_orders').val() == ''){
+                            $('.createPDFButOpAdmit').each(function(){
+                              $(this).prop('disabled', true);
+                            });
+                          }else{
+                            $('.createPDFButOpAdmit').each(function(){
+                              $(this).prop('disabled', false);
+                            });
+                          }
+                        " {{ !isset($referal_conso) ? '' : 'disabled' }}>{{ isset($datum->printable_form['additional_orders']) ? $datum->printable_form['additional_orders'] : '' }}</textarea>
                   </div>
-                  <span class="input-group-text">Dilate with:</span>
-                  <input type="text" class="form-control" id="{{ $viewFolder }}_dilate" name="{{ $viewFolder }}[PrintableForm][dilate]" value="{{ isset($datum->printable_form['dilate']) ? $datum->printable_form['dilate'] : '' }}" {{ !isset($referal_conso) ? '' : 'disabled' }} onblur="
-                      if($('#{{ $viewFolder }}_room').val() == '' && $('#{{ $viewFolder }}_dilate').val() == '' && $('#{{ $viewFolder }}_constrict').val() == '' && $('#{{ $viewFolder }}_intake_blood_thinner').val() == '' && $('#{{ $viewFolder }}_intake_maintenance_meds').val() == '' && $('#{{ $viewFolder }}_additional_orders').val() == ''){
-                        $('.createPDFButOpAdmit').each(function(){
-                          $(this).prop('disabled', true);
-                        });
-                      }else{
-                        $('.createPDFButOpAdmit').each(function(){
-                          $(this).prop('disabled', false);
-                        });
-                      }
-                    ">
                 </div>
-                <div class="input-group mb-3">
-                  <div class="input-group-text">
-                    <input class="form-check-input mt-0" type="checkbox" onchange="
-                      if($(this).prop('checked'))
-                        $('#{{ $viewFolder }}_constrict').prop('disabled', false);
-                      else{
-                        $('#{{ $viewFolder }}_constrict').prop('disabled', true);
-                        $('#{{ $viewFolder }}_constrict').val('');
-                      }
-                    " {{ isset($datum->printable_form['constrict']) ? 'checked' : ''}}  {{ !isset($referal_conso) ? '' : 'disabled' }}>
-                  </div>
-                  <span class="input-group-text">Constrict with:</span>
-                  <input type="text" class="form-control" id="{{ $viewFolder }}_constrict" name="{{ $viewFolder }}[PrintableForm][constrict]" value="{{ isset($datum->printable_form['constrict']) ? $datum->printable_form['constrict'] : '' }}" {{ !isset($referal_conso) ? '' : 'disabled' }} onblur="
-                      if($('#{{ $viewFolder }}_room').val() == '' && $('#{{ $viewFolder }}_dilate').val() == '' && $('#{{ $viewFolder }}_constrict').val() == '' && $('#{{ $viewFolder }}_intake_blood_thinner').val() == '' && $('#{{ $viewFolder }}_intake_maintenance_meds').val() == '' && $('#{{ $viewFolder }}_additional_orders').val() == ''){
-                        $('.createPDFButOpAdmit').each(function(){
-                          $(this).prop('disabled', true);
-                        });
-                      }else{
-                        $('.createPDFButOpAdmit').each(function(){
-                          $(this).prop('disabled', false);
-                        });
-                      }
-                    ">
-                </div>
-                <div class="input-group mb-3">
-                  <div class="input-group-text">
-                    <input class="form-check-input mt-0" type="checkbox" onchange="
-                      if($(this).prop('checked'))
-                        $('#{{ $viewFolder }}_intake_blood_thinner').prop('disabled', false);
-                      else{
-                        $('#{{ $viewFolder }}_intake_blood_thinner').prop('disabled', true);
-                        $('#{{ $viewFolder }}_intake_blood_thinner').val('');
-                      }
-                    " {{ isset($datum->printable_form['intake_blood_thinner']) ? 'checked' : ''}}  {{ !isset($referal_conso) ? '' : 'disabled' }}>
-                  </div>
-                  <span class="input-group-text">Intake of blood thinner or anti-coagulants. if yes? date and time last intake:</span>
-                  <input type="text" class="form-control" id="{{ $viewFolder }}_intake_blood_thinner" name="{{ $viewFolder }}[PrintableForm][intake_blood_thinner]" value="{{ isset($datum->printable_form['intake_blood_thinner']) ? $datum->printable_form['intake_blood_thinner'] : '' }}" {{ !isset($referal_conso) ? '' : 'disabled' }} onblur="
-                      if($('#{{ $viewFolder }}_room').val() == '' && $('#{{ $viewFolder }}_dilate').val() == '' && $('#{{ $viewFolder }}_constrict').val() == '' && $('#{{ $viewFolder }}_intake_blood_thinner').val() == '' && $('#{{ $viewFolder }}_intake_maintenance_meds').val() == '' && $('#{{ $viewFolder }}_additional_orders').val() == ''){
-                        $('.createPDFButOpAdmit').each(function(){
-                          $(this).prop('disabled', true);
-                        });
-                      }else{
-                        $('.createPDFButOpAdmit').each(function(){
-                          $(this).prop('disabled', false);
-                        });
-                      }
-                    ">
-                </div>
-                <div class="input-group mb-3">
-                  <div class="input-group-text">
-                    <input class="form-check-input mt-0" type="checkbox" onchange="
-                      if($(this).prop('checked'))
-                        $('#{{ $viewFolder }}_intake_maintenance_meds').prop('disabled', false);
-                      else{
-                        $('#{{ $viewFolder }}_intake_maintenance_meds').prop('disabled', true);
-                        $('#{{ $viewFolder }}_intake_maintenance_meds').val('');
-                      }
-                    " {{ isset($datum->printable_form['intake_maintenance_meds']) ? 'checked' : ''}}  {{ !isset($referal_conso) ? '' : 'disabled' }}>
-                  </div>
-                  <span class="input-group-text">Intake of maintenance meds. if yes? date and time last intake:</span>
-                  <input type="text" class="form-control" id="{{ $viewFolder }}_intake_maintenance_meds" name="{{ $viewFolder }}[PrintableForm][intake_maintenance_meds]" value="{{ isset($datum->printable_form['intake_maintenance_meds']) ? $datum->printable_form['intake_maintenance_meds'] : '' }}" {{ !isset($referal_conso) ? '' : 'disabled' }} onblur="
-                      if($('#{{ $viewFolder }}_room').val() == '' && $('#{{ $viewFolder }}_dilate').val() == '' && $('#{{ $viewFolder }}_constrict').val() == '' && $('#{{ $viewFolder }}_intake_blood_thinner').val() == '' && $('#{{ $viewFolder }}_intake_maintenance_meds').val() == '' && $('#{{ $viewFolder }}_additional_orders').val() == ''){
-                        $('.createPDFButOpAdmit').each(function(){
-                          $(this).prop('disabled', true);
-                        });
-                      }else{
-                        $('.createPDFButOpAdmit').each(function(){
-                          $(this).prop('disabled', false);
-                        });
-                      }
-                    ">
-                </div>
-                <label for="{{ $viewFolder }}_additional_orders" class="form-label">Additional Peri-Operative Orders</label>
-                <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][additional_orders]" id="{{ $viewFolder }}_additional_orders" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
-                      if($('#{{ $viewFolder }}_room').val() == '' && $('#{{ $viewFolder }}_dilate').val() == '' && $('#{{ $viewFolder }}_constrict').val() == '' && $('#{{ $viewFolder }}_intake_blood_thinner').val() == '' && $('#{{ $viewFolder }}_intake_maintenance_meds').val() == '' && $('#{{ $viewFolder }}_additional_orders').val() == ''){
-                        $('.createPDFButOpAdmit').each(function(){
-                          $(this).prop('disabled', true);
-                        });
-                      }else{
-                        $('.createPDFButOpAdmit').each(function(){
-                          $(this).prop('disabled', false);
-                        });
-                      }
-                    " {{ !isset($referal_conso) ? '' : 'disabled' }}>{{ isset($datum->printable_form['additional_orders']) ? $datum->printable_form['additional_orders'] : '' }}</textarea>
               </div>
               <div id="orTechCurDiv" style="display:none" class="container border border-1 mb-3 p-3">
                 <div class="docNotesDiv card mb-3" id="{{ $viewFolder }}_OpTech_{{ $datum->id }}">
@@ -8016,44 +9098,48 @@
                   <label for="{{ $viewFolder }}_anesthesiologist_ot" class="form-label">Anesthesiologist</label>
                   <small id="help_{{ $viewFolder }}_anesthesiologist_ot" class="text-muted"></small>
                 </div> --}}
-                <div class="form-floating mb-3">
-                  <select class="form-select" name="{{ $viewFolder }}[anesthesia_type_ao]" id="{{ $viewFolder }}_anesthesia_type_ot" placeholder="" {{ !isset($referal_conso) ? 'disabled' : 'disabled' }}
-                    onchange="
-                      $('#{{ $viewFolder }}_anesthesia_type_ao').val($(this).val());
-                    "
-                  >
-                    <option value="None" {{ (isset($datum->anesthesia_type_ao) && $datum->anesthesia_type_ao == 'None') ? 'selected' : ''}}>None</option>
-                    <option value="Regional Block" {{ (isset($datum->anesthesia_type_ao) && $datum->anesthesia_type_ao == 'Regional Block') ? 'selected' : ''}}>Regional Block</option>
-                    <option value="IV Sedation" {{ (isset($datum->anesthesia_type_ao) && $datum->anesthesia_type_ao == 'IV Sedation') ? 'selected' : ''}}>IV Sedation</option>
-                    <option value="General Anesthesia" {{ (isset($datum->anesthesia_type_ao) && $datum->anesthesia_type_ao == 'General Anesthesia') ? 'selected' : ''}}>General Anesthesia</option>
-                  </select>
-                  <label for="{{ $viewFolder }}_anesthesia_type_ot">Anesthesia Type</label>
-                  <small id="help_{{ $viewFolder }}_anesthesia_type_ot" class="text-muted"></small>
+                <div class="card mb-3">
+                  <div class="card-header">Form Inputs</div>
+                  <div class="card-body">
+                    <div class="form-floating mb-3">
+                      <select class="form-select" name="{{ $viewFolder }}[anesthesia_type_ot]" id="{{ $viewFolder }}_anesthesia_type_ot" placeholder="" {{ !isset($referal_conso) ? '' : 'disabled' }}
+                        onchange="
+                          $('#{{ $viewFolder }}_anesthesia_type_ao').val($(this).val());
+                        "
+                      >
+                        <option value="None" {{ (isset($datum->anesthesia_type_ao) && $datum->anesthesia_type_ao == 'None') ? 'selected' : ''}}>None</option>
+                        <option value="Regional Block" {{ (isset($datum->anesthesia_type_ao) && $datum->anesthesia_type_ao == 'Regional Block') ? 'selected' : ''}}>Regional Block</option>
+                        <option value="IV Sedation" {{ (isset($datum->anesthesia_type_ao) && $datum->anesthesia_type_ao == 'IV Sedation') ? 'selected' : ''}}>IV Sedation</option>
+                        <option value="General Anesthesia" {{ (isset($datum->anesthesia_type_ao) && $datum->anesthesia_type_ao == 'General Anesthesia') ? 'selected' : ''}}>General Anesthesia</option>
+                      </select>
+                      <label for="{{ $viewFolder }}_anesthesia_type_ot">Anesthesia Type</label>
+                      <small id="help_{{ $viewFolder }}_anesthesia_type_ot" class="text-muted"></small>
+                    </div>
+                    <div class="form-floating mb-3">
+                      <input class="form-control" type="text" name="{{ $viewFolder }}[anesthesiologist_ot]" id="{{ $viewFolder }}_anesthesiologist_ot" placeholder="" value="{{ isset($datum->anesthesiologist_ao) ? $datum->anesthesiologist_ao : '' }}" {{ !isset($referal_conso) ? '' : 'disabled' }}
+                        onblur="
+                          $('#{{ $viewFolder }}_anesthesiologist_ao').val($(this).val());
+                        "
+                      >
+                      <label for="{{ $viewFolder }}_anesthesiologist_ot" class="form-label">Anesthesiologist</label>
+                      <small id="help_{{ $viewFolder }}_anesthesiologist_ot" class="text-muted"></small>
+                    </div>
+                    <label for="{{ $viewFolder }}_operative_technique" class="form-label">Operative Technique</label>
+                    <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][operative_tech]" id="{{ $viewFolder }}_operative_technique" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
+                          if($('#{{ $viewFolder }}_operative_technique').val() == ''){
+                            $('.createPDFButORTech').each(function(){
+                              $(this).prop('disabled', true);
+                            });
+                          }else{
+                            $('.createPDFButORTech').each(function(){
+                              $(this).prop('disabled', false);
+                            });
+                          }
+                        ">{{ isset($datum->printable_form['operative_tech']) ? $datum->printable_form['operative_tech'] : '' }}</textarea>
+                    <input type="hidden" id="{{ $viewFolder }}_printable_form_consultation_id" class="form-control" name="{{ $viewFolder }}[PrintableForm][consultation_id]" value="{{ $datum->id }}">
+                    <small id="help_{{ $viewFolder }}_operative_technique" class="text-muted"></small>
+                  </div>
                 </div>
-                <div class="form-floating mb-3">
-                  <input class="form-control" type="text" name="{{ $viewFolder }}[anesthesiologist_ao]" id="{{ $viewFolder }}_anesthesiologist_ot" placeholder="" value="{{ isset($datum->anesthesiologist_ao) ? $datum->anesthesiologist_ao : '' }}" {{ !isset($referal_conso) ? 'disabled' : 'disabled' }}
-                    onblur="
-                      $('#{{ $viewFolder }}_anesthesiologist_ao').val($(this).val());
-                    "
-                  >
-                  <label for="{{ $viewFolder }}_anesthesiologist_ot" class="form-label">Anesthesiologist</label>
-                  <small id="help_{{ $viewFolder }}_anesthesiologist_ot" class="text-muted"></small>
-                </div>
-                <label for="{{ $viewFolder }}_operative_technique" class="form-label">Operative Technique</label>
-                <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][operative_tech]" id="{{ $viewFolder }}_operative_technique" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
-                      if($('#{{ $viewFolder }}_operative_technique').val() == ''){
-                        $('.createPDFButORTech').each(function(){
-                          $(this).prop('disabled', true);
-                        });
-                      }else{
-                        $('.createPDFButORTech').each(function(){
-                          $(this).prop('disabled', false);
-                        });
-                      }
-                    ">{{ isset($datum->printable_form['operative_tech']) ? $datum->printable_form['operative_tech'] : '' }}</textarea>
-                <input type="hidden" id="{{ $viewFolder }}_printable_form_consultation_id" class="form-control" name="{{ $viewFolder }}[PrintableForm][consultation_id]" value="{{ $datum->id }}">
-                <input type="hidden" id="{{ $viewFolder }}_printable_form_id" class="form-control" name="{{ $viewFolder }}[PrintableForm][id]" value="{{ isset($datum->printable_form['id']) ? $datum->printable_form['id'] : '' }}">
-                <small id="help_{{ $viewFolder }}_operative_technique" class="text-muted"></small>
                 {{-- </div> --}}
               </div>
               <div id="postOpCurDiv" style="display:none" class="container border border-1 mb-3 p-3">
@@ -8108,7 +9194,7 @@
                         function (){
                             $.ajax({
                               type: 'GET',
-                              url: '{{ Route::has($viewFolder . '.pdfORTech') ? route($viewFolder . '.pdfORTech', $cr->id) : '' }}',
+                              url: '{{ Route::has($viewFolder . '.pdfPostOp') ? route($viewFolder . '.pdfPostOp', $cr->id) : '' }}',
                               success:
                               function (data){
                                 $('#iframePostOp{{ $cr->id }}').attr('src', data);
@@ -8123,76 +9209,81 @@
                 </div>
                   @endforeach
                 @endif
-                <label for="{{ $viewFolder }}_after_proc" class="form-label">Things to expect after the procedure:</label>
-                <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][after_proc]" id="{{ $viewFolder }}_after_proc" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
-                      if($('#{{ $viewFolder }}_after_proc').val() != '' || $('#{{ $viewFolder }}_things_watch_out').val() != '' || $('#{{ $viewFolder }}_things_avoid').val() != '' || $('#{{ $viewFolder }}_wound_care').val() != '' || $('#{{ $viewFolder }}_medication_post').val() != ''){
-                        $('.createPDFButPostOp').each(function(){
-                          $(this).prop('disabled', false);
-                        });
-                      }else{
-                        $('.createPDFButPostOp').each(function(){
-                          $(this).prop('disabled', true);
-                        });
-                      }
-                    ">{{ isset($datum->printable_form['after_proc']) ? $datum->printable_form['after_proc'] : '' }}</textarea>
-                <input type="hidden" id="{{ $viewFolder }}_printable_form_consultation_id" class="form-control" name="{{ $viewFolder }}[PrintableForm][consultation_id]" value="{{ $datum->id }}">
-                <small id="help_{{ $viewFolder }}_after_proc" class="text-muted"></small>
-                
-                <label for="{{ $viewFolder }}_things_watch_out" class="form-label mt-3">Things to watch out for:</label>
-                <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][things_watch_out]" id="{{ $viewFolder }}_things_watch_out" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
-                      if($('#{{ $viewFolder }}_after_proc').val() != '' || $('#{{ $viewFolder }}_things_watch_out').val() != '' || $('#{{ $viewFolder }}_things_avoid').val() != '' || $('#{{ $viewFolder }}_wound_care').val() != '' || $('#{{ $viewFolder }}_medication_post').val() != ''){
-                        $('.createPDFButPostOp').each(function(){
-                          $(this).prop('disabled', false);
-                        });
-                      }else{
-                        $('.createPDFButPostOp').each(function(){
-                          $(this).prop('disabled', true);
-                        });
-                      }
-                    ">{{ isset($datum->printable_form['things_watch_out']) ? $datum->printable_form['things_watch_out'] : '' }}</textarea>
-                <small id="help_{{ $viewFolder }}_things_watch_out" class="text-muted"></small>
+                <div class="card mb-3">
+                  <div class="card-header">Form Inputs</div>
+                  <div class="card-body">
+                    <label for="{{ $viewFolder }}_after_proc" class="form-label">Things to expect after the procedure:</label>
+                    <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][after_proc]" id="{{ $viewFolder }}_after_proc" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
+                          if($('#{{ $viewFolder }}_after_proc').val() != '' || $('#{{ $viewFolder }}_things_watch_out').val() != '' || $('#{{ $viewFolder }}_things_avoid').val() != '' || $('#{{ $viewFolder }}_wound_care').val() != '' || $('#{{ $viewFolder }}_medication_post').val() != ''){
+                            $('.createPDFButPostOp').each(function(){
+                              $(this).prop('disabled', false);
+                            });
+                          }else{
+                            $('.createPDFButPostOp').each(function(){
+                              $(this).prop('disabled', true);
+                            });
+                          }
+                        ">{{ isset($datum->printable_form['after_proc']) ? $datum->printable_form['after_proc'] : '' }}</textarea>
+                    {{-- <input type="hidden" id="{{ $viewFolder }}_printable_form_consultation_id" class="form-control" name="{{ $viewFolder }}[PrintableForm][consultation_id]" value="{{ $datum->id }}"> --}}
+                    <small id="help_{{ $viewFolder }}_after_proc" class="text-muted"></small>
+                    
+                    <label for="{{ $viewFolder }}_things_watch_out" class="form-label mt-3">Things to watch out for:</label>
+                    <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][things_watch_out]" id="{{ $viewFolder }}_things_watch_out" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
+                          if($('#{{ $viewFolder }}_after_proc').val() != '' || $('#{{ $viewFolder }}_things_watch_out').val() != '' || $('#{{ $viewFolder }}_things_avoid').val() != '' || $('#{{ $viewFolder }}_wound_care').val() != '' || $('#{{ $viewFolder }}_medication_post').val() != ''){
+                            $('.createPDFButPostOp').each(function(){
+                              $(this).prop('disabled', false);
+                            });
+                          }else{
+                            $('.createPDFButPostOp').each(function(){
+                              $(this).prop('disabled', true);
+                            });
+                          }
+                        ">{{ isset($datum->printable_form['things_watch_out']) ? $datum->printable_form['things_watch_out'] : '' }}</textarea>
+                    <small id="help_{{ $viewFolder }}_things_watch_out" class="text-muted"></small>
 
-                <label for="{{ $viewFolder }}_things_avoid" class="form-label mt-3">Things to avoid:</label>
-                <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][things_avoid]" id="{{ $viewFolder }}_things_avoid" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
-                      if($('#{{ $viewFolder }}_after_proc').val() != '' || $('#{{ $viewFolder }}_things_watch_out').val() != '' || $('#{{ $viewFolder }}_things_avoid').val() != '' || $('#{{ $viewFolder }}_wound_care').val() != '' || $('#{{ $viewFolder }}_medication_post').val() != ''){
-                        $('.createPDFButPostOp').each(function(){
-                          $(this).prop('disabled', false);
-                        });
-                      }else{
-                        $('.createPDFButPostOp').each(function(){
-                          $(this).prop('disabled', true);
-                        });
-                      }
-                    ">{{ isset($datum->printable_form['things_watch_out']) ? $datum->printable_form['things_watch_out'] : '' }}</textarea>
-                <small id="help_{{ $viewFolder }}_things_avoid" class="text-muted"></small>
+                    <label for="{{ $viewFolder }}_things_avoid" class="form-label mt-3">Things to avoid:</label>
+                    <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][things_avoid]" id="{{ $viewFolder }}_things_avoid" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
+                          if($('#{{ $viewFolder }}_after_proc').val() != '' || $('#{{ $viewFolder }}_things_watch_out').val() != '' || $('#{{ $viewFolder }}_things_avoid').val() != '' || $('#{{ $viewFolder }}_wound_care').val() != '' || $('#{{ $viewFolder }}_medication_post').val() != ''){
+                            $('.createPDFButPostOp').each(function(){
+                              $(this).prop('disabled', false);
+                            });
+                          }else{
+                            $('.createPDFButPostOp').each(function(){
+                              $(this).prop('disabled', true);
+                            });
+                          }
+                        ">{{ isset($datum->printable_form['things_watch_out']) ? $datum->printable_form['things_watch_out'] : '' }}</textarea>
+                    <small id="help_{{ $viewFolder }}_things_avoid" class="text-muted"></small>
 
-                <label for="{{ $viewFolder }}_wound_care" class="form-label mt-3">Wound care:</label>
-                <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][wound_care]" id="{{ $viewFolder }}_wound_care" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
-                      if($('#{{ $viewFolder }}_after_proc').val() != '' || $('#{{ $viewFolder }}_things_watch_out').val() != '' || $('#{{ $viewFolder }}_things_avoid').val() != '' || $('#{{ $viewFolder }}_wound_care').val() != '' || $('#{{ $viewFolder }}_medication_post').val() != ''){
-                        $('.createPDFButPostOp').each(function(){
-                          $(this).prop('disabled', false);
-                        });
-                      }else{
-                        $('.createPDFButPostOp').each(function(){
-                          $(this).prop('disabled', true);
-                        });
-                      }
-                    ">{{ isset($datum->printable_form['wound_care']) ? $datum->printable_form['wound_care'] : '' }}</textarea>
-                <small id="help_{{ $viewFolder }}_wound_care" class="text-muted"></small>
+                    <label for="{{ $viewFolder }}_wound_care" class="form-label mt-3">Wound care:</label>
+                    <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][wound_care]" id="{{ $viewFolder }}_wound_care" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
+                          if($('#{{ $viewFolder }}_after_proc').val() != '' || $('#{{ $viewFolder }}_things_watch_out').val() != '' || $('#{{ $viewFolder }}_things_avoid').val() != '' || $('#{{ $viewFolder }}_wound_care').val() != '' || $('#{{ $viewFolder }}_medication_post').val() != ''){
+                            $('.createPDFButPostOp').each(function(){
+                              $(this).prop('disabled', false);
+                            });
+                          }else{
+                            $('.createPDFButPostOp').each(function(){
+                              $(this).prop('disabled', true);
+                            });
+                          }
+                        ">{{ isset($datum->printable_form['wound_care']) ? $datum->printable_form['wound_care'] : '' }}</textarea>
+                    <small id="help_{{ $viewFolder }}_wound_care" class="text-muted"></small>
 
-                <label for="{{ $viewFolder }}_medication_post" class="form-label mt-3">Medications:</label>
-                <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][medication]" id="{{ $viewFolder }}_medication_post" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
-                      if($('#{{ $viewFolder }}_after_proc').val() != '' || $('#{{ $viewFolder }}_things_watch_out').val() != '' || $('#{{ $viewFolder }}_things_avoid').val() != '' || $('#{{ $viewFolder }}_wound_care').val() != '' || $('#{{ $viewFolder }}_medication_post').val() != ''){
-                        $('.createPDFButPostOp').each(function(){
-                          $(this).prop('disabled', false);
-                        });
-                      }else{
-                        $('.createPDFButPostOp').each(function(){
-                          $(this).prop('disabled', true);
-                        });
-                      }
-                    ">{{ isset($datum->printable_form['medication']) ? $datum->printable_form['medication'] : '' }}</textarea>
-                <small id="help_{{ $viewFolder }}_medication_post" class="text-muted"></small>
+                    <label for="{{ $viewFolder }}_medication_post" class="form-label mt-3">Medications:</label>
+                    <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][medication]" id="{{ $viewFolder }}_medication_post" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
+                          if($('#{{ $viewFolder }}_after_proc').val() != '' || $('#{{ $viewFolder }}_things_watch_out').val() != '' || $('#{{ $viewFolder }}_things_avoid').val() != '' || $('#{{ $viewFolder }}_wound_care').val() != '' || $('#{{ $viewFolder }}_medication_post').val() != ''){
+                            $('.createPDFButPostOp').each(function(){
+                              $(this).prop('disabled', false);
+                            });
+                          }else{
+                            $('.createPDFButPostOp').each(function(){
+                              $(this).prop('disabled', true);
+                            });
+                          }
+                        ">{{ isset($datum->printable_form['medication']) ? $datum->printable_form['medication'] : '' }}</textarea>
+                    <small id="help_{{ $viewFolder }}_medication_post" class="text-muted"></small>
+                  </div>
+                </div>
               </div>
               <div id="dialysisCurDiv" style="display:none" class="container border border-1 mb-3 p-3">
                 @if((isset($datum->booking_type) && $datum->booking_type == 'Dialysis'))
@@ -11334,6 +12425,8 @@
           $('#iframePrevAdmitting').attr('src', bookingObj.consultation.iframePrevAdmittingSrc);
           $('#iframePrevORTech').attr('src', bookingObj.consultation.iframePrevORTechSrc);
           $('#iframePrevPostOp').attr('src', bookingObj.consultation.iframePrevPostOpSrc);
+          $('#iframePrevOpAdmit').attr('src', bookingObj.consultation.iframePrevOpAdmitSrc);
+          $('#iframePrevDischargeSum').attr('src', bookingObj.consultation.iframePrevDischargeSumSrc);
 
           if(bookingObj.consultation_files !== undefined){
             inner = '';

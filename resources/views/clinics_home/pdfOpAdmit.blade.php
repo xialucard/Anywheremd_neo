@@ -1,6 +1,6 @@
 @php
     unset($referal_conso);
-    $referal_conso = array();
+    // $referal_conso = array();
     if(isset($datum->clinic->id))
         $clinicDat = $datum->clinic->id;
     if(isset($datum->doctor->id))
@@ -79,15 +79,15 @@
             <td><strong>Age/Sex:</strong> {{ floor((strtotime($datum->bookingDate) - strtotime($datum->patient->birthdate))/(60*60*24*365.25)) }}/{{ $datum->patient->gender }}</td>
         </tr>
         <tr>
-            <td colspan="2"><strong>Diagnosis:</strong>{{ $datum->assessment }}</td>
+            <td colspan="2"><strong>Diagnosis:</strong>{{ isset($referal_conso->assessment) ? $referal_conso->assessment : (!isset($referal_conso) ? $datum->assessment : '') }}</td>
         </tr>
         <tr>
-            <td><strong>Procedure:</strong> {{ $datum->patient->name }}</td>
-            <td><strong>Anesthesia:</strong> {{ $datum->anesthesia_type_ao }}</td>
+            <td><strong>Procedure:</strong> {{ isset($referal_conso->procedure_details) ? $referal_conso->procedure_details : (!isset($referal_conso) ? $datum->procedure_details : '') }}</td>
+            <td><strong>Anesthesia:</strong> {{ isset($referal_conso->anesthesia_type_ao) ? $referal_conso->anesthesia_type_ao : (!isset($referal_conso) ? $datum->anesthesia_type_ao : '') }}</td>
         </tr>
         <tr>
-            <td><strong>Surgeon:</strong> {{ $datum->doctor->name }}</td>
-            <td><strong>Anesthesiology:</strong> {{ $datum->anesthesiologist_ao }}</td>
+            <td><strong>Surgeon:</strong> {{ isset($referal_conso->doctor->name) ? $referal_conso->doctor->name : (!isset($referal_conso) ? $datum->doctor->name : '') }}</td>
+            <td><strong>Anesthesiology:</strong> {{ isset($referal_conso->anesthesiologist_ao) ? $referal_conso->anesthesiologist_ao : (!isset($referal_conso) ? $datum->anesthesiologist_ao : '') }}</td>
         </tr>
         <tr>
             <td colspan="2"><strong>Date:</strong> {{ $datum->bookingDate }}</td>
@@ -97,11 +97,11 @@
         <tr rowspan="2">
             <td width="40%" valign="top">
                 <strong>DOCTOR’S ADMITTING ORDERS</strong><br>
-                <p>PLEASE ADMIT MY PATIENT TO THE OPERATING ROOM: {{ isset($datum->printable_form['room']) && $datum->printable_form['room'] ? $datum->printable_form['room'] : '' }}</p><br>
+                <p>PLEASE ADMIT MY PATIENT TO THE OPERATING ROOM: {{ isset($referal_conso->room) ? $referal_conso->room : (!isset($referal_conso) ? $datum->printable_form['room'] : '') }}</p><br>
                 <p>Take Vital signs every 15 mins, one hour prior to surgery.</p><br><br>
-                <p style="height:2in">PLEASE DILATE <input type="checkbox" {{ isset($datum->printable_form['dilate']) && $datum->printable_form['dilate'] ? 'checked' : '' }}> with : <br>{{ isset($datum->printable_form['dilate']) && $datum->printable_form['dilate'] ? $datum->printable_form['dilate'] : '' }}</p>
-                <p style="height:2in">PLEASE CONSTRICT <input type="checkbox" {{ isset($datum->printable_form['constrict']) && $datum->printable_form['constrict'] ? 'checked' : '' }}> with : <br>{{ isset($datum->printable_form['constrict']) && $datum->printable_form['constrict'] ? $datum->printable_form['dilate'] : '' }}</p>
-                <span>Dr. {{ $datum->doctor->name }}</span><br>
+                <p style="height:2in">PLEASE DILATE <input type="checkbox" {{ isset($referal_conso->printable_form['dilate']) && $referal_conso->printable_form['dilate'] != '' ? 'checked' : (!isset($referal_conso) && $datum->printable_form['dilate'] != '' ? 'checked' : '') }}> with : <br>{{ isset($referal_conso->printable_form['dilate']) ? $referal_conso->printable_form['dilate'] : (!isset($referal_conso) ? $datum->printable_form['dilate'] : '') }}</p>
+                <p style="height:2in">PLEASE CONSTRICT <input type="checkbox" {{ isset($referal_conso->printable_form['constrict']) && $referal_conso->printable_form['constrict'] != '' ? 'checked' : (!isset($referal_conso) && $datum->printable_form['constrict'] != '' ? 'checked' : '') }}> with : <br>{{ isset($referal_conso->printable_form['constrict']) ? $referal_conso->printable_form['constrict'] : (!isset($referal_conso) ? $datum->printable_form['constrict'] : '') }}</p>
+                <span>Dr. {{ isset($referal_conso->doctor->name) ? $referal_conso->doctor->name : (!isset($referal_conso) ? $datum->doctor->name : '') }}</span><br>
                 <span style="border-top:1px solid">MD signature above printed name</span>
             </td>
             <td width="25%" valign="top">
@@ -135,8 +135,8 @@
                     </tr>
                     <tr>
                         <td width="35%" valign="top" style="border-top: 1px solid">
-                            <p style="height:2in"><input type="checkbox" {{ isset($datum->printable_form['intake_blood_thinner']) && $datum->printable_form['intake_blood_thinner'] ? 'checked' : '' }}>Intake of blood thinner or anti-coagulants eg. clopidogrel, warfarin, heparin, aspirin and the like. <br>IF YES, Date and time of last intake <br>{{ isset($datum->printable_form['intake_blood_thinner']) && $datum->printable_form['intake_blood_thinner'] ? $datum->printable_form['intake_blood_thinner'] : '' }}</p>
-                            <p style="height:2in"><input type="checkbox" {{ isset($datum->printable_form['intake_maintenance_meds']) && $datum->printable_form['intake_maintenance_meds'] ? 'checked' : '' }}>Intake of maintenance medications: <br>IF YES, Meds, Date and time of last intake <br>{{ isset($datum->printable_form['intake_maintenance_meds']) && $datum->printable_form['intake_maintenance_meds'] ? $datum->printable_form['intake_maintenance_meds'] : '' }}</p>
+                            <p style="height:2in"><input type="checkbox" {{ isset($referal_conso->printable_form['intake_blood_thinner']) && $referal_conso->printable_form['intake_blood_thinner'] != '' ? 'checked' : (!isset($referal_conso) && $datum->printable_form['intake_blood_thinner'] != '' ? 'checked' : '') }}>Intake of blood thinner or anti-coagulants eg. clopidogrel, warfarin, heparin, aspirin and the like. <br>IF YES, Date and time of last intake <br>{{ isset($referal_conso->printable_form['intake_blood_thinner']) ? $referal_conso->printable_form['intake_blood_thinner'] : (!isset($referal_conso) ? $datum->printable_form['intake_blood_thinner'] : '') }}</p>
+                            <p style="height:2in"><input type="checkbox" {{ isset($referal_conso->printable_form['intake_maintenance_meds']) && $referal_conso->printable_form['intake_maintenance_meds'] != '' ? 'checked' : (!isset($referal_conso) && $datum->printable_form['intake_maintenance_meds'] != '' ? 'checked' : '') }}>Intake of maintenance medications: <br>IF YES, Meds, Date and time of last intake <br>{{ isset($referal_conso->printable_form['intake_maintenance_meds']) ? $referal_conso->printable_form['intake_maintenance_meds'] : (!isset($referal_conso) ? $datum->printable_form['intake_maintenance_meds'] : '') }}</p>
                         </td>
                     </tr>
                 </table>
@@ -145,28 +145,27 @@
     <table border="1" cellspacing="0" cellpadding="5" width="100%">
         <tr>
             <td width="65%" rowspan="2">
-                <p style="height:4in">ADDITIONAL PERI-OPERATIVE ORDERS <br> {!! nl2br(isset($datum->printable_form['additional_orders']) ? $datum->printable_form['additional_orders'] : '') !!}</p>
-                <span>Dr. {{ $datum->doctor->name }}</span><br>
+                <p style="height:4in">ADDITIONAL PERI-OPERATIVE ORDERS <br> {!! nl2br(isset($referal_conso->printable_form['additional_orders']) ? $referal_conso->printable_form['additional_orders'] : (!isset($referal_conso) ? $datum->printable_form['additional_orders'] : '')) !!}</p>
+                <span>Dr. {{ isset($referal_conso->doctor->name) ? $referal_conso->doctor->name : (!isset($referal_conso) ? $datum->doctor->name : '') }}</span><br>
                 <span style="border-top:1px solid">MD signature above printed name</span>
             </td>
             <td valign="top">
                 <p>Intraoperative Vital Signs</p>
-                <p>BP: {{ (isset($datum->printable_form['i_bpS']) && isset($datum->printable_form['i_bpD']) && $datum->printable_form['i_bpS'] != '' && $datum->printable_form['i_bpD'] != '') ? $datum->printable_form['i_bpS'] . '/' . $datum->printable_form['i_bpD'] : '' }}</p>
-                <p>O2: {{ (isset($datum->printable_form['i_o2']) && $datum->printable_form['i_o2'] != '') ? $datum->printable_form['i_o2'] : '' }}</p>
-                <p>Temp: {{ (isset($datum->printable_form['i_temp']) && $datum->printable_form['i_temp'] != '') ? $datum->printable_form['i_temp'] . ' C' : '' }}</p>
-                <p>Remarks: {!! (isset($datum->printable_form['i_remarks']) && $datum->printable_form['i_remarks'] != '') ? $datum->printable_form['i_remarks'] : '' !!}</p><br><br>
-                <p>Circulating Nurse: <br>{{ (isset($datum->printable_form['c_nurse']) && $datum->printable_form['c_nurse'] != '') ? $datum->printable_form['c_nurse'] : '' }}</p>
+                <p>BP: {{ isset($referal_conso->printable_form['i_bpS']) && isset($referal_conso->printable_form['i_bpD']) ? $referal_conso->printable_form['i_bpS'] . '/' . $referal_conso->printable_form['i_bpD'] : (!isset($referal_conso) ? $datum->printable_form['i_bpS'] . '/' . $datum->printable_form['i_bpD'] : '') }}</p>
+                <p>O2: {{ isset($referal_conso->printable_form['i_o2']) ? $referal_conso->printable_form['i_o2'] : (!isset($referal_conso) ? $datum->printable_form['i_o2'] : '') }}</p>
+                <p>Temp: {{ isset($referal_conso->printable_form['i_temp']) ? $referal_conso->printable_form['i_temp'] . ' C' : (!isset($referal_conso) ? $datum->printable_form['i_temp'] . ' C' : '') }}</p>
+                <p>Remarks: {!! isset($referal_conso->printable_form['i_remarks']) ? $referal_conso->printable_form['i_remarks'] : (!isset($referal_conso) ? $datum->printable_form['i_remarks'] : '') !!}</p><br><br>
+                <p>Circulating Nurse: <br>{{ isset($referal_conso->printable_form['c_nurse']) ? $referal_conso->printable_form['c_nurse'] : (!isset($referal_conso) ? $datum->printable_form['c_nurse'] : '') }}</p>
             </td>
         </tr>
         <tr>
             <td valign="top">
                 <p>Post Operative Vital Signs</p>
-                <p>BP: {{ (isset($datum->printable_form['o_bpS']) && isset($datum->printable_form['o_bpD']) && $datum->printable_form['o_bpS'] != '' && $datum->printable_form['o_bpD'] != '') ? $datum->printable_form['o_bpS'] . '/' . $datum->printable_form['o_bpD'] : '' }}</p>
-                <p>O2: {{ (isset($datum->printable_form['o_o2']) && $datum->printable_form['o_o2'] != '') ? $datum->printable_form['o_o2'] : '' }}</p>
-                <p>Temp: {{ (isset($datum->printable_form['o_temp']) && $datum->printable_form['o_temp'] != '') ? $datum->printable_form['o_temp'] . ' C' : '' }}</p>
-                <p>Remarks: {!! (isset($datum->printable_form['o_remarks']) && $datum->printable_form['o_remarks'] != '') ? $datum->printable_form['o_remarks'] : '' !!}</p><br><br>
-                <p>Recovery Room Nurse: <br>{{ (isset($datum->printable_form['r_nurse']) &&$datum->printable_form['r_nurse'] != '') ? $datum->printable_form['r_nurse'] : '' }}</p>
-
+                <p>BP: {{ isset($referal_conso->printable_form['o_bpS']) && isset($referal_conso->printable_form['o_bpD']) ? $referal_conso->printable_form['o_bpS'] . '/' . $referal_conso->printable_form['o_bpD'] : (!isset($referal_conso) ? $datum->printable_form['o_bpS'] . '/' . $datum->printable_form['o_bpD'] : '') }}</p>
+                <p>O2: {{ isset($referal_conso->printable_form['o_o2']) ? $referal_conso->printable_form['o_o2'] : (!isset($referal_conso) ? $datum->printable_form['o_o2'] : '') }}</p>
+                <p>Temp: {{ isset($referal_conso->printable_form['o_temp']) ? $referal_conso->printable_form['o_temp'] . ' C' : (!isset($referal_conso) ? $datum->printable_form['o_temp'] . ' C' : '') }}</p>
+                <p>Remarks: {!! isset($referal_conso->printable_form['o_remarks']) ? $referal_conso->printable_form['o_remarks'] : (!isset($referal_conso) ? $datum->printable_form['o_remarks'] : '') !!}</p><br><br>
+                <p>Recovery Room Nurse: <br>{{ isset($referal_conso->printable_form['r_nurse']) ? $referal_conso->printable_form['r_nurse'] : (!isset($referal_conso) ? $datum->printable_form['r_nurse'] : '') }}</p>
             </td>
         </tr>
     </table>
