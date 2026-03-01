@@ -851,7 +851,7 @@
                   <th>Details</th>
                 </tr>
                 @php
-                  if(isset($datum->printable_form['datetime_nurse_notes']) || $referal_conso->printable_form['datetime_nurse_notes']){
+                  if(isset($datum->printable_form['datetime_nurse_notes']) || isset($referal_conso->printable_form['datetime_nurse_notes'])){
                     $temp = json_decode(isset($referal_conso->printable_form['datetime_nurse_notes']) ? $referal_conso->printable_form['datetime_nurse_notes'] : (!isset($referal_conso) ? $datum->printable_form['datetime_nurse_notes'] : ''));
                     // unset($datum->printable_form['datetime_nurse_notes']);
                     // $datum->printable_form['datetime_nurse_notes'] = $temp;
