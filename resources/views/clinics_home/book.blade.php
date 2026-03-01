@@ -704,7 +704,7 @@
                       $('#{{ $viewFolder }}_intake_blood_thinner').prop('disabled', true);
                       $('#{{ $viewFolder }}_intake_blood_thinner').val('');
                     }
-                  " {{ isset($referal_conso->printable_form['intake_blood_thinner']) && $referal_conso->printable_form['intake_blood_thinner'] != '' ? 'checked' : (!isset($referal_conso) && $datum->printable_form['intake_blood_thinner'] != '' ? 'checked' : '') }}>
+                  " {{ isset($referal_conso->printable_form['intake_blood_thinner']) && $referal_conso->printable_form['intake_blood_thinner'] != '' ? 'checked' : (!isset($referal_conso) && isset($datum->printable_form['intake_blood_thinner']) && $datum->printable_form['intake_blood_thinner'] != '' ? 'checked' : '') }}>
                 </div>
                 <span class="input-group-text">Intake of blood thinner or anti-coagulants. if yes? date and time last intake:</span>
                 <input type="text" class="form-control" id="{{ $viewFolder }}_intake_blood_thinner" name="{{ $viewFolder }}[PrintableForm][intake_blood_thinner]" value="{{ isset($referal_conso->printable_form['intake_blood_thinner']) ? $referal_conso->printable_form['intake_blood_thinner'] : (!isset($referal_conso) ? $datum->printable_form['intake_blood_thinner'] : '') }}" {{ isset($referal_conso->printable_form['intake_blood_thinner']) && $referal_conso->printable_form['intake_blood_thinner'] != '' ? '' : (!isset($referal_conso) && $datum->printable_form['intake_blood_thinner'] != '' ? '' : 'disabled') }} onblur="
