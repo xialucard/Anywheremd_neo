@@ -750,7 +750,7 @@
                     <div class="card-body">
                       <div class="input-group mb-3">
                         <div class="form-floating">
-                          <input class="form-control" type="number" name="{{ $viewFolder }}[PrintableForm][i_temp]" min=30 step=.1 id="{{ $viewFolder }}_i_temp" value="{{ isset($referal_conso->printable_form['i_temp']) ? $referal_conso->printable_form['i_temp'] : (!isset($referal_conso) ? $datum->printable_form['i_temp'] : '') }}" placeholder="">
+                          <input class="form-control" type="number" name="{{ $viewFolder }}[PrintableForm][i_temp]" min=30 step=.1 id="{{ $viewFolder }}_i_temp" value="{{ isset($referal_conso->printable_form['i_temp']) ? $referal_conso->printable_form['i_temp'] : (!isset($referal_conso) && isset($datum->printable_form['i_temp']) ? $datum->printable_form['i_temp'] : '') }}" placeholder="">
                           <label for="{{ $viewFolder }}_i_temp" class="form-label">Temperature</label>
                           <small id="help_{{ $viewFolder }}_i_temp" class="text-muted"></small>
                         </div>
@@ -758,22 +758,22 @@
                       </div>
                       <label for="{{ $viewFolder }}_bpS" class="form-label">BP</label>
                       <div class="input-group mb-3">
-                        <input class="form-control" type="number" name="{{ $viewFolder }}[PrintableForm][i_bpS]" min=50 max=250 step=1 id="{{ $viewFolder }}_i_bpS" value="{{ isset($referal_conso->printable_form['i_bpS']) ? $referal_conso->printable_form['i_bpS'] : (!isset($referal_conso) ? $datum->printable_form['i_bpS'] : '') }}" placeholder="Systolic">
+                        <input class="form-control" type="number" name="{{ $viewFolder }}[PrintableForm][i_bpS]" min=50 max=250 step=1 id="{{ $viewFolder }}_i_bpS" value="{{ isset($referal_conso->printable_form['i_bpS']) ? $referal_conso->printable_form['i_bpS'] : (!isset($referal_conso) && isset($datum->printable_form['i_bpS']) ? $datum->printable_form['i_bpS'] : '') }}" placeholder="Systolic">
                         <span class="input-group-text">/</span>
-                        <input class="form-control" type="number" name="{{ $viewFolder }}[PrintableForm][i_bpD]" min=30 max=150 step=1 id="{{ $viewFolder }}_i_bpD" value="{{ isset($referal_conso->printable_form['i_bpD']) ? $referal_conso->printable_form['i_bpD'] : (!isset($referal_conso) ? $datum->printable_form['i_bpD'] : '') }}" placeholder="Diastolic">
+                        <input class="form-control" type="number" name="{{ $viewFolder }}[PrintableForm][i_bpD]" min=30 max=150 step=1 id="{{ $viewFolder }}_i_bpD" value="{{ isset($referal_conso->printable_form['i_bpD']) ? $referal_conso->printable_form['i_bpD'] : (!isset($referal_conso) && isset($datum->printable_form['i_bpD']) ? $datum->printable_form['i_bpD'] : '') }}" placeholder="Diastolic">
                       </div>
                       <div class="input-group mb-3">
                         <div class="form-floating">
-                          <input class="form-control" type="number" name="{{ $viewFolder }}[PrintableForm][i_o2]" min=1 id="{{ $viewFolder }}_i_o2" value="{{ isset($referal_conso->printable_form['i_o2']) ? $referal_conso->printable_form['i_o2'] : (!isset($referal_conso) ? $datum->printable_form['i_o2'] : '') }}" placeholder="">
+                          <input class="form-control" type="number" name="{{ $viewFolder }}[PrintableForm][i_o2]" min=1 id="{{ $viewFolder }}_i_o2" value="{{ isset($referal_conso->printable_form['i_o2']) ? $referal_conso->printable_form['i_o2'] : (!isset($referal_conso) && isset$datum->printable_form['i_o2']) ? $datum->printable_form['i_o2'] : '') }}" placeholder="">
                           <label for="{{ $viewFolder }}_i_o2" class="form-label">O2 Sat</label>
                           <small id="help_{{ $viewFolder }}_i_o2" class="text-muted"></small>
                         </div>
                         <span class="input-group-text">%</span>
                       </div>
                       <label for="{{ $viewFolder }}_i_remarks" class="form-label">Remarks</label>
-                      <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][i_remarks]" id="{{ $viewFolder }}_i_remarks" rows=3>{{ isset($referal_conso->printable_form['i_remarks']) ? $referal_conso->printable_form['i_remarks'] : (!isset($referal_conso) ? $datum->printable_form['i_remarks'] : '') }}</textarea>
+                      <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][i_remarks]" id="{{ $viewFolder }}_i_remarks" rows=3>{{ isset($referal_conso->printable_form['i_remarks']) ? $referal_conso->printable_form['i_remarks'] : (!isset($referal_conso) && isset($datum->printable_form['i_remarks']) ? $datum->printable_form['i_remarks'] : '') }}</textarea>
                       <div class="form-floating mt-3">
-                        <input class="form-control" type="text" name="{{ $viewFolder }}[PrintableForm][c_nurse]" id="{{ $viewFolder }}_c_nurse" placeholder="" value="{{ isset($referal_conso->printable_form['c_nurse']) ? $referal_conso->printable_form['c_nurse'] : (!isset($referal_conso) ? $datum->printable_form['c_nurse'] : '') }}">
+                        <input class="form-control" type="text" name="{{ $viewFolder }}[PrintableForm][c_nurse]" id="{{ $viewFolder }}_c_nurse" placeholder="" value="{{ isset($referal_conso->printable_form['c_nurse']) ? $referal_conso->printable_form['c_nurse'] : (!isset($referal_conso) && isset($datum->printable_form['c_nurse']) ? $datum->printable_form['c_nurse'] : '') }}">
                         <label for="{{ $viewFolder }}_c_nurse" class="form-label">Circulating Nurse</label>
                         <small id="help_{{ $viewFolder }}_c_nurse" class="text-muted"></small>
                       </div>
@@ -788,7 +788,7 @@
                     <div class="card-body">
                       <div class="input-group mb-3">
                         <div class="form-floating">
-                          <input class="form-control" type="number" name="{{ $viewFolder }}[PrintableForm][o_temp]" min=30 step=.1 id="{{ $viewFolder }}_o_temp" value="{{ isset($referal_conso->printable_form['o_temp']) ? $referal_conso->printable_form['o_temp'] : (!isset($referal_conso) ? $datum->printable_form['o_temp'] : '') }}" placeholder="">
+                          <input class="form-control" type="number" name="{{ $viewFolder }}[PrintableForm][o_temp]" min=30 step=.1 id="{{ $viewFolder }}_o_temp" value="{{ isset($referal_conso->printable_form['o_temp']) ? $referal_conso->printable_form['o_temp'] : (!isset($referal_conso) && isset($datum->printable_form['o_temp']) ? $datum->printable_form['o_temp'] : '') }}" placeholder="">
                           <label for="{{ $viewFolder }}_o_temp" class="form-label">Temperature</label>
                           <small id="help_{{ $viewFolder }}_o_temp" class="text-muted"></small>
                         </div>
@@ -796,22 +796,22 @@
                       </div>
                       <label for="{{ $viewFolder }}_bpS" class="form-label">BP</label>
                       <div class="input-group mb-3">
-                        <input class="form-control" type="number" name="{{ $viewFolder }}[PrintableForm][o_bpS]" min=50 max=250 step=1 id="{{ $viewFolder }}_o_bpS" value="{{ isset($referal_conso->printable_form['o_bpS']) ? $referal_conso->printable_form['o_bpS'] : (!isset($referal_conso) ? $datum->printable_form['o_bpS'] : '') }}" placeholder="Systolic">
+                        <input class="form-control" type="number" name="{{ $viewFolder }}[PrintableForm][o_bpS]" min=50 max=250 step=1 id="{{ $viewFolder }}_o_bpS" value="{{ isset($referal_conso->printable_form['o_bpS']) ? $referal_conso->printable_form['o_bpS'] : (!isset($referal_conso) && isset($datum->printable_form['o_bpS']) ? $datum->printable_form['o_bpS'] : '') }}" placeholder="Systolic">
                         <span class="input-group-text">/</span>
-                        <input class="form-control" type="number" name="{{ $viewFolder }}[PrintableForm][o_bpD]" min=30 max=150 step=1 id="{{ $viewFolder }}_o_bpD" value="{{ isset($referal_conso->printable_form['o_bpD']) ? $referal_conso->printable_form['o_bpD'] : (!isset($referal_conso) ? $datum->printable_form['o_bpD'] : '') }}" placeholder="Diastolic">
+                        <input class="form-control" type="number" name="{{ $viewFolder }}[PrintableForm][o_bpD]" min=30 max=150 step=1 id="{{ $viewFolder }}_o_bpD" value="{{ isset($referal_conso->printable_form['o_bpD']) ? $referal_conso->printable_form['o_bpD'] : (!isset($referal_conso) && isset($datum->printable_form['o_bpD']) ? $datum->printable_form['o_bpD'] : '') }}" placeholder="Diastolic">
                       </div>
                       <div class="input-group mb-3">
                         <div class="form-floating">
-                          <input class="form-control" type="number" name="{{ $viewFolder }}[PrintableForm][o_o2]" min=1 id="{{ $viewFolder }}_o_o2" value="{{ isset($referal_conso->printable_form['o_o2']) ? $referal_conso->printable_form['o_o2'] : (!isset($referal_conso) ? $datum->printable_form['o_o2'] : '') }}" placeholder="">
+                          <input class="form-control" type="number" name="{{ $viewFolder }}[PrintableForm][o_o2]" min=1 id="{{ $viewFolder }}_o_o2" value="{{ isset($referal_conso->printable_form['o_o2']) ? $referal_conso->printable_form['o_o2'] : (!isset($referal_conso) && isset($datum->printable_form['o_o2']) ? $datum->printable_form['o_o2'] : '') }}" placeholder="">
                           <label for="{{ $viewFolder }}_o_o2" class="form-label">O2 Sat</label>
                           <small id="help_{{ $viewFolder }}_o_o2" class="text-muted"></small>
                         </div>
                         <span class="input-group-text">%</span>
                       </div>
                       <label for="{{ $viewFolder }}_o_remarks" class="form-label">Remarks</label>
-                      <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][o_remarks]" id="{{ $viewFolder }}_o_remarks" rows=3>{{ isset($referal_conso->printable_form['o_remarks']) ? $referal_conso->printable_form['o_remarks'] : (!isset($referal_conso) ? $datum->printable_form['o_remarks'] : '') }}</textarea>
+                      <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][o_remarks]" id="{{ $viewFolder }}_o_remarks" rows=3>{{ isset($referal_conso->printable_form['o_remarks']) ? $referal_conso->printable_form['o_remarks'] : (!isset($referal_conso) && isset($datum->printable_form['o_remarks']) ? $datum->printable_form['o_remarks'] : '') }}</textarea>
                       <div class="form-floating mt-3">
-                        <input class="form-control" type="text" name="{{ $viewFolder }}[PrintableForm][r_nurse]" id="{{ $viewFolder }}_r_nurse" placeholder="" value="{{ isset($referal_conso->printable_form['r_nurse']) ? $referal_conso->printable_form['r_nurse'] : (!isset($referal_conso) ? $datum->printable_form['r_nurse'] : '') }}">
+                        <input class="form-control" type="text" name="{{ $viewFolder }}[PrintableForm][r_nurse]" id="{{ $viewFolder }}_r_nurse" placeholder="" value="{{ isset($referal_conso->printable_form['r_nurse']) ? $referal_conso->printable_form['r_nurse'] : (!isset($referal_conso) && isset($datum->printable_form['r_nurse']) ? $datum->printable_form['r_nurse'] : '') }}">
                         <label for="{{ $viewFolder }}_r_nurse" class="form-label">Circulating Nurse</label>
                         <small id="help_{{ $viewFolder }}_r_nurse" class="text-muted"></small>
                       </div>
