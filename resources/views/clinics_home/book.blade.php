@@ -858,71 +858,71 @@
                   }
                 @endphp
                 <tr>
-                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][0]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ $temp[0] }}"></td>
+                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][0]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ isset($temp[0]) ? $temp[0] : '' }}"></td>
                   <td>> Received patient ambulatory</td>
                 </tr>
                 <tr>
-                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][1]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ $temp[1] }}"></td>
+                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][1]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ isset($temp[1]) ? $temp[1] : '' }}"></td>
                   <td>> Informed consent secured and signed by patient</td>
                 </tr>
                 <tr>
-                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][2]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ $temp[2] }}"></td>
+                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][2]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ isset($temp[2]) ? $temp[2] : '' }}"></td>
                   <td>> Vital signs taken and recorded</td>
                 </tr>
                 <tr>
-                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][3]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ $temp[3] }}"></td>
+                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][3]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ isset($temp[3]) ? $temp[3] : '' }}"></td>
                   <td>> Patient placed on OR bed in supine position</td>
                 </tr>
                 <tr>
-                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][4]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ $temp[4] }}"></td>
+                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][4]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ isset($temp[4]) ? $temp[4] : '' }}"></td>
                   <td>> Given O2 @ 2L/min via nasal cannula</td>
                 </tr>
                 <tr>
-                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][5]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ $temp[5] }}"></td>
+                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][5]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ isset($temp[5]) ? $temp[5] : '' }}"></td>
                   <td>> Cardiac monitor placed</td>
                 </tr>
                 <tr>
-                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][6]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ $temp[6] }}"></td>
+                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][6]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ isset($temp[6]) ? $temp[6] : '' }}"></td>
                   <td>> Topical anesthesia applied</td>
                 </tr>
                 <tr>
-                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][7]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ $temp[7] }}"></td>
+                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][7]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ isset($temp[7]) ? $temp[7] : '' }}"></td>
                   <td>> Asepsis/ antisepsis technique done</td>
                 </tr>
                 <tr>
-                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][8]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ $temp[8] }}"></td>
+                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][8]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ isset($temp[8]) ? $temp[8] : '' }}"></td>
                   <td>> Sterile drapes placed aseptically</td>
                 </tr>
                 <tr>
-                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][9]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ $temp[9] }}"></td>
+                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][9]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ isset($temp[9]) ? $temp[9] : '' }}"></td>
                   <td>> {{ $datum->assessment }}</td>
                 </tr>
                 <tr>
-                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][10]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ $temp[10] }}"></td>
+                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][10]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ isset($temp[10]) ? $temp[10] : '' }}"></td>
                   <td>> Surgery performed by Dr. {{ $datum->doctor->name }}</td>
                 </tr>
                 <tr>
-                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][11]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ $temp[11] }}"></td>
+                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][11]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ isset($temp[11]) ? $temp[11] : '' }}"></td>
                   <td>> Topical antibiotic given by doctor’s order</td>
                 </tr>
                 <tr>
-                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][12]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ $temp[12] }}"></td>
+                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][12]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ isset($temp[12]) ? $temp[12] : '' }}"></td>
                   <td>> Drapes removed</td>
                 </tr>
                 <tr>
-                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][13]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ $temp[13] }}"></td>
+                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][13]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ isset($temp[13]) ? $temp[13] : '' }}"></td>
                   <td>> Transferred to Recovery Room, vital signs monitored</td>
                 </tr>
                 <tr>
-                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][14]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ $temp[14] }}"></td>
+                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][14]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ isset($temp[14]) ? $temp[14] : '' }}"></td>
                   <td>> Post – operative care rendered</td>
                 </tr>
                 <tr>
-                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][15]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ $temp[15] }}"></td>
+                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][15]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ isset($temp[15]) ? $temp[15] : '' }}"></td>
                   <td>> Endorsed to Peri-operative nurse for post-op instructions</td>
                 </tr>
                 <tr>
-                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][16]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ $temp[16] }}"></td>
+                  <td><input class="form-control" type="datetime-local" name="{{ $viewFolder }}[PrintableForm][datetime_nurse_notes][16]" id="{{ $viewFolder }}_datetime_nurse_notes" placeholder="" value="{{ isset($temp[16]) ? $temp[16] : '' }}"></td>
                   <td>> Discharged patient ambulatory</td>
                 </tr>
               </table>
