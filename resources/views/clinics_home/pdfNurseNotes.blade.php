@@ -185,7 +185,7 @@
     <br>
     <br>
     <br>
-    <span>{{ $user->name }} {{ date('Y-m-d') }}</span>
+    <span>{{ $user->name }} {{ isset($referal_conso->bookingDate) ? $referal_conso->bookingDate : (!isset($referal_conso) ? $datum->bookingDate : '') }}</span>
     <br>
     <span style="border-top: solid">Operating Room Nurse’s Signature over Printed Name & Date</span>
 </body>

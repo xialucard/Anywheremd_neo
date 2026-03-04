@@ -127,7 +127,7 @@
     <br>
     <span>Prepared By: (Name & Signature)</span>
     <br>
-    <span>Date/Time: {{ date('y-m-d H:i:s') }}</span>
+    <span>Date/Time: {{ isset($referal_conso->bookingDate) ? $referal_conso->bookingDate : (!isset($referal_conso) ? $datum->bookingDate : '') }}</span>
     <br>
     <br>
     <br>
@@ -135,6 +135,6 @@
     <br>
     <span>Doctor: Dr. {{ isset($referal_conso->doctor->name) ? $referal_conso->doctor->name : (!isset($referal_conso) ? $datum->doctor->name : '') }} (Name & Signature)</span>
     <br>
-    <span>Date: {{ date('y-m-d H:i:s') }}</span>
+    <span>Date: {{ isset($referal_conso->bookingDate) ? $referal_conso->bookingDate : (!isset($referal_conso) ? $datum->bookingDate : '') }}</span>
 </body>
 

@@ -115,7 +115,7 @@
                 <p>I understand the abovementioned  instructions.</p><br><br>
                 {{ $datum->patient->name }}
                 <p><strong>Patient’s or Patient’s guardian signature over printed name</strong></p>
-                <p>Date: {{ date('Y-m-d') }}</p>
+                <p>Date: {{ isset($referal_conso->bookingDate) ? $referal_conso->bookingDate : (!isset($referal_conso) ? $datum->bookingDate : '') }}</p>
             </td>
         </tr>
         <tr>
@@ -123,14 +123,14 @@
                 @if($datum->doctor->sig_pic != '' || $referal_conso->doctor->sig_pic)
                 <img src="{{ public_path('storage/' . (isset($referal_conso->doctor->sig_pic) ? $referal_conso->doctor->sig_pic : (!isset($referal_conso) ? $datum->doctor->sig_pic : ''))) }}" style="width:1in"><br>
                 @endif
-                Dr. {{ isset($referal_conso->doctor->name) ? $referal_conso->doctor->name : (!isset($referal_conso) ? $datum->doctor->name : '') }} {{ date('Y-m-d') }}
+                Dr. {{ isset($referal_conso->doctor->name) ? $referal_conso->doctor->name : (!isset($referal_conso) ? $datum->doctor->name : '') }} {{ isset($referal_conso->bookingDate) ? $referal_conso->bookingDate : (!isset($referal_conso) ? $datum->bookingDate : '') }}
                 <p><strong>Attending Physician/ Surgeon</strong></p>
                 <p>Printed Name and Signature / Date</p>
             </td>
             <td colspan="2">
                 <br>
                 <br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ date('Y-m-d') }}
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ isset($referal_conso->bookingDate) ? $referal_conso->bookingDate : (!isset($referal_conso) ? $datum->bookingDate : '') }}
                 <p><strong>Registered Nurse in Charge</strong></p>
                 <p>Printed Name and Signature / Date</p>
             </td>

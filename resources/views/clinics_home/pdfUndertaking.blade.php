@@ -95,6 +95,6 @@
     <br>
     <span>Doctor: Dr. {{ $datum->doctor->name }} (Name & Signature)</span>
     <br>
-    <span>Date: {{ date('Y-m-d') }}</span>
+    <span>Date: {{ $datum->bookingDate }}</span>
 </body>
 

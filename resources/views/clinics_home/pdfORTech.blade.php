@@ -143,6 +143,6 @@
     @endif
     <span>Surgeon: {{ isset($referal_conso->doctor->name) ? $referal_conso->doctor->name : (!isset($referal_conso) ? $datum->doctor->name : '') }} (Name & Signature)</span>
     <br>
-    <span>Date: {{ date('Y-m-d') }}</span>
+    <span>Date: {{ isset($referal_conso->bookingDate) ? $referal_conso->bookingDate : (!isset($referal_conso) ? $datum->bookingDate : '') }}</span>
 </body>
 
