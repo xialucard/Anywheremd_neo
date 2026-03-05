@@ -450,6 +450,14 @@ class DoctorsHomeController extends Controller
                 $printableForm['complication_specify'] = '';
             if(!isset($printableForm['diet_remarks']))
                 $printableForm['diet_remarks'] = '';
+            if(!isset($printableForm['dilate']))
+                $printableForm['dilate'] = "";
+            if(!isset($printableForm['constrict']))
+                $printableForm['constrict'] = "";
+            if(!isset($printableForm['intake_blood_thinner']))
+                $printableForm['intake_blood_thinner'] = "";
+            if(!isset($printableForm['intake_maintenance_meds']))
+                $printableForm['intake_maintenance_meds'] = "";
 
             $tempPF = PrintableForm::where('consultation_id', $printableForm['consultation_id'])->get();
             if(!isset($tempPF[0]->id)){

@@ -772,6 +772,18 @@ class ClinicsHomeController extends Controller
             $printableForm = $params['PrintableForm'];
             unset($params['PrintableForm']);
             $jsonTemp = json_encode($printableForm['datetime_nurse_notes']);
+            if(!isset($printableForm['complication_specify']))
+                $printableForm['complication_specify'] = '';
+            if(!isset($printableForm['diet_remarks']))
+                $printableForm['diet_remarks'] = '';
+            if(!isset($printableForm['dilate']))
+                $printableForm['dilate'] = "";
+            if(!isset($printableForm['constrict']))
+                $printableForm['constrict'] = "";
+            if(!isset($printableForm['intake_blood_thinner']))
+                $printableForm['intake_blood_thinner'] = "";
+            if(!isset($printableForm['intake_maintenance_meds']))
+                $printableForm['intake_maintenance_meds'] = "";
             $printableForm['datetime_nurse_notes'] = $jsonTemp;
             $printableForm['updated_by'] = $user->id;
             $tempPF = PrintableForm::where('consultation_id', $printableForm['consultation_id'])->get();
@@ -1390,6 +1402,26 @@ class ClinicsHomeController extends Controller
         $src = asset('storage/printable_forms_files/pdfORTech_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf');
         return $src;
         
+    }
+
+    function pdfPostOp(Consultation $clinics_home){
+        $pdf = Pdf::setOptions(['defaultFont' => 'sans-serif', 'chroot' => public_path('storage/' . $clinics_home->doctor->sig_pic)])->loadView($this->viewFolder . '.pdfPostOp', ['datum' => $clinics_home]);
+        
+        Storage::put('public/printable_forms_files/pdfPostOp_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf', $pdf->output());
+        $src = asset('storage/printable_forms_files/pdfPostOp_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf');
+        return $src;
+        // return redirect()->route($this->viewFolder . '.index')->with('message', 'Admitting Order PDF is created.');
+    }
+
+    function pdfDischargeSum(Consultation $clinics_home){
+        $user = Auth::user();
+        // dd($doctors_home);
+        $pdf = Pdf::setOptions(['defaultFont' => 'sans-serif', 'chroot' => public_path('storage/' . $clinics_home->doctor->sig_pic)])->loadView($this->viewFolder . '.pdfDischargeSum', ['datum' => $clinics_home, 'user' => $user]);
+        
+        Storage::put('public/printable_forms_files/pdfDischargeSum_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf', $pdf->output());
+        $src = asset('storage/printable_forms_files/pdfDischargeSum_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf');
+        return $src;
+        // return redirect()->route($this->viewFolder . '.index')->with('message', 'Admitting Order PDF is created.');
     }
 
     function sendDrainwiz(Consultation $clinics_home){

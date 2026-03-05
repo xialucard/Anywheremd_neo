@@ -65,11 +65,11 @@
 <body>
     <div>
         <div class="item" style="width: 3in; height:90px">
-            <h1 style="margin-bottom: 5px">{{ $datum->clinic->name }}</h1>
+            <h1 style="margin-bottom: 5px">{{ isset($referal_conso->clinic->name) ? $referal_conso->clinic->name : (!isset($referal_conso) ? $datum->clinic->name : '') }}</h1>
         </div>
         <div class="item" style="width: 4in; height:90px">
-            <p>{{ $datum->clinic->address }}</p>
-            <p>Contact Numbers:{{ $datum->clinic->tel }}/{{ $datum->clinic->mobile_no }}</p>
+            <p>{{ isset($referal_conso->clinic->address) ? $referal_conso->clinic->address : (!isset($referal_conso) ? $datum->clinic->address : '') }}</p>
+            <p>Contact Numbers:{{ isset($referal_conso->clinic->tel) ? $referal_conso->clinic->tel : (!isset($referal_conso) ? $datum->clinic->tel : '') }}/{{ isset($referal_conso->clinic->mobile_no) ? $referal_conso->clinic->mobile_no : (!isset($referal_conso) ? $datum->clinic->mobile_no : '') }}</p>
         </div>
     </div>
     
@@ -93,8 +93,10 @@
     <br>
     <br>
     <br>
-    <span>Doctor: Dr. {{ $datum->doctor->name }} (Name & Signature)</span>
+    <span>Doctor: Dr. {{ isset($referal_conso->doctor->name) ? $referal_conso->doctor->name : (!isset($referal_conso) ? $datum->doctor->name : '') }} (Name & Signature)</span>
     <br>
-    <span>Date: {{ $datum->bookingDate }}</span>
+    <span>Date: {{ isset($referal_conso->bookingDate) ? $referal_conso->bookingDate : (!isset($referal_conso) ? $datum->bookingDate : '') }}</span>
+    <br>
+    <span>Booking Number: {{ isset($referal_conso->id) ? $referal_conso->id : (!isset($referal_conso) ? $datum->id : '') }}</span>
 </body>
 

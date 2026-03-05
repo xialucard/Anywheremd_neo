@@ -1,6 +1,6 @@
 @php
     unset($referal_conso);
-    $referal_conso = array();
+    //$referal_conso = array();
     if(isset($datum->clinic->id))
         $clinicDat = $datum->clinic->id;
     if(isset($datum->doctor->id))
@@ -65,11 +65,11 @@
 <body>
     <div>
         <div class="item" style="width: 3in; height:90px">
-            <h1 style="margin-bottom: 5px">{{ $datum->clinic->name }}</h1>
+            <h1 style="margin-bottom: 5px">{{ isset($referal_conso->clinic->name) ? $referal_conso->clinic->name : (!isset($referal_conso) ? $datum->clinic->name : '') }}</h1>
         </div>
         <div class="item" style="width: 4in; height:90px">
-            <p>{{ $datum->clinic->address }}</p>
-            <p>Contact Numbers:{{ $datum->clinic->tel }}/{{ $datum->clinic->mobile_no }}</p>
+            <p>{{ isset($referal_conso->clinic->address) ? $referal_conso->clinic->address : (!isset($referal_conso) ? $datum->clinic->address : '') }}</p>
+            <p>Contact Numbers:{{ isset($referal_conso->clinic->tel) ? $referal_conso->clinic->tel : (!isset($referal_conso) ? $datum->clinic->tel : '') }}/{{ isset($referal_conso->clinic->mobile_no) ? $referal_conso->clinic->mobile_no : (!isset($referal_conso) ? $datum->clinic->mobile_no : '') }}</p>
         </div>
     </div>
     <table style="width: 100%">
@@ -81,39 +81,43 @@
         </tr>
         <tr>
             <td>Date:</td>
-            <td colspan="3">{{ $datum->bookingDate }}</td>
+            <td colspan="3">{{ isset($referal_conso->bookingDate) ? $referal_conso->bookingDate : (!isset($referal_conso) ? $datum->bookingDate : '') }}</td>
         </tr>
         <tr>
             <td>Attending Doctor:</td>
-            <td colspan="3">Dr. {{ $datum->doctor->name }}</td>
+            <td colspan="3">Dr. {{ isset($referal_conso->doctor->name) ? $referal_conso->doctor->name : (!isset($referal_conso) ? $datum->doctor->name : '') }}</td>
         </tr>
         <tr>
             <td>Diagnosis:</td>
-            <td colspan="3">{{ $datum->assessment }}</td>
+            <td colspan="3">{{ isset($referal_conso->assessment) ? $referal_conso->assessment : (!isset($referal_conso) ? $datum->assessment : '') }}</td>
         </tr>
         <tr>
             <td>Procedure:</td>
-            <td colspan="3">{{ $datum->procedure_details }} {{ $datum->procedure_plan }}</td>
+            <td colspan="3">{{ isset($referal_conso->procedure_details) ? $referal_conso->procedure_details : (!isset($referal_conso) ? $datum->procedure_details : '') }} {{ isset($referal_conso->procedure_plan) ? $referal_conso->procedure_plan : (!isset($referal_conso) ? $datum->procedure_plan : '') }}</td>
+        </tr>
+        <tr>
+            <td>Booking Number:</td>
+            <td colspan="3">{{ isset($referal_conso->id) ? $referal_conso->id : (!isset($referal_conso) ? $datum->id : '') }}</td>
         </tr>
     </table>
     <center><h3>GENERAL CONSENT FOR DIAGNOSTIC AND SURGICAL PROCEDURES</h3></center>
     <p>By affixing my signature over printed name below I hereby acknowledge the following:</p>
     <ol>
-        <li>I, {{ $datum->patient->name }},  of legal age, hereby state that I am a patient of Dr. {{ $datum->doctor->name }}, and have been diagnosed to have {{ $datum->assessment }}.</li>
-        <li>I wish to undergo {{ $datum->procedure_details }} {{ $datum->procedure_plan }}, the purpose, process, possible complications and outcome of which have been discussed with me beforehand by my Doctor.</li>
+        <li>I, {{ $datum->patient->name }},  of legal age, hereby state that I am a patient of Dr. {{ isset($referal_conso->doctor->name) ? $referal_conso->doctor->name : (!isset($referal_conso) ? $datum->doctor->name : '') }}, and have been diagnosed to have {{ isset($referal_conso->assessment) ? $referal_conso->assessment : (!isset($referal_conso) ? $datum->assessment : '') }}.</li>
+        <li>I wish to undergo {{ isset($referal_conso->procedure_details) ? $referal_conso->procedure_details : (!isset($referal_conso) ? $datum->procedure_details : '') }} {{ isset($referal_conso->procedure_plan) ? $referal_conso->procedure_plan : (!isset($referal_conso) ? $datum->procedure_plan : '') }}, the purpose, process, possible complications and outcome of which have been discussed with me beforehand by my Doctor.</li>
         <li>I authorize Dr. {{ $datum->doctor->name }} to perform the procedure for my benefit, including any modification, alteration, or to institute emergency procedures to address unforeseen circumstances or complications that may arise during the procedure.</li>
-        <li>I understand that Dr. {{ $datum->doctor->name }} is a visiting consultant of the {{ $datum->clinic->name }} and that the Center is merely a facility center providing the equipment and staff required for the performance of the procedure. The Center is not responsible for any medical and surgical intervention, or the lack thereof, as  provided by my doctor to which I agreed to fully. </li>
+        <li>I understand that Dr. {{ isset($referal_conso->doctor->name) ? $referal_conso->doctor->name : (!isset($referal_conso) ? $datum->doctor->name : '') }} is a visiting consultant of the {{ isset($referal_conso->doctor->name) ? $referal_conso->clinic->name : (!isset($referal_conso) ? $datum->clinic->name : '') }} and that the Center is merely a facility center providing the equipment and staff required for the performance of the procedure. The Center is not responsible for any medical and surgical intervention, or the lack thereof, as  provided by my doctor to which I agreed to fully. </li>
         <li>I have given my consent freely and not under any form of fear, duress, or coercion from any person associated directly or indirectly with the Center. </li>
         <li>I agree <input type="checkbox"> do not agree <input type="checkbox"> to have any or all of my medical findings used for the advancement of medicine through case presentation and discussion provided my identity is preserved and kept private.</li>
         <li>I will use the following MODE OF PAYMENT for this procedure: {{ stristr($datum->payment_mode, 'Both') ? ($datum->payment_mode = 'Both' ? 'Both Philhealth and HMO' : 'Both Philhealth, HMO and Cash') : $datum->payment_mode }} </li>
         <li>I have read and fully understood the aforementioned conditions in this consent form .</li>
-        <li>The staff of {{ $datum->clinic->name }} have addressed my concerns to my satisfaction.</li>
+        <li>The staff of {{ isset($referal_conso->doctor->name) ? $referal_conso->clinic->name : (!isset($referal_conso) ? $datum->clinic->name : '') }} have addressed my concerns to my satisfaction.</li>
     </ol>
     <br>
     <br>
     <br>
     <br>
-    <span>{{ $datum->patient->name }} {{ $datum->bookingDate }}</span>
+    <span>{{ $datum->patient->name }} {{ isset($referal_conso->bookingDate) ? $referal_conso->bookingDate : (!isset($referal_conso) ? $datum->bookingDate : '') }}</span>
     <br>
     <span style="border-top: solid">Patient’s Signature over Printed Name & Date</span>
     <br>

@@ -54,6 +54,8 @@ Route::group(['middleware' => ['auth', 'permission']], function() {
     Route::get('clinics_home/{clinics_home}/pdfOpAdmit', [ClinicsHomeController::class, 'pdfOpAdmit'])->name('clinics_home.pdfOpAdmit');
     Route::get('clinics_home/{clinics_home}/pdfORTech', [ClinicsHomeController::class, 'pdfORTech'])->name('clinics_home.pdfORTech');
     Route::get('clinics_home/{clinics_home}/pdfNurseNotes', [ClinicsHomeController::class, 'pdfNurseNotes'])->name('clinics_home.pdfNurseNotes');
+    Route::get('clinics_home/{clinics_home}/pdfPostOp', [ClinicsHomeController::class, 'pdfPostOp'])->name('clinics_home.pdfPostOp');
+    Route::get('clinics_home/{clinics_home}/pdfDischargeSum', [ClinicsHomeController::class, 'pdfDischargeSum'])->name('clinics_home.pdfDischargeSum');
     Route::get('clinics_home/{clinics_home}/sendDrainwiz', [ClinicsHomeController::class, 'sendDrainwiz'])->name('clinics_home.sendDrainwiz');
     Route::post('/clinics_home/book', [ClinicsHomeController::class, 'book'])->name('clinics_home.book');
     Route::patch('/clinics_home/{clinics_home}/updateMyAccount', [ClinicsHomeController::class, 'updateMyAccount'])->name('clinics_home.updateMyAccount');

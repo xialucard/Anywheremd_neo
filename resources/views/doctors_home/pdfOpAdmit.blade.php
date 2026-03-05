@@ -65,14 +65,14 @@
 <body>
     <div>
         <div class="item" style="width: 3in; height:90px">
-            <h1 style="margin-bottom: 5px">{{ $datum->clinic->name }}</h1>
+            <h1 style="margin-bottom: 5px">{{ isset($referal_conso->clinic->name) ? $referal_conso->clinic->name : (!isset($referal_conso) ? $datum->clinic->name : '') }}</h1>
         </div>
         <div class="item" style="width: 4in; height:90px">
-            <p>{{ $datum->clinic->address }}</p>
-            <p>Contact Numbers:{{ $datum->clinic->tel }}/{{ $datum->clinic->mobile_no }}</p>
+            <p>{{ isset($referal_conso->clinic->address) ? $referal_conso->clinic->address : (!isset($referal_conso) ? $datum->clinic->address : '') }}</p>
+            <p>Contact Numbers:{{ isset($referal_conso->clinic->tel) ? $referal_conso->clinic->tel : (!isset($referal_conso) ? $datum->clinic->tel : '') }}/{{ isset($referal_conso->clinic->mobile_no) ? $referal_conso->clinic->mobile_no : (!isset($referal_conso) ? $datum->clinic->mobile_no : '') }}</p>
         </div>
     </div>
-    <center><h3>OPHTHALMOLOGY ADMITTING AND PERI-OP FORM</h3></center>
+    <center><h3>ADMITTING AND PERI-OP FORM</h3></center>
     <table cellspacing="0" width="100%">
         <tr>
             <td><strong>Name of Patient:</strong> {{ $datum->patient->name }}</td>
@@ -90,14 +90,15 @@
             <td><strong>Anesthesiology:</strong> {{ isset($referal_conso->anesthesiologist_ao) ? $referal_conso->anesthesiologist_ao : (!isset($referal_conso) ? $datum->anesthesiologist_ao : '') }}</td>
         </tr>
         <tr>
-            <td colspan="2"><strong>Date:</strong> {{ $datum->bookingDate }}</td>
+            <td><strong>Date:</strong> {{ isset($referal_conso->bookingDate) ? $referal_conso->id : (!isset($referal_conso) ? $datum->bookingDate : '') }}</td>
+            <td><strong>Booking Number:</strong> {{ isset($referal_conso->id) ? $referal_conso->id : (!isset($referal_conso) ? $datum->id : '') }}</td>
         </tr>
     </table>
     <table border="1" cellspacing="0" cellpadding="5" width="100%">
         <tr rowspan="2">
             <td width="40%" valign="top">
                 <strong>DOCTOR’S ADMITTING ORDERS</strong><br>
-                <p>PLEASE ADMIT MY PATIENT TO THE OPERATING ROOM: {{ isset($referal_conso->room) ? $referal_conso->room : (!isset($referal_conso) ? $datum->printable_form['room'] : '') }}</p><br>
+                <p>PLEASE ADMIT MY PATIENT TO THE OPERATING ROOM: {{ isset($referal_conso->printable_form['room']) ? $referal_conso->printable_form['room'] : (!isset($referal_conso) ? $datum->printable_form['room'] : '') }}</p><br>
                 <p>Take Vital signs every 15 mins, one hour prior to surgery.</p><br><br>
                 <p style="height:2in">PLEASE DILATE <input type="checkbox" {{ isset($referal_conso->printable_form['dilate']) && $referal_conso->printable_form['dilate'] != '' ? 'checked' : (!isset($referal_conso) && $datum->printable_form['dilate'] != '' ? 'checked' : '') }}> with : <br>{{ isset($referal_conso->printable_form['dilate']) ? $referal_conso->printable_form['dilate'] : (!isset($referal_conso) ? $datum->printable_form['dilate'] : '') }}</p>
                 <p style="height:2in">PLEASE CONSTRICT <input type="checkbox" {{ isset($referal_conso->printable_form['constrict']) && $referal_conso->printable_form['constrict'] != '' ? 'checked' : (!isset($referal_conso) && $datum->printable_form['constrict'] != '' ? 'checked' : '') }}> with : <br>{{ isset($referal_conso->printable_form['constrict']) ? $referal_conso->printable_form['constrict'] : (!isset($referal_conso) ? $datum->printable_form['constrict'] : '') }}</p>

@@ -1,6 +1,6 @@
 @php
     unset($referal_conso);
-    $referal_conso = array();
+    // $referal_conso = array();
     if(isset($datum->clinic->id))
         $clinicDat = $datum->clinic->id;
     if(isset($datum->doctor->id))
@@ -65,11 +65,11 @@
 <body>
     <div>
         <div class="item" style="width: 3in; height:90px">
-            <h1 style="margin-bottom: 5px">{{ $datum->clinic->name }}</h1>
+            <h1 style="margin-bottom: 5px">{{ isset($referal_conso->clinic->name) ? $referal_conso->clinic->name : (!isset($referal_conso) ? $datum->clinic->name : '') }}</h1>
         </div>
         <div class="item" style="width: 4in; height:90px">
-            <p>{{ $datum->clinic->address }}</p>
-            <p>Contact Numbers:{{ $datum->clinic->tel }}/{{ $datum->clinic->mobile_no }}</p>
+            <p>{{ isset($referal_conso->clinic->address) ? $referal_conso->clinic->address : (!isset($referal_conso) ? $datum->clinic->address : '') }}</p>
+            <p>Contact Numbers:{{ isset($referal_conso->clinic->tel) ? $referal_conso->clinic->tel : (!isset($referal_conso) ? $datum->clinic->tel : '') }}/{{ isset($referal_conso->clinic->mobile_no) ? $referal_conso->clinic->mobile_no : (!isset($referal_conso) ? $datum->clinic->mobile_no : '') }}</p>
         </div>
     </div>
     
@@ -78,9 +78,10 @@
     <ol>
         <li>
             <strong>Identity of the Personal Information Controller (PIC)</strong>
-            <p>Name of Organization: {{ $datum->clinic->name }}</p>
-            <p>Address: {{ $datum->clinic->address }}</p>
-            <p>Contact Number: {{ $datum->clinic->tel }}/{{ $datum->clinic->mobile_no }}</p>
+            <p>Name of Organization: {{ isset($referal_conso->clinic->name) ? $referal_conso->clinic->name : (!isset($referal_conso) ? $datum->clinic->name : '') }}</p>
+            <p>Address: {{ isset($referal_conso->clinic->address) ? $referal_conso->clinic->address : (!isset($referal_conso) ? $datum->clinic->address : '') }}</p>
+            <p>Contact Number: {{ isset($referal_conso->clinic->tel) ? $referal_conso->clinic->tel : (!isset($referal_conso) ? $datum->clinic->tel : '') }}/{{ isset($referal_conso->clinic->mobile_no) ? $referal_conso->clinic->mobile_no : (!isset($referal_conso) ? $datum->clinic->mobile_no : '') }}</p>
+            <p>Booking Number: {{ isset($referal_conso->id) ? $referal_conso->id : (!isset($referal_conso) ? $datum->id : '') }}</p>
             <p>Data Protection Officer (DPO): __________________________________</p>
             <p>DPO Email: _________________________________________________</p>
         </li>
@@ -166,6 +167,6 @@
     <br>
     <p>Signature of Data Subject: ___________________________</p>
     <p>Printed Name: {{ $datum->patient->name }}</p>
-    <p>Date: {{ $datum->bookingDate }}</p>
+    <p>Date: {{ isset($referal_conso->id) ? $referal_conso->id : (!isset($referal_conso) ? $datum->id : '') }}</p>
 </body>
 

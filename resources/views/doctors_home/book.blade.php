@@ -630,7 +630,7 @@
                 $('#orTechCurDiv').hide();  
                 $('#postOpCurDiv').hide();
                 $('#dischargeSumCurDiv').hide();
-              ">Ophthalmology Admitting and Peri-Op</a>
+              ">Admitting and Peri-Op</a>
             </li>
             <li>
               <a class="dropdown-item" id="orTechBigLink" href="#" onclick="
@@ -2246,7 +2246,7 @@
                       $('#orTechCurDiv').hide();  
                       $('#postOpCurDiv').hide();
                       $('#dischargeSumCurDiv').hide();
-                    ">Ophthalmology Admitting and Peri-Op</a>
+                    ">Admitting and Peri-Op</a>
                   </li>
                   <li>
                     <a class="dropdown-item" id="orTechPrevLink" href="#" onclick="
@@ -3355,7 +3355,7 @@
               </div>
               <div id="admitPeriPrevDiv" style="display:none" class="container border border-1 mb-3 p-3">
                 <div class="card mb-3">
-                  <div class="card-header">Previous Ophthalmology Admitting and Peri-Op Preview</div>
+                  <div class="card-header">Previous Admitting and Peri-Op Preview</div>
                   <div class="card-body">
                     <iframe id="iframePrevOpAdmit" src="{{ file_exists(public_path('storage/printable_forms_files/pdfOpAdmit_' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf')) ? asset('storage/printable_forms_files/pdfOpAdmit_' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
                     <small class="form-text text-muted">To print or download go to Tools</small>
@@ -6552,7 +6552,7 @@
                       $('#orTechCurDiv').hide();  
                       $('#postOpCurDiv').hide();
                       $('#dischargeSumCurDiv').hide();
-                    ">Ophthalmology Admitting and Peri-Op</a>
+                    ">Admitting and Peri-Op</a>
                   </li>
                   <li>
                     <a class="dropdown-item" id="orTechCurLink" href="#" onclick="
@@ -8672,7 +8672,7 @@
                             $('#{{ $viewFolder }}_complication_specify').prop('disabled', true);
                           else
                             $('#{{ $viewFolder }}_complication_specify').prop('disabled', false);
-                        " {{ (isset($datum->printable_form['intraoperative_course']) && $datum->printable_form['intraoperative_course'] == 'Unremarkable') ? 'checked' : '' }}>
+                        " {{ (isset($datum->printable_form['intraoperative_course']) && $datum->printable_form['intraoperative_course'] == 'Unremarkable') ? 'checked' : '' }} {{ !isset($referal_conso) ? '' : 'disabled' }}>
                       <label class="form-check-label" for="{{ $viewFolder }}_intraoperative_course_unremarkable">Unremarkable</label>
                     </div>
                     <div class="form-check">
@@ -8681,7 +8681,7 @@
                             $('#{{ $viewFolder }}_complication_specify').prop('disabled', false);
                           else
                             $('#{{ $viewFolder }}_complication_specify').prop('disabled', true);
-                        " {{ (isset($datum->printable_form['intraoperative_course']) && $datum->printable_form['intraoperative_course'] == 'With Complications') ? 'checked' : '' }}>
+                        " {{ (isset($datum->printable_form['intraoperative_course']) && $datum->printable_form['intraoperative_course'] == 'With Complications') ? 'checked' : '' }} {{ !isset($referal_conso) ? '' : 'disabled' }}>
                       <label class="form-check-label" for="{{ $viewFolder }}_intraoperative_course_with_complications">With Complications (specify)</label>
                     </div>
                     <textarea class="form-control mb-3" name="{{ $viewFolder }}[PrintableForm][complication_specify]" id="{{ $viewFolder }}_complication_specify" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
@@ -8697,7 +8697,7 @@
                         " {{ (isset($datum->printable_form['intraoperative_course']) && $datum->printable_form['intraoperative_course'] == 'With Complications') ? '' : 'disabled' }}>{{ isset($datum->printable_form['complication_specify']) ? $datum->printable_form['complication_specify'] : '' }}</textarea>
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="number" name="{{ $viewFolder }}[PrintableForm][blood_loss]" min=30 step=.1 id="{{ $viewFolder }}_blood_loss" value="{{ isset($datum->printable_form['blood_loss']) ? $datum->printable_form['blood_loss'] : ''}}" placeholder="">
+                        <input class="form-control" type="number" name="{{ $viewFolder }}[PrintableForm][blood_loss]" min=30 step=.1 id="{{ $viewFolder }}_blood_loss" value="{{ isset($datum->printable_form['blood_loss']) ? $datum->printable_form['blood_loss'] : ''}}" {{ !isset($referal_conso) ? '' : 'disabled' }} placeholder="">
                         <label for="{{ $viewFolder }}_blood_loss" class="form-label">Estimated Blood Loss</label>
                         <small id="help_{{ $viewFolder }}_blood_loss" class="text-muted"></small>
                       </div>
@@ -8705,11 +8705,11 @@
                     </div>
                     <label class="form-label">Specimen Sent</label>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="{{ $viewFolder }}[PrintableForm][specimen_sent]" value="yes" id="{{ $viewFolder }}_specimen_sent_yes" {{ (isset($datum->printable_form['specimen_sent']) && $datum->printable_form['specimen_sent'] == 'yes') ? 'checked' : '' }}>
+                      <input class="form-check-input" type="radio" name="{{ $viewFolder }}[PrintableForm][specimen_sent]" value="yes" id="{{ $viewFolder }}_specimen_sent_yes" {{ (isset($datum->printable_form['specimen_sent']) && $datum->printable_form['specimen_sent'] == 'yes') ? 'checked' : '' }} {{ !isset($referal_conso) ? '' : 'disabled' }}>
                       <label class="form-check-label" for="{{ $viewFolder }}_specimen_sent_yes">Yes</label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="{{ $viewFolder }}[PrintableForm][specimen_sent]" value="no" id="{{ $viewFolder }}_specimen_sent_no" {{ (isset($datum->printable_form['specimen_sent']) && $datum->printable_form['specimen_sent'] == 'no') ? 'checked' : '' }}>
+                      <input class="form-check-input" type="radio" name="{{ $viewFolder }}[PrintableForm][specimen_sent]" value="no" id="{{ $viewFolder }}_specimen_sent_no" {{ (isset($datum->printable_form['specimen_sent']) && $datum->printable_form['specimen_sent'] == 'no') ? 'checked' : '' }} {{ !isset($referal_conso) ? '' : 'disabled' }}>
                       <label class="form-check-label" for="{{ $viewFolder }}_specimen_sent_no">No</label>
                     </div>
                     <label class="form-label" for="{{ $viewFolder }}_specimen_sent_remarks">Remarks</label>
@@ -8726,11 +8726,11 @@
                         ">{{ isset($datum->printable_form['specimen_sent_remarks']) ? $datum->printable_form['specimen_sent_remarks'] : '' }}</textarea>
                     <label class="form-label">Post-Operative Condition</label>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="{{ $viewFolder }}[PrintableForm][post_operative_condition]" value="Stable" id="{{ $viewFolder }}_post_operative_condition_stable" {{ (isset($datum->printable_form['post_operative_condition']) && $datum->printable_form['post_operative_condition'] == 'Stable') ? 'checked' : '' }}>
+                      <input class="form-check-input" type="radio" name="{{ $viewFolder }}[PrintableForm][post_operative_condition]" value="Stable" id="{{ $viewFolder }}_post_operative_condition_stable" {{ (isset($datum->printable_form['post_operative_condition']) && $datum->printable_form['post_operative_condition'] == 'Stable') ? 'checked' : '' }} {{ !isset($referal_conso) ? '' : 'disabled' }}>
                       <label class="form-check-label" for="{{ $viewFolder }}_post_operative_condition_stable">Stable</label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="{{ $viewFolder }}[PrintableForm][post_operative_condition]" value="Requires Observation" id="{{ $viewFolder }}_post_operative_condition_requires" {{ (isset($datum->printable_form['post_operative_condition']) && $datum->printable_form['post_operative_condition'] == 'Requires Observation') ? 'checked' : '' }}>
+                      <input class="form-check-input" type="radio" name="{{ $viewFolder }}[PrintableForm][post_operative_condition]" value="Requires Observation" id="{{ $viewFolder }}_post_operative_condition_requires" {{ (isset($datum->printable_form['post_operative_condition']) && $datum->printable_form['post_operative_condition'] == 'Requires Observation') ? 'checked' : '' }} {{ !isset($referal_conso) ? '' : 'disabled' }}>
                       <label class="form-check-label" for="{{ $viewFolder }}_post_operative_condition_requires">Requires Observation</label>
                     </div>
                     <label class="form-label" for="{{ $viewFolder }}_post_operative_condition_remarks">Remarks</label>
@@ -8771,7 +8771,7 @@
                         ">{{ isset($datum->printable_form['discharge_medication']) ? $datum->printable_form['discharge_medication'] : '' }}</textarea>
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="number" name="{{ $viewFolder }}[PrintableForm][avoid_days]" min=30 step=.1 id="{{ $viewFolder }}_avoid_days" value="{{ isset($datum->printable_form['avoid_days']) ? $datum->printable_form['avoid_days'] : ''}}" placeholder="">
+                        <input class="form-control" type="number" name="{{ $viewFolder }}[PrintableForm][avoid_days]" min=30 step=.1 id="{{ $viewFolder }}_avoid_days" value="{{ isset($datum->printable_form['avoid_days']) ? $datum->printable_form['avoid_days'] : ''}}" {{ !isset($referal_conso) ? '' : 'disabled' }} placeholder="">
                         <label for="{{ $viewFolder }}_avoid_days" class="form-label">Avoid strenuous activity for</label>
                         <small id="help_{{ $viewFolder }}_avoid_days" class="text-muted"></small>
                       </div>
@@ -8784,7 +8784,7 @@
                             $('#{{ $viewFolder }}_diet_remarks').prop('disabled', true);
                           else
                             $('#{{ $viewFolder }}_diet_remarks').prop('disabled', false);
-                        " {{ (isset($datum->printable_form['diet']) && $datum->printable_form['diet'] == 'Regular') ? 'checked' : '' }}>
+                        " {{ (isset($datum->printable_form['diet']) && $datum->printable_form['diet'] == 'Regular') ? 'checked' : '' }} {{ !isset($referal_conso) ? '' : 'disabled' }}>
                       <label class="form-check-label" for="{{ $viewFolder }}_diet_regular">Regular</label>
                     </div>
                     <div class="form-check">
@@ -8793,7 +8793,7 @@
                             $('#{{ $viewFolder }}_diet_remarks').prop('disabled', true);
                           else
                             $('#{{ $viewFolder }}_diet_remarks').prop('disabled', false);
-                        " {{ (isset($datum->printable_form['diet']) && $datum->printable_form['diet'] == 'Soft') ? 'checked' : '' }}>
+                        " {{ (isset($datum->printable_form['diet']) && $datum->printable_form['diet'] == 'Soft') ? 'checked' : '' }} {{ !isset($referal_conso) ? '' : 'disabled' }}>
                       <label class="form-check-label" for="{{ $viewFolder }}_diet_soft">Soft</label>
                     </div>
                     <div class="form-check">
@@ -8802,7 +8802,7 @@
                             $('#{{ $viewFolder }}_diet_remarks').prop('disabled', false);
                           else
                             $('#{{ $viewFolder }}_diet_remarks').prop('disabled', true);
-                        " {{ (isset($datum->printable_form['diet']) && $datum->printable_form['diet'] == 'Others') ? 'checked' : '' }}>
+                        " {{ (isset($datum->printable_form['diet']) && $datum->printable_form['diet'] == 'Others') ? 'checked' : '' }} {{ !isset($referal_conso) ? '' : 'disabled' }}>
                       <label class="form-check-label" for="{{ $viewFolder }}_diet_others">Others</label>
                     </div>
                     <textarea class="form-control mb-3" name="{{ $viewFolder }}[PrintableForm][diet_remarks]" id="{{ $viewFolder }}_diet_remarks" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
@@ -8821,7 +8821,7 @@
               </div>
               <div id="admitPeriCurDiv" style="display:none" class="container border border-1 mb-3 p-3">
                 <div class="docNotesDiv card mb-3" id="{{ $viewFolder }}_OpAdmit_{{ $datum->id }}">
-                  <div class="card-header">Ophthalmology Admitting and Peri-Op View</div>
+                  <div class="card-header">Admitting and Peri-Op View</div>
                   <div class="card-body">
                     <iframe id="iframeOpAdmit{{ $datum->id }}" src="{{ file_exists(public_path('storage/printable_forms_files/pdfOpAdmit_' . $datum->id . '_' . $datum->patient->l_name . '.pdf')) ? asset('storage/printable_forms_files/pdfOpAdmit_' . $datum->id . '_' . $datum->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
                     <small class="form-text text-muted">To print or download check the upper right part</small>
@@ -8854,7 +8854,7 @@
                 @if(isset($datum->consultation_referals[0]->id))
                   @foreach($datum->consultation_referals as $cr)
                 <div class="docNotesDiv card mb-3" id="{{ $viewFolder }}_OpAdmit_{{ $cr->id }}" style="display:none">
-                  <div class="card-header">Ophthalmology Admitting and Peri-Op View</div>
+                  <div class="card-header">Admitting and Peri-Op View</div>
                   <div class="card-body">
                     <iframe id="iframeOpAdmit{{ $cr->id }}" src="{{ file_exists(public_path('storage/printable_forms_files/pdfOpAdmit_' . $cr->id . '_' . $cr->patient->l_name . '.pdf')) ? asset('storage/printable_forms_files/pdfOpAdmit_' . $cr->id . '_' . $cr->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
                     <small class="form-text text-muted">To print or download check the upper right part</small>
@@ -9252,7 +9252,7 @@
                               $(this).prop('disabled', true);
                             });
                           }
-                        ">{{ isset($datum->printable_form['things_watch_out']) ? $datum->printable_form['things_watch_out'] : '' }}</textarea>
+                        ">{{ isset($datum->printable_form['things_avoid']) ? $datum->printable_form['things_avoid'] : '' }}</textarea>
                     <small id="help_{{ $viewFolder }}_things_avoid" class="text-muted"></small>
 
                     <label for="{{ $viewFolder }}_wound_care" class="form-label mt-3">Wound care:</label>

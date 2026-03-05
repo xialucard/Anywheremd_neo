@@ -65,11 +65,11 @@
 <body>
     <div>
         <div class="item" style="width: 3in; height:90px">
-            <h1 style="margin-bottom: 5px">{{ $datum->clinic->name }}</h1>
+            <h1 style="margin-bottom: 5px">{{ isset($referal_conso->clinic->name) ? $referal_conso->clinic->name : (!isset($referal_conso) ? $datum->clinic->name : '') }}</h1>
         </div>
         <div class="item" style="width: 4in; height:90px">
-            <p>{{ $datum->clinic->address }}</p>
-            <p>Contact Numbers:{{ $datum->clinic->tel }}/{{ $datum->clinic->mobile_no }}</p>
+            <p>{{ isset($referal_conso->clinic->address) ? $referal_conso->clinic->address : (!isset($referal_conso) ? $datum->clinic->address : '') }}</p>
+            <p>Contact Numbers:{{ isset($referal_conso->clinic->tel) ? $referal_conso->clinic->tel : (!isset($referal_conso) ? $datum->clinic->tel : '') }}/{{ isset($referal_conso->clinic->mobile_no) ? $referal_conso->clinic->mobile_no : (!isset($referal_conso) ? $datum->clinic->mobile_no : '') }}</p>
         </div>
     </div>
     
@@ -98,6 +98,10 @@
         <tr>
             <th align="left">ANESTHESIOLOGIST:</th>
             <td>{{ isset($referal_conso->anesthesiologist_ao) ? $referal_conso->anesthesiologist_ao : (!isset($referal_conso) ? $datum->anesthesiologist_ao : '') }}</td>
+        </tr>
+        <tr>
+            <th align="left">Booking Number:</th>
+            <td>{{ isset($referal_conso->id) ? $referal_conso->id : (!isset($referal_conso) ? $datum->id : '') }}</td>
         </tr>
     </table>
     <br>
