@@ -92,6 +92,7 @@ class Consultation extends Model
         'other_fluids',
         'total_uf_goal',
         'weight_loss',
+        'weight_gain',
         'brand',
         'dose',
         'regular_dose',

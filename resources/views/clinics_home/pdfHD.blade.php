@@ -189,9 +189,13 @@
                 <tr>
                     <td>Total UF Goal</td>
                     <td>{{ $datum->total_uf_goal }}</td>
-                    <td>Wt Loss</td>
+                    <td>Wt Loss(kg)</td>
                     <td>{{ $datum->weight_loss }}</td>
-                    
+                </tr>
+                <tr>
+                    <td colspan="2"></td>
+                    <td>Wt Gain(kg)</td>
+                    <td>{{ $datum->weight_gain }}</td>
                 </tr>
                 
             </table>

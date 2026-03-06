@@ -99,6 +99,7 @@ return new class extends Migration
             $table->string('other_fluids', 255)->nullable();
             $table->string('total_uf_goal', 255)->nullable();
             $table->string('weight_loss', 255)->nullable();
+            $table->string('weight_gain', 255)->nullable();
             $table->string('brand', 255)->nullable();
             $table->string('dose', 255)->nullable();
             $table->string('regular_dose', 255)->nullable();

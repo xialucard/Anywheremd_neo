@@ -1696,7 +1696,7 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-lg-6">
+              <div class="col-lg-12">
                 <div class="input-group mb-3">
                   <div class="form-floating">
                     <input class="form-control" type="text" name="{{ $viewFolder }}[total_uf_goal]" id="{{ $viewFolder }}_total_uf_goal" value="{{ isset($datum->total_uf_goal) ? $datum->total_uf_goal : ''}}" placeholder="">
@@ -1711,6 +1711,16 @@
                     <input class="form-control" type="number" name="{{ $viewFolder }}[weight_loss]" min=0 step=.1 id="{{ $viewFolder }}_weight_loss" value="{{ isset($datum->weight_loss) ? $datum->weight_loss : ''}}" placeholder="">
                     <label for="{{ $viewFolder }}_weight_loss" class="form-label">Weight Loss</label>
                     <small id="help_{{ $viewFolder }}_weight_loss" class="text-muted"></small>
+                  </div>
+                  <span class="input-group-text">kg</span>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="input-group mb-3">
+                  <div class="form-floating">
+                    <input class="form-control" type="number" name="{{ $viewFolder }}[weight_gain]" min=0 step=.1 id="{{ $viewFolder }}_weight_gain" value="{{ isset($datum->weight_gain) ? $datum->weight_gain : ''}}" placeholder="">
+                    <label for="{{ $viewFolder }}_weight_gain" class="form-label">Weight Gain</label>
+                    <small id="help_{{ $viewFolder }}_weight_gain" class="text-muted"></small>
                   </div>
                   <span class="input-group-text">kg</span>
                 </div>
