@@ -104,20 +104,20 @@
             <td><strong>Time Discharged:</strong><br>{{ isset($referal_conso->printable_form['time_discharged']) ? $referal_conso->printable_form['time_discharged'] : (!isset($referal_conso) ? $datum->printable_form['time_discharged'] : '') }}</td>
         </tr>
         <tr>
-            <td colspan="2"><strong>Pre-Operative Diagnosis - 1st Case Rate:</strong><br>{{ isset($referal_conso->assessment) ? $referal_conso->assessment : (!isset($referal_conso) ? $datum->assessment : '') }}</td>
-            <td colspan="2"><strong>Pre-Operative Diagnosis - 2nd Case Rate:</strong><br>{{ isset($referal_conso->assessment) ? $referal_conso->assessment : (!isset($referal_conso) ? $datum->assessment : '') }}</td>
+            <td colspan="2"><strong>Pre-Operative Diagnosis - 1st Case Rate:</strong><br>{{ isset($referal_conso->printable_form['pre_operative']) ? $referal_conso->printable_form['pre_operative'] : (!isset($referal_conso) ? $datum->printable_form['pre_operative'] : '') }}</td>
+            <td colspan="2"><strong>Pre-Operative Diagnosis - 2nd Case Rate:</strong><br>{{ isset($referal_conso->printable_form['pre_operative1']) ? $referal_conso->printable_form['pre_operative1'] : (!isset($referal_conso) ? $datum->printable_form['pre_operative1'] : '') }}</td>
             
         </tr>
         <tr>
-            <td><strong>Final Diagnosis - 1st Case Rate:</strong><br>{{ isset($referal_conso->assessment) ? $referal_conso->assessment : (!isset($referal_conso) ? $datum->assessment : '') }}</td>
+            <td><strong>Final Diagnosis - 1st Case Rate:</strong><br>{{ isset($referal_conso->printable_form['final_diagnosis']) ? $referal_conso->asseprintable_form['final_diagnosis']ssment : (!isset($referal_conso) ? $datum->printable_form['final_diagnosis'] : '') }}</td>
             <td><strong>ICD Code:</strong><br>{{ isset($referal_conso->printable_form['icd_code']) ? $referal_conso->printable_form['icd_code'] : (!isset($referal_conso) ? $datum->printable_form['icd_code'] : '') }}</td>
-            <td><strong>Final Diagnosis - 2nd Case Rate:</strong><br>{{ isset($referal_conso->assessment) ? $referal_conso->assessment : (!isset($referal_conso) ? $datum->assessment : '') }}</td>
+            <td><strong>Final Diagnosis - 2nd Case Rate:</strong><br>{{ isset($referal_conso->printable_form['final_diagnosis1']) ? $referal_conso->printable_form['final_diagnosis1'] : (!isset($referal_conso) ? $datum->printable_form['final_diagnosis1'] : '') }}</td>
             <td><strong>ICD Code:</strong><br>{{ isset($referal_conso->printable_form['icd_code1']) ? $referal_conso->printable_form['icd_code1'] : (!isset($referal_conso) ? $datum->printable_form['icd_code1'] : '') }}</td>
         </tr>
         <tr>
-            <td><strong>Operation Performed - 1st Case Rate:</strong><br>{{ isset($referal_conso->procedure_details) ? $referal_conso->procedure_details : (!isset($referal_conso) ? $datum->procedure_details : '') }} {{ isset($referal_conso->procedure_plan) ? $referal_conso->procedure_plan : (!isset($referal_conso) ? $datum->procedure_plan : '') }}</td>
+            <td><strong>Operation Performed - 1st Case Rate:</strong><br>{{ isset($referal_conso->printable_form['operation_performed']) ? $referal_conso->printable_form['operation_performed'] : (!isset($referal_conso) ? $datum->printable_form['operation_performed'] : '') }} {{ isset($referal_conso->procedure_plan) ? $referal_conso->procedure_plan : (!isset($referal_conso) ? $datum->procedure_plan : '') }}</td>
             <td><strong>RVS Code:</strong><br>{{ isset($referal_conso->printable_form['rvs_code']) ? $referal_conso->printable_form['rvs_code'] : (!isset($referal_conso) ? $datum->printable_form['rvs_code'] : '') }}</td>
-            <td><strong>Operation Performed - 2nd Case Rate:</strong><br>{{ isset($referal_conso->procedure_details) ? $referal_conso->procedure_details : (!isset($referal_conso) ? $datum->procedure_details : '') }} {{ isset($referal_conso->procedure_plan) ? $referal_conso->procedure_plan : (!isset($referal_conso) ? $datum->procedure_plan : '') }}</td>
+            <td><strong>Operation Performed - 2nd Case Rate:</strong><br>{{ isset($referal_conso->printable_form['operation_performed1']) ? $referal_conso->printable_form['operation_performed1'] : (!isset($referal_conso) ? $datum->printable_form['operation_performed1'] : '') }} {{ isset($referal_conso->procedure_plan) ? $referal_conso->procedure_plan : (!isset($referal_conso) ? $datum->procedure_plan : '') }}</td>
             <td><strong>RVS Code:</strong><br>{{ isset($referal_conso->printable_form['rvs_code1']) ? $referal_conso->printable_form['rvs_code1'] : (!isset($referal_conso) ? $datum->printable_form['rvs_code1'] : '') }}</td>
         </tr>
         <tr>
