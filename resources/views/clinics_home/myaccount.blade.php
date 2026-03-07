@@ -44,6 +44,18 @@
       <label for="{{ $viewFolder }}_max_num_booking" class="form-label">Max Number of Booking per Day</label>
       <small id="help_{{ $viewFolder }}_max_num_booking" class="text-muted"></small>
     </div>
+    <div class="mb-3">
+      <div class="mb-4 d-flex justify-content-center">
+          <img id="letterheadImage" src="{{ $datum->clinic->letterhead_pic != '' ? (stristr($datum->clinic->letterhead_pic, 'uploads') ? asset('storage/' . $datum->clinic->letterhead_pic) : asset('storage/printable_forms_files/' . $datum->clinic->letterhead_pic)) : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}"
+          alt="example placeholder" style="width: 300px;" />
+      </div>
+      <div class="d-flex justify-content-center">
+          <div class="btn btn-{{ $bgColor }} btn-rounded">
+              <label class="form-label text-white m-1" for="{{ $viewFolder }}_letterhead_pic">Letterhead Pic</label>
+              <input type="file" class="form-control d-none" name="{{ $viewFolder }}[letterhead_pic]" id="{{ $viewFolder }}_letterhead_pic" onchange="displaySelectedImage(event, 'letterheadImage')" />
+          </div>
+      </div>
+    </div>
   </div>
 </div>
 <div class="card mb-3">
@@ -269,6 +281,7 @@
     @endif
   </div>
 </div>
+@endif
 <script>
   function displaySelectedImage(event, elementId) {
     const selectedImage = document.getElementById(elementId);
@@ -285,7 +298,6 @@
     }
   }
 </script>
-@endif
 
 
 

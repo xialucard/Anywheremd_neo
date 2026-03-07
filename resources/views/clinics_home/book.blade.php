@@ -1063,24 +1063,125 @@
                 </div>
               </div>
             </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-floating mb-3">
+                  <input class="form-control" type="text" name="{{ $viewFolder }}[PrintableForm][pre_operative]" id="{{ $viewFolder }}_pre_operative" placeholder="" value="{{ isset($referal_conso->printable_form['pre_operative']) ? $referal_conso->printable_form['pre_operative'] : (!isset($referal_conso) ? (isset($datum->printable_form['pre_operative']) ? $datum->printable_form['pre_operative'] : '') : '') }}">
+                  <label for="{{ $viewFolder }}_pre_operative" class="form-label">Pre-Operative Diagnosis - 1st Case Rate</label>
+                  <small id="help_{{ $viewFolder }}_pre_operative" class="text-muted"></small>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-floating mb-3">
+                  <input class="form-control" type="text" name="{{ $viewFolder }}[PrintableForm][pre_operative1]" id="{{ $viewFolder }}_pre_operative1" placeholder="" value="{{ isset($referal_conso->printable_form['pre_operative1']) ? $referal_conso->printable_form['pre_operative1'] : (!isset($referal_conso) ? (isset($datum->printable_form['pre_operative1']) ? $datum->printable_form['pre_operative1'] : '') : '') }}">
+                  <label for="{{ $viewFolder }}_pre_operative1" class="form-label">Pre-Operative Diagnosis - 2nd Case Rate</label>
+                  <small id="help_{{ $viewFolder }}_pre_operative1" class="text-muted"></small>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-8">
+                <div class="form-floating mb-3">
+                  <input class="form-control" type="text" name="{{ $viewFolder }}[PrintableForm][final_diagnosis]" id="{{ $viewFolder }}_final_diagnosis" placeholder="" value="{{ isset($referal_conso->printable_form['final_diagnosis']) ? $referal_conso->printable_form['final_diagnosis'] : (!isset($referal_conso) ? (isset($datum->printable_form['final_diagnosis']) ? $datum->printable_form['final_diagnosis'] : '') : '') }}">
+                  <label for="{{ $viewFolder }}_final_diagnosis" class="form-label">Final Diagnosis - 1st Case Rate</label>
+                  <small id="help_{{ $viewFolder }}_final_diagnosis" class="text-muted"></small>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-floating mb-3">
+                  <input class="form-control" type="text" name="{{ $viewFolder }}[PrintableForm][icd_code]" id="{{ $viewFolder }}_icd_code" placeholder="" value="{{ isset($referal_conso->printable_form['icd_code']) ? $referal_conso->printable_form['icd_code'] : (!isset($referal_conso) ? (isset($datum->printable_form['icd_code']) ? $datum->printable_form['icd_code'] : '') : '') }}">
+                  <label for="{{ $viewFolder }}_icd_code" class="form-label">ICD Code</label>
+                  <small id="help_{{ $viewFolder }}_icd_code" class="text-muted"></small>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-8">
+                <div class="form-floating mb-3">
+                  <input class="form-control" type="text" name="{{ $viewFolder }}[PrintableForm][final_diagnosis1]" id="{{ $viewFolder }}_final_diagnosis1" placeholder="" value="{{ isset($referal_conso->printable_form['final_diagnosis1']) ? $referal_conso->printable_form['final_diagnosis1'] : (!isset($referal_conso) ? (isset($datum->printable_form['final_diagnosis1']) ? $datum->printable_form['final_diagnosis1'] : '') : '') }}">
+                  <label for="{{ $viewFolder }}_final_diagnosis1" class="form-label">Final Diagnosis - 2nd Case Rate</label>
+                  <small id="help_{{ $viewFolder }}_final_diagnosis1" class="text-muted"></small>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-floating mb-3">
+                  <input class="form-control" type="text" name="{{ $viewFolder }}[PrintableForm][icd_code1]" id="{{ $viewFolder }}_icd_code1" placeholder="" value="{{ isset($referal_conso->printable_form['icd_code1']) ? $referal_conso->printable_form['icd_code1'] : (!isset($referal_conso) ? (isset($datum->printable_form['icd_code1']) ? $datum->printable_form['icd_code1'] : '') : '') }}">
+                  <label for="{{ $viewFolder }}_icd_code1" class="form-label">ICD Code</label>
+                  <small id="help_{{ $viewFolder }}_icd_code1" class="text-muted"></small>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-8">
+                <div class="form-floating mb-3">
+                  <input class="form-control" type="text" name="{{ $viewFolder }}[PrintableForm][operation_performed]" id="{{ $viewFolder }}_operation_performed" placeholder="" value="{{ isset($referal_conso->printable_form['operation_performed']) ? $referal_conso->printable_form['operation_performed'] : (!isset($referal_conso) ? (isset($datum->printable_form['operation_performed']) ? $datum->printable_form['operation_performed'] : '') : '') }}">
+                  <label for="{{ $viewFolder }}_operation_performed" class="form-label">Operation Performed - 1st Case Rate</label>
+                  <small id="help_{{ $viewFolder }}_operation_performed" class="text-muted"></small>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-floating mb-3">
+                  <input class="form-control" type="text" name="{{ $viewFolder }}[PrintableForm][rvs_code]" id="{{ $viewFolder }}_rvs_code" placeholder="" value="{{ isset($referal_conso->printable_form['rvs_code']) ? $referal_conso->printable_form['rvs_code'] : (!isset($referal_conso) ? (isset($datum->printable_form['rvs_code']) ? $datum->printable_form['rvs_code'] : '') : '') }}">
+                  <label for="{{ $viewFolder }}_rvs_code" class="form-label">RVS Code</label>
+                  <small id="help_{{ $viewFolder }}_rvs_code" class="text-muted"></small>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-8">
+                <div class="form-floating mb-3">
+                  <input class="form-control" type="text" name="{{ $viewFolder }}[PrintableForm][operation_performed1]" id="{{ $viewFolder }}_operation_performed1" placeholder="" value="{{ isset($referal_conso->printable_form['operation_performed1']) ? $referal_conso->printable_form['operation_performed1'] : (!isset($referal_conso) ? (isset($datum->printable_form['operation_performed1']) ? $datum->printable_form['operation_performed1'] : '') : '') }}">
+                  <label for="{{ $viewFolder }}_operation_performed1" class="form-label">Operation Performed - 1st Case Rate</label>
+                  <small id="help_{{ $viewFolder }}_operation_performed1" class="text-muted"></small>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-floating mb-3">
+                  <input class="form-control" type="text" name="{{ $viewFolder }}[PrintableForm][rvs_code1]" id="{{ $viewFolder }}_rvs_code1" placeholder="" value="{{ isset($referal_conso->printable_form['rvs_code1']) ? $referal_conso->printable_form['rvs_code1'] : (!isset($referal_conso) ? (isset($datum->printable_form['rvs_code1']) ? $datum->printable_form['rvs_code1'] : '') : '') }}">
+                  <label for="{{ $viewFolder }}_rvs_code1" class="form-label">RVS Code</label>
+                  <small id="help_{{ $viewFolder }}_rvs_code1" class="text-muted"></small>
+                </div>
+              </div>
+            </div>
             <div class="form-floating mb-3">
-                <select class="form-select" name="{{ $viewFolder }}[anesthesia_type_ot]" id="{{ $viewFolder }}_anesthesia_type_ot" placeholder="">
-                  <option value="None" {{ isset($referal_conso->anesthesia_type_ao) ? ($referal_conso->anesthesia_type_ao == 'None' ? 'selected' : '') : (!isset($referal_conso) ? (isset($datum->anesthesia_type_ao) ? ($datum->anesthesia_type_ao == 'None' ? 'selected' : '') : '') : '') }}>None</option>
-                  <option value="Regional Block" {{ isset($referal_conso->anesthesia_type_ao) ? ($referal_conso->anesthesia_type_ao == 'Regional Block' ? 'selected' : '') : (!isset($referal_conso) ? (isset($datum->anesthesia_type_ao) ? ($datum->anesthesia_type_ao == 'Regional Block' ? 'selected' : '') : '') : '') }}>Regional Block</option>
-                  <option value="IV Sedation" {{ isset($referal_conso->anesthesia_type_ao) ? ($referal_conso->anesthesia_type_ao == 'IV Sedation' ? 'selected' : '') : (!isset($referal_conso) ? (isset($datum->anesthesia_type_ao) ? ($datum->anesthesia_type_ao == 'IV Sedation' ? 'selected' : '') : '') : '') }}>IV Sedation</option>
-                  <option value="General Anesthesia" {{ isset($referal_conso->anesthesia_type_ao) ? ($referal_conso->anesthesia_type_ao == 'General Anesthesia' ? 'selected' : '') : (!isset($referal_conso) ? (isset($datum->anesthesia_type_ao) ? ($datum->anesthesia_type_ao == 'General Anesthesia' ? 'selected' : '') : '') : '') }}>General Anesthesia</option>
-                </select>
-                <label for="{{ $viewFolder }}_anesthesia_type_ot">Anesthesia Type</label>
-                <small id="help_{{ $viewFolder }}_anesthesia_type_ot" class="text-muted"></small>
+              <input class="form-control" type="text" name="{{ $viewFolder }}[PrintableForm][scrub_nurse]" id="{{ $viewFolder }}_scrub_nurse" placeholder="" value="{{ isset($referal_conso->printable_form['scrub_nurse']) ? $referal_conso->printable_form['scrub_nurse'] : (!isset($referal_conso) ? (isset($datum->printable_form['scrub_nurse']) ? $datum->printable_form['scrub_nurse'] : '') : '') }}">
+              <label for="{{ $viewFolder }}_scrub_nurse" class="form-label">Scrub Nurse</label>
+              <small id="help_{{ $viewFolder }}_scrub_nurse" class="text-muted"></small>
+            </div>
+            <div class="form-floating mb-3">
+              <input class="form-control" type="text" name="{{ $viewFolder }}[PrintableForm][circ_nurse]" id="{{ $viewFolder }}_circ_nurse" placeholder="" value="{{ isset($referal_conso->printable_form['circ_nurse']) ? $referal_conso->printable_form['circ_nurse'] : (!isset($referal_conso) ? (isset($datum->printable_form['circ_nurse']) ? $datum->printable_form['circ_nurse'] : '') : '') }}">
+              <label for="{{ $viewFolder }}_circ_nurse" class="form-label">Circulating Nurse</label>
+              <small id="help_{{ $viewFolder }}_circ_nurse" class="text-muted"></small>
+            </div>
+            <div class="form-floating mb-3">
+              <input class="form-control" type="text" name="{{ $viewFolder }}[anesthesiologist_ot]" id="{{ $viewFolder }}_anesthesiologist_ot" placeholder="" value="{{ isset($referal_conso->anesthesiologist_ao) ? $referal_conso->anesthesiologist_ao : (!isset($referal_conso) ? (isset($datum->anesthesiologist_ao) ? $datum->anesthesiologist_ao : '') : '') }}">
+              <label for="{{ $viewFolder }}_anesthesiologist_ot" class="form-label">Anesthesiologist</label>
+              <small id="help_{{ $viewFolder }}_anesthesiologist_ot" class="text-muted"></small>
+            </div>
+            <div class="form-floating mb-3">
+              <select class="form-select" name="{{ $viewFolder }}[anesthesia_type_ot]" id="{{ $viewFolder }}_anesthesia_type_ot" placeholder="">
+                <option value="None" {{ isset($referal_conso->anesthesia_type_ao) ? ($referal_conso->anesthesia_type_ao == 'None' ? 'selected' : '') : (!isset($referal_conso) ? (isset($datum->anesthesia_type_ao) ? ($datum->anesthesia_type_ao == 'None' ? 'selected' : '') : '') : '') }}>None</option>
+                <option value="Regional Block" {{ isset($referal_conso->anesthesia_type_ao) ? ($referal_conso->anesthesia_type_ao == 'Regional Block' ? 'selected' : '') : (!isset($referal_conso) ? (isset($datum->anesthesia_type_ao) ? ($datum->anesthesia_type_ao == 'Regional Block' ? 'selected' : '') : '') : '') }}>Regional Block</option>
+                <option value="IV Sedation" {{ isset($referal_conso->anesthesia_type_ao) ? ($referal_conso->anesthesia_type_ao == 'IV Sedation' ? 'selected' : '') : (!isset($referal_conso) ? (isset($datum->anesthesia_type_ao) ? ($datum->anesthesia_type_ao == 'IV Sedation' ? 'selected' : '') : '') : '') }}>IV Sedation</option>
+                <option value="General Anesthesia" {{ isset($referal_conso->anesthesia_type_ao) ? ($referal_conso->anesthesia_type_ao == 'General Anesthesia' ? 'selected' : '') : (!isset($referal_conso) ? (isset($datum->anesthesia_type_ao) ? ($datum->anesthesia_type_ao == 'General Anesthesia' ? 'selected' : '') : '') : '') }}>General Anesthesia</option>
+              </select>
+              <label for="{{ $viewFolder }}_anesthesia_type_ot">Anesthesia Type</label>
+              <small id="help_{{ $viewFolder }}_anesthesia_type_ot" class="text-muted"></small>
+            </div>
+            <label class="form-label">Specimen</label>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="{{ $viewFolder }}[PrintableForm][specimen]" value="yes" id="{{ $viewFolder }}_specimen_yes" {{ isset($referal_conso->printable_form['specimen']) && $referal_conso->printable_form['specimen'] == 'yes' ? 'checked' : (!isset($referal_conso) && isset($datum->printable_form['specimen']) && $datum->printable_form['specimen'] == 'yes' ? 'checked' : '') }}>
+                <label class="form-check-label" for="{{ $viewFolder }}_specimen_yes">Yes</label>
               </div>
-              <div class="form-floating mb-3">
-                <input class="form-control" type="text" name="{{ $viewFolder }}[anesthesiologist_ot]" id="{{ $viewFolder }}_anesthesiologist_ot" placeholder="" value="{{ isset($referal_conso->anesthesiologist_ao) ? $referal_conso->anesthesiologist_ao : (!isset($referal_conso) ? (isset($datum->anesthesiologist_ao) ? $datum->anesthesiologist_ao : '') : '') }}">
-                <label for="{{ $viewFolder }}_anesthesiologist_ot" class="form-label">Anesthesiologist</label>
-                <small id="help_{{ $viewFolder }}_anesthesiologist_ot" class="text-muted"></small>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="{{ $viewFolder }}[PrintableForm][specimen]" value="no" id="{{ $viewFolder }}_specimen_no" {{ isset($referal_conso->printable_form['specimen']) && $referal_conso->printable_form['specimen'] == 'no' ? 'checked' : (!isset($referal_conso) && isset($datum->printable_form['specimen']) && $datum->printable_form['specimen'] == 'no' ? 'checked' : '') }}>
+                <label class="form-check-label" for="{{ $viewFolder }}_specimen_sent_no">No</label>
               </div>
-              <label for="{{ $viewFolder }}_operative_technique" class="form-label">Operative Technique</label>
-              <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][operative_tech]" id="{{ $viewFolder }}_operative_technique" rows=3>{{ isset($referal_conso->printable_form['operative_tech']) ? $referal_conso->printable_form['operative_tech'] : (!isset($referal_conso) ? (isset($datum->printable_form['operative_tech']) ? $datum->printable_form['operative_tech'] : '') : '') }}</textarea>
-              <small id="help_{{ $viewFolder }}_operative_technique" class="text-muted"></small>
+              <label class="form-label" for="{{ $viewFolder }}_specimen_remarks">Remarks</label>
+              <textarea class="form-control mb-3" name="{{ $viewFolder }}[PrintableForm][specimen_remarks]" id="{{ $viewFolder }}_specimen_remarks" rows=3>{{ isset($referal_conso->printable_form['specimen_remarks']) ? $referal_conso->printable_form['specimen_remarks'] : (!isset($referal_conso) && isset($datum->printable_form['specimen_remarks']) ? $datum->printable_form['specimen_remarks'] : '') }}</textarea>
+            <label for="{{ $viewFolder }}_operative_technique" class="form-label">Operative Technique</label>
+            <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][operative_tech]" id="{{ $viewFolder }}_operative_technique" rows=3>{{ isset($referal_conso->printable_form['operative_tech']) ? $referal_conso->printable_form['operative_tech'] : (!isset($referal_conso) ? (isset($datum->printable_form['operative_tech']) ? $datum->printable_form['operative_tech'] : '') : '') }}</textarea>
+            <small id="help_{{ $viewFolder }}_operative_technique" class="text-muted"></small>
           </div>
         </div>
         <div class="card mb-3" id="NurseNotesInput" style="display:none">
@@ -3090,13 +3191,14 @@
                         <small id="help_{{ $viewFolder }}_hd_vac" class="text-muted"></small>
                       </div>
                     </div>
-                    <div class="form-floating mb-3">
-                      <textarea class="form-control" name="{{ $viewFolder }}[hd_endorsement]" id="{{ $viewFolder }}_hd_endorsement">{{ !empty($datum->hd_endorsement) ? $datum->hd_endorsement : (isset($prevBooking->hd_endorsement) ? $prevBooking->hd_endorsement : '') }}</textarea>
-                      <label for="{{ $viewFolder }}_hd_endorsement" class="form-label">Endorsement Details</label>
-                      <small id="help_{{ $viewFolder }}_hd_endorsement" class="text-muted"></small>
-                    </div>
                   </div>
+                  
                 </div>
+                <label for="{{ $viewFolder }}_hd_endorsement" class="form-label">Endorsement Details</label>
+                {{-- <div class="form-floating mb-3"> --}}
+                <textarea class="form-control" name="{{ $viewFolder }}[hd_endorsement]" cols="5" id="{{ $viewFolder }}_hd_endorsement">{{ !empty($datum->hd_endorsement) ? $datum->hd_endorsement : (isset($prevBooking->hd_endorsement) ? $prevBooking->hd_endorsement : '') }}</textarea>
+                <small id="help_{{ $viewFolder }}_hd_endorsement" class="text-muted"></small>
+                {{-- </div> --}}
               </div>
             </div>
           </div>

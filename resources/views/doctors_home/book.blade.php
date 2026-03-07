@@ -11354,6 +11354,59 @@
                     </div>
                   </div>
                 </div>
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="card mb-3">
+                      <div class="card-header">HD Summary</div>
+                      <div class="card-body">
+                      <div class="table-responsive" style="max-height: 300px">
+                        <table class="table table-bordered table-striped table-hover table-sm medsOn">
+                          <thead class="table-{{ $bgColor }}">
+                            <tr>
+                              <th>Tx No.</th>
+                              <th>Date</th>
+                              <th>Dialyzer/Use No.</th>
+                              <th>EDW</th>
+                              <th>Pre HD Weight (kg)</th>
+                              <th>Post HD Weight (kg)</th>
+                              <th>Pre HD BP</th>
+                              <th>Post HD BP</th>
+                              <th>UF Goal</th>
+                              <th>WT. Loss</th>
+                              <th>EPO Inj.</th>
+                              <th>Iron</th>
+                              <th>Dialysis Complication</th>
+                              <th>Remarks/NOD</th>
+                            </tr>
+                          </thead>
+                          <tbody id="medsOnboardTable{{ $datum->id }}">
+                          @if(isset($allBooking))
+                            @foreach ($allBooking as $ind=>$dat)
+                            <tr id="hdBooking_{{ $dat->id }}">
+                                <td>{{ $dat->treatment_number }}</td>
+                                <td>{{ $dat->bookingDate }}</td>
+                                <td>{{ $dat->mac_use }}</td>
+                                <td>{{ $dat->dry_weight }}<</td>
+                                <td>{{ $dat->weight }}</td>
+                                <td>{{ $dat->post_weight }}</td>
+                                <td>{{ $dat->bpS . '/' . $dat->bpD }}</td>
+                                <td>{{ $dat->post_bpS . '/' . $dat->post_bpD }}</td>
+                                <td>{{ $dat->total_uf_goal }}</td>
+                                <td>{{ $dat->weight_loss }}</td>
+                                <td>{{ isset($dat->consultation_meds()->where('medication', 'like', '%epo%')->get()[0]->dosage) ? $dat->consultation_meds()->where('medication', 'like', '%epo%')->get()[0]->dosage : '' }}</td>
+                                <td>{{ isset($dat->consultation_meds()->where('medication', 'like', '%iron%')->get()[0]->dosage) ? $dat->consultation_meds()->where('medication', 'like', '%iron%')->get()[0]->dosage : '' }}</td>
+                                <td>{{ nl2br($dat->dialysis_complication) }}</td>
+                                <td>{{ $dat->creator->name }}</td>
+                            </tr>
+                            @endforeach
+                          @endif
+                          </tbody>
+                        </table>
+                      </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 @endif
               </div>
             </div>

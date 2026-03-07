@@ -18,6 +18,7 @@ class Clinic extends Model
         'email',
         'website_link',
         'max_num_booking',
+        'letterhesd_pic',
         'corporation',
         'user_id',
         'created_by',

@@ -334,6 +334,11 @@ class DoctorsHomeController extends Controller
         $yr = null;
         $mon = null;
         $dayNum = null;
+        $allBooking = null;
+        if($datum->booking_type == 'Dialysis'){
+            $allBooking = Consultation::where('patient_id', $datum->patient_id)->where('booking_type', 'Dialysis')->whereNotNull('time_ended')->whereNot('id', $datum->id)->where('bookingDate', '<', $datum->bookingDate)->orderBy('bookingDate','asc')->get();
+        }
+        // dd($allBooking);
         $patients = $user->patients->sortBy('name');
         if($user->active == 2)
             return redirect()->route('home.myaccount')->with("Incomplete Form", $this->newUserMsg);
@@ -363,6 +368,7 @@ class DoctorsHomeController extends Controller
                     'modalSize' => 'modal-fullscreen',
                     'maxDateSched' =>$datum->doctor->schedules()->max('dateSched'),
                     'doctorClinic' =>$doctorClinic,
+                    'allBooking' => $allBooking,
                     'referer' => urldecode($request->headers->get('referer'))
                 ]);
         }
@@ -393,6 +399,11 @@ class DoctorsHomeController extends Controller
         $yr = null;
         $mon = null;
         $dayNum = null;
+        $allBooking = null;
+        if($datum->booking_type == 'Dialysis'){
+            $allBooking = Consultation::where('patient_id', $datum->patient_id)->where('booking_type', 'Dialysis')->whereNotNull('time_ended')->whereNot('id', $datum->id)->where('bookingDate', '<', $datum->bookingDate)->orderBy('bookingDate','asc')->get();
+        }
+        // dd($allBooking);
         $patients = $user->patients->sortBy('name');
          if($user->active == 2)
             return redirect()->route('home.myaccount')->with("Incomplete Form", $this->newUserMsg);
@@ -422,6 +433,7 @@ class DoctorsHomeController extends Controller
                     'modalSize' => 'modal-fullscreen',
                     'maxDateSched' =>$datum->doctor->schedules()->max('dateSched'),
                     'doctorClinic' =>$doctorClinic,
+                    'allBooking' => $allBooking,
                     'referer' => urldecode($request->headers->get('referer'))
                 ]);
         }
@@ -939,7 +951,7 @@ class DoctorsHomeController extends Controller
 
     function pdfORTech(Consultation $doctors_home){
         // dd($doctors_home);
-        $pdf = Pdf::setOptions(['defaultFont' => 'sans-serif', 'chroot' => public_path('storage/' . $doctors_home->doctor->sig_pic)])->loadView($this->viewFolder . '.pdfORTech', ['datum' => $doctors_home]);
+        $pdf = Pdf::loadView($this->viewFolder . '.pdfORTech', ['datum' => $doctors_home]);
         
         Storage::put('public/printable_forms_files/pdfORTech_' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf', $pdf->output());
         $src = asset('storage/printable_forms_files/pdfORTech_' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf');
@@ -948,7 +960,7 @@ class DoctorsHomeController extends Controller
     }
 
     function pdfPostOp(Consultation $doctors_home){
-        $pdf = Pdf::setOptions(['defaultFont' => 'sans-serif', 'chroot' => public_path('storage/' . $doctors_home->doctor->sig_pic)])->loadView($this->viewFolder . '.pdfPostOp', ['datum' => $doctors_home]);
+        $pdf = Pdf::loadView($this->viewFolder . '.pdfPostOp', ['datum' => $doctors_home]);
         
         Storage::put('public/printable_forms_files/pdfPostOp_' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf', $pdf->output());
         $src = asset('storage/printable_forms_files/pdfPostOp_' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf');
@@ -958,7 +970,7 @@ class DoctorsHomeController extends Controller
 
     function pdfOpAdmit(Consultation $doctors_home){
         // dd($doctors_home);
-        $pdf = Pdf::setOptions(['defaultFont' => 'sans-serif', 'chroot' => public_path('storage/' . $doctors_home->doctor->sig_pic)])->loadView($this->viewFolder . '.pdfOpAdmit', ['datum' => $doctors_home]);
+        $pdf = Pdf::loadView($this->viewFolder . '.pdfOpAdmit', ['datum' => $doctors_home]);
         
         Storage::put('public/printable_forms_files/pdfOpAdmit_' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf', $pdf->output());
         $src = asset('storage/printable_forms_files/pdfOpAdmit_' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf');
@@ -969,7 +981,7 @@ class DoctorsHomeController extends Controller
     function pdfDischargeSum(Consultation $doctors_home){
         $user = Auth::user();
         // dd($doctors_home);
-        $pdf = Pdf::setOptions(['defaultFont' => 'sans-serif', 'chroot' => public_path('storage/' . $doctors_home->doctor->sig_pic)])->loadView($this->viewFolder . '.pdfDischargeSum', ['datum' => $doctors_home, 'user' => $user]);
+        $pdf = Pdf::loadView($this->viewFolder . '.pdfDischargeSum', ['datum' => $doctors_home, 'user' => $user]);
         
         Storage::put('public/printable_forms_files/pdfDischargeSum_' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf', $pdf->output());
         $src = asset('storage/printable_forms_files/pdfDischargeSum_' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf');

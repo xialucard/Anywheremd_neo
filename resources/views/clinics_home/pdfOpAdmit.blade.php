@@ -20,7 +20,7 @@
     <title>{{ 'hd_' . $datum->id . '-' . $datum->treatment_number }}.pdf</title>
     <style>
         body {
-            font-size:12pt;
+            font-size:10pt;
             font-family: Arial, Helvetica, sans-serif;
         }
         p {
@@ -63,7 +63,12 @@
     </style>
 </head>
 <body>
-    <div>
+     <div>
+        @if(isset($referal_conso->clinic->letterhead_pic) && $referal_conso->clinic->letterhead_pic != '')
+            <img src="{{ public_path('storage/printable_forms_files/' . $referal_conso->clinic->letterhead_pic) }}" alt="" style="width:7.4in; margin-bottom:5px">
+        @elseif(!isset($referal_conso) && $datum->clinic->letterhead_pic)
+            <img src="{{ public_path('storage/printable_forms_files/' . $datum->clinic->letterhead_pic) }}" alt="" style="width:7.4in; margin-bottom:5px">
+        @else
         <div class="item" style="width: 3in; height:90px">
             <h1 style="margin-bottom: 5px">{{ isset($referal_conso->clinic->name) ? $referal_conso->clinic->name : (!isset($referal_conso) ? $datum->clinic->name : '') }}</h1>
         </div>
@@ -71,6 +76,7 @@
             <p>{{ isset($referal_conso->clinic->address) ? $referal_conso->clinic->address : (!isset($referal_conso) ? $datum->clinic->address : '') }}</p>
             <p>Contact Numbers:{{ isset($referal_conso->clinic->tel) ? $referal_conso->clinic->tel : (!isset($referal_conso) ? $datum->clinic->tel : '') }}/{{ isset($referal_conso->clinic->mobile_no) ? $referal_conso->clinic->mobile_no : (!isset($referal_conso) ? $datum->clinic->mobile_no : '') }}</p>
         </div>
+        @endif
     </div>
     <center><h3>ADMITTING AND PERI-OP FORM</h3></center>
     <table cellspacing="0" width="100%">
@@ -100,8 +106,11 @@
                 <strong>DOCTOR’S ADMITTING ORDERS</strong><br>
                 <p>PLEASE ADMIT MY PATIENT TO THE OPERATING ROOM: {{ isset($referal_conso->printable_form['room']) ? $referal_conso->printable_form['room'] : (!isset($referal_conso) ? $datum->printable_form['room'] : '') }}</p><br>
                 <p>Take Vital signs every 15 mins, one hour prior to surgery.</p><br><br>
-                <p style="height:2in">PLEASE DILATE <input type="checkbox" {{ isset($referal_conso->printable_form['dilate']) && $referal_conso->printable_form['dilate'] != '' ? 'checked' : (!isset($referal_conso) && $datum->printable_form['dilate'] != '' ? 'checked' : '') }}> with : <br>{{ isset($referal_conso->printable_form['dilate']) ? $referal_conso->printable_form['dilate'] : (!isset($referal_conso) ? $datum->printable_form['dilate'] : '') }}</p>
-                <p style="height:2in">PLEASE CONSTRICT <input type="checkbox" {{ isset($referal_conso->printable_form['constrict']) && $referal_conso->printable_form['constrict'] != '' ? 'checked' : (!isset($referal_conso) && $datum->printable_form['constrict'] != '' ? 'checked' : '') }}> with : <br>{{ isset($referal_conso->printable_form['constrict']) ? $referal_conso->printable_form['constrict'] : (!isset($referal_conso) ? $datum->printable_form['constrict'] : '') }}</p>
+                <p style="height:1in">PLEASE DILATE <input type="checkbox" {{ isset($referal_conso->printable_form['dilate']) && $referal_conso->printable_form['dilate'] != '' ? 'checked' : (!isset($referal_conso) && $datum->printable_form['dilate'] != '' ? 'checked' : '') }}> with : <br>{{ isset($referal_conso->printable_form['dilate']) ? $referal_conso->printable_form['dilate'] : (!isset($referal_conso) ? $datum->printable_form['dilate'] : '') }}</p>
+                <p style="height:1in">PLEASE CONSTRICT <input type="checkbox" {{ isset($referal_conso->printable_form['constrict']) && $referal_conso->printable_form['constrict'] != '' ? 'checked' : (!isset($referal_conso) && $datum->printable_form['constrict'] != '' ? 'checked' : '') }}> with : <br>{{ isset($referal_conso->printable_form['constrict']) ? $referal_conso->printable_form['constrict'] : (!isset($referal_conso) ? $datum->printable_form['constrict'] : '') }}</p>
+                @if($datum->doctor->sig_pic != '' || $referal_conso->doctor->sig_pic)
+                <img src="{{ public_path('storage/doctor_files/' . (isset($referal_conso->doctor->sig_pic) ? $referal_conso->doctor->sig_pic : (!isset($referal_conso) ? $datum->doctor->sig_pic : ''))) }}" style="width:1in"><br>
+                @endif
                 <span>Dr. {{ isset($referal_conso->doctor->name) ? $referal_conso->doctor->name : (!isset($referal_conso) ? $datum->doctor->name : '') }}</span><br>
                 <span style="border-top:1px solid">MD signature above printed name</span>
             </td>
@@ -136,8 +145,8 @@
                     </tr>
                     <tr>
                         <td width="35%" valign="top" style="border-top: 1px solid">
-                            <p style="height:2in"><input type="checkbox" {{ isset($referal_conso->printable_form['intake_blood_thinner']) && $referal_conso->printable_form['intake_blood_thinner'] != '' ? 'checked' : (!isset($referal_conso) && $datum->printable_form['intake_blood_thinner'] != '' ? 'checked' : '') }}>Intake of blood thinner or anti-coagulants eg. clopidogrel, warfarin, heparin, aspirin and the like. <br>IF YES, Date and time of last intake <br>{{ isset($referal_conso->printable_form['intake_blood_thinner']) ? $referal_conso->printable_form['intake_blood_thinner'] : (!isset($referal_conso) ? $datum->printable_form['intake_blood_thinner'] : '') }}</p>
-                            <p style="height:2in"><input type="checkbox" {{ isset($referal_conso->printable_form['intake_maintenance_meds']) && $referal_conso->printable_form['intake_maintenance_meds'] != '' ? 'checked' : (!isset($referal_conso) && $datum->printable_form['intake_maintenance_meds'] != '' ? 'checked' : '') }}>Intake of maintenance medications: <br>IF YES, Meds, Date and time of last intake <br>{{ isset($referal_conso->printable_form['intake_maintenance_meds']) ? $referal_conso->printable_form['intake_maintenance_meds'] : (!isset($referal_conso) ? $datum->printable_form['intake_maintenance_meds'] : '') }}</p>
+                            <p style="height:1in"><input type="checkbox" {{ isset($referal_conso->printable_form['intake_blood_thinner']) && $referal_conso->printable_form['intake_blood_thinner'] != '' ? 'checked' : (!isset($referal_conso) && $datum->printable_form['intake_blood_thinner'] != '' ? 'checked' : '') }}>Intake of blood thinner or anti-coagulants eg. clopidogrel, warfarin, heparin, aspirin and the like. <br>IF YES, Date and time of last intake <br>{{ isset($referal_conso->printable_form['intake_blood_thinner']) ? $referal_conso->printable_form['intake_blood_thinner'] : (!isset($referal_conso) ? $datum->printable_form['intake_blood_thinner'] : '') }}</p>
+                            <p style="height:1in"><input type="checkbox" {{ isset($referal_conso->printable_form['intake_maintenance_meds']) && $referal_conso->printable_form['intake_maintenance_meds'] != '' ? 'checked' : (!isset($referal_conso) && $datum->printable_form['intake_maintenance_meds'] != '' ? 'checked' : '') }}>Intake of maintenance medications: <br>IF YES, Meds, Date and time of last intake <br>{{ isset($referal_conso->printable_form['intake_maintenance_meds']) ? $referal_conso->printable_form['intake_maintenance_meds'] : (!isset($referal_conso) ? $datum->printable_form['intake_maintenance_meds'] : '') }}</p>
                             <p>THE EMR, CPSA and PERI OP FORM WAS REVIEWED BY THE MD PRIOR TO SURGERY <br><br>SIGNATURE OF SURGEON <br><br>SIGNATURE OF CIRCULATING NURSE</p>
                         </td>
                     </tr>
@@ -148,6 +157,9 @@
         <tr>
             <td width="65%" rowspan="2">
                 <p style="height:4in">ADDITIONAL PERI-OPERATIVE ORDERS <br> {!! nl2br(isset($referal_conso->printable_form['additional_orders']) ? $referal_conso->printable_form['additional_orders'] : (!isset($referal_conso) ? $datum->printable_form['additional_orders'] : '')) !!}</p>
+                @if($datum->doctor->sig_pic != '' || $referal_conso->doctor->sig_pic)
+                <img src="{{ public_path('storage/doctor_files/' . (isset($referal_conso->doctor->sig_pic) ? $referal_conso->doctor->sig_pic : (!isset($referal_conso) ? $datum->doctor->sig_pic : ''))) }}" style="width:1in"><br>
+                @endif
                 <span>Dr. {{ isset($referal_conso->doctor->name) ? $referal_conso->doctor->name : (!isset($referal_conso) ? $datum->doctor->name : '') }}</span><br>
                 <span style="border-top:1px solid">MD signature above printed name</span>
             </td>

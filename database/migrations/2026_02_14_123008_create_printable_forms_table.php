@@ -16,7 +16,23 @@ return new class extends Migration
             $table->unsignedBigInteger('consultation_id');
             $table->text('anesthesia_type_ot')->nullable();
             $table->text('anesthesiologist_ot')->nullable();
+
+            $table->text('pre_operative')->nullable();
+            $table->text('pre_operative1')->nullable();
+            $table->text('final_diagnosis')->nullable();
+            $table->text('icd_code')->nullable();
+            $table->text('final_diagnosis1')->nullable();
+            $table->text('icd_code1')->nullable();
+            $table->text('operation_performed')->nullable();
+            $table->text('rvs_code')->nullable();
+            $table->text('operation_performed1')->nullable();
+            $table->text('rvs_code1')->nullable();
+            $table->text('scrub_nurse')->nullable();
+            $table->text('circ_nurse')->nullable();
+            $table->text('specimen')->nullable();
+            $table->text('specimen_remarks')->nullable();
             $table->text('operative_tech')->nullable();
+            
             $table->text('after_proc')->nullable();
             $table->text('things_watch_out')->nullable();
             $table->text('things_avoid')->nullable();

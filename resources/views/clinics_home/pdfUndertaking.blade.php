@@ -1,6 +1,6 @@
 @php
     unset($referal_conso);
-    $referal_conso = array();
+    // $referal_conso = array();
     if(isset($datum->clinic->id))
         $clinicDat = $datum->clinic->id;
     if(isset($datum->doctor->id))
@@ -63,7 +63,12 @@
     </style>
 </head>
 <body>
-    <div>
+     <div>
+        @if(isset($referal_conso->clinic->letterhead_pic) && $referal_conso->clinic->letterhead_pic != '')
+            <img src="{{ public_path('storage/printable_forms_files/' . $referal_conso->clinic->letterhead_pic) }}" alt="" style="width:7.4in; margin-bottom:5px">
+        @elseif(!isset($referal_conso) && $datum->clinic->letterhead_pic)
+            <img src="{{ public_path('storage/printable_forms_files/' . $datum->clinic->letterhead_pic) }}" alt="" style="width:7.4in; margin-bottom:5px">
+        @else
         <div class="item" style="width: 3in; height:90px">
             <h1 style="margin-bottom: 5px">{{ isset($referal_conso->clinic->name) ? $referal_conso->clinic->name : (!isset($referal_conso) ? $datum->clinic->name : '') }}</h1>
         </div>
@@ -71,6 +76,7 @@
             <p>{{ isset($referal_conso->clinic->address) ? $referal_conso->clinic->address : (!isset($referal_conso) ? $datum->clinic->address : '') }}</p>
             <p>Contact Numbers:{{ isset($referal_conso->clinic->tel) ? $referal_conso->clinic->tel : (!isset($referal_conso) ? $datum->clinic->tel : '') }}/{{ isset($referal_conso->clinic->mobile_no) ? $referal_conso->clinic->mobile_no : (!isset($referal_conso) ? $datum->clinic->mobile_no : '') }}</p>
         </div>
+        @endif
     </div>
     
     <center><h2>Undertaking</h2></center>

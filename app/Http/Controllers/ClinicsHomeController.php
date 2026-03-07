@@ -505,10 +505,20 @@ class ClinicsHomeController extends Controller
             $userInputedDetails['sig_pic'] = $sig_pic;
             unset($params['sig_pic']);
         }
+
+        if(!empty($request->clinics_home['letterhead_pic'])){
+            $letterhead_pic = 'letterhead_pic' . time() . '.' . $request->clinics_home['letterhead_pic']->extension();
+            $request->clinics_home['letterhead_pic']->storeAs('public/printable_forms_files', $letterhead_pic);
+            $params['letterhead_pic'] = $letterhead_pic;
+        }
+
+        
         unset($params['user']);
         $referer = $params['referer'];
         unset($params['referer']);
         $params['updated_by'] = $user->id;
+        
+        
         if($userInputedDetails['passwordOld'] != ''){
             if (Hash::check($userInputedDetails['passwordOld'], $user->getAuthPassword())) {
                 $userInputedDetails['password'] = Hash::make($userInputedDetails['passwordNew']);
@@ -524,14 +534,13 @@ class ClinicsHomeController extends Controller
                 return redirect()->route($this->viewFolder . '.index')->with('message', 'Invalid old password.');
                 // return redirect()->back()->with('message', 'Invalid old password.');
             }
-        }else{
-            $clinics_home->clinic->update($params);
-            $userInputedDetails['name'] = $userInputedDetails['f_name'] . ' ' . $userInputedDetails['m_name'] . ' ' . $userInputedDetails['l_name'];
-            $user->update($userInputedDetails);
-            return redirect()->to($referer)->with('message', 'Your account is updated.');
-            // return redirect()->route($this->viewFolder . '.index')->with('message', 'Your account is updated.');
-            // return redirect()->back()->with('message', 'Your account is updated.');
         }
+        Clinic::where('id', $user->clinic_id)->update($params);
+        $userInputedDetails['name'] = $userInputedDetails['f_name'] . ' ' . $userInputedDetails['m_name'] . ' ' . $userInputedDetails['l_name'];
+        $user->update($userInputedDetails);
+        return redirect()->to($referer)->with('message', 'Your account is updated.');
+        // return redirect()->route($this->viewFolder . '.index')->with('message', 'Your account is updated.');
+        // return redirect()->back()->with('message', 'Your account is updated.');
         
         
     }
@@ -1379,7 +1388,7 @@ class ClinicsHomeController extends Controller
     }
 
     function pdfOpAdmit(Consultation $clinics_home){
-        $pdf = Pdf::setOptions(['defaultFont' => 'sans-serif', 'chroot' => public_path('storage/' . $clinics_home->doctor->sig_pic)])->loadView($this->viewFolder . '.pdfOpAdmit', ['datum' => $clinics_home]);
+        $pdf = Pdf::loadView($this->viewFolder . '.pdfOpAdmit', ['datum' => $clinics_home]);
         
         Storage::put('public/printable_forms_files/pdfOpAdmit_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf', $pdf->output());
         $src = asset('storage/printable_forms_files/pdfOpAdmit_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf');
@@ -1387,8 +1396,7 @@ class ClinicsHomeController extends Controller
     }
 
     function pdfORTech(Consultation $clinics_home){
-        $pdf = Pdf::setOptions(['defaultFont' => 'sans-serif', 'chroot' => public_path('storage/' . $clinics_home->doctor->sig_pic)])->loadView($this->viewFolder . '.pdfORTech', ['datum' => $clinics_home]);
-        
+        $pdf = Pdf::loadView($this->viewFolder . '.pdfORTech', ['datum' => $clinics_home]);
         Storage::put('public/printable_forms_files/pdfORTech_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf', $pdf->output());
         $src = asset('storage/printable_forms_files/pdfORTech_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf');
         return $src;
@@ -1396,7 +1404,7 @@ class ClinicsHomeController extends Controller
 
     function pdfNurseNotes(Consultation $clinics_home){
         $user = Auth::user();
-        $pdf = Pdf::setOptions(['defaultFont' => 'sans-serif', 'chroot' => public_path('storage/' . $clinics_home->doctor->sig_pic)])->loadView($this->viewFolder . '.pdfNurseNotes', ['datum' => $clinics_home, 'user' => $user]);
+        $pdf = Pdf::loadView($this->viewFolder . '.pdfNurseNotes', ['datum' => $clinics_home, 'user' => $user]);
         
         Storage::put('public/printable_forms_files/pdfORTech_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf', $pdf->output());
         $src = asset('storage/printable_forms_files/pdfORTech_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf');
@@ -1405,7 +1413,7 @@ class ClinicsHomeController extends Controller
     }
 
     function pdfPostOp(Consultation $clinics_home){
-        $pdf = Pdf::setOptions(['defaultFont' => 'sans-serif', 'chroot' => public_path('storage/' . $clinics_home->doctor->sig_pic)])->loadView($this->viewFolder . '.pdfPostOp', ['datum' => $clinics_home]);
+        $pdf = Pdf::loadView($this->viewFolder . '.pdfPostOp', ['datum' => $clinics_home]);
         
         Storage::put('public/printable_forms_files/pdfPostOp_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf', $pdf->output());
         $src = asset('storage/printable_forms_files/pdfPostOp_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf');
@@ -1416,7 +1424,7 @@ class ClinicsHomeController extends Controller
     function pdfDischargeSum(Consultation $clinics_home){
         $user = Auth::user();
         // dd($doctors_home);
-        $pdf = Pdf::setOptions(['defaultFont' => 'sans-serif', 'chroot' => public_path('storage/' . $clinics_home->doctor->sig_pic)])->loadView($this->viewFolder . '.pdfDischargeSum', ['datum' => $clinics_home, 'user' => $user]);
+        $pdf = Pdf::loadView($this->viewFolder . '.pdfDischargeSum', ['datum' => $clinics_home, 'user' => $user]);
         
         Storage::put('public/printable_forms_files/pdfDischargeSum_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf', $pdf->output());
         $src = asset('storage/printable_forms_files/pdfDischargeSum_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf');
