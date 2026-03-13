@@ -108,7 +108,7 @@
                 <p>Take Vital signs every 15 mins, one hour prior to surgery.</p><br><br>
                 <p style="height:1in">PLEASE DILATE <input type="checkbox" {{ isset($referal_conso->printable_form['dilate']) && $referal_conso->printable_form['dilate'] != '' ? 'checked' : (!isset($referal_conso) && $datum->printable_form['dilate'] != '' ? 'checked' : '') }}> with : <br>{{ isset($referal_conso->printable_form['dilate']) ? $referal_conso->printable_form['dilate'] : (!isset($referal_conso) ? $datum->printable_form['dilate'] : '') }}</p>
                 <p style="height:1in">PLEASE CONSTRICT <input type="checkbox" {{ isset($referal_conso->printable_form['constrict']) && $referal_conso->printable_form['constrict'] != '' ? 'checked' : (!isset($referal_conso) && $datum->printable_form['constrict'] != '' ? 'checked' : '') }}> with : <br>{{ isset($referal_conso->printable_form['constrict']) ? $referal_conso->printable_form['constrict'] : (!isset($referal_conso) ? $datum->printable_form['constrict'] : '') }}</p>
-                @if($datum->doctor->sig_pic != '' || $referal_conso->doctor->sig_pic)
+                @if(((isset($referal_conso) && isset($referal_conso->printable_form['opAdmitSigKey']) && $referal_conso->printable_form['opAdmitSigKey'] == 'yes') ? true : ((!isset($referal_conso) && $datum->printable_form['opAdmitSigKey'] == 'yes') ? true : false)) && ($datum->doctor->sig_pic != '' || $referal_conso->doctor->sig_pic))
                 <img src="{{ public_path('storage/doctor_files/' . (isset($referal_conso->doctor->sig_pic) ? $referal_conso->doctor->sig_pic : (!isset($referal_conso) ? $datum->doctor->sig_pic : ''))) }}" style="width:1in"><br>
                 @endif
                 <span>Dr. {{ isset($referal_conso->doctor->name) ? $referal_conso->doctor->name : (!isset($referal_conso) ? $datum->doctor->name : '') }}</span><br>
@@ -157,7 +157,7 @@
         <tr>
             <td width="65%" rowspan="2">
                 <p style="height:4in">ADDITIONAL PERI-OPERATIVE ORDERS <br> {!! nl2br(isset($referal_conso->printable_form['additional_orders']) ? $referal_conso->printable_form['additional_orders'] : (!isset($referal_conso) ? $datum->printable_form['additional_orders'] : '')) !!}</p>
-                @if($datum->doctor->sig_pic != '' || $referal_conso->doctor->sig_pic)
+                @if(((isset($referal_conso) && isset($referal_conso->printable_form['opAdmitSigKey']) && $referal_conso->printable_form['opAdmitSigKey'] == 'yes') ? true : ((!isset($referal_conso) && $datum->printable_form['opAdmitSigKey'] == 'yes') ? true : false)) && ($datum->doctor->sig_pic != '' || $referal_conso->doctor->sig_pic))
                 <img src="{{ public_path('storage/doctor_files/' . (isset($referal_conso->doctor->sig_pic) ? $referal_conso->doctor->sig_pic : (!isset($referal_conso) ? $datum->doctor->sig_pic : ''))) }}" style="width:1in"><br>
                 @endif
                 <span>Dr. {{ isset($referal_conso->doctor->name) ? $referal_conso->doctor->name : (!isset($referal_conso) ? $datum->doctor->name : '') }}</span><br>
