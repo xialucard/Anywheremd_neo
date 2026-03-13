@@ -163,7 +163,7 @@
         </tr>
         <tr>
             <td>{{ isset($temp[10]) ? date('Y-m-d H:i:s', strtotime($temp[10])) : '' }}</td>
-            <td>> Surgery performed by Dr. {{ $datum->patient->name }}</td>
+            <td>> Surgery performed by Dr. {{ $datum->doctor->name }}</td>
         </tr>
         <tr>
             <td>{{ isset($temp[11]) ? date('Y-m-d H:i:s', strtotime($temp[11])) : '' }}</td>
