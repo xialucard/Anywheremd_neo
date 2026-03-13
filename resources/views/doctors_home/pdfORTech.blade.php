@@ -109,7 +109,7 @@
             
         </tr>
         <tr>
-            <td><strong>Final Diagnosis - 1st Case Rate:</strong><br>{{ isset($referal_conso->printable_form['final_diagnosis']) ? $referal_conso->asseprintable_form['final_diagnosis']ssment : (!isset($referal_conso) ? $datum->printable_form['final_diagnosis'] : '') }}</td>
+            <td><strong>Final Diagnosis - 1st Case Rate:</strong><br>{{ isset($referal_conso->printable_form['final_diagnosis']) ? $referal_conso->printable_form['final_diagnosis'] : (!isset($referal_conso) ? $datum->printable_form['final_diagnosis'] : '') }}</td>
             <td><strong>ICD Code:</strong><br>{{ isset($referal_conso->printable_form['icd_code']) ? $referal_conso->printable_form['icd_code'] : (!isset($referal_conso) ? $datum->printable_form['icd_code'] : '') }}</td>
             <td><strong>Final Diagnosis - 2nd Case Rate:</strong><br>{{ isset($referal_conso->printable_form['final_diagnosis1']) ? $referal_conso->printable_form['final_diagnosis1'] : (!isset($referal_conso) ? $datum->printable_form['final_diagnosis1'] : '') }}</td>
             <td><strong>ICD Code:</strong><br>{{ isset($referal_conso->printable_form['icd_code1']) ? $referal_conso->printable_form['icd_code1'] : (!isset($referal_conso) ? $datum->printable_form['icd_code1'] : '') }}</td>
@@ -165,7 +165,7 @@
     
     
     
-    @if($datum->doctor->sig_pic != '' || $referal_conso->doctor->sig_pic)
+    @if(((isset($referal_conso) && isset($referal_conso->printable_form['orTechSigKey']) && $referal_conso->printable_form['orTechSigKey'] == 'yes') ? true : ((!isset($referal_conso) && $datum->printable_form['orTechSigKey'] == 'yes') ? true : false)) && ($datum->doctor->sig_pic != '' || $referal_conso->doctor->sig_pic))
     <img src="{{ public_path('storage/doctor_files/' . (isset($referal_conso->doctor->sig_pic) ? $referal_conso->doctor->sig_pic : (!isset($referal_conso) ? $datum->doctor->sig_pic : ''))) }}" style="width:1in"><br>
     @endif
     <span>Surgeon: {{ isset($referal_conso->doctor->name) ? $referal_conso->doctor->name : (!isset($referal_conso) ? $datum->doctor->name : '') }} (Name & Signature)</span>
