@@ -141,6 +141,7 @@ class Consultation extends Model
         'docNotes',
         'icd_code',
         'assessment',
+        'post_op_assessment',
         'planMed',
         'plan',
         'planRem',

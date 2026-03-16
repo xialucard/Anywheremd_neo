@@ -81,6 +81,11 @@ return new class extends Migration
             $table->text('diet')->nullable();
             $table->text('diet_remarks')->nullable();
 
+            $table->text('dischargeSumSigKey')->nullable();
+            $table->text('opAdmitSigKey')->nullable();
+            $table->text('orTechSigKey')->nullable();
+            $table->text('postOpSigKey')->nullable();
+
             $table->timestamps();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();

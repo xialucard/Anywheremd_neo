@@ -470,6 +470,14 @@ class DoctorsHomeController extends Controller
                 $printableForm['intake_blood_thinner'] = "";
             if(!isset($printableForm['intake_maintenance_meds']))
                 $printableForm['intake_maintenance_meds'] = "";
+            if(!isset($printableForm['dischargeSumSigKey']))
+                $printableForm['dischargeSumSigKey'] = "";
+            if(!isset($printableForm['opAdmitSigKey']))
+                $printableForm['opAdmitSigKey'] = "";
+            if(!isset($printableForm['orTechSigKey']))
+                $printableForm['orTechSigKey'] = "";
+            if(!isset($printableForm['postOpSigKey']))
+                $printableForm['postOpSigKey'] = "";
 
             $tempPF = PrintableForm::where('consultation_id', $printableForm['consultation_id'])->get();
             if(!isset($tempPF[0]->id)){
@@ -602,6 +610,8 @@ class DoctorsHomeController extends Controller
             unset($params['docNotes']);
             $paramsRef['assessment'] = $params['assessment'];
             unset($params['assessment']);
+            $paramsRef['post_op_assessment'] = $params['post_op_assessment'];
+            unset($params['post_op_assessment']);
             $paramsRef['planMed'] = $params['planMed'];
             unset($params['planMed']);
             if(isset($params['plan'])){
@@ -650,6 +660,7 @@ class DoctorsHomeController extends Controller
             }
             if($params['icd_code'] != '')
                 $paramsRef['icd_code'] = explode(' - ', $params['icd_code'])[0];
+            // dd($paramsRef);
             $consultationObj->update($paramsRef);
             if(!empty($request->doctors_home['ConsultationFile']['files'])){
                 foreach($request->doctors_home['ConsultationFile']['files'] as $ind => $file){
@@ -803,9 +814,9 @@ class DoctorsHomeController extends Controller
         $prevBookingArr['patient'] = $doctors_home->patient;
 
         if(isset($doctors_home->parent_consultation)){
-            // $prevBookingArr['parent_doctor'] = $doctors_home->parent_consultation;
-            // $prevBookingArr['parent_doctor']['doctor'] = $doctors_home->parent_consultation->doctor;
-            // $prevBookingArr['parent_doctor']['clinic'] = $doctors_home->parent_consultation->clinic;
+            $prevBookingArr['parent_doctor'] = $doctors_home->parent_consultation;
+            $prevBookingArr['parent_doctor']['doctor'] = $doctors_home->parent_consultation->doctor;
+            $prevBookingArr['parent_doctor']['clinic'] = $doctors_home->parent_consultation->clinic;
             foreach($doctors_home->parent_consultation->consultation_files as $ind=>$consultation_file){
                 $prevBookingArr['consultation_files'][$ind]['file_link'] = asset($consultation_file->file_link);
                 $prevBookingArr['consultation_files'][$ind]['id'] = $consultation_file->id;

@@ -1477,7 +1477,27 @@ class ClinicsHomeController extends Controller
         $params['anywheremd_updated'] = date('Y-m-d H:i:s');
         $params['status'] = "DONE ENTRY";
         $params['client_id'] = $clinics_home->clinic_id;
-        Opdpatient::create($params);
+        $params['chiefcomplaints'] = $clinics_home->complain;
+        $params['admitdiag'] = $clinics_home->assessment;
+        $params['dischadiag'] = $clinics_home->post_op_assessment;
+        $params['histillness'] = $clinics_home->docNotesHPI;
+        $pastMedHistArr = json_decode($clinics_home->patient->pastMedicalHistory);
+        if(is_array($pastMedHistArr)){
+            foreach($pastMedHistArr as $ind=>$pmhArr){
+                if($pmhArr == 'Cancer' && $clinics_home->patient->pastMedicalHistoryCancer != '')
+                    $pastMedHistArr[$ind] = $pmhArr . ':' . $clinics_home->patient->pastMedicalHistoryCancer;
+                if($pmhArr == 'Others' && $clinics_home->patient->pastMedicalHistoryCancer != '')
+                    $pastMedHistArr[$ind] = $pmhArr . ':' . $clinics_home->patient->pastMedicalHistoryOthers;
+                if($pmhArr == '')
+                    unset($pastMedHistArr[$ind]);
+            }
+        }
+        $params['pertipasthist'] = implode(',', $pastMedHistArr);
+        $opdPatientRes = Opdpatient::where('anywheremd_id', $clinics_home->id)->get();
+        if(!isset($opdPatientRes[0]->id))
+            Opdpatient::create($params);
+        else
+            Opdpatient::where('anywheremd_id', $clinics_home->id)->update($params);
         return redirect()->route($this->viewFolder . '.index')->with('message', 'Entry has been sent to Drainwiz.');
         
     }

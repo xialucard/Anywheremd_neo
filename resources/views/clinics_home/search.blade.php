@@ -1,3 +1,8 @@
+{{-- <div class="form-floating mb-3">
+    <input type="text" name="{{ $viewFolder }}[id]" id="search_{{ $viewFolder }}_id" class="form-control" placeholder="" autocomplete="off" aria-describedby="helpId">
+    <label for="search_{{ $viewFolder }}_id" class="form-label">{{ str_replace('Input New ', '', $inputFormHeader) }} #</label>
+    <small id="help_search_{{ $viewFolder }}_id" class="text-muted"></small>
+</div> --}}
 <div class="form-floating mb-3">
     <input type="text" list="patientNameList" name="{{ $viewFolder }}[Patient][name]" id="search_{{ $viewFolder }}_name" class="form-control" placeholder="" autocomplete="off" aria-describedby="helpId">
     <label for="search_{{ $viewFolder }}_name" class="form-label">{{ str_replace('Input New ', '', $inputFormHeader) }} Patient's Name</label>

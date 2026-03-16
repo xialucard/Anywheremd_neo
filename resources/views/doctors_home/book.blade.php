@@ -27,6 +27,7 @@
       $bookings = $datum->patient->consultations()->where('booking_type', $datum->booking_type)->whereNull('consultation_parent_id')->whereIn('clinic_id', $doctorClinic)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
     $carryOverBookingsICD = $datum->patient->consultations()->whereNotNull('icd_code')->whereNull('consultation_parent_id')->whereIn('clinic_id', $doctorClinic)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
     $carryOverBookings = $datum->patient->consultations()->whereNotNull('assessment')->whereNull('consultation_parent_id')->whereIn('clinic_id', $doctorClinic)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+    $carryOverBookingsPostOp = $datum->patient->consultations()->whereNotNull('post_op_assessment')->whereNull('consultation_parent_id')->whereIn('clinic_id', $doctorClinic)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
     $carryOverBookingsHPI = $datum->patient->consultations()->whereNotNull('docNotesHPI')->whereNull('consultation_parent_id')->whereIn('clinic_id', $doctorClinic)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
     $carryOverBookingsPlanMed = $datum->patient->consultations()->whereNotNull('planMed')->whereNull('consultation_parent_id')->whereIn('clinic_id', $doctorClinic)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
     $carryOverBookingsPlan = $datum->patient->consultations()->whereNotNull('plan')->whereNull('consultation_parent_id')->whereIn('clinic_id', $doctorClinic)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
@@ -38,6 +39,7 @@
       $bookings = $datum->patient->consultations()->where('booking_type', $datum->booking_type)->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
     $carryOverBookingsICD = $datum->patient->consultations()->whereNotNull('icd_code')->whereNull('consultation_parent_id')->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
     $carryOverBookings = $datum->patient->consultations()->whereNotNull('assessment')->whereNull('consultation_parent_id')->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+    $carryOverBookingsPostOp = $datum->patient->consultations()->whereNotNull('post_op_assessment')->whereNull('consultation_parent_id')->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
     $carryOverBookingsHPI = $datum->patient->consultations()->whereNotNull('docNotesHPI')->whereNull('consultation_parent_id')->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
     $carryOverBookingsPlanMed = $datum->patient->consultations()->whereNotNull('planMed')->whereNull('consultation_parent_id')->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
     $carryOverBookingsPlan = $datum->patient->consultations()->whereNotNull('plan')->whereNull('consultation_parent_id')->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
@@ -1696,6 +1698,11 @@
               </div>
             </div>
             <ul class="nav nav-pills mb-3" id="referral_pill">
+              @if(isset($bookings[0]->consultation_parent_id) && $bookings[0]->consultation_parent_id != "")
+              <li class="nav-item">
+                <a class="nav-link docNotesLinkPrev" consultation-id="{{ $bookings[0]->parent_consultation->id }}" aria-current="page" href="#">{{ $user->name == $bookings[0]->parent_consultation->doctor->name ? 'Yours1 - ' . $bookings[0]->parent_consultation->clinic->name . ' | ' . (!empty($bookings[0]->parent_consultation->booking_type) ? $bookings[0]->parent_consultation->booking_type : 'Consultation') : 'Dr. ' . Str::substr($bookings[0]->parent_consultation->doctor->f_name, 0, 1) . '. ' . $bookings[0]->parent_consultation->doctor->l_name . ' - ' . $bookings[0]->parent_consultation->clinic->name . ' | ' . (!empty($bookings[0]->parent_consultation->booking_type) ? $bookings[0]->parent_consultation->booking_type : 'Consultation') }}</a>
+              </li>
+              @endif
               <li class="nav-item">
                 <a class="nav-link docNotesLinkPrev active" consultation-id="{{ $bookings[0]->id }}" aria-current="page" href="#">{{ $user->name == $bookings[0]->doctor->name ? 'Yours - ' . $bookings[0]->clinic->name . ' | ' . (!empty($bookings[0]->booking_type) ? $bookings[0]->booking_type : 'Consultation') : 'Dr. ' . Str::substr($bookings[0]->doctor->f_name, 0, 1) . '. ' . $bookings[0]->doctor->l_name . ' - ' . $bookings[0]->clinic->name . ' | ' . (!empty($bookings[0]->booking_type) ? $bookings[0]->booking_type : 'Consultation') }}</a>
               </li>
@@ -2604,6 +2611,7 @@
                     <p>
                       <strong>Primary Diagnosis:</strong> <span id="{{ $viewFolder }}_prev_sum_icd_code">{!! isset($bookings[0]->icd_code_obj) ? $bookings[0]->icd_code_obj->icd_code . ' - ' . $bookings[0]->icd_code_obj->details : '' !!}</span><br>
                       <strong>Secondary Diagnosis:</strong><br><span class="m-3" id="{{ $viewFolder }}_prev_sum_assessment">{!! isset($bookings[0]->assessment) ? nl2br($bookings[0]->assessment) : '' !!}</span><br>
+                      <strong>Discharge Diagnosis (Post-op Diagnosis):</strong><br><span class="m-3" id="{{ $viewFolder }}_prev_post_op_assessment">{!! isset($bookings[0]->post_op_assessment) ? nl2br($bookings[0]->post_op_assessment) : '' !!}</span><br>
                     </p>
                   </div>
                 </div>
@@ -2854,6 +2862,29 @@
                           <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                         </div>
                         <textarea class="form-control mb-2" name="{{ $viewFolder }}[_assessmentEdit]" id="{{ $viewFolder }}_assessmentEdit" rows=3 disabled></textarea>
+                      </div>
+                    </div>
+                    <div class="card mb-3">
+                      <div class="card-header">Previous Discharge Diagnosis (Post-op Diagnosis)</div>
+                      <div class="card-body">
+                        <small class="text-muted">Helper</small>
+                        <div class="input-group input-group-small flex-nowrap">
+                          <select class="form-select" placeholder="" disabled>
+                            <option value=""></option>
+                          </select>
+                          <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
+                        </div>
+                        <small class="text-muted">Content</small>
+                        <textarea class="form-control" name="{{ $viewFolder }}[post_op_assessment]" id="{{ $viewFolder }}_prev_post_op_assessment" rows=3 disabled>{{ $bookings[0]->post_op_assessment }}</textarea>
+                        <small class="text-muted">Helper Save/Edit</small>
+                        <div class="input-group input-group-small mb-3 flex-nowrap">
+                          <div class="input-group-text">
+                            <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                          </div>
+                          <input type="text" class="form-control" id="{{ $viewFolder }}_post_op_assessmentTitle" name="{{ $viewFolder }}[post_op_assessmentTitle]" disabled>
+                          <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                        </div>
+                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[_post_op_assessmentEdit]" id="{{ $viewFolder }}_post_op_assessmentEdit" rows=3 disabled></textarea>
                       </div>
                     </div>
                   </div>
@@ -5706,6 +5737,30 @@
                     }
                     $('#{{ $viewFolder }}_diet_remarks').val($('#{{ $viewFolder }}_parent_diet_remarks_hidden').val());
 
+                    if($('#{{ $viewFolder }}_parent_dischargeSumSigKey_hidden').val() == 'yes'){
+                      $('#{{ $viewFolder }}_dischargeSumSigKey_check').prop('checked', true);
+                    }else{
+                      $('#{{ $viewFolder }}_dischargeSumSigKey_check').prop('checked', true);
+                    }
+
+                    if($('#{{ $viewFolder }}_parent_opAdmitSigKey_hidden').val() == 'yes'){
+                      $('#{{ $viewFolder }}_opAdmitSigKey_check').prop('checked', true);
+                    }else{
+                      $('#{{ $viewFolder }}_opAdmitSigKey_check').prop('checked', true);
+                    }
+
+                    if($('#{{ $viewFolder }}_parent_orTechSigKey_hidden').val() == 'yes'){
+                      $('#{{ $viewFolder }}_orTechSigKey_check').prop('checked', true);
+                    }else{
+                      $('#{{ $viewFolder }}_orTechSigKey_check').prop('checked', true);
+                    }
+
+                    if($('#{{ $viewFolder }}_parent_postOpSigKey_hidden').val() == 'yes'){
+                      $('#{{ $viewFolder }}_postOpSigKey_check').prop('checked', true);
+                    }else{
+                      $('#{{ $viewFolder }}_postOpSigKey_check').prop('checked', true);
+                    }
+
                   ">{{ !isset($referal_conso) ? 'Yours - ' . $datum->clinic->name . ' | ' . ($datum->booking_type == '' ? 'Consultations' : $datum->booking_type) : 'Dr. ' . Str::substr($datum->doctor->f_name, 0, 1) . '. ' . $datum->doctor->l_name . ' - ' . $datum->clinic->name . ' | ' . ($datum->booking_type == '' ? 'Consultations' : $datum->booking_type)}}</a>
               </li>
               <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_prescription_hidden" value="{{ addslashes($datum->prescription) }}">
@@ -5732,8 +5787,8 @@
               <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_constrict_hidden" value="{{ isset($datum->printable_form['constrict']) ? addslashes($datum->printable_form['constrict']) : '' }}">
               <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_additional_orders_hidden" value="{{ isset($datum->printable_form['additional_orders']) ? addslashes($datum->printable_form['additional_orders']) : '' }}">
               
-              <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_pre_op_diagnosis_hidden" value="{{ isset($datum->printable_form['pre_op_diagnosis']) ? addslashes($datum->printable_form['pre_op_diagnosis']) : '' }}">
-              <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_post_op_diagnosis_hidden" value="{{ isset($datum->printable_form['post_op_diagnosis']) ? addslashes($datum->printable_form['post_op_diagnosis']) : '' }}">
+              <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_pre_op_diagnosis_hidden" value="{{ isset($datum->printable_form['pre_op_diagnosis']) ? addslashes($datum->printable_form['pre_op_diagnosis']) : $datum->assessment }}">
+              <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_post_op_diagnosis_hidden" value="{{ isset($datum->printable_form['post_op_diagnosis']) ? addslashes($datum->printable_form['post_op_diagnosis']) : $datum->post_opassessment }}">
               <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_procedure_performed_hidden" value="{{ isset($datum->printable_form['procedure_performed']) ? addslashes($datum->printable_form['procedure_performed']) : '' }}">
               <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_intraoperative_course_hidden" value="{{ isset($datum->printable_form['intraoperative_course']) ? addslashes($datum->printable_form['intraoperative_course']) : '' }}">
               <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_intraoperative_findings_hidden" value="{{ isset($datum->printable_form['intraoperative_findings']) ? addslashes($datum->printable_form['intraoperative_findings']) : '' }}">
@@ -5748,6 +5803,11 @@
               <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_avoid_days_hidden" value="{{ isset($datum->printable_form['avoid_days']) ? addslashes($datum->printable_form['avoid_days']) : '' }}">
               <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_diet_hidden" value="{{ isset($datum->printable_form['diet']) ? addslashes($datum->printable_form['diet']) : '' }}">
               <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_diet_remarks_hidden" value="{{ isset($datum->printable_form['diet_remarks']) ? addslashes($datum->printable_form['diet_remarks']) : '' }}">
+              
+              <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_dischargeSumSigKey_hidden" value="{{ isset($datum->printable_form['dischargeSumSigKey']) ? addslashes($datum->printable_form['dischargeSumSigKey']) : '' }}">
+              <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_opAdmitSigKey_hidden" value="{{ isset($datum->printable_form['opAdmitSigKey']) ? addslashes($datum->printable_form['opAdmitSigKey']) : '' }}">
+              <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_orTechSigKey_hidden" value="{{ isset($datum->printable_form['orTechSigKey']) ? addslashes($datum->printable_form['orTechSigKey']) : '' }}">
+              <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_postOpSigKey_hidden" value="{{ isset($datum->printable_form['postOpSigKey']) ? addslashes($datum->printable_form['postOpSigKey']) : '' }}">
               
               @if(isset($datum->consultation_referals[0]->id))
                 @foreach($datum->consultation_referals as $cr)
@@ -5966,6 +6026,30 @@
                       // $('#{{ $viewFolder }}_diet_remarks').prop('disabled', false);
                     }
                     $('#{{ $viewFolder }}_diet_remarks').val($('#{{ $viewFolder . $cr->id }}_diet_remarks_hidden').val());
+
+                    if($('#{{ $viewFolder }}_dischargeSumSigKey_hidden').val() == 'yes'){
+                      $('#{{ $viewFolder }}_dischargeSumSigKey_check').prop('checked', true);
+                    }else{
+                      $('#{{ $viewFolder }}_dischargeSumSigKey_check').prop('checked', true);
+                    }
+
+                    if($('#{{ $viewFolder }}_opAdmitSigKey_hidden').val() == 'yes'){
+                      $('#{{ $viewFolder }}_opAdmitSigKey_check').prop('checked', true);
+                    }else{
+                      $('#{{ $viewFolder }}_opAdmitSigKey_check').prop('checked', true);
+                    }
+
+                    if($('#{{ $viewFolder }}_orTechSigKey_hidden').val() == 'yes'){
+                      $('#{{ $viewFolder }}_orTechSigKey_check').prop('checked', true);
+                    }else{
+                      $('#{{ $viewFolder }}_orTechSigKey_check').prop('checked', true);
+                    }
+
+                    if($('#{{ $viewFolder }}_postOpSigKey_hidden').val() == 'yes'){
+                      $('#{{ $viewFolder }}_postOpSigKey_check').prop('checked', true);
+                    }else{
+                      $('#{{ $viewFolder }}_postOpSigKey_check').prop('checked', true);
+                    }
                 ">{{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'Yours - ' . $cr->clinic->name . ' | ' . ($cr->booking_type == '' ? 'Consultations' : $cr->booking_type) : 'Dr. ' . Str::substr($cr->doctor->f_name, 0, 1) . '. ' . $cr->doctor->l_name . ' - ' . $cr->clinic->name . ' | ' . ($cr->booking_type == '' ? 'Consultations' : $cr->booking_type) }}</a>
               </li>
                 <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_prescription_hidden" value="{{ addslashes($cr->prescription) }}">
@@ -5992,8 +6076,8 @@
                 <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_constrict_hidden" value="{{ isset($cr->printable_form['constrict']) ? addslashes($cr->printable_form['constrict']) : '' }}">
                 <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_additional_orders_hidden" value="{{ isset($cr->printable_form['additional_orders']) ? addslashes($cr->printable_form['additional_orders']) : '' }}">
                 
-                <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_pre_op_diagnosis_hidden" value="{{ isset($cr->printable_form['pre_op_diagnosis']) ? addslashes($cr->printable_form['pre_op_diagnosis']) : '' }}">
-                <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_post_op_diagnosis_hidden" value="{{ isset($cr->printable_form['post_op_diagnosis']) ? addslashes($cr->printable_form['post_op_diagnosis']) : '' }}">
+                <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_pre_op_diagnosis_hidden" value="{{ isset($cr->printable_form['pre_op_diagnosis']) ? addslashes($cr->printable_form['pre_op_diagnosis']) : $cr->assessment }}">
+                <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_post_op_diagnosis_hidden" value="{{ isset($cr->printable_form['post_op_diagnosis']) ? addslashes($cr->printable_form['post_op_diagnosis']) : $cr->post_op_assessment }}">
                 <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_procedure_performed_hidden" value="{{ isset($cr->printable_form['procedure_performed']) ? addslashes($cr->printable_form['procedure_performed']) : '' }}">
                 <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_intraoperative_course_hidden" value="{{ isset($cr->printable_form['intraoperative_course']) ? addslashes($cr->printable_form['intraoperative_course']) : '' }}">
                 <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_intraoperative_findings_hidden" value="{{ isset($cr->printable_form['intraoperative_findings']) ? addslashes($cr->printable_form['intraoperative_findings']) : '' }}">
@@ -6008,6 +6092,11 @@
                 <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_avoid_days_hidden" value="{{ isset($cr->printable_form['avoid_days']) ? addslashes($cr->printable_form['avoid_days']) : '' }}">
                 <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_diet_hidden" value="{{ isset($cr->printable_form['diet']) ? addslashes($cr->printable_form['diet']) : '' }}">
                 <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_diet_remarks_hidden" value="{{ isset($cr->printable_form['diet_remarks']) ? addslashes($cr->printable_form['diet_remarks']) : '' }}">
+                
+                <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_dischargeSumSigKey_hidden" value="{{ isset($cr->printable_form['dischargeSumSigKey']) ? addslashes($cr->printable_form['dischargeSumSigKey']) : '' }}">
+                <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_opAdmitSigKey_hidden" value="{{ isset($cr->printable_form['opAdmitSigKey']) ? addslashes($cr->printable_form['opAdmitSigKey']) : '' }}">
+                <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_orTechSigKey_hidden" value="{{ isset($cr->printable_form['orTechSigKey']) ? addslashes($cr->printable_form['orTechSigKey']) : '' }}">
+                <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_postOpSigKey_hidden" value="{{ isset($cr->printable_form['postOpSigKey']) ? addslashes($cr->printable_form['postOpSigKey']) : '' }}">
                 @endforeach
               @endif
             </ul>
@@ -6976,19 +7065,22 @@
                     <div class="card-header">Doctor's Notes</div>
                     <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                       <p>
-                        <strong>History of Present Illness:</strong><div class="m-3">{!! isset($datum->docNotesHPI) ? nl2br($datum->docNotesHPI) : nl2br((isset($carryOverBookingsHPI[0]->docNotesHPI) ? $carryOverBookingsHPI[0]->docNotesHPI : '')) !!}</div><br>
+                        <strong>History of Present Illness:</strong><div class="m-3 {{ $datum->docNotesHPI == "" ? 'text-danger' : ((isset($carryOverBookingsHPI[0]->docNotesHPI) && $datum->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $datum->docNotesHPI) ? 'text-danger' : '') }}">{!! isset($datum->docNotesHPI) ? nl2br($datum->docNotesHPI) : nl2br((isset($carryOverBookingsHPI[0]->docNotesHPI) && $datum->doctor_id == $carryOverBookingsHPI[0]->doctor_id ? $carryOverBookingsHPI[0]->docNotesHPI : '')) !!}</div><br>
                         <strong>Subjective Complaints:</strong><br><div class="m-3">{!! isset($datum->docNotesSubject) ? nl2br($datum->docNotesSubject) : '' !!}</div><br>
                         <strong>Objective Findings:</strong><br><div class="m-3">{!! isset($datum->docNotes) ? nl2br($datum->docNotes) : '' !!}</div><br>
                       </p>
+                      <small class="text-muted">Note: Red text means the input is carry over from the previous booking.</small>
                     </div>
                   </div>
                   <div class="card mb-3">
                     <div class="card-header">Assessment</div>
                     <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                       <p>
-                        <strong>Primary Diagnosis:</strong> {!! isset($datum->icd_code_obj) ? $datum->icd_code_obj->icd_code . ' - ' . $datum->icd_code_obj->details : (isset($carryOverBookingsICD[0]->icd_code_obj->icd_code) ? $carryOverBookingsICD[0]->icd_code_obj->icd_code . ' - ' . $carryOverBookingsICD[0]->icd_code_obj->details : '') !!}<br>
-                        <strong>Secondary Diagnosis:</strong><br><div class="m-3">{!! isset($datum->assessment) ? nl2br($datum->assessment) : nl2br(isset($carryOverBookings[0]->assessment) ? $carryOverBookings[0]->assessment : '') !!}</div><br>
+                        <strong>Primary Diagnosis:</strong> <div class="m-3 {{ $datum->icd_code_obj == "" ? 'text-danger' : ((isset($carryOverBookingsICD[0]->icd_code_obj->icd_code) && $datum->doctor_id == $carryOverBookingsICD[0]->doctor_id && $carryOverBookingsICD[0]->icd_code_obj->icd_code == $datum->icd_code_obj->icd_code) ? 'text-danger' : '') }}">{!! isset($datum->icd_code_obj) ? $datum->icd_code_obj->icd_code . ' - ' . $datum->icd_code_obj->details : (isset($carryOverBookingsICD[0]->icd_code_obj->icd_code) && $datum->doctor_id == $carryOverBookingsICD[0]->doctor_id ? $carryOverBookingsICD[0]->icd_code_obj->icd_code . ' - ' . $carryOverBookingsICD[0]->icd_code_obj->details : '') !!}</div><br>
+                        <strong>Secondary Diagnosis:</strong><br><div class="m-3 {{ $datum->assessment == "" ? 'text-danger' : ((isset($carryOverBookings[0]->assessment) && $datum->doctor_id == $carryOverBookings[0]->doctor_id && $carryOverBookings[0]->assessment == $datum->assessment) ? 'text-danger' : '') }}">{!! isset($datum->assessment) ? nl2br($datum->assessment) : nl2br(isset($carryOverBookings[0]->assessment) && $datum->doctor_id == $carryOverBookings[0]->doctor_id ? $carryOverBookings[0]->assessment : '') !!}</div><br>
+                        <strong>Discharge Diagnosis (Post-op Diagnosis):</strong><br><div class="m-3 {{ $datum->post_op_assessment == "" ? 'text-danger' : ((isset($carryOverBookingsPostOp[0]->post_op_assessment) && $datum->doctor_id == $carryOverBookingsPostOp[0]->doctor_id && $carryOverBookingsPostOp[0]->post_op_assessment == $datum->post_op_assessment) ? 'text-danger' : '') }}">{!! isset($datum->post_op_assessment) ? nl2br($datum->post_op_assessment) : nl2br(isset($carryOverBookingsPostOp[0]->post_op_assessment) && $datum->doctor_id == $carryOverBookingsPostOp[0]->doctor_id ? $carryOverBookingsPostOp[0]->post_op_assessment : '') !!}</div><br>
                       </p>
+                      <small class="text-muted">Note: Red text means the input is carry over from the previous booking.</small>
                     </div>
                   </div>
                   <div class="card mb-3">
@@ -6996,7 +7088,7 @@
                     <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                       @if($datum->booking_type == 'Dialysis')
                       <p>
-                        <strong>Plan:</strong><br><div class="m-3">{!! isset($datum->planMed) ? nl2br($datum->planMed) : nl2br(isset($carryOverBookingsPlanMed[0]->planMed) ? $carryOverBookingsPlanMed[0]->planMed : '') !!}</div><br>
+                        <strong>Plan:</strong><br><div class="m-3 {{ $datum->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed) ? 'text-danger' : '') }}">{!! isset($datum->planMed) ? nl2br($datum->planMed) : nl2br(isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id ? $carryOverBookingsPlanMed[0]->planMed : '') !!}</div><br>
                         <strong>Current Meds Onboard:</strong>
                         <div class="table-responsive" style="max-height: 300px">
                           <table class="table table-bordered table-striped table-hover table-sm medsOn">
@@ -7023,10 +7115,11 @@
                       </p>
                       @else
                       <p>
-                        <strong>Medical Therapeutics:</strong><br><div class="m-3">{!! isset($datum->planMed) ? nl2br($datum->planMed) : nl2br(isset($carryOverBookingsPlanMed[0]->planMed) ? $carryOverBookingsPlanMed[0]->planMed : '') !!}</div><br>
-                        <strong>Diagnostics and Surgery:</strong><br><div class="m-3">{!! isset($datum->plan) ? nl2br($datum->plan) : nl2br(isset($carryOverBookingsPlan[0]->plan) ? $carryOverBookingsPlan[0]->plan : '') !!}</div><br>
-                        <strong>Remarks:</strong><br><div class="m-3">{!! isset($datum->planRem) ? nl2br($datum->planRem) : nl2br(isset($carryOverBookingsPlanRem[0]->planRem) ? $carryOverBookingsPlanRem[0]->planRem : '') !!}</div><br>
+                        <strong>Medical Therapeutics:</strong><br><div class="m-3 {{ $datum->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed) ? 'text-danger' : '') }}">{!! isset($datum->planMed) ? nl2br($datum->planMed) : nl2br(isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id ? $carryOverBookingsPlanMed[0]->planMed : '') !!}</div><br>
+                        <strong>Diagnostics and Surgery:</strong><br><div class="m-3 {{ $datum->plan == "" ? 'text-danger' : ((isset($carryOverBookingsPlan[0]->plan) && $datum->doctor_id == $carryOverBookingsPlan[0]->doctor_id && $carryOverBookingsPlan[0]->plan == $datum->plan) ? 'text-danger' : '') }}">{!! isset($datum->plan) ? nl2br($datum->plan) : nl2br(isset($carryOverBookingsPlan[0]->plan) ? $carryOverBookingsPlan[0]->plan && $datum->doctor_id == $carryOverBookingsPlan[0]->doctor_id : '') !!}</div><br>
+                        <strong>Remarks:</strong><br><div class="m-3 {{ $datum->planRem == "" ? 'text-danger' : ((isset($carryOverBookingsPlanRem[0]->planRem) && $datum->doctor_id == $carryOverBookingsPlanRemx[0]->doctor_id && $carryOverBookingsPlanRem[0]->planRem == $datum->planRem) ? 'text-danger' : '') }}">{!! isset($datum->planRem) ? nl2br($datum->planRem) : nl2br(isset($carryOverBookingsPlanRem[0]->planRem) ? $carryOverBookingsPlanRem[0]->planRem && $datum->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id : '') !!}</div><br>
                       </p>
+                      <small class="text-muted">Note: Red text means the input is carry over from the previous booking.</small>
                       @endif
                     </div>
                   </div>
@@ -7038,19 +7131,22 @@
                     <div class="card-header">Doctor's Notes</div>
                     <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                       <p>
-                        <strong>History of Present Illness:</strong><div class="m-3">{!! isset($cr->docNotesHPI) ? nl2br($cr->docNotesHPI) : nl2br((isset($carryOverBookingsHPI[0]->docNotesHPI) ? $carryOverBookingsHPI[0]->docNotesHPI : '')) !!}</div><br>
+                        <strong>History of Present Illness:</strong><div class="m-3 {{ $cr->docNotesHPI == "" ? 'text-danger' : ((isset($carryOverBookingsHPI[0]->docNotesHPI) && $cr->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $cr->docNotesHPI) ? 'text-danger' : '') }}">{!! isset($cr->docNotesHPI) ? nl2br($cr->docNotesHPI) : nl2br((isset($carryOverBookingsHPI[0]->docNotesHPI) && $datum->doctor_id == $carryOverBookingsHPI[0]->doctor_id ? $carryOverBookingsHPI[0]->docNotesHPI : '')) !!}</div><br>
                         <strong>Subjective Complaints:</strong><br><div class="m-3">{!! isset($cr->docNotesSubject) ? nl2br($cr->docNotesSubject) : '' !!}</div><br>
                         <strong>Objective Findings:</strong><br><div class="m-3">{!! isset($cr->docNotes) ? nl2br($cr->docNotes) : '' !!}</div><br>
                       </p>
+                      <small class="text-muted">Note: Red text means the input is carry over from the previous booking.</small>
                     </div>
                   </div>
                   <div class="card mb-3">
                     <div class="card-header">Assessment</div>
                     <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                       <p>
-                        <strong>Primary Diagnosis:</strong> {!! isset($cr->icd_code_obj) ? $cr->icd_code_obj->icd_code . ' - ' . $cr->icd_code_obj->details : '' !!}<br>
-                        <strong>Secondary Diagnosis:</strong><br><div class="m-3">{!! isset($cr->assessment) ? nl2br($cr->assessment) : nl2br(isset($carryOverBookings[0]->assessment) ? $carryOverBookings[0]->assessment : '') !!}</div><br>
+                        <strong>Primary Diagnosis:</strong> <div class="m-3 {{ $cr->icd_code_obj == "" ? 'text-danger' : ((isset($carryOverBookingsICD[0]->icd_code_obj->icd_code) && $cr->doctor_id == $carryOverBookingsICD[0]->doctor_id && $carryOverBookingsICD[0]->icd_code_obj->icd_code == $cr->icd_code_obj->icd_code) ? 'text-danger' : '') }}">{!! isset($cr->icd_code_obj) ? $cr->icd_code_obj->icd_code . ' - ' . $cr->icd_code_obj->details : (isset($carryOverBookingsICD[0]->icd_code_obj->icd_code) && $cr->doctor_id == $carryOverBookingsHPI[0]->doctor_id ? $carryOverBookingsICD[0]->icd_code_obj->icd_code . ' - ' . $carryOverBookingsICD[0]->icd_code_obj->details : '') !!}</div><br>
+                        <strong>Secondary Diagnosis:</strong><br><div class="m-3 {{ $cr->assessment == "" ? 'text-danger' : ((isset($carryOverBookings[0]->assessment) && $cr->doctor_id == $carryOverBookings[0]->doctor_id && $carryOverBookings[0]->assessment == $cr->assessment) ? 'text-danger' : '') }}">{!! isset($cr->assessment) ? nl2br($cr->assessment) : nl2br(isset($carryOverBookings[0]->assessment) && $cr->doctor_id == $carryOverBookings[0]->doctor_id ? $carryOverBookings[0]->assessment : '') !!}</div><br>
+                        <strong>Discharge Diagnosis (Post-op Diagnosis):</strong><br><div class="m-3 {{ $cr->post_op_assessment == "" ? 'text-danger' : ((isset($carryOverBookingsPostOp[0]->post_op_assessment) && $cr->doctor_id == $carryOverBookingsPostOp[0]->doctor_id && $carryOverBookingsPostOp[0]->post_op_assessment == $cr->post_op_assessment) ? 'text-danger' : '') }}">{!! isset($cr->post_op_assessment) ? nl2br($cr->post_op_assessment) : nl2br(isset($carryOverBookingsPostOp[0]->post_op_assessment) && $cr->doctor_id == $carryOverBookingsPostOp[0]->doctor_id ? $carryOverBookingsPostOp[0]->post_op_assessment : '') !!}</div><br>
                       </p>
+                      <small class="text-muted">Note: Red text means the input is carry over from the previous booking.</small>
                     </div>
                   </div>
                   <div class="card mb-3">
@@ -7058,7 +7154,7 @@
                     <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                       @if($cr->booking_type == 'Dialysis')
                       <p>
-                        <strong>Plan:</strong><br><div class="m-3">{!! isset($cr->planMed) ? nl2br($cr->planMed) : '' !!}</div><br>
+                        <strong>Plan:</strong><br><div class="m-3 {{ $cr->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $cr->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $cr->planMed) ? 'text-danger' : '') }}">{!! isset($cr->planMed) ? nl2br($cr->planMed) : nl2br(isset($carryOverBookingsPlanMed[0]->planMed) ? $carryOverBookingsPlanMed[0]->planMed : '') !!}</div><br>
                         <strong>Current Meds Onboard:</strong>
                         <div class="table-responsive" style="max-height: 300px">
                           <table class="table table-bordered table-striped table-hover table-sm medsOn">
@@ -7085,10 +7181,11 @@
                       </p>
                       @else
                       <p>
-                        <strong>Medical Therapeutics:</strong><br><div class="m-3">{!! isset($cr->planMed) ? nl2br($cr->planMed) : '' !!}</div><br>
-                        <strong>Diagnostics and Surgery:</strong><br><div class="m-3">{!! isset($cr->plan) ? nl2br($cr->plan) : '' !!}</div><br>
-                        <strong>Remarks:</strong><br><div class="m-3">{!! isset($cr->planRem) ? nl2br($cr->planRem) : '' !!}</div><br>
+                        <strong>Medical Therapeutics:</strong><br><div class="m-3 {{ $cr->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $cr->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $cr->planMed) ? 'text-danger' : '') }}">{!! isset($cr->planMed) ? nl2br($cr->planMed) : nl2br(isset($carryOverBookingsPlanMed[0]->planMed) && $cr->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id ? $carryOverBookingsPlanMed[0]->planMed : '') !!}</div><br>
+                        <strong>Diagnostics and Surgery:</strong><br><div class="m-3 {{ $cr->plan == "" ? 'text-danger' : ((isset($carryOverBookingsPlan[0]->plan) && $cr->doctor_id == $carryOverBookingsPlan[0]->doctor_id && $carryOverBookingsPlan[0]->plan == $cr->plan) ? 'text-danger' : '') }}">{!! isset($cr->plan) ? nl2br($cr->plan) : nl2br(isset($carryOverBookingsPlan[0]->plan) && $cr->doctor_id == $carryOverBookingsPlan[0]->doctor_id ? $carryOverBookingsPlan[0]->plan : '') !!}</div><br>
+                        <strong>Remarks:</strong><br><div class="m-3 {{ $cr->planRem == "" ? 'text-danger' : ((isset($carryOverBookingsPlanRem[0]->planRem) && $cr->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id && $carryOverBookingsPlanRem[0]->planRem == $cr->planRem) ? 'text-danger' : '') }}">{!! isset($cr->planRem) ? nl2br($cr->planRem) : nl2br(isset($carryOverBookingsPlanRem[0]->planRem) && $cr->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id ? $carryOverBookingsPlanRem[0]->planRem : '') !!}</div><br>
                       </p>
+                      <small class="text-muted">Note: Red text means the input is carry over from the previous booking.</small>
                       @endif
                     </div>
                   </div>
@@ -7132,7 +7229,8 @@
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso) ? '' : 'disabled' }}>Delete Helper</button>
                           </div>
                           <small class="text-muted">Content</small>
-                          <textarea class="form-control" name="{{ $viewFolder }}[docNotesHPI]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_docNotesHPI" @endif rows=3 {{ !isset($referal_conso)  ? '' : 'disabled' }}>{{ isset($datum->docNotesHPI) ? $datum->docNotesHPI : (isset($carryOverBookingsHPI[0]->docNotesHPI) ? $carryOverBookingsHPI[0]->docNotesHPI : '') }}</textarea>
+                          <textarea class="form-control {{ $datum->docNotesHPI == "" ? 'text-danger' : ((isset($carryOverBookingsHPI[0]->docNotesHPI) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $datum->docNotesHPI) ? 'text-danger' : '') }}" name="{{ $viewFolder }}[docNotesHPI]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_docNotesHPI" @endif rows=3 {{ !isset($referal_conso)  ? '' : 'disabled' }}>{{ isset($datum->docNotesHPI) ? $datum->docNotesHPI : (isset($carryOverBookingsHPI[0]->docNotesHPI) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id ? $carryOverBookingsHPI[0]->docNotesHPI : '') }}</textarea>
+                          <small class="text-muted mb-3">Note: Red text means the input is carry over from the previous booking.</small><br>
                           <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
@@ -7281,9 +7379,9 @@
                         {{-- <select class="form-select" name="{{ $viewFolder }}[icd_code]" id="{{ $viewFolder }}_icd_code" placeholder="" {{ $user->id == $datum->doctor->id ? '' : 'disabled' }}>
                           <option value=""></option>
                         </select> --}}
-                        <input class="form-control" list="icdCodeList" {{ !isset($referal_conso) ? 'id=' . $viewFolder . '_icd_code' : '' }} name="{{ $viewFolder }}[icd_code]" value="{{ isset($datum->icd_code_obj->icd_code) ? $datum->icd_code_obj->icd_code . ' - ' . $datum->icd_code_obj->details : (isset($carryOverBookingsICD[0]->icd_code_obj) ? $carryOverBookingsICD[0]->icd_code_obj->icd_code . ' - ' . $carryOverBookingsICD[0]->icd_code_obj->details : '') }}" autocomplete="off" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                        <input class="form-control {{ !isset($datum->icd_code_obj->icd_code) ? 'text-danger' : ((isset($carryOverBookingsICD[0]->icd_code_obj->icd_code) && $datum->doctor_id == $carryOverBookingsICD[0]->doctor_id && $carryOverBookingsICD[0]->icd_code_obj->icd_code == $datum->icd_code_obj->icd_code) ? 'text-danger' : '') }}" list="icdCodeList" {{ !isset($referal_conso) ? 'id=' . $viewFolder . '_icd_code' : '' }} name="{{ $viewFolder }}[icd_code]" value="{{ isset($datum->icd_code_obj->icd_code) ? $datum->icd_code_obj->icd_code . ' - ' . $datum->icd_code_obj->details : (isset($carryOverBookingsICD[0]->icd_code_obj) && $datum->doctor_id == $carryOverBookingsICD[0]->doctor_id ? $carryOverBookingsICD[0]->icd_code_obj->icd_code . ' - ' . $carryOverBookingsICD[0]->icd_code_obj->details : '') }}" autocomplete="off" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
                         <label for="{{ $viewFolder }}_icd_code">Primary Diagnosis</label>
-                        <small id="help_{{ $viewFolder }}_icd_code" class="text-muted"></small>
+                        <small id="help_{{ $viewFolder }}_icd_code" class="text-muted">Note: Red text means the input is carry over from the previous booking.</small>
                       </div>
                       <div class="card mb-3">
                         <div class="card-header">Secondary Diagnosis</div>
@@ -7296,9 +7394,13 @@
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
                           </div>
                           <small class="text-muted">Content</small>
-                          <textarea class="form-control" name="{{ $viewFolder }}[assessment]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_assessment" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }} onchange="
+                          <textarea class="form-control {{ $datum->assessment == "" ? 'text-danger' : ((isset($carryOverBookings[0]->assessment) && $datum->doctor_id == $carryOverBookings[0]->doctor_id && $carryOverBookings[0]->assessment == $datum->assessment) ? 'text-danger' : '') }}" name="{{ $viewFolder }}[assessment]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_assessment" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }} onchange="
                             $('#{{ $viewFolder }}_diagnosis').val($(this).val());
-                          ">{{ isset($datum->assessment) ? $datum->assessment : (isset($carryOverBookings[0]->assessment) ? $carryOverBookings[0]->assessment : '') }}</textarea>
+                            $('#{{ $viewFolder }}_parent_diagnosis_hidden').val($(this).val());
+                            $('#{{ $viewFolder }}_pre_op_diagnosis').val($(this).val());
+                            $('#{{ $viewFolder }}_parent_pre_op_diagnosis_hidden').val($(this).val());
+                          ">{{ isset($datum->assessment) ? $datum->assessment : (isset($carryOverBookings[0]->assessment) && $datum->doctor_id == $carryOverBookings[0]->doctor_id ? $carryOverBookings[0]->assessment : '') }}</textarea>
+                          <small class="text-muted mb-3">Note: Red text means the input is carry over from the previous booking.</small><br>
                           <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
@@ -7308,6 +7410,33 @@
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                           </div>
                           <textarea class="form-control mb-2" name="{{ $viewFolder }}[_assessmentEdit]" id="{{ $viewFolder }}_assessmentEdit" rows=3 disabled></textarea>
+                        </div>
+                      </div>
+                      <div class="card mb-3">
+                        <div class="card-header">Discharge Diagnosis (Post-op Diagnosis)</div>
+                        <div class="card-body">
+                          <small class="text-muted">Helper</small>
+                          <div class="input-group input-group-small flex-nowrap">
+                            <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                              <option value=""></option>
+                            </select>
+                            <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
+                          </div>
+                          <small class="text-muted">Content</small>
+                          <textarea class="form-control {{ $datum->post_op_assessment == "" ? 'text-danger' : ((isset($carryOverBookingsPostOp[0]->post_op_assessment) && $datum->doctor_id == $carryOverBookingsPostOp[0]->doctor_id && $carryOverBookingsPostOp[0]->post_op_assessment == $datum->post_op_assessment) ? 'text-danger' : '') }}" name="{{ $viewFolder }}[post_op_assessment]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_post_op_assessment" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }} onchange="
+                            $('#{{ $viewFolder }}_post_op_diagnosis').val($(this).val());
+                            $('#{{ $viewFolder }}_parent_post_op_diagnosis_hidden').val($(this).val());
+                          ">{{ isset($datum->post_op_assessment) ? $datum->post_op_assessment : (isset($carryOverBookingsPostOp[0]->post_op_assessment) && $datum->doctor_id == $carryOverBookingsPostOp[0]->doctor_id ? $carryOverBookingsPostOp[0]->post_op_assessment : '') }}</textarea>
+                          <small class="text-muted mb-3">Note: Red text means the input is carry over from the previous booking.</small><br>
+                          <small class="text-muted">Helper Save/Edit</small>
+                          <div class="input-group input-group-small mb-3 flex-nowrap">
+                            <div class="input-group-text">
+                              <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                            </div>
+                            <input type="text" class="form-control" id="{{ $viewFolder }}_post_op_assessmentTitle" name="{{ $viewFolder }}[post_op_assessmentTitle]" disabled>
+                            <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                          </div>
+                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[_post_op_assessmentEdit]" id="{{ $viewFolder }}_post_op_assessmentEdit" rows=3 disabled></textarea>
                         </div>
                       </div>
                     </div>
@@ -7327,7 +7456,8 @@
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
                           </div>
                           <small class="text-muted">Content</small>
-                          <textarea class="form-control" name="{{ $viewFolder }}[planMed]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_planMed" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }}>{{ isset($datum->planMed) ? $datum->planMed : (isset($carryOverBookingsPlanMed[0]->planMed) ? $carryOverBookingsPlanMed[0]->planMed : '') }}</textarea>
+                          <textarea class="form-control {{ $datum->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed) ? 'text-danger' : '') }}" name="{{ $viewFolder }}[planMed]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_planMed" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }}>{{ isset($datum->planMed) ? $datum->planMed : (isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id ? $carryOverBookingsPlanMed[0]->planMed : '') }}</textarea>
+                          <small class="text-muted mb-3">Note: Red text means the input is carry over from the previous booking.</small><br>
                           <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
@@ -7350,7 +7480,8 @@
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
                           </div>
                           <small class="text-muted">Content</small>
-                          <textarea class="form-control" name="{{ $viewFolder }}[plan]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_plan" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }}>{{ isset($datum->plan) ? $datum->plan : (isset($carryOverBookingsPlan[0]->plan) ? $carryOverBookingsPlan[0]->plan : '') }}</textarea>
+                          <textarea class="form-control {{ $datum->plan == "" ? 'text-danger' : ((isset($carryOverBookingsPlan[0]->plan) && $datum->doctor_id == $carryOverBookingsPlan[0]->doctor_id && $carryOverBookingsPlan[0]->plan == $datum->plan) ? 'text-danger' : '') }}" name="{{ $viewFolder }}[plan]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_plan" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }}>{{ isset($datum->plan) ? $datum->plan : (isset($carryOverBookingsPlan[0]->plan) && $datum->doctor_id == $carryOverBookingsPlan[0]->doctor_id ? $carryOverBookingsPlan[0]->plan : '') }}</textarea>
+                          <small class="text-muted mb-3">Note: Red text means the input is carry over from the previous booking.</small><br>
                           <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
@@ -7373,7 +7504,8 @@
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
                           </div>
                           <small class="text-muted">Content</small>
-                          <textarea class="form-control" name="{{ $viewFolder }}[planRem]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_planRem" @endif rows=3 {{ !isset($referal_conso)  ? '' : 'disabled' }}>{{ isset($datum->planRem) ? $datum->planRem : (isset($carryOverBookingsPlanRem[0]->planRem) ? $carryOverBookingsPlanRem[0]->planRem : '') }}</textarea>
+                          <textarea class="form-control {{ $datum->planRem == "" ? 'text-danger' : ((isset($carryOverBookingsPlanRem[0]->planRem) && $datum->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id && $carryOverBookingsPlanRem[0]->planRem == $datum->planRem) ? 'text-danger' : '') }}" name="{{ $viewFolder }}[planRem]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_planRem" @endif rows=3 {{ !isset($referal_conso)  ? '' : 'disabled' }}>{{ isset($datum->planRem) ? $datum->planRem : (isset($carryOverBookingsPlanRem[0]->planRem) && $datum->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id ? $carryOverBookingsPlanRem[0]->planRem : '') }}</textarea>
+                          <small class="text-muted mb-3">Note: Red text means the input is carry over from the previous booking.</small><br>
                           <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
@@ -7397,7 +7529,8 @@
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
                           </div>
                           <small class="text-muted">Content</small>
-                          <textarea class="form-control" name="{{ $viewFolder }}[planMed]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_planMed" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }}>{{ isset($datum->planMed) ? $datum->planMed : (isset($carryOverBookingsPlanMed[0]->planMed) ? $carryOverBookingsPlanMed[0]->planMed : '') }}</textarea>
+                          <textarea class="form-control {{ $datum->planRem == "" ? 'text-danger' : ((isset($carryOverBookingsPlanRem[0]->planRem) && $datum->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id && $carryOverBookingsPlanRem[0]->planRem == $datum->planRem) ? 'text-danger' : '') }}" name="{{ $viewFolder }}[planMed]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_planMed" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }}>{{ isset($datum->planMed) ? $datum->planMed : (isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id ? $carryOverBookingsPlanMed[0]->planMed : '') }}</textarea>
+                          <small class="text-muted mb-3">Note: Red text means the input is carry over from the previous booking.</small><br>
                           <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
@@ -7623,7 +7756,8 @@
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>Delete Helper</button>
                           </div>
                           <small class="text-muted">Content</small>
-                          <textarea class="form-control" name="{{ $viewFolder }}[docNotesHPI]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_docNotesHPI" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>{{ isset($cr->docNotesHPI) ? $cr->docNotesHPI : nl2br((isset($carryOverBookingsHPI[0]->docNotesHPI) ? $carryOverBookingsHPI[0]->docNotesHPI : '')) }}</textarea>
+                          <textarea class="form-control {{ $cr->docNotesHPI == "" ? 'text-danger' : ((isset($carryOverBookingsHPI[0]->docNotesHPI) && $cr->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $cr->docNotesHPI) ? 'text-danger' : '') }}" name="{{ $viewFolder }}[docNotesHPI]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_docNotesHPI" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>{{ isset($cr->docNotesHPI) ? $cr->docNotesHPI : nl2br((isset($carryOverBookingsHPI[0]->docNotesHPI) && $cr->doctor_id == $carryOverBookingsHPI[0]->doctor_id ? $carryOverBookingsHPI[0]->docNotesHPI : '')) }}</textarea>
+                          <small class="text-muted mb-3">Note: Red text means the input is carry over from the previous booking.</small><br>
                           <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
@@ -7772,7 +7906,7 @@
                         {{-- <select class="form-select" name="{{ $viewFolder }}[icd_code]" id="{{ $viewFolder }}_icd_code" placeholder="" {{ $user->id == $cr->doctor->id ? '' : 'disabled' }}>
                           <option value=""></option>
                         </select> --}}
-                        <input class="form-control" list="icdCodeList" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'id=' . $viewFolder . '_icd_code' : '' }} name="{{ $viewFolder }}[icd_code]" value="{{ isset($cr->icd_code_obj->icd_code) ? $cr->icd_code_obj->icd_code . ' - ' . $cr->icd_code_obj->details : '' }}" autocomplete="off" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>
+                        <input class="form-control {{ !isset($cr->icd_code_obj->icd_code) ? 'text-danger' : ((isset($carryOverBookingsICD[0]->icd_code_obj->icd_code) && $cr->doctor_id == $carryOverBookingsICD[0]->doctor_id && $carryOverBookingsICD[0]->icd_code_obj->icd_code == $cr->icd_code_obj->icd_code) ? 'text-danger' : '') }}" list="icdCodeList" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'id=' . $viewFolder . '_icd_code' : '' }} name="{{ $viewFolder }}[icd_code]" value="{{ isset($cr->icd_code_obj->icd_code) ? $cr->icd_code_obj->icd_code . ' - ' . $cr->icd_code_obj->details : (isset($carryOverBookingsICD[0]->icd_code_obj) && $cr->doctor_id == $carryOverBookingsICD[0]->doctor_id ? $carryOverBookingsICD[0]->icd_code_obj->icd_code . ' - ' . $carryOverBookingsICD[0]->icd_code_obj->details : '') }}" autocomplete="off" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>
                         <label for="{{ $viewFolder }}_icd_code">Primary Diagnosis</label>
                         <small id="help_{{ $viewFolder }}_icd_code" class="text-muted"></small>
                       </div>
@@ -7787,9 +7921,13 @@
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>Delete Helper</button>
                           </div>
                           <small class="text-muted">Content</small>
-                          <textarea class="form-control" name="{{ $viewFolder }}[assessment]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_assessment" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }}  onchange="
+                          <textarea class="form-control {{ $cr->assessment == "" ? 'text-danger' : ((isset($carryOverBookings[0]->assessment) && $cr->doctor_id == $carryOverBookings[0]->doctor_id && $carryOverBookings[0]->assessment == $cr->assessment) ? 'text-danger' : '') }}" name="{{ $viewFolder }}[assessment]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_assessment" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }}  onchange="
                             $('#{{ $viewFolder }}_diagnosis').val($(this).val());
-                          ">{{ isset($cr->assessment) ? $cr->assessment : (isset($carryOverBookings[0]->assessment) ? $carryOverBookings[0]->assessment : '') }}</textarea>
+                            $('#{{ $viewFolder . $cr->id }}_diagnosis_hidden').val($(this).val());
+                            $('#{{ $viewFolder }}_pre_op_diagnosis').val($(this).val());
+                            $('#{{ $viewFolder . $cr->id }}_pre_op_diagnosis_hidden').val($(this).val());
+                          ">{{ isset($cr->assessment) ? $cr->assessment : (isset($carryOverBookings[0]->assessment) && $cr->doctor_id == $carryOverBookings[0]->doctor_id ? $carryOverBookings[0]->assessment : '') }}</textarea>
+                          <small class="text-muted mb-3">Note: Red text means the input is carry over from the previous booking.</small><br>
                           <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
@@ -7799,6 +7937,33 @@
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                           </div>
                           <textarea class="form-control mb-2" name="{{ $viewFolder }}[_assessmentEdit]" id="{{ $viewFolder }}_assessmentEdit" rows=3 disabled></textarea>
+                        </div>
+                      </div>
+                      <div class="card mb-3">
+                        <div class="card-header">Discharge Diagnosis (Post-op Diagnosis)</div>
+                        <div class="card-body">
+                          <small class="text-muted">Helper</small>
+                          <div class="input-group input-group-small flex-nowrap">
+                            <select class="form-select" placeholder="" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>
+                              <option value=""></option>
+                            </select>
+                            <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>Delete Helper</button>
+                          </div>
+                          <small class="text-muted">Content</small>
+                          <textarea class="form-control {{ $cr->post_op_assessment == "" ? 'text-danger' : ((isset($carryOverBookingsPostOp[0]->post_op_assessment) && $cr->doctor_id == $carryOverBookingsPostOp[0]->doctor_id && $carryOverBookingsPostOp[0]->post_op_assessment == $cr->post_op_assessment) ? 'text-danger' : '') }}" name="{{ $viewFolder }}[post_op_assessment]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_post_op_assessment" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }}  onchange="
+                            $('#{{ $viewFolder }}_post_op_diagnosis').val($(this).val());
+                            $('#{{ $viewFolder . $cr->id }}_post_op_diagnosis_hidden').val($(this).val());
+                          ">{{ isset($cr->post_op_assessment) ? $cr->post_op_assessment : (isset($carryOverBookingsPostOp[0]->post_op_assessment) && $cr->doctor_id == $carryOverBookingsPostOp[0]->doctor_id ? $carryOverBookingsPostOp[0]->post_op_assessment : '') }}</textarea>
+                          <small class="text-muted mb-3">Note: Red text means the input is carry over from the previous booking.</small><br>
+                          <small class="text-muted">Helper Save/Edit</small>
+                          <div class="input-group input-group-small mb-3 flex-nowrap">
+                            <div class="input-group-text">
+                              <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                            </div>
+                            <input type="text" class="form-control" id="{{ $viewFolder }}_post_op_assessmentTitle" name="{{ $viewFolder }}[post_op_assessmentTitle]" disabled>
+                            <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                          </div>
+                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[_post_op_assessmentEdit]" id="{{ $viewFolder }}_post_op_assessmentEdit" rows=3 disabled></textarea>
                         </div>
                       </div>
                     </div>
@@ -7819,7 +7984,8 @@
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>Delete Helper</button>
                           </div>
                           <small class="text-muted">Content</small>
-                          <textarea class="form-control" name="{{ $viewFolder }}[planMed]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_planMed" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }}>{{ isset($cr->planMed) ? $cr->planMed : '' }}</textarea>
+                          <textarea class="form-control {{ $cr->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $cr->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $cr->planMed) ? 'text-danger' : '') }}" name="{{ $viewFolder }}[planMed]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_planMed" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }}>{{ isset($cr->planMed) ? $cr->planMed : (isset($carryOverBookingsPlanMed[0]->planMed) && $cr->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id ? $carryOverBookingsPlanMed[0]->planMed : '') }}</textarea>
+                          <small class="text-muted mb-3">Note: Red text means the input is carry over from the previous booking.</small><br>
                           <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
@@ -7842,7 +8008,8 @@
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>Delete Helper</button>
                           </div>
                           <small class="text-muted">Content</small>
-                          <textarea class="form-control" name="{{ $viewFolder }}[plan]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_plan" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }}>{{ isset($cr->plan) ? $cr->plan : '' }}</textarea>
+                          <textarea class="form-control {{ $cr->plan == "" ? 'text-danger' : ((isset($carryOverBookingsPlan[0]->plan) && $cr->doctor_id == $carryOverBookingsPlan[0]->doctor_id && $carryOverBookingsPlan[0]->plan == $cr->plan) ? 'text-danger' : '') }}" name="{{ $viewFolder }}[plan]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_plan" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }}>{{ isset($cr->plan) ? $cr->plan : (isset($carryOverBookingsPlan[0]->plan) && $cr->doctor_id == $carryOverBookingsPlan[0]->doctor_id ? $carryOverBookingsPlan[0]->plan : '') }}</textarea>
+                          <small class="text-muted mb-3">Note: Red text means the input is carry over from the previous booking.</small><br>
                           <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
@@ -7865,7 +8032,8 @@
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>Delete Helper</button>
                           </div>
                           <small class="text-muted">Content</small>
-                          <textarea class="form-control" name="{{ $viewFolder }}[planRem]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_planRem" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>{{ isset($cr->planRem) ? $cr->planRem : '' }}</textarea>
+                          <textarea class="form-control {{ $cr->planRem == "" ? 'text-danger' : ((isset($carryOverBookingsPlanRem[0]->planRem) && $cr->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id && $carryOverBookingsPlanRem[0]->planRem == $cr->planRem) ? 'text-danger' : '') }}" name="{{ $viewFolder }}[planRem]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_planRem" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>{{ isset($cr->planRem) ? $cr->planRem : (isset($carryOverBookingsPlanRem[0]->planRem) && $cr->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id ? $carryOverBookingsPlanRem[0]->planRem : '') }}</textarea>
+                          <small class="text-muted mb-3">Note: Red text means the input is carry over from the previous booking.</small><br>
                           <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
@@ -7889,7 +8057,8 @@
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>Delete Helper</button>
                           </div>
                           <small class="text-muted">Content</small>
-                          <textarea class="form-control" name="{{ $viewFolder }}[planMed]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_planMed" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }}>{{ isset($cr->planMed) ? $cr->planMed : '' }}</textarea>
+                          <textarea class="form-control {{ $cr->planRem == "" ? 'text-danger' : ((isset($carryOverBookingsPlanRem[0]->planRem) && $cr->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id && $carryOverBookingsPlanRem[0]->planRem == $cr->planRem) ? 'text-danger' : '') }}" name="{{ $viewFolder }}[planMed]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_planMed" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }}>{{ isset($cr->planRem) ? $cr->planRem : (isset($carryOverBookingsPlanRem[0]->planRem) && $cr->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id ? $carryOverBookingsPlanRem[0]->planRem : '') }}</textarea>
+                          <small class="text-muted mb-3">Note: Red text means the input is carry over from the previous booking.</small><br>
                           <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
@@ -8356,7 +8525,7 @@
                           }
                         ">{{ isset($datum->diagnosis) ? $datum->diagnosis : '' }}</textarea>
                       <label for="{{ $viewFolder }}_diagnosis" class="form-label">Diagnosis</label>
-                      <small id="help_{{ $viewFolder }}_diagnosis" class="text-muted"></small>
+                      <small id="help_{{ $viewFolder }}_diagnosis" class="text-muted">By default the information is from SOAP Secondary Diagnosis unless edited here.</small>
                     </div>
                     <div class="form-floating mb-3">
                       <textarea class="form-control" name="{{ $viewFolder }}[recommendations]" id="{{ $viewFolder }}_recommendations" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
@@ -8617,8 +8786,9 @@
                 <div class="card mb-3">
                   <div class="card-header">Form Inputs</div>
                   <div class="card-body">
+                    <div class="mb-3">
                     <label for="{{ $viewFolder }}_pre_op_diagnosis" class="form-label">Pre-Operative Diagnosis</label>
-                    <textarea class="form-control mb-3" name="{{ $viewFolder }}[PrintableForm][pre_op_diagnosis]" id="{{ $viewFolder }}_pre_op_diagnosis" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
+                    <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][pre_op_diagnosis]" id="{{ $viewFolder }}_pre_op_diagnosis" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
                           if($('#{{ $viewFolder }}_pre_op_diagnosis').val() == ''){
                             $('.createPDFDischargeSum').each(function(){
                               $(this).prop('disabled', true);
@@ -8628,9 +8798,12 @@
                               $(this).prop('disabled', false);
                             });
                           }
-                        ">{{ isset($datum->printable_form['pre_op_diagnosis']) ? $datum->printable_form['pre_op_diagnosis'] : '' }}</textarea>
+                        ">{{ isset($datum->printable_form['pre_op_diagnosis']) ? $datum->printable_form['pre_op_diagnosis'] : $datum->assessment }}</textarea>
+                    <small id="help_{{ $viewFolder }}_address" class="text-muted mb-3">By default this is from SOAP Secondary Diagnosis entry unless edited here.</small>
+                    </div>
+                    <div class="mb-3">
                     <label for="{{ $viewFolder }}_post_op_diagnosis" class="form-label">Post-Operative Diagnosis</label>
-                    <textarea class="form-control mb-3" name="{{ $viewFolder }}[PrintableForm][post_op_diagnosis]" id="{{ $viewFolder }}_post_op_diagnosis" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
+                    <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][post_op_diagnosis]" id="{{ $viewFolder }}_post_op_diagnosis" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
                           if($('#{{ $viewFolder }}_post_op_diagnosis').val() == ''){
                             $('.createPDFDischargeSum').each(function(){
                               $(this).prop('disabled', true);
@@ -8640,7 +8813,9 @@
                               $(this).prop('disabled', false);
                             });
                           }
-                        ">{{ isset($datum->printable_form['post_op_diagnosis']) ? $datum->printable_form['post_op_diagnosis'] : '' }}</textarea>
+                        ">{{ isset($datum->printable_form['post_op_diagnosis']) ? $datum->printable_form['post_op_diagnosis'] : $datum->post_op_assessment }}</textarea>
+                    <small id="help_{{ $viewFolder }}_address" class="text-muted">By default this is from SOAP Discharge Diagnosis entry unless edited here.</small>
+                    </div>
                     <label for="{{ $viewFolder }}_procedure_performed" class="form-label">Procedure Performed</label>
                     <textarea class="form-control mb-3" name="{{ $viewFolder }}[PrintableForm][procedure_performed]" id="{{ $viewFolder }}_procedure_performed" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
                           if($('#{{ $viewFolder }}_procedure_performed').val() == ''){
@@ -8816,6 +8991,16 @@
                             });
                           }
                         " {{ (isset($datum->printable_form['diet']) && $datum->printable_form['diet'] == 'Others') ? '' : 'disabled' }}>{{ isset($datum->printable_form['diet_remarks']) ? $datum->printable_form['diet_remarks'] : '' }}</textarea>
+                    @if($datum->doctor->sig_pic != '')
+                    <div class="form-check">
+                      <input class="form-check-input mt-0" type="checkbox" name="{{ $viewFolder }}[PrintableForm][dischargeSumSigKey]" id="{{ $viewFolder }}_dischargeSumSigKey_check" value='yes' {{ isset($datum->printable_form['dischargeSumSigKey']) ? 'checked' : ''}}  {{ !isset($referal_conso) ? '' : 'disabled' }}>
+                      <label class="form-check-label" for="{{ $viewFolder }}_dischargeSumSigKey_check"><strong>Click this box to e-sign this document</strong></label>
+                    </div>
+                    @else
+                    <div class="form-check">
+                      <label class="form-check-label" for="{{ $viewFolder }}_dischargeSumSigKey_check"><strong>You can e-sign this form by uploading the picture of your signature in My Account</strong></label>
+                    </div>
+                    @endif
                   </div>
                 </div>
               </div>
@@ -9012,6 +9197,16 @@
                             });
                           }
                         " {{ !isset($referal_conso) ? '' : 'disabled' }}>{{ isset($datum->printable_form['additional_orders']) ? $datum->printable_form['additional_orders'] : '' }}</textarea>
+                    @if($datum->doctor->sig_pic != '')
+                    <div class="form-check mt-3">
+                      <input class="form-check-input mt-0" type="checkbox" name="{{ $viewFolder }}[PrintableForm][opAdmitSigKey]" id="{{ $viewFolder }}_opAdmitSigKey_check" value='yes' {{ isset($datum->printable_form['opAdmitSigKey']) ? 'checked' : ''}}  {{ !isset($referal_conso) ? '' : 'disabled' }}>
+                      <label class="form-check-label" for="{{ $viewFolder }}_opAdmitSigKey_check"><strong>Click this box to e-sign this document</strong></label>
+                    </div>
+                    @else
+                    <div class="form-check">
+                      <label class="form-check-label" for="{{ $viewFolder }}_dischargeSumSigKey_check"><strong>You can e-sign this form by uploading the picture of your signature in My Account</strong></label>
+                    </div>
+                    @endif
                   </div>
                 </div>
               </div>
@@ -9138,7 +9333,18 @@
                         ">{{ isset($datum->printable_form['operative_tech']) ? $datum->printable_form['operative_tech'] : '' }}</textarea>
                     <input type="hidden" id="{{ $viewFolder }}_printable_form_consultation_id" class="form-control" name="{{ $viewFolder }}[PrintableForm][consultation_id]" value="{{ $datum->id }}">
                     <small id="help_{{ $viewFolder }}_operative_technique" class="text-muted"></small>
+                    @if($datum->doctor->sig_pic != '')
+                    <div class="form-check mt-3">
+                      <input class="form-check-input mt-0" type="checkbox" name="{{ $viewFolder }}[PrintableForm][orTechSigKey]" id="{{ $viewFolder }}_orTechSigKey_check" value='yes' {{ isset($datum->printable_form['orTechSigKey']) ? 'checked' : ''}}  {{ !isset($referal_conso) ? '' : 'disabled' }}>
+                      <label class="form-check-label" for="{{ $viewFolder }}_orTechSigKey_check"><strong>Click this box to e-sign this document</strong></label>
+                    </div>
+                    @else
+                    <div class="form-check">
+                      <label class="form-check-label" for="{{ $viewFolder }}_dischargeSumSigKey_check"><strong>You can e-sign this form by uploading the picture of your signature in My Account</strong></label>
+                    </div>
+                    @endif
                   </div>
+                  
                 </div>
                 {{-- </div> --}}
               </div>
@@ -9282,6 +9488,16 @@
                           }
                         ">{{ isset($datum->printable_form['medication']) ? $datum->printable_form['medication'] : '' }}</textarea>
                     <small id="help_{{ $viewFolder }}_medication_post" class="text-muted"></small>
+                    @if($datum->doctor->sig_pic != '')
+                    <div class="form-check mt-3">
+                      <input class="form-check-input mt-0" type="checkbox" name="{{ $viewFolder }}[PrintableForm][postOpSigKey]" id="{{ $viewFolder }}_postOpSigKey_check" value='yes' {{ isset($datum->printable_form['postOpSigKey']) ? 'checked' : ''}}  {{ !isset($referal_conso) ? '' : 'disabled' }}>
+                      <label class="form-check-label" for="{{ $viewFolder }}_postOpSigKey_check"><strong>Click this box to e-sign this document</strong></label>
+                    </div>
+                    @else
+                    <div class="form-check">
+                      <label class="form-check-label" for="{{ $viewFolder }}_dischargeSumSigKey_check"><strong>You can e-sign this form by uploading the picture of your signature in My Account</strong></label>
+                    </div>
+                    @endif
                   </div>
                 </div>
               </div>
@@ -11478,16 +11694,22 @@
               if(bookingObj.parent_doctor.booking_type == '')
                 bookingObj.parent_doctor.booking_type = 'Consultation';
             }
-            var activeKey = true;
+            var activeKey = false;
             
             if(typeof bookingObj.parent_doctor !== 'undefined'){
+              
               if(('{{ $user->name }}' ==  bookingObj.parent_doctor.doctor.name && bookingObj.parent_doctor.doctor.name != '') || (bookingObj.parent_doctor.doctor.name == '' && '{{ $user->name }}' ==  bookingObj.consultation.doctor.name)){
                 $('#referral_pill').append('<li class="nav-item"><a class="nav-link docNotesLinkPrev active" consultation-id="' + bookingObj.consultation.id + '" href="#">Yours - ' + bookingObj.consultation.clinic.name + ' | ' + bookingObj.consultation.booking_type + '</a></li>');
+                activeKey = true;
               }else{
                 $('#referral_pill').append('<li class="nav-item"><a class="nav-link docNotesLinkPrev" consultation-id="' + bookingObj.consultation.consultation_parent_id + '" href="#">Dr. ' + bookingObj.parent_doctor.doctor.f_name.substring(0, 1) + '. ' + bookingObj.parent_doctor.doctor.l_name + ' - ' + bookingObj.parent_doctor.clinic.name + ' | ' + bookingObj.parent_doctor.booking_type + '</a></li>');
               }
             }else if('{{ $user->name }}' == bookingObj.consultation.doctor.name){
+              // alert('{{ $user->name }}');
+              // alert(bookingObj.consultation.doctor.name);
+              // alert(bookingObj.parent_doctor.doctor.name);
               $('#referral_pill').append('<li class="nav-item"><a class="nav-link docNotesLinkPrev active" consultation-id="' + bookingObj.consultation.id + '" href="#">Yours - ' + bookingObj.consultation.clinic.name + ' | ' + bookingObj.consultation.booking_type + '</a></li>');
+              activeKey = true;
             }else{
               $('#referral_pill').append('<li class="nav-item"><a class="nav-link docNotesLinkPrev active" consultation-id="' + bookingObj.consultation.id + '" href="#">Dr. ' + bookingObj.consultation.doctor.f_name.substring(0, 1) + '. ' + bookingObj.consultation.doctor.l_name + ' - ' + bookingObj.consultation.clinic.name + ' | ' + bookingObj.consultation.booking_type + '</a></li>');
             }

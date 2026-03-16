@@ -43,7 +43,12 @@ class Opdpatient extends Model
         'drainwiz_refno',
         'drainwiz_updated',
         'status',
-        'client_id'
+        'client_id',
+        'chiefcomplaints',
+        'admitdiag',
+        'dischadiag',
+        'histillness',
+        'pertipasthist'
     ];
 
     

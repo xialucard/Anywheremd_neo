@@ -765,12 +765,18 @@
         <div class="card mb-3" id="DischargeSumInput" style="display:none">
             <div class="card-header">Form Inputs</div>
             <div class="card-body">
+              <div class="mb-3">
               <label for="{{ $viewFolder }}_pre_op_diagnosis" class="form-label">Pre-Operative Diagnosis</label>
-              <textarea class="form-control mb-3" name="{{ $viewFolder }}[PrintableForm][pre_op_diagnosis]" id="{{ $viewFolder }}_pre_op_diagnosis" rows=3>{{ isset($referal_conso->printable_form['pre_op_diagnosis']) ? $referal_conso->printable_form['pre_op_diagnosis'] : (!isset($referal_conso) && isset($datum->printable_form['pre_op_diagnosis']) ? $datum->printable_form['pre_op_diagnosis'] : '') }}</textarea>
-              
+              <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][pre_op_diagnosis]" id="{{ $viewFolder }}_pre_op_diagnosis" rows=3>{{ isset($referal_conso->printable_form['pre_op_diagnosis']) ? $referal_conso->printable_form['pre_op_diagnosis'] : (!isset($referal_conso) && isset($datum->printable_form['pre_op_diagnosis']) ? $datum->printable_form['pre_op_diagnosis'] : $datum->assessment) }}</textarea>
+              <small id="help_{{ $viewFolder }}_address" class="text-muted">By defaulr this is from SOAP Secondary Diagnosis entry unless edited here.</small>
+              </div>
+
+              <div class="mb-3">
               <label for="{{ $viewFolder }}_post_op_diagnosis" class="form-label">Post-Operative Diagnosis</label>
-              <textarea class="form-control mb-3" name="{{ $viewFolder }}[PrintableForm][post_op_diagnosis]" id="{{ $viewFolder }}_post_op_diagnosis" rows=3>{{ isset($referal_conso->printable_form['post_op_diagnosis']) ? $referal_conso->printable_form['post_op_diagnosis'] : (!isset($referal_conso) && isset($datum->printable_form['post_op_diagnosis']) ? $datum->printable_form['post_op_diagnosis'] : '') }}</textarea>
-              
+              <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][post_op_diagnosis]" id="{{ $viewFolder }}_post_op_diagnosis" rows=3>{{ isset($referal_conso->printable_form['post_op_diagnosis']) ? $referal_conso->printable_form['post_op_diagnosis'] : (!isset($referal_conso) && isset($datum->printable_form['post_op_diagnosis']) ? $datum->printable_form['post_op_diagnosis'] : $datum->post_op_assessment) }}</textarea>
+              <small id="help_{{ $viewFolder }}_address" class="text-muted">By default this is from SOAP Discharge Diagnosis entry unless edited here.</small>
+              </div>
+
               <label for="{{ $viewFolder }}_procedure_performed" class="form-label">Procedure Performed</label>
               <textarea class="form-control mb-3" name="{{ $viewFolder }}[PrintableForm][procedure_performed]" id="{{ $viewFolder }}_procedure_performed" rows=3>{{ isset($referal_conso->printable_form['procedure_performed']) ? $referal_conso->printable_form['procedure_performed'] : (!isset($referal_conso) && isset($datum->printable_form['procedure_performed']) ? $datum->printable_form['procedure_performed'] : '') }}</textarea>
               

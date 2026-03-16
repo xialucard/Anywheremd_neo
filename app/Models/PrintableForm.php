@@ -67,6 +67,10 @@ class PrintableForm extends Model
         'avoid_days',
         'diet',
         'diet_remarks',
+        'dischargeSumSigKey',
+        'opAdmitSigKey',
+        'orTechSigKey',
+        'postOpSigKey',
         'created_by',
         'updated_by'
     ];
