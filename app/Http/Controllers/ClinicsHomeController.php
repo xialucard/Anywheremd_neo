@@ -21,7 +21,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade\Pdf;
-use 
+use PSpell\Config;
+
 class ClinicsHomeController extends Controller
 {
     private $module = "Dashboard";
