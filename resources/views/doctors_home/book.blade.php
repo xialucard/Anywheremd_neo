@@ -7090,7 +7090,7 @@
                     <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                       @if($datum->booking_type == 'Dialysis')
                       <p>
-                        {{-- <strong>Plan:</strong><br><div class="m-3 {{ $datum->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed) ? 'text-danger' : '') }}">{!! isset($datum->planMed) ? nl2br($datum->planMed) : nl2br(isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id ? $carryOverBookingsPlanMed[0]->planMed : '') !!}</div><br> --}}
+                        <strong>Plan:</strong><br><div class="m-3 {{ $datum->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed) ? 'text-danger' : '') }}">{!! isset($datum->planMed) ? nl2br($datum->planMed) : nl2br(isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id ? $carryOverBookingsPlanMed[0]->planMed : '') !!}</div><br>
                         <strong>Current Meds Onboard:</strong>
                         <div class="table-responsive" style="max-height: 300px">
                           <table class="table table-bordered table-striped table-hover table-sm medsOn">
