@@ -7396,12 +7396,12 @@
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
                           </div>
                           <small class="text-muted">Content</small>
-                          {{-- <textarea class="form-control {{ $datum->assessment == "" ? 'text-danger' : ((isset($carryOverBookings[0]->assessment) && $datum->doctor_id == $carryOverBookings[0]->doctor_id && $carryOverBookings[0]->assessment == $datum->assessment) ? 'text-danger' : '') }}" name="{{ $viewFolder }}[assessment]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_assessment" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }} onchange="
+                          <textarea class="form-control {{ $datum->assessment == "" ? 'text-danger' : ((isset($carryOverBookings[0]->assessment) && $datum->doctor_id == $carryOverBookings[0]->doctor_id && $carryOverBookings[0]->assessment == $datum->assessment) ? 'text-danger' : '') }}" name="{{ $viewFolder }}[assessment]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_assessment" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }} onchange="
                             $('#{{ $viewFolder }}_diagnosis').val($(this).val());
                             $('#{{ $viewFolder }}_parent_diagnosis_hidden').val($(this).val());
                             $('#{{ $viewFolder }}_pre_op_diagnosis').val($(this).val());
                             $('#{{ $viewFolder }}_parent_pre_op_diagnosis_hidden').val($(this).val());
-                          ">{{ isset($datum->assessment) ? $datum->assessment : (isset($carryOverBookings[0]->assessment) && $datum->doctor_id == $carryOverBookings[0]->doctor_id ? $carryOverBookings[0]->assessment : '') }}</textarea> --}}
+                          ">{{ isset($datum->assessment) ? $datum->assessment : (isset($carryOverBookings[0]->assessment) && $datum->doctor_id == $carryOverBookings[0]->doctor_id ? $carryOverBookings[0]->assessment : '') }}</textarea>
                           <small class="text-muted mb-3">Note: Red text means the input is carry over from the previous booking.</small><br>
                           <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
