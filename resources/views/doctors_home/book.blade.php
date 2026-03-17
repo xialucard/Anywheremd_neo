@@ -45,6 +45,7 @@
     $carryOverBookingsPlan = $datum->patient->consultations()->whereNotNull('plan')->whereNull('consultation_parent_id')->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
     $carryOverBookingsPlanRem = $datum->patient->consultations()->whereNotNull('planRem')->whereNull('consultation_parent_id')->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
   }
+  dd($carryOverBookingsICD);
   // print "<pre>";
   // print_r($bookings[0]);
   // print "</pre>";
@@ -7379,7 +7380,7 @@
                         {{-- <select class="form-select" name="{{ $viewFolder }}[icd_code]" id="{{ $viewFolder }}_icd_code" placeholder="" {{ $user->id == $datum->doctor->id ? '' : 'disabled' }}>
                           <option value=""></option>
                         </select> --}}
-                        {{-- <input class="form-control {{ !isset($datum->icd_code_obj->icd_code) ? 'text-danger' : ((isset($carryOverBookingsICD[0]->icd_code_obj->icd_code) && $datum->doctor_id == $carryOverBookingsICD[0]->doctor_id && $carryOverBookingsICD[0]->icd_code_obj->icd_code == $datum->icd_code_obj->icd_code) ? 'text-danger' : '') }}" list="icdCodeList" {{ !isset($referal_conso) ? 'id=' . $viewFolder . '_icd_code' : '' }} name="{{ $viewFolder }}[icd_code]" value="{{ isset($datum->icd_code_obj->icd_code) ? $datum->icd_code_obj->icd_code . ' - ' . $datum->icd_code_obj->details : (isset($carryOverBookingsICD[0]->icd_code_obj) && $datum->doctor_id == $carryOverBookingsICD[0]->doctor_id ? $carryOverBookingsICD[0]->icd_code_obj->icd_code . ' - ' . $carryOverBookingsICD[0]->icd_code_obj->details : '') }}" autocomplete="off" {{ !isset($referal_conso)  ? '' : 'disabled' }}> --}}
+                        <input class="form-control {{ !isset($datum->icd_code_obj->icd_code) ? 'text-danger' : ((isset($carryOverBookingsICD[0]->icd_code_obj->icd_code) && $datum->doctor_id == $carryOverBookingsICD[0]->doctor_id && $carryOverBookingsICD[0]->icd_code_obj->icd_code == $datum->icd_code_obj->icd_code) ? 'text-danger' : '') }}" list="icdCodeList" {{ !isset($referal_conso) ? 'id=' . $viewFolder . '_icd_code' : '' }} name="{{ $viewFolder }}[icd_code]" value="{{ isset($datum->icd_code_obj->icd_code) ? $datum->icd_code_obj->icd_code . ' - ' . $datum->icd_code_obj->details : (isset($carryOverBookingsICD[0]->icd_code_obj) && $datum->doctor_id == $carryOverBookingsICD[0]->doctor_id ? $carryOverBookingsICD[0]->icd_code_obj->icd_code . ' - ' . $carryOverBookingsICD[0]->icd_code_obj->details : '') }}" autocomplete="off" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
                         <label for="{{ $viewFolder }}_icd_code">Primary Diagnosis</label>
                         <small id="help_{{ $viewFolder }}_icd_code" class="text-muted">Note: Red text means the input is carry over from the previous booking.</small>
                       </div>
