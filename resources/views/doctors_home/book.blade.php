@@ -45,10 +45,11 @@
     $carryOverBookingsPlan = $datum->patient->consultations()->whereNotNull('plan')->whereNull('consultation_parent_id')->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
     $carryOverBookingsPlanRem = $datum->patient->consultations()->whereNotNull('planRem')->whereNull('consultation_parent_id')->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
   }
-  dd($carryOverBookingsICD);
-  // print "<pre>";
-  // print_r($bookings[0]);
-  // print "</pre>";
+  
+  print "<pre>";
+  print_r($carryOverBookingsICD);
+  print "</pre>";
+  exit();
   unset($dialysisType);
   foreach($bookings as $book){
     if($book->booking_type == 'Dialysis'){
