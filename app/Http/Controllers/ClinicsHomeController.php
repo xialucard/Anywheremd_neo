@@ -21,8 +21,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade\Pdf;
-use PSpell\Config;
-
+use 
 class ClinicsHomeController extends Controller
 {
     private $module = "Dashboard";
@@ -1492,7 +1491,8 @@ class ClinicsHomeController extends Controller
                     unset($pastMedHistArr[$ind]);
             }
         }
-        $params['pertipasthist'] = implode(',', $pastMedHistArr);
+        if(is_array($pastMedHistArr))
+            $params['pertipasthist'] = implode(',', $pastMedHistArr);
         $opdPatientRes = Opdpatient::where('anywheremd_id', $clinics_home->id)->get();
         if(!isset($opdPatientRes[0]->id))
             Opdpatient::create($params);
