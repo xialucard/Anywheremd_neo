@@ -11851,6 +11851,8 @@
                               <th>Pre HD BP</th>
                               <th>Post HD BP</th>
                               <th>UF Goal</th>
+                              <th>UF Achieved</th>
+                              <th>Kt/V Achieved</th>
                               <th>WT. Loss</th>
                               <th>EPO Inj.</th>
                               <th>Iron</th>
@@ -11871,6 +11873,8 @@
                                 <td>{{ $dat->bpS . '/' . $dat->bpD }}</td>
                                 <td>{{ $dat->post_bpS . '/' . $dat->post_bpD }}</td>
                                 <td>{{ $dat->total_uf_goal }}</td>
+                                <td>{{ $dat->achieved_uf }}</td>
+                                <td>{{ $dat->achieved_ktv }}</td>
                                 <td>{{ $dat->weight_loss }}</td>
                                 <td>{{ isset($dat->consultation_meds()->where('medication', 'like', '%epo%')->get()[0]->dosage) ? $dat->consultation_meds()->where('medication', 'like', '%epo%')->get()[0]->dosage : '' }}</td>
                                 <td>{{ isset($dat->consultation_meds()->where('medication', 'like', '%iron%')->get()[0]->dosage) ? $dat->consultation_meds()->where('medication', 'like', '%iron%')->get()[0]->dosage : '' }}</td>
