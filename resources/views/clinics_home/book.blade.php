@@ -198,6 +198,7 @@
             $('#consoPatBookChartDiv').show();
             $('#consoSOAP').hide();
             $('#hdSum').hide();
+            $('#labSum').hide();
             $('#printableFormsDiv').hide();
             $(this).addClass('active');
             $('#docInfoLink').removeClass('active');
@@ -206,6 +207,7 @@
             $('#nurseUploadLink').removeClass('active');
             $('#SOAPLink').removeClass('active');
             $('#hdSumLink').removeClass('active');
+            $('#labSumLink').removeClass('active');
             $('#printableFormsLink').removeClass('active');
           ">Patient's Booking Chart</a>
         </li>
@@ -218,6 +220,7 @@
             $('#consoNurseUploadDiv').hide();
             $('#consoSOAP').hide();
             $('#hdSum').hide();
+            $('#labSum').hide();
             $('#printableFormsDiv').hide();
             $(this).addClass('active');
             $('#docInfoLink').removeClass('active');
@@ -226,6 +229,7 @@
             $('#nurseUploadLink').removeClass('active');
             $('#SOAPLink').removeClass('active');
             $('#hdSumLink').removeClass('active');
+            $('#labSumLink').removeClass('active');
             $('#printableFormsLink').removeClass('active');
           ">File Uploads</a>
         </li>
@@ -238,6 +242,7 @@
             $('#consoNurseUploadDiv').show();
             $('#consoSOAP').hide();
             $('#hdSum').hide();
+            $('#labSum').hide();
             $('#printableFormsDiv').hide();
             $(this).addClass('active');
             $('#docInfoLink').removeClass('active');
@@ -246,6 +251,7 @@
             $('#patUploadLink').removeClass('active');
             $('#SOAPLink').removeClass('active');
             $('#hdSumLink').removeClass('active');
+            $('#labSumLink').removeClass('active');
             $('#printableFormsLink').removeClass('active');
           ">Nurse's File Uploads</a>
         </li>
@@ -259,6 +265,7 @@
             $('#consoPatientDiv').show();
             $('#consoSOAP').hide();
             $('#hdSum').hide();
+            $('#labSum').hide();
             $('#printableFormsDiv').hide();
             $(this).addClass('active');
             $('#docInfoLink').removeClass('active');
@@ -267,28 +274,31 @@
             $('#nurseUploadLink').removeClass('active');
             $('#SOAPLink').removeClass('active');
             $('#hdSumLink').removeClass('active');
+            $('#labSumLink').removeClass('active');
             $('#printableFormsLink').removeClass('active');
           ">Patient's Info</a>
         </li>
         <li class="nav-item">
           <a class="nav-link {{ !isset($datum->id) ? 'active' : '' }}" id="docInfoLink" href="#" onclick="
-          $('#consoPatientDiv').hide();  
-          $('#consoPatBookChartDiv').hide(); 
-          $('#consoPatUploadDiv').hide();
-          $('#consoNurseUploadDiv').hide();
-          $('#consoDocDiv').show();
-          $('#consoSOAP').hide();
-          $('#hdSum').hide();
-          $('#printableFormsDiv').hide();
-          $(this).addClass('active');
-          $('#patInfoLink').removeClass('active');
-          $('#patBookChartLink').removeClass('active');
-          $('#patUploadLink').removeClass('active');
-          $('#nurseUploadLink').removeClass('active');
-          $('#SOAPLink').removeClass('active');
-          $('#hdSumLink').removeClass('active');
-          $('#printableFormsLink').removeClass('active');
-        ">Doctor's Info</a>
+            $('#consoPatientDiv').hide();  
+            $('#consoPatBookChartDiv').hide(); 
+            $('#consoPatUploadDiv').hide();
+            $('#consoNurseUploadDiv').hide();
+            $('#consoDocDiv').show();
+            $('#consoSOAP').hide();
+            $('#hdSum').hide();
+            $('#labSum').hide();
+            $('#printableFormsDiv').hide();
+            $(this).addClass('active');
+            $('#patInfoLink').removeClass('active');
+            $('#patBookChartLink').removeClass('active');
+            $('#patUploadLink').removeClass('active');
+            $('#nurseUploadLink').removeClass('active');
+            $('#SOAPLink').removeClass('active');
+            $('#hdSumLink').removeClass('active');
+            $('#labSumLink').removeClass('active');
+            $('#printableFormsLink').removeClass('active');
+          ">Doctor's Info</a>
         </li>
         @if(isset($datum->booking_type) && $datum->booking_type == "Dialysis")
         <li class="nav-item">
@@ -300,6 +310,7 @@
             $('#consoPatBookChartDiv').hide();
             $('#consoSOAP').show();
             $('#hdSum').hide();
+            $('#labSum').hide();
             $('#printableFormsDiv').hide();
             $(this).addClass('active');
             $('#docInfoLink').removeClass('active');
@@ -308,6 +319,7 @@
             $('#nurseUploadLink').removeClass('active');
             $('#patBookChartLink').removeClass('active');
             $('#hdSumLink').removeClass('active');
+            $('#labSumLink').removeClass('active');
             $('#printableFormsLink').removeClass('active');
           ">SOAP</a>
         </li>
@@ -320,6 +332,7 @@
             $('#consoPatBookChartDiv').hide();
             $('#consoSOAP').hide();
             $('#hdSum').show();
+            $('#labSum').hide();
             $('#printableFormsDiv').hide();
             $(this).addClass('active');
             $('#docInfoLink').removeClass('active');
@@ -328,8 +341,31 @@
             $('#nurseUploadLink').removeClass('active');
             $('#patBookChartLink').removeClass('active');
             $('#SOAPLink').removeClass('active');
+            $('#labSumLink').removeClass('active');
             $('#printableFormsLink').removeClass('active');
           ">HD Summary Sheet</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"  href="#" id="labSumLink" onclick="
+            $('#consoDocDiv').hide();  
+            $('#consoPatientDiv').hide();
+            $('#consoPatUploadDiv').hide();
+            $('#consoNurseUploadDiv').hide();
+            $('#consoPatBookChartDiv').hide();
+            $('#consoSOAP').hide();
+            $('#hdSum').hide();
+            $('#labSum').show();
+            $('#printableFormsDiv').hide();
+            $(this).addClass('active');
+            $('#docInfoLink').removeClass('active');
+            $('#patInfoLink').removeClass('active');
+            $('#patUploadLink').removeClass('active');
+            $('#nurseUploadLink').removeClass('active');
+            $('#patBookChartLink').removeClass('active');
+            $('#SOAPLink').removeClass('active');
+            $('#hdSumLink').removeClass('active');
+            $('#printableFormsLink').removeClass('active');
+          ">Laboratory Summary Sheet</a>
         </li>
         @endif
         @if(isset($datum->id))
@@ -1278,6 +1314,85 @@
         </div>
       </div>
       @endif
+      <div id="labSum" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
+        @if(isset($datum->id))
+        @can('clinics_home.pdfLabSum')
+          <div class="m-1"><a id="printLinkID" class="btn btn-{{ $bgColor }} btn-sm w-100 printLink" href="{{ route('clinics_home.pdfLabSum', [isset($referal_conso) ? $referal_conso->id : $datum->id, !empty(parse_url(Request::fullUrl())['query']) ? parse_url(Request::fullUrl())['query'] : '']) }}" title="Print Laboratory Summary Sheet" role="button" download><i class="bi bi-file-pdf-fill"></i><span class="ps-1 d-sm-none">Print Laboratory Summary Sheet</span></a></div>
+        @endcan
+        @endif
+        <div class="table-responsive" style="max-height: 300px">
+          <table class="table table-bordered table-striped table-hover table-sm medsOn">
+            <thead class="table-{{ $bgColor }}">
+              <tr>
+                <th rowspan="2">Date</th>
+                <th rowspan="2">Hemoglobin</th>
+                <th rowspan="2">Hematocrit</th>
+                <th rowspan="2">RBC</th>
+                <th rowspan="2">WBC</th>
+                <th colspan="2">Dialysis Adequacy</th>
+                <th colspan="11">Blood Chemistry</th>
+                <th colspan="4">Iron Studies</th>
+                <th colspan="3">Hepatitis Profile</th>
+              </tr>
+              <tr>  
+                <th>URR</th>
+                <th>Kt/V</th>
+                <th>Pre BUN</th>
+                <th>Post BUN</th>
+                <th>Creatinine</th>
+                <th>Serum Albumin</th>
+                <th>Sodium</th>
+                <th>Potassium</th>
+                <th>Phosphorus</th>
+                <th>Ionized Calcium</th>
+                <th>Uric Acid</th>
+                <th>SGPT</th>
+                <th>SGOT</th>
+                <th>Serum Ferritin</th>
+                <th>Serum Iron</th>
+                <th>TIBC</th>
+                <th>TSAT</th>
+                <th>HBsAg</th>
+                <th>Anti-HBS</th>
+                <th>Anti-HCV</th>
+              </tr>
+            </thead>
+            <tbody>
+            @if(isset($allBooking))
+              @foreach ($allBooking as $ind=>$dat)
+              <tr>
+                <td>{{ $dat->bookingDate }}</td>
+                <td>{{ $dat->hemoglobin }}</td>
+                <td>{{ $dat->hematocrit }}</td>
+                <td>{{ $dat->rbc }}</td>
+                <td>{{ $dat->wbc }}</td>
+                <td>{{ $dat->urr }}</td>
+                <td>{{ $dat->ktv2 }}</td>
+                <td>{{ $dat->pre_bun }}</td>
+                <td>{{ $dat->post_bun }}</td>
+                <td>{{ $dat->creatinine }}</td>
+                <td>{{ $dat->serum_albumin }}</td>
+                <td>{{ $dat->sodium }}</td>
+                <td>{{ $dat->potassium }}</td>
+                <td>{{ $dat->phosphorus }}</td>
+                <td>{{ $dat->ionized_calcium }}</td>
+                <td>{{ $dat->uric_acid }}</td>
+                <td>{{ $dat->sgpt }}</td>
+                <td>{{ $dat->sgot }}</td>
+                <td>{{ $dat->serum_ferritin }}</td>
+                <td>{{ $dat->serum_iron }}</td>
+                <td>{{ $dat->tibc }}</td>
+                <td>{{ $dat->tsat }}</td>
+                <td>{{ $dat->hbsag }}</td>
+                <td>{{ $dat->anti_hbs }}</td>
+                <td>{{ $dat->anti_hcv }}</td>
+              </tr>
+              @endforeach
+            @endif
+            </tbody>
+          </table>
+        </div>
+      </div>
       <div id="hdSum" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
         @if(isset($datum->id))
         @can('clinics_home.pdfHDSum')
@@ -1297,6 +1412,8 @@
                 <th>Pre HD BP</th>
                 <th>Post HD BP</th>
                 <th>UF Goal</th>
+                <th>UF Achieved</th>
+                <th>Kt/V Achieved</th>
                 <th>WT. Loss</th>
                 <th>EPO Inj.</th>
                 <th>Iron</th>
@@ -1304,7 +1421,7 @@
                 <th>Remarks/NOD</th>
               </tr>
             </thead>
-            <tbody id="medsOnboardTable{{ $datum->id }}">
+            <tbody>
             @if(isset($allBooking))
               @foreach ($allBooking as $ind=>$dat)
               <tr id="hdBooking_{{ $dat->id }}">
@@ -1317,6 +1434,8 @@
                   <td>{{ $dat->bpS . '/' . $dat->bpD }}</td>
                   <td>{{ $dat->post_bpS . '/' . $dat->post_bpD }}</td>
                   <td>{{ $dat->total_uf_goal }}</td>
+                  <td>{{ $dat->achieved_uf }}</td>
+                  <td>{{ $dat->achieved_ktv }}</td>
                   <td>{{ $dat->weight_loss }}</td>
                   <td>{{ isset($dat->consultation_meds()->where('medication', 'like', '%epo%')->get()[0]->dosage) ? $dat->consultation_meds()->where('medication', 'like', '%epo%')->get()[0]->dosage : '' }}</td>
                   <td>{{ isset($dat->consultation_meds()->where('medication', 'like', '%iron%')->get()[0]->dosage) ? $dat->consultation_meds()->where('medication', 'like', '%iron%')->get()[0]->dosage : '' }}</td>
@@ -1557,7 +1676,19 @@
           <div class="col-lg-4">
             <div class="input-group mb-3">
               <div class="form-floating">
-                <input class="form-control" type="time" name="{{ $viewFolder }}[time_started]" id="{{ $viewFolder }}_time_started" value="{{ isset($datum->time_started) ? $datum->time_started : ''}}" placeholder="">
+                <input class="form-control" type="time" name="{{ $viewFolder }}[time_started]" id="{{ $viewFolder }}_time_started" value="{{ isset($datum->time_started) ? $datum->time_started : ''}}" placeholder="" onchange="
+                    if($('#{{ $viewFolder }}_time_started').val() != '' && $('#{{ $viewFolder }}_time_ended').val() != '' && $('#{{ $viewFolder }}_pre_bun').val() != '' && $('#{{ $viewFolder }}_post_bun').val() != '' && $('#{{ $viewFolder }}_post_hd_weight').val() != '' && $('#{{ $viewFolder }}_achieved_uf').val() != ''){
+                      var start = new Date('1970-01-01 ' + $('#{{ $viewFolder }}_time_started').val());
+                      var end = new Date('1970-01-01 ' + $('#{{ $viewFolder }}_time_ended').val());
+                      var diffMs = end - start;
+
+                      var diffMins = Math.floor(diffMs / 60000);
+                      var hours = Math.floor(diffMins / 60);
+
+                      var ktv = -1*Math.log(($('#{{ $viewFolder }}_post_bun').val() / $('#{{ $viewFolder }}_pre_bun').val()) - (0.008*hours)) + ((4 - (3.5*($('#{{ $viewFolder }}_post_bun').val() / $('#{{ $viewFolder }}_pre_bun').val())))*($('#{{ $viewFolder }}_achieved_uf').val()/$('#{{ $viewFolder }}_post_hd_weight').val()));
+                      $('#{{ $viewFolder }}_ktv2').val(ktv);
+                    }
+                  ">
                 <label for="{{ $viewFolder }}_time_started" class="form-label">Time Started</label>
                 <small id="help_{{ $viewFolder }}_time_started" class="text-muted"></small>
               </div>
@@ -1566,7 +1697,19 @@
           <div class="col-lg-4">
             <div class="input-group mb-3">
               <div class="form-floating">
-                <input class="form-control" type="time" name="{{ $viewFolder }}[time_ended]" id="{{ $viewFolder }}_time_ended" value="{{ isset($datum->time_ended) ? $datum->time_ended : ''}}" placeholder="">
+                <input class="form-control" type="time" name="{{ $viewFolder }}[time_ended]" id="{{ $viewFolder }}_time_ended" value="{{ isset($datum->time_ended) ? $datum->time_ended : ''}}" placeholder="" onchange="
+                    if($('#{{ $viewFolder }}_time_started').val() != '' && $('#{{ $viewFolder }}_time_ended').val() != '' && $('#{{ $viewFolder }}_pre_bun').val() != '' && $('#{{ $viewFolder }}_post_bun').val() != '' && $('#{{ $viewFolder }}_post_hd_weight').val() != '' && $('#{{ $viewFolder }}_achieved_uf').val() != ''){
+                      var start = new Date('1970-01-01 ' + $('#{{ $viewFolder }}_time_started').val());
+                      var end = new Date('1970-01-01 ' + $('#{{ $viewFolder }}_time_ended').val());
+                      var diffMs = end - start;
+
+                      var diffMins = Math.floor(diffMs / 60000);
+                      var hours = Math.floor(diffMins / 60);
+
+                      var ktv = -1*Math.log(($('#{{ $viewFolder }}_post_bun').val() / $('#{{ $viewFolder }}_pre_bun').val()) - (0.008*hours)) + ((4 - (3.5*($('#{{ $viewFolder }}_post_bun').val() / $('#{{ $viewFolder }}_pre_bun').val())))*($('#{{ $viewFolder }}_achieved_uf').val()/$('#{{ $viewFolder }}_post_hd_weight').val()));
+                      $('#{{ $viewFolder }}_ktv2').val(ktv);
+                    }
+                  ">
                 <label for="{{ $viewFolder }}_time_ended" class="form-label">Time Ended</label>
                 <small id="help_{{ $viewFolder }}_time_ended" class="text-muted"></small>
               </div>
@@ -1718,10 +1861,21 @@
                 <div class="input-group mb-3">
                   <div class="form-floating">
                     <input class="form-control" type="number" name="{{ $viewFolder }}[post_weight]" min=1 step=.1 id="{{ $viewFolder }}_post_hd_weight" value="{{ isset($datum->post_weight) ? $datum->post_weight : ''}}" placeholder="" onchange="
-                      if($('#{{ $viewFolder }}_pre_hd_weight').val() != '' &&  $('#{{ $viewFolder }}_post_hd_weight').val() != ''){
-                        $('#{{ $viewFolder }}_weight_loss').val($('#{{ $viewFolder }}_pre_hd_weight').val() - $('#{{ $viewFolder }}_post_hd_weight').val());
-                      }
-                    ">
+                    if($('#{{ $viewFolder }}_pre_hd_weight').val() != '' &&  $('#{{ $viewFolder }}_post_hd_weight').val() != ''){
+                      $('#{{ $viewFolder }}_weight_loss').val($('#{{ $viewFolder }}_pre_hd_weight').val() - $('#{{ $viewFolder }}_post_hd_weight').val());
+                    }
+                    if($('#{{ $viewFolder }}_time_started').val() != '' && $('#{{ $viewFolder }}_time_ended').val() != '' && $('#{{ $viewFolder }}_pre_bun').val() != '' && $('#{{ $viewFolder }}_post_bun').val() != '' && $('#{{ $viewFolder }}_post_hd_weight').val() != '' && $('#{{ $viewFolder }}_achieved_uf').val() != ''){
+                      var start = new Date('1970-01-01 ' + $('#{{ $viewFolder }}_time_started').val());
+                      var end = new Date('1970-01-01 ' + $('#{{ $viewFolder }}_time_ended').val());
+                      var diffMs = end - start;
+
+                      var diffMins = Math.floor(diffMs / 60000);
+                      var hours = Math.floor(diffMins / 60);
+
+                      var ktv = -1*Math.log(($('#{{ $viewFolder }}_post_bun').val() / $('#{{ $viewFolder }}_pre_bun').val()) - (0.008*hours)) + ((4 - (3.5*($('#{{ $viewFolder }}_post_bun').val() / $('#{{ $viewFolder }}_pre_bun').val())))*($('#{{ $viewFolder }}_achieved_uf').val()/$('#{{ $viewFolder }}_post_hd_weight').val()));
+                      $('#{{ $viewFolder }}_ktv2').val(ktv);
+                    }
+                  ">
                     <label for="{{ $viewFolder }}_post_hd_weight" class="form-label">Post HD Weight</label>
                     <small id="help_{{ $viewFolder }}_post_hd_weight" class="text-muted"></small>
                   </div>
@@ -1742,27 +1896,61 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-lg-4">
+              <div class="col-lg-6">
                 <div class="input-group mb-3">
                   <div class="form-floating">
                     <input class="form-control" type="text" name="{{ $viewFolder }}[ktv]" id="{{ $viewFolder }}_ktv" value="{{ isset($datum->ktv) ? $datum->ktv : ''}}" placeholder="">
-                    <label for="{{ $viewFolder }}_ktv" class="form-label">KT/V</label>
+                    <label for="{{ $viewFolder }}_ktv" class="form-label">Target Kt/V</label>
                     <small id="help_{{ $viewFolder }}_ktv" class="text-muted"></small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="input-group mb-3">
+                  <div class="form-floating">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[achieved_ktv]" id="{{ $viewFolder }}_achieved_ktv" value="{{ isset($datum->achieved_ktv) ? $datum->achieved_ktv : ''}}" placeholder="">
+                    <label for="{{ $viewFolder }}achieved_ktv" class="form-label">Achieved Kt/V</label>
+                    <small id="help_{{ $viewFolder }}achieved_ktv" class="text-muted"></small>
                   </div>
                 </div>
               </div>
             </div>
             <div class="row">
-              <div class="col-lg-4">
+              <div class="col-lg-6">
                 <div class="input-group mb-3">
                   <div class="form-floating">
                     <input class="form-control" type="text" name="{{ $viewFolder }}[net_uf]" id="{{ $viewFolder }}_net_uf" value="{{ isset($datum->net_uf) ? $datum->net_uf : ''}}" placeholder="">
                     <label for="{{ $viewFolder }}_net_uf" class="form-label">Net UF</label>
                     <small id="help_{{ $viewFolder }}_net_uf" class="text-muted"></small>
                   </div>
+                  <span class="input-group-text">L</span>
                 </div>
               </div>
-              <div class="col-lg-4">
+              <div class="col-lg-6">
+                <div class="input-group mb-3">
+                  <div class="form-floating">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[achieved_uf]" id="{{ $viewFolder }}_achieved_uf" value="{{ isset($datum->achieved_uf) ? $datum->achieved_uf : ''}}" placeholder=""  onchange="
+                    if($('#{{ $viewFolder }}_time_started').val() != '' && $('#{{ $viewFolder }}_time_ended').val() != '' && $('#{{ $viewFolder }}_pre_bun').val() != '' && $('#{{ $viewFolder }}_post_bun').val() != '' && $('#{{ $viewFolder }}_post_hd_weight').val() != '' && $('#{{ $viewFolder }}_achieved_uf').val() != ''){
+                      var start = new Date('1970-01-01 ' + $('#{{ $viewFolder }}_time_started').val());
+                      var end = new Date('1970-01-01 ' + $('#{{ $viewFolder }}_time_ended').val());
+                      var diffMs = end - start;
+
+                      var diffMins = Math.floor(diffMs / 60000);
+                      var hours = Math.floor(diffMins / 60);
+
+                      var ktv = -1*Math.log(($('#{{ $viewFolder }}_post_bun').val() / $('#{{ $viewFolder }}_pre_bun').val()) - (0.008*hours)) + ((4 - (3.5*($('#{{ $viewFolder }}_post_bun').val() / $('#{{ $viewFolder }}_pre_bun').val())))*($('#{{ $viewFolder }}_achieved_uf').val()/$('#{{ $viewFolder }}_post_hd_weight').val()));
+                      $('#{{ $viewFolder }}_ktv2').val(ktv);
+                    }
+                  ">
+                    <label for="{{ $viewFolder }}_achieved_uf" class="form-label">Achieved UF</label>
+                    <small id="help_{{ $viewFolder }}_achieved_uf" class="text-muted"></small>
+                  </div>
+                  <span class="input-group-text">L</span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
                 <div class="input-group mb-3">
                   <div class="form-floating">
                     <input class="form-control" type="number" name="{{ $viewFolder }}[hd_duration]" min=1 step=.1 id="{{ $viewFolder }}_hd_duration" value="{{ isset($datum->hd_duration) ? $datum->hd_duration : (isset($prevBooking->hd_duration) ? $prevBooking->hd_duration : '') }}" placeholder="">
@@ -1772,7 +1960,7 @@
                   <span class="input-group-text">hr/s</span>
                 </div>
               </div>
-              <div class="col-lg-4">
+              <div class="col-lg-6">
                 <div class="input-group mb-3">
                   <div class="form-floating">
                     <input class="form-control" type="number" name="{{ $viewFolder }}[frequency]" min=1 step=.1 id="{{ $viewFolder }}_frequency" value="{{ isset($datum->frequency) ? $datum->frequency : (isset($prevBooking->frequency) ? $prevBooking->frequency : '') }}" placeholder="">
@@ -1810,6 +1998,7 @@
                     <label for="{{ $viewFolder }}_total_uf_goal" class="form-label">Total UF Goal</label>
                     <small id="help_{{ $viewFolder }}_total_uf_goal" class="text-muted"></small>
                   </div>
+                  <span class="input-group-text">L</span>
                 </div>
               </div>
               <div class="col-lg-6">
@@ -3011,6 +3200,238 @@
                         <input class="form-control" type="text" name="{{ $viewFolder }}[hd_catheter_hgb]" id="{{ $viewFolder }}_hd_catheter_hgb" placeholder="" value="{{ !empty($datum->hd_catheter_hgb) ? $datum->hd_catheter_hgb : '' }}">
                         <label for="{{ $viewFolder }}_hd_catheter_hgb" class="form-label">Latest HGB</label>
                         <small id="help_{{ $viewFolder }}_hd_catheter_hgb" class="text-muted"></small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card mb-3">
+              <div class="card-header">Laboratory Results</div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[hemoglobin]" id="{{ $viewFolder }}_hemoglobin" placeholder="" value="{{ !empty($datum->hemoglobin) ? $datum->hemoglobin : '' }}">
+                        <label for="{{ $viewFolder }}_hemoglobin" class="form-label">Hemoglobin</label>
+                        <small id="help_{{ $viewFolder }}_hemoglobin" class="text-muted"></small>
+                      </div>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[hematocrit]" id="{{ $viewFolder }}_hematocrit" placeholder="" value="{{ !empty($datum->hematocrit) ? $datum->hematocrit : '' }}">
+                        <label for="{{ $viewFolder }}_hematocrit" class="form-label">Hematocrit</label>
+                        <small id="help_{{ $viewFolder }}_hematocrit" class="text-muted"></small>
+                      </div>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[rbc]" id="{{ $viewFolder }}_rbc" placeholder="" value="{{ !empty($datum->rbc) ? $datum->rbc : '' }}">
+                        <label for="{{ $viewFolder }}_rbc" class="form-label">RBC</label>
+                        <small id="help_{{ $viewFolder }}_rbc" class="text-muted"></small>
+                      </div>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[wbc]" id="{{ $viewFolder }}_wbc" placeholder="" value="{{ !empty($datum->wbc) ? $datum->wbc : '' }}">
+                        <label for="{{ $viewFolder }}_wbc" class="form-label">WBC</label>
+                      </div>
+                      <small id="help_{{ $viewFolder }}_wbc" class="text-muted"></small>
+                    </div>
+                    <p>Dialysis Adequacy</p>
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[urr]" id="{{ $viewFolder }}_urr" placeholder="" value="{{ !empty($datum->urr) ? $datum->urr : '' }}" readonly>
+                        <label for="{{ $viewFolder }}_urr" class="form-label">URR</label>
+                        <small id="help_{{ $viewFolder }}_urr" class="text-muted"></small>
+                        
+                      </div>
+                      <span class="input-group-text">%</span>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[ktv2]" id="{{ $viewFolder }}_ktv2" placeholder="" value="{{ !empty($datum->ktv2) ? $datum->ktv2 : '' }}" readonly>
+                        <label for="{{ $viewFolder }}_ktv2" class="form-label">Kt/V</label>
+                        <small id="help_{{ $viewFolder }}_ktv2" class="text-muted"></small>
+                      </div>
+                    </div>
+                    <p>Blood Chemistry</p>
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[pre_bun]" id="{{ $viewFolder }}_pre_bun" placeholder="" value="{{ !empty($datum->pre_bun) ? $datum->pre_bun : '' }}" onchange="
+                          if($('#{{ $viewFolder }}_pre_bun').val() != '' && $('#{{ $viewFolder }}_post_bun').val() != ''){
+                            $('#{{ $viewFolder }}_urr').val((($('#{{ $viewFolder }}_pre_bun').val() - $('#{{ $viewFolder }}_post_bun').val())/$('#{{ $viewFolder }}_pre_bun').val())*100);
+                          }else{
+                            $('#{{ $viewFolder }}_urr').val('');
+                          }
+                          if($('#{{ $viewFolder }}_time_started').val() != '' && $('#{{ $viewFolder }}_time_ended').val() != '' && $('#{{ $viewFolder }}_pre_bun').val() != '' && $('#{{ $viewFolder }}_post_bun').val() != '' && $('#{{ $viewFolder }}_post_hd_weight').val() != '' && $('#{{ $viewFolder }}_achieved_uf').val() != ''){
+                            var start = new Date('1970-01-01 ' + $('#{{ $viewFolder }}_time_started').val());
+                            var end = new Date('1970-01-01 ' + $('#{{ $viewFolder }}_time_ended').val());
+                            var diffMs = end - start;
+
+                            var diffMins = Math.floor(diffMs / 60000);
+                            var hours = Math.floor(diffMins / 60);
+
+                            var ktv = -1*Math.log(($('#{{ $viewFolder }}_post_bun').val() / $('#{{ $viewFolder }}_pre_bun').val()) - (0.008*hours)) + ((4 - (3.5*($('#{{ $viewFolder }}_post_bun').val() / $('#{{ $viewFolder }}_pre_bun').val())))*($('#{{ $viewFolder }}_achieved_uf').val()/$('#{{ $viewFolder }}_post_hd_weight').val()));
+                            $('#{{ $viewFolder }}_ktv2').val(ktv);
+                          }
+                        ">
+                        <label for="{{ $viewFolder }}_pre_bun" class="form-label">Pre BUN</label>
+                        <small id="help_{{ $viewFolder }}_pre_bun" class="text-muted"></small>
+                      </div>
+                      <span class="input-group-text">mg/dL</span>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[post_bun]" id="{{ $viewFolder }}_post_bun" placeholder="" value="{{ !empty($datum->post_bun) ? $datum->post_bun : '' }}" onchange="
+                          if($('#{{ $viewFolder }}_pre_bun').val() != '' && $('#{{ $viewFolder }}_post_bun').val() != ''){
+                            $('#{{ $viewFolder }}_urr').val((($('#{{ $viewFolder }}_pre_bun').val() - $('#{{ $viewFolder }}_post_bun').val())/$('#{{ $viewFolder }}_pre_bun').val())*100);
+                          }else{
+                            $('#{{ $viewFolder }}_urr').val('');
+                          }
+                          if($('#{{ $viewFolder }}_time_started').val() != '' && $('#{{ $viewFolder }}_time_ended').val() != '' && $('#{{ $viewFolder }}_pre_bun').val() != '' && $('#{{ $viewFolder }}_post_bun').val() != '' && $('#{{ $viewFolder }}_post_hd_weight').val() != '' && $('#{{ $viewFolder }}_achieved_uf').val() != ''){
+                            var start = new Date('1970-01-01 ' + $('#{{ $viewFolder }}_time_started').val());
+                            var end = new Date('1970-01-01 ' + $('#{{ $viewFolder }}_time_ended').val());
+                            var diffMs = end - start;
+
+                            var diffMins = Math.floor(diffMs / 60000);
+                            var hours = Math.floor(diffMins / 60);
+
+                            var ktv = -1*Math.log(($('#{{ $viewFolder }}_post_bun').val() / $('#{{ $viewFolder }}_pre_bun').val()) - (0.008*hours)) + ((4 - (3.5*($('#{{ $viewFolder }}_post_bun').val() / $('#{{ $viewFolder }}_pre_bun').val())))*($('#{{ $viewFolder }}_achieved_uf').val()/$('#{{ $viewFolder }}_post_hd_weight').val()));
+                            $('#{{ $viewFolder }}_ktv2').val(ktv);
+                          }
+                        ">
+                        <label for="{{ $viewFolder }}_post_bun" class="form-label">Post BUN</label>
+                        <small id="help_{{ $viewFolder }}_post_bun" class="text-muted"></small>
+                      </div>
+                      <span class="input-group-text">mg/dL</span>
+                    </div>
+                    
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[creatinine]" id="{{ $viewFolder }}_creatinine" placeholder="" value="{{ !empty($datum->creatinine) ? $datum->creatinine : '' }}">
+                        <label for="{{ $viewFolder }}_creatinine" class="form-label">Creatinine</label>
+                        <small id="help_{{ $viewFolder }}_creatinine" class="text-muted"></small>
+                      </div>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[serum_albumin]" id="{{ $viewFolder }}_serum_albumin" placeholder="" value="{{ !empty($datum->serum_albumin) ? $datum->serum_albumin : '' }}">
+                        <label for="{{ $viewFolder }}_serum_albumin" class="form-label">Serum Albumin</label>
+                        <small id="help_{{ $viewFolder }}_serum_albumin" class="text-muted"></small>
+                      </div>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[sodium]" id="{{ $viewFolder }}_sodium" placeholder="" value="{{ !empty($datum->sodium) ? $datum->sodium : '' }}">
+                        <label for="{{ $viewFolder }}_sodium" class="form-label">Sodium</label>
+                        <small id="help_{{ $viewFolder }}_sodium" class="text-muted"></small>
+                      </div>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[potassium]" id="{{ $viewFolder }}_potassium" placeholder="" value="{{ !empty($datum->potassium) ? $datum->potassium : '' }}">
+                        <label for="{{ $viewFolder }}_potassium" class="form-label">Potassium</label>
+                        <small id="help_{{ $viewFolder }}_potassium" class="text-muted"></small>
+                      </div>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[phosphorus]" id="{{ $viewFolder }}_phosphorus" placeholder="" value="{{ !empty($datum->phosphorus) ? $datum->phosphorus : '' }}">
+                        <label for="{{ $viewFolder }}_phosphorus" class="form-label">Phosphorus</label>
+                        <small id="help_{{ $viewFolder }}_phosphorus" class="text-muted"></small>
+                      </div>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[ionized_calcium]" id="{{ $viewFolder }}_ionized_calcium" placeholder="" value="{{ !empty($datum->ionized_calcium) ? $datum->ionized_calcium : '' }}">
+                        <label for="{{ $viewFolder }}_ionized_calcium" class="form-label">Ionized Calcium</label>
+                        <small id="help_{{ $viewFolder }}_ionized_calcium" class="text-muted"></small>
+                      </div>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[uric_acid]" id="{{ $viewFolder }}_uric_acid" placeholder="" value="{{ !empty($datum->uric_acid) ? $datum->uric_acid : '' }}">
+                        <label for="{{ $viewFolder }}_uric_acid" class="form-label">Uric Acid</label>
+                        <small id="help_{{ $viewFolder }}_uric_acid" class="text-muted"></small>
+                      </div>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[sgpt]" id="{{ $viewFolder }}_sgpt" placeholder="" value="{{ !empty($datum->sgpt) ? $datum->sgpt : '' }}">
+                        <label for="{{ $viewFolder }}_sgpt" class="form-label">SGPT</label>
+                        <small id="help_{{ $viewFolder }}_sgpt" class="text-muted"></small>
+                      </div>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[sgot]" id="{{ $viewFolder }}_sgot" placeholder="" value="{{ !empty($datum->sgot) ? $datum->sgot : '' }}">
+                        <label for="{{ $viewFolder }}_sgot" class="form-label">SGOT</label>
+                        <small id="help_{{ $viewFolder }}_sgot" class="text-muted"></small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <p>Iron Studies</p>
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[serum_ferritin]" id="{{ $viewFolder }}_serum_ferritin" placeholder="" value="{{ !empty($datum->serum_ferritin) ? $datum->serum_ferritin : '' }}">
+                        <label for="{{ $viewFolder }}_serum_ferritin" class="form-label">Serum Ferritin</label>
+                        <small id="help_{{ $viewFolder }}_serum_ferritin" class="text-muted"></small>
+                      </div>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[serum_iron]" id="{{ $viewFolder }}_serum_iron" placeholder="" value="{{ !empty($datum->serum_iron) ? $datum->serum_iron : '' }}">
+                        <label for="{{ $viewFolder }}_serum_iron" class="form-label">Serum Iron</label>
+                        <small id="help_{{ $viewFolder }}_serum_iron" class="text-muted"></small>
+                      </div>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[tibc]" id="{{ $viewFolder }}_tibc" placeholder="" value="{{ !empty($datum->tibc) ? $datum->tibc : '' }}">
+                        <label for="{{ $viewFolder }}_tibc" class="form-label">TIBC</label>
+                        <small id="help_{{ $viewFolder }}_tibc" class="text-muted"></small>
+                      </div>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[tsat]" id="{{ $viewFolder }}_tsat" placeholder="" value="{{ !empty($datum->tsat) ? $datum->tsat : '' }}">
+                        <label for="{{ $viewFolder }}_tsat" class="form-label">TSAT</label>
+                        <small id="help_{{ $viewFolder }}_tsat" class="text-muted"></small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <p>Hepatitis Profile</p>
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[hbsag]" id="{{ $viewFolder }}_hbsag" placeholder="" value="{{ !empty($datum->hbsag) ? $datum->hbsag : '' }}">
+                        <label for="{{ $viewFolder }}_hbsag" class="form-label">HBsAg</label>
+                        <small id="help_{{ $viewFolder }}_hbsag" class="text-muted"></small>
+                      </div>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[anti_hbs]" id="{{ $viewFolder }}_anti_hbs" placeholder="" value="{{ !empty($datum->anti_hbs) ? $datum->anti_hbs : '' }}">
+                        <label for="{{ $viewFolder }}_anti_hbs" class="form-label">Anti-HBS</label>
+                        <small id="help_{{ $viewFolder }}_anti_hbs" class="text-muted"></small>
+                      </div>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[anti_hcv]" id="{{ $viewFolder }}_anti_hcv" placeholder="" value="{{ !empty($datum->anti_hcv) ? $datum->anti_hcv : '' }}">
+                        <label for="{{ $viewFolder }}_anti_hcv" class="form-label">Anti-HCV</label>
+                        <small id="help_{{ $viewFolder }}_anti_hcv" class="text-muted"></small>
                       </div>
                     </div>
                   </div>

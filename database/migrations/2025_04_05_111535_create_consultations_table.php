@@ -92,7 +92,9 @@ return new class extends Migration
             $table->string('pre_hd_weight', 255)->nullable();
             $table->string('post_hd_weight', 255)->nullable();
             $table->string('ktv', 255)->nullable();
+            $table->string('achieved_ktv', 255)->nullable();
             $table->string('net_uf', 255)->nullable();
+            $table->string('achieved_uf', 255)->nullable();
             $table->string('hd_duration', 255)->nullable();
             $table->string('frequency', 255)->nullable();
             $table->string('prime', 255)->nullable();
@@ -143,6 +145,31 @@ return new class extends Migration
             $table->text('shorten_reason')->nullable(); //
             $table->unsignedBigInteger('treatment_number')->nullable();
             $table->text('dialysis_complication')->nullable();
+
+            $table->string('hemoglobin', 255)->nullable();
+            $table->string('hematocrit', 255)->nullable();
+            $table->string('rbc', 255)->nullable();
+            $table->string('wbc', 255)->nullable();
+            $table->string('urr', 255)->nullable();
+            $table->string('ktv2', 255)->nullable();
+            $table->string('pre_bun', 255)->nullable();
+            $table->string('post_bun', 255)->nullable();
+            $table->string('creatinine', 255)->nullable();
+            $table->string('serum_albumin', 255)->nullable();
+            $table->string('sodium', 255)->nullable();
+            $table->string('potassium', 255)->nullable();
+            $table->string('phosphorus', 255)->nullable();
+            $table->string('ionized_calcium', 255)->nullable();
+            $table->string('uric_acid', 255)->nullable();
+            $table->string('sgpt', 255)->nullable();
+            $table->string('sgot', 255)->nullable();
+            $table->string('serum_ferritin', 255)->nullable();
+            $table->string('serum_iron', 255)->nullable();
+            $table->string('tibc', 255)->nullable();
+            $table->string('tsat', 255)->nullable();
+            $table->string('hbsag', 255)->nullable();
+            $table->string('anti_hbs', 255)->nullable();
+            $table->string('anti_hcv', 255)->nullable();
             
 
             $table->text('docNotesHPI')->nullable();

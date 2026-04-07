@@ -336,7 +336,7 @@ class DoctorsHomeController extends Controller
         $dayNum = null;
         $allBooking = null;
         if($datum->booking_type == 'Dialysis'){
-            $allBooking = Consultation::where('patient_id', $datum->patient_id)->where('booking_type', 'Dialysis')->whereNotNull('time_ended')->whereNot('id', $datum->id)->where('bookingDate', '<', $datum->bookingDate)->orderBy('bookingDate','asc')->get();
+            $allBooking = Consultation::where('patient_id', $datum->patient_id)->where('booking_type', 'Dialysis')->whereNotNull('time_ended')->whereNot('id', $datum->id)->where('bookingDate', '<', $datum->bookingDate)->orderBy('bookingDate','desc')->get();
         }
         // dd($allBooking);
         $patients = $user->patients->sortBy('name');
@@ -383,6 +383,23 @@ class DoctorsHomeController extends Controller
             $doctorClinic = $user->affiliated_clinics->pluck('clinic_id')->toArray();
 
         $datum = $doctors_home;
+        // dd($datum);
+
+        // $pxConsultations[0] = $datum;
+        // print_r(sizeof($pxConsultations));
+        $prevId = $datum->id;
+        if(isset($datum->parent_consultation)){
+            $prevId = $datum->parent_consultation->id;
+        }
+        // print($prevId);
+        if($datum->booking_type != 'Dialysis')
+            $pxConsultationsPrev = Consultation::where('patient_id', $datum->patient_id)->where('id', '<=', $prevId)->whereNot('booking_type', 'Dialysis')->orderBy('bookingDate', 'desc')->get();
+        else
+            $pxConsultationsPrev = Consultation::where('patient_id', $datum->patient_id)->where('id', '<=', $prevId)->where('booking_type', 'Dialysis')->orderBy('bookingDate', 'desc')->get();
+        
+        // dd($pxConsultationsPrev);
+        // print_r(sizeof($pxConsultationsPrev));
+        // dd($pxConsultations[0]->consultationFiles);
         
         // if(isset($datum->printable_form['room'])){
         //     print "<pre>";
@@ -401,7 +418,7 @@ class DoctorsHomeController extends Controller
         $dayNum = null;
         $allBooking = null;
         if($datum->booking_type == 'Dialysis'){
-            $allBooking = Consultation::where('patient_id', $datum->patient_id)->where('booking_type', 'Dialysis')->whereNotNull('time_ended')->whereNot('id', $datum->id)->where('bookingDate', '<', $datum->bookingDate)->orderBy('bookingDate','asc')->get();
+            $allBooking = Consultation::where('patient_id', $datum->patient_id)->where('booking_type', 'Dialysis')->whereNotNull('time_ended')->whereNot('id', $datum->id)->where('bookingDate', '<', $datum->bookingDate)->orderBy('bookingDate','desc')->get();
         }
         // dd($allBooking);
         $patients = $user->patients->sortBy('name');
@@ -415,6 +432,8 @@ class DoctorsHomeController extends Controller
                     'moduleActive' => $this->module, 
                     'data' => $data, 
                     'datum' => $datum, 
+                    // 'pxConsultations' => $pxConsultations,
+                    'pxConsultationsPrev' => $pxConsultationsPrev,
                     'inputFormHeader' => ($datum->booking_type == '' ? 'Consultation' : $datum->booking_type) . ' Booking', 
                     'formId' => 'bookMod',
                     'formAction' => 'update', 
@@ -763,7 +782,7 @@ class DoctorsHomeController extends Controller
         
     }
 
-    function getPrevBookingInfo(Consultation $doctors_home, $index = null){
+    function getPrevBookingInfo(Consultation $doctors_home, $withHistory, $index = null){
         $user = Auth::user();
         // $prevBookingInfo = $doctors_home->patient->consultations()->where('doctor_id', $user->id)->where('id', '<', $doctors_home->id)->orderByDesc('bookingDate')->get();
         // $prevBookingArr['consultation'] = $prevBookingInfo[$index];
@@ -817,36 +836,119 @@ class DoctorsHomeController extends Controller
             $prevBookingArr['parent_doctor'] = $doctors_home->parent_consultation;
             $prevBookingArr['parent_doctor']['doctor'] = $doctors_home->parent_consultation->doctor;
             $prevBookingArr['parent_doctor']['clinic'] = $doctors_home->parent_consultation->clinic;
-            foreach($doctors_home->parent_consultation->consultation_files as $ind=>$consultation_file){
-                $prevBookingArr['consultation_files'][$ind]['file_link'] = asset($consultation_file->file_link);
-                $prevBookingArr['consultation_files'][$ind]['id'] = $consultation_file->id;
+            if($withHistory == 'noHistory'){
+                $pxConsultations[0] = $doctors_home->parent_consultation;
+            }else{
+                if($doctors_home->booking_type != 'Dialysis')
+                    $pxConsultations = Consultation::where('patient_id', $doctors_home->patient_id)->where('id', '<=', $doctors_home->parent_consultation->id)->whereNot('booking_type', 'Dialysis')->orderBy('bookingDate', 'desc')->get();
+                else
+                    $pxConsultations = Consultation::where('patient_id', $doctors_home->patient_id)->where('id', '<=', $doctors_home->parent_consultation->id)->where('booking_type', 'Dialysis')->orderBy('bookingDate', 'desc')->get();
+            }
+            $ind = 0;
+            if(!empty($pxConsultations)){
+                foreach($pxConsultations as $pxC){
+                    if(!empty($pxC->consultation_files[0]->file_link)){
+                        foreach($pxC->consultation_files as $consultation_file){
+                            $prevBookingArr['consultation_files'][$ind]['file_link'] = asset($consultation_file->file_link);
+                            $prevBookingArr['consultation_files'][$ind]['id'] = $consultation_file->id;
+                            $prevBookingArr['consultation_files'][$ind]['bookingDate'] = $pxC->bookingDate;
+                            $ind++;
+                        }
+                    }
+                    if(!empty($pxC->anesthesia_files[0]->file_link)){
+                        foreach($pxC->anesthesia_files as $consultation_file){
+                            $prevBookingArr['consultation_files'][$ind]['file_link'] = asset($consultation_file->file_link);
+                            $prevBookingArr['consultation_files'][$ind]['id'] = $consultation_file->id;
+                            $prevBookingArr['consultation_files'][$ind]['bookingDate'] = $pxC->bookingDate;
+                            $ind++;
+                        }
+                    }
+                    if(!empty($pxC->doctor_files[0]->file_link)){
+                        foreach($pxC->doctor_files as $consultation_file){
+                            $prevBookingArr['consultation_files'][$ind]['file_link'] = asset($consultation_file->file_link);
+                            $prevBookingArr['consultation_files'][$ind]['id'] = $consultation_file->id;
+                            $prevBookingArr['consultation_files'][$ind]['bookingDate'] = $pxC->bookingDate;
+                            $ind++;
+                        }
+                    }
+                    if(!empty($pxC->prescription_files[0]->file_link)){
+                        foreach($pxC->prescription_files as $consultation_file){
+                            $prevBookingArr['consultation_files'][$ind]['file_link'] = asset($consultation_file->file_link);
+                            $prevBookingArr['consultation_files'][$ind]['id'] = $consultation_file->id;
+                            $prevBookingArr['consultation_files'][$ind]['bookingDate'] = $pxC->bookingDate;
+                            $ind++;
+                        }
+                    }
+                }
             }
         }else{
             // $prevBookingArr['parent_doctor']['doctor']['name'] = '';
             // $prevBookingArr['parent_doctor']['doctor']['f_name'] = '';
             // $prevBookingArr['parent_doctor']['doctor']['l_name'] = '';
             // $prevBookingArr['parent_doctor']['clinic']['name'] = '';
-            foreach($doctors_home->consultation_files as $ind=>$consultation_file){
-                $prevBookingArr['consultation_files'][$ind]['file_link'] = asset($consultation_file->file_link);
-                $prevBookingArr['consultation_files'][$ind]['id'] = $consultation_file->id;
+            if($withHistory == 'noHistory')
+                $pxConsultations[0] = $doctors_home;
+            else{
+                if($doctors_home->booking_type != 'Dialysis')
+                    $pxConsultations = Consultation::where('patient_id', $doctors_home->patient_id)->where('id', '<=', $doctors_home->id)->whereNot('booking_type', 'Dialysis')->orderBy('bookingDate', 'desc')->get();
+                else
+                    $pxConsultations = Consultation::where('patient_id', $doctors_home->patient_id)->where('id', '<=', $doctors_home->id)->where('booking_type', 'Dialysis')->orderBy('bookingDate', 'desc')->get();
+            }
+                
+            $ind = 0;
+            if(!empty($pxConsultations)){
+                foreach($pxConsultations as $pxC){
+                    if(!empty($pxC->consultation_files[0]->file_link)){
+                        foreach($pxC->consultation_files as $consultation_file){
+                            $prevBookingArr['consultation_files'][$ind]['file_link'] = asset($consultation_file->file_link);
+                            $prevBookingArr['consultation_files'][$ind]['id'] = $consultation_file->id;
+                            $prevBookingArr['consultation_files'][$ind]['bookingDate'] = $pxC->bookingDate;
+                            $ind++;
+                        }
+                    }
+                    if(!empty($pxC->anesthesia_files[0]->file_link)){
+                        foreach($pxC->anesthesia_files as $consultation_file){
+                            $prevBookingArr['consultation_files'][$ind]['file_link'] = asset($consultation_file->file_link);
+                            $prevBookingArr['consultation_files'][$ind]['id'] = $consultation_file->id;
+                            $prevBookingArr['consultation_files'][$ind]['bookingDate'] = $pxC->bookingDate;
+                            $ind++;
+                        }
+                    }
+                    if(!empty($pxC->doctor_files[0]->file_link)){
+                        foreach($pxC->doctor_files as $consultation_file){
+                            $prevBookingArr['consultation_files'][$ind]['file_link'] = asset($consultation_file->file_link);
+                            $prevBookingArr['consultation_files'][$ind]['id'] = $consultation_file->id;
+                            $prevBookingArr['consultation_files'][$ind]['bookingDate'] = $pxC->bookingDate;
+                            $ind++;
+                        }
+                    }
+                    if(!empty($pxC->prescription_files[0]->file_link)){
+                        foreach($pxC->prescription_files as $consultation_file){
+                            $prevBookingArr['consultation_files'][$ind]['file_link'] = asset($consultation_file->file_link);
+                            $prevBookingArr['consultation_files'][$ind]['id'] = $consultation_file->id;
+                            $prevBookingArr['consultation_files'][$ind]['bookingDate'] = $pxC->bookingDate;
+                            $ind++;
+                        }
+                    }
+                }
             }
         }
 
-        foreach($doctors_home->anesthesia_files as $consultation_file){
-            $ind++;
-            $prevBookingArr['consultation_files'][$ind]['file_link'] = asset($consultation_file->file_link);
-            $prevBookingArr['consultation_files'][$ind]['id'] = $consultation_file->id;
-        }
-        foreach($doctors_home->doctor_files as $consultation_file){
-            $ind++;
-            $prevBookingArr['consultation_files'][$ind]['file_link'] = asset($consultation_file->file_link);
-            $prevBookingArr['consultation_files'][$ind]['id'] = $consultation_file->id;
-        }
-        foreach($doctors_home->prescription_files as $consultation_file){
-            $ind++;
-            $prevBookingArr['consultation_files'][$ind]['file_link'] = asset($consultation_file->file_link);
-            $prevBookingArr['consultation_files'][$ind]['id'] = $consultation_file->id;
-        }
+        // foreach($doctors_home->anesthesia_files as $consultation_file){
+        //     $ind++;
+        //     $prevBookingArr['consultation_files'][$ind]['file_link'] = asset($consultation_file->file_link);
+        //     $prevBookingArr['consultation_files'][$ind]['id'] = $consultation_file->id;
+        // }
+        // foreach($doctors_home->doctor_files as $consultation_file){
+        //     $ind++;
+        //     $prevBookingArr['consultation_files'][$ind]['file_link'] = asset($consultation_file->file_link);
+        //     $prevBookingArr['consultation_files'][$ind]['id'] = $consultation_file->id;
+        // }
+        // foreach($doctors_home->prescription_files as $consultation_file){
+        //     $ind++;
+        //     $prevBookingArr['consultation_files'][$ind]['file_link'] = asset($consultation_file->file_link);
+        //     $prevBookingArr['consultation_files'][$ind]['id'] = $consultation_file->id;
+        // }
 
         if(isset($doctors_home->consultation_referals[0]->id)){
             $prevBookingArr['consultation_referals'] = $doctors_home->consultation_referals;

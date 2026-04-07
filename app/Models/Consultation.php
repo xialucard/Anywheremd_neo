@@ -85,7 +85,9 @@ class Consultation extends Model
         'pre_hd_weight',
         'post_hd_weight',
         'ktv',
+        'achieved_ktv',
         'net_uf',
+        'achieved_uf',
         'hd_duration',
         'frequency',
         'prime',
@@ -159,7 +161,32 @@ class Consultation extends Model
         'updated_by',
         'vitals_updated_by',
         'hd_started_by',
-        'hd_terminated_by'
+        'hd_terminated_by',
+        
+        'hemoglobin',
+        'hematocrit',
+        'rbc',
+        'wbc',
+        'urr',
+        'ktv2',
+        'pre_bun',
+        'post_bun',
+        'creatinine',
+        'serum_albumin',
+        'sodium',
+        'potassium',
+        'phosphorus',
+        'ionized_calcium',
+        'uric_acid',
+        'sgpt',
+        'sgot',
+        'serum_ferritin',
+        'serum_iron',
+        'tibc',
+        'tsat',
+        'hbsag',
+        'anti_hbs',
+        'anti_hcv'
     ];
 
     public $sortable = ['id'];

@@ -21,29 +21,45 @@
 @endphp
 @php
   if($user->specialty == "POD"){
-    if($datum->booking_type != 'Dialysis')
-      $bookings = $datum->patient->consultations()->whereNot('booking_type', 'Dialysis')->whereNull('consultation_parent_id')->whereIn('clinic_id', $doctorClinic)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
-    else  
-      $bookings = $datum->patient->consultations()->where('booking_type', $datum->booking_type)->whereNull('consultation_parent_id')->whereIn('clinic_id', $doctorClinic)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
-    $carryOverBookingsICD = $datum->patient->consultations()->whereNotNull('icd_code')->whereNull('consultation_parent_id')->whereIn('clinic_id', $doctorClinic)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
-    $carryOverBookings = $datum->patient->consultations()->whereNotNull('assessment')->whereNull('consultation_parent_id')->whereIn('clinic_id', $doctorClinic)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
-    $carryOverBookingsPostOp = $datum->patient->consultations()->whereNotNull('post_op_assessment')->whereNull('consultation_parent_id')->whereIn('clinic_id', $doctorClinic)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
-    $carryOverBookingsHPI = $datum->patient->consultations()->whereNotNull('docNotesHPI')->whereNull('consultation_parent_id')->whereIn('clinic_id', $doctorClinic)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
-    $carryOverBookingsPlanMed = $datum->patient->consultations()->whereNotNull('planMed')->whereNull('consultation_parent_id')->whereIn('clinic_id', $doctorClinic)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
-    $carryOverBookingsPlan = $datum->patient->consultations()->whereNotNull('plan')->whereNull('consultation_parent_id')->whereIn('clinic_id', $doctorClinic)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
-    $carryOverBookingsPlanRem = $datum->patient->consultations()->whereNotNull('planRem')->whereNull('consultation_parent_id')->whereIn('clinic_id', $doctorClinic)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+    if($datum->booking_type != 'Dialysis'){
+      $bookings = $datum->patient->consultations()->whereNot('booking_type', 'Dialysis')->whereIn('clinic_id', $doctorClinic)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+      $carryOverBookingsICD = $datum->patient->consultations()->whereNot('booking_type', 'Dialysis')->whereNotNull('icd_code')->whereIn('clinic_id', $doctorClinic)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+      $carryOverBookings = $datum->patient->consultations()->whereNot('booking_type', 'Dialysis')->whereNotNull('assessment')->whereIn('clinic_id', $doctorClinic)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+      $carryOverBookingsPostOp = $datum->patient->consultations()->whereNot('booking_type', 'Dialysis')->whereNotNull('post_op_assessment')->whereIn('clinic_id', $doctorClinic)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+      $carryOverBookingsHPI = $datum->patient->consultations()->whereNot('booking_type', 'Dialysis')->whereNotNull('docNotesHPI')->whereIn('clinic_id', $doctorClinic)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+      $carryOverBookingsPlanMed = $datum->patient->consultations()->whereNot('booking_type', 'Dialysis')->whereNotNull('planMed')->whereIn('clinic_id', $doctorClinic)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+      $carryOverBookingsPlan = $datum->patient->consultations()->whereNot('booking_type', 'Dialysis')->whereNotNull('plan')->whereIn('clinic_id', $doctorClinic)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+      $carryOverBookingsPlanRem = $datum->patient->consultations()->whereNot('booking_type', 'Dialysis')->whereNotNull('planRem')->whereIn('clinic_id', $doctorClinic)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+    }else{  
+      $bookings = $datum->patient->consultations()->where('booking_type', $datum->booking_type)->whereIn('clinic_id', $doctorClinic)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+      $carryOverBookingsICD = $datum->patient->consultations()->where('booking_type', $datum->booking_type)->whereNotNull('icd_code')->whereIn('clinic_id', $doctorClinic)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+      $carryOverBookings = $datum->patient->consultations()->where('booking_type', $datum->booking_type)->whereNotNull('assessment')->whereIn('clinic_id', $doctorClinic)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+      $carryOverBookingsPostOp = $datum->patient->consultations()->where('booking_type', $datum->booking_type)->whereNotNull('post_op_assessment')->whereIn('clinic_id', $doctorClinic)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+      $carryOverBookingsHPI = $datum->patient->consultations()->where('booking_type', $datum->booking_type)->whereNotNull('docNotesHPI')->whereIn('clinic_id', $doctorClinic)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+      $carryOverBookingsPlanMed = $datum->patient->consultations()->where('booking_type', $datum->booking_type)->whereNotNull('planMed')->whereIn('clinic_id', $doctorClinic)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+      $carryOverBookingsPlan = $datum->patient->consultations()->where('booking_type', $datum->booking_type)->whereNotNull('plan')->whereIn('clinic_id', $doctorClinic)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+      $carryOverBookingsPlanRem = $datum->patient->consultations()->where('booking_type', $datum->booking_type)->whereNotNull('planRem')->whereIn('clinic_id', $doctorClinic)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+    }
   }else{
     if($datum->booking_type != 'Dialysis'){
       $bookings = $datum->patient->consultations()->whereNot('booking_type', 'Dialysis')->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
-    }else  
+      $carryOverBookingsICD = $datum->patient->consultations()->whereNot('booking_type', 'Dialysis')->whereNotNull('icd_code')->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+      $carryOverBookings = $datum->patient->consultations()->whereNot('booking_type', 'Dialysis')->whereNotNull('assessment')->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+      $carryOverBookingsPostOp = $datum->patient->consultations()->whereNot('booking_type', 'Dialysis')->whereNotNull('post_op_assessment')->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+      $carryOverBookingsHPI = $datum->patient->consultations()->whereNot('booking_type', 'Dialysis')->whereNotNull('docNotesHPI')->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+      $carryOverBookingsPlanMed = $datum->patient->consultations()->whereNot('booking_type', 'Dialysis')->whereNotNull('planMed')->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+      $carryOverBookingsPlan = $datum->patient->consultations()->whereNot('booking_type', 'Dialysis')->whereNotNull('plan')->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+      $carryOverBookingsPlanRem = $datum->patient->consultations()->whereNot('booking_type', 'Dialysis')->whereNotNull('planRem')->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();  
+    }else{
       $bookings = $datum->patient->consultations()->where('booking_type', $datum->booking_type)->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
-    $carryOverBookingsICD = $datum->patient->consultations()->whereNotNull('icd_code')->whereNull('consultation_parent_id')->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
-    $carryOverBookings = $datum->patient->consultations()->whereNotNull('assessment')->whereNull('consultation_parent_id')->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
-    $carryOverBookingsPostOp = $datum->patient->consultations()->whereNotNull('post_op_assessment')->whereNull('consultation_parent_id')->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
-    $carryOverBookingsHPI = $datum->patient->consultations()->whereNotNull('docNotesHPI')->whereNull('consultation_parent_id')->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
-    $carryOverBookingsPlanMed = $datum->patient->consultations()->whereNotNull('planMed')->whereNull('consultation_parent_id')->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
-    $carryOverBookingsPlan = $datum->patient->consultations()->whereNotNull('plan')->whereNull('consultation_parent_id')->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
-    $carryOverBookingsPlanRem = $datum->patient->consultations()->whereNotNull('planRem')->whereNull('consultation_parent_id')->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+      $carryOverBookingsICD = $datum->patient->consultations()->where('booking_type', $datum->booking_type)->whereNotNull('icd_code')->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+      $carryOverBookings = $datum->patient->consultations()->where('booking_type', $datum->booking_type)->whereNotNull('assessment')->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+      $carryOverBookingsPostOp = $datum->patient->consultations()->where('booking_type', $datum->booking_type)->whereNotNull('post_op_assessment')->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+      $carryOverBookingsHPI = $datum->patient->consultations()->where('booking_type', $datum->booking_type)->whereNotNull('docNotesHPI')->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+      $carryOverBookingsPlanMed = $datum->patient->consultations()->where('booking_type', $datum->booking_type)->whereNotNull('planMed')->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+      $carryOverBookingsPlan = $datum->patient->consultations()->where('booking_type', $datum->booking_type)->whereNotNull('plan')->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+      $carryOverBookingsPlanRem = $datum->patient->consultations()->where('booking_type', $datum->booking_type)->whereNotNull('planRem')->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
+    }
   }
   
   // print "<pre>";
@@ -2613,7 +2629,7 @@
                     <p>
                       <strong>Primary Diagnosis:</strong> <span id="{{ $viewFolder }}_prev_sum_icd_code">{!! isset($bookings[0]->icd_code_obj) ? $bookings[0]->icd_code_obj->icd_code . ' - ' . $bookings[0]->icd_code_obj->details : '' !!}</span><br>
                       <strong>Secondary Diagnosis:</strong><br><span class="m-3" id="{{ $viewFolder }}_prev_sum_assessment">{!! isset($bookings[0]->assessment) ? nl2br($bookings[0]->assessment) : '' !!}</span><br>
-                      <strong>Discharge Diagnosis (Post-op Diagnosis):</strong><br><span class="m-3" id="{{ $viewFolder }}_prev_post_op_assessment">{!! isset($bookings[0]->post_op_assessment) ? nl2br($bookings[0]->post_op_assessment) : '' !!}</span><br>
+                      <strong>Discharge Diagnosis (Post-op Diagnosis):</strong><br><span class="m-3" id="{{ $viewFolder }}_prev_sum_post_op_assessment">{!! isset($bookings[0]->post_op_assessment) ? nl2br($bookings[0]->post_op_assessment) : '' !!}</span><br>
                     </p>
                   </div>
                 </div>
@@ -2693,6 +2709,8 @@
                         </div>
                         <small class="text-muted">Content</small>
                         <textarea class="form-control" name="{{ $viewFolder }}[docNotesHPI]" id="{{ $viewFolder }}_prev_docNotesHPI" rows=3 disabled>{{ $bookings[0]->docNotesHPI }}</textarea>
+                        <small class="mb-3"></small><br>
+                        <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
                         <small class="text-muted">Helper Save/Edit</small>
                         <div class="input-group input-group-small mb-3 flex-nowrap">
                           <div class="input-group-text">
@@ -2841,7 +2859,8 @@
                       </select> --}}
                       <input class="form-control" list="icdCodeList" id="{{ $viewFolder }}_prev_icd_code" name="{{ $viewFolder }}[icd_code]" value="{{ isset($bookings[0]->icd_code_obj) ? $bookings[0]->icd_code_obj->icd_code . ' - ' . $bookings[0]->icd_code_obj->details : '' }}" autocomplete="off" disabled>
                       <label for="{{ $viewFolder }}_icd_code">Previous Primary Diagnosis</label>
-                      <small id="help_{{ $viewFolder }}_icd_code" class="text-muted"></small>
+                      <small class="mb-3"></small><br>
+                      <small id="help_{{ $viewFolder }}_icd_code" class="text-muted">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small>
                     </div>
                     <div class="card mb-3">
                       <div class="card-header">Previous Secondary Diagnosis</div>
@@ -2855,6 +2874,8 @@
                         </div>
                         <small class="text-muted">Content</small>
                         <textarea class="form-control" name="{{ $viewFolder }}[assessment]" id="{{ $viewFolder }}_prev_assessment" rows=3 disabled>{{ $bookings[0]->assessment }}</textarea>
+                        <small class="mb-3"></small><br>
+                        <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
                         <small class="text-muted">Helper Save/Edit</small>
                         <div class="input-group input-group-small mb-3 flex-nowrap">
                           <div class="input-group-text">
@@ -2878,6 +2899,8 @@
                         </div>
                         <small class="text-muted">Content</small>
                         <textarea class="form-control" name="{{ $viewFolder }}[post_op_assessment]" id="{{ $viewFolder }}_prev_post_op_assessment" rows=3 disabled>{{ $bookings[0]->post_op_assessment }}</textarea>
+                        <small class="mb-3"></small><br>
+                        <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
                         <small class="text-muted">Helper Save/Edit</small>
                         <div class="input-group input-group-small mb-3 flex-nowrap">
                           <div class="input-group-text">
@@ -2907,6 +2930,8 @@
                         </div>
                         <small class="text-muted">Content</small>
                         <textarea class="form-control" name="{{ $viewFolder }}[planMed]" id="{{ $viewFolder }}_prev_planMed" rows=3 disabled>{{ $bookings[0]->planMed }}</textarea>
+                        <small class="mb-3"></small><br>
+                        <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
                         <small class="text-muted">Helper Save/Edit</small>
                         <div class="input-group input-group-small mb-3 flex-nowrap">
                           <div class="input-group-text">
@@ -3094,6 +3119,8 @@
                         </div>
                         <small class="text-muted">Content</small>
                         <textarea class="form-control" name="{{ $viewFolder }}[planMed]" id="{{ $viewFolder }}_prev_planMed" rows=3 disabled>{{ $bookings[0]->planMed }}</textarea>
+                        <small class="mb-3"></small><br>
+                        <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
                         <small class="text-muted">Helper Save/Edit</small>
                         <div class="input-group input-group-small mb-3 flex-nowrap">
                           <div class="input-group-text">
@@ -3117,6 +3144,8 @@
                         </div>
                         <small class="text-muted">Content</small>
                         <textarea class="form-control" name="{{ $viewFolder }}[plan]" id="{{ $viewFolder }}_prev_plan" rows=3 disabled>{{ $bookings[0]->plan }}</textarea>
+                        <small class="mb-3"></small><br>
+                        <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
                         <small class="text-muted">Helper Save/Edit</small>
                         <div class="input-group input-group-small mb-3 flex-nowrap">
                           <div class="input-group-text">
@@ -3140,6 +3169,8 @@
                         </div>
                         <small class="text-muted">Content</small>
                         <textarea class="form-control" name="{{ $viewFolder }}[planRem]" id="{{ $viewFolder }}_prev_planRem" rows=3 disabled>{{ $bookings[0]->planRem }}</textarea>
+                        <small class="mb-3"></small><br>
+                        <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
                         <small class="text-muted">Helper Save/Edit</small>
                         <div class="input-group input-group-small mb-3 flex-nowrap">
                           <div class="input-group-text">
@@ -3160,116 +3191,147 @@
                 <div id="carouselPrev" class="carousel carousel-dark slide" data-bs-interval="false">
                   <div class="carousel-indicators" id="labPrevCarouselInd">
                     @php
+                      $ind = 0;
                       $key = false;
-                      if(isset($bookings[0]->parent_consultation)){
-                        $bookings[0]->consultation_files = $bookings[0]->parent_consultation->consultation_files;
-                        $bookings[0]->anesthesia_files = $bookings[0]->parent_consultation->anesthesia_files;
-                        $bookings[0]->doctor_files = $bookings[0]->parent_consultation->doctor_files;
-                        $bookings[0]->prescription_files = $bookings[0]->parent_consultation->prescription_files;
-                      }
+                      // if(isset($bookings[0]->parent_consultation)){
+                      //   $bookings[0]->consultation_files = $bookings[0]->parent_consultation->consultation_files;
+                      //   $bookings[0]->anesthesia_files = $bookings[0]->parent_consultation->anesthesia_files;
+                      //   $bookings[0]->doctor_files = $bookings[0]->parent_consultation->doctor_files;
+                      //   $bookings[0]->prescription_files = $bookings[0]->parent_consultation->prescription_files;
+                      // }
 
                     @endphp
-                    @if(!empty($bookings[0]->consultation_files[0]->file_link))
-                      @foreach($bookings[0]->consultation_files as $ind=>$file)
-                      @php
-                        $key = true;
-                      @endphp
+                    @if(!empty($pxConsultationsPrev))
+                    @foreach($pxConsultationsPrev as $pxC)
+                    @if(!empty($pxC->consultation_files[0]->file_link))
+                      @foreach($pxC->consultation_files as $file)
                     <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
-                      @endforeach
-                    @endif
-                    @if(!empty($bookings[0]->anesthesia_files[0]->file_link))
-                      @foreach($bookings[0]->anesthesia_files as $file)
                       @php
                         $ind++;
                         $key = true;
                       @endphp
-                    <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
                       @endforeach
                     @endif
-                    @if(!empty($bookings[0]->doctor_files[0]->file_link))
-                      @foreach($bookings[0]->doctor_files as $file)
+                    @if(!empty($pxC->anesthesia_files[0]->file_link))
+                      @foreach($pxC->anesthesia_files as $file)
+                    <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
                       @php
                         $ind++;
                         $key = true;
                       @endphp
-                    <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
                       @endforeach
                     @endif
-                    @if(!empty($bookings[0]->prescription_files[0]->file_link))
-                      @foreach($bookings[0]->prescription_files as $file)
+                    @if(!empty($pxC->doctor_files[0]->file_link))
+                      @foreach($pxC->doctor_files as $file)
+                    <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
                       @php
                         $ind++;
                         $key = true;
                       @endphp
-                    <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
                       @endforeach
+                    @endif
+                    @if(!empty($pxC->prescription_files[0]->file_link))
+                      @foreach($pxC->prescription_files as $file)
+                    <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
+                      @php
+                        $ind++;
+                        $key = true;
+                      @endphp
+                      @endforeach
+                    @endif
+                    @endforeach
                     @endif
                     @if(!$key)
                     <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                     @endif
+                    
                   </div>
                   <div class="carousel-inner" id="labPrevCarouselInner">
                     @php
+                      $ind = 0;
                       $key = false;
                     @endphp
-                    @if(!empty($bookings[0]->consultation_files[0]->file_link))
-                      @foreach($bookings[0]->consultation_files as $ind=>$file)
-                      @php
-                        $key = true;
-                      @endphp
+                    @if(!empty($pxConsultationsPrev))
+                    @foreach($pxConsultationsPrev as $pxC)
+                    @if(!empty($pxC->consultation_files[0]->file_link))
+                      @foreach($pxC->consultation_files as $file)
+                      
                     <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
                       @if($file->file_type == 'application/pdf')
                       <iframe src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" width="100%" height="373" style="border:1"></iframe>
                       @else
                       <img src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
                       @endif
+                      <div class="carousel-caption d-none d-md-block">
+                        {{-- <h5>First slide label</h5> --}}
+                        <p>{{ $pxC->bookingDate }}</p>
+                      </div>
                     </div>
-                      @endforeach
-                    @endif
-                    @if(!empty($bookings[0]->anesthesia_files[0]->file_link))
-                      @foreach($bookings[0]->anesthesia_files as $file)
-                      @php
-                        $ind++;
-                        $key = true;
-                      @endphp
-                    <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
-                      @if($file->file_type == 'application/pdf')
-                      <iframe src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" width="100%" height="373" style="border:1"></iframe>
-                      @else
-                      <img src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
-                      @endif
-                    </div>
-                      @endforeach
-                    @endif
-                    @if(!empty($bookings[0]->doctor_files[0]->file_link))
-                      @foreach($bookings[0]->doctor_files as $file)
                       @php
                         $ind++;
                         $key = true;
                       @endphp
+                      @endforeach
+                    @endif
+                    @if(!empty($pxC->anesthesia_files[0]->file_link))
+                      @foreach($pxC->anesthesia_files as $file)
+                      
                     <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
                       @if($file->file_type == 'application/pdf')
                       <iframe src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" width="100%" height="373" style="border:1"></iframe>
                       @else
                       <img src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
                       @endif
+                      <div class="carousel-caption d-none d-md-block">
+                        
+                        <p>{{ $pxC->bookingDate }}</p>
+                      </div>
                     </div>
-                      @endforeach
-                    @endif
-                    @if(!empty($bookings[0]->prescription_files[0]->file_link))
-                      @foreach($bookings[0]->prescription_files as $file)
                       @php
                         $ind++;
                         $key = true;
                       @endphp
+                      @endforeach
+                    @endif
+                    @if(!empty($pxC->doctor_files[0]->file_link))
+                      @foreach($pxC->doctor_files as $file)
+                      
                     <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
                       @if($file->file_type == 'application/pdf')
                       <iframe src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" width="100%" height="373" style="border:1"></iframe>
                       @else
                       <img src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
                       @endif
+                      <div class="carousel-caption d-none d-md-block">
+                        <p>{{ $pxC->bookingDate }}</p>
+                      </div>
                     </div>
+                      @php
+                        $ind++;
+                        $key = true;
+                      @endphp
                       @endforeach
+                    @endif
+                    @if(!empty($pxC->prescription_files[0]->file_link))
+                      @foreach($pxC->prescription_files as $file)
+                      
+                    <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
+                      @if($file->file_type == 'application/pdf')
+                      <iframe src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" width="100%" height="373" style="border:1"></iframe>
+                      @else
+                      <img src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
+                      @endif
+                      <div class="carousel-caption d-none d-md-block">
+                        <p>{{ $pxC->bookingDate }}</p>
+                      </div>
+                    </div>
+                      @php
+                        $ind++;
+                        $key = true;
+                      @endphp
+                      @endforeach
+                    @endif
+                    @endforeach
                     @endif
                     @if(!$key)
                     <div class="carousel-item active">
@@ -3296,56 +3358,69 @@
                   @php
                     $ind = 0;
                   @endphp
-                  @if(isset($bookings[0]->consultation_files))
-                    @foreach($bookings[0]->consultation_files as $ind => $file)
+                  @if(!empty($pxConsultationsPrev))
+                  @foreach($pxConsultationsPrev as $pxC)
+                  @if(isset($pxC->consultation_files))
+                    @foreach($pxC->consultation_files as $file)
                     @php
                       $exAr = explode('/', $file->file_link);
                     @endphp
                     @if($file->file_type == 'application/pdf')
-                  <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'></iframe><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
+                  <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'></iframe><p>{{ $pxC->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
                     @else
-                  <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}' disabled><i class='bi bi-trash'></i></button></div></div>
+                  <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'><p>{{ $pxC->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}' disabled><i class='bi bi-trash'></i></button></div></div>
                     @endif
-                    @endforeach
-                  @endif
-                  @if(isset($bookings[0]->anesthesia_files))
-                    @foreach($bookings[0]->anesthesia_files as $file)
                     @php
                       $ind++;
-                      $exAr = explode('/', $file->file_link);
                     @endphp
-                    @if($file->file_type == 'application/pdf')
-                  <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'></iframe><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
-                    @else
-                  <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}' disabled><i class='bi bi-trash'></i></button></div></div>
-                    @endif
                     @endforeach
                   @endif
-                  @if(isset($bookings[0]->doctor_files))
-                    @foreach($bookings[0]->doctor_files as $file)
+                  @if(isset($pxC->anesthesia_files))
+                    @foreach($pxC->anesthesia_files as $file)
                     @php
-                      $ind++;
                       $exAr = explode('/', $file->file_link);
                     @endphp
                     @if($file->file_type == 'application/pdf')
-                  <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'></iframe><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
+                  <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'></iframe><p>{{ $pxC->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
                     @else
-                  <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}' disabled><i class='bi bi-trash'></i></button></div></div>
+                  <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'><p>{{ $pxC->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}' disabled><i class='bi bi-trash'></i></button></div></div>
                     @endif
+                    @php
+                      $ind++;
+                    @endphp
                     @endforeach
                   @endif
-                  @if(isset($bookings[0]->prescription_files))
-                    @foreach($bookings[0]->prescription_files as $file)
+                  @if(isset($pxC->doctor_files))
+                    @foreach($pxC->doctor_files as $file)
                     @php
-                      $ind++;
                       $exAr = explode('/', $file->file_link);
                     @endphp
                     @if($file->file_type == 'application/pdf')
-                  <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'></iframe><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
+                  <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'></iframe><p>{{ $pxC->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
                     @else
-                  <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}' disabled><i class='bi bi-trash'></i></button></div></div>
+                  <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'><p>{{ $pxC->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}' disabled><i class='bi bi-trash'></i></button></div></div>
                     @endif
+                    @php
+                      $ind++;
+                    @endphp
                     @endforeach
+                  @endif
+                  @if(isset($pxC->prescription_files))
+                    @foreach($pxC->prescription_files as $file)
+                    @php
+                      $exAr = explode('/', $file->file_link);
+                    @endphp
+                    @if($file->file_type == 'application/pdf')
+                  <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'></iframe><p>{{ $pxC->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
+                    @else
+                  <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'><p>{{ $pxC->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}' disabled><i class='bi bi-trash'></i></button></div></div>
+                    @endif
+                    @php
+                      $ind++;
+                    @endphp
+                    @endforeach
+                  @endif
+                  @endforeach
                   @endif
                 </div>
                 </div>
@@ -7067,22 +7142,22 @@
                     <div class="card-header">Doctor's Notes</div>
                     <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                       <p>
-                        <strong>History of Present Illness:</strong><div class="m-3 {{ $datum->docNotesHPI == "" ? 'text-danger' : ((isset($carryOverBookingsHPI[0]->docNotesHPI) && $datum->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $datum->docNotesHPI) ? 'text-danger' : '') }}">{!! isset($datum->docNotesHPI) ? nl2br($datum->docNotesHPI) : nl2br((isset($carryOverBookingsHPI[0]->docNotesHPI) && $datum->doctor_id == $carryOverBookingsHPI[0]->doctor_id ? $carryOverBookingsHPI[0]->docNotesHPI : '')) !!}</div><br>
+                        <strong>History of Present Illness:</strong><div class="m-3 {{ $datum->docNotesHPI == "" ? 'text-danger' : ((isset($carryOverBookingsHPI[0]->docNotesHPI) && $datum->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $datum->docNotesHPI) ? 'text-warning' : '') }}">{!! isset($datum->docNotesHPI) ? nl2br($datum->docNotesHPI) : nl2br((isset($carryOverBookingsHPI[0]->docNotesHPI) && $datum->doctor_id == $carryOverBookingsHPI[0]->doctor_id ? $carryOverBookingsHPI[0]->docNotesHPI : '')) !!}@if(($datum->docNotesHPI == "" && isset($carryOverBookingsHPI[0]->docNotesHPI)) || (isset($carryOverBookingsHPI[0]->docNotesHPI) && $datum->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $datum->docNotesHPI))<br>[carry over from {{ $carryOverBookingsHPI[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsHPI[0]->booking_type }} booking last {{ $carryOverBookingsHPI[0]->bookingDate }}]@endif</div><br>
                         <strong>Subjective Complaints:</strong><br><div class="m-3">{!! isset($datum->docNotesSubject) ? nl2br($datum->docNotesSubject) : '' !!}</div><br>
                         <strong>Objective Findings:</strong><br><div class="m-3">{!! isset($datum->docNotes) ? nl2br($datum->docNotes) : '' !!}</div><br>
                       </p>
-                      <small class="text-muted">Note: Red text means the input is carry over from the previous booking.</small>
+                      <small class="text-muted">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small>
                     </div>
                   </div>
                   <div class="card mb-3">
                     <div class="card-header">Assessment</div>
                     <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                       <p>
-                        <strong>Primary Diagnosis:</strong> <div class="m-3 {{ $datum->icd_code_obj == "" ? 'text-danger' : ((isset($carryOverBookingsICD[0]->icd_code_obj->icd_code) && $datum->doctor_id == $carryOverBookingsICD[0]->doctor_id && $carryOverBookingsICD[0]->icd_code_obj->icd_code == $datum->icd_code_obj->icd_code) ? 'text-danger' : '') }}">{!! isset($datum->icd_code_obj) ? $datum->icd_code_obj->icd_code . ' - ' . $datum->icd_code_obj->details : (isset($carryOverBookingsICD[0]->icd_code_obj->icd_code) && $datum->doctor_id == $carryOverBookingsICD[0]->doctor_id ? $carryOverBookingsICD[0]->icd_code_obj->icd_code . ' - ' . $carryOverBookingsICD[0]->icd_code_obj->details : '') !!}</div><br>
-                        <strong>Secondary Diagnosis:</strong><br><div class="m-3 {{ $datum->assessment == "" ? 'text-danger' : ((isset($carryOverBookings[0]->assessment) && $datum->doctor_id == $carryOverBookings[0]->doctor_id && $carryOverBookings[0]->assessment == $datum->assessment) ? 'text-danger' : '') }}">{!! isset($datum->assessment) ? nl2br($datum->assessment) : nl2br(isset($carryOverBookings[0]->assessment) && $datum->doctor_id == $carryOverBookings[0]->doctor_id ? $carryOverBookings[0]->assessment : '') !!}</div><br>
-                        <strong>Discharge Diagnosis (Post-op Diagnosis):</strong><br><div class="m-3 {{ $datum->post_op_assessment == "" ? 'text-danger' : ((isset($carryOverBookingsPostOp[0]->post_op_assessment) && $datum->doctor_id == $carryOverBookingsPostOp[0]->doctor_id && $carryOverBookingsPostOp[0]->post_op_assessment == $datum->post_op_assessment) ? 'text-danger' : '') }}">{!! isset($datum->post_op_assessment) ? nl2br($datum->post_op_assessment) : nl2br(isset($carryOverBookingsPostOp[0]->post_op_assessment) && $datum->doctor_id == $carryOverBookingsPostOp[0]->doctor_id ? $carryOverBookingsPostOp[0]->post_op_assessment : '') !!}</div><br>
+                        <strong>Primary Diagnosis:</strong> <div class="m-3 {{ (!isset($datum->icd_code_obj->icd_code) || (isset($datum->icd_code_obj->icd_code) && $datum->icd_code_obj->icd_code == "")) ? 'text-danger' : ((isset($carryOverBookingsICD[0]->icd_code_obj->icd_code) && $datum->doctor_id == $carryOverBookingsICD[0]->doctor_id && $carryOverBookingsICD[0]->icd_code_obj->icd_code == $datum->icd_code_obj->icd_code) ? 'text-warning' : '') }}">{!! isset($datum->icd_code_obj->icd_code) ? $datum->icd_code_obj->icd_code . ' - ' . $datum->icd_code_obj->details : (isset($carryOverBookingsICD[0]->icd_code_obj->icd_code) && $datum->doctor_id == $carryOverBookingsICD[0]->doctor_id ? $carryOverBookingsICD[0]->icd_code_obj->icd_code . ' - ' . $carryOverBookingsICD[0]->icd_code_obj->details : '') !!}@if(!isset($datum->icd_code_obj->icd_code) || (isset($datum->icd_code_obj->icd_code) && $datum->icd_code_obj->icd_code == "" && isset($carryOverBookingsICD[0]->icd_code_obj->icd_code)) || (isset($carryOverBookingsICD[0]->icd_code_obj->icd_code) && $datum->doctor_id == $carryOverBookingsICD[0]->doctor_id && $carryOverBookingsICD[0]->icd_code_obj->icd_code == $datum->icd_code_obj->icd_code))<br>[carry over from {{ $carryOverBookingsICD[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsICD[0]->booking_type }} booking last {{ $carryOverBookingsICD[0]->bookingDate }}]@endif</div><br>
+                        <strong>Secondary Diagnosis:</strong><br><div class="m-3 {{ $datum->assessment == "" ? 'text-danger' : ((isset($carryOverBookings[0]->assessment) && $datum->doctor_id == $carryOverBookings[0]->doctor_id && $carryOverBookings[0]->assessment == $datum->assessment) ? 'text-warning' : '') }}">{!! isset($datum->assessment) ? nl2br($datum->assessment) : nl2br(isset($carryOverBookings[0]->assessment) && $datum->doctor_id == $carryOverBookings[0]->doctor_id ? $carryOverBookings[0]->assessment : '') !!}@if(($datum->assessment == "" && isset($carryOverBookings[0]->assessment)) || (isset($carryOverBookings[0]->assessment) && $datum->doctor_id == $carryOverBookings[0]->doctor_id && $carryOverBookings[0]->assessment == $datum->assessment))<br>[carry over from {{ $carryOverBookings[0]->booking_type == '' ? 'Consultation' : $carryOverBookings[0]->booking_type }} booking last {{ $carryOverBookings[0]->bookingDate }}]@endif</div><br>
+                        <strong>Discharge Diagnosis (Post-op Diagnosis):</strong><br><div class="m-3 {{ $datum->post_op_assessment == "" ? 'text-danger' : ((isset($carryOverBookingsPostOp[0]->post_op_assessment) && $datum->doctor_id == $carryOverBookingsPostOp[0]->doctor_id && $carryOverBookingsPostOp[0]->post_op_assessment == $datum->post_op_assessment) ? 'text-warning' : '') }}">{!! isset($datum->post_op_assessment) ? nl2br($datum->post_op_assessment) : nl2br(isset($carryOverBookingsPostOp[0]->post_op_assessment) && $datum->doctor_id == $carryOverBookingsPostOp[0]->doctor_id ? $carryOverBookingsPostOp[0]->post_op_assessment : '') !!}@if(($datum->post_op_assessment == "" && isset($carryOverBookingsPostOp[0]->post_op_assessment)) || (isset($carryOverBookingsPostOp[0]->post_op_assessment) && $datum->doctor_id == $carryOverBookingsPostOp[0]->doctor_id && $carryOverBookingsPostOp[0]->post_op_assessment == $datum->post_op_assessment))<br>[carry over from {{ $carryOverBookingsPostOp[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPostOp[0]->booking_type }} booking last {{ $carryOverBookingsPostOp[0]->bookingDate }}]@endif</div><br>
                       </p>
-                      <small class="text-muted">Note: Red text means the input is carry over from the previous booking.</small>
+                      <small class="text-muted">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small>
                     </div>
                   </div>
                   <div class="card mb-3">
@@ -7090,7 +7165,8 @@
                     <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                       @if($datum->booking_type == 'Dialysis')
                       <p>
-                        <strong>Plan:</strong><br><div class="m-3 {{ $datum->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed) ? 'text-danger' : '') }}">{!! isset($datum->planMed) ? nl2br($datum->planMed) : nl2br(isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id ? $carryOverBookingsPlanMed[0]->planMed : '') !!}</div><br>
+                        <strong>Plan:</strong><br><div class="m-3 {{ $datum->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed) ? 'text-warning' : '') }}">{!! isset($datum->planMed) ? nl2br($datum->planMed) : nl2br(isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id ? $carryOverBookingsPlanMed[0]->planMed : '') !!}@if(($datum->planMed == "" && isset($carryOverBookingsPlanMed[0]->planMed)) || (isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed))<br>[carry over from {{ $carryOverBookingsPlanMed[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlanMed[0]->booking_type }} booking last {{ $carryOverBookingsPlanMed[0]->bookingDate }}]@endif</div><br>
+                        <small class="text-muted">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br><br>
                         <strong>Current Meds Onboard:</strong>
                         <div class="table-responsive" style="max-height: 300px">
                           <table class="table table-bordered table-striped table-hover table-sm medsOn">
@@ -7117,11 +7193,11 @@
                       </p>
                       @else
                       <p>
-                        <strong>Medical Therapeutics:</strong><br><div class="m-3 {{ $datum->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed) ? 'text-danger' : '') }}">{!! isset($datum->planMed) ? nl2br($datum->planMed) : nl2br(isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id ? $carryOverBookingsPlanMed[0]->planMed : '') !!}</div><br>
-                        <strong>Diagnostics and Surgery:</strong><br><div class="m-3 {{ $datum->plan == "" ? 'text-danger' : ((isset($carryOverBookingsPlan[0]->plan) && $datum->doctor_id == $carryOverBookingsPlan[0]->doctor_id && $carryOverBookingsPlan[0]->plan == $datum->plan) ? 'text-danger' : '') }}">{!! isset($datum->plan) ? nl2br($datum->plan) : nl2br(isset($carryOverBookingsPlan[0]->plan) && $datum->doctor_id == $carryOverBookingsPlan[0]->doctor_id ? $carryOverBookingsPlan[0]->plan : '') !!}</div><br>
-                        <strong>Remarks:</strong><br><div class="m-3 {{ $datum->planRem == "" ? 'text-danger' : ((isset($carryOverBookingsPlanRem[0]->planRem) && $datum->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id && $carryOverBookingsPlanRem[0]->planRem == $datum->planRem) ? 'text-danger' : '') }}">{!! isset($datum->planRem) ? nl2br($datum->planRem) : nl2br(isset($carryOverBookingsPlanRem[0]->planRem) && $datum->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id ? $carryOverBookingsPlanRem[0]->planRem : '') !!}</div><br>
+                        <strong>Medical Therapeutics:</strong><br><div class="m-3 {{ $datum->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed) ? 'text-warning' : '') }}">{!! isset($datum->planMed) ? nl2br($datum->planMed) : nl2br(isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id ? $carryOverBookingsPlanMed[0]->planMed : '') !!}@if(($datum->planMed == "" && isset($carryOverBookingsPlanMed[0]->planMed)) || (isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed))<br>[carry over from {{ $carryOverBookingsPlanMed[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlanMed[0]->booking_type }} booking last {{ $carryOverBookingsPlanMed[0]->bookingDate }}]@endif</div><br>
+                        <strong>Diagnostics and Surgery:</strong><br><div class="m-3 {{ $datum->plan == "" ? 'text-danger' : ((isset($carryOverBookingsPlan[0]->plan) && $datum->doctor_id == $carryOverBookingsPlan[0]->doctor_id && $carryOverBookingsPlan[0]->plan == $datum->plan) ? 'text-warning' : '') }}">{!! isset($datum->plan) ? nl2br($datum->plan) : nl2br(isset($carryOverBookingsPlan[0]->plan) && $datum->doctor_id == $carryOverBookingsPlan[0]->doctor_id ? $carryOverBookingsPlan[0]->plan : '') !!}@if(($datum->plan == "" && isset($carryOverBookingsPlan[0]->plan)) || (isset($carryOverBookingsPlan[0]->plan) && $datum->doctor_id == $carryOverBookingsPlan[0]->doctor_id && $carryOverBookingsPlan[0]->plan == $datum->plan))<br>[carry over from {{ $carryOverBookingsPlan[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlan[0]->booking_type }} booking last {{ $carryOverBookingsPlan[0]->bookingDate }}]@endif</div><br>
+                        <strong>Remarks:</strong><br><div class="m-3 {{ $datum->planRem == "" ? 'text-danger' : ((isset($carryOverBookingsPlanRem[0]->planRem) && $datum->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id && $carryOverBookingsPlanRem[0]->planRem == $datum->planRem) ? 'text-warning' : '') }}">{!! isset($datum->planRem) ? nl2br($datum->planRem) : nl2br(isset($carryOverBookingsPlanRem[0]->planRem) && $datum->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id ? $carryOverBookingsPlanRem[0]->planRem : '') !!}@if(($datum->planRem == "" && isset($carryOverBookingsPlanRem[0]->planRem)) || (isset($carryOverBookingsPlanRem[0]->planRem) && $datum->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id && $carryOverBookingsPlanRem[0]->planRem == $datum->planRem))<br>[carry over from {{ $carryOverBookingsPlanRem[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlanRem[0]->booking_type }} booking last {{ $carryOverBookingsPlanRem[0]->bookingDate }}]@endif</div><br>
                       </p>
-                      <small class="text-muted">Note: Red text means the input is carry over from the previous booking.</small>
+                      <small class="text-muted">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small>
                       @endif
                     </div>
                   </div>
@@ -7133,22 +7209,22 @@
                     <div class="card-header">Doctor's Notes</div>
                     <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                       <p>
-                        <strong>History of Present Illness:</strong><div class="m-3 {{ $cr->docNotesHPI == "" ? 'text-danger' : ((isset($carryOverBookingsHPI[0]->docNotesHPI) && $cr->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $cr->docNotesHPI) ? 'text-danger' : '') }}">{!! isset($cr->docNotesHPI) ? nl2br($cr->docNotesHPI) : nl2br((isset($carryOverBookingsHPI[0]->docNotesHPI) && $datum->doctor_id == $carryOverBookingsHPI[0]->doctor_id ? $carryOverBookingsHPI[0]->docNotesHPI : '')) !!}</div><br>
+                        <strong>History of Present Illness:</strong><div class="m-3 {{ $cr->docNotesHPI == "" ? 'text-danger' : ((isset($carryOverBookingsHPI[0]->docNotesHPI) && $cr->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $cr->docNotesHPI) ? 'text-warning' : '') }}">{!! isset($cr->docNotesHPI) ? nl2br($cr->docNotesHPI) : nl2br((isset($carryOverBookingsHPI[0]->docNotesHPI) && $cr->doctor_id == $carryOverBookingsHPI[0]->doctor_id ? $carryOverBookingsHPI[0]->docNotesHPI : '')) !!}@if(($cr->docNotesHPI == "" && isset($carryOverBookingsHPI[0]->docNotesHPI)) || (isset($carryOverBookingsHPI[0]->docNotesHPI) && $cr->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $cr->docNotesHPI))<br>[carry over from {{ $carryOverBookingsHPI[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsHPI[0]->booking_type }} booking last {{ $carryOverBookingsHPI[0]->bookingDate }}]@endif</div><br>
                         <strong>Subjective Complaints:</strong><br><div class="m-3">{!! isset($cr->docNotesSubject) ? nl2br($cr->docNotesSubject) : '' !!}</div><br>
                         <strong>Objective Findings:</strong><br><div class="m-3">{!! isset($cr->docNotes) ? nl2br($cr->docNotes) : '' !!}</div><br>
                       </p>
-                      <small class="text-muted">Note: Red text means the input is carry over from the previous booking.</small>
+                      <small class="text-muted">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small>
                     </div>
                   </div>
                   <div class="card mb-3">
                     <div class="card-header">Assessment</div>
                     <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                       <p>
-                        <strong>Primary Diagnosis:</strong> <div class="m-3 {{ $cr->icd_code_obj == "" ? 'text-danger' : ((isset($carryOverBookingsICD[0]->icd_code_obj->icd_code) && $cr->doctor_id == $carryOverBookingsICD[0]->doctor_id && $carryOverBookingsICD[0]->icd_code_obj->icd_code == $cr->icd_code_obj->icd_code) ? 'text-danger' : '') }}">{!! isset($cr->icd_code_obj) ? $cr->icd_code_obj->icd_code . ' - ' . $cr->icd_code_obj->details : (isset($carryOverBookingsICD[0]->icd_code_obj->icd_code) && $cr->doctor_id == $carryOverBookingsHPI[0]->doctor_id ? $carryOverBookingsICD[0]->icd_code_obj->icd_code . ' - ' . $carryOverBookingsICD[0]->icd_code_obj->details : '') !!}</div><br>
-                        <strong>Secondary Diagnosis:</strong><br><div class="m-3 {{ $cr->assessment == "" ? 'text-danger' : ((isset($carryOverBookings[0]->assessment) && $cr->doctor_id == $carryOverBookings[0]->doctor_id && $carryOverBookings[0]->assessment == $cr->assessment) ? 'text-danger' : '') }}">{!! isset($cr->assessment) ? nl2br($cr->assessment) : nl2br(isset($carryOverBookings[0]->assessment) && $cr->doctor_id == $carryOverBookings[0]->doctor_id ? $carryOverBookings[0]->assessment : '') !!}</div><br>
-                        <strong>Discharge Diagnosis (Post-op Diagnosis):</strong><br><div class="m-3 {{ $cr->post_op_assessment == "" ? 'text-danger' : ((isset($carryOverBookingsPostOp[0]->post_op_assessment) && $cr->doctor_id == $carryOverBookingsPostOp[0]->doctor_id && $carryOverBookingsPostOp[0]->post_op_assessment == $cr->post_op_assessment) ? 'text-danger' : '') }}">{!! isset($cr->post_op_assessment) ? nl2br($cr->post_op_assessment) : nl2br(isset($carryOverBookingsPostOp[0]->post_op_assessment) && $cr->doctor_id == $carryOverBookingsPostOp[0]->doctor_id ? $carryOverBookingsPostOp[0]->post_op_assessment : '') !!}</div><br>
+                        <strong>Primary Diagnosis:</strong> <div class="m-3 {{ (!isset($cr->icd_code_obj->icd_code) || (isset($cr->icd_code_obj->icd_code) && $cr->icd_code_obj->icd_code == "")) ? 'text-danger' : ((isset($carryOverBookingsICD[0]->icd_code_obj->icd_code) && $cr->doctor_id == $carryOverBookingsICD[0]->doctor_id && $carryOverBookingsICD[0]->icd_code_obj->icd_code == $cr->icd_code_obj->icd_code) ? 'text-warning' : '') }}">{!! isset($cr->icd_code_obj->icd_code) ? $cr->icd_code_obj->icd_code . ' - ' . $cr->icd_code_obj->details : (isset($carryOverBookingsICD[0]->icd_code_obj->icd_code) && $cr->doctor_id == $carryOverBookingsICD[0]->doctor_id ? $carryOverBookingsICD[0]->icd_code_obj->icd_code . ' - ' . $carryOverBookingsICD[0]->icd_code_obj->details : '') !!}@if(!isset($cr->icd_code_obj->icd_code) || (isset($cr->icd_code_obj->icd_code) && $cr->icd_code_obj->icd_code == "" && isset($carryOverBookingsICD[0]->icd_code_obj->icd_code)) || (isset($carryOverBookingsICD[0]->icd_code_obj->icd_code) && $cr->doctor_id == $carryOverBookingsICD[0]->doctor_id && $carryOverBookingsICD[0]->icd_code_obj->icd_code == $cr->icd_code_obj->icd_code))<br>[carry over from {{ $carryOverBookingsICD[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsICD[0]->booking_type }} booking last {{ $carryOverBookingsICD[0]->bookingDate }}]@endif</div><br>
+                        <strong>Secondary Diagnosis:</strong><br><div class="m-3 {{ $cr->assessment == "" ? 'text-danger' : ((isset($carryOverBookings[0]->assessment) && $cr->doctor_id == $carryOverBookings[0]->doctor_id && $carryOverBookings[0]->assessment == $cr->assessment) ? 'text-warning' : '') }}">{!! isset($cr->assessment) ? nl2br($cr->assessment) : nl2br(isset($carryOverBookings[0]->assessment) && $cr->doctor_id == $carryOverBookings[0]->doctor_id ? $carryOverBookings[0]->assessment : '') !!}@if(($cr->assessment == "" && isset($carryOverBookings[0]->assessment)) || (isset($carryOverBookings[0]->assessment) && $cr->doctor_id == $carryOverBookings[0]->doctor_id && $carryOverBookings[0]->assessment == $cr->assessment))<br>[carry over from {{ $carryOverBookings[0]->booking_type == '' ? 'Consultation' : $carryOverBookings[0]->booking_type }} booking last {{ $carryOverBookings[0]->bookingDate }}]@endif</div><br>
+                        <strong>Discharge Diagnosis (Post-op Diagnosis):</strong><br><div class="m-3 {{ $cr->post_op_assessment == "" ? 'text-danger' : ((isset($carryOverBookingsPostOp[0]->post_op_assessment) && $cr->doctor_id == $carryOverBookingsPostOp[0]->doctor_id && $carryOverBookingsPostOp[0]->post_op_assessment == $cr->post_op_assessment) ? 'text-warning' : '') }}">{!! isset($cr->post_op_assessment) ? nl2br($cr->post_op_assessment) : nl2br(isset($carryOverBookingsPostOp[0]->post_op_assessment) && $cr->doctor_id == $carryOverBookingsPostOp[0]->doctor_id ? $carryOverBookingsPostOp[0]->post_op_assessment : '') !!}@if(($cr->post_op_assessment == "" && isset($carryOverBookingsPostOp[0]->post_op_assessment)) || (isset($carryOverBookingsPostOp[0]->post_op_assessment) && $cr->doctor_id == $carryOverBookingsPostOp[0]->doctor_id && $carryOverBookingsPostOp[0]->post_op_assessment == $cr->post_op_assessment))<br>[carry over from {{ $carryOverBookingsPostOp[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPostOp[0]->booking_type }} booking last {{ $carryOverBookingsPostOp[0]->bookingDate }}]@endif</div><br>
                       </p>
-                      <small class="text-muted">Note: Red text means the input is carry over from the previous booking.</small>
+                      <small class="text-muted">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small>
                     </div>
                   </div>
                   <div class="card mb-3">
@@ -7156,7 +7232,7 @@
                     <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                       @if($cr->booking_type == 'Dialysis')
                       <p>
-                        <strong>Plan:</strong><br><div class="m-3 {{ $cr->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $cr->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $cr->planMed) ? 'text-danger' : '') }}">{!! isset($cr->planMed) ? nl2br($cr->planMed) : nl2br(isset($carryOverBookingsPlanMed[0]->planMed) ? $carryOverBookingsPlanMed[0]->planMed : '') !!}</div><br>
+                        <strong>Plan:</strong><br><div class="m-3 {{ $cr->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $cr->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $cr->planMed) ? 'text-danger' : '') }}">{!! isset($cr->planMed) ? nl2br($cr->planMed) : nl2br(isset($carryOverBookingsPlanMed[0]->planMed) ? $carryOverBookingsPlanMed[0]->planMed : '') !!}@if(($cr->planMed == "" && isset($carryOverBookingsPlanMed[0]->planMed)) || (isset($carryOverBookingsPlanMed[0]->planMed) && $cr->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $cr->planMed))<br>[carry over from {{ $carryOverBookingsPlanMed[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlanMed[0]->booking_type }} booking last {{ $carryOverBookingsPlanMed[0]->bookingDate }}]@endif</div><br>
                         <strong>Current Meds Onboard:</strong>
                         <div class="table-responsive" style="max-height: 300px">
                           <table class="table table-bordered table-striped table-hover table-sm medsOn">
@@ -7183,11 +7259,11 @@
                       </p>
                       @else
                       <p>
-                        <strong>Medical Therapeutics:</strong><br><div class="m-3 {{ $cr->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $cr->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $cr->planMed) ? 'text-danger' : '') }}">{!! isset($cr->planMed) ? nl2br($cr->planMed) : nl2br(isset($carryOverBookingsPlanMed[0]->planMed) && $cr->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id ? $carryOverBookingsPlanMed[0]->planMed : '') !!}</div><br>
-                        <strong>Diagnostics and Surgery:</strong><br><div class="m-3 {{ $cr->plan == "" ? 'text-danger' : ((isset($carryOverBookingsPlan[0]->plan) && $cr->doctor_id == $carryOverBookingsPlan[0]->doctor_id && $carryOverBookingsPlan[0]->plan == $cr->plan) ? 'text-danger' : '') }}">{!! isset($cr->plan) ? nl2br($cr->plan) : nl2br(isset($carryOverBookingsPlan[0]->plan) && $cr->doctor_id == $carryOverBookingsPlan[0]->doctor_id ? $carryOverBookingsPlan[0]->plan : '') !!}</div><br>
-                        <strong>Remarks:</strong><br><div class="m-3 {{ $cr->planRem == "" ? 'text-danger' : ((isset($carryOverBookingsPlanRem[0]->planRem) && $cr->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id && $carryOverBookingsPlanRem[0]->planRem == $cr->planRem) ? 'text-danger' : '') }}">{!! isset($cr->planRem) ? nl2br($cr->planRem) : nl2br(isset($carryOverBookingsPlanRem[0]->planRem) && $cr->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id ? $carryOverBookingsPlanRem[0]->planRem : '') !!}</div><br>
+                        <strong>Medical Therapeutics:</strong><br><div class="m-3 {{ $cr->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $cr->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $cr->planMed) ? 'text-warning' : '') }}">{!! isset($cr->planMed) ? nl2br($cr->planMed) : nl2br(isset($carryOverBookingsPlanMed[0]->planMed) && $cr->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id ? $carryOverBookingsPlanMed[0]->planMed : '') !!}@if(($cr->planMed == "" && isset($carryOverBookingsPlanMed[0]->planMed)) || (isset($carryOverBookingsPlanMed[0]->planMed) && $cr->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $cr->planMed))<br>[carry over from {{ $carryOverBookingsPlanMed[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlanMed[0]->booking_type }} booking last {{ $carryOverBookingsPlanMed[0]->bookingDate }}]@endif</div><br>
+                        <strong>Diagnostics and Surgery:</strong><br><div class="m-3 {{ $cr->plan == "" ? 'text-danger' : ((isset($carryOverBookingsPlan[0]->plan) && $cr->doctor_id == $carryOverBookingsPlan[0]->doctor_id && $carryOverBookingsPlan[0]->plan == $cr->plan) ? 'text-warnign' : '') }}">{!! isset($cr->plan) ? nl2br($cr->plan) : nl2br(isset($carryOverBookingsPlan[0]->plan) && $cr->doctor_id == $carryOverBookingsPlan[0]->doctor_id ? $carryOverBookingsPlan[0]->plan : '') !!}@if(($cr->plan == "" && isset($carryOverBookingsPlan[0]->plan)) || (isset($carryOverBookingsPlan[0]->plan) && $cr->doctor_id == $carryOverBookingsPlan[0]->doctor_id && $carryOverBookingsPlan[0]->plan == $cr->plan))<br>[carry over from {{ $carryOverBookingsPlan[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlan[0]->booking_type }} booking last {{ $carryOverBookingsPlan[0]->bookingDate }}]@endif</div><br>
+                        <strong>Remarks:</strong><br><div class="m-3 {{ $cr->planRem == "" ? 'text-danger' : ((isset($carryOverBookingsPlanRem[0]->planRem) && $cr->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id && $carryOverBookingsPlanRem[0]->planRem == $cr->planRem) ? 'text-warning' : '') }}">{!! isset($cr->planRem) ? nl2br($cr->planRem) : nl2br(isset($carryOverBookingsPlanRem[0]->planRem) && $cr->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id ? $carryOverBookingsPlanRem[0]->planRem : '') !!}@if(($cr->planRem == "" && isset($carryOverBookingsPlanRem[0]->planRem)) || (isset($carryOverBookingsPlanRem[0]->planRem) && $cr->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id && $carryOverBookingsPlanRem[0]->planRem == $cr->planRem))<br>[carry over from {{ $carryOverBookingsPlanRem[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlanRem[0]->booking_type }} booking last {{ $carryOverBookingsPlanRem[0]->bookingDate }}]@endif</div><br>
                       </p>
-                      <small class="text-muted">Note: Red text means the input is carry over from the previous booking.</small>
+                      <small class="text-muted">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small>
                       @endif
                     </div>
                   </div>
@@ -7231,8 +7307,9 @@
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso) ? '' : 'disabled' }}>Delete Helper</button>
                           </div>
                           <small class="text-muted">Content</small>
-                          <textarea class="form-control {{ $datum->docNotesHPI == "" ? 'text-danger' : ((isset($carryOverBookingsHPI[0]->docNotesHPI) && $datum->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $datum->docNotesHPI) ? 'text-danger' : '') }}" name="{{ $viewFolder }}[docNotesHPI]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_docNotesHPI" @endif rows=3 {{ !isset($referal_conso)  ? '' : 'disabled' }}>{{ isset($datum->docNotesHPI) ? $datum->docNotesHPI : (isset($carryOverBookingsHPI[0]->docNotesHPI) && $datum->doctor_id == $carryOverBookingsHPI[0]->doctor_id ? $carryOverBookingsHPI[0]->docNotesHPI : '') }}</textarea>
-                          <small class="text-muted mb-3">Note: Red text means the input is carry over from the previous booking.</small><br>
+                          <textarea class="form-control {{ $datum->docNotesHPI == "" ? 'text-danger' : ((isset($carryOverBookingsHPI[0]->docNotesHPI) && $datum->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $datum->docNotesHPI) ? 'text-warning' : '') }}" name="{{ $viewFolder }}[docNotesHPI]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_docNotesHPI" @endif rows=3 {{ !isset($referal_conso)  ? '' : 'disabled' }}>{{ isset($datum->docNotesHPI) ? $datum->docNotesHPI : (isset($carryOverBookingsHPI[0]->docNotesHPI) && $datum->doctor_id == $carryOverBookingsHPI[0]->doctor_id ? $carryOverBookingsHPI[0]->docNotesHPI : '') }}</textarea>
+                          <small class="{{ $datum->docNotesHPI == "" ? 'text-danger' : ((isset($carryOverBookingsHPI[0]->docNotesHPI) && $datum->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $datum->docNotesHPI) ? 'text-warning' : '') }} mb-3">@if(($datum->docNotesHPI == "" && isset($carryOverBookingsHPI[0]->docNotesHPI)) || (isset($carryOverBookingsHPI[0]->docNotesHPI) && $datum->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $datum->docNotesHPI))[carry over from {{ $carryOverBookingsHPI[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsHPI[0]->booking_type }} booking last {{ $carryOverBookingsHPI[0]->bookingDate }}]@endif</small><br>
+                          <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
                           <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
@@ -7381,9 +7458,10 @@
                         {{-- <select class="form-select" name="{{ $viewFolder }}[icd_code]" id="{{ $viewFolder }}_icd_code" placeholder="" {{ $user->id == $datum->doctor->id ? '' : 'disabled' }}>
                           <option value=""></option>
                         </select> --}}
-                        <input class="form-control {{ !isset($datum->icd_code_obj->icd_code) ? 'text-danger' : ((isset($carryOverBookingsICD[0]->icd_code_obj->icd_code) && $datum->doctor_id == $carryOverBookingsICD[0]->doctor_id && $carryOverBookingsICD[0]->icd_code_obj->icd_code == $datum->icd_code_obj->icd_code) ? 'text-danger' : '') }}" list="icdCodeList" {{ !isset($referal_conso) ? 'id=' . $viewFolder . '_icd_code' : '' }} name="{{ $viewFolder }}[icd_code]" value="{{ isset($datum->icd_code_obj->icd_code) ? $datum->icd_code_obj->icd_code . ' - ' . $datum->icd_code_obj->details : (isset($carryOverBookingsICD[0]->icd_code_obj) && $datum->doctor_id == $carryOverBookingsICD[0]->doctor_id ? $carryOverBookingsICD[0]->icd_code_obj->icd_code . ' - ' . $carryOverBookingsICD[0]->icd_code_obj->details : '') }}" autocomplete="off" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                        <input class="form-control {{ !isset($datum->icd_code_obj->icd_code) ? 'text-danger' : ((isset($carryOverBookingsICD[0]->icd_code_obj->icd_code) && $datum->doctor_id == $carryOverBookingsICD[0]->doctor_id && $carryOverBookingsICD[0]->icd_code_obj->icd_code == $datum->icd_code_obj->icd_code) ? 'text-warning' : '') }}" list="icdCodeList" {{ !isset($referal_conso) ? 'id=' . $viewFolder . '_icd_code' : '' }} name="{{ $viewFolder }}[icd_code]" value="{{ isset($datum->icd_code_obj->icd_code) ? $datum->icd_code_obj->icd_code . ' - ' . $datum->icd_code_obj->details : (isset($carryOverBookingsICD[0]->icd_code_obj) && $datum->doctor_id == $carryOverBookingsICD[0]->doctor_id ? $carryOverBookingsICD[0]->icd_code_obj->icd_code . ' - ' . $carryOverBookingsICD[0]->icd_code_obj->details : '') }}" autocomplete="off" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
                         <label for="{{ $viewFolder }}_icd_code">Primary Diagnosis</label>
-                        <small id="help_{{ $viewFolder }}_icd_code" class="text-muted">Note: Red text means the input is carry over from the previous booking.</small>
+                        <small class="{{ !isset($datum->icd_code_obj->icd_code) ? 'text-danger' : ((isset($carryOverBookingsICD[0]->icd_code_obj->icd_code) && $datum->doctor_id == $carryOverBookingsICD[0]->doctor_id && $carryOverBookingsICD[0]->icd_code_obj->icd_code == $datum->icd_code_obj->icd_code) ? 'text-warning' : '') }} mb-3">@if(!isset($datum->icd_code_obj->icd_code) || (isset($datum->icd_code_obj->icd_code) && $datum->icd_code_obj->icd_code == "" && isset($carryOverBookingsICD[0]->icd_code_obj->icd_code)) || (isset($datum->icd_code_obj->icd_code) && $datum->doctor_id == $carryOverBookingsICD[0]->doctor_id && isset($carryOverBookingsICD[0]->icd_code_obj->icd_code) && $carryOverBookingsICD[0]->icd_code_obj->icd_code == $datum->icd_code_obj->icd_code))[carry over from {{ $carryOverBookingsICD[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsICD[0]->booking_type }} booking last {{ $carryOverBookingsICD[0]->bookingDate }}]@endif</small><br>
+                        <small id="help_{{ $viewFolder }}_icd_code" class="text-muted">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small>
                       </div>
                       <div class="card mb-3">
                         <div class="card-header">Secondary Diagnosis</div>
@@ -7396,13 +7474,14 @@
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
                           </div>
                           <small class="text-muted">Content</small>
-                          <textarea class="form-control {{ $datum->assessment == "" ? 'text-danger' : ((isset($carryOverBookings[0]->assessment) && $datum->doctor_id == $carryOverBookings[0]->doctor_id && $carryOverBookings[0]->assessment == $datum->assessment) ? 'text-danger' : '') }}" name="{{ $viewFolder }}[assessment]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_assessment" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }} onchange="
+                          <textarea class="form-control {{ $datum->assessment == "" ? 'text-danger' : ((isset($carryOverBookings[0]->assessment) && $datum->doctor_id == $carryOverBookings[0]->doctor_id && $carryOverBookings[0]->assessment == $datum->assessment) ? 'text-warning' : '') }}" name="{{ $viewFolder }}[assessment]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_assessment" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }} onchange="
                             $('#{{ $viewFolder }}_diagnosis').val($(this).val());
                             $('#{{ $viewFolder }}_parent_diagnosis_hidden').val($(this).val());
                             $('#{{ $viewFolder }}_pre_op_diagnosis').val($(this).val());
                             $('#{{ $viewFolder }}_parent_pre_op_diagnosis_hidden').val($(this).val());
                           ">{{ isset($datum->assessment) ? $datum->assessment : (isset($carryOverBookings[0]->assessment) && $datum->doctor_id == $carryOverBookings[0]->doctor_id ? $carryOverBookings[0]->assessment : '') }}</textarea>
-                          <small class="text-muted mb-3">Note: Red text means the input is carry over from the previous booking.</small><br>
+                          <small class="{{ $datum->assessment == "" ? 'text-danger' : ((isset($carryOverBookings[0]->assessment) && $datum->doctor_id == $carryOverBookings[0]->doctor_id && $carryOverBookings[0]->assessment == $datum->assessment) ? 'text-warning' : '') }} mb-3">@if(($datum->assessment == "" && isset($carryOverBookings[0]->assessment)) || (isset($carryOverBookings[0]->assessment) && $datum->doctor_id == $carryOverBookings[0]->doctor_id && $carryOverBookings[0]->assessment == $datum->assessment))[carry over from {{ $carryOverBookings[0]->booking_type == '' ? 'Consultation' : $carryOverBookings[0]->booking_type }} booking last {{ $carryOverBookings[0]->bookingDate }}]@endif</small><br>
+                          <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
                           <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
@@ -7425,11 +7504,12 @@
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
                           </div>
                           <small class="text-muted">Content</small>
-                          <textarea class="form-control {{ $datum->post_op_assessment == "" ? 'text-danger' : ((isset($carryOverBookingsPostOp[0]->post_op_assessment) && $datum->doctor_id == $carryOverBookingsPostOp[0]->doctor_id && $carryOverBookingsPostOp[0]->post_op_assessment == $datum->post_op_assessment) ? 'text-danger' : '') }}" name="{{ $viewFolder }}[post_op_assessment]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_post_op_assessment" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }} onchange="
+                          <textarea class="form-control {{ $datum->post_op_assessment == "" ? 'text-danger' : ((isset($carryOverBookingsPostOp[0]->post_op_assessment) && $datum->doctor_id == $carryOverBookingsPostOp[0]->doctor_id && $carryOverBookingsPostOp[0]->post_op_assessment == $datum->post_op_assessment) ? 'text-warning' : '') }}" name="{{ $viewFolder }}[post_op_assessment]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_post_op_assessment" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }} onchange="
                             $('#{{ $viewFolder }}_post_op_diagnosis').val($(this).val());
                             $('#{{ $viewFolder }}_parent_post_op_diagnosis_hidden').val($(this).val());
                           ">{{ isset($datum->post_op_assessment) ? $datum->post_op_assessment : (isset($carryOverBookingsPostOp[0]->post_op_assessment) && $datum->doctor_id == $carryOverBookingsPostOp[0]->doctor_id ? $carryOverBookingsPostOp[0]->post_op_assessment : '') }}</textarea>
-                          <small class="text-muted mb-3">Note: Red text means the input is carry over from the previous booking.</small><br>
+                          <small class="{{ $datum->post_op_assessment == "" ? 'text-danger' : ((isset($carryOverBookingsPostOp[0]->post_op_assessment) && $datum->doctor_id == $carryOverBookingsPostOp[0]->doctor_id && $carryOverBookingsPostOp[0]->post_op_assessment == $datum->post_op_assessment) ? 'text-warning' : '') }} mb-3">@if(($datum->post_op_assessment == "" && isset($carryOverBookingsPostOp[0]->post_op_assessment)) || (isset($carryOverBookingsPostOp[0]->post_op_assessment) && $datum->doctor_id == $carryOverBookingsPostOp[0]->doctor_id && $carryOverBookingsPostOp[0]->post_op_assessment == $datum->post_op_assessment))[carry over from {{ $carryOverBookingsPostOp[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPostOp[0]->booking_type }} booking last {{ $carryOverBookingsPostOp[0]->bookingDate }}]@endif</small><br>
+                          <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
                           <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
@@ -7458,8 +7538,9 @@
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
                           </div>
                           <small class="text-muted">Content</small>
-                          <textarea class="form-control {{ $datum->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed) ? 'text-danger' : '') }}" name="{{ $viewFolder }}[planMed]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_planMed" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }}>{{ isset($datum->planMed) ? $datum->planMed : (isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id ? $carryOverBookingsPlanMed[0]->planMed : '') }}</textarea>
-                          <small class="text-muted mb-3">Note: Red text means the input is carry over from the previous booking.</small><br>
+                          <textarea class="form-control {{ $datum->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed) ? 'text-warning' : '') }}" name="{{ $viewFolder }}[planMed]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_planMed" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }}>{{ isset($datum->planMed) ? $datum->planMed : (isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id ? $carryOverBookingsPlanMed[0]->planMed : '') }}</textarea>
+                          <small class="{{ $datum->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed) ? 'text-warning' : '') }} mb-3">@if(($datum->planMed == "" && isset($carryOverBookingsPlanMed[0]->planMed)) || (isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed))[carry over from {{ $carryOverBookingsPlanMed[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlanMed[0]->booking_type }} booking last {{ $carryOverBookingsPlanMed[0]->bookingDate }}]@endif</small><br>
+                          <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
                           <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
@@ -7482,8 +7563,9 @@
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
                           </div>
                           <small class="text-muted">Content</small>
-                          <textarea class="form-control {{ $datum->plan == "" ? 'text-danger' : ((isset($carryOverBookingsPlan[0]->plan) && $datum->doctor_id == $carryOverBookingsPlan[0]->doctor_id && $carryOverBookingsPlan[0]->plan == $datum->plan) ? 'text-danger' : '') }}" name="{{ $viewFolder }}[plan]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_plan" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }}>{{ isset($datum->plan) ? $datum->plan : (isset($carryOverBookingsPlan[0]->plan) && $datum->doctor_id == $carryOverBookingsPlan[0]->doctor_id ? $carryOverBookingsPlan[0]->plan : '') }}</textarea>
-                          <small class="text-muted mb-3">Note: Red text means the input is carry over from the previous booking.</small><br>
+                          <textarea class="form-control {{ $datum->plan == "" ? 'text-danger' : ((isset($carryOverBookingsPlan[0]->plan) && $datum->doctor_id == $carryOverBookingsPlan[0]->doctor_id && $carryOverBookingsPlan[0]->plan == $datum->plan) ? 'text-warning' : '') }}" name="{{ $viewFolder }}[plan]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_plan" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }}>{{ isset($datum->plan) ? $datum->plan : (isset($carryOverBookingsPlan[0]->plan) && $datum->doctor_id == $carryOverBookingsPlan[0]->doctor_id ? $carryOverBookingsPlan[0]->plan : '') }}</textarea>
+                          <small class="{{ $datum->plan == "" ? 'text-danger' : ((isset($carryOverBookingsPlan[0]->plan) && $datum->doctor_id == $carryOverBookingsPlan[0]->doctor_id && $carryOverBookingsPlan[0]->plan == $datum->plan) ? 'text-warning' : '') }} mb-3">@if(($datum->plan == "" && isset($carryOverBookingsPlan[0]->plan)) || (isset($carryOverBookingsPlan[0]->plan) && $datum->doctor_id == $carryOverBookingsPlan[0]->doctor_id && $carryOverBookingsPlan[0]->plan == $datum->plan))[carry over from {{ $carryOverBookingsPlan[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlan[0]->booking_type }} booking last {{ $carryOverBookingsPlan[0]->bookingDate }}]@endif</small><br>
+                          <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
                           <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
@@ -7506,8 +7588,9 @@
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
                           </div>
                           <small class="text-muted">Content</small>
-                          <textarea class="form-control {{ $datum->planRem == "" ? 'text-danger' : ((isset($carryOverBookingsPlanRem[0]->planRem) && $datum->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id && $carryOverBookingsPlanRem[0]->planRem == $datum->planRem) ? 'text-danger' : '') }}" name="{{ $viewFolder }}[planRem]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_planRem" @endif rows=3 {{ !isset($referal_conso)  ? '' : 'disabled' }}>{{ isset($datum->planRem) ? $datum->planRem : (isset($carryOverBookingsPlanRem[0]->planRem) && $datum->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id ? $carryOverBookingsPlanRem[0]->planRem : '') }}</textarea>
-                          <small class="text-muted mb-3">Note: Red text means the input is carry over from the previous booking.</small><br>
+                          <textarea class="form-control {{ $datum->planRem == "" ? 'text-danger' : ((isset($carryOverBookingsPlanRem[0]->planRem) && $datum->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id && $carryOverBookingsPlanRem[0]->planRem == $datum->planRem) ? 'text-warning' : '') }}" name="{{ $viewFolder }}[planRem]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_planRem" @endif rows=3 {{ !isset($referal_conso)  ? '' : 'disabled' }}>{{ isset($datum->planRem) ? $datum->planRem : (isset($carryOverBookingsPlanRem[0]->planRem) && $datum->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id ? $carryOverBookingsPlanRem[0]->planRem : '') }}</textarea>
+                          <small class="{{ $datum->planRem == "" ? 'text-danger' : ((isset($carryOverBookingsPlanRem[0]->planRem) && $datum->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id && $carryOverBookingsPlanRem[0]->planRem == $datum->planRem) ? 'text-warning' : '') }} mb-3">@if(($datum->planRem == "" && isset($carryOverBookingsPlanRem[0]->planRem)) || (isset($carryOverBookingsPlanRem[0]->planRem) && $datum->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id && $carryOverBookingsPlanRem[0]->planRem == $datum->planRem))[carry over from {{ $carryOverBookingsPlanRem[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlanRem[0]->booking_type }} booking last {{ $carryOverBookingsPlanRem[0]->bookingDate }}]@endif</small><br>
+                          <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
                           <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
@@ -7531,8 +7614,9 @@
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
                           </div>
                           <small class="text-muted">Content</small>
-                          <textarea class="form-control {{ $datum->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed) ? 'text-danger' : '') }}" name="{{ $viewFolder }}[planMed]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_planMed" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }}>{{ isset($datum->planMed) ? $datum->planMed : (isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id ? $carryOverBookingsPlanMed[0]->planMed : '') }}</textarea>
-                          <small class="text-muted mb-3">Note: Red text means the input is carry over from the previous booking.</small><br>
+                          <textarea class="form-control {{ $datum->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed) ? 'text-warning' : '') }}" name="{{ $viewFolder }}[planMed]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_planMed" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }}>{{ isset($datum->planMed) ? $datum->planMed : (isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id ? $carryOverBookingsPlanMed[0]->planMed : '') }}</textarea>
+                          <small class="{{ $datum->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed) ? 'text-warning' : '') }} mb-3">@if(($datum->planMed == "" && isset($carryOverBookingsPlanMed[0]->planMed)) || (isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed))[carry over from {{ $carryOverBookingsPlanMed[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlanMed[0]->booking_type }} booking last {{ $carryOverBookingsPlanMed[0]->bookingDate }}]@endif</small><br>
+                          <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
                           <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
@@ -7758,8 +7842,9 @@
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>Delete Helper</button>
                           </div>
                           <small class="text-muted">Content</small>
-                          <textarea class="form-control {{ $cr->docNotesHPI == "" ? 'text-danger' : ((isset($carryOverBookingsHPI[0]->docNotesHPI) && $cr->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $cr->docNotesHPI) ? 'text-danger' : '') }}" name="{{ $viewFolder }}[docNotesHPI]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_docNotesHPI" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>{{ isset($cr->docNotesHPI) ? $cr->docNotesHPI : nl2br((isset($carryOverBookingsHPI[0]->docNotesHPI) && $cr->doctor_id == $carryOverBookingsHPI[0]->doctor_id ? $carryOverBookingsHPI[0]->docNotesHPI : '')) }}</textarea>
-                          <small class="text-muted mb-3">Note: Red text means the input is carry over from the previous booking.</small><br>
+                          <textarea class="form-control {{ $cr->docNotesHPI == "" ? 'text-danger' : ((isset($carryOverBookingsHPI[0]->docNotesHPI) && $cr->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $cr->docNotesHPI) ? 'text-warning' : '') }}" name="{{ $viewFolder }}[docNotesHPI]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_docNotesHPI" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>{{ isset($cr->docNotesHPI) ? $cr->docNotesHPI : nl2br((isset($carryOverBookingsHPI[0]->docNotesHPI) && $cr->doctor_id == $carryOverBookingsHPI[0]->doctor_id ? $carryOverBookingsHPI[0]->docNotesHPI : '')) }}</textarea>
+                          <small class="{{ $cr->docNotesHPI == "" ? 'text-danger' : ((isset($carryOverBookingsHPI[0]->docNotesHPI) && $cr->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $cr->docNotesHPI) ? 'text-warning' : '') }} mb-3">@if(($cr->docNotesHPI == "" && isset($carryOverBookingsHPI[0]->docNotesHPI)) || (isset($carryOverBookingsHPI[0]->docNotesHPI) && $cr->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $cr->docNotesHPI))[carry over from {{ $carryOverBookingsHPI[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsHPI[0]->booking_type }} booking last {{ $carryOverBookingsHPI[0]->bookingDate }}]@endif</small><br>
+                          <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
                           <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
@@ -7910,7 +7995,8 @@
                         </select> --}}
                         <input class="form-control {{ !isset($cr->icd_code_obj->icd_code) ? 'text-danger' : ((isset($carryOverBookingsICD[0]->icd_code_obj->icd_code) && $cr->doctor_id == $carryOverBookingsICD[0]->doctor_id && $carryOverBookingsICD[0]->icd_code_obj->icd_code == $cr->icd_code_obj->icd_code) ? 'text-danger' : '') }}" list="icdCodeList" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'id=' . $viewFolder . '_icd_code' : '' }} name="{{ $viewFolder }}[icd_code]" value="{{ isset($cr->icd_code_obj->icd_code) ? $cr->icd_code_obj->icd_code . ' - ' . $cr->icd_code_obj->details : (isset($carryOverBookingsICD[0]->icd_code_obj) && $cr->doctor_id == $carryOverBookingsICD[0]->doctor_id ? $carryOverBookingsICD[0]->icd_code_obj->icd_code . ' - ' . $carryOverBookingsICD[0]->icd_code_obj->details : '') }}" autocomplete="off" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>
                         <label for="{{ $viewFolder }}_icd_code">Primary Diagnosis</label>
-                        <small id="help_{{ $viewFolder }}_icd_code" class="text-muted"></small>
+                        <small class="{{ !isset($cr->icd_code_obj->icd_code) ? 'text-danger' : ((isset($carryOverBookingsICD[0]->icd_code_obj->icd_code) && $cr->doctor_id == $carryOverBookingsICD[0]->doctor_id && $carryOverBookingsICD[0]->icd_code_obj->icd_code == $datum->icd_code_obj->icd_code) ? 'text-warning' : '') }} mb-3">@if(!isset($cr->icd_code_obj->icd_code) || (isset($cr->icd_code_obj->icd_code) && $cr->icd_code_obj->icd_code == "" && isset($carryOverBookingsICD[0]->icd_code_obj->icd_code)) || (isset($carryOverBookingsICD[0]->icd_code_obj->icd_code) && $cr->doctor_id == $carryOverBookingsICD[0]->doctor_id && $carryOverBookingsICD[0]->icd_code_obj->icd_code == $cr->icd_code_obj->icd_code))[carry over from {{ $carryOverBookingsICD[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsICD[0]->booking_type }} booking last {{ $carryOverBookingsICD[0]->bookingDate }}]@endif</small><br>
+                        <small id="help_{{ $viewFolder }}_icd_code" class="text-muted">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small>
                       </div>
                       <div class="card mb-3">
                         <div class="card-header">Secondary Diagnosis</div>
@@ -7923,13 +8009,14 @@
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>Delete Helper</button>
                           </div>
                           <small class="text-muted">Content</small>
-                          <textarea class="form-control {{ $cr->assessment == "" ? 'text-danger' : ((isset($carryOverBookings[0]->assessment) && $cr->doctor_id == $carryOverBookings[0]->doctor_id && $carryOverBookings[0]->assessment == $cr->assessment) ? 'text-danger' : '') }}" name="{{ $viewFolder }}[assessment]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_assessment" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }}  onchange="
+                          <textarea class="form-control {{ $cr->assessment == "" ? 'text-danger' : ((isset($carryOverBookings[0]->assessment) && $cr->doctor_id == $carryOverBookings[0]->doctor_id && $carryOverBookings[0]->assessment == $cr->assessment) ? 'text-warning' : '') }}" name="{{ $viewFolder }}[assessment]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_assessment" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }}  onchange="
                             $('#{{ $viewFolder }}_diagnosis').val($(this).val());
                             $('#{{ $viewFolder . $cr->id }}_diagnosis_hidden').val($(this).val());
                             $('#{{ $viewFolder }}_pre_op_diagnosis').val($(this).val());
                             $('#{{ $viewFolder . $cr->id }}_pre_op_diagnosis_hidden').val($(this).val());
                           ">{{ isset($cr->assessment) ? $cr->assessment : (isset($carryOverBookings[0]->assessment) && $cr->doctor_id == $carryOverBookings[0]->doctor_id ? $carryOverBookings[0]->assessment : '') }}</textarea>
-                          <small class="text-muted mb-3">Note: Red text means the input is carry over from the previous booking.</small><br>
+                          <small class="{{ $cr->assessment == "" ? 'text-danger' : ((isset($carryOverBookings[0]->assessment) && $cr->doctor_id == $carryOverBookings[0]->doctor_id && $carryOverBookings[0]->assessment == $cr->assessment) ? 'text-warning' : '') }} mb-3">@if(($cr->assessment == "" && isset($carryOverBookings[0]->assessment)) || (isset($carryOverBookings[0]->assessment) && $cr->doctor_id == $carryOverBookings[0]->doctor_id && $carryOverBookings[0]->assessment == $cr->assessment))[carry over from {{ $carryOverBookings[0]->booking_type == '' ? 'Consultation' : $carryOverBookings[0]->booking_type }} booking last {{ $carryOverBookings[0]->bookingDate }}]@endif</small><br>
+                          <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
                           <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
@@ -7952,11 +8039,12 @@
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>Delete Helper</button>
                           </div>
                           <small class="text-muted">Content</small>
-                          <textarea class="form-control {{ $cr->post_op_assessment == "" ? 'text-danger' : ((isset($carryOverBookingsPostOp[0]->post_op_assessment) && $cr->doctor_id == $carryOverBookingsPostOp[0]->doctor_id && $carryOverBookingsPostOp[0]->post_op_assessment == $cr->post_op_assessment) ? 'text-danger' : '') }}" name="{{ $viewFolder }}[post_op_assessment]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_post_op_assessment" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }}  onchange="
+                          <textarea class="form-control {{ $cr->post_op_assessment == "" ? 'text-danger' : ((isset($carryOverBookingsPostOp[0]->post_op_assessment) && $cr->doctor_id == $carryOverBookingsPostOp[0]->doctor_id && $carryOverBookingsPostOp[0]->post_op_assessment == $cr->post_op_assessment) ? 'text-warning' : '') }}" name="{{ $viewFolder }}[post_op_assessment]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_post_op_assessment" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }}  onchange="
                             $('#{{ $viewFolder }}_post_op_diagnosis').val($(this).val());
                             $('#{{ $viewFolder . $cr->id }}_post_op_diagnosis_hidden').val($(this).val());
                           ">{{ isset($cr->post_op_assessment) ? $cr->post_op_assessment : (isset($carryOverBookingsPostOp[0]->post_op_assessment) && $cr->doctor_id == $carryOverBookingsPostOp[0]->doctor_id ? $carryOverBookingsPostOp[0]->post_op_assessment : '') }}</textarea>
-                          <small class="text-muted mb-3">Note: Red text means the input is carry over from the previous booking.</small><br>
+                          <small class="{{ $cr->post_op_assessment == "" ? 'text-danger' : ((isset($carryOverBookingsPostOp[0]->post_op_assessment) && $cr->doctor_id == $carryOverBookingsPostOp[0]->doctor_id && $carryOverBookingsPostOp[0]->post_op_assessment == $cr->post_op_assessment) ? 'text-warning' : '') }} mb-3">@if(($cr->post_op_assessment == "" && isset($carryOverBookingsPostOp[0]->post_op_assessment)) || (isset($carryOverBookingsPostOp[0]->post_op_assessment) && $cr->doctor_id == $carryOverBookingsPostOp[0]->doctor_id && $carryOverBookingsPostOp[0]->post_op_assessment == $cr->post_op_assessment))[carry over from {{ $carryOverBookingsPostOp[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPostOp[0]->booking_type }} booking last {{ $carryOverBookingsPostOp[0]->bookingDate }}]@endif</small><br>
+                          <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
                           <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
@@ -7970,7 +8058,6 @@
                       </div>
                     </div>
                   </div>
-                  
                   <div class="card mb-3">
                     <div class="card-header">Plan</div>
                     <div class="card-body">
@@ -7986,8 +8073,9 @@
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>Delete Helper</button>
                           </div>
                           <small class="text-muted">Content</small>
-                          <textarea class="form-control {{ $cr->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $cr->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $cr->planMed) ? 'text-danger' : '') }}" name="{{ $viewFolder }}[planMed]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_planMed" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }}>{{ isset($cr->planMed) ? $cr->planMed : (isset($carryOverBookingsPlanMed[0]->planMed) && $cr->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id ? $carryOverBookingsPlanMed[0]->planMed : '') }}</textarea>
-                          <small class="text-muted mb-3">Note: Red text means the input is carry over from the previous booking.</small><br>
+                          <textarea class="form-control {{ $cr->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $cr->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $cr->planMed) ? 'text-warning' : '') }}" name="{{ $viewFolder }}[planMed]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_planMed" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }}>{{ isset($cr->planMed) ? $cr->planMed : (isset($carryOverBookingsPlanMed[0]->planMed) && $cr->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id ? $carryOverBookingsPlanMed[0]->planMed : '') }}</textarea>
+                          <small class="{{ $cr->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $cr->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $cr->planMed) ? 'text-warning' : '') }} mb-3">@if(($cr->planMed == "" && isset($carryOverBookingsPlanMed[0]->planMed)) || (isset($carryOverBookingsPlanMed[0]->planMed) && $cr->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $cr->planMed))[carry over from {{ $carryOverBookingsPlanMed[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlanMed[0]->booking_type }} booking last {{ $carryOverBookingsPlanMed[0]->bookingDate }}]@endif</small><br>
+                          <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
                           <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
@@ -8010,8 +8098,9 @@
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>Delete Helper</button>
                           </div>
                           <small class="text-muted">Content</small>
-                          <textarea class="form-control {{ $cr->plan == "" ? 'text-danger' : ((isset($carryOverBookingsPlan[0]->plan) && $cr->doctor_id == $carryOverBookingsPlan[0]->doctor_id && $carryOverBookingsPlan[0]->plan == $cr->plan) ? 'text-danger' : '') }}" name="{{ $viewFolder }}[plan]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_plan" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }}>{{ isset($cr->plan) ? $cr->plan : (isset($carryOverBookingsPlan[0]->plan) && $cr->doctor_id == $carryOverBookingsPlan[0]->doctor_id ? $carryOverBookingsPlan[0]->plan : '') }}</textarea>
-                          <small class="text-muted mb-3">Note: Red text means the input is carry over from the previous booking.</small><br>
+                          <textarea class="form-control {{ $cr->plan == "" ? 'text-danger' : ((isset($carryOverBookingsPlan[0]->plan) && $cr->doctor_id == $carryOverBookingsPlan[0]->doctor_id && $carryOverBookingsPlan[0]->plan == $cr->plan) ? 'text-warning' : '') }}" name="{{ $viewFolder }}[plan]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_plan" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }}>{{ isset($cr->plan) ? $cr->plan : (isset($carryOverBookingsPlan[0]->plan) && $cr->doctor_id == $carryOverBookingsPlan[0]->doctor_id ? $carryOverBookingsPlan[0]->plan : '') }}</textarea>
+                          <small class="{{ $cr->plan == "" ? 'text-danger' : ((isset($carryOverBookingsPlan[0]->plan) && $cr->doctor_id == $carryOverBookingsPlan[0]->doctor_id && $carryOverBookingsPlan[0]->plan == $cr->plan) ? 'text-warning' : '') }} mb-3">@if(($cr->plan == "" && isset($carryOverBookingsPlan[0]->plan)) || (isset($carryOverBookingsPlan[0]->plan) && $cr->doctor_id == $carryOverBookingsPlan[0]->doctor_id && $carryOverBookingsPlan[0]->plan == $cr->plan))[carry over from {{ $carryOverBookingsPlan[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlan[0]->booking_type }} booking last {{ $carryOverBookingsPlan[0]->bookingDate }}]@endif</small><br>
+                          <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
                           <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
@@ -8035,7 +8124,8 @@
                           </div>
                           <small class="text-muted">Content</small>
                           <textarea class="form-control {{ $cr->planRem == "" ? 'text-danger' : ((isset($carryOverBookingsPlanRem[0]->planRem) && $cr->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id && $carryOverBookingsPlanRem[0]->planRem == $cr->planRem) ? 'text-danger' : '') }}" name="{{ $viewFolder }}[planRem]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_planRem" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>{{ isset($cr->planRem) ? $cr->planRem : (isset($carryOverBookingsPlanRem[0]->planRem) && $cr->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id ? $carryOverBookingsPlanRem[0]->planRem : '') }}</textarea>
-                          <small class="text-muted mb-3">Note: Red text means the input is carry over from the previous booking.</small><br>
+                          <small class="{{ $cr->planRem == "" ? 'text-danger' : ((isset($carryOverBookingsPlanRem[0]->planRem) && $cr->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id && $carryOverBookingsPlanRem[0]->planRem == $cr->planRem) ? 'text-danger' : '') }} mb-3">@if(($cr->planRem == "" && isset($carryOverBookingsPlanRem[0]->planRem)) || (isset($carryOverBookingsPlanRem[0]->planRem) && $cr->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id && $carryOverBookingsPlanRem[0]->planRem == $cr->planRem))[carry over from {{ $carryOverBookingsPlanRem[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlanRem[0]->booking_type }} booking last {{ $carryOverBookingsPlanRem[0]->bookingDate }}]@endif</small><br>
+                          <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
                           <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
@@ -8060,7 +8150,8 @@
                           </div>
                           <small class="text-muted">Content</small>
                           <textarea class="form-control {{ $cr->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $cr->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $cr->planMed) ? 'text-danger' : '') }}" name="{{ $viewFolder }}[planMed]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_planMed" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }}>{{ isset($cr->planMed) ? $cr->planMed : (isset($carryOverBookingsPlanMed[0]->planMed) && $cr->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id ? $carryOverBookingsPlanMed[0]->planMed : '') }}</textarea>
-                          <small class="text-muted mb-3">Note: Red text means the input is carry over from the previous booking.</small><br>
+                          <small class="{{ $cr->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $cr->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $cr->planMed) ? 'text-danger' : '') }} mb-3">@if(($cr->planMed == "" && isset($carryOverBookingsPlanMed[0]->planMed)) || (isset($carryOverBookingsPlanMed[0]->planMed) && $cr->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $cr->planMed))[carry over from {{ $carryOverBookings[0]->booking_type == '' ? 'Consultation' : $carryOverBookings[0]->booking_type }} booking last {{ $carryOverBookings[0]->bookingDate }}]@endif</small><br>
+                          <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
                           <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
@@ -8253,26 +8344,141 @@
                 <h5>Image Viewer</h5>
                 <div id="carouselCur" class="carousel carousel-dark slide mx-auto" style="max-width: 60%" data-bs-interval="false">
                   <div class="carousel-indicators" id="labCurCarouselInd">
-                    @if(!empty($datum->consultation_files[0]->file_link))
-                      @foreach($datum->consultation_files as $ind=>$file)
+                    {{-- @if(!empty($pxConsultations)) --}}
+                      @php
+                        $key = true;
+                        $ind = 0;
+                      @endphp
+                      {{-- @foreach($pxConsultations as $pxC) --}}
+                        @if(!empty($datum->consultation_files[0]->file_link))
+                          @foreach($datum->consultation_files as $file)
                     <button type="button" data-bs-target="#carouselCur" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
-                      @endforeach
-                    @else
+                            @php
+                              $ind++;
+                              $key = false;
+                            @endphp 
+                          @endforeach
+                        @endif
+                        @if(!empty($datum->anesthesia_files[0]->file_link))
+                          @foreach($datum->anesthesia_files as $file)
+                    <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
+                          @php
+                            $ind++;
+                            $key = true;
+                          @endphp
+                          @endforeach
+                        @endif
+                        @if(!empty($datum->doctor_files[0]->file_link))
+                          @foreach($datum->doctor_files as $file)
+                    <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
+                          @php
+                            $ind++;
+                            $key = true;
+                          @endphp
+                          @endforeach
+                        @endif
+                        @if(!empty($datum->prescription_files[0]->file_link))
+                          @foreach($datum->prescription_files as $file)
+                    <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
+                          @php
+                            $ind++;
+                            $key = true;
+                          @endphp
+                          @endforeach
+                        @endif
+                      {{-- @endforeach --}}
+                    {{-- @endif --}}
+                    @if($key)
                     <button type="button" data-bs-target="#carouselCur" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                     @endif
                   </div>
                   <div class="carousel-inner" id="labCurCarouselInner">
-                    @if(!empty($datum->consultation_files[0]->file_link))
-                      @foreach($datum->consultation_files as $ind=>$file)
+                    {{-- @if(!empty($pxConsultations)) --}}
+                      @php
+                        $key = true;
+                        $ind = 0;
+                      @endphp
+                      {{-- @foreach($pxConsultations as $pxC) --}}
+                        @if(!empty($datum->consultation_files[0]->file_link))
+                          @foreach($datum->consultation_files as $file)
+                            
                     <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
-                      @if($file->file_type == 'application/pdf')
+                            @if($file->file_type == 'application/pdf')
                       <iframe src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" width="100%" height="373" style="border:1"></iframe>
-                      @else
+                            @else
                       <img src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
-                      @endif
+                      <div class="carousel-caption d-none d-md-block">
+                        {{-- <h5>First slide label</h5> --}}
+                        <p>{{ $datum->bookingDate }}</p>
+                      </div>
+                            @endif
                     </div>  
-                      @endforeach
-                    @else
+                            @php
+                              $ind++;
+                              $key = false;
+                            @endphp  
+                          @endforeach
+                        @endif
+                        @if(!empty($datum->anesthesia_files[0]->file_link))
+                          @foreach($datum->anesthesia_files as $file)
+                      
+                    <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
+                            @if($file->file_type == 'application/pdf')
+                      <iframe src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" width="100%" height="373" style="border:1"></iframe>
+                            @else
+                      <img src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
+                            @endif
+                      <div class="carousel-caption d-none d-md-block">
+                        <p>{{ $datum->bookingDate }}</p>
+                      </div>
+                    </div>
+                            @php
+                              $ind++;
+                              $key = true;
+                            @endphp
+                          @endforeach
+                        @endif
+                      @if(!empty($datum->doctor_files[0]->file_link))
+                        @foreach($datum->doctor_files as $file)
+                      
+                    <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
+                          @if($file->file_type == 'application/pdf')
+                      <iframe src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" width="100%" height="373" style="border:1"></iframe>
+                          @else
+                      <img src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
+                          @endif
+                      <div class="carousel-caption d-none d-md-block">
+                        <p>{{ $datum->bookingDate }}</p>
+                      </div>
+                    </div>
+                          @php
+                            $ind++;
+                            $key = true;
+                          @endphp
+                          @endforeach
+                        @endif
+                      @if(!empty($datum->prescription_files[0]->file_link))
+                        @foreach($datum->prescription_files as $file)
+                      
+                    <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
+                          @if($file->file_type == 'application/pdf')
+                      <iframe src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" width="100%" height="373" style="border:1"></iframe>
+                          @else
+                      <img src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
+                          @endif
+                      <div class="carousel-caption d-none d-md-block">
+                        <p>{{ $datum->bookingDate }}</p>
+                      </div>
+                    </div>
+                          @php
+                            $ind++;
+                            $key = true;
+                          @endphp
+                          @endforeach
+                        @endif
+                      {{-- @endforeach --}}
+                    {{-- @endif --}}
+                    @if($key)
                     <div class="carousel-item active">
                       {{-- <iframe src="{{ asset('MDR_030502009768.pdf') }}" width="100%" height="373" style="border:1"></iframe> --}}
                       <img src="https://mdbootstrap.com/img/Photos/Others/placeholder.jpg" class="d-block w-100" alt="">
@@ -8296,19 +8502,74 @@
                   
                 </div>
                 <div class="container horizontal-scrollable" style="overflow-x: auto; white-space: nowrap;">
-                  <div class="row flex-nowrap" id="image_preview" style="max-height:500px">
-                    @if(isset($datum->consultation_files))
-                      @foreach($datum->consultation_files as $ind => $file)
+                  <div class="row flex-nowrap" id="image_preview" style="max-height:510px">
+                    {{-- @if(!empty($pxConsultations)) --}}
                       @php
-                        $exAr = explode('/', $file->file_link);
+                        $ind = 0;
                       @endphp
-                      @if($file->file_type == 'application/pdf')
-                    <div class='img-div' data-bs-target="#carouselCur" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail' title='{{ $exAr[sizeof($exAr)-1] }}'></iframe><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
-                      @else
-                    <div class='img-div' data-bs-target="#carouselCur" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail' title='{{ $exAr[sizeof($exAr)-1] }}'><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
-                      @endif
-                      @endforeach
-                    @endif
+                      {{-- @foreach($pxConsultations as $pxC) --}}
+                        @if(isset($datum->consultation_files))
+                          @foreach($datum->consultation_files as $file)
+                            @php
+                              $exAr = explode('/', $file->file_link);
+                            @endphp
+                            @if($file->file_type == 'application/pdf')
+                    <div class='img-div' data-bs-target="#carouselCur" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail' title='{{ $exAr[sizeof($exAr)-1] }}'></iframe><p>{{ $datum->bookingDate }}</p><<div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
+                            @else
+                    <div class='img-div' data-bs-target="#carouselCur" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail' title='{{ $exAr[sizeof($exAr)-1] }}'><p>{{ $datum->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
+                            @endif
+                            @php
+                              $ind++;
+                            @endphp  
+                          @endforeach
+                        @endif
+                        @if(isset($datum->anesthesia_files))
+                          @foreach($datum->anesthesia_files as $file)
+                          @php
+                            $exAr = explode('/', $file->file_link);
+                          @endphp
+                          @if($file->file_type == 'application/pdf')
+                    <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'></iframe><p>{{ $datum->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
+                          @else
+                    <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'><p>{{ $datum->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}' disabled><i class='bi bi-trash'></i></button></div></div>
+                          @endif
+                          @php
+                            $ind++;
+                          @endphp
+                          @endforeach
+                        @endif
+                        @if(isset($datum->doctor_files))
+                          @foreach($datum->doctor_files as $file)
+                          @php
+                            $exAr = explode('/', $file->file_link);
+                          @endphp
+                          @if($file->file_type == 'application/pdf')
+                    <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'></iframe><p>{{ $datum->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
+                          @else
+                    <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'><p>{{ $datum->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}' disabled><i class='bi bi-trash'></i></button></div></div>
+                          @endif
+                          @php
+                            $ind++;
+                          @endphp
+                          @endforeach
+                        @endif
+                        @if(isset($datum->prescription_files))
+                          @foreach($datum->prescription_files as $file)
+                          @php
+                            $exAr = explode('/', $file->file_link);
+                          @endphp
+                          @if($file->file_type == 'application/pdf')
+                    <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'></iframe><p>{{ $datum->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
+                          @else
+                    <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'><p>{{ $datum->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}' disabled><i class='bi bi-trash'></i></button></div></div>
+                          @endif
+                          @php
+                            $ind++;
+                          @endphp
+                          @endforeach
+                        @endif
+                      {{-- @endforeach --}}
+                    {{-- @endif --}}
                   </div>
                 </div>
               </div>
@@ -11625,6 +11886,87 @@
                     </div>
                   </div>
                 </div>
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="card mb-3">
+                      <div class="card-header">Laboratory Summary</div>
+                      <div class="card-body">
+                      <div class="table-responsive" style="max-height: 300px">
+                        <table class="table table-bordered table-striped table-hover table-sm medsOn">
+                          <thead class="table-{{ $bgColor }}">
+                            <tr>
+                              <th rowspan="2">Date</th>
+                              <th rowspan="2">Hemoglobin</th>
+                              <th rowspan="2">Hematocrit</th>
+                              <th rowspan="2">RBC</th>
+                              <th rowspan="2">WBC</th>
+                              <th colspan="2">Dialysis Adequacy</th>
+                              <th colspan="11">Blood Chemistry</th>
+                              <th colspan="4">Iron Studies</th>
+                              <th colspan="3">Hepatitis Profile</th>
+                            </tr>
+                            <tr>  
+                              <th>URR</th>
+                              <th>Kt/V</th>
+                              <th>Pre BUN</th>
+                              <th>Post BUN</th>
+                              <th>Creatinine</th>
+                              <th>Serum Albumin</th>
+                              <th>Sodium</th>
+                              <th>Potassium</th>
+                              <th>Phosphorus</th>
+                              <th>Ionized Calcium</th>
+                              <th>Uric Acid</th>
+                              <th>SGPT</th>
+                              <th>SGOT</th>
+                              <th>Serum Ferritin</th>
+                              <th>Serum Iron</th>
+                              <th>TIBC</th>
+                              <th>TSAT</th>
+                              <th>HBsAg</th>
+                              <th>Anti-HBS</th>
+                              <th>Anti-HCV</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                          @if(isset($allBooking))
+                            @foreach ($allBooking as $ind=>$dat)
+                            <tr>
+                              <td>{{ $dat->bookingDate }}</td>
+                              <td>{{ $dat->hemoglobin }}</td>
+                              <td>{{ $dat->hematocrit }}</td>
+                              <td>{{ $dat->rbc }}</td>
+                              <td>{{ $dat->wbc }}</td>
+                              <td>{{ $dat->urr }}</td>
+                              <td>{{ $dat->ktv2 }}</td>
+                              <td>{{ $dat->pre_bun }}</td>
+                              <td>{{ $dat->post_bun }}</td>
+                              <td>{{ $dat->creatinine }}</td>
+                              <td>{{ $dat->serum_albumin }}</td>
+                              <td>{{ $dat->sodium }}</td>
+                              <td>{{ $dat->potassium }}</td>
+                              <td>{{ $dat->phosphorus }}</td>
+                              <td>{{ $dat->ionized_calcium }}</td>
+                              <td>{{ $dat->uric_acid }}</td>
+                              <td>{{ $dat->sgpt }}</td>
+                              <td>{{ $dat->sgot }}</td>
+                              <td>{{ $dat->serum_ferritin }}</td>
+                              <td>{{ $dat->serum_iron }}</td>
+                              <td>{{ $dat->tibc }}</td>
+                              <td>{{ $dat->tsat }}</td>
+                              <td>{{ $dat->hbsag }}</td>
+                              <td>{{ $dat->anti_hbs }}</td>
+                              <td>{{ $dat->anti_hcv }}</td>
+                            </tr>
+                            @endforeach
+                          @endif
+                          </tbody>
+                        </table>
+                      </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 @endif
               </div>
             </div>
@@ -11684,7 +12026,7 @@
  function loadPrevBooking(consultation_id, index){
     $.ajax({
       type: 'GET',
-      url: '{{ Route::has($viewFolder . '.getPrevBookingInfo') ? route($viewFolder . '.getPrevBookingInfo') : ''}}/' + consultation_id + '/' + index,
+      url: '{{ Route::has($viewFolder . '.getPrevBookingInfo') ? route($viewFolder . '.getPrevBookingInfo') : ''}}/' + consultation_id + '/withhistory/' + index,
       success:
         function(data, status){
           bookingObj = jQuery.parseJSON(data);
@@ -11749,12 +12091,12 @@
           });
           
           if(bookingObj.consultation.booking_type != 'Dialysis'){
-            $('#dialysisPrevDiv').hide();
+            // $('#dialysisPrevDiv').hide();
             $('#eeInfoPrev').show();
             $('#eeInfoPrev1').show();
             // $('#vitalsPrev').show();
           }else{
-            $('#dialysisPrevDiv').show();
+            // $('#dialysisPrevDiv').show();
             $('#eeInfoPrev').hide();
             $('#eeInfoPrev1').hide();
             // $('#vitalsPrev').hide();
@@ -11977,6 +12319,13 @@
           }else{
             $('#{{ $viewFolder }}_prev_icd_code').val('');
             $('#{{ $viewFolder }}_prev_sum_icd_code').html('');
+          }
+          if(bookingObj.consultation.post_op_assessment != null){
+            $('#{{ $viewFolder }}_prev_post_op_assessment').val(bookingObj.consultation.post_op_assessment);
+            $('#{{ $viewFolder }}_prev_sum_post_op_assessment').html(nl2br(bookingObj.consultation.post_op_assessment));
+          }else{
+            $('#{{ $viewFolder }}_prev_post_op_assessment').val('');
+            $('#{{ $viewFolder }}_prev_sum_post_op_assessment').html('');
           }
           if(bookingObj.consultation.assessment != null){
             $('#{{ $viewFolder }}_prev_assessment').val(bookingObj.consultation.assessment);
@@ -12715,23 +13064,23 @@
                   item.file_link = item.file_link.replace('uploads', 'storage/uploads');
                 if(index == 0){
                   indicator = '<button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="' + index + '" class="active" aria-current="true" aria-label="Slide ' + (index+1) + '"></button>'
-                  inner = '<div class="carousel-item active"><iframe src="' + item.file_link + '" class="d-block w-100" alt=""></iframe></div>';
+                  inner = '<div class="carousel-item active"><iframe src="' + item.file_link + '" class="d-block w-100" alt=""></iframe><div class="carousel-caption d-none d-md-block"><p>' + item.bookingDate +'</p></div></div>';
                 }else{
                   indicator += '<button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="' + index + '" aria-label="Slide ' + (index+1) + '"></button>'
-                  inner += '<div class="carousel-item"><iframe src="' + item.file_link + '" class="d-block w-100" alt=""></iframe></div>';
+                  inner += '<div class="carousel-item"><iframe src="' + item.file_link + '" class="d-block w-100" alt=""></iframe><div class="carousel-caption d-none d-md-block"><p>' + item.bookingDate +'</p></div></div>';
                 }
-                grid += '<div class="img-div" data-bs-target="#carouselPrev" data-bs-slide-to="' + index + '" id="img-div-save' + index + '""><iframe src="' + item.file_link + '" class="img-thumbnail"></iframe><div class="middle"><button id="action-icon" value="img-div-save' + index + '" class="btn btn-danger" disabled><i class="bi bi-trash"></i></button></div></div>';
+                grid += '<div class="img-div" data-bs-target="#carouselPrev" data-bs-slide-to="' + index + '" id="img-div-save' + index + '""><iframe src="' + item.file_link + '" class="img-thumbnail"></iframe><p>' + item.bookingDate +'</p><div class="middle"><button id="action-icon" value="img-div-save' + index + '" class="btn btn-danger" disabled><i class="bi bi-trash"></i></button></div></div>';
               }else{
                 if(item.file_link.includes('uploads'))
                   item.file_link = item.file_link.replace('uploads', 'storage/uploads');
                 if(index == 0){
                   indicator = '<button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="' + index + '" class="active" aria-current="true" aria-label="Slide ' + (index+1) + '"></button>'
-                  inner = '<div class="carousel-item active"><img src="' + item.file_link + '" class="d-block w-100" alt=""></div>';
+                  inner = '<div class="carousel-item active"><img src="' + item.file_link + '" class="d-block w-100" alt=""><div class="carousel-caption d-none d-md-block"><p>' + item.bookingDate +'</p></div></div>';
                 }else{
                   indicator += '<button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="' + index + '" aria-label="Slide ' + (index+1) + '"></button>'
-                  inner += '<div class="carousel-item"><img src="' + item.file_link + '" class="d-block w-100" alt=""></div>';
+                  inner += '<div class="carousel-item"><img src="' + item.file_link + '" class="d-block w-100" alt=""><div class="carousel-caption d-none d-md-block"><p>' + item.bookingDate +'</p></div></div>';
                 }
-                grid += '<div class="img-div" data-bs-target="#carouselPrev" data-bs-slide-to="' + index + '" id="img-div-save' + index + '""><img src="' + item.file_link + '" class="img-thumbnail"><div class="middle"><button id="action-icon" value="img-div-save' + index + '" class="btn btn-danger" disabled><i class="bi bi-trash"></i></button></div></div>';
+                grid += '<div class="img-div" data-bs-target="#carouselPrev" data-bs-slide-to="' + index + '" id="img-div-save' + index + '""><img src="' + item.file_link + '" class="img-thumbnail"><p>' + item.bookingDate +'</p><div class="middle"><button id="action-icon" value="img-div-save' + index + '" class="btn btn-danger" disabled><i class="bi bi-trash"></i></button></div></div>';
               }
               
             });
@@ -12835,7 +13184,7 @@
           function (){
             $.ajax({
               type: 'GET',
-              url: '{{ Route::has($viewFolder . '.getPrevBookingInfo') ? route($viewFolder . '.getPrevBookingInfo') : ''}}/{{ $datum->id }}/0',
+              url: '{{ Route::has($viewFolder . '.getPrevBookingInfo') ? route($viewFolder . '.getPrevBookingInfo') : ''}}/{{ $datum->id }}/noHistory/0',
               success:
                 function(data, status){
                   bookingObj = jQuery.parseJSON(data);
@@ -12849,23 +13198,23 @@
                           item.file_link = item.file_link.replace('uploads', 'storage/uploads');
                         if(index == 0){
                           indicator = '<button type="button" data-bs-target="#carouselCur" data-bs-slide-to="' + index + '" class="active" aria-current="true" aria-label="Slide ' + (index+1) + '"></button>'
-                          inner = '<div class="carousel-item active"><iframe src="' + item.file_link + '" class="d-block w-100" alt=""></iframe></div>';
+                          inner = '<div class="carousel-item active"><iframe src="' + item.file_link + '" class="d-block w-100" alt=""></iframe><div class="carousel-caption d-none d-md-block"><p>' + bookingObj.consultation.bookingDate +'</p></div></div>';
                         }else{
                           indicator += '<button type="button" data-bs-target="#carouselCur" data-bs-slide-to="' + index + '" aria-label="Slide ' + (index+1) + '"></button>'
-                          inner += '<div class="carousel-item"><iframe src="' + item.file_link + '" class="d-block w-100" alt=""></iframe></div>';
+                          inner += '<div class="carousel-item"><iframe src="' + item.file_link + '" class="d-block w-100" alt=""></iframe><div class="carousel-caption d-none d-md-block"><p>' + bookingObj.consultation.bookingDate +'</p></div></div>';
                         }
-                        grid += '<div class="img-div" data-bs-target="#carouselCur" data-bs-slide-to="' + index + '" id="img-div-save' + index + '""><iframe src="' + item.file_link + '" class="img-thumbnail" title="' + item.file_link.split("/")[item.file_link.split("/").length - 1] + '"></iframe><div class="middle"><button id="action-icon" value="img-div-save' + index + '" class="btn btn-danger" saved="' + item.id + '"><i class="bi bi-trash"></i></button></div></div>';
+                        grid += '<div class="img-div" data-bs-target="#carouselCur" data-bs-slide-to="' + index + '" id="img-div-save' + index + '""><iframe src="' + item.file_link + '" class="img-thumbnail" title="' + item.file_link.split("/")[item.file_link.split("/").length - 1] + '"></iframe><p>' + item.bookingDate +'</p><div class="middle"><button id="action-icon" value="img-div-save' + index + '" class="btn btn-danger" saved="' + item.id + '"><i class="bi bi-trash"></i></button></div></div>';
                       }else{
                         if(item.file_link.includes('uploads'))
                           item.file_link = item.file_link.replace('uploads', 'storage/uploads');
                         if(index == 0){
                           indicator = '<button type="button" data-bs-target="#carouselCur" data-bs-slide-to="' + index + '" class="active" aria-current="true" aria-label="Slide ' + (index+1) + '"></button>'
-                          inner = '<div class="carousel-item active"><img src="' + item.file_link + '" class="d-block w-100" alt=""></div>';
+                          inner = '<div class="carousel-item active"><img src="' + item.file_link + '" class="d-block w-100" alt=""><div class="carousel-caption d-none d-md-block"><p>' + bookingObj.consultation.bookingDate +'</p></div></div>';
                         }else{
                           indicator += '<button type="button" data-bs-target="#carouselCur" data-bs-slide-to="' + index + '" aria-label="Slide ' + (index+1) + '"></button>'
-                          inner += '<div class="carousel-item"><img src="' + item.file_link + '" class="d-block w-100" alt=""></div>';
+                          inner += '<div class="carousel-item"><img src="' + item.file_link + '" class="d-block w-100" alt=""><div class="carousel-caption d-none d-md-block"><p>' + bookingObj.consultation.bookingDate +'</p></div></div>';
                         }
-                        grid += '<div class="img-div" data-bs-target="#carouselCur" data-bs-slide-to="' + index + '" id="img-div-save' + index + '""><img src="' + item.file_link + '" class="img-thumbnail" title="' + item.file_link.split("/")[item.file_link.split("/").length - 1] + '"><div class="middle"><button id="action-icon" value="img-div-save' + index + '" class="btn btn-danger" saved="' + item.id + '"><i class="bi bi-trash"></i></button></div></div>';
+                        grid += '<div class="img-div" data-bs-target="#carouselCur" data-bs-slide-to="' + index + '" id="img-div-save' + index + '""><img src="' + item.file_link + '" class="img-thumbnail" title="' + item.file_link.split("/")[item.file_link.split("/").length - 1] + '"><p>' + item.bookingDate +'</p><div class="middle"><button id="action-icon" value="img-div-save' + index + '" class="btn btn-danger" saved="' + item.id + '"><i class="bi bi-trash"></i></button></div></div>';
                       }
                       
                     });
@@ -12899,7 +13248,7 @@
               function (){
                 $.ajax({
                   type: 'GET',
-                  url: '{{ Route::has($viewFolder . '.getPrevBookingInfo') ? route($viewFolder . '.getPrevBookingInfo') : ''}}/{{ $datum->id }}/0',
+                  url: '{{ Route::has($viewFolder . '.getPrevBookingInfo') ? route($viewFolder . '.getPrevBookingInfo') : ''}}/{{ $datum->id }}/noHistory/0',
                   success:
                     function(data, status){
                       bookingObj = jQuery.parseJSON(data);
@@ -12913,23 +13262,23 @@
                               item.file_link = item.file_link.replace('uploads', 'storage/uploads');
                             if(index == 0){
                               indicator = '<button type="button" data-bs-target="#carouselCur" data-bs-slide-to="' + index + '" class="active" aria-current="true" aria-label="Slide ' + (index+1) + '"></button>'
-                              inner = '<div class="carousel-item active"><iframe src="' + item.file_link + '" class="d-block w-100" alt=""></iframe></div>';
+                              inner = '<div class="carousel-item active"><iframe src="' + item.file_link + '" class="d-block w-100" alt=""></iframe><div class="carousel-caption d-none d-md-block"><p>' + bookingObj.consultation.bookingDate +'</p></div></div>';
                             }else{
                               indicator += '<button type="button" data-bs-target="#carouselCur" data-bs-slide-to="' + index + '" aria-label="Slide ' + (index+1) + '"></button>'
-                              inner += '<div class="carousel-item"><iframe src="' + item.file_link + '" class="d-block w-100" alt=""></iframe></div>';
+                              inner += '<div class="carousel-item"><iframe src="' + item.file_link + '" class="d-block w-100" alt=""></iframe><div class="carousel-caption d-none d-md-block"><p>' + bookingObj.consultation.bookingDate +'</p></div></div>';
                             }
-                            grid += '<div class="img-div" data-bs-target="#carouselCur" data-bs-slide-to="' + index + '" id="img-div-save' + index + '""><iframe src="' + item.file_link + '" class="img-thumbnail" title="' + item.file_link.split("/")[item.file_link.split("/").length - 1] + '></iframe><div class="middle"><button id="action-icon" value="img-div-save' + index + '" class="btn btn-danger" saved="' + item.id + '"><i class="bi bi-trash"></i></button></div></div>';
+                            grid += '<div class="img-div" data-bs-target="#carouselCur" data-bs-slide-to="' + index + '" id="img-div-save' + index + '""><iframe src="' + item.file_link + '" class="img-thumbnail" title="' + item.file_link.split("/")[item.file_link.split("/").length - 1] + '></iframe><p>' + item.bookingDate +'</p><div class="middle"><button id="action-icon" value="img-div-save' + index + '" class="btn btn-danger" saved="' + item.id + '"><i class="bi bi-trash"></i></button></div></div>';
                           }else{
                             if(item.file_link.includes('uploads'))
                               item.file_link = item.file_link.replace('uploads', 'storage/uploads');
                             if(index == 0){
                               indicator = '<button type="button" data-bs-target="#carouselCur" data-bs-slide-to="' + index + '" class="active" aria-current="true" aria-label="Slide ' + (index+1) + '"></button>'
-                              inner = '<div class="carousel-item active"><img src="' + item.file_link + '" class="d-block w-100" alt=""></div>';
+                              inner = '<div class="carousel-item active"><img src="' + item.file_link + '" class="d-block w-100" alt=""><div class="carousel-caption d-none d-md-block"><p>' + bookingObj.consultation.bookingDate +'</p></div></div>';
                             }else{
                               indicator += '<button type="button" data-bs-target="#carouselCur" data-bs-slide-to="' + index + '" aria-label="Slide ' + (index+1) + '"></button>'
-                              inner += '<div class="carousel-item"><img src="' + item.file_link + '" class="d-block w-100" alt=""></div>';
+                              inner += '<div class="carousel-item"><img src="' + item.file_link + '" class="d-block w-100" alt=""><div class="carousel-caption d-none d-md-block"><p>' + bookingObj.consultation.bookingDate +'</p></div></div>';
                             }
-                            grid += '<div class="img-div" data-bs-target="#carouselCur" data-bs-slide-to="' + index + '" id="img-div-save' + index + '""><img src="' + item.file_link + '" class="img-thumbnail" title="' + item.file_link.split("/")[item.file_link.split("/").length - 1] + '"><div class="middle"><button id="action-icon" value="img-div-save' + index + '" class="btn btn-danger" saved="' + item.id + '""><i class="bi bi-trash"></i></button></div></div>';
+                            grid += '<div class="img-div" data-bs-target="#carouselCur" data-bs-slide-to="' + index + '" id="img-div-save' + index + '""><img src="' + item.file_link + '" class="img-thumbnail" title="' + item.file_link.split("/")[item.file_link.split("/").length - 1] + '"><p>' + item.bookingDate +'</p><div class="middle"><button id="action-icon" value="img-div-save' + index + '" class="btn btn-danger" saved="' + item.id + '""><i class="bi bi-trash"></i></button></div></div>';
                           }
                           
                         });

@@ -73,7 +73,17 @@ class PatientRecordsController extends Controller
         if(!empty($request->input()))
             $data = $this->getData($request->input());
         $datum = $patient_record;
-
+        // dd($datum);
+        $allBooking = null;
+        if($datum->consultations[sizeof($datum->consultations)-1]->booking_type == 'Dialysis'){
+            $allBooking = Consultation::where('patient_id', $datum->id)->where('booking_type', 'Dialysis')->whereNotNull('time_ended')->whereNot('id', $datum->consultations[sizeof($datum->consultations)-1]->id)->where('bookingDate', '<', $datum->consultations[sizeof($datum->consultations)-1]->bookingDate)->orderBy('bookingDate','desc')->get();
+        }
+        // $pxConsultations = Consultation::where('patient_id', $datum->id)->orderBy('bookingDate', 'desc')->get();
+        // dd($datum->consultations[sizeof($datum->consultations)-1]);
+        if($datum->consultations[sizeof($datum->consultations)-1]->booking_type != 'Dialysis')
+            $pxConsultations = Consultation::where('patient_id', $datum->id)->whereNot('booking_type', 'Dialysis')->orderBy('bookingDate', 'desc')->get();
+        else
+            $pxConsultations = Consultation::where('patient_id', $datum->id)->where('booking_type', 'Dialysis')->orderBy('bookingDate', 'desc')->get();
         $patients = $user->patients->sortBy('name');
         if($user->active == 2)
             return redirect()->route('home.myaccount')->with("Incomplete Form", $this->newUserMsg);
@@ -85,6 +95,8 @@ class PatientRecordsController extends Controller
                 'moduleActive' => $this->module, 
                 'data' => $data, 
                 'datum' => $datum, 
+                'allBooking' => $allBooking, 
+                'pxConsultations' => $pxConsultations, 
                 'selectItems' => $this->selectItems(), 
                 'inputFormHeader' => 'View ' . $this->model, 
                 'formAction' => 'update', 

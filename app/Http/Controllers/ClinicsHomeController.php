@@ -151,20 +151,40 @@ class ClinicsHomeController extends Controller
             }
         }
 
-
-        if(!is_null($patientArr) && !is_null($doctorArr)){
-            // $bookings = $user->clinic->bookings()->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->whereIn('patient_id', $patientArr)->whereIn('doctor_id', $doctorArr)->get();
-            $bookings = Consultation::where('clinic_id', $user->clinic_id)->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->whereIn('patient_id', $patientArr)->whereIn('doctor_id', $doctorArr)->get(['booking_type', 'consultation_parent_id']);
-        }elseif(!is_null($patientArr)){
-            // $bookings = $user->clinic->bookings()->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->whereIn('patient_id', $patientArr)->get();
-            $bookings = Consultation::where('clinic_id', $user->clinic_id)->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->whereIn('patient_id', $patientArr)->get(['booking_type', 'consultation_parent_id']);
-        }elseif(!is_null($doctorArr)){
-            // $bookings = $user->clinic->bookings()->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->whereIn('doctor_id', $doctorArr)->get();
-            $bookings = Consultation::where('clinic_id', $user->clinic_id)->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->whereIn('doctor_id', $doctorArr)->get(['booking_type', 'consultation_parent_id']);
-        }else{
-            // $bookings = $user->clinic->bookings()->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->get();
-            $bookings = Consultation::where('clinic_id', $user->clinic_id)->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->get(['booking_type', 'consultation_parent_id']);
+        $bookingNum = null;
+        if(isset($request->input()['clinics_home']['id']) && $request->input()['clinics_home']['id'] != ''){
+            $bookingNum = $request->input()['clinics_home']['id'];
         }
+
+        $bookings = Consultation::where('clinic_id', $user->clinic_id)->
+                    where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->
+                    where(function($query) use ($patientArr, $doctorArr, $bookingNum){
+                        if(!is_null($patientArr)){
+                            $query->whereIn('patient_id', $patientArr);
+                        }
+                        if(!is_null($doctorArr)){
+                            $query->whereIn('doctor_id', $doctorArr);
+                        }
+                        if(!is_null($bookingNum)){
+                            $query->where('id', $bookingNum);
+                        }
+                    })->
+                    get(['booking_type', 'consultation_parent_id']);
+        // dd($bookings);
+
+        // if(!is_null($patientArr) && !is_null($doctorArr)){
+        //     // $bookings = $user->clinic->bookings()->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->whereIn('patient_id', $patientArr)->whereIn('doctor_id', $doctorArr)->get();
+        //     $bookings = Consultation::where('clinic_id', $user->clinic_id)->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->whereIn('patient_id', $patientArr)->whereIn('doctor_id', $doctorArr)->get(['booking_type', 'consultation_parent_id']);
+        // }elseif(!is_null($patientArr)){
+        //     // $bookings = $user->clinic->bookings()->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->whereIn('patient_id', $patientArr)->get();
+        //     $bookings = Consultation::where('clinic_id', $user->clinic_id)->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->whereIn('patient_id', $patientArr)->get(['booking_type', 'consultation_parent_id']);
+        // }elseif(!is_null($doctorArr)){
+        //     // $bookings = $user->clinic->bookings()->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->whereIn('doctor_id', $doctorArr)->get();
+        //     $bookings = Consultation::where('clinic_id', $user->clinic_id)->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->whereIn('doctor_id', $doctorArr)->get(['booking_type', 'consultation_parent_id']);
+        // }else{
+        //     // $bookings = $user->clinic->bookings()->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->get();
+        //     $bookings = Consultation::where('clinic_id', $user->clinic_id)->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->get(['booking_type', 'consultation_parent_id']);
+        // }
 
         $booking_type_arr = array('Diagnostics' => 0, 'Dialysis' => 0, 'Surgery' => 0, 'Laser' => 0, 'Laboratory' => 0, 'Referral' => 0, 'Consultation' => 0);
         foreach($bookings as $booking){
@@ -244,19 +264,35 @@ class ClinicsHomeController extends Controller
             // }
         }
 
-        if(!is_null($patientArr) && !is_null($doctorArr)){
-            // $bookingsMon = $user->clinic->bookings()->whereYear('bookingDate', $yr)->whereMonth('bookingDate', $mon)->whereIn('patient_id', $patientArr)->whereIn('doctor_id', $doctorArr)->get();
-            $bookingsMon = Consultation::where('clinic_id', $user->clinic_id)->whereYear('bookingDate', $yr)->whereMonth('bookingDate', $mon)->whereIn('patient_id', $patientArr)->whereIn('doctor_id', $doctorArr)->get('bookingDate');
-        }elseif(!is_null($patientArr)){
-            // $bookingsMon = $user->clinic->bookings()->whereYear('bookingDate', $yr)->whereMonth('bookingDate', $mon)->whereIn('patient_id', $patientArr)->get();
-            $bookingsMon = Consultation::where('clinic_id', $user->clinic_id)->whereYear('bookingDate', $yr)->whereMonth('bookingDate', $mon)->whereIn('patient_id', $patientArr)->get('bookingDate');
-        }elseif(!is_null($doctorArr)){
-            // $bookingsMon = $user->clinic->bookings()->whereYear('bookingDate', $yr)->whereMonth('bookingDate', $mon)->whereIn('doctor_id', $doctorArr)->get();
-            $bookingsMon = Consultation::where('clinic_id', $user->clinic_id)->whereYear('bookingDate', $yr)->whereMonth('bookingDate', $mon)->whereIn('doctor_id', $doctorArr)->get('bookingDate');
-        }else{
-            // $bookingsMon = $user->clinic->bookings()->whereYear('bookingDate', $yr)->whereMonth('bookingDate', $mon)->get();
-            $bookingsMon = Consultation::where('clinic_id', $user->clinic_id)->whereYear('bookingDate', $yr)->whereMonth('bookingDate', $mon)->get('bookingDate');
-        }
+        $bookingsMon = Consultation::where('clinic_id', $user->clinic_id)->
+                        whereYear('bookingDate', $yr)->
+                        whereMonth('bookingDate', $mon)->
+                        where(function($query) use ($patientArr, $doctorArr, $bookingNum){
+                            if(!is_null($patientArr)){
+                                $query->whereIn('patient_id', $patientArr);
+                            }
+                            if(!is_null($doctorArr)){
+                                $query->whereIn('doctor_id', $doctorArr);
+                            }
+                            if(!is_null($bookingNum)){
+                                $query->where('id', $bookingNum);
+                            }
+                        })->
+                        get('bookingDate');
+
+        // if(!is_null($patientArr) && !is_null($doctorArr)){
+        //     // $bookingsMon = $user->clinic->bookings()->whereYear('bookingDate', $yr)->whereMonth('bookingDate', $mon)->whereIn('patient_id', $patientArr)->whereIn('doctor_id', $doctorArr)->get();
+        //     $bookingsMon = Consultation::where('clinic_id', $user->clinic_id)->whereYear('bookingDate', $yr)->whereMonth('bookingDate', $mon)->whereIn('patient_id', $patientArr)->whereIn('doctor_id', $doctorArr)->get('bookingDate');
+        // }elseif(!is_null($patientArr)){
+        //     // $bookingsMon = $user->clinic->bookings()->whereYear('bookingDate', $yr)->whereMonth('bookingDate', $mon)->whereIn('patient_id', $patientArr)->get();
+        //     $bookingsMon = Consultation::where('clinic_id', $user->clinic_id)->whereYear('bookingDate', $yr)->whereMonth('bookingDate', $mon)->whereIn('patient_id', $patientArr)->get('bookingDate');
+        // }elseif(!is_null($doctorArr)){
+        //     // $bookingsMon = $user->clinic->bookings()->whereYear('bookingDate', $yr)->whereMonth('bookingDate', $mon)->whereIn('doctor_id', $doctorArr)->get();
+        //     $bookingsMon = Consultation::where('clinic_id', $user->clinic_id)->whereYear('bookingDate', $yr)->whereMonth('bookingDate', $mon)->whereIn('doctor_id', $doctorArr)->get('bookingDate');
+        // }else{
+        //     // $bookingsMon = $user->clinic->bookings()->whereYear('bookingDate', $yr)->whereMonth('bookingDate', $mon)->get();
+        //     $bookingsMon = Consultation::where('clinic_id', $user->clinic_id)->whereYear('bookingDate', $yr)->whereMonth('bookingDate', $mon)->get('bookingDate');
+        // }
         // print "<pre>";
         // print_r($bookingsMon);
         // print "</pre>";
@@ -318,6 +354,7 @@ class ClinicsHomeController extends Controller
                 'inputFormHeader' => 'Booking',
                 'patientArr' => $patientArr,
                 'doctorArr' => $doctorArr,
+                'bookingNum' => $bookingNum,
                 'urlQuery' => $urlQuery
             ]);
         }
@@ -557,7 +594,7 @@ class ClinicsHomeController extends Controller
         $allBooking = null;
         if($datum->booking_type == 'Dialysis'){
             $prevBooking = Consultation::where('patient_id', $datum->patient_id)->where('booking_type', 'Dialysis')->whereNotNull('time_ended')->whereNot('id', $datum->id)->orderBy('bookingDate','desc')->first();
-            $allBooking = Consultation::where('patient_id', $datum->patient_id)->where('booking_type', 'Dialysis')->whereNotNull('time_ended')->whereNot('id', $datum->id)->where('bookingDate', '<', $datum->bookingDate)->orderBy('bookingDate','asc')->get();
+            $allBooking = Consultation::where('patient_id', $datum->patient_id)->where('booking_type', 'Dialysis')->whereNotNull('time_ended')->whereNot('id', $datum->id)->where('bookingDate', '<', $datum->bookingDate)->orderBy('bookingDate','desc')->get();
         }
         if($user->active == 2)
             return redirect()->route('home.myaccount')->with("Incomplete Form", $this->newUserMsg);
