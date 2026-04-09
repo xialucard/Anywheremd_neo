@@ -3217,14 +3217,14 @@
                   <div class="col-lg-6">
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[hemoglobin]" id="{{ $viewFolder }}_hemoglobin" placeholder="" value="{{ !empty($datum->hemoglobin) ? $datum->hemoglobin : '' }}">
+                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[hemoglobin]" id="{{ $viewFolder }}_hemoglobin" placeholder="" value="{{ !empty($datum->hemoglobin) ? $datum->hemoglobin : '' }}">
                         <label for="{{ $viewFolder }}_hemoglobin" class="form-label">Hemoglobin</label>
                         <small id="help_{{ $viewFolder }}_hemoglobin" class="text-muted"></small>
                       </div>
                     </div>
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[hematocrit]" id="{{ $viewFolder }}_hematocrit" placeholder="" value="{{ !empty($datum->hematocrit) ? $datum->hematocrit : '' }}">
+                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[hematocrit]" id="{{ $viewFolder }}_hematocrit" placeholder="" value="{{ !empty($datum->hematocrit) ? $datum->hematocrit : '' }}">
                         <label for="{{ $viewFolder }}_hematocrit" class="form-label">Hematocrit</label>
                         <small id="help_{{ $viewFolder }}_hematocrit" class="text-muted"></small>
                       </div>

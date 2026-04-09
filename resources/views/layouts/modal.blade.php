@@ -81,7 +81,7 @@
                         // $('#{{ $viewFolder }}_recommendations').removeAttr('required');
                         $('#{{ $viewFolder }}_submit_type').val('Pause');
                         $('#{{ $formId }}').submit();
-                        " class="btn btn-{{ $bgColor }}">Pause</button>
+                        " class="btn btn-{{ $bgColor }}">Pause/Save</button>
                     {{-- @if(isset($datum->consultation_referals[0]->id)) --}}
                     <button type="submit" onclick="
                         // event.preventDefault();

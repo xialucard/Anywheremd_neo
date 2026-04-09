@@ -294,6 +294,15 @@
             $('#postOpCurDiv').hide();
             $('#dischargeSumCurDiv').hide();
 
+            $('#curChart').removeClass('col-lg-12');
+            $('#curChart').addClass('col-lg-6');
+            $('#pastChart').show();
+            $('#showPrevLinkHide').show();
+            $('#showPrevLink').hide();
+            $('#pastChart').removeClass('d-none');
+            $('#pastChart').removeClass('d-lg-none');
+            $('#carouselCur').css('max-width', '100%');
+
           ">File Uploads</a>
         </li>
         <li class="nav-item dropdown">
@@ -1928,6 +1937,16 @@
                   $('#orTechCurDiv').hide();  
                   $('#postOpCurDiv').hide();
                   $('#dischargeSumCurDiv').hide();
+
+                  $('#curChart').removeClass('col-lg-12');
+                  $('#curChart').addClass('col-lg-6');
+                  $('#pastChart').show();
+                  $('#showPrevLinkHide').show();
+                  $('#showPrevLink').hide();
+                  $('#pastChart').removeClass('d-none');
+                  $('#pastChart').removeClass('d-lg-none');
+                  $('#carouselCur').css('max-width', '100%');
+
                 ">File Uploads</a>
               </li>
               <li class="nav-item dropdown">
@@ -6375,6 +6394,15 @@
                   $('#orTechCurDiv').hide();  
                   $('#postOpCurDiv').hide();
                   $('#dischargeSumCurDiv').hide();
+
+                  $('#curChart').removeClass('col-lg-12');
+                  $('#curChart').addClass('col-lg-6');
+                  $('#pastChart').show();
+                  $('#showPrevLinkHide').show();
+                  $('#showPrevLink').hide();
+                  $('#pastChart').removeClass('d-none');
+                  $('#pastChart').removeClass('d-lg-none');
+                  $('#carouselCur').css('max-width', '100%');
                 ">File Uploads</a>
               </li>
               <li class="nav-item dropdown">
