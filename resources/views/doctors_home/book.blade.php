@@ -282,17 +282,17 @@
             $('#postOpCurLink').removeClass('active');
             $('#dischargeSumCurLink').removeClass('active');
             
-            $('#sumCurDiv').hide();  
-            $('#soapCurDiv').hide();  
-            $('#labCurDiv').show();  
-            $('#presCurDiv').hide();  
-            $('#medCurDiv').hide();  
-            $('#admitCurDiv').hide();
-            $('#dialysisCurDiv').hide();
-            $('#admitPeriCurDiv').hide();  
-            $('#orTechCurDiv').hide();  
-            $('#postOpCurDiv').hide();
-            $('#dischargeSumCurDiv').hide();
+            // $('#sumCurDiv').hide();  
+            // $('#soapCurDiv').hide();  
+            // $('#labCurDiv').show();  
+            // $('#presCurDiv').hide();  
+            // $('#medCurDiv').hide();  
+            // $('#admitCurDiv').hide();
+            // $('#dialysisCurDiv').hide();
+            // $('#admitPeriCurDiv').hide();  
+            // $('#orTechCurDiv').hide();  
+            // $('#postOpCurDiv').hide();
+            // $('#dischargeSumCurDiv').hide();
 
             $('#curChart').removeClass('col-lg-12');
             $('#curChart').addClass('col-lg-6');
@@ -1913,30 +1913,30 @@
                   $('#postOpPrevDiv').hide();
                   $('#dischargeSumPrevDiv').hide();
 
-                  $('#sumCurLink').removeClass('active');
-                  $('#soapCurLink').removeClass('active');
-                  $('#labCurLink').addClass('active');  
-                  $('#presCurLink').removeClass('active');  
-                  $('#medPCurLink').removeClass('active');  
-                  $('#admitCurLink').removeClass('active');
-                  $('#dialysisCurLink').removeClass('active');
-                  $('#printableFormsCurLink').removeClass('active');
-                  $('#admitPeriCurLink').removeClass('active');
-                  $('#orTechCurLink').removeClass('active');
-                  $('#postOpCurLink').removeClass('active');
-                  $('#dischargeSumCurLink').removeClass('active');
+                  // $('#sumCurLink').removeClass('active');
+                  // $('#soapCurLink').removeClass('active');
+                  // $('#labCurLink').addClass('active');  
+                  // $('#presCurLink').removeClass('active');  
+                  // $('#medPCurLink').removeClass('active');  
+                  // $('#admitCurLink').removeClass('active');
+                  // $('#dialysisCurLink').removeClass('active');
+                  // $('#printableFormsCurLink').removeClass('active');
+                  // $('#admitPeriCurLink').removeClass('active');
+                  // $('#orTechCurLink').removeClass('active');
+                  // $('#postOpCurLink').removeClass('active');
+                  // $('#dischargeSumCurLink').removeClass('active');
 
-                  $('#sumCurDiv').hide();  
-                  $('#soapCurDiv').hide();  
-                  $('#labCurDiv').show();  
-                  $('#presCurDiv').hide();  
-                  $('#medCurDiv').hide();  
-                  $('#admitCurDiv').hide();
-                  $('#dialysisCurDiv').hide();
-                  $('#admitPeriCurDiv').hide();  
-                  $('#orTechCurDiv').hide();  
-                  $('#postOpCurDiv').hide();
-                  $('#dischargeSumCurDiv').hide();
+                  // $('#sumCurDiv').hide();  
+                  // $('#soapCurDiv').hide();  
+                  // $('#labCurDiv').show();  
+                  // $('#presCurDiv').hide();  
+                  // $('#medCurDiv').hide();  
+                  // $('#admitCurDiv').hide();
+                  // $('#dialysisCurDiv').hide();
+                  // $('#admitPeriCurDiv').hide();  
+                  // $('#orTechCurDiv').hide();  
+                  // $('#postOpCurDiv').hide();
+                  // $('#dischargeSumCurDiv').hide();
 
                   $('#curChart').removeClass('col-lg-12');
                   $('#curChart').addClass('col-lg-6');
@@ -6330,7 +6330,7 @@
 
                 ">SOAP</a>
               </li>
-              <li class="nav-item">
+              {{-- <li class="nav-item">
                 <a class="nav-link" id="labCurLink" href="#" onclick="
                   $('#sumBigLink').removeClass('active');
                   $('#soapBigLink').removeClass('active');
@@ -6370,30 +6370,30 @@
                   $('#postOpPrevDiv').hide();
                   $('#dischargeSumPrevDiv').hide();
 
-                  $('#sumCurLink').removeClass('active');
-                  $('#soapCurLink').removeClass('active');
-                  $('#labCurLink').addClass('active');  
-                  $('#presCurLink').removeClass('active');  
-                  $('#medPCurLink').removeClass('active');  
-                  $('#admitCurLink').removeClass('active');
-                  $('#dialysisCurLink').removeClass('active');
-                  $('#printableFormsCurLink').removeClass('active');
-                  $('#admitPeriCurLink').removeClass('active');
-                  $('#orTechCurLink').removeClass('active');
-                  $('#postOpCurLink').removeClass('active');
-                  $('#dischargeSumCurLink').addClass('active');
+                  // $('#sumCurLink').removeClass('active');
+                  // $('#soapCurLink').removeClass('active');
+                  // $('#labCurLink').addClass('active');  
+                  // $('#presCurLink').removeClass('active');  
+                  // $('#medPCurLink').removeClass('active');  
+                  // $('#admitCurLink').removeClass('active');
+                  // $('#dialysisCurLink').removeClass('active');
+                  // $('#printableFormsCurLink').removeClass('active');
+                  // $('#admitPeriCurLink').removeClass('active');
+                  // $('#orTechCurLink').removeClass('active');
+                  // $('#postOpCurLink').removeClass('active');
+                  // $('#dischargeSumCurLink').addClass('active');
 
-                  $('#sumCurDiv').hide();  
-                  $('#soapCurDiv').hide();  
-                  $('#labCurDiv').show();  
-                  $('#presCurDiv').hide();  
-                  $('#medCurDiv').hide();  
-                  $('#admitCurDiv').hide();
-                  $('#dialysisCurDiv').hide();
-                  $('#admitPeriCurDiv').hide();  
-                  $('#orTechCurDiv').hide();  
-                  $('#postOpCurDiv').hide();
-                  $('#dischargeSumCurDiv').hide();
+                  // $('#sumCurDiv').hide();  
+                  // $('#soapCurDiv').hide();  
+                  // $('#labCurDiv').show();  
+                  // $('#presCurDiv').hide();  
+                  // $('#medCurDiv').hide();  
+                  // $('#admitCurDiv').hide();
+                  // $('#dialysisCurDiv').hide();
+                  // $('#admitPeriCurDiv').hide();  
+                  // $('#orTechCurDiv').hide();  
+                  // $('#postOpCurDiv').hide();
+                  // $('#dischargeSumCurDiv').hide();
 
                   $('#curChart').removeClass('col-lg-12');
                   $('#curChart').addClass('col-lg-6');
@@ -6404,7 +6404,7 @@
                   $('#pastChart').removeClass('d-lg-none');
                   $('#carouselCur').css('max-width', '100%');
                 ">File Uploads</a>
-              </li>
+              </li> --}}
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="printableFormsCurLink" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Printable Forms</a>
                 <ul class="dropdown-menu">
@@ -12015,27 +12015,32 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-  const div1 = document.getElementById('prevDiv');
-  const div2 = document.getElementById('curDiv');
+    const div1 = document.getElementById('prevDiv');
+    const div2 = document.getElementById('curDiv');
 
-  let isScrolling = false; // Flag to prevent infinite loops
+    let isScrolling = false; // Flag to prevent infinite loops
+    div1.addEventListener('scroll', function() {
+      if(!$('#labPrevDiv').is(':visible')){
+        if (!isScrolling) {
+          isScrolling = true;
+          div2.scrollTop = div1.scrollTop;
+          setTimeout(() => { isScrolling = false; }, 50); // Small delay to reset flag
+        }
+      }
+    
+      
+    });
 
-  div1.addEventListener('scroll', function() {
-    if (!isScrolling) {
-      isScrolling = true;
-      div2.scrollTop = div1.scrollTop;
-      setTimeout(() => { isScrolling = false; }, 50); // Small delay to reset flag
-    }
+    div2.addEventListener('scroll', function() {
+      if(!$('#labPrevDiv').is(':visible')){
+        if (!isScrolling) {
+          isScrolling = true;
+          div1.scrollTop = div2.scrollTop;
+          setTimeout(() => { isScrolling = false; }, 50); // Small delay to reset flag
+        }
+      }
+    });
   });
-
-  div2.addEventListener('scroll', function() {
-    if (!isScrolling) {
-      isScrolling = true;
-      div1.scrollTop = div2.scrollTop;
-      setTimeout(() => { isScrolling = false; }, 50); // Small delay to reset flag
-    }
-  });
-});
   function nl2br (str, is_xhtml) {
     // http://kevin.vanzonneveld.net
     // +   original by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
