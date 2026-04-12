@@ -42,6 +42,7 @@
     }
   }else{
     if($datum->booking_type != 'Dialysis'){
+      // $bookings = array();
       $bookings = $datum->patient->consultations()->whereNot('booking_type', 'Dialysis')->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
       $carryOverBookingsICD = $datum->patient->consultations()->whereNot('booking_type', 'Dialysis')->whereNotNull('icd_code')->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
       $carryOverBookings = $datum->patient->consultations()->whereNot('booking_type', 'Dialysis')->whereNotNull('assessment')->where('doctor_id', $user->id)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
@@ -284,7 +285,7 @@
             
             // $('#sumCurDiv').hide();  
             // $('#soapCurDiv').hide();  
-            // $('#labCurDiv').show();  
+            $('#labCurDiv').show();  
             // $('#presCurDiv').hide();  
             // $('#medCurDiv').hide();  
             // $('#admitCurDiv').hide();
@@ -918,7 +919,7 @@
             $('#pastChart').removeClass('d-none');
             $('#pastChart').removeClass('d-lg-none');
             $('#carouselCur').css('max-width', '100%');
-            ">Show Past Px's Chart</a>
+            ">Show Left Panel</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" style="display:none" id="showPrevLinkHide" href="#" onclick="
@@ -930,7 +931,7 @@
             $('#pastChart').addClass('d-none');
             $('#pastChart').addClass('d-lg-none');
             $('#carouselCur').css('max-width', '60%');
-            ">Hide Past Px's Chart</a>
+            ">Hide Left Panel</a>
         </li>
         <li class="nav-item">
           <div class="mt-2 ml-2">
@@ -1928,7 +1929,7 @@
 
                   // $('#sumCurDiv').hide();  
                   // $('#soapCurDiv').hide();  
-                  // $('#labCurDiv').show();  
+                  $('#labCurDiv').show();  
                   // $('#presCurDiv').hide();  
                   // $('#medCurDiv').hide();  
                   // $('#admitCurDiv').hide();
@@ -5587,7 +5588,242 @@
             </div>
           </div>
         </div>
-        
+        @else
+        <div id="pastChart" class="card mb-3 d-none d-lg-none">
+          <div id="labCurDiv" style="display:none" class="container border border-1 mb-3 p-3">
+            <h5>Image Viewer</h5>
+            <div id="carouselCur" class="carousel carousel-dark slide mx-auto" style="max-width: 60%" data-bs-interval="false">
+              <div class="carousel-indicators" id="labCurCarouselInd">
+                {{-- @if(!empty($pxConsultations)) --}}
+                  @php
+                    $key = true;
+                    $ind = 0;
+                  @endphp
+                  {{-- @foreach($pxConsultations as $pxC) --}}
+                    @if(!empty($datum->consultation_files[0]->file_link))
+                      @foreach($datum->consultation_files as $file)
+                <button type="button" data-bs-target="#carouselCur" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
+                        @php
+                          $ind++;
+                          $key = false;
+                        @endphp 
+                      @endforeach
+                    @endif
+                    @if(!empty($datum->anesthesia_files[0]->file_link))
+                      @foreach($datum->anesthesia_files as $file)
+                <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
+                      @php
+                        $ind++;
+                        $key = true;
+                      @endphp
+                      @endforeach
+                    @endif
+                    @if(!empty($datum->doctor_files[0]->file_link))
+                      @foreach($datum->doctor_files as $file)
+                <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
+                      @php
+                        $ind++;
+                        $key = true;
+                      @endphp
+                      @endforeach
+                    @endif
+                    @if(!empty($datum->prescription_files[0]->file_link))
+                      @foreach($datum->prescription_files as $file)
+                <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
+                      @php
+                        $ind++;
+                        $key = true;
+                      @endphp
+                      @endforeach
+                    @endif
+                  {{-- @endforeach --}}
+                {{-- @endif --}}
+                @if($key)
+                <button type="button" data-bs-target="#carouselCur" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                @endif
+              </div>
+              <div class="carousel-inner" id="labCurCarouselInner">
+                {{-- @if(!empty($pxConsultations)) --}}
+                  @php
+                    $key = true;
+                    $ind = 0;
+                  @endphp
+                  {{-- @foreach($pxConsultations as $pxC) --}}
+                    @if(!empty($datum->consultation_files[0]->file_link))
+                      @foreach($datum->consultation_files as $file)
+                        
+                <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
+                        @if($file->file_type == 'application/pdf')
+                  <iframe src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" width="100%" height="373" style="border:1"></iframe>
+                        @else
+                  <img src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
+                  <div class="carousel-caption d-none d-md-block">
+                    {{-- <h5>First slide label</h5> --}}
+                    <p>{{ $datum->bookingDate }}</p>
+                  </div>
+                        @endif
+                </div>  
+                        @php
+                          $ind++;
+                          $key = false;
+                        @endphp  
+                      @endforeach
+                    @endif
+                    @if(!empty($datum->anesthesia_files[0]->file_link))
+                      @foreach($datum->anesthesia_files as $file)
+                  
+                <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
+                        @if($file->file_type == 'application/pdf')
+                  <iframe src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" width="100%" height="373" style="border:1"></iframe>
+                        @else
+                  <img src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
+                        @endif
+                  <div class="carousel-caption d-none d-md-block">
+                    <p>{{ $datum->bookingDate }}</p>
+                  </div>
+                </div>
+                        @php
+                          $ind++;
+                          $key = true;
+                        @endphp
+                      @endforeach
+                    @endif
+                  @if(!empty($datum->doctor_files[0]->file_link))
+                    @foreach($datum->doctor_files as $file)
+                  
+                <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
+                      @if($file->file_type == 'application/pdf')
+                  <iframe src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" width="100%" height="373" style="border:1"></iframe>
+                      @else
+                  <img src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
+                      @endif
+                  <div class="carousel-caption d-none d-md-block">
+                    <p>{{ $datum->bookingDate }}</p>
+                  </div>
+                </div>
+                      @php
+                        $ind++;
+                        $key = true;
+                      @endphp
+                      @endforeach
+                    @endif
+                  @if(!empty($datum->prescription_files[0]->file_link))
+                    @foreach($datum->prescription_files as $file)
+                  
+                <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
+                      @if($file->file_type == 'application/pdf')
+                  <iframe src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" width="100%" height="373" style="border:1"></iframe>
+                      @else
+                  <img src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
+                      @endif
+                  <div class="carousel-caption d-none d-md-block">
+                    <p>{{ $datum->bookingDate }}</p>
+                  </div>
+                </div>
+                      @php
+                        $ind++;
+                        $key = true;
+                      @endphp
+                      @endforeach
+                    @endif
+                  {{-- @endforeach --}}
+                {{-- @endif --}}
+                @if($key)
+                <div class="carousel-item active">
+                  {{-- <iframe src="{{ asset('MDR_030502009768.pdf') }}" width="100%" height="373" style="border:1"></iframe> --}}
+                  <img src="https://mdbootstrap.com/img/Photos/Others/placeholder.jpg" class="d-block w-100" alt="">
+                </div>
+                @endif
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselCur" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselCur" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
+            <div class="mb-3">
+              <label for="formFileMultiple" class="form-label">Uploaded Images/Files</label>
+              <input class="form-control" type="file" id="{{ $viewFolder }}_files" name="{{ $viewFolder }}[ConsultationFile][files][]" accept="image/*, .pdf" multiple>
+            </div>
+            <div class="row overflow-auto" id="image_preview_saved" style="max-height:100px">
+              
+            </div>
+            <div class="container horizontal-scrollable" style="overflow-x: auto; white-space: nowrap;">
+              <div class="row flex-nowrap" id="image_preview" style="max-height:510px">
+                {{-- @if(!empty($pxConsultations)) --}}
+                  @php
+                    $ind = 0;
+                  @endphp
+                  {{-- @foreach($pxConsultations as $pxC) --}}
+                    @if(isset($datum->consultation_files))
+                      @foreach($datum->consultation_files as $file)
+                        @php
+                          $exAr = explode('/', $file->file_link);
+                        @endphp
+                        @if($file->file_type == 'application/pdf')
+                <div class='img-div' data-bs-target="#carouselCur" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail' title='{{ $exAr[sizeof($exAr)-1] }}'></iframe><p>{{ $datum->bookingDate }}</p><<div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
+                        @else
+                <div class='img-div' data-bs-target="#carouselCur" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail' title='{{ $exAr[sizeof($exAr)-1] }}'><p>{{ $datum->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
+                        @endif
+                        @php
+                          $ind++;
+                        @endphp  
+                      @endforeach
+                    @endif
+                    @if(isset($datum->anesthesia_files))
+                      @foreach($datum->anesthesia_files as $file)
+                      @php
+                        $exAr = explode('/', $file->file_link);
+                      @endphp
+                      @if($file->file_type == 'application/pdf')
+                <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'></iframe><p>{{ $datum->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
+                      @else
+                <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'><p>{{ $datum->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}' disabled><i class='bi bi-trash'></i></button></div></div>
+                      @endif
+                      @php
+                        $ind++;
+                      @endphp
+                      @endforeach
+                    @endif
+                    @if(isset($datum->doctor_files))
+                      @foreach($datum->doctor_files as $file)
+                      @php
+                        $exAr = explode('/', $file->file_link);
+                      @endphp
+                      @if($file->file_type == 'application/pdf')
+                <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'></iframe><p>{{ $datum->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
+                      @else
+                <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'><p>{{ $datum->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}' disabled><i class='bi bi-trash'></i></button></div></div>
+                      @endif
+                      @php
+                        $ind++;
+                      @endphp
+                      @endforeach
+                    @endif
+                    @if(isset($datum->prescription_files))
+                      @foreach($datum->prescription_files as $file)
+                      @php
+                        $exAr = explode('/', $file->file_link);
+                      @endphp
+                      @if($file->file_type == 'application/pdf')
+                <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'></iframe><p>{{ $datum->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
+                      @else
+                <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'><p>{{ $datum->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}' disabled><i class='bi bi-trash'></i></button></div></div>
+                      @endif
+                      @php
+                        $ind++;
+                      @endphp
+                      @endforeach
+                    @endif
+                  {{-- @endforeach --}}
+                {{-- @endif --}}
+              </div>
+            </div>
+          </div>
+        </div>
         @endif
       </div>
       
@@ -8370,7 +8606,7 @@
                   @endforeach
                 @endif
               </div>
-              <div id="labCurDiv" style="display:none" class="container border border-1 mb-3 p-3">
+              <div id="labCurDivTemp" style="display:none" class="container border border-1 mb-3 p-3">
                 <h5>Image Viewer</h5>
                 <div id="carouselCur" class="carousel carousel-dark slide mx-auto" style="max-width: 60%" data-bs-interval="false">
                   <div class="carousel-indicators" id="labCurCarouselInd">
