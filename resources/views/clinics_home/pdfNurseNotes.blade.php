@@ -159,7 +159,7 @@
         </tr>
         <tr>
             <td>{{ isset($temp[9]) ? date('Y-m-d H:i:s', strtotime($temp[9])) : '' }}</td>
-            <td>> (PROCEDURE)</td>
+            <td>> {{ $datum->assessment }}</td>
         </tr>
         <tr>
             <td>{{ isset($temp[10]) ? date('Y-m-d H:i:s', strtotime($temp[10])) : '' }}</td>
@@ -195,7 +195,7 @@
     <br>
     <br>
     <br>
-    <span>{{ $user->name }} {{ isset($referal_conso->bookingDate) ? $referal_conso->bookingDate : (!isset($referal_conso) ? $datum->bookingDate : '') }}</span>
+    <span>{{ $user->name }} {{ isset($referal_conso->bookingDate) ? date('F d, Y', strtotime($referal_conso->bookingDate)) : (!isset($referal_conso) ? date('F d, Y', strtotime($datum->bookingDate)) : '') }}</span>
     <br>
     <span style="border-top: solid">Operating Room Nurse’s Signature over Printed Name & Date</span>
 </body>

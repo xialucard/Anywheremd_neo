@@ -81,13 +81,13 @@
 
     <table border="1" cellspacing="0" width="100%">
         <tr>
-            <td><strong>Date:</strong> {{ $datum->bookingDate }}</td>
+            <td><strong>Date:</strong> {{ date('F d, Y', strtotime($datum->bookingDate)) }}</td>
             <td><strong>Booking Number:</strong>{{ isset($referal_conso->id) ? $referal_conso->id : (!isset($referal_conso) ? $datum->id : '') }}</td>
             <td colspan="2"><strong>Civil Status:</strong> {{ $datum->patient->civilStatus }}</td>
         </tr>
         <tr>
             <td colspan="2"><strong>Name:</strong> {{ $datum->patient->name }}</td>
-            <td><strong>Date of Birth:</strong> {{ $datum->patient->birthdate }}</td>
+            <td><strong>Date of Birth:</strong> {{ date('F d, Y', strtotime($datum->patient->birthdate)) }}</td>
             <td><strong>Age/Sex:</strong> {{ floor((strtotime($datum->bookingDate) - strtotime($datum->patient->birthdate))/(60*60*24*365.25)) }}/{{ $datum->patient->gender }}</td>
         </tr>
         <tr>
@@ -170,6 +170,6 @@
     @endif
     <span>Surgeon: {{ isset($referal_conso->doctor->name) ? $referal_conso->doctor->name : (!isset($referal_conso) ? $datum->doctor->name : '') }} (Name & Signature)</span>
     <br>
-    <span>Date: {{ isset($referal_conso->bookingDate) ? $referal_conso->bookingDate : (!isset($referal_conso) ? $datum->bookingDate : '') }}</span>
+    <span>Date: {{ isset($referal_conso->bookingDate) ? date('F d, Y', strtotime($referal_conso->bookingDate)) : (!isset($referal_conso) ? date('F d, Y', strtotime($datum->bookingDate)) : '') }}</span>
 </body>
 

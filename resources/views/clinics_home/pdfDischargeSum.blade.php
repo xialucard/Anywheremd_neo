@@ -85,7 +85,7 @@
     <p><strong>Patient Name:</strong> {{ $datum->patient->name }}</p>
     <p><strong>Age/Sex:</strong> {{ floor((strtotime($datum->bookingDate) - strtotime($datum->patient->birthdate))/(60*60*24*365.25)) }}/{{ $datum->patient->gender }}</p>
     <p><strong>Hospital/Clinic No.:</strong> {{ isset($referal_conso->clinic->name) ? $referal_conso->clinic->name : (!isset($referal_conso) ? $datum->clinic->name : '') }}/{{ isset($referal_conso->clinic->mobile_no) ? $referal_conso->clinic->mobile_no : (!isset($referal_conso) ? $datum->clinic->mobile_no : '') }}</p>
-    <p><strong>Date of Surgery:</strong> {{ isset($referal_conso->clinic->bookingDate) ? $referal_conso->clinic->bookingDate : (!isset($referal_conso) ? $datum->bookingDate : '') }}</p>
+    <p><strong>Date of Surgery:</strong> {{ isset($referal_conso->clinic->bookingDate) ? date('F d, Y', strtotime($referal_conso->clinic->bookingDate)) : (!isset($referal_conso) ? date('F d, Y', strtotime($datum->bookingDate)) : '') }}</p>
     <p><strong>Surgeon:</strong> Dr. {{ isset($referal_conso->doctor->name) ? $referal_conso->doctor->name : (!isset($referal_conso) ? $datum->doctor->name : '') }}</p>
     <p><strong>Procedure:</strong> {{ isset($referal_conso->procedure_details) ? $referal_conso->procedure_details : (!isset($referal_conso) ? $datum->procedure_details : '') }} {{ isset($referal_conso->plan) ? $referal_conso->plan : (!isset($referal_conso) ? $datum->plan : '') }}</p>
     <p><strong>Booking Number:</strong> {{ isset($referal_conso->id) ? $referal_conso->id : (!isset($referal_conso) ? $datum->id : '') }}</p>
@@ -135,7 +135,7 @@
     <br>
     <span>Prepared By: (Name & Signature)</span>
     <br>
-    <span>Date/Time: {{ isset($referal_conso->bookingDate) ? $referal_conso->bookingDate : (!isset($referal_conso) ? $datum->bookingDate : '') }}</span>
+    <span>Date/Time: {{ isset($referal_conso->bookingDate) ? date('F d, Y', strtotime($referal_conso->bookingDate)) : (!isset($referal_conso) ? date('F d, Y', strtotime($datum->bookingDate)) : '') }}</span>
     <br>
     <br>
     <br>
@@ -144,6 +144,6 @@
     @endif
     <span>Doctor: Dr. {{ isset($referal_conso->doctor->name) ? $referal_conso->doctor->name : (!isset($referal_conso) ? $datum->doctor->name : '') }} (Name & Signature)</span>
     <br>
-    <span>Date: {{ isset($referal_conso->bookingDate) ? $referal_conso->bookingDate : (!isset($referal_conso) ? $datum->bookingDate : '') }}</span>
+    <span>Date: {{ isset($referal_conso->bookingDate) ? date('F d, Y', strtotime($referal_conso->bookingDate)) : (!isset($referal_conso) ? date('F d, Y', strtotime($datum->bookingDate)) : '') }}</span>
 </body>
 

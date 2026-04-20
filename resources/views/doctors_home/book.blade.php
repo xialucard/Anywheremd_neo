@@ -155,6 +155,25 @@
             $('#orTechCurDiv').hide();  
             $('#postOpCurDiv').hide();
             $('#dischargeSumCurDiv').hide();
+
+            if(!$('#pastChartFile').is(':visible')){
+              $('#pastChartFile').hide();
+              $('#pastChart').show();
+            }else{
+              $('#pastChartFile').hide();
+              $('#pastChart').show();
+              $('#pastChart').removeClass('d-none');
+              $('#pastChart').removeClass('d-lg-none');
+            }
+            if(!$('#pastChartFile').is(':visible') && !$('#pastChart').is(':visible')){
+              $('#showPrevLinkHide').hide();
+              $('#showPrevLink').show();
+            }else{
+              $('#showPrevLinkHide').show();
+              $('#showPrevLink').hide();
+            }
+            
+              
           ">Summary</a>
         </li>
         <li class="nav-item">
@@ -225,86 +244,24 @@
             $('#postOpCurDiv').hide();
             $('#dischargeSumCurDiv').hide();
 
+            if(!$('#pastChartFile').is(':visible')){
+              $('#pastChartFile').hide();
+              $('#pastChart').show();
+            }else{
+              $('#pastChartFile').hide();
+              $('#pastChart').show();
+              $('#pastChart').removeClass('d-none');
+              $('#pastChart').removeClass('d-lg-none');
+            }
+            if(!$('#pastChartFile').is(':visible') && !$('#pastChart').is(':visible')){
+              $('#showPrevLinkHide').hide();
+              $('#showPrevLink').show();
+            }else{
+              $('#showPrevLinkHide').show();
+              $('#showPrevLink').hide();
+            }
+
           ">SOAP</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" id="labBigLink" href="#" onclick="
-            $('#sumBigLink').removeClass('active');
-            $('#soapBigLink').removeClass('active');
-            $('#labBigLink').addClass('active');  
-            $('#presBigLink').removeClass('active');  
-            $('#medBigLink').removeClass('active');  
-            $('#admitBigLink').removeClass('active');
-            $('#dialysisBigLink').removeClass('active');
-            // $('#hdSummaryBigLink').removeClass('active');
-            $('#printableFormsBigLink').removeClass('active');
-            $('#admitPeriBigLink').removeClass('active');
-            $('#orTechBigLink').removeClass('active');
-            $('#postOpBigLink').removeClass('active');
-            $('#dischargeSumBigLink').removeClass('active');
-
-            $('#sumPrevLink').removeClass('active');
-            $('#soapPrevLink').removeClass('active');
-            $('#labPrevLink').addClass('active');  
-            $('#presPrevLink').removeClass('active');  
-            $('#medPrevLink').removeClass('active');  
-            $('#admitPrevLink').removeClass('active');
-            $('#dialysisPrevLink').removeClass('active');
-            // $('#hdSummaryPrevLink').removeClass('active');
-            $('#printableFormsPrevLink').removeClass('active');
-            $('#admitPeriPrevLink').removeClass('active');
-            $('#orTechPrevLink').removeClass('active');
-            $('#postOpPrevLink').removeClass('active');
-            $('#dischargeSumPrevLink').removeClass('active');
-            
-            $('#sumPrevDiv').hide();  
-            $('#soapPrevDiv').hide();  
-            $('#labPrevDiv').show();  
-            $('#presPrevDiv').hide();  
-            $('#medPrevDiv').hide();  
-            $('#admitPrevDiv').hide();
-            $('#dialysisPrevDiv').hide();
-            $('#admitPeriPrevDiv').hide();  
-            $('#orTechPrevDiv').hide();  
-            $('#postOpPrevDiv').hide();
-            $('#dischargeSumPrevDiv').hide();
-
-
-            $('#sumCurLink').removeClass('active');
-            $('#soapCurLink').removeClass('active');
-            $('#labCurLink').addClass('active');  
-            $('#presCurLink').removeClass('active');  
-            $('#medPCurLink').removeClass('active');  
-            $('#admitCurLink').removeClass('active');
-            $('#dialysisCurLink').removeClass('active');
-            $('#printableFormsCurLink').removeClass('active');
-            $('#admitPeriCurLink').removeClass('active');
-            $('#orTechCurLink').removeClass('active');
-            $('#postOpCurLink').removeClass('active');
-            $('#dischargeSumCurLink').removeClass('active');
-            
-            // $('#sumCurDiv').hide();  
-            // $('#soapCurDiv').hide();  
-            $('#labCurDiv').show();  
-            // $('#presCurDiv').hide();  
-            // $('#medCurDiv').hide();  
-            // $('#admitCurDiv').hide();
-            // $('#dialysisCurDiv').hide();
-            // $('#admitPeriCurDiv').hide();  
-            // $('#orTechCurDiv').hide();  
-            // $('#postOpCurDiv').hide();
-            // $('#dischargeSumCurDiv').hide();
-
-            $('#curChart').removeClass('col-lg-12');
-            $('#curChart').addClass('col-lg-6');
-            $('#pastChart').show();
-            $('#showPrevLinkHide').show();
-            $('#showPrevLink').hide();
-            $('#pastChart').removeClass('d-none');
-            $('#pastChart').removeClass('d-lg-none');
-            $('#carouselCur').css('max-width', '100%');
-
-          ">File Uploads</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" id="printableFormsBigLink" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Printable Forms</a>
@@ -381,6 +338,22 @@
                 // $('#{{ $viewFolder }}_anesthesiologist_ot').prop('disabled', true);
                 // $('#{{ $viewFolder }}_anesthesia_type_ao').prop('disabled', true);
                 // $('#{{ $viewFolder }}_anesthesiologist_ao').prop('disabled', true);
+                if(!$('#pastChartFile').is(':visible')){
+                  $('#pastChartFile').hide();
+                  $('#pastChart').show();
+                }else{
+                  $('#pastChartFile').hide();
+                  $('#pastChart').show();
+                  $('#pastChart').removeClass('d-none');
+                  $('#pastChart').removeClass('d-lg-none');
+                }
+                if(!$('#pastChartFile').is(':visible') && !$('#pastChart').is(':visible')){
+                  $('#showPrevLinkHide').hide();
+                  $('#showPrevLink').show();
+                }else{
+                  $('#showPrevLinkHide').show();
+                  $('#showPrevLink').hide();
+                }
 
               ">Admitting Orders</a>
             </li>
@@ -452,6 +425,23 @@
                 $('#postOpCurDiv').hide();
                 $('#dischargeSumCurDiv').hide();
 
+                if(!$('#pastChartFile').is(':visible')){
+                  $('#pastChartFile').hide();
+                  $('#pastChart').show();
+                }else{
+                  $('#pastChartFile').hide();
+                  $('#pastChart').show();
+                  $('#pastChart').removeClass('d-none');
+                  $('#pastChart').removeClass('d-lg-none');
+                }
+                if(!$('#pastChartFile').is(':visible') && !$('#pastChart').is(':visible')){
+                  $('#showPrevLinkHide').hide();
+                  $('#showPrevLink').show();
+                }else{
+                  $('#showPrevLinkHide').show();
+                  $('#showPrevLink').hide();
+                }
+
               ">E-Prescription</a>
             </li>
             <li>
@@ -521,6 +511,23 @@
                 $('#orTechCurDiv').hide();  
                 $('#postOpCurDiv').hide();
                 $('#dischargeSumCurDiv').hide();
+
+                if(!$('#pastChartFile').is(':visible')){
+                  $('#pastChartFile').hide();
+                  $('#pastChart').show();
+                }else{
+                  $('#pastChartFile').hide();
+                  $('#pastChart').show();
+                  $('#pastChart').removeClass('d-none');
+                  $('#pastChart').removeClass('d-lg-none');
+                }
+                if(!$('#pastChartFile').is(':visible') && !$('#pastChart').is(':visible')){
+                  $('#showPrevLinkHide').hide();
+                  $('#showPrevLink').show();
+                }else{
+                  $('#showPrevLinkHide').show();
+                  $('#showPrevLink').hide();
+                }
 
               ">Med Cert</a>
             </li>
@@ -592,6 +599,23 @@
                 $('#orTechCurDiv').hide();  
                 $('#postOpCurDiv').hide();
                 $('#dischargeSumCurDiv').show();
+
+                if(!$('#pastChartFile').is(':visible')){
+                  $('#pastChartFile').hide();
+                  $('#pastChart').show();
+                }else{
+                  $('#pastChartFile').hide();
+                  $('#pastChart').show();
+                  $('#pastChart').removeClass('d-none');
+                  $('#pastChart').removeClass('d-lg-none');
+                }
+                if(!$('#pastChartFile').is(':visible') && !$('#pastChart').is(':visible')){
+                  $('#showPrevLinkHide').hide();
+                  $('#showPrevLink').show();
+                }else{
+                  $('#showPrevLinkHide').show();
+                  $('#showPrevLink').hide();
+                }
               ">Discharge Summary</a>
             </li>
             <li>
@@ -660,6 +684,23 @@
                 $('#orTechCurDiv').hide();  
                 $('#postOpCurDiv').hide();
                 $('#dischargeSumCurDiv').hide();
+
+                if(!$('#pastChartFile').is(':visible')){
+                  $('#pastChartFile').hide();
+                  $('#pastChart').show();
+                }else{
+                  $('#pastChartFile').hide();
+                  $('#pastChart').show();
+                  $('#pastChart').removeClass('d-none');
+                  $('#pastChart').removeClass('d-lg-none');
+                }
+                if(!$('#pastChartFile').is(':visible') && !$('#pastChart').is(':visible')){
+                  $('#showPrevLinkHide').hide();
+                  $('#showPrevLink').show();
+                }else{
+                  $('#showPrevLinkHide').show();
+                  $('#showPrevLink').hide();
+                }
               ">Admitting and Peri-Op</a>
             </li>
             <li>
@@ -733,6 +774,23 @@
                 // $('#{{ $viewFolder }}_anesthesiologist_ot').prop('disabled', true);
                 // $('#{{ $viewFolder }}_anesthesia_type_ao').prop('disabled', true);
                 // $('#{{ $viewFolder }}_anesthesiologist_ao').prop('disabled', true);
+
+                if(!$('#pastChartFile').is(':visible')){
+                  $('#pastChartFile').hide();
+                  $('#pastChart').show();
+                }else{
+                  $('#pastChartFile').hide();
+                  $('#pastChart').show();
+                  $('#pastChart').removeClass('d-none');
+                  $('#pastChart').removeClass('d-lg-none');
+                }
+                if(!$('#pastChartFile').is(':visible') && !$('#pastChart').is(':visible')){
+                  $('#showPrevLinkHide').hide();
+                  $('#showPrevLink').show();
+                }else{
+                  $('#showPrevLinkHide').show();
+                  $('#showPrevLink').hide();
+                }
               ">OR Tech</a>
             </li>
             <li>
@@ -800,7 +858,25 @@
                 $('#admitPeriCurDiv').hide();  
                 $('#orTechCurDiv').hide();  
                 $('#postOpCurDiv').show();
-                 $('#dischargeSumCurDiv').hide();  
+                $('#dischargeSumCurDiv').hide();  
+
+                if(!$('#pastChartFile').is(':visible')){
+                  $('#pastChartFile').hide();
+                  $('#pastChart').show();
+                }else{
+                  $('#pastChartFile').hide();
+                  $('#pastChart').show();
+                  $('#pastChart').removeClass('d-none');
+                  $('#pastChart').removeClass('d-lg-none');
+                }
+                if(!$('#pastChartFile').is(':visible') && !$('#pastChart').is(':visible')){
+                  $('#showPrevLinkHide').hide();
+                  $('#showPrevLink').show();
+                }else{
+                  $('#showPrevLinkHide').show();
+                  $('#showPrevLink').hide();
+                }
+                 
               ">Post Operative Instructions</a>
             </li>
             @endif
@@ -873,6 +949,23 @@
             $('#orTechCurDiv').hide();  
             $('#postOpCurDiv').hide();
             $('#dischargeSumCurDiv').hide();
+
+            if(!$('#pastChartFile').is(':visible')){
+              $('#pastChartFile').hide();
+              $('#pastChart').show();
+            }else{
+              $('#pastChartFile').hide();
+              $('#pastChart').show();
+              $('#pastChart').removeClass('d-none');
+              $('#pastChart').removeClass('d-lg-none');
+            }
+            if(!$('#pastChartFile').is(':visible') && !$('#pastChart').is(':visible')){
+              $('#showPrevLinkHide').hide();
+              $('#showPrevLink').show();
+            }else{
+              $('#showPrevLinkHide').show();
+              $('#showPrevLink').hide();
+            }
           ">Dialysis Chart</a>
         </li>
         {{-- <li class="nav-item">
@@ -908,6 +1001,7 @@
             $('#dialysisCurDiv').show();  
           ">HD Summary Sheet</a>
         </li> --}}
+        
         @endif
         <li class="nav-item">
           <a class="nav-link" id="showPrevLink" href="#" onclick="
@@ -915,11 +1009,77 @@
             $('#curChart').addClass('col-lg-6');
             $('#pastChart').show();
             $('#showPrevLinkHide').show();
+            if($('#pastChartFile').is(':visible')){
+              $('#sumBigLink').addClass('active');  
+              $('#soapBigLink').removeClass('active');  
+              $('#labBigLink').removeClass('active');  
+              $('#presBigLink').removeClass('active');  
+              $('#medBigLink').removeClass('active');  
+              $('#admitBigLink').removeClass('active');
+              $('#dialysisBigLink').removeClass('active');
+              // $('#hdSummaryBigLink').removeClass('active');
+              $('#printableFormsBigLink').removeClass('active');
+              $('#admitPeriBigLink').removeClass('active');
+              $('#orTechBigLink').removeClass('active');
+              $('#postOpBigLink').removeClass('active');
+              $('#dischargeSumBigLink').removeClass('active');
+
+              $('#sumPrevLink').addClass('active');  
+              $('#soapPrevLink').removeClass('active');  
+              $('#labPrevLink').removeClass('active');  
+              $('#presPrevLink').removeClass('active');  
+              $('#medPrevLink').removeClass('active');  
+              $('#admitPrevLink').removeClass('active');
+              $('#dialysisPrevLink').removeClass('active');
+              // $('#hdSummaryPrevLink').removeClass('active');
+              $('#printableFormsPrevLink').removeClass('active');
+              $('#admitPeriPrevLink').removeClass('active');
+              $('#orTechPrevLink').removeClass('active');
+              $('#postOpPrevLink').removeClass('active');
+              $('#dischargeSumPrevLink').removeClass('active');
+              
+              $('#sumPrevDiv').show();  
+              $('#soapPrevDiv').hide();  
+              $('#labPrevDiv').hide();  
+              $('#presPrevDiv').hide();  
+              $('#medPrevDiv').hide();  
+              $('#admitPrevDiv').hide();
+              $('#dialysisPrevDiv').hide();
+              $('#admitPeriPrevDiv').hide();  
+              $('#orTechPrevDiv').hide();  
+              $('#postOpPrevDiv').hide();
+              $('#dischargeSumPrevDiv').hide();
+
+              $('#sumCurLink').addClass('active');  
+              $('#soapCurLink').removeClass('active');  
+              $('#labCurLink').removeClass('active');  
+              $('#presCurLink').removeClass('active');  
+              $('#medCurLink').removeClass('active');  
+              $('#admitCurLink').removeClass('active');
+              $('#dialysisCurLink').removeClass('active');
+              $('#printableFormsCurLink').removeClass('active');
+              $('#admitPeriCurLink').removeClass('active');
+              $('#orTechCurLink').removeClass('active');
+              $('#postOpCurLink').removeClass('active');
+              $('#dischargeSumCurLink').removeClass('active');
+              
+              $('#sumCurDiv').show();  
+              $('#soapCurDiv').hide();  
+              $('#labCurDiv').hide();  
+              $('#presCurDiv').hide();  
+              $('#medCurDiv').hide();  
+              $('#admitCurDiv').hide();
+              $('#dialysisCurDiv').hide();
+              $('#admitPeriCurDiv').hide();  
+              $('#orTechCurDiv').hide();  
+              $('#postOpCurDiv').hide();
+              $('#dischargeSumCurDiv').hide();
+            }
             $(this).hide();
             $('#pastChart').removeClass('d-none');
             $('#pastChart').removeClass('d-lg-none');
             $('#carouselCur').css('max-width', '100%');
-            ">Show Left Panel</a>
+            ">View Past Px's Panel</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" style="display:none" id="showPrevLinkHide" href="#" onclick="
@@ -931,7 +1091,91 @@
             $('#pastChart').addClass('d-none');
             $('#pastChart').addClass('d-lg-none');
             $('#carouselCur').css('max-width', '60%');
-            ">Hide Left Panel</a>
+            ">Hide Past Px's Panel</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="labBigLink" href="#" onclick="
+            // $('#sumBigLink').removeClass('active');
+            // $('#soapBigLink').removeClass('active');
+            // $('#labBigLink').addClass('active');  
+            // $('#presBigLink').removeClass('active');  
+            // $('#medBigLink').removeClass('active');  
+            // $('#admitBigLink').removeClass('active');
+            // $('#dialysisBigLink').removeClass('active');
+            // // $('#hdSummaryBigLink').removeClass('active');
+            // $('#printableFormsBigLink').removeClass('active');
+            // $('#admitPeriBigLink').removeClass('active');
+            // $('#orTechBigLink').removeClass('active');
+            // $('#postOpBigLink').removeClass('active');
+            // $('#dischargeSumBigLink').removeClass('active');
+
+            // $('#sumPrevLink').removeClass('active');
+            // $('#soapPrevLink').removeClass('active');
+            // $('#labPrevLink').addClass('active');  
+            // $('#presPrevLink').removeClass('active');  
+            // $('#medPrevLink').removeClass('active');  
+            // $('#admitPrevLink').removeClass('active');
+            // $('#dialysisPrevLink').removeClass('active');
+            // // $('#hdSummaryPrevLink').removeClass('active');
+            // $('#printableFormsPrevLink').removeClass('active');
+            // $('#admitPeriPrevLink').removeClass('active');
+            // $('#orTechPrevLink').removeClass('active');
+            // $('#postOpPrevLink').removeClass('active');
+            // $('#dischargeSumPrevLink').removeClass('active');
+            
+            // $('#sumPrevDiv').hide();  
+            // $('#soapPrevDiv').hide();  
+            // // $('#labPrevDiv').show();  
+            // $('#presPrevDiv').hide();  
+            // $('#medPrevDiv').hide();  
+            // $('#admitPrevDiv').hide();
+            // $('#dialysisPrevDiv').hide();
+            // $('#admitPeriPrevDiv').hide();  
+            // $('#orTechPrevDiv').hide();  
+            // $('#postOpPrevDiv').hide();
+            // $('#dischargeSumPrevDiv').hide();
+
+
+            // $('#sumCurLink').removeClass('active');
+            // $('#soapCurLink').removeClass('active');
+            // $('#labCurLink').addClass('active');  
+            // $('#presCurLink').removeClass('active');  
+            // $('#medPCurLink').removeClass('active');  
+            // $('#admitCurLink').removeClass('active');
+            // $('#dialysisCurLink').removeClass('active');
+            // $('#printableFormsCurLink').removeClass('active');
+            // $('#admitPeriCurLink').removeClass('active');
+            // $('#orTechCurLink').removeClass('active');
+            // $('#postOpCurLink').removeClass('active');
+            // $('#dischargeSumCurLink').removeClass('active');
+            
+            // $('#sumCurDiv').hide();  
+            // $('#soapCurDiv').hide();  
+            $('#labCurDiv').show();  
+            // $('#presCurDiv').hide();  
+            // $('#medCurDiv').hide();  
+            // $('#admitCurDiv').hide();
+            // $('#dialysisCurDiv').hide();
+            // $('#admitPeriCurDiv').hide();  
+            // $('#orTechCurDiv').hide();  
+            // $('#postOpCurDiv').hide();
+            // $('#dischargeSumCurDiv').hide();
+
+            $('#curChart').removeClass('col-lg-12');
+            $('#curChart').addClass('col-lg-6');
+            $('#showPrevLinkHide').hide();
+            $('#showPrevLink').show();
+            if($('#pastChart').is(':visible')){
+              $('#pastChart').hide();
+              $('#pastChart').addClass('d-none');
+              $('#pastChart').addClass('d-lg-none');
+            }
+            $('#pastChartFile').show();
+            $('#pastChartFile').removeClass('d-none');
+            $('#pastChartFile').removeClass('d-lg-none');
+            $('#carouselCur').css('max-width', '100%');
+
+          ">View File Uploads</a>
         </li>
         <li class="nav-item">
           <div class="mt-2 ml-2">
@@ -945,6 +1189,9 @@
               $('#pastChart').show();
               $('#pastChart').removeClass('d-none');
               $('#pastChart').removeClass('d-lg-none');
+              if($('#pastChartFile').is(':visible')){
+                $('#pastChartFile').hide();
+              }
             ">
               @foreach($bookings as $ind=>$dat)
               <option value="{{ $dat->id }}" optIndex="{{ $ind }}">{{ $dat->bookingDate }} - {{ $dat->clinic->name }} - {{ $dat->booking_type == "" ? 'Consultation' : $dat->booking_type }}</option>
@@ -1685,6 +1932,76 @@
               $('#pastChart').removeClass('d-none');
               $('#pastChart').removeClass('d-lg-block');
               $('#curChart').hide();
+              if($('#pastChartFile').is(':visible')){
+                $('#pastChartFile').hide();
+                $('#pastChartFile').addClass('d-none');
+                $('#pastChartFile').addClass('d-lg-block');
+                
+                $('#sumBigLink').addClass('active');  
+                $('#soapBigLink').removeClass('active');  
+                $('#labBigLink').removeClass('active');  
+                $('#presBigLink').removeClass('active');  
+                $('#medBigLink').removeClass('active');  
+                $('#admitBigLink').removeClass('active');
+                $('#dialysisBigLink').removeClass('active');
+                // $('#hdSummaryBigLink').removeClass('active');
+                $('#printableFormsBigLink').removeClass('active');
+                $('#admitPeriBigLink').removeClass('active');
+                $('#orTechBigLink').removeClass('active');
+                $('#postOpBigLink').removeClass('active');
+                $('#dischargeSumBigLink').removeClass('active');
+
+                $('#sumPrevLink').addClass('active');  
+                $('#soapPrevLink').removeClass('active');  
+                $('#labPrevLink').removeClass('active');  
+                $('#presPrevLink').removeClass('active');  
+                $('#medPrevLink').removeClass('active');  
+                $('#admitPrevLink').removeClass('active');
+                $('#dialysisPrevLink').removeClass('active');
+                // $('#hdSummaryPrevLink').removeClass('active');
+                $('#printableFormsPrevLink').removeClass('active');
+                $('#admitPeriPrevLink').removeClass('active');
+                $('#orTechPrevLink').removeClass('active');
+                $('#postOpPrevLink').removeClass('active');
+                $('#dischargeSumPrevLink').removeClass('active');
+                
+                $('#sumPrevDiv').show();  
+                $('#soapPrevDiv').hide();  
+                $('#labPrevDiv').hide();  
+                $('#presPrevDiv').hide();  
+                $('#medPrevDiv').hide();  
+                $('#admitPrevDiv').hide();
+                $('#dialysisPrevDiv').hide();
+                $('#admitPeriPrevDiv').hide();  
+                $('#orTechPrevDiv').hide();  
+                $('#postOpPrevDiv').hide();
+                $('#dischargeSumPrevDiv').hide();
+
+                $('#sumCurLink').addClass('active');  
+                $('#soapCurLink').removeClass('active');  
+                $('#labCurLink').removeClass('active');  
+                $('#presCurLink').removeClass('active');  
+                $('#medCurLink').removeClass('active');  
+                $('#admitCurLink').removeClass('active');
+                $('#dialysisCurLink').removeClass('active');
+                $('#printableFormsCurLink').removeClass('active');
+                $('#admitPeriCurLink').removeClass('active');
+                $('#orTechCurLink').removeClass('active');
+                $('#postOpCurLink').removeClass('active');
+                $('#dischargeSumCurLink').removeClass('active');
+                
+                $('#sumCurDiv').show();  
+                $('#soapCurDiv').hide();  
+                $('#labCurDiv').hide();  
+                $('#presCurDiv').hide();  
+                $('#medCurDiv').hide();  
+                $('#admitCurDiv').hide();
+                $('#dialysisCurDiv').hide();
+                $('#admitPeriCurDiv').hide();  
+                $('#orTechCurDiv').hide();  
+                $('#postOpCurDiv').hide();
+                $('#dischargeSumCurDiv').hide();
+              }
             ">Previous Px's Chart</a>
           </li>
           <li class="nav-item">
@@ -1700,7 +2017,7 @@
             ">Current Px's Chart</a>
           </li>
         </ul>
-        @if(isset($bookings[0]))
+        {{-- @if(isset($bookings[0])) --}}
         <div id="pastChart" class="card mb-3 d-none d-lg-none">
           <div class="card-header">Past Patient's Chart (<span id="prevBookingDater">{{ $bookings[0]->bookingDate }}</span>)&nbsp;<a id="showPast" class="d-none d-lg-block" href="#" onclick="
             $('#curChart').removeClass('col-lg-6');
@@ -1725,21 +2042,23 @@
                 </p>
               </div>
             </div>
-            <ul class="nav nav-pills mb-3" id="referral_pill">
-              @if(isset($bookings[0]->consultation_parent_id) && $bookings[0]->consultation_parent_id != "")
-              <li class="nav-item">
-                <a class="nav-link docNotesLinkPrev" consultation-id="{{ $bookings[0]->parent_consultation->id }}" aria-current="page" href="#">{{ $user->name == $bookings[0]->parent_consultation->doctor->name ? 'Yours1 - ' . $bookings[0]->parent_consultation->clinic->name . ' | ' . (!empty($bookings[0]->parent_consultation->booking_type) ? $bookings[0]->parent_consultation->booking_type : 'Consultation') : 'Dr. ' . Str::substr($bookings[0]->parent_consultation->doctor->f_name, 0, 1) . '. ' . $bookings[0]->parent_consultation->doctor->l_name . ' - ' . $bookings[0]->parent_consultation->clinic->name . ' | ' . (!empty($bookings[0]->parent_consultation->booking_type) ? $bookings[0]->parent_consultation->booking_type : 'Consultation') }}</a>
-              </li>
-              @endif
-              <li class="nav-item">
-                <a class="nav-link docNotesLinkPrev active" consultation-id="{{ $bookings[0]->id }}" aria-current="page" href="#">{{ $user->name == $bookings[0]->doctor->name ? 'Yours - ' . $bookings[0]->clinic->name . ' | ' . (!empty($bookings[0]->booking_type) ? $bookings[0]->booking_type : 'Consultation') : 'Dr. ' . Str::substr($bookings[0]->doctor->f_name, 0, 1) . '. ' . $bookings[0]->doctor->l_name . ' - ' . $bookings[0]->clinic->name . ' | ' . (!empty($bookings[0]->booking_type) ? $bookings[0]->booking_type : 'Consultation') }}</a>
-              </li>
-              @foreach($bookings[0]->consultation_referals()->get() as $ref)
-              <li class="nav-item">
-                <a class="nav-link docNotesLinkPrev" consultation-id="{{ $ref->id }}" aria-current="page" href="#">{{ $user->name == $ref->doctor->name ? 'Yours - ' . $ref->clinic->name . ' | ' . (!empty($ref->booking_type) ? $ref->booking_type : 'Consultation') : 'Dr. ' . Str::substr($ref->doctor->f_name, 0, 1) . '. ' . $ref->doctor->l_name . ' - ' . $ref->clinic->name . ' | ' . (!empty($ref->booking_type) ? $ref->booking_type : 'Consultation') }}</a>
-              </li>
-              @endforeach
-            </ul>
+            <div class="table-responsive" style="max-height: 55px">
+              <ul class="nav nav-pills mb-3" id="referral_pill">
+                @if(isset($bookings[0]->consultation_parent_id) && $bookings[0]->consultation_parent_id != "")
+                <li class="nav-item">
+                  <a class="nav-link docNotesLinkPrev" consultation-id="{{ $bookings[0]->parent_consultation->id }}" aria-current="page" href="#">{{ $user->name == $bookings[0]->parent_consultation->doctor->name ? 'Yours - ' . $bookings[0]->parent_consultation->clinic->name . ' | ' . (!empty($bookings[0]->parent_consultation->booking_type) ? $bookings[0]->parent_consultation->booking_type : 'Consultation') : 'Dr. ' . Str::substr($bookings[0]->parent_consultation->doctor->f_name, 0, 1) . '. ' . $bookings[0]->parent_consultation->doctor->l_name . ' - ' . $bookings[0]->parent_consultation->clinic->name . ' | ' . (!empty($bookings[0]->parent_consultation->booking_type) ? $bookings[0]->parent_consultation->booking_type : 'Consultation') }}</a>
+                </li>
+                @endif
+                <li class="nav-item">
+                  <a class="nav-link docNotesLinkPrev active" consultation-id="{{ $bookings[0]->id }}" aria-current="page" href="#">{{ $user->name == $bookings[0]->doctor->name ? 'Yours - ' . $bookings[0]->clinic->name . ' | ' . (!empty($bookings[0]->booking_type) ? $bookings[0]->booking_type : 'Consultation') : 'Dr. ' . Str::substr($bookings[0]->doctor->f_name, 0, 1) . '. ' . $bookings[0]->doctor->l_name . ' - ' . $bookings[0]->clinic->name . ' | ' . (!empty($bookings[0]->booking_type) ? $bookings[0]->booking_type : 'Consultation') }}</a>
+                </li>
+                @foreach($bookings[0]->consultation_referals()->get() as $ref)
+                <li class="nav-item">
+                  <a class="nav-link docNotesLinkPrev" consultation-id="{{ $ref->id }}" aria-current="page" href="#">{{ $user->name == $ref->doctor->name ? 'Yours - ' . $ref->clinic->name . ' | ' . (!empty($ref->booking_type) ? $ref->booking_type : 'Consultation') : 'Dr. ' . Str::substr($ref->doctor->f_name, 0, 1) . '. ' . $ref->doctor->l_name . ' - ' . $ref->clinic->name . ' | ' . (!empty($ref->booking_type) ? $ref->booking_type : 'Consultation') }}</a>
+                </li>
+                @endforeach
+              </ul>
+            </div>
             <ul class="nav nav-tabs d-xs-block d-lg-none">
               <li class="nav-item">
                 <a class="nav-link active" id="sumPrevLink" href="#" onclick="
@@ -1874,7 +2193,7 @@
                   $('#dischargeSumCurDiv').hide();
                 ">SOAP</a>
               </li>
-              <li class="nav-item">
+              {{-- <li class="nav-item">
                 <a class="nav-link" id="labPrevLink" href="#" onclick="
                   $('#sumBigLink').removeClass('active');
                   $('#soapBigLink').removeClass('active');
@@ -1904,7 +2223,7 @@
 
                   $('#sumPrevDiv').hide();  
                   $('#soapPrevDiv').hide();  
-                  $('#labPrevDiv').show();  
+                  // $('#labPrevDiv').show();  
                   $('#presPrevDiv').hide();  
                   $('#medPrevDiv').hide();  
                   $('#admitPrevDiv').hide();
@@ -1941,15 +2260,18 @@
 
                   $('#curChart').removeClass('col-lg-12');
                   $('#curChart').addClass('col-lg-6');
-                  $('#pastChart').show();
+                  $('#pastChart').hide();
+                  $('#pastChartFile').show();
                   $('#showPrevLinkHide').show();
                   $('#showPrevLink').hide();
                   $('#pastChart').removeClass('d-none');
                   $('#pastChart').removeClass('d-lg-none');
+                  $('#pastChartFile').removeClass('d-none');
+                  $('#pastChartFile').removeClass('d-lg-none');
                   $('#carouselCur').css('max-width', '100%');
 
                 ">File Uploads</a>
-              </li>
+              </li> --}}
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="printableFormsPrevLink" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Printable Forms</a>
                 <ul class="dropdown-menu">
@@ -2526,6 +2848,9 @@
                     $('#pastChart').show();
                     $('#pastChart').removeClass('d-none');
                     $('#pastChart').removeClass('d-lg-none');
+                    if($('#pastChartFile').is(':visible')){
+                      $('#pastChartFile').hide();
+                    }
                   ">
                     @foreach($bookings as $ind=>$dat)
                     <option value="{{ $dat->id }}" optIndex="{{ $ind }}">{{ $dat->bookingDate }} - {{ $dat->booking_type == "" ? 'Consultation' : $dat->booking_type }}</option>
@@ -2720,18 +3045,18 @@
                     <div class="card mb-3">
                       <div class="card-header">History of Present Illness</div>
                       <div class="card-body">
-                        <small class="text-muted">Helper</small>
+                        {{-- <small class="text-muted">Helper</small>
                         <div class="input-group input-group-small flex-nowrap">
                           <select class="form-select" placeholder="" disabled>
                             <option value=""></option>
                           </select>
                           <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
-                        </div>
+                        </div> --}}
                         <small class="text-muted">Content</small>
                         <textarea class="form-control" name="{{ $viewFolder }}[docNotesHPI]" id="{{ $viewFolder }}_prev_docNotesHPI" rows=3 disabled>{{ $bookings[0]->docNotesHPI }}</textarea>
                         <small class="mb-3"></small><br>
                         <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
-                        <small class="text-muted">Helper Save/Edit</small>
+                        {{-- <small class="text-muted">Helper Save/Edit</small>
                         <div class="input-group input-group-small mb-3 flex-nowrap">
                           <div class="input-group-text">
                             <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
@@ -2739,23 +3064,23 @@
                           <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesHPITitle" name="{{ $viewFolder }}[docNotesHPITitle]" disabled>
                           <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                         </div>
-                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[docNotesHPIEdit]" id="{{ $viewFolder }}_docNotesHPIEdit" rows=3 disabled></textarea>
+                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[docNotesHPIEdit]" id="{{ $viewFolder }}_docNotesHPIEdit" rows=3 disabled></textarea> --}}
                       </div>
                     </div>
                     {{-- @else --}}
                     <div class="card mb-3">
                       <div class="card-header">Previous Subjective Complaints</div>
                       <div class="card-body">
-                        <small class="text-muted">Helper</small>
+                        {{-- <small class="text-muted">Helper</small>
                         <div class="input-group input-group-small flex-nowrap">
                           <select class="form-select" placeholder="" disabled>
                             <option value=""></option>
                           </select>
                           <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
-                        </div>
+                        </div> --}}
                         <small class="text-muted">Content</small>
                         <textarea class="form-control" name="{{ $viewFolder }}[docNotesSubject]" id="{{ $viewFolder }}_prev_docNotesSubject" rows=3 disabled>{{ $bookings[0]->docNotesSubject }}</textarea>
-                        <small class="text-muted">Helper Save/Edit</small>
+                        {{-- <small class="text-muted">Helper Save/Edit</small>
                         <div class="input-group input-group-small mb-3 flex-nowrap">
                           <div class="input-group-text">
                             <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
@@ -2763,7 +3088,7 @@
                           <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesSubjectTitle" name="{{ $viewFolder }}[docNotesSubjectTitle]" disabled>
                           <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                         </div>
-                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[ddocNotesSubjectEdit]" id="{{ $viewFolder }}_docNotesSubjectEdit" rows=3 disabled></textarea>
+                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[ddocNotesSubjectEdit]" id="{{ $viewFolder }}_docNotesSubjectEdit" rows=3 disabled></textarea> --}}
                       </div>
                     </div>
                     {{-- @endif --}}
@@ -2848,16 +3173,16 @@
                           </div>
                         </div>
                         @endif
-                        <small class="text-muted">Helper</small>
+                        {{-- <small class="text-muted">Helper</small>
                         <div class="input-group input-group-small flex-nowrap">
                           <select class="form-select" placeholder="" disabled>
                             <option value=""></option>
                           </select>
                           <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
-                        </div>
+                        </div> --}}
                         <small class="text-muted">Content</small>
                         <textarea class="form-control" name="{{ $viewFolder }}[docNotes]" id="{{ $viewFolder }}_prev_docNotes" rows=3 disabled>{{ $bookings[0]->docNotes }}</textarea>
-                        <small class="text-muted">Helper Save/Edit</small>
+                        {{-- <small class="text-muted">Helper Save/Edit</small>
                         <div class="input-group input-group-small mb-3 flex-nowrap">
                           <div class="input-group-text">
                             <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
@@ -2865,7 +3190,7 @@
                           <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesTitle" name="{{ $viewFolder }}[docNotesTitle]" disabled>
                           <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                         </div>
-                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[_docNotesEdit]" id="{{ $viewFolder }}_docNotesEdit" rows=3 disabled></textarea>
+                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[_docNotesEdit]" id="{{ $viewFolder }}_docNotesEdit" rows=3 disabled></textarea> --}}
                       </div>
                     </div>
                   </div>
@@ -2885,18 +3210,18 @@
                     <div class="card mb-3">
                       <div class="card-header">Previous Secondary Diagnosis</div>
                       <div class="card-body">
-                        <small class="text-muted">Helper</small>
+                        {{-- <small class="text-muted">Helper</small>
                         <div class="input-group input-group-small flex-nowrap">
                           <select class="form-select" placeholder="" disabled>
                             <option value=""></option>
                           </select>
                           <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
-                        </div>
+                        </div> --}}
                         <small class="text-muted">Content</small>
                         <textarea class="form-control" name="{{ $viewFolder }}[assessment]" id="{{ $viewFolder }}_prev_assessment" rows=3 disabled>{{ $bookings[0]->assessment }}</textarea>
                         <small class="mb-3"></small><br>
                         <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
-                        <small class="text-muted">Helper Save/Edit</small>
+                        {{-- <small class="text-muted">Helper Save/Edit</small>
                         <div class="input-group input-group-small mb-3 flex-nowrap">
                           <div class="input-group-text">
                             <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
@@ -2904,24 +3229,24 @@
                           <input type="text" class="form-control" id="{{ $viewFolder }}_assessmentTitle" name="{{ $viewFolder }}[assessmentTitle]" disabled>
                           <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                         </div>
-                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[_assessmentEdit]" id="{{ $viewFolder }}_assessmentEdit" rows=3 disabled></textarea>
+                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[_assessmentEdit]" id="{{ $viewFolder }}_assessmentEdit" rows=3 disabled></textarea> --}}
                       </div>
                     </div>
                     <div class="card mb-3">
                       <div class="card-header">Previous Discharge Diagnosis (Post-op Diagnosis)</div>
                       <div class="card-body">
-                        <small class="text-muted">Helper</small>
+                        {{-- <small class="text-muted">Helper</small>
                         <div class="input-group input-group-small flex-nowrap">
                           <select class="form-select" placeholder="" disabled>
                             <option value=""></option>
                           </select>
                           <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
-                        </div>
+                        </div> --}}
                         <small class="text-muted">Content</small>
                         <textarea class="form-control" name="{{ $viewFolder }}[post_op_assessment]" id="{{ $viewFolder }}_prev_post_op_assessment" rows=3 disabled>{{ $bookings[0]->post_op_assessment }}</textarea>
                         <small class="mb-3"></small><br>
                         <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
-                        <small class="text-muted">Helper Save/Edit</small>
+                        {{-- <small class="text-muted">Helper Save/Edit</small>
                         <div class="input-group input-group-small mb-3 flex-nowrap">
                           <div class="input-group-text">
                             <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
@@ -2929,7 +3254,7 @@
                           <input type="text" class="form-control" id="{{ $viewFolder }}_post_op_assessmentTitle" name="{{ $viewFolder }}[post_op_assessmentTitle]" disabled>
                           <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                         </div>
-                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[_post_op_assessmentEdit]" id="{{ $viewFolder }}_post_op_assessmentEdit" rows=3 disabled></textarea>
+                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[_post_op_assessmentEdit]" id="{{ $viewFolder }}_post_op_assessmentEdit" rows=3 disabled></textarea> --}}
                       </div>
                     </div>
                   </div>
@@ -2941,18 +3266,18 @@
                     <div class="card mb-3">
                       <div class="card-header">Previous Plan</div>
                       <div class="card-body">
-                        <small class="text-muted">Helper</small>
+                        {{-- <small class="text-muted">Helper</small>
                         <div class="input-group input-group-small flex-nowrap">
                           <select class="form-select" placeholder="" disabled>
                             <option value=""></option>
                           </select>
                           <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
-                        </div>
+                        </div> --}}
                         <small class="text-muted">Content</small>
                         <textarea class="form-control" name="{{ $viewFolder }}[planMed]" id="{{ $viewFolder }}_prev_planMed" rows=3 disabled>{{ $bookings[0]->planMed }}</textarea>
                         <small class="mb-3"></small><br>
                         <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
-                        <small class="text-muted">Helper Save/Edit</small>
+                        {{-- <small class="text-muted">Helper Save/Edit</small>
                         <div class="input-group input-group-small mb-3 flex-nowrap">
                           <div class="input-group-text">
                             <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
@@ -2960,7 +3285,7 @@
                           <input type="text" class="form-control" id="{{ $viewFolder }}_planMedTitle" name="{{ $viewFolder }}[planMedTitle]" disabled>
                           <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                         </div>
-                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planMedEdit]" id="{{ $viewFolder }}_planMedEdit" rows=3 disabled></textarea>
+                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planMedEdit]" id="{{ $viewFolder }}_planMedEdit" rows=3 disabled></textarea> --}}
                       </div>
                     </div>
                     <div class="card mb-3">
@@ -3130,18 +3455,18 @@
                     <div class="card mb-3">
                       <div class="card-header">Previous Medical Therapeutics</div>
                       <div class="card-body">
-                        <small class="text-muted">Helper</small>
+                        {{-- <small class="text-muted">Helper</small>
                         <div class="input-group input-group-small flex-nowrap">
                           <select class="form-select" placeholder="" disabled>
                             <option value=""></option>
                           </select>
                           <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
-                        </div>
+                        </div> --}}
                         <small class="text-muted">Content</small>
                         <textarea class="form-control" name="{{ $viewFolder }}[planMed]" id="{{ $viewFolder }}_prev_planMed" rows=3 disabled>{{ $bookings[0]->planMed }}</textarea>
                         <small class="mb-3"></small><br>
                         <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
-                        <small class="text-muted">Helper Save/Edit</small>
+                        {{-- <small class="text-muted">Helper Save/Edit</small>
                         <div class="input-group input-group-small mb-3 flex-nowrap">
                           <div class="input-group-text">
                             <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
@@ -3149,24 +3474,24 @@
                           <input type="text" class="form-control" id="{{ $viewFolder }}_planMedTitle" name="{{ $viewFolder }}[planMedTitle]" disabled>
                           <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                         </div>
-                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planMedEdit]" id="{{ $viewFolder }}_planMedEdit" rows=3 disabled></textarea>
+                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planMedEdit]" id="{{ $viewFolder }}_planMedEdit" rows=3 disabled></textarea> --}}
                       </div>
                     </div>
                     <div class="card mb-3">
                       <div class="card-header">Previous Diagnostics and Surgery</div>
                       <div class="card-body">
-                        <small class="text-muted">Helper</small>
+                        {{-- <small class="text-muted">Helper</small>
                         <div class="input-group input-group-small flex-nowrap">
                           <select class="form-select" placeholder="" disabled>
                             <option value=""></option>
                           </select>
                           <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
-                        </div>
+                        </div> --}}
                         <small class="text-muted">Content</small>
                         <textarea class="form-control" name="{{ $viewFolder }}[plan]" id="{{ $viewFolder }}_prev_plan" rows=3 disabled>{{ $bookings[0]->plan }}</textarea>
                         <small class="mb-3"></small><br>
                         <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
-                        <small class="text-muted">Helper Save/Edit</small>
+                        {{-- <small class="text-muted">Helper Save/Edit</small>
                         <div class="input-group input-group-small mb-3 flex-nowrap">
                           <div class="input-group-text">
                             <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
@@ -3174,24 +3499,24 @@
                           <input type="text" class="form-control" id="{{ $viewFolder }}_planTitle" name="{{ $viewFolder }}[planTitle]" disabled>
                           <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                         </div>
-                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planEdit]" id="{{ $viewFolder }}_planEdit" rows=3 disabled></textarea>
+                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planEdit]" id="{{ $viewFolder }}_planEdit" rows=3 disabled></textarea> --}}
                       </div>
                     </div>
                     <div class="card mb-3">
                       <div class="card-header">Previous Remarks</div>
                       <div class="card-body">
-                        <small class="text-muted">Helper</small>
+                        {{-- <small class="text-muted">Helper</small>
                         <div class="input-group input-group-small flex-nowrap">
                           <select class="form-select" placeholder="" disabled>
                             <option value=""></option>
                           </select>
                           <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
-                        </div>
+                        </div> --}}
                         <small class="text-muted">Content</small>
                         <textarea class="form-control" name="{{ $viewFolder }}[planRem]" id="{{ $viewFolder }}_prev_planRem" rows=3 disabled>{{ $bookings[0]->planRem }}</textarea>
                         <small class="mb-3"></small><br>
                         <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
-                        <small class="text-muted">Helper Save/Edit</small>
+                        {{-- <small class="text-muted">Helper Save/Edit</small>
                         <div class="input-group input-group-small mb-3 flex-nowrap">
                           <div class="input-group-text">
                             <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
@@ -3199,7 +3524,7 @@
                           <input type="text" class="form-control" id="{{ $viewFolder }}_planRemTitle" name="{{ $viewFolder }}[planRemTitle]" disabled>
                           <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                         </div>
-                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planRemEdit]" id="{{ $viewFolder }}_planRemEdit" rows=3 disabled></textarea>
+                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planRemEdit]" id="{{ $viewFolder }}_planRemEdit" rows=3 disabled></textarea> --}}
                       </div>
                     </div>
                     @endif
@@ -5588,20 +5913,20 @@
             </div>
           </div>
         </div>
-        @else
-        <div id="pastChart" class="card mb-3 d-none d-lg-none">
+        {{-- @else --}}
+        <div id="pastChartFile" class="card mb-3 d-none d-lg-none">
           <div id="labCurDiv" style="display:none" class="container border border-1 mb-3 p-3">
             <h5>Image Viewer</h5>
             <div id="carouselCur" class="carousel carousel-dark slide mx-auto" style="max-width: 60%" data-bs-interval="false">
               <div class="carousel-indicators" id="labCurCarouselInd">
-                {{-- @if(!empty($pxConsultations)) --}}
+                @if(!empty($pxConsultations))
                   @php
                     $key = true;
                     $ind = 0;
                   @endphp
-                  {{-- @foreach($pxConsultations as $pxC) --}}
-                    @if(!empty($datum->consultation_files[0]->file_link))
-                      @foreach($datum->consultation_files as $file)
+                  @foreach($pxConsultations as $pxC)
+                    @if(!empty($pxC->consultation_files[0]->file_link))
+                      @foreach($pxC->consultation_files as $file)
                 <button type="button" data-bs-target="#carouselCur" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
                         @php
                           $ind++;
@@ -5609,8 +5934,8 @@
                         @endphp 
                       @endforeach
                     @endif
-                    @if(!empty($datum->anesthesia_files[0]->file_link))
-                      @foreach($datum->anesthesia_files as $file)
+                    @if(!empty($pxC->anesthesia_files[0]->file_link))
+                      @foreach($pxC->anesthesia_files as $file)
                 <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
                       @php
                         $ind++;
@@ -5618,8 +5943,8 @@
                       @endphp
                       @endforeach
                     @endif
-                    @if(!empty($datum->doctor_files[0]->file_link))
-                      @foreach($datum->doctor_files as $file)
+                    @if(!empty($pxC->doctor_files[0]->file_link))
+                      @foreach($pxC->doctor_files as $file)
                 <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
                       @php
                         $ind++;
@@ -5627,8 +5952,8 @@
                       @endphp
                       @endforeach
                     @endif
-                    @if(!empty($datum->prescription_files[0]->file_link))
-                      @foreach($datum->prescription_files as $file)
+                    @if(!empty($pxC->prescription_files[0]->file_link))
+                      @foreach($pxC->prescription_files as $file)
                 <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
                       @php
                         $ind++;
@@ -5636,21 +5961,21 @@
                       @endphp
                       @endforeach
                     @endif
-                  {{-- @endforeach --}}
-                {{-- @endif --}}
+                  @endforeach
+                @endif
                 @if($key)
                 <button type="button" data-bs-target="#carouselCur" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                 @endif
               </div>
               <div class="carousel-inner" id="labCurCarouselInner">
-                {{-- @if(!empty($pxConsultations)) --}}
+                @if(!empty($pxConsultations))
                   @php
                     $key = true;
                     $ind = 0;
                   @endphp
-                  {{-- @foreach($pxConsultations as $pxC) --}}
-                    @if(!empty($datum->consultation_files[0]->file_link))
-                      @foreach($datum->consultation_files as $file)
+                  @foreach($pxConsultations as $pxC)
+                    @if(!empty($pxC->consultation_files[0]->file_link))
+                      @foreach($pxC->consultation_files as $file)
                         
                 <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
                         @if($file->file_type == 'application/pdf')
@@ -5659,7 +5984,7 @@
                   <img src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
                   <div class="carousel-caption d-none d-md-block">
                     {{-- <h5>First slide label</h5> --}}
-                    <p>{{ $datum->bookingDate }}</p>
+                    <p>{{ $pxC->bookingDate }}</p>
                   </div>
                         @endif
                 </div>  
@@ -5669,8 +5994,8 @@
                         @endphp  
                       @endforeach
                     @endif
-                    @if(!empty($datum->anesthesia_files[0]->file_link))
-                      @foreach($datum->anesthesia_files as $file)
+                    @if(!empty($pxC->anesthesia_files[0]->file_link))
+                      @foreach($pxC->anesthesia_files as $file)
                   
                 <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
                         @if($file->file_type == 'application/pdf')
@@ -5679,7 +6004,7 @@
                   <img src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
                         @endif
                   <div class="carousel-caption d-none d-md-block">
-                    <p>{{ $datum->bookingDate }}</p>
+                    <p>{{ $pxC->bookingDate }}</p>
                   </div>
                 </div>
                         @php
@@ -5688,8 +6013,8 @@
                         @endphp
                       @endforeach
                     @endif
-                  @if(!empty($datum->doctor_files[0]->file_link))
-                    @foreach($datum->doctor_files as $file)
+                  @if(!empty($pxC->doctor_files[0]->file_link))
+                    @foreach($pxC->doctor_files as $file)
                   
                 <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
                       @if($file->file_type == 'application/pdf')
@@ -5698,7 +6023,7 @@
                   <img src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
                       @endif
                   <div class="carousel-caption d-none d-md-block">
-                    <p>{{ $datum->bookingDate }}</p>
+                    <p>{{ $pxC->bookingDate }}</p>
                   </div>
                 </div>
                       @php
@@ -5707,8 +6032,8 @@
                       @endphp
                       @endforeach
                     @endif
-                  @if(!empty($datum->prescription_files[0]->file_link))
-                    @foreach($datum->prescription_files as $file)
+                  @if(!empty($pxC->prescription_files[0]->file_link))
+                    @foreach($pxC->prescription_files as $file)
                   
                 <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
                       @if($file->file_type == 'application/pdf')
@@ -5717,7 +6042,7 @@
                   <img src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
                       @endif
                   <div class="carousel-caption d-none d-md-block">
-                    <p>{{ $datum->bookingDate }}</p>
+                    <p>{{ $pxC->bookingDate }}</p>
                   </div>
                 </div>
                       @php
@@ -5726,8 +6051,8 @@
                       @endphp
                       @endforeach
                     @endif
-                  {{-- @endforeach --}}
-                {{-- @endif --}}
+                  @endforeach
+                @endif
                 @if($key)
                 <div class="carousel-item active">
                   {{-- <iframe src="{{ asset('MDR_030502009768.pdf') }}" width="100%" height="373" style="border:1"></iframe> --}}
@@ -5753,78 +6078,78 @@
             </div>
             <div class="container horizontal-scrollable" style="overflow-x: auto; white-space: nowrap;">
               <div class="row flex-nowrap" id="image_preview" style="max-height:510px">
-                {{-- @if(!empty($pxConsultations)) --}}
+                @if(!empty($pxConsultations))
                   @php
                     $ind = 0;
                   @endphp
-                  {{-- @foreach($pxConsultations as $pxC) --}}
-                    @if(isset($datum->consultation_files))
-                      @foreach($datum->consultation_files as $file)
+                  @foreach($pxConsultations as $pxC)
+                    @if(isset($pxC->consultation_files))
+                      @foreach($pxC->consultation_files as $file)
                         @php
                           $exAr = explode('/', $file->file_link);
                         @endphp
                         @if($file->file_type == 'application/pdf')
-                <div class='img-div' data-bs-target="#carouselCur" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail' title='{{ $exAr[sizeof($exAr)-1] }}'></iframe><p>{{ $datum->bookingDate }}</p><<div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
+                <div class='img-div' data-bs-target="#carouselCur" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail' title='{{ $exAr[sizeof($exAr)-1] }}'></iframe><p>{{ $pxC->bookingDate }}</p><<div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
                         @else
-                <div class='img-div' data-bs-target="#carouselCur" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail' title='{{ $exAr[sizeof($exAr)-1] }}'><p>{{ $datum->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
+                <div class='img-div' data-bs-target="#carouselCur" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail' title='{{ $exAr[sizeof($exAr)-1] }}'><p>{{ $pxC->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
                         @endif
                         @php
                           $ind++;
                         @endphp  
                       @endforeach
                     @endif
-                    @if(isset($datum->anesthesia_files))
-                      @foreach($datum->anesthesia_files as $file)
+                    @if(isset($pxC->anesthesia_files))
+                      @foreach($pxC->anesthesia_files as $file)
                       @php
                         $exAr = explode('/', $file->file_link);
                       @endphp
                       @if($file->file_type == 'application/pdf')
-                <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'></iframe><p>{{ $datum->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
+                <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'></iframe><p>{{ $pxC->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
                       @else
-                <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'><p>{{ $datum->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}' disabled><i class='bi bi-trash'></i></button></div></div>
+                <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'><p>{{ $pxC->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}' disabled><i class='bi bi-trash'></i></button></div></div>
                       @endif
                       @php
                         $ind++;
                       @endphp
                       @endforeach
                     @endif
-                    @if(isset($datum->doctor_files))
-                      @foreach($datum->doctor_files as $file)
+                    @if(isset($pxC->doctor_files))
+                      @foreach($pxC->doctor_files as $file)
                       @php
                         $exAr = explode('/', $file->file_link);
                       @endphp
                       @if($file->file_type == 'application/pdf')
-                <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'></iframe><p>{{ $datum->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
+                <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'></iframe><p>{{ $pxC->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
                       @else
-                <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'><p>{{ $datum->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}' disabled><i class='bi bi-trash'></i></button></div></div>
+                <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'><p>{{ $pxC->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}' disabled><i class='bi bi-trash'></i></button></div></div>
                       @endif
                       @php
                         $ind++;
                       @endphp
                       @endforeach
                     @endif
-                    @if(isset($datum->prescription_files))
-                      @foreach($datum->prescription_files as $file)
+                    @if(isset($pxC->prescription_files))
+                      @foreach($pxC->prescription_files as $file)
                       @php
                         $exAr = explode('/', $file->file_link);
                       @endphp
                       @if($file->file_type == 'application/pdf')
-                <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'></iframe><p>{{ $datum->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
+                <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'></iframe><p>{{ $pxC->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
                       @else
-                <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'><p>{{ $datum->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}' disabled><i class='bi bi-trash'></i></button></div></div>
+                <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'><p>{{ $pxC->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}' disabled><i class='bi bi-trash'></i></button></div></div>
                       @endif
                       @php
                         $ind++;
                       @endphp
                       @endforeach
                     @endif
-                  {{-- @endforeach --}}
-                {{-- @endif --}}
+                  @endforeach
+                @endif
               </div>
             </div>
           </div>
         </div>
-        @endif
+        {{-- @endif --}}
       </div>
       
       <div id="curChart" class="col-lg-12">
@@ -5852,6 +6177,7 @@
                 </p>
               </div>
             </div>
+            <div class="table-responsive" style="max-height: 55px">
             <ul class="nav nav-pills mb-3">
               <li class="nav-item">
                 <a class="nav-link docNotesLink active" href="#" onclick="
@@ -6432,6 +6758,7 @@
                 @endforeach
               @endif
             </ul>
+          </div>
             <ul class="nav nav-tabs d-xs-block d-lg-none">
               <li class="nav-item">
                 <a class="nav-link active" id="sumCurLink" href="#" onclick="
@@ -6566,7 +6893,7 @@
 
                 ">SOAP</a>
               </li>
-              {{-- <li class="nav-item">
+              <li class="nav-item">
                 <a class="nav-link" id="labCurLink" href="#" onclick="
                   $('#sumBigLink').removeClass('active');
                   $('#soapBigLink').removeClass('active');
@@ -6621,7 +6948,7 @@
 
                   // $('#sumCurDiv').hide();  
                   // $('#soapCurDiv').hide();  
-                  // $('#labCurDiv').show();  
+                  $('#labCurDiv').show();  
                   // $('#presCurDiv').hide();  
                   // $('#medCurDiv').hide();  
                   // $('#admitCurDiv').hide();
@@ -6633,14 +6960,17 @@
 
                   $('#curChart').removeClass('col-lg-12');
                   $('#curChart').addClass('col-lg-6');
-                  $('#pastChart').show();
+                  $('#pastChart').hide();
                   $('#showPrevLinkHide').show();
                   $('#showPrevLink').hide();
-                  $('#pastChart').removeClass('d-none');
-                  $('#pastChart').removeClass('d-lg-none');
+                  $('#pastChart').addClass('d-none');
+                  $('#pastChart').addClass('d-lg-none');
+                  $('#pastChartFile').show();
+                  $('#pastChartFile').removeClass('d-none');
+                  $('#pastChartFile').removeClass('d-lg-none');
                   $('#carouselCur').css('max-width', '100%');
-                ">File Uploads</a>
-              </li> --}}
+                ">View File Uploads</a>
+              </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="printableFormsCurLink" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Printable Forms</a>
                 <ul class="dropdown-menu">
@@ -7565,18 +7895,18 @@
                       <div class="card mb-3">
                         <div class="card-header">History of Present Illness</div>
                         <div class="card-body">
-                          <small class="text-muted">Helper</small>
+                          {{-- <small class="text-muted">Helper</small>
                           <div class="input-group input-group-small flex-nowrap">
                             <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
                               <option value=""></option>
                             </select>
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso) ? '' : 'disabled' }}>Delete Helper</button>
-                          </div>
+                          </div> --}}
                           <small class="text-muted">Content</small>
                           <textarea class="form-control {{ $datum->docNotesHPI == "" ? 'text-danger' : ((isset($carryOverBookingsHPI[0]->docNotesHPI) && $datum->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $datum->docNotesHPI) ? 'text-warning' : '') }}" name="{{ $viewFolder }}[docNotesHPI]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_docNotesHPI" @endif rows=3 {{ !isset($referal_conso)  ? '' : 'disabled' }}>{{ isset($datum->docNotesHPI) ? $datum->docNotesHPI : (isset($carryOverBookingsHPI[0]->docNotesHPI) && $datum->doctor_id == $carryOverBookingsHPI[0]->doctor_id ? $carryOverBookingsHPI[0]->docNotesHPI : '') }}</textarea>
                           <small class="{{ $datum->docNotesHPI == "" ? 'text-danger' : ((isset($carryOverBookingsHPI[0]->docNotesHPI) && $datum->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $datum->docNotesHPI) ? 'text-warning' : '') }} mb-3">@if(($datum->docNotesHPI == "" && isset($carryOverBookingsHPI[0]->docNotesHPI)) || (isset($carryOverBookingsHPI[0]->docNotesHPI) && $datum->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $datum->docNotesHPI))[carry over from {{ $carryOverBookingsHPI[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsHPI[0]->booking_type }} booking last {{ $carryOverBookingsHPI[0]->bookingDate }}]@endif</small><br>
                           <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
-                          <small class="text-muted">Helper Save/Edit</small>
+                          {{-- <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
                               <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
@@ -7584,23 +7914,23 @@
                             <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesHPITitle" name="{{ $viewFolder }}[docNotesHPITitle]" disabled>
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                           </div>
-                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[docNotesHPIEdit]" id="{{ $viewFolder }}_docNotesHPIEdit" rows=3 disabled></textarea>
+                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[docNotesHPIEdit]" id="{{ $viewFolder }}_docNotesHPIEdit" rows=3 disabled></textarea> --}}
                         </div>
                       </div>
                       {{-- @else --}}
                       <div class="card mb-3">
                         <div class="card-header">Subjective Complaints</div>
                         <div class="card-body">
-                          <small class="text-muted">Helper</small>
+                          {{-- <small class="text-muted">Helper</small>
                           <div class="input-group input-group-small flex-nowrap">
                             <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
                               <option value=""></option>
                             </select>
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
-                          </div>
+                          </div> --}}
                           <small class="text-muted">Content</small>
                           <textarea class="form-control" name="{{ $viewFolder }}[docNotesSubject]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_docNotesSubject" @endif rows=3 {{ !isset($referal_conso)  ? '' : 'disabled' }}>{{ isset($datum->docNotesSubject) ? $datum->docNotesSubject : '' }}</textarea>
-                          <small class="text-muted">Helper Save/Edit</small>
+                          {{-- <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
                               <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
@@ -7608,7 +7938,7 @@
                             <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesSubjectTitle" name="{{ $viewFolder }}[docNotesSubjectTitle]" disabled>
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                           </div>
-                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[ddocNotesSubjectEdit]" id="{{ $viewFolder }}_docNotesSubjectEdit" rows=3 disabled></textarea>
+                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[ddocNotesSubjectEdit]" id="{{ $viewFolder }}_docNotesSubjectEdit" rows=3 disabled></textarea> --}}
                         </div>
                       </div>
                       {{-- @endif --}}
@@ -7693,18 +8023,18 @@
                             </div>
                           </div>
                           @endif
-                          <small class="text-muted">Helper</small>
+                          {{-- <small class="text-muted">Helper</small>
                           <div class="input-group input-group-small flex-nowrap">
                             <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
                               <option value=""></option>
                             </select>
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
-                          </div>
+                          </div> --}}
                           <small class="text-muted">Content</small>
                           <textarea class="form-control" name="{{ $viewFolder }}[docNotes]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_docNotes" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }} onchange="
                             $('#{{ $viewFolder }}_findings').val($(this).val());
                           ">{{ isset($datum->docNotes) ? $datum->docNotes : '' }}</textarea>
-                          <small class="text-muted">Helper Save/Edit</small>
+                          {{-- <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
                               <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
@@ -7712,7 +8042,7 @@
                             <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesTitle" name="{{ $viewFolder }}[docNotesTitle]" disabled>
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                           </div>
-                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[_docNotesEdit]" id="{{ $viewFolder }}_docNotesEdit" rows=3 disabled></textarea>
+                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[_docNotesEdit]" id="{{ $viewFolder }}_docNotesEdit" rows=3 disabled></textarea> --}}
                         </div>
                       </div>
                     </div>
@@ -7732,13 +8062,13 @@
                       <div class="card mb-3">
                         <div class="card-header">Secondary Diagnosis</div>
                         <div class="card-body">
-                          <small class="text-muted">Helper</small>
+                          {{-- <small class="text-muted">Helper</small>
                           <div class="input-group input-group-small flex-nowrap">
                             <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
                               <option value=""></option>
                             </select>
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
-                          </div>
+                          </div> --}}
                           <small class="text-muted">Content</small>
                           <textarea class="form-control {{ $datum->assessment == "" ? 'text-danger' : ((isset($carryOverBookings[0]->assessment) && $datum->doctor_id == $carryOverBookings[0]->doctor_id && $carryOverBookings[0]->assessment == $datum->assessment) ? 'text-warning' : '') }}" name="{{ $viewFolder }}[assessment]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_assessment" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }} onchange="
                             $('#{{ $viewFolder }}_diagnosis').val($(this).val());
@@ -7748,7 +8078,7 @@
                           ">{{ isset($datum->assessment) ? $datum->assessment : (isset($carryOverBookings[0]->assessment) && $datum->doctor_id == $carryOverBookings[0]->doctor_id ? $carryOverBookings[0]->assessment : '') }}</textarea>
                           <small class="{{ $datum->assessment == "" ? 'text-danger' : ((isset($carryOverBookings[0]->assessment) && $datum->doctor_id == $carryOverBookings[0]->doctor_id && $carryOverBookings[0]->assessment == $datum->assessment) ? 'text-warning' : '') }} mb-3">@if(($datum->assessment == "" && isset($carryOverBookings[0]->assessment)) || (isset($carryOverBookings[0]->assessment) && $datum->doctor_id == $carryOverBookings[0]->doctor_id && $carryOverBookings[0]->assessment == $datum->assessment))[carry over from {{ $carryOverBookings[0]->booking_type == '' ? 'Consultation' : $carryOverBookings[0]->booking_type }} booking last {{ $carryOverBookings[0]->bookingDate }}]@endif</small><br>
                           <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
-                          <small class="text-muted">Helper Save/Edit</small>
+                          {{-- <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
                               <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
@@ -7756,19 +8086,19 @@
                             <input type="text" class="form-control" id="{{ $viewFolder }}_assessmentTitle" name="{{ $viewFolder }}[assessmentTitle]" disabled>
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                           </div>
-                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[_assessmentEdit]" id="{{ $viewFolder }}_assessmentEdit" rows=3 disabled></textarea>
+                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[_assessmentEdit]" id="{{ $viewFolder }}_assessmentEdit" rows=3 disabled></textarea> --}}
                         </div>
                       </div>
                       <div class="card mb-3">
                         <div class="card-header">Discharge Diagnosis (Post-op Diagnosis)</div>
                         <div class="card-body">
-                          <small class="text-muted">Helper</small>
+                          {{-- <small class="text-muted">Helper</small>
                           <div class="input-group input-group-small flex-nowrap">
                             <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
                               <option value=""></option>
                             </select>
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
-                          </div>
+                          </div> --}}
                           <small class="text-muted">Content</small>
                           <textarea class="form-control {{ $datum->post_op_assessment == "" ? 'text-danger' : ((isset($carryOverBookingsPostOp[0]->post_op_assessment) && $datum->doctor_id == $carryOverBookingsPostOp[0]->doctor_id && $carryOverBookingsPostOp[0]->post_op_assessment == $datum->post_op_assessment) ? 'text-warning' : '') }}" name="{{ $viewFolder }}[post_op_assessment]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_post_op_assessment" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }} onchange="
                             $('#{{ $viewFolder }}_post_op_diagnosis').val($(this).val());
@@ -7776,7 +8106,7 @@
                           ">{{ isset($datum->post_op_assessment) ? $datum->post_op_assessment : (isset($carryOverBookingsPostOp[0]->post_op_assessment) && $datum->doctor_id == $carryOverBookingsPostOp[0]->doctor_id ? $carryOverBookingsPostOp[0]->post_op_assessment : '') }}</textarea>
                           <small class="{{ $datum->post_op_assessment == "" ? 'text-danger' : ((isset($carryOverBookingsPostOp[0]->post_op_assessment) && $datum->doctor_id == $carryOverBookingsPostOp[0]->doctor_id && $carryOverBookingsPostOp[0]->post_op_assessment == $datum->post_op_assessment) ? 'text-warning' : '') }} mb-3">@if(($datum->post_op_assessment == "" && isset($carryOverBookingsPostOp[0]->post_op_assessment)) || (isset($carryOverBookingsPostOp[0]->post_op_assessment) && $datum->doctor_id == $carryOverBookingsPostOp[0]->doctor_id && $carryOverBookingsPostOp[0]->post_op_assessment == $datum->post_op_assessment))[carry over from {{ $carryOverBookingsPostOp[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPostOp[0]->booking_type }} booking last {{ $carryOverBookingsPostOp[0]->bookingDate }}]@endif</small><br>
                           <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
-                          <small class="text-muted">Helper Save/Edit</small>
+                          {{-- <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
                               <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
@@ -7784,7 +8114,7 @@
                             <input type="text" class="form-control" id="{{ $viewFolder }}_post_op_assessmentTitle" name="{{ $viewFolder }}[post_op_assessmentTitle]" disabled>
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                           </div>
-                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[_post_op_assessmentEdit]" id="{{ $viewFolder }}_post_op_assessmentEdit" rows=3 disabled></textarea>
+                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[_post_op_assessmentEdit]" id="{{ $viewFolder }}_post_op_assessmentEdit" rows=3 disabled></textarea> --}}
                         </div>
                       </div>
                     </div>
@@ -7796,18 +8126,18 @@
                       <div class="card mb-3">
                         <div class="card-header">Medical Therapeutics</div>
                         <div class="card-body">
-                          <small class="text-muted">Helper</small>
+                          {{-- <small class="text-muted">Helper</small>
                           <div class="input-group input-group-small flex-nowrap">
                             <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
                               <option value=""></option>
                             </select>
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
-                          </div>
+                          </div> --}}
                           <small class="text-muted">Content</small>
                           <textarea class="form-control {{ $datum->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed) ? 'text-warning' : '') }}" name="{{ $viewFolder }}[planMed]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_planMed" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }}>{{ isset($datum->planMed) ? $datum->planMed : (isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id ? $carryOverBookingsPlanMed[0]->planMed : '') }}</textarea>
                           <small class="{{ $datum->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed) ? 'text-warning' : '') }} mb-3">@if(($datum->planMed == "" && isset($carryOverBookingsPlanMed[0]->planMed)) || (isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed))[carry over from {{ $carryOverBookingsPlanMed[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlanMed[0]->booking_type }} booking last {{ $carryOverBookingsPlanMed[0]->bookingDate }}]@endif</small><br>
                           <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
-                          <small class="text-muted">Helper Save/Edit</small>
+                          {{-- <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
                               <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
@@ -7815,24 +8145,24 @@
                             <input type="text" class="form-control" id="{{ $viewFolder }}_planMedTitle" name="{{ $viewFolder }}[planMedTitle]" disabled>
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                           </div>
-                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planMedEdit]" id="{{ $viewFolder }}_planMedEdit" rows=3 disabled></textarea>
+                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planMedEdit]" id="{{ $viewFolder }}_planMedEdit" rows=3 disabled></textarea> --}}
                         </div>
                       </div>
                       <div class="card mb-3">
                         <div class="card-header">Diagnostics and Surgery</div>
                         <div class="card-body">
-                          <small class="text-muted">Helper</small>
+                          {{-- <small class="text-muted">Helper</small>
                           <div class="input-group input-group-small flex-nowrap">
                             <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
                               <option value=""></option>
                             </select>
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
-                          </div>
+                          </div> --}}
                           <small class="text-muted">Content</small>
                           <textarea class="form-control {{ $datum->plan == "" ? 'text-danger' : ((isset($carryOverBookingsPlan[0]->plan) && $datum->doctor_id == $carryOverBookingsPlan[0]->doctor_id && $carryOverBookingsPlan[0]->plan == $datum->plan) ? 'text-warning' : '') }}" name="{{ $viewFolder }}[plan]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_plan" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }}>{{ isset($datum->plan) ? $datum->plan : (isset($carryOverBookingsPlan[0]->plan) && $datum->doctor_id == $carryOverBookingsPlan[0]->doctor_id ? $carryOverBookingsPlan[0]->plan : '') }}</textarea>
                           <small class="{{ $datum->plan == "" ? 'text-danger' : ((isset($carryOverBookingsPlan[0]->plan) && $datum->doctor_id == $carryOverBookingsPlan[0]->doctor_id && $carryOverBookingsPlan[0]->plan == $datum->plan) ? 'text-warning' : '') }} mb-3">@if(($datum->plan == "" && isset($carryOverBookingsPlan[0]->plan)) || (isset($carryOverBookingsPlan[0]->plan) && $datum->doctor_id == $carryOverBookingsPlan[0]->doctor_id && $carryOverBookingsPlan[0]->plan == $datum->plan))[carry over from {{ $carryOverBookingsPlan[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlan[0]->booking_type }} booking last {{ $carryOverBookingsPlan[0]->bookingDate }}]@endif</small><br>
                           <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
-                          <small class="text-muted">Helper Save/Edit</small>
+                          {{-- <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
                               <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
@@ -7840,24 +8170,24 @@
                             <input type="text" class="form-control" id="{{ $viewFolder }}_planTitle" name="{{ $viewFolder }}[planTitle]" disabled>
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                           </div>
-                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planEdit]" id="{{ $viewFolder }}_planEdit" rows=3 disabled></textarea>
+                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planEdit]" id="{{ $viewFolder }}_planEdit" rows=3 disabled></textarea> --}}
                         </div>
                       </div>
                       <div class="card mb-3">
                         <div class="card-header">Remarks</div>
                         <div class="card-body">
-                          <small class="text-muted">Helper</small>
+                          {{-- <small class="text-muted">Helper</small>
                           <div class="input-group input-group-small flex-nowrap">
                             <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
                               <option value=""></option>
                             </select>
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
-                          </div>
+                          </div> --}}
                           <small class="text-muted">Content</small>
                           <textarea class="form-control {{ $datum->planRem == "" ? 'text-danger' : ((isset($carryOverBookingsPlanRem[0]->planRem) && $datum->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id && $carryOverBookingsPlanRem[0]->planRem == $datum->planRem) ? 'text-warning' : '') }}" name="{{ $viewFolder }}[planRem]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_planRem" @endif rows=3 {{ !isset($referal_conso)  ? '' : 'disabled' }}>{{ isset($datum->planRem) ? $datum->planRem : (isset($carryOverBookingsPlanRem[0]->planRem) && $datum->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id ? $carryOverBookingsPlanRem[0]->planRem : '') }}</textarea>
                           <small class="{{ $datum->planRem == "" ? 'text-danger' : ((isset($carryOverBookingsPlanRem[0]->planRem) && $datum->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id && $carryOverBookingsPlanRem[0]->planRem == $datum->planRem) ? 'text-warning' : '') }} mb-3">@if(($datum->planRem == "" && isset($carryOverBookingsPlanRem[0]->planRem)) || (isset($carryOverBookingsPlanRem[0]->planRem) && $datum->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id && $carryOverBookingsPlanRem[0]->planRem == $datum->planRem))[carry over from {{ $carryOverBookingsPlanRem[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlanRem[0]->booking_type }} booking last {{ $carryOverBookingsPlanRem[0]->bookingDate }}]@endif</small><br>
                           <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
-                          <small class="text-muted">Helper Save/Edit</small>
+                          {{-- <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
                               <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
@@ -7865,25 +8195,25 @@
                             <input type="text" class="form-control" id="{{ $viewFolder }}_planRemTitle" name="{{ $viewFolder }}[planRemTitle]" disabled>
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                           </div>
-                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planRemEdit]" id="{{ $viewFolder }}_planRemEdit" rows=3 disabled></textarea>
+                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planRemEdit]" id="{{ $viewFolder }}_planRemEdit" rows=3 disabled></textarea> --}}
                         </div>
                       </div>
                       @else
                       <div class="card mb-3">
                         <div class="card-header">Plan</div>
                         <div class="card-body">
-                          <small class="text-muted">Helper</small>
+                          {{-- <small class="text-muted">Helper</small>
                           <div class="input-group input-group-small flex-nowrap">
                             <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
                               <option value=""></option>
                             </select>
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
-                          </div>
+                          </div> --}}
                           <small class="text-muted">Content</small>
                           <textarea class="form-control {{ $datum->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed) ? 'text-warning' : '') }}" name="{{ $viewFolder }}[planMed]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_planMed" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }}>{{ isset($datum->planMed) ? $datum->planMed : (isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id ? $carryOverBookingsPlanMed[0]->planMed : '') }}</textarea>
                           <small class="{{ $datum->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed) ? 'text-warning' : '') }} mb-3">@if(($datum->planMed == "" && isset($carryOverBookingsPlanMed[0]->planMed)) || (isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed))[carry over from {{ $carryOverBookingsPlanMed[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlanMed[0]->booking_type }} booking last {{ $carryOverBookingsPlanMed[0]->bookingDate }}]@endif</small><br>
                           <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
-                          <small class="text-muted">Helper Save/Edit</small>
+                          {{-- <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
                               <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
@@ -7891,7 +8221,7 @@
                             <input type="text" class="form-control" id="{{ $viewFolder }}_planMedTitle" name="{{ $viewFolder }}[planMedTitle]" disabled>
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                           </div>
-                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planMedEdit]" id="{{ $viewFolder }}_planMedEdit" rows=3 disabled></textarea>
+                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planMedEdit]" id="{{ $viewFolder }}_planMedEdit" rows=3 disabled></textarea> --}}
                         </div>
                       </div>
                       <div class="card mb-3">
@@ -8100,18 +8430,18 @@
                       <div class="card mb-3">
                         <div class="card-header">History of Present Illness</div>
                         <div class="card-body">
-                          <small class="text-muted">Helper</small>
+                          {{-- <small class="text-muted">Helper</small>
                           <div class="input-group input-group-small flex-nowrap">
                             <select class="form-select" placeholder="" {{ isset($referal_conso) && $referal_conso->id == $cr->id ? '' : 'disabled' }}>
                               <option value=""></option>
                             </select>
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>Delete Helper</button>
-                          </div>
+                          </div> --}}
                           <small class="text-muted">Content</small>
                           <textarea class="form-control {{ $cr->docNotesHPI == "" ? 'text-danger' : ((isset($carryOverBookingsHPI[0]->docNotesHPI) && $cr->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $cr->docNotesHPI) ? 'text-warning' : '') }}" name="{{ $viewFolder }}[docNotesHPI]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_docNotesHPI" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>{{ isset($cr->docNotesHPI) ? $cr->docNotesHPI : nl2br((isset($carryOverBookingsHPI[0]->docNotesHPI) && $cr->doctor_id == $carryOverBookingsHPI[0]->doctor_id ? $carryOverBookingsHPI[0]->docNotesHPI : '')) }}</textarea>
                           <small class="{{ $cr->docNotesHPI == "" ? 'text-danger' : ((isset($carryOverBookingsHPI[0]->docNotesHPI) && $cr->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $cr->docNotesHPI) ? 'text-warning' : '') }} mb-3">@if(($cr->docNotesHPI == "" && isset($carryOverBookingsHPI[0]->docNotesHPI)) || (isset($carryOverBookingsHPI[0]->docNotesHPI) && $cr->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $cr->docNotesHPI))[carry over from {{ $carryOverBookingsHPI[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsHPI[0]->booking_type }} booking last {{ $carryOverBookingsHPI[0]->bookingDate }}]@endif</small><br>
                           <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
-                          <small class="text-muted">Helper Save/Edit</small>
+                          {{-- <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
                               <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
@@ -8119,23 +8449,23 @@
                             <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesHPITitle" name="{{ $viewFolder }}[docNotesHPITitle]" disabled>
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                           </div>
-                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[docNotesHPIEdit]" id="{{ $viewFolder }}_docNotesHPIEdit" rows=3 disabled></textarea>
+                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[docNotesHPIEdit]" id="{{ $viewFolder }}_docNotesHPIEdit" rows=3 disabled></textarea> --}}
                         </div>
                       </div>
                       {{-- @else --}}
                       <div class="card mb-3">
                         <div class="card-header">Subjective Complaints</div>
                         <div class="card-body">
-                          <small class="text-muted">Helper</small>
+                          {{-- <small class="text-muted">Helper</small>
                           <div class="input-group input-group-small flex-nowrap">
                             <select class="form-select" placeholder="" {{ isset($referal_conso) && $referal_conso->id == $cr->id ? '' : 'disabled' }}>
                               <option value=""></option>
                             </select>
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>Delete Helper</button>
-                          </div>
+                          </div> --}}
                           <small class="text-muted">Content</small>
                           <textarea class="form-control" name="{{ $viewFolder }}[docNotesSubject]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_docNotesSubject" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>{{ isset($cr->docNotesSubject) ? $cr->docNotesSubject : '' }}</textarea>
-                          <small class="text-muted">Helper Save/Edit</small>
+                          {{-- <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
                               <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
@@ -8143,7 +8473,7 @@
                             <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesSubjectTitle" name="{{ $viewFolder }}[docNotesSubjectTitle]" disabled>
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                           </div>
-                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[ddocNotesSubjectEdit]" id="{{ $viewFolder }}_docNotesSubjectEdit" rows=3 disabled></textarea>
+                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[ddocNotesSubjectEdit]" id="{{ $viewFolder }}_docNotesSubjectEdit" rows=3 disabled></textarea> --}}
                         </div>
                       </div>
                       {{-- @endif --}}
@@ -8228,18 +8558,18 @@
                             </div>
                           </div>
                           @endif
-                          <small class="text-muted">Helper</small>
+                          {{-- <small class="text-muted">Helper</small>
                           <div class="input-group input-group-small flex-nowrap">
                             <select class="form-select" placeholder="" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>
                               <option value=""></option>
                             </select>
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>Delete Helper</button>
-                          </div>
+                          </div> --}}
                           <small class="text-muted">Content</small>
                           <textarea class="form-control" name="{{ $viewFolder }}[docNotes]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_docNotes" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }} onchange="
                             $('#{{ $viewFolder }}_findings').val($(this).val());
                           ">{{ isset($cr->docNotes) ? $cr->docNotes : '' }}</textarea>
-                          <small class="text-muted">Helper Save/Edit</small>
+                          {{-- <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
                               <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
@@ -8247,7 +8577,7 @@
                             <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesTitle" name="{{ $viewFolder }}[docNotesTitle]" disabled>
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                           </div>
-                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[_docNotesEdit]" id="{{ $viewFolder }}_docNotesEdit" rows=3 disabled></textarea>
+                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[_docNotesEdit]" id="{{ $viewFolder }}_docNotesEdit" rows=3 disabled></textarea> --}}
                         </div>
                       </div>
                     </div>
@@ -8267,13 +8597,13 @@
                       <div class="card mb-3">
                         <div class="card-header">Secondary Diagnosis</div>
                         <div class="card-body">
-                          <small class="text-muted">Helper</small>
+                          {{-- <small class="text-muted">Helper</small>
                           <div class="input-group input-group-small flex-nowrap">
                             <select class="form-select" placeholder="" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>
                               <option value=""></option>
                             </select>
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>Delete Helper</button>
-                          </div>
+                          </div> --}}
                           <small class="text-muted">Content</small>
                           <textarea class="form-control {{ $cr->assessment == "" ? 'text-danger' : ((isset($carryOverBookings[0]->assessment) && $cr->doctor_id == $carryOverBookings[0]->doctor_id && $carryOverBookings[0]->assessment == $cr->assessment) ? 'text-warning' : '') }}" name="{{ $viewFolder }}[assessment]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_assessment" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }}  onchange="
                             $('#{{ $viewFolder }}_diagnosis').val($(this).val());
@@ -8283,7 +8613,7 @@
                           ">{{ isset($cr->assessment) ? $cr->assessment : (isset($carryOverBookings[0]->assessment) && $cr->doctor_id == $carryOverBookings[0]->doctor_id ? $carryOverBookings[0]->assessment : '') }}</textarea>
                           <small class="{{ $cr->assessment == "" ? 'text-danger' : ((isset($carryOverBookings[0]->assessment) && $cr->doctor_id == $carryOverBookings[0]->doctor_id && $carryOverBookings[0]->assessment == $cr->assessment) ? 'text-warning' : '') }} mb-3">@if(($cr->assessment == "" && isset($carryOverBookings[0]->assessment)) || (isset($carryOverBookings[0]->assessment) && $cr->doctor_id == $carryOverBookings[0]->doctor_id && $carryOverBookings[0]->assessment == $cr->assessment))[carry over from {{ $carryOverBookings[0]->booking_type == '' ? 'Consultation' : $carryOverBookings[0]->booking_type }} booking last {{ $carryOverBookings[0]->bookingDate }}]@endif</small><br>
                           <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
-                          <small class="text-muted">Helper Save/Edit</small>
+                          {{-- <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
                               <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
@@ -8291,19 +8621,19 @@
                             <input type="text" class="form-control" id="{{ $viewFolder }}_assessmentTitle" name="{{ $viewFolder }}[assessmentTitle]" disabled>
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                           </div>
-                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[_assessmentEdit]" id="{{ $viewFolder }}_assessmentEdit" rows=3 disabled></textarea>
+                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[_assessmentEdit]" id="{{ $viewFolder }}_assessmentEdit" rows=3 disabled></textarea> --}}
                         </div>
                       </div>
                       <div class="card mb-3">
                         <div class="card-header">Discharge Diagnosis (Post-op Diagnosis)</div>
                         <div class="card-body">
-                          <small class="text-muted">Helper</small>
+                          {{-- <small class="text-muted">Helper</small>
                           <div class="input-group input-group-small flex-nowrap">
                             <select class="form-select" placeholder="" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>
                               <option value=""></option>
                             </select>
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>Delete Helper</button>
-                          </div>
+                          </div> --}}
                           <small class="text-muted">Content</small>
                           <textarea class="form-control {{ $cr->post_op_assessment == "" ? 'text-danger' : ((isset($carryOverBookingsPostOp[0]->post_op_assessment) && $cr->doctor_id == $carryOverBookingsPostOp[0]->doctor_id && $carryOverBookingsPostOp[0]->post_op_assessment == $cr->post_op_assessment) ? 'text-warning' : '') }}" name="{{ $viewFolder }}[post_op_assessment]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_post_op_assessment" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }}  onchange="
                             $('#{{ $viewFolder }}_post_op_diagnosis').val($(this).val());
@@ -8311,7 +8641,7 @@
                           ">{{ isset($cr->post_op_assessment) ? $cr->post_op_assessment : (isset($carryOverBookingsPostOp[0]->post_op_assessment) && $cr->doctor_id == $carryOverBookingsPostOp[0]->doctor_id ? $carryOverBookingsPostOp[0]->post_op_assessment : '') }}</textarea>
                           <small class="{{ $cr->post_op_assessment == "" ? 'text-danger' : ((isset($carryOverBookingsPostOp[0]->post_op_assessment) && $cr->doctor_id == $carryOverBookingsPostOp[0]->doctor_id && $carryOverBookingsPostOp[0]->post_op_assessment == $cr->post_op_assessment) ? 'text-warning' : '') }} mb-3">@if(($cr->post_op_assessment == "" && isset($carryOverBookingsPostOp[0]->post_op_assessment)) || (isset($carryOverBookingsPostOp[0]->post_op_assessment) && $cr->doctor_id == $carryOverBookingsPostOp[0]->doctor_id && $carryOverBookingsPostOp[0]->post_op_assessment == $cr->post_op_assessment))[carry over from {{ $carryOverBookingsPostOp[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPostOp[0]->booking_type }} booking last {{ $carryOverBookingsPostOp[0]->bookingDate }}]@endif</small><br>
                           <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
-                          <small class="text-muted">Helper Save/Edit</small>
+                          {{-- <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
                               <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
@@ -8319,7 +8649,7 @@
                             <input type="text" class="form-control" id="{{ $viewFolder }}_post_op_assessmentTitle" name="{{ $viewFolder }}[post_op_assessmentTitle]" disabled>
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                           </div>
-                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[_post_op_assessmentEdit]" id="{{ $viewFolder }}_post_op_assessmentEdit" rows=3 disabled></textarea>
+                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[_post_op_assessmentEdit]" id="{{ $viewFolder }}_post_op_assessmentEdit" rows=3 disabled></textarea> --}}
                         </div>
                       </div>
                     </div>
@@ -8331,18 +8661,18 @@
                       <div class="card mb-3">
                         <div class="card-header">Medical Therapeutics</div>
                         <div class="card-body">
-                          <small class="text-muted">Helper</small>
+                          {{-- <small class="text-muted">Helper</small>
                           <div class="input-group input-group-small flex-nowrap">
                             <select class="form-select" placeholder="" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>
                               <option value=""></option>
                             </select>
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>Delete Helper</button>
-                          </div>
+                          </div> --}}
                           <small class="text-muted">Content</small>
                           <textarea class="form-control {{ $cr->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $cr->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $cr->planMed) ? 'text-warning' : '') }}" name="{{ $viewFolder }}[planMed]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_planMed" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }}>{{ isset($cr->planMed) ? $cr->planMed : (isset($carryOverBookingsPlanMed[0]->planMed) && $cr->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id ? $carryOverBookingsPlanMed[0]->planMed : '') }}</textarea>
                           <small class="{{ $cr->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $cr->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $cr->planMed) ? 'text-warning' : '') }} mb-3">@if(($cr->planMed == "" && isset($carryOverBookingsPlanMed[0]->planMed)) || (isset($carryOverBookingsPlanMed[0]->planMed) && $cr->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $cr->planMed))[carry over from {{ $carryOverBookingsPlanMed[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlanMed[0]->booking_type }} booking last {{ $carryOverBookingsPlanMed[0]->bookingDate }}]@endif</small><br>
                           <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
-                          <small class="text-muted">Helper Save/Edit</small>
+                          {{-- <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
                               <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
@@ -8350,24 +8680,24 @@
                             <input type="text" class="form-control" id="{{ $viewFolder }}_planMedTitle" name="{{ $viewFolder }}[planMedTitle]" disabled>
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                           </div>
-                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planMedEdit]" id="{{ $viewFolder }}_planMedEdit" rows=3 disabled></textarea>
+                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planMedEdit]" id="{{ $viewFolder }}_planMedEdit" rows=3 disabled></textarea> --}}
                         </div>
                       </div>
                       <div class="card mb-3">
                         <div class="card-header">Diagnostics and Surgery</div>
                         <div class="card-body">
-                          <small class="text-muted">Helper</small>
+                          {{-- <small class="text-muted">Helper</small>
                           <div class="input-group input-group-small flex-nowrap">
                             <select class="form-select" placeholder="" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>
                               <option value=""></option>
                             </select>
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>Delete Helper</button>
-                          </div>
+                          </div> --}}
                           <small class="text-muted">Content</small>
                           <textarea class="form-control {{ $cr->plan == "" ? 'text-danger' : ((isset($carryOverBookingsPlan[0]->plan) && $cr->doctor_id == $carryOverBookingsPlan[0]->doctor_id && $carryOverBookingsPlan[0]->plan == $cr->plan) ? 'text-warning' : '') }}" name="{{ $viewFolder }}[plan]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_plan" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }}>{{ isset($cr->plan) ? $cr->plan : (isset($carryOverBookingsPlan[0]->plan) && $cr->doctor_id == $carryOverBookingsPlan[0]->doctor_id ? $carryOverBookingsPlan[0]->plan : '') }}</textarea>
                           <small class="{{ $cr->plan == "" ? 'text-danger' : ((isset($carryOverBookingsPlan[0]->plan) && $cr->doctor_id == $carryOverBookingsPlan[0]->doctor_id && $carryOverBookingsPlan[0]->plan == $cr->plan) ? 'text-warning' : '') }} mb-3">@if(($cr->plan == "" && isset($carryOverBookingsPlan[0]->plan)) || (isset($carryOverBookingsPlan[0]->plan) && $cr->doctor_id == $carryOverBookingsPlan[0]->doctor_id && $carryOverBookingsPlan[0]->plan == $cr->plan))[carry over from {{ $carryOverBookingsPlan[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlan[0]->booking_type }} booking last {{ $carryOverBookingsPlan[0]->bookingDate }}]@endif</small><br>
                           <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
-                          <small class="text-muted">Helper Save/Edit</small>
+                          {{-- <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
                               <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
@@ -8375,24 +8705,24 @@
                             <input type="text" class="form-control" id="{{ $viewFolder }}_planTitle" name="{{ $viewFolder }}[planTitle]" disabled>
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                           </div>
-                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planEdit]" id="{{ $viewFolder }}_planEdit" rows=3 disabled></textarea>
+                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planEdit]" id="{{ $viewFolder }}_planEdit" rows=3 disabled></textarea> --}}
                         </div>
                       </div>
                       <div class="card mb-3">
                         <div class="card-header">Remarks</div>
                         <div class="card-body">
-                          <small class="text-muted">Helper</small>
+                          {{-- <small class="text-muted">Helper</small>
                           <div class="input-group input-group-small flex-nowrap">
                             <select class="form-select" placeholder="" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>
                               <option value=""></option>
                             </select>
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>Delete Helper</button>
-                          </div>
+                          </div> --}}
                           <small class="text-muted">Content</small>
                           <textarea class="form-control {{ $cr->planRem == "" ? 'text-danger' : ((isset($carryOverBookingsPlanRem[0]->planRem) && $cr->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id && $carryOverBookingsPlanRem[0]->planRem == $cr->planRem) ? 'text-danger' : '') }}" name="{{ $viewFolder }}[planRem]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_planRem" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>{{ isset($cr->planRem) ? $cr->planRem : (isset($carryOverBookingsPlanRem[0]->planRem) && $cr->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id ? $carryOverBookingsPlanRem[0]->planRem : '') }}</textarea>
                           <small class="{{ $cr->planRem == "" ? 'text-danger' : ((isset($carryOverBookingsPlanRem[0]->planRem) && $cr->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id && $carryOverBookingsPlanRem[0]->planRem == $cr->planRem) ? 'text-danger' : '') }} mb-3">@if(($cr->planRem == "" && isset($carryOverBookingsPlanRem[0]->planRem)) || (isset($carryOverBookingsPlanRem[0]->planRem) && $cr->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id && $carryOverBookingsPlanRem[0]->planRem == $cr->planRem))[carry over from {{ $carryOverBookingsPlanRem[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlanRem[0]->booking_type }} booking last {{ $carryOverBookingsPlanRem[0]->bookingDate }}]@endif</small><br>
                           <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
-                          <small class="text-muted">Helper Save/Edit</small>
+                          {{-- <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
                               <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
@@ -8400,25 +8730,25 @@
                             <input type="text" class="form-control" id="{{ $viewFolder }}_planRemTitle" name="{{ $viewFolder }}[planRemTitle]" disabled>
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                           </div>
-                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planRemEdit]" id="{{ $viewFolder }}_planRemEdit" rows=3 disabled></textarea>
+                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planRemEdit]" id="{{ $viewFolder }}_planRemEdit" rows=3 disabled></textarea> --}}
                         </div>
                       </div>
                       @else
                       <div class="card mb-3">
                         <div class="card-header">Plan</div>
                         <div class="card-body">
-                          <small class="text-muted">Helper</small>
+                          {{-- <small class="text-muted">Helper</small>
                           <div class="input-group input-group-small flex-nowrap">
                             <select class="form-select" placeholder="" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>
                               <option value=""></option>
                             </select>
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>Delete Helper</button>
-                          </div>
+                          </div> --}}
                           <small class="text-muted">Content</small>
                           <textarea class="form-control {{ $cr->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $cr->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $cr->planMed) ? 'text-danger' : '') }}" name="{{ $viewFolder }}[planMed]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_planMed" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }}>{{ isset($cr->planMed) ? $cr->planMed : (isset($carryOverBookingsPlanMed[0]->planMed) && $cr->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id ? $carryOverBookingsPlanMed[0]->planMed : '') }}</textarea>
                           <small class="{{ $cr->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $cr->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $cr->planMed) ? 'text-danger' : '') }} mb-3">@if(($cr->planMed == "" && isset($carryOverBookingsPlanMed[0]->planMed)) || (isset($carryOverBookingsPlanMed[0]->planMed) && $cr->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $cr->planMed))[carry over from {{ $carryOverBookings[0]->booking_type == '' ? 'Consultation' : $carryOverBookings[0]->booking_type }} booking last {{ $carryOverBookings[0]->bookingDate }}]@endif</small><br>
                           <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
-                          <small class="text-muted">Helper Save/Edit</small>
+                          {{-- <small class="text-muted">Helper Save/Edit</small>
                           <div class="input-group input-group-small mb-3 flex-nowrap">
                             <div class="input-group-text">
                               <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
@@ -8426,7 +8756,7 @@
                             <input type="text" class="form-control" id="{{ $viewFolder }}_planMedTitle" name="{{ $viewFolder }}[planMedTitle]" disabled>
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                           </div>
-                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planMedEdit]" id="{{ $viewFolder }}_planMedEdit" rows=3 disabled></textarea>
+                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planMedEdit]" id="{{ $viewFolder }}_planMedEdit" rows=3 disabled></textarea> --}}
                         </div>
                       </div>
                       <div class="card mb-3">
@@ -8923,13 +9253,13 @@
                     <div class="card mb-3">
                       <div class="card-header">Prescription</div>
                       <div class="card-body">
-                        <small class="text-muted">Helper</small>
+                        {{-- <small class="text-muted">Helper</small>
                         <div class="input-group input-group-small flex-nowrap">
                           <select class="form-select" placeholder="" id="{{ $viewFolder }}_prescriptionSelect" {{ !isset($referal_conso) ? '' : 'disabled' }}>
                             <option value=""></option>
                           </select>
                           <button class="btn btn-outline-secondary" type="button" id="{{ $viewFolder }}_prescriptionDeleteHelper" {{ !isset($referal_conso) ? '' : 'disabled' }}>Delete Helper</button>
-                        </div>
+                        </div> --}}
                         <small class="text-muted">Content</small>
                         <textarea class="form-control" name="{{ $viewFolder }}[prescription]" id="{{ $viewFolder }}_prescription" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
                           if($(this).val() == ''){
@@ -8942,7 +9272,7 @@
                             });
                           }
                         ">{{ isset($datum->prescription) ? $datum->prescription : '' }}</textarea>
-                        <small class="text-muted">Helper Save/Edit</small>
+                        {{-- <small class="text-muted">Helper Save/Edit</small>
                         <div class="input-group input-group-small mb-3 flex-nowrap">
                           <div class="input-group-text">
                             <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
@@ -8950,7 +9280,7 @@
                           <input type="text" class="form-control" name="{{ $viewFolder }}[prescriptionTitle]" disabled>
                           <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                         </div>
-                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[prescriptionEdit]" id="{{ $viewFolder }}_prescriptionEdit" rows=3 disabled></textarea>
+                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[prescriptionEdit]" id="{{ $viewFolder }}_prescriptionEdit" rows=3 disabled></textarea> --}}
                       </div>
                     </div>
                   </div>
@@ -9156,13 +9486,13 @@
                 <div class="card mb-3">
                   <div class="card-header">Procedure</div>
                   <div class="card-body">
-                    <small class="text-muted">Helper</small>
+                    {{-- <small class="text-muted">Helper</small>
                     <div class="input-group input-group-small flex-nowrap">
                       <select class="form-select" id="{{ $viewFolder }}_procedure_aoSelect" placeholder="" {{ !isset($referal_conso) ? '' : 'disabled' }}>
                         <option value=""></option>
                       </select>
                       <button class="btn btn-outline-secondary" type="button" id="{{ $viewFolder }}_procedure_aoHelperDelete" {{ !isset($referal_conso) ? '' : 'disabled' }}>Delete Helper</button>
-                    </div>
+                    </div> --}}
                     <small class="text-muted">Content</small>
                     <textarea class="form-control" name="{{ $viewFolder }}[procedure_ao]" id="{{ $viewFolder }}_procedure_ao" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
                         if(($('#{{ $viewFolder }}_procedure_ao').val() || $('#{{ $viewFolder }}_admittingOrder').val()) == ''){
@@ -9175,7 +9505,7 @@
                           });
                         }
                       ">{{ isset($datum->procedure_ao) ? $datum->procedure_ao : '' }}</textarea>
-                    <small class="text-muted">Helper Save/Edit</small>
+                    {{-- <small class="text-muted">Helper Save/Edit</small>
                     <div class="input-group input-group-small mb-3 flex-nowrap">
                       <div class="input-group-text">
                         <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
@@ -9183,7 +9513,7 @@
                       <input type="text" class="form-control" name="{{ $viewFolder }}[_procedure_aoTitle]" disabled>
                       <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                     </div>
-                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[procedure_aoEdit]" id="{{ $viewFolder }}_procedure_aoEdit" rows=3 disabled></textarea>
+                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[procedure_aoEdit]" id="{{ $viewFolder }}_procedure_aoEdit" rows=3 disabled></textarea> --}}
                   </div>
                 </div>
                 <div class="form-floating mb-3">
@@ -9212,13 +9542,13 @@
                 <div class="card mb-3">
                   <div class="card-header">Admitting Details</div>
                   <div class="card-body">
-                    <small class="text-muted">Helper</small>
+                    {{-- <small class="text-muted">Helper</small>
                     <div class="input-group input-group-small flex-nowrap">
                       <select class="form-select" id="{{ $viewFolder }}_admittingOrderSelect" placeholder="" {{ !isset($referal_conso) ? '' : 'disabled' }}>
                         <option value=""></option>
                       </select>
                       <button class="btn btn-outline-secondary" type="button" id="{{ $viewFolder }}_admittingOrderHelperDelete" {{ !isset($referal_conso) ? '' : 'disabled' }}>Delete Helper</button>
-                    </div>
+                    </div> --}}
                     <small class="text-muted">Content</small>
                     <textarea class="form-control" name="{{ $viewFolder }}[admittingOrder]" id="{{ $viewFolder }}_admittingOrder" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
                         if(($('#{{ $viewFolder }}_procedure_ao').val() || $('#{{ $viewFolder }}_admittingOrder').val()) == ''){
@@ -9231,7 +9561,7 @@
                           });
                         }
                       ">{{ isset($datum->admittingOrder) ? $datum->admittingOrder : '' }}</textarea>
-                    <small class="text-muted">Helper Save/Edit</small>
+                        {{-- <small class="text-muted">Helper Save/Edit</small>
                         <div class="input-group input-group-small mb-3 flex-nowrap">
                           <div class="input-group-text">
                             <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
@@ -9239,7 +9569,7 @@
                           <input type="text" class="form-control" name="{{ $viewFolder }}[admittingOrderTitle]" disabled>
                           <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                         </div>
-                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[admittingOrderEdit]" id="{{ $viewFolder }}_admittingOrderEdit" rows=3 disabled></textarea>
+                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[admittingOrderEdit]" id="{{ $viewFolder }}_admittingOrderEdit" rows=3 disabled></textarea> --}}
                       </div>
                     </div>
                   </div>
@@ -12207,8 +12537,8 @@
                               <td>{{ $dat->hematocrit }}</td>
                               <td>{{ $dat->rbc }}</td>
                               <td>{{ $dat->wbc }}</td>
-                              <td>{{ $dat->urr }}</td>
-                              <td>{{ $dat->ktv2 }}</td>
+                              <td>{{ number_format($dat->urr, 2) }}</td>
+                              <td>{{ number_format($dat->ktv2, 2) }}</td>
                               <td>{{ $dat->pre_bun }}</td>
                               <td>{{ $dat->post_bun }}</td>
                               <td>{{ $dat->creatinine }}</td>
@@ -12223,7 +12553,7 @@
                               <td>{{ $dat->serum_ferritin }}</td>
                               <td>{{ $dat->serum_iron }}</td>
                               <td>{{ $dat->tibc }}</td>
-                              <td>{{ $dat->tsat }}</td>
+                              <td>{{ number_format($dat->tsat, 2) }}</td>
                               <td>{{ $dat->hbsag }}</td>
                               <td>{{ $dat->anti_hbs }}</td>
                               <td>{{ $dat->anti_hcv }}</td>

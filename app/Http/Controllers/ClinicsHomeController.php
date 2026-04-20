@@ -1066,7 +1066,7 @@ class ClinicsHomeController extends Controller
         // print_r($params);
         // print "</pre>";
         // exit();
-        
+        // dd($params);
         $clinics_home->update($params);
 
         if(isset($referralEntry)){
@@ -1101,9 +1101,15 @@ class ClinicsHomeController extends Controller
                     $bookingReplication['clinic_id'] = $clinicExp[0];
                     $bookingReplication['doctor_id'] = $doctorExp[0];
                     $bookingReplication['consultation_parent_id'] = $clinics_home->id;
-                    $bookingReplication['fee'] = $doctorObj->fee;
+                    $bookingReplication['fee'] = $doctorObj->fee != '' ? $doctorObj->fee : 0;
                     $bookingReplication['created_by'] = $user->id;
                     $bookingReplication['updated_by'] = $user->id;
+                    unset($bookingReplication['docNotesHPI']);
+                    unset($bookingReplication['icd_code']);
+                    unset($bookingReplication['assessment']);
+                    unset($bookingReplication['planMed']);
+                    unset($bookingReplication['plan']);
+                    unset($bookingReplication['planRem']);
                     // print "<pre>";
                     // print_r($bookingReplication);
                     // print "</pre>";
@@ -1112,14 +1118,15 @@ class ClinicsHomeController extends Controller
                     $referralIDArr[$bookingReplication->id] = $bookingReplication->id;
                 }else{
                     $referralIDArr[$consultationReferralObj[0]->id] = $consultationReferralObj[0]->id;
-                    if(is_null($params['booking_type']))
-                        $params['booking_type'] = '';
-                    $params['bookingDate'] = $refDetExp[0];
-                    $params['clinic_id'] = $clinicExp[0];
-                    $params['doctor_id'] = $doctorExp[0];
-                    $params['fee'] = $doctorObj->fee;
-                    $params['updated_by'] = $user->id;
-                    $consultationReferralObj[0]->update($params);
+                    unset($paramsRef);
+                    // if(is_null($params['booking_type']))
+                    //     $params['booking_type'] = '';
+                    // $params['bookingDate'] = $refDetExp[0];
+                    // $params['clinic_id'] = $clinicExp[0];
+                    // $params['doctor_id'] = $doctorExp[0];
+                    // $params['fee'] = $doctorObj->fee != '' ? $doctorObj->fee : 0;
+                    $paramsRef['updated_by'] = $user->id;
+                    $consultationReferralObj[0]->update($paramsRef);
                 }
                 
                 // $consultationFilesObj = ConsultationFile::where('consultation_id', $clinics_home->id)->get();
@@ -1134,6 +1141,8 @@ class ClinicsHomeController extends Controller
                 // }
             }
             $clinics_home->consultation_referals()->whereNotIn('id', $referralIDArr)->delete();
+        }else{
+            $clinics_home->where('consultation_parent_id',  $clinics_home->id)->delete();
         }
         
         return redirect()->to($referer)->with('message', 'Entry has been updated.');
@@ -1410,6 +1419,13 @@ class ClinicsHomeController extends Controller
     function pdfHDSum(Consultation $clinics_home){
         $allBooking = Consultation::where('patient_id', $clinics_home->patient_id)->where('booking_type', 'Dialysis')->whereNotNull('time_ended')->whereNot('id', $clinics_home->id)->where('bookingDate', '<', $clinics_home->bookingDate)->orderBy('bookingDate','asc')->get();
         $pdf = Pdf::loadView($this->viewFolder . '.pdfHDSum', ['datum' => $clinics_home, 'allBooking' => $allBooking]);
+        return $pdf->download('hdSum_' . $clinics_home->id . '-' . $clinics_home->treatment_number . '.pdf');
+        
+    }
+
+    function pdfLabSum(Consultation $clinics_home){
+        $allBooking = Consultation::where('patient_id', $clinics_home->patient_id)->where('booking_type', 'Dialysis')->whereNotNull('time_ended')->whereNot('id', $clinics_home->id)->where('bookingDate', '<', $clinics_home->bookingDate)->orderBy('bookingDate','asc')->get();
+        $pdf = Pdf::loadView($this->viewFolder . '.pdfLabSum', ['datum' => $clinics_home, 'allBooking' => $allBooking]);
         return $pdf->download('hdSum_' . $clinics_home->id . '-' . $clinics_home->treatment_number . '.pdf');
         
     }

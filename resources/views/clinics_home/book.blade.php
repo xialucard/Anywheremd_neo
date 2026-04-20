@@ -180,7 +180,7 @@
       <div class="card">
         <div class="card-header">Refer a Doctor</div>
         <div class="card-body">
-          <input class="form-control" list="referalList" id="{{ $viewFolder }}_referal" name="{{ $viewFolder }}[referal]" value="{{ isset($referedDoctorArr) ? implode(',', $referedDoctorArr) : '' }}" {{ isset($referedDoctorArr) ? 'disabled' : '' }} autocomplete="off">
+          <input class="form-control" list="referalList" id="{{ $viewFolder }}_referal" name="{{ $viewFolder }}[referal]" value="{{ isset($referedDoctorArr) ? implode(',', $referedDoctorArr) : '' }}" {{ isset($referedDoctorArr) ? '' : '' }} autocomplete="off">
           <small class="text-muted">Please type doctor's name then select the booking type, date and clinic in the option that will appear.</small>
         </div>
       </div>
@@ -378,6 +378,7 @@
           $('#consoDocDiv').hide();
           $('#consoSOAP').hide();
           $('#hdSum').hide();
+          $('#labSum').hide();
           $('#printableFormsDiv').show();
           $(this).addClass('active');
           $('#patInfoLink').removeClass('active');
@@ -385,6 +386,8 @@
           $('#patUploadLink').removeClass('active');
           $('#nurseUploadLink').removeClass('active');
           $('#SOAPLink').removeClass('active');
+          $('#labSumLink').removeClass('active');
+          $('#hdSumLink').removeClass('active');
           $('#hdSumLink').removeClass('active');
         ">Printable Forms</a>
         </li>
@@ -1196,19 +1199,19 @@
               <small id="help_{{ $viewFolder }}_circ_nurse" class="text-muted"></small>
             </div>
             <div class="form-floating mb-3">
-              <input class="form-control" type="text" name="{{ $viewFolder }}[anesthesiologist_ot]" id="{{ $viewFolder }}_anesthesiologist_ot" placeholder="" value="{{ isset($referal_conso->anesthesiologist_ao) ? $referal_conso->anesthesiologist_ao : (!isset($referal_conso) ? (isset($datum->anesthesiologist_ao) ? $datum->anesthesiologist_ao : '') : '') }}">
-              <label for="{{ $viewFolder }}_anesthesiologist_ot" class="form-label">Anesthesiologist</label>
-              <small id="help_{{ $viewFolder }}_anesthesiologist_ot" class="text-muted"></small>
+              <input class="form-control" type="text" name="{{ $viewFolder }}[anesthesiologist_ao]" id="{{ $viewFolder }}_anesthesiologist_ao" placeholder="" value="{{ isset($referal_conso->anesthesiologist_ao) ? $referal_conso->anesthesiologist_ao : (!isset($referal_conso) ? (isset($datum->anesthesiologist_ao) ? $datum->anesthesiologist_ao : '') : '') }}">
+              <label for="{{ $viewFolder }}_anesthesiologist_ao" class="form-label">Anesthesiologist</label>
+              <small id="help_{{ $viewFolder }}_anesthesiologist_ao" class="text-muted"></small>
             </div>
             <div class="form-floating mb-3">
-              <select class="form-select" name="{{ $viewFolder }}[anesthesia_type_ot]" id="{{ $viewFolder }}_anesthesia_type_ot" placeholder="">
+              <select class="form-select" name="{{ $viewFolder }}[anesthesia_type_ao]" id="{{ $viewFolder }}_anesthesia_type_ao" placeholder="">
                 <option value="None" {{ isset($referal_conso->anesthesia_type_ao) ? ($referal_conso->anesthesia_type_ao == 'None' ? 'selected' : '') : (!isset($referal_conso) ? (isset($datum->anesthesia_type_ao) ? ($datum->anesthesia_type_ao == 'None' ? 'selected' : '') : '') : '') }}>None</option>
                 <option value="Regional Block" {{ isset($referal_conso->anesthesia_type_ao) ? ($referal_conso->anesthesia_type_ao == 'Regional Block' ? 'selected' : '') : (!isset($referal_conso) ? (isset($datum->anesthesia_type_ao) ? ($datum->anesthesia_type_ao == 'Regional Block' ? 'selected' : '') : '') : '') }}>Regional Block</option>
                 <option value="IV Sedation" {{ isset($referal_conso->anesthesia_type_ao) ? ($referal_conso->anesthesia_type_ao == 'IV Sedation' ? 'selected' : '') : (!isset($referal_conso) ? (isset($datum->anesthesia_type_ao) ? ($datum->anesthesia_type_ao == 'IV Sedation' ? 'selected' : '') : '') : '') }}>IV Sedation</option>
                 <option value="General Anesthesia" {{ isset($referal_conso->anesthesia_type_ao) ? ($referal_conso->anesthesia_type_ao == 'General Anesthesia' ? 'selected' : '') : (!isset($referal_conso) ? (isset($datum->anesthesia_type_ao) ? ($datum->anesthesia_type_ao == 'General Anesthesia' ? 'selected' : '') : '') : '') }}>General Anesthesia</option>
               </select>
-              <label for="{{ $viewFolder }}_anesthesia_type_ot">Anesthesia Type</label>
-              <small id="help_{{ $viewFolder }}_anesthesia_type_ot" class="text-muted"></small>
+              <label for="{{ $viewFolder }}_anesthesia_type_ao">Anesthesia Type</label>
+              <small id="help_{{ $viewFolder }}_anesthesia_type_ao" class="text-muted"></small>
             </div>
             <label class="form-label">Specimen</label>
               <div class="form-check">
@@ -1366,8 +1369,8 @@
                 <td>{{ $dat->hematocrit }}</td>
                 <td>{{ $dat->rbc }}</td>
                 <td>{{ $dat->wbc }}</td>
-                <td>{{ $dat->urr }}</td>
-                <td>{{ $dat->ktv2 }}</td>
+                <td>{{ number_format($dat->urr, 2) }}</td>
+                <td>{{ number_format($dat->ktv2, 2) }}</td>
                 <td>{{ $dat->pre_bun }}</td>
                 <td>{{ $dat->post_bun }}</td>
                 <td>{{ $dat->creatinine }}</td>
@@ -1382,7 +1385,7 @@
                 <td>{{ $dat->serum_ferritin }}</td>
                 <td>{{ $dat->serum_iron }}</td>
                 <td>{{ $dat->tibc }}</td>
-                <td>{{ $dat->tsat }}</td>
+                <td>{{ number_format($dat->tsat, 2) }}</td>
                 <td>{{ $dat->hbsag }}</td>
                 <td>{{ $dat->anti_hbs }}</td>
                 <td>{{ $dat->anti_hcv }}</td>
@@ -1686,7 +1689,7 @@
                       var hours = Math.floor(diffMins / 60);
 
                       var ktv = -1*Math.log(($('#{{ $viewFolder }}_post_bun').val() / $('#{{ $viewFolder }}_pre_bun').val()) - (0.008*hours)) + ((4 - (3.5*($('#{{ $viewFolder }}_post_bun').val() / $('#{{ $viewFolder }}_pre_bun').val())))*($('#{{ $viewFolder }}_achieved_uf').val()/$('#{{ $viewFolder }}_post_hd_weight').val()));
-                      $('#{{ $viewFolder }}_ktv2').val(ktv);
+                      $('#{{ $viewFolder }}_ktv2').val(ktv.toFixed(2));
                     }
                   ">
                 <label for="{{ $viewFolder }}_time_started" class="form-label">Time Started</label>
@@ -1707,7 +1710,7 @@
                       var hours = Math.floor(diffMins / 60);
 
                       var ktv = -1*Math.log(($('#{{ $viewFolder }}_post_bun').val() / $('#{{ $viewFolder }}_pre_bun').val()) - (0.008*hours)) + ((4 - (3.5*($('#{{ $viewFolder }}_post_bun').val() / $('#{{ $viewFolder }}_pre_bun').val())))*($('#{{ $viewFolder }}_achieved_uf').val()/$('#{{ $viewFolder }}_post_hd_weight').val()));
-                      $('#{{ $viewFolder }}_ktv2').val(ktv);
+                      $('#{{ $viewFolder }}_ktv2').val(ktv.toFixed(2));
                     }
                   ">
                 <label for="{{ $viewFolder }}_time_ended" class="form-label">Time Ended</label>
@@ -1873,7 +1876,7 @@
                       var hours = Math.floor(diffMins / 60);
 
                       var ktv = -1*Math.log(($('#{{ $viewFolder }}_post_bun').val() / $('#{{ $viewFolder }}_pre_bun').val()) - (0.008*hours)) + ((4 - (3.5*($('#{{ $viewFolder }}_post_bun').val() / $('#{{ $viewFolder }}_pre_bun').val())))*($('#{{ $viewFolder }}_achieved_uf').val()/$('#{{ $viewFolder }}_post_hd_weight').val()));
-                      $('#{{ $viewFolder }}_ktv2').val(ktv);
+                      $('#{{ $viewFolder }}_ktv2').val(ktv.toFixed(2));
                     }
                   ">
                     <label for="{{ $viewFolder }}_post_hd_weight" class="form-label">Post HD Weight</label>
@@ -1939,7 +1942,7 @@
                       var hours = Math.floor(diffMins / 60);
 
                       var ktv = -1*Math.log(($('#{{ $viewFolder }}_post_bun').val() / $('#{{ $viewFolder }}_pre_bun').val()) - (0.008*hours)) + ((4 - (3.5*($('#{{ $viewFolder }}_post_bun').val() / $('#{{ $viewFolder }}_pre_bun').val())))*($('#{{ $viewFolder }}_achieved_uf').val()/$('#{{ $viewFolder }}_post_hd_weight').val()));
-                      $('#{{ $viewFolder }}_ktv2').val(ktv);
+                      $('#{{ $viewFolder }}_ktv2').val(ktv.toFixed(2));
                     }
                   ">
                     <label for="{{ $viewFolder }}_achieved_uf" class="form-label">Achieved UF</label>
@@ -3244,28 +3247,28 @@
                       <small id="help_{{ $viewFolder }}_wbc" class="text-muted"></small>
                     </div>
                     <p>Dialysis Adequacy</p>
-                    <div class="input-group mb-3">
+                    <div class="input-group">
                       <div class="form-floating">
                         <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[urr]" id="{{ $viewFolder }}_urr" placeholder="" value="{{ !empty($datum->urr) ? $datum->urr : '' }}" readonly>
                         <label for="{{ $viewFolder }}_urr" class="form-label">URR</label>
-                        <small id="help_{{ $viewFolder }}_urr" class="text-muted"></small>
-                        
                       </div>
                       <span class="input-group-text">%</span>
                     </div>
-                    <div class="input-group mb-3">
+                    <small id="help_{{ $viewFolder }}_urr" class="text-muted mb-3">URR = ((Pre BUN - Post BUN)/Pre BUN) x 100</small>
+                    <div class="input-group">
                       <div class="form-floating">
                         <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[ktv2]" id="{{ $viewFolder }}_ktv2" placeholder="" value="{{ !empty($datum->ktv2) ? $datum->ktv2 : '' }}" readonly>
                         <label for="{{ $viewFolder }}_ktv2" class="form-label">Kt/V</label>
-                        <small id="help_{{ $viewFolder }}_ktv2" class="text-muted"></small>
                       </div>
                     </div>
+                    <small id="help_{{ $viewFolder }}_ktv2" class="text-muted mb-3">Kt/V = - ln((Post BUN / Pre Bun) - (0.008 x Duration)) + ((4 - (3.5 x (Post BUN / Pre Bun))) x (Achieved UF / Post HD Weight))</small>
                     <p>Blood Chemistry</p>
                     <div class="input-group mb-3">
                       <div class="form-floating">
                         <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[pre_bun]" id="{{ $viewFolder }}_pre_bun" placeholder="" value="{{ !empty($datum->pre_bun) ? $datum->pre_bun : '' }}" onchange="
                           if($('#{{ $viewFolder }}_pre_bun').val() != '' && $('#{{ $viewFolder }}_post_bun').val() != ''){
-                            $('#{{ $viewFolder }}_urr').val((($('#{{ $viewFolder }}_pre_bun').val() - $('#{{ $viewFolder }}_post_bun').val())/$('#{{ $viewFolder }}_pre_bun').val())*100);
+                            var urr = (($('#{{ $viewFolder }}_pre_bun').val() - $('#{{ $viewFolder }}_post_bun').val())/$('#{{ $viewFolder }}_pre_bun').val())*100;
+                            $('#{{ $viewFolder }}_urr').val(urr.toFixed(2));
                           }else{
                             $('#{{ $viewFolder }}_urr').val('');
                           }
@@ -3278,7 +3281,7 @@
                             var hours = Math.floor(diffMins / 60);
 
                             var ktv = -1*Math.log(($('#{{ $viewFolder }}_post_bun').val() / $('#{{ $viewFolder }}_pre_bun').val()) - (0.008*hours)) + ((4 - (3.5*($('#{{ $viewFolder }}_post_bun').val() / $('#{{ $viewFolder }}_pre_bun').val())))*($('#{{ $viewFolder }}_achieved_uf').val()/$('#{{ $viewFolder }}_post_hd_weight').val()));
-                            $('#{{ $viewFolder }}_ktv2').val(ktv);
+                            $('#{{ $viewFolder }}_ktv2').val(ktv.toFixed(2));
                           }
                         ">
                         <label for="{{ $viewFolder }}_pre_bun" class="form-label">Pre BUN</label>
@@ -3290,7 +3293,8 @@
                       <div class="form-floating">
                         <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[post_bun]" id="{{ $viewFolder }}_post_bun" placeholder="" value="{{ !empty($datum->post_bun) ? $datum->post_bun : '' }}" onchange="
                           if($('#{{ $viewFolder }}_pre_bun').val() != '' && $('#{{ $viewFolder }}_post_bun').val() != ''){
-                            $('#{{ $viewFolder }}_urr').val((($('#{{ $viewFolder }}_pre_bun').val() - $('#{{ $viewFolder }}_post_bun').val())/$('#{{ $viewFolder }}_pre_bun').val())*100);
+                            var urr = (($('#{{ $viewFolder }}_pre_bun').val() - $('#{{ $viewFolder }}_post_bun').val())/$('#{{ $viewFolder }}_pre_bun').val())*100;
+                            $('#{{ $viewFolder }}_urr').val(urr.toFixed(2));
                           }else{
                             $('#{{ $viewFolder }}_urr').val('');
                           }
@@ -3303,7 +3307,7 @@
                             var hours = Math.floor(diffMins / 60);
 
                             var ktv = -1*Math.log(($('#{{ $viewFolder }}_post_bun').val() / $('#{{ $viewFolder }}_pre_bun').val()) - (0.008*hours)) + ((4 - (3.5*($('#{{ $viewFolder }}_post_bun').val() / $('#{{ $viewFolder }}_pre_bun').val())))*($('#{{ $viewFolder }}_achieved_uf').val()/$('#{{ $viewFolder }}_post_hd_weight').val()));
-                            $('#{{ $viewFolder }}_ktv2').val(ktv);
+                            $('#{{ $viewFolder }}_ktv2').val(ktv.toFixed(2));
                           }
                         ">
                         <label for="{{ $viewFolder }}_post_bun" class="form-label">Post BUN</label>
@@ -3391,25 +3395,33 @@
                     </div>
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[serum_iron]" id="{{ $viewFolder }}_serum_iron" placeholder="" value="{{ !empty($datum->serum_iron) ? $datum->serum_iron : '' }}">
+                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[serum_iron]" id="{{ $viewFolder }}_serum_iron" placeholder="" value="{{ !empty($datum->serum_iron) ? $datum->serum_iron : '' }}" onchange="
+                            var tsat = ($('#{{ $viewFolder }}_serum_iron').val()/$('#{{ $viewFolder }}_tibc').val())*100;
+                            $('#{{ $viewFolder }}_tsat').val(tsat.toFixed(2));
+                        ">
                         <label for="{{ $viewFolder }}_serum_iron" class="form-label">Serum Iron</label>
                         <small id="help_{{ $viewFolder }}_serum_iron" class="text-muted"></small>
                       </div>
                     </div>
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[tibc]" id="{{ $viewFolder }}_tibc" placeholder="" value="{{ !empty($datum->tibc) ? $datum->tibc : '' }}">
+                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[tibc]" id="{{ $viewFolder }}_tibc" placeholder="" value="{{ !empty($datum->tibc) ? $datum->tibc : '' }}" onchange="
+                            var tsat = ($('#{{ $viewFolder }}_serum_iron').val()/$('#{{ $viewFolder }}_tibc').val())*100;
+                            $('#{{ $viewFolder }}_tsat').val(tsat.toFixed(2));
+                        ">
                         <label for="{{ $viewFolder }}_tibc" class="form-label">TIBC</label>
                         <small id="help_{{ $viewFolder }}_tibc" class="text-muted"></small>
                       </div>
                     </div>
-                    <div class="input-group mb-3">
+                    <div class="input-group">
                       <div class="form-floating">
-                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[tsat]" id="{{ $viewFolder }}_tsat" placeholder="" value="{{ !empty($datum->tsat) ? $datum->tsat : '' }}">
+                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[tsat]" id="{{ $viewFolder }}_tsat" placeholder="" value="{{ !empty($datum->tsat) ? $datum->tsat : '' }}" readonly>
                         <label for="{{ $viewFolder }}_tsat" class="form-label">TSAT</label>
-                        <small id="help_{{ $viewFolder }}_tsat" class="text-muted"></small>
+                        <small id="help_{{ $viewFolder }}_tsat" class="text-muted mb-3"></small>
                       </div>
+                      <span class="input-group-text">%</span>
                     </div>
+                    <small id="help_{{ $viewFolder }}_tsat" class="text-muted mb-3">TSAT = ((Serum Iron/TIBC)*100)</small>
                   </div>
                   <div class="col-lg-6">
                     <p>Hepatitis Profile</p>

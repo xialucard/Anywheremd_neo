@@ -87,7 +87,7 @@
         </tr>
         <tr>
             <td>Date:</td>
-            <td colspan="3">{{ isset($referal_conso->bookingDate) ? $referal_conso->bookingDate : (!isset($referal_conso) ? $datum->bookingDate : '') }}</td>
+            <td colspan="3">{{ isset($referal_conso->bookingDate) ? date('F d, Y', strtotime($referal_conso->bookingDate)) : (!isset($referal_conso) ? date('F d, Y', strtotime($datum->bookingDate)) : '') }}</td>
         </tr>
         <tr>
             <td>Attending Doctor:</td>
@@ -123,7 +123,7 @@
     <br>
     <br>
     <br>
-    <span>{{ $datum->patient->name }} {{ isset($referal_conso->bookingDate) ? $referal_conso->bookingDate : (!isset($referal_conso) ? $datum->bookingDate : '') }}</span>
+    <span>{{ $datum->patient->name }} {{ isset($referal_conso->bookingDate) ? date('F d, Y', strtotime($referal_conso->bookingDate)) : (!isset($referal_conso) ? date('F d, Y', strtotime($datum->bookingDate)) : '') }}</span>
     <br>
     <span style="border-top: solid">Patient’s Signature over Printed Name & Date</span>
     <br>

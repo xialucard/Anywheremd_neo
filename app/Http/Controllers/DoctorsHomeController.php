@@ -392,11 +392,13 @@ class DoctorsHomeController extends Controller
             $prevId = $datum->parent_consultation->id;
         }
         // print($prevId);
-        if($datum->booking_type != 'Dialysis')
+        if($datum->booking_type != 'Dialysis'){
+            $pxConsultations = Consultation::where('patient_id', $datum->patient_id)->whereNot('booking_type', 'Dialysis')->orderBy('bookingDate', 'desc')->get();
             $pxConsultationsPrev = Consultation::where('patient_id', $datum->patient_id)->where('id', '<=', $prevId)->whereNot('booking_type', 'Dialysis')->orderBy('bookingDate', 'desc')->get();
-        else
+        }else{
+            $pxConsultations = Consultation::where('patient_id', $datum->patient_id)->where('booking_type', 'Dialysis')->orderBy('bookingDate', 'desc')->get();
             $pxConsultationsPrev = Consultation::where('patient_id', $datum->patient_id)->where('id', '<=', $prevId)->where('booking_type', 'Dialysis')->orderBy('bookingDate', 'desc')->get();
-        
+        }
         // dd($pxConsultationsPrev);
         // print_r(sizeof($pxConsultationsPrev));
         // dd($pxConsultations[0]->consultationFiles);
@@ -432,7 +434,7 @@ class DoctorsHomeController extends Controller
                     'moduleActive' => $this->module, 
                     'data' => $data, 
                     'datum' => $datum, 
-                    // 'pxConsultations' => $pxConsultations,
+                    'pxConsultations' => $pxConsultations,
                     'pxConsultationsPrev' => $pxConsultationsPrev,
                     'inputFormHeader' => ($datum->booking_type == '' ? 'Consultation' : $datum->booking_type) . ' Booking', 
                     'formId' => 'bookMod',
@@ -470,7 +472,7 @@ class DoctorsHomeController extends Controller
         }
         if(isset($params['anesthesiologist_ot'])){
             $params['anesthesiologist_ao'] = $params['anesthesiologist_ot'];
-            unset($params['anesthesiologist_ao']);
+            unset($params['anesthesiologist_ot']);
         }
         
         if(isset($params['PrintableForm'])){

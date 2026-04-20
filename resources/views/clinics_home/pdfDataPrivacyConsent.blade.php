@@ -173,6 +173,6 @@
     <br>
     <p>Signature of Data Subject: ___________________________</p>
     <p>Printed Name: {{ $datum->patient->name }}</p>
-    <p>Date: {{ isset($referal_conso->id) ? $referal_conso->id : (!isset($referal_conso) ? $datum->id : '') }}</p>
+    <p>Date: {{ isset($referal_conso->bookingDate) ? date('F d, Y', strtotime($referal_conso->bookingDate)) : (!isset($referal_conso) ? date('F d, Y', strtotime($datum->bookingDate)) : '') }}</p>
 </body>
 

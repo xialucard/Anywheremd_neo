@@ -96,7 +96,7 @@
             <td><strong>Anesthesiology:</strong> {{ isset($referal_conso->anesthesiologist_ao) ? $referal_conso->anesthesiologist_ao : (!isset($referal_conso) ? $datum->anesthesiologist_ao : '') }}</td>
         </tr>
         <tr>
-            <td><strong>Date:</strong> {{ isset($referal_conso->bookingDate) ? $referal_conso->id : (!isset($referal_conso) ? $datum->bookingDate : '') }}</td>
+            <td><strong>Date:</strong> {{ isset($referal_conso->bookingDate) ? date('F d, Y', strtotime($referal_conso->bookingDate)) : (!isset($referal_conso) ? date('F d, Y', strtotime($datum->bookingDate)) : '') }}</td>
             <td><strong>Booking Number:</strong> {{ isset($referal_conso->id) ? $referal_conso->id : (!isset($referal_conso) ? $datum->id : '') }}</td>
         </tr>
     </table>
