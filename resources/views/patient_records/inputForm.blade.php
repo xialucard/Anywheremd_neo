@@ -6,9 +6,9 @@
   }
 
   if(isset($datum->consultations)){
-    $carryOverBookingsICDAll = $datum->consultations()->whereNotNull('icd_code')->orderByDesc('bookingDate')->get();
-    $carryOverBookingsAll = $datum->consultations()->whereNotNull('assessment')->orderByDesc('bookingDate')->get();
-    $carryOverBookingsPostOpAll = $datum->consultations()->whereNotNull('post_op_assessment')->orderByDesc('bookingDate')->get();
+    $carryOverBookingsICDAll = $datum->consultations()->whereNull('consultation_parent_id')->whereNotNull('icd_code')->orderByDesc('bookingDate')->get();
+    $carryOverBookingsAll = $datum->consultations()->whereNull('consultation_parent_id')->whereNotNull('assessment')->orderByDesc('bookingDate')->get();
+    $carryOverBookingsPostOpAll = $datum->consultations()->whereNull('consultation_parent_id')->whereNotNull('post_op_assessment')->orderByDesc('bookingDate')->get();
       
   
     if($user->user_type == 'Clinic')
@@ -51,7 +51,7 @@
             <strong>HMO #:</strong> {{ !empty($datum->hmo_num) ? $datum->hmo_num : '' }}<br>
             <strong>Latest Primary Diagnosis:</strong> {!! nl2br(isset($carryOverBookingsICDAll[0]->icd_code_obj) ? $carryOverBookingsICDAll[0]->icd_code_obj->icd_code . ' - ' . $carryOverBookingsICDAll[0]->icd_code_obj->details : '') !!}<br>
             <strong>Latest Secondary Diagnosis:</strong> {!! nl2br(isset($carryOverBookingsAll[0]->assessment) ? $carryOverBookingsAll[0]->assessment : '') !!}<br>
-            <strong>Discharge Diagnosis (Post-op Diagnosis):</strong> {!! nl2br(isset($carryOverBookingsPostOpAll[0]->post_op_assessment) ? $carryOverBookingsPostOpAll[0]->post_op_assessment : '') !!}<br>
+            <strong>Discharge Diagnosis (Post-op Diagnosis):</strong> {!! nl2br(isset($carryOverBookingsPostOpAll[0]->post_op_assessment) ? $carryOverBookingsPostOp[0]->post_op_assessment : '') !!}<br>
             {{-- <strong>HMO:</strong> {{ !empty($datum->hmo) ? $datum->hmo : '' }} | 
             <strong>HMO #:</strong> {{ !empty($datum->hmo_num) ? $datum->hmo_num : '' }}<br> --}}
           </p>  
