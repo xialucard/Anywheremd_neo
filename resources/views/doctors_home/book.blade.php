@@ -1236,9 +1236,9 @@
                   <strong>Philhealth Member Type:</strong> {{ $datum->patient->phil_mem_type }}<br>
                   <strong>HMO:</strong> {{ $datum->patient->hmo == '' ? '' : $datum->patient->health_org->name}} | 
                   <strong>HMO #:</strong> {{ $datum->patient->hmo_num }}<br>
-                  <strong>Latest Primary Diagnosis:</strong> {!! nl2br(isset($carryOverBookingsICDAll[0]->icd_code_obj) ? $carryOverBookingsICDAll[0]->icd_code_obj->icd_code . ' - ' . $carryOverBookingsICDAll[0]->icd_code_obj->details : '') !!}<br>
+                  {{-- <strong>Latest Primary Diagnosis:</strong> {!! nl2br(isset($carryOverBookingsICDAll[0]->icd_code_obj) ? $carryOverBookingsICDAll[0]->icd_code_obj->icd_code . ' - ' . $carryOverBookingsICDAll[0]->icd_code_obj->details : '') !!}<br>
                   <strong>Latest Secondary Diagnosis:</strong> {!! nl2br(isset($carryOverBookingsAll[0]->assessment) ? $carryOverBookingsAll[0]->assessment : '') !!}<br>
-                  <strong>Discharge Diagnosis (Post-op Diagnosis):</strong> {!! nl2br(isset($carryOverBookingsPostOpAll[0]->post_op_assessment) ? $carryOverBookingsPostOpAll[0]->post_op_assessment : '') !!}<br>
+                  <strong>Discharge Diagnosis (Post-op Diagnosis):</strong> {!! nl2br(isset($carryOverBookingsPostOpAll[0]->post_op_assessment) ? $carryOverBookingsPostOpAll[0]->post_op_assessment : '') !!}<br> --}}
             
                   {{-- @php
                     print_r($datum->patient->health_org->name);
