@@ -20,6 +20,7 @@
   // exit();
 @endphp
 @php
+  unset($bookings);
   if($user->specialty == "POD"){
     if($datum->booking_type != 'Dialysis'){
       $bookings = $datum->patient->consultations()->whereNot('booking_type', 'Dialysis')->whereIn('clinic_id', $doctorClinic)->where('bookingDate', '<', $datum->bookingDate)->orderByDesc('bookingDate')->get();
@@ -1180,6 +1181,7 @@
 
           ">View File Uploads</a>
         </li>
+        @if(isset($bookings))
         <li class="nav-item">
           <div class="mt-2 ml-2">
             <label for="{{ $viewFolder }}_b-history">Booking History</label>
@@ -1204,6 +1206,7 @@
             </select>
           </div>
         </li>
+        @endif
       </ul>
     </div>
   </div>
