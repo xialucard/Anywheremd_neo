@@ -6,8 +6,10 @@
   }
 
   if(isset($datum->consultations)){
-    $carryOverBookingsICD = $datum->consultations()->whereNotNull('icd_code')->whereNull('consultation_parent_id')->orderByDesc('bookingDate')->get();
-    $carryOverBookings = $datum->consultations()->whereNotNull('assessment')->whereNull('consultation_parent_id')->orderByDesc('bookingDate')->get();
+    $carryOverBookingsICDAll = $datum->consultations()->whereNotNull('icd_code')->orderByDesc('bookingDate')->get();
+    $carryOverBookingsAll = $datum->consultations()->whereNotNull('assessment')->orderByDesc('bookingDate')->get();
+    $carryOverBookingsPostOpAll = $datum->consultations()->whereNotNull('post_op_assessment')->orderByDesc('bookingDate')->get();
+      
   
     if($user->user_type == 'Clinic')
       $bookings = $datum->consultations()->where('clinic_id', $user->clinic_id)->orderByDesc('bookingDate')->get();
@@ -19,6 +21,7 @@
     }else
       $bookings = $datum->consultations()->orderByDesc('bookingDate')->get();
   }
+  
 @endphp
 
 <datalist id="patientNameList"></datalist>
@@ -46,8 +49,9 @@
             <strong>Philhealth Member Type:</strong> {{ !empty($datum->phil_mem_type) ? $datum->phil_mem_type : '' }}<br>
             <strong>HMO:</strong> {{ empty($datum->hmo) ? '' : $datum->health_org->name}} | 
             <strong>HMO #:</strong> {{ !empty($datum->hmo_num) ? $datum->hmo_num : '' }}<br>
-            <strong>Latest Primary Diagnosis:</strong> {!! nl2br(isset($carryOverBookingsICD[0]->icd_code_obj) ? $carryOverBookingsICD[0]->icd_code_obj->icd_code . ' - ' . $carryOverBookingsICD[0]->icd_code_obj->details : '') !!}<br>
-            <strong>Latest Secondary Diagnosis:</strong> {!! nl2br(isset($carryOverBookings[0]->assessment) ? $carryOverBookings[0]->assessment : '') !!}<br>
+            <strong>Latest Primary Diagnosis:</strong> {!! nl2br(isset($carryOverBookingsICDAll[0]->icd_code_obj) ? $carryOverBookingsICDAll[0]->icd_code_obj->icd_code . ' - ' . $carryOverBookingsICDAll[0]->icd_code_obj->details : '') !!}<br>
+            <strong>Latest Secondary Diagnosis:</strong> {!! nl2br(isset($carryOverBookingsAll[0]->assessment) ? $carryOverBookingsAll[0]->assessment : '') !!}<br>
+            <strong>Discharge Diagnosis (Post-op Diagnosis):</strong> {!! nl2br(isset($carryOverBookingsPostOpAll[0]->post_op_assessment) ? $carryOverBookingsPostOpAll[0]->post_op_assessment : '') !!}<br>
             {{-- <strong>HMO:</strong> {{ !empty($datum->hmo) ? $datum->hmo : '' }} | 
             <strong>HMO #:</strong> {{ !empty($datum->hmo_num) ? $datum->hmo_num : '' }}<br> --}}
           </p>  
