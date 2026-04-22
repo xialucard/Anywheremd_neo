@@ -51,7 +51,7 @@
             <strong>HMO #:</strong> {{ !empty($datum->hmo_num) ? $datum->hmo_num : '' }}<br>
             <strong>Latest Primary Diagnosis:</strong> {!! nl2br(isset($carryOverBookingsICDAll[0]->icd_code_obj) ? $carryOverBookingsICDAll[0]->icd_code_obj->icd_code . ' - ' . $carryOverBookingsICDAll[0]->icd_code_obj->details : '') !!}<br>
             <strong>Latest Secondary Diagnosis:</strong> {!! nl2br(isset($carryOverBookingsAll[0]->assessment) ? $carryOverBookingsAll[0]->assessment : '') !!}<br>
-            <strong>Discharge Diagnosis (Post-op Diagnosis):</strong> {!! nl2br(isset($carryOverBookingsPostOpAll[0]->post_op_assessment) ? $carryOverBookingsPostOp[0]->post_op_assessment : '') !!}<br>
+            <strong>Discharge Diagnosis (Post-op Diagnosis):</strong> {!! nl2br(isset($carryOverBookingsPostOpAll[0]->post_op_assessment) ? $carryOverBookingsPostOpAll[0]->post_op_assessment : '') !!}<br>
             {{-- <strong>HMO:</strong> {{ !empty($datum->hmo) ? $datum->hmo : '' }} | 
             <strong>HMO #:</strong> {{ !empty($datum->hmo_num) ? $datum->hmo_num : '' }}<br> --}}
           </p>  
