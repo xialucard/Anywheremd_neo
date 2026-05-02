@@ -3732,7 +3732,7 @@
                     @if($file->file_type == 'application/pdf')
                   <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'></iframe><p>{{ $pxC->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
                     @else
-                  <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'><p>{{ $pxC->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}' disabled><i class='bi bi-trash'></i></button></div></div>
+                  <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ Storage::disk('spaces')->exists('/' . $file->file_link) ? Storage::disk('spaces')->temporaryUrl('/' . $file->file_link, now()->addMinutes(10)) : (stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link))) }}' class='img-thumbnail'><p>{{ $pxC->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}' disabled><i class='bi bi-trash'></i></button></div></div>
                     @endif
                     @php
                       $ind++;
@@ -3793,7 +3793,7 @@
                 <div class="card mb-3">
                   <div class="card-header">Previous Prescription Preview</div>
                   <div class="card-body">
-                    <iframe id="iframePrevPresc" src="{{ file_exists(public_path('storage/prescription_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf')) ? asset('storage/prescription_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
+                    <iframe id="iframePrevPresc" src="{{ Storage::disk('spaces')->exists('/storage/prescription_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf') ? Storage::disk('spaces')->temporaryUrl('/storage/prescription_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf', now()->addMinutes(10)) : (file_exists(public_path('storage/prescription_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf')) ? asset('storage/prescription_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg') }}" width="100%" height="300" style="border:1"></iframe>
                     <small class="form-text text-muted">To print or download go to Tools</small>
                   </div>
                 </div>
@@ -3802,7 +3802,7 @@
                 <div class="card mb-3">
                   <div class="card-header">Previous Med Cert Preview</div>
                   <div class="card-body">
-                    <iframe id="iframePrevMedCert" src="{{ file_exists(public_path('storage/med_cert_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf')) ? asset('storage/med_cert_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
+                    <iframe id="iframePrevMedCert" src="{{ Storage::disk('spaces')->exists('/storage/med_cert_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf') ? Storage::disk('spaces')->temporaryUrl('/storage/med_cert_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf', now()->addMinutes(10)) : (file_exists(public_path('storage/med_cert_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf')) ? asset('storage/med_cert_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg') }}" width="100%" height="300" style="border:1"></iframe>
                     <small class="form-text text-muted">To print or download go to Tools</small>
                   </div>
                 </div>
@@ -3811,7 +3811,7 @@
                 <div class="card mb-3">
                   <div class="card-header">Previous Admitting Orders Preview</div>
                   <div class="card-body">
-                    <iframe id="iframePrevAdmitting" src="{{ file_exists(public_path('storage/admitting_order_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf')) ? asset('storage/admitting_order_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
+                    <iframe id="iframePrevAdmitting" src="{{Storage::disk('spaces')->exists('/storage/admitting_order_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf') ? Storage::disk('spaces')->temporaryUrl('/storage/admitting_order_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf', now()->addMinutes(10)) : (file_exists(public_path('storage/admitting_order_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf')) ? asset('storage/admitting_order_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg') }}" width="100%" height="300" style="border:1"></iframe>
                     <small class="form-text text-muted">To print or download go to Tools</small>
                   </div>
                 </div>
@@ -3820,7 +3820,7 @@
                 <div class="card mb-3">
                   <div class="card-header">Previous Discharge Summary Preview</div>
                   <div class="card-body">
-                    <iframe id="iframePrevDischargeSum" src="{{ file_exists(public_path('storage/printable_forms_files/pdfDischargeSum_' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf')) ? asset('storage/printable_forms_files/pdfDischargeSum_' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
+                    <iframe id="iframePrevDischargeSum" src="{{ Storage::disk('spaces')->exists('/storage/printable_forms_files/pdfDischargeSum_' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf') ? Storage::disk('spaces')->temporaryUrl('/storage/printable_forms_files/pdfDischargeSum_' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf', now()->addMinutes(10)) : (file_exists(public_path('storage/printable_forms_files/pdfDischargeSum_' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf')) ? asset('storage/printable_forms_files/pdfDischargeSum_' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg') }}" width="100%" height="300" style="border:1"></iframe>
                     <small class="form-text text-muted">To print or download go to Tools</small>
                   </div>
                 </div>
@@ -3829,7 +3829,7 @@
                 <div class="card mb-3">
                   <div class="card-header">Previous Admitting and Peri-Op Preview</div>
                   <div class="card-body">
-                    <iframe id="iframePrevOpAdmit" src="{{ file_exists(public_path('storage/printable_forms_files/pdfOpAdmit_' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf')) ? asset('storage/printable_forms_files/pdfOpAdmit_' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
+                    <iframe id="iframePrevOpAdmit" src="{{ Storage::disk('spaces')->exists('/storage/printable_forms_files/pdfOpAdmit_' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf') ? Storage::disk('spaces')->temporaryUrl('/storage/printable_forms_files/pdfOpAdmit_' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf', now()->addMinutes(10)) : (file_exists(public_path('storage/printable_forms_files/pdfOpAdmit_' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf')) ? asset('storage/printable_forms_files/pdfOpAdmit_' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg') }}" width="100%" height="300" style="border:1"></iframe>
                     <small class="form-text text-muted">To print or download go to Tools</small>
                   </div>
                 </div>
@@ -3838,7 +3838,7 @@
                 <div class="card mb-3">
                   <div class="card-header">Previous OR Tech Preview</div>
                   <div class="card-body">
-                    <iframe id="iframePrevORTech" src="{{ file_exists(public_path('storage/printable_forms_files/pdfORTech_' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf')) ? asset('storage/printable_forms_files/pdfORTech_' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
+                    <iframe id="iframePrevORTech" src="{{ Storage::disk('spaces')->exists('/storage/printable_forms_files/pdfORTech_' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf') ? Storage::disk('spaces')->temporaryUrl('/storage/printable_forms_files/pdfORTech_' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf', now()->addMinutes(10)) : (file_exists(public_path('storage/printable_forms_files/pdfORTech_' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf')) ? asset('storage/printable_forms_files/pdfORTech_' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg') }}" width="100%" height="300" style="border:1"></iframe>
                     <small class="form-text text-muted">To print or download go to Tools</small>
                   </div>
                 </div>
@@ -3847,7 +3847,7 @@
                 <div class="card mb-3">
                   <div class="card-header">Previous Post Operative Instructions Preview</div>
                   <div class="card-body">
-                    <iframe id="iframePrevPostOp" src="{{ file_exists(public_path('storage/printable_forms_files/pdfPostOp_' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf')) ? asset('storage/printable_forms_files/pdfPostOp_' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
+                    <iframe id="iframePrevPostOp" src="{{ Storage::disk('spaces')->exists('/storage/printable_forms_files/pdfPostOp_' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf') ? Storage::disk('spaces')->temporaryUrl('/storage/printable_forms_files/pdfPostOp_' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf', now()->addMinutes(10)) : (file_exists(public_path('storage/printable_forms_files/pdfPostOp_' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf')) ? asset('storage/printable_forms_files/pdfPostOp_' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg') }}" width="100%" height="300" style="border:1"></iframe>
                     <small class="form-text text-muted">To print or download go to Tools</small>
                   </div>
                 </div>
@@ -5956,7 +5956,7 @@
                     @endif
                     @if(!empty($pxC->anesthesia_files[0]->file_link))
                       @foreach($pxC->anesthesia_files as $file)
-                <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
+                <button type="button" data-bs-target="#carouselCur" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
                       @php
                         $ind++;
                         $key = true;
@@ -5965,7 +5965,7 @@
                     @endif
                     @if(!empty($pxC->doctor_files[0]->file_link))
                       @foreach($pxC->doctor_files as $file)
-                <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
+                <button type="button" data-bs-target="#carouselCur" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
                       @php
                         $ind++;
                         $key = true;
@@ -5974,7 +5974,7 @@
                     @endif
                     @if(!empty($pxC->prescription_files[0]->file_link))
                       @foreach($pxC->prescription_files as $file)
-                <button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
+                <button type="button" data-bs-target="#carouselCur" data-bs-slide-to="{{ $ind }}" {{ $ind == 0 ? 'class=active aria-current=true' : '' }} aria-label="Slide {{ $ind+1 }}"></button>
                       @php
                         $ind++;
                         $key = true;
@@ -5999,9 +5999,9 @@
                         
                 <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
                         @if($file->file_type == 'application/pdf')
-                  <iframe src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" width="100%" height="373" style="border:1"></iframe>
+                  <iframe src="{{ Storage::disk('spaces')->exists('/' . $file->file_link) ? Storage::disk('spaces')->temporaryUrl('/' . $file->file_link, now()->addMinutes(10)) : (stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link))) }}" width="100%" height="373" style="border:1"></iframe>
                         @else
-                  <img src="{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
+                  <img src="{{ Storage::disk('spaces')->exists('/' . $file->file_link) ? Storage::disk('spaces')->temporaryUrl('/' . $file->file_link, now()->addMinutes(10)) : (stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link))) }}" class="d-block w-100" alt="">
                   <div class="carousel-caption d-none d-md-block">
                     {{-- <h5>First slide label</h5> --}}
                     <p>{{ $pxC->bookingDate }}</p>
@@ -6109,9 +6109,9 @@
                           $exAr = explode('/', $file->file_link);
                         @endphp
                         @if($file->file_type == 'application/pdf')
-                <div class='img-div' data-bs-target="#carouselCur" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail' title='{{ $exAr[sizeof($exAr)-1] }}'></iframe><p>{{ $pxC->bookingDate }}</p><<div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
+                <div class='img-div' data-bs-target="#carouselCur" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ Storage::disk('spaces')->exists('/' . $file->file_link) ? Storage::disk('spaces')->temporaryUrl('/' . $file->file_link, now()->addMinutes(10)) : (stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link))) }}' class='img-thumbnail' title='{{ $exAr[sizeof($exAr)-1] }}'></iframe><p>{{ $pxC->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
                         @else
-                <div class='img-div' data-bs-target="#carouselCur" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail' title='{{ $exAr[sizeof($exAr)-1] }}'><p>{{ $pxC->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
+                <div class='img-div' data-bs-target="#carouselCur" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ Storage::disk('spaces')->exists('/' . $file->file_link) ? Storage::disk('spaces')->temporaryUrl('/' . $file->file_link, now()->addMinutes(10)) : (stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link))) }}' class='img-thumbnail' title='{{ $exAr[sizeof($exAr)-1] }}'><p>{{ $pxC->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
                         @endif
                         @php
                           $ind++;
@@ -6124,9 +6124,9 @@
                         $exAr = explode('/', $file->file_link);
                       @endphp
                       @if($file->file_type == 'application/pdf')
-                <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'></iframe><p>{{ $pxC->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
+                <div class='img-div' data-bs-target="#carouselCur" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'></iframe><p>{{ $pxC->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
                       @else
-                <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'><p>{{ $pxC->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}' disabled><i class='bi bi-trash'></i></button></div></div>
+                <div class='img-div' data-bs-target="#carouselCur" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'><p>{{ $pxC->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
                       @endif
                       @php
                         $ind++;
@@ -6139,9 +6139,9 @@
                         $exAr = explode('/', $file->file_link);
                       @endphp
                       @if($file->file_type == 'application/pdf')
-                <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'></iframe><p>{{ $pxC->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
+                <div class='img-div' data-bs-target="#carouselCur" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'></iframe><p>{{ $pxC->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
                       @else
-                <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'><p>{{ $pxC->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}' disabled><i class='bi bi-trash'></i></button></div></div>
+                <div class='img-div' data-bs-target="#carouselCur" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'><p>{{ $pxC->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
                       @endif
                       @php
                         $ind++;
@@ -6154,9 +6154,9 @@
                         $exAr = explode('/', $file->file_link);
                       @endphp
                       @if($file->file_type == 'application/pdf')
-                <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'></iframe><p>{{ $pxC->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
+                <div class='img-div' data-bs-target="#carouselCur" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><iframe src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'></iframe><p>{{ $pxC->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
                       @else
-                <div class='img-div' data-bs-target="#carouselPrev" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'><p>{{ $pxC->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}' disabled><i class='bi bi-trash'></i></button></div></div>
+                <div class='img-div' data-bs-target="#carouselCur" data-bs-slide-to="{{ $ind }}" id='img-div-save{{ $ind }}'><img src='{{ stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}' class='img-thumbnail'><p>{{ $pxC->bookingDate }}</p><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
                       @endif
                       @php
                         $ind++;
@@ -9211,7 +9211,7 @@
                 <div class="docNotesDiv card mb-3" id="{{ $viewFolder }}_Presc_{{ $datum->id }}">
                   <div class="card-header">Prescription View</div>
                   <div class="card-body">
-                    <iframe id="iframePresc{{ $datum->id }}" src="{{ file_exists(public_path('storage/prescription_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf')) ? asset('storage/prescription_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
+                    <iframe id="iframePresc{{ $datum->id }}" src="{{ Storage::disk('spaces')->exists('/storage/prescription_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf') ? Storage::disk('spaces')->temporaryUrl('/storage/prescription_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf', now()->addMinutes(10)) : (file_exists(public_path('storage/prescription_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf')) ? asset('storage/prescription_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg') }}" width="100%" height="300" style="border:1"></iframe>
                     <small class="form-text text-muted">To print or download check the upper right part</small>
                   </div>
                   <div class="card-footer">
@@ -9224,6 +9224,9 @@
                         url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
                         success:
                         function (){
+                            setTimeout(function() {
+                                return false;
+                            }, 3000);
                             $.ajax({
                               type: 'GET',
                               url: '{{ Route::has($viewFolder . '.pdfPrescription') ? route($viewFolder . '.pdfPrescription', $datum->id) : '' }}',
@@ -9244,7 +9247,7 @@
                 <div class="docNotesDiv card mb-3" id="{{ $viewFolder }}_Presc_{{ $cr->id }}" style="display:none">
                   <div class="card-header">Prescription View</div>
                   <div class="card-body">
-                    <iframe id="iframePresc{{ $cr->id }}" src="{{ file_exists(public_path('storage/prescription_files/' . $cr->id . '_' . $cr->patient->l_name . '.pdf')) ? asset('storage/prescription_files/' . $cr->id . '_' . $cr->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
+                    <iframe id="iframePresc{{ $cr->id }}" src="{{ Storage::disk('spaces')->exists('/storage/prescription_files/' . $cr->id . '_' . $cr->patient->l_name . '.pdf') ? Storage::disk('spaces')->temporaryUrl('/storage/prescription_files/' . $cr->id . '_' . $cr->patient->l_name . '.pdf', now()->addMinutes(10)) : (file_exists(public_path('storage/prescription_files/' . $cr->id . '_' . $cr->patient->l_name . '.pdf')) ? asset('storage/prescription_files/' . $cr->id . '_' . $cr->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg') }}" width="100%" height="300" style="border:1"></iframe>
                     <small class="form-text text-muted">To print or download check the upper right part</small>
                   </div>
                   <div class="card-footer">
@@ -9257,6 +9260,9 @@
                         url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
                         success:
                         function (){
+                            setTimeout(function() {
+                                return false;
+                            }, 3000);
                             $.ajax({
                               type: 'GET',
                               url: '{{ Route::has($viewFolder . '.pdfPrescription') ? route($viewFolder . '.pdfPrescription', $cr->id) : '' }}',
@@ -9327,7 +9333,7 @@
                 <div class="docNotesDiv card mb-3" id="{{ $viewFolder }}_MedCert_{{ $datum->id }}">
                   <div class="card-header">Med Cert View</div>
                   <div class="card-body">
-                    <iframe id="iframeMedCert{{ $datum->id }}" src="{{ file_exists(public_path('storage/med_cert_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf')) ? asset('storage/med_cert_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
+                    <iframe id="iframeMedCert{{ $datum->id }}" src="{{ Storage::disk('spaces')->exists('/storage/med_cert_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf') ? Storage::disk('spaces')->temporaryUrl('/storage/med_cert_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf', now()->addMinutes(10)) : (file_exists(public_path('storage/med_cert_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf')) ? asset('storage/med_cert_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg') }}" width="100%" height="300" style="border:1"></iframe>
                     <small class="form-text text-muted">To print or download check the upper right part</small>
                   </div>
                   <div class="card-footer">
@@ -9340,6 +9346,9 @@
                         url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : '' }}',
                         success:
                         function (){
+                            setTimeout(function() {
+                                return false;
+                            }, 3000);
                             $.ajax({
                               type: 'GET',
                               url: '{{ Route::has($viewFolder . '.pdfMedCert') ? route($viewFolder . '.pdfMedCert', $datum->id) : '' }}',
@@ -9360,7 +9369,7 @@
                 <div class="docNotesDiv card mb-3" id="{{ $viewFolder }}_MedCert_{{ $cr->id }}" style="display:none">
                   <div class="card-header">Med Cert View</div>
                   <div class="card-body">
-                    <iframe id="iframeMedCert{{ $cr->id }}" src="{{ file_exists(public_path('storage/med_cert_files/' . $cr->id . '_' . $cr->patient->l_name . '.pdf')) ? asset('storage/med_cert_files/' . $cr->id . '_' . $cr->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
+                    <iframe id="iframeMedCert{{ $cr->id }}" src="{{ Storage::disk('spaces')->exists('/storage/med_cert_files/' . $cr->id . '_' . $cr->patient->l_name . '.pdf') ? Storage::disk('spaces')->temporaryUrl('/storage/med_cert_files/' . $cr->id . '_' . $cr->patient->l_name . '.pdf', now()->addMinutes(10)) : (file_exists(public_path('storage/med_cert_files/' . $cr->id . '_' . $cr->patient->l_name . '.pdf')) ? asset('storage/med_cert_files/' . $cr->id . '_' . $cr->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg') }}" width="100%" height="300" style="border:1"></iframe>
                     <small class="form-text text-muted">To print or download check the upper right part</small>
                   </div>
                   <div class="card-footer">
@@ -9373,6 +9382,9 @@
                         url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
                         success:
                         function (){
+                            setTimeout(function() {
+                                return false;
+                            }, 3000);
                             $.ajax({
                               type: 'GET',
                               url: '{{ Route::has($viewFolder . '.pdfMedCert') ? route($viewFolder . '.pdfMedCert', $cr->id) : '' }}',
@@ -9445,7 +9457,7 @@
                 <div class="docNotesDiv card mb-3" id="{{ $viewFolder }}_Admitting_{{ $datum->id }}">
                   <div class="card-header">Admitting Orders Preview</div>
                   <div class="card-body">
-                    <iframe id="iframeAdmitting{{ $datum->id }}" src="{{ file_exists(public_path('storage/admitting_order_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf')) ? asset('storage/admitting_order_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
+                    <iframe id="iframeAdmitting{{ $datum->id }}" src="{{ Storage::disk('spaces')->exists('/storage/admitting_order_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf') ? Storage::disk('spaces')->temporaryUrl('/storage/admitting_order_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf', now()->addMinutes(10)) : (file_exists(public_path('storage/admitting_order_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf')) ? asset('storage/admitting_order_files/' . $datum->id . '_' . $datum->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg') }}" width="100%" height="300" style="border:1"></iframe>
                     <small class="form-text text-muted">To print or download check the upper right part</small>
                   </div>
                   <div class="card-footer">
@@ -9458,6 +9470,9 @@
                         url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
                         success:
                         function (data){
+                            setTimeout(function() {
+                                return false;
+                            }, 3000);
                             $.ajax({
                               type: 'GET',
                               url: '{{ Route::has($viewFolder . '.pdfAdmitting') ? route($viewFolder . '.pdfAdmitting', $datum->id) : '' }}',
@@ -9480,7 +9495,7 @@
                 <div class="docNotesDiv card mb-3" id="{{ $viewFolder }}_Admitting_{{ $cr->id }}" style="display:none">
                   <div class="card-header">Admitting Orders Preview</div>
                   <div class="card-body">
-                    <iframe id="iframeAdmitting{{ $cr->id }}" src="{{ file_exists(public_path('storage/admitting_order_files/' . $cr->id . '_' . $cr->patient->l_name . '.pdf')) ? asset('storage/admitting_order_files/' . $cr->id . '_' . $cr->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
+                    <iframe id="iframeAdmitting{{ $cr->id }}" src="{{ Storage::disk('spaces')->exists('/storage/admitting_order_files/' . $cr->id . '_' . $cr->patient->l_name . '.pdf') ? Storage::disk('spaces')->temporaryUrl('/storage/admitting_order_files/' . $cr->id . '_' . $cr->patient->l_name . '.pdf', now()->addMinutes(10)) : (file_exists(public_path('storage/admitting_order_files/' . $cr->id . '_' . $cr->patient->l_name . '.pdf')) ? asset('storage/admitting_order_files/' . $cr->id . '_' . $cr->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg') }}" width="100%" height="300" style="border:1"></iframe>
                     <small class="form-text text-muted">To print or download check the upper right part</small>
                   </div>
                   <div class="card-footer">
@@ -9493,6 +9508,9 @@
                         url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
                         success:
                         function (data){
+                            setTimeout(function() {
+                                return false;
+                            }, 3000);
                             $.ajax({
                               type: 'GET',
                               url: '{{ Route::has($viewFolder . '.pdfAdmitting') ? route($viewFolder . '.pdfAdmitting', $cr->id) : '' }}',
@@ -9616,7 +9634,7 @@
                 <div class="docNotesDiv card mb-3" id="{{ $viewFolder }}_DischargeSum_{{ $datum->id }}">
                   <div class="card-header">Discharge Summary View</div>
                   <div class="card-body">
-                    <iframe id="iframecDischargeSum{{ $datum->id }}" src="{{ file_exists(public_path('storage/printable_forms_files/pdfDischargeSum_' . $datum->id . '_' . $datum->patient->l_name . '.pdf')) ? asset('storage/printable_forms_files/pdfDischargeSum_' . $datum->id . '_' . $datum->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
+                    <iframe id="iframecDischargeSum{{ $datum->id }}" src="{{ Storage::disk('spaces')->exists('/storage/printable_forms_files/pdfDischargeSum_' . $datum->id . '_' . $datum->patient->l_name . '.pdf') ? Storage::disk('spaces')->temporaryUrl('/storage/printable_forms_files/pdfDischargeSum_' . $datum->id . '_' . $datum->patient->l_name . '.pdf', now()->addMinutes(10)) : (file_exists(public_path('storage/printable_forms_files/pdfDischargeSum_' . $datum->id . '_' . $datum->patient->l_name . '.pdf')) ? asset('storage/printable_forms_files/pdfDischargeSum_' . $datum->id . '_' . $datum->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg') }}" width="100%" height="300" style="border:1"></iframe>
                     <small class="form-text text-muted">To print or download check the upper right part</small>
                   </div>
                   <div class="card-footer">
@@ -9629,6 +9647,9 @@
                         url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
                         success:
                         function (){
+                            setTimeout(function() {
+                                return false;
+                            }, 3000);
                             $.ajax({
                               type: 'GET',
                               url: '{{ Route::has($viewFolder . '.pdfDischargeSum') ? route($viewFolder . '.pdfDischargeSum', $datum->id) : '' }}',
@@ -9649,7 +9670,7 @@
                 <div class="docNotesDiv card mb-3" id="{{ $viewFolder }}_DischargeSum_{{ $cr->id }}" style="display:none">
                   <div class="card-header">Discharge Summary View</div>
                   <div class="card-body">
-                    <iframe id="iframecDischargeSum{{ $cr->id }}" src="{{ file_exists(public_path('storage/printable_forms_files/pdfDischargeSum_' . $cr->id . '_' . $cr->patient->l_name . '.pdf')) ? asset('storage/printable_forms_files/pdfDischargeSum_' . $cr->id . '_' . $cr->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
+                    <iframe id="iframecDischargeSum{{ $cr->id }}" src="{{ Storage::disk('spaces')->exists('/storage/printable_forms_files/pdfDischargeSum_' . $cr->id . '_' . $cr->patient->l_name . '.pdf') ? Storage::disk('spaces')->temporaryUrl('/storage/printable_forms_files/pdfDischargeSum_' . $cr->id . '_' . $cr->patient->l_name . '.pdf', now()->addMinutes(10)) : (file_exists(public_path('storage/printable_forms_files/pdfDischargeSum_' . $cr->id . '_' . $cr->patient->l_name . '.pdf')) ? asset('storage/printable_forms_files/pdfDischargeSum_' . $cr->id . '_' . $cr->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg') }}" width="100%" height="300" style="border:1"></iframe>
                     <small class="form-text text-muted">To print or download check the upper right part</small>
                   </div>
                   <div class="card-footer">
@@ -9662,6 +9683,9 @@
                         url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
                         success:
                         function (){
+                            setTimeout(function() {
+                                return false;
+                            }, 3000);
                             $.ajax({
                               type: 'GET',
                               url: '{{ Route::has($viewFolder . '.pdfDischargeSum') ? route($viewFolder . '.pdfDischargeSum', $cr->id) : '' }}',
@@ -9694,7 +9718,7 @@
                               $(this).prop('disabled', false);
                             });
                           }
-                        ">{{ isset($datum->printable_form['pre_op_diagnosis']) ? $datum->printable_form['pre_op_diagnosis'] : $datum->assessment }}</textarea>
+                        ">{{ isset($datum->printable_form['pre_op_diagnosis']) && $datum->printable_form['pre_op_diagnosis'] != "" ? $datum->printable_form['pre_op_diagnosis'] : $datum->assessment }}</textarea>
                     <small id="help_{{ $viewFolder }}_address" class="text-muted mb-3">By default this is from SOAP Secondary Diagnosis entry unless edited here.</small>
                     </div>
                     <div class="mb-3">
@@ -9709,7 +9733,7 @@
                               $(this).prop('disabled', false);
                             });
                           }
-                        ">{{ isset($datum->printable_form['post_op_diagnosis']) ? $datum->printable_form['post_op_diagnosis'] : $datum->post_op_assessment }}</textarea>
+                        ">{{ isset($datum->printable_form['post_op_diagnosis']) && $datum->printable_form['post_op_diagnosis'] != "" ? $datum->printable_form['post_op_diagnosis'] : $datum->post_op_assessment }}</textarea>
                     <small id="help_{{ $viewFolder }}_address" class="text-muted">By default this is from SOAP Discharge Diagnosis entry unless edited here.</small>
                     </div>
                     <label for="{{ $viewFolder }}_procedure_performed" class="form-label">Procedure Performed</label>
@@ -9904,7 +9928,7 @@
                 <div class="docNotesDiv card mb-3" id="{{ $viewFolder }}_OpAdmit_{{ $datum->id }}">
                   <div class="card-header">Admitting and Peri-Op View</div>
                   <div class="card-body">
-                    <iframe id="iframeOpAdmit{{ $datum->id }}" src="{{ file_exists(public_path('storage/printable_forms_files/pdfOpAdmit_' . $datum->id . '_' . $datum->patient->l_name . '.pdf')) ? asset('storage/printable_forms_files/pdfOpAdmit_' . $datum->id . '_' . $datum->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
+                    <iframe id="iframeOpAdmit{{ $datum->id }}" src="{{ Storage::disk('spaces')->exists('/storage/printable_forms_files/pdfOpAdmit_' . $datum->id . '_' . $datum->patient->l_name . '.pdf') ? Storage::disk('spaces')->temporaryUrl('/storage/printable_forms_files/pdfOpAdmit_' . $datum->id . '_' . $datum->patient->l_name . '.pdf', now()->addMinutes(10)) : (file_exists(public_path('storage/printable_forms_files/pdfOpAdmit_' . $datum->id . '_' . $datum->patient->l_name . '.pdf')) ? asset('storage/printable_forms_files/pdfOpAdmit_' . $datum->id . '_' . $datum->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg') }}" width="100%" height="300" style="border:1"></iframe>
                     <small class="form-text text-muted">To print or download check the upper right part</small>
                   </div>
                   <div class="card-footer">
@@ -9917,6 +9941,9 @@
                         url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
                         success:
                         function (){
+                            setTimeout(function() {
+                                return false;
+                            }, 3000);
                             $.ajax({
                               type: 'GET',
                               url: '{{ Route::has($viewFolder . '.pdfOpAdmit') ? route($viewFolder . '.pdfOpAdmit', $datum->id) : '' }}',
@@ -9937,7 +9964,7 @@
                 <div class="docNotesDiv card mb-3" id="{{ $viewFolder }}_OpAdmit_{{ $cr->id }}" style="display:none">
                   <div class="card-header">Admitting and Peri-Op View</div>
                   <div class="card-body">
-                    <iframe id="iframeOpAdmit{{ $cr->id }}" src="{{ file_exists(public_path('storage/printable_forms_files/pdfOpAdmit_' . $cr->id . '_' . $cr->patient->l_name . '.pdf')) ? asset('storage/printable_forms_files/pdfOpAdmit_' . $cr->id . '_' . $cr->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
+                    <iframe id="iframeOpAdmit{{ $cr->id }}" src="{{ Storage::disk('spaces')->exists('/storage/printable_forms_files/pdfOpAdmit_' . $cr->id . '_' . $cr->patient->l_name . '.pdf') ? Storage::disk('spaces')->temporaryUrl('/storage/printable_forms_files/pdfOpAdmit_' . $cr->id . '_' . $cr->patient->l_name . '.pdf', now()->addMinutes(10)) : (file_exists(public_path('storage/printable_forms_files/pdfOpAdmit_' . $cr->id . '_' . $cr->patient->l_name . '.pdf')) ? asset('storage/printable_forms_files/pdfOpAdmit_' . $cr->id . '_' . $cr->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg') }}" width="100%" height="300" style="border:1"></iframe>
                     <small class="form-text text-muted">To print or download check the upper right part</small>
                   </div>
                   <div class="card-footer">
@@ -9950,6 +9977,9 @@
                         url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
                         success:
                         function (){
+                            setTimeout(function() {
+                                return false;
+                            }, 3000);
                             $.ajax({
                               type: 'GET',
                               url: '{{ Route::has($viewFolder . '.pdfOpAdmit') ? route($viewFolder . '.pdfOpAdmit', $cr->id) : '' }}',
@@ -10110,7 +10140,7 @@
                 <div class="docNotesDiv card mb-3" id="{{ $viewFolder }}_OpTech_{{ $datum->id }}">
                   <div class="card-header">OR Tech View</div>
                   <div class="card-body">
-                    <iframe id="iframeORTech{{ $datum->id }}" src="{{ file_exists(public_path('storage/printable_forms_files/pdfORTech_' . $datum->id . '_' . $datum->patient->l_name . '.pdf')) ? asset('storage/printable_forms_files/pdfORTech_' . $datum->id . '_' . $datum->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
+                    <iframe id="iframeORTech{{ $datum->id }}" src="{{ Storage::disk('spaces')->exists('/storage/printable_forms_files/pdfORTech_' . $datum->id . '_' . $datum->patient->l_name . '.pdf') ? Storage::disk('spaces')->temporaryUrl('/storage/printable_forms_files/pdfORTech_' . $datum->id . '_' . $datum->patient->l_name . '.pdf', now()->addMinutes(10)) : (file_exists(public_path('storage/printable_forms_files/pdfORTech_' . $datum->id . '_' . $datum->patient->l_name . '.pdf')) ? asset('storage/printable_forms_files/pdfORTech_' . $datum->id . '_' . $datum->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg') }}" width="100%" height="300" style="border:1"></iframe>
                     <small class="form-text text-muted">To print or download check the upper right part</small>
                   </div>
                   <div class="card-footer">
@@ -10123,6 +10153,9 @@
                         url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
                         success:
                         function (){
+                            setTimeout(function() {
+                                return false;
+                            }, 3000);
                             $.ajax({
                               type: 'GET',
                               url: '{{ Route::has($viewFolder . '.pdfORTech') ? route($viewFolder . '.pdfORTech', $datum->id) : '' }}',
@@ -10143,7 +10176,7 @@
                 <div class="docNotesDiv card mb-3" id="{{ $viewFolder }}_OpTech_{{ $cr->id }}" style="display:none">
                   <div class="card-header">OR Tech View</div>
                   <div class="card-body">
-                    <iframe id="iframeORTech{{ $cr->id }}" src="{{ file_exists(public_path('storage/printable_forms_files/pdfORTech_' . $cr->id . '_' . $cr->patient->l_name . '.pdf')) ? asset('storage/printable_forms_files/pdfORTech_' . $cr->id . '_' . $cr->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
+                    <iframe id="iframeORTech{{ $cr->id }}" src="{{ Storage::disk('spaces')->exists('/storage/printable_forms_files/pdfORTech_' . $cr->id . '_' . $cr->patient->l_name . '.pdf') ? Storage::disk('spaces')->temporaryUrl('/storage/printable_forms_files/pdfORTech_' . $cr->id . '_' . $cr->patient->l_name . '.pdf', now()->addMinutes(10)) : (file_exists(public_path('storage/printable_forms_files/pdfORTech_' . $cr->id . '_' . $cr->patient->l_name . '.pdf')) ? asset('storage/printable_forms_files/pdfORTech_' . $cr->id . '_' . $cr->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg') }}" width="100%" height="300" style="border:1"></iframe>
                     <small class="form-text text-muted">To print or download check the upper right part</small>
                   </div>
                   <div class="card-footer">
@@ -10156,6 +10189,9 @@
                         url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
                         success:
                         function (){
+                            setTimeout(function() {
+                                return false;
+                            }, 3000);
                             $.ajax({
                               type: 'GET',
                               url: '{{ Route::has($viewFolder . '.pdfORTech') ? route($viewFolder . '.pdfORTech', $cr->id) : '' }}',
@@ -10248,7 +10284,7 @@
                 <div class="docNotesDiv card mb-3" id="{{ $viewFolder }}_PostOp_{{ $datum->id }}">
                   <div class="card-header">Post Operative Instruction View</div>
                   <div class="card-body">
-                    <iframe id="iframePostOp{{ $datum->id }}" src="{{ file_exists(public_path('storage/printable_forms_files/pdfPostOp_' . $datum->id . '_' . $datum->patient->l_name . '.pdf')) ? asset('storage/printable_forms_files/pdfPostOp_' . $datum->id . '_' . $datum->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
+                    <iframe id="iframePostOp{{ $datum->id }}" src="{{ Storage::disk('spaces')->exists('/storage/printable_forms_files/pdfPostOp_' . $datum->id . '_' . $datum->patient->l_name . '.pdf') ? Storage::disk('spaces')->temporaryUrl('/storage/printable_forms_files/pdfPostOp_' . $datum->id . '_' . $datum->patient->l_name . '.pdf', now()->addMinutes(10)) : (file_exists(public_path('storage/printable_forms_files/pdfPostOp_' . $datum->id . '_' . $datum->patient->l_name . '.pdf')) ? asset('storage/printable_forms_files/pdfPostOp_' . $datum->id . '_' . $datum->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg') }}" width="100%" height="300" style="border:1"></iframe>
                     <small class="form-text text-muted">To print or download check the upper right part</small>
                   </div>
                   <div class="card-footer">
@@ -10261,6 +10297,9 @@
                         url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
                         success:
                         function (){
+                            setTimeout(function() {
+                                return false;
+                            }, 3000);
                             $.ajax({
                               type: 'GET',
                               url: '{{ Route::has($viewFolder . '.pdfPostOp') ? route($viewFolder . '.pdfPostOp', $datum->id) : '' }}',
@@ -10281,7 +10320,7 @@
                 <div class="docNotesDiv card mb-3" id="{{ $viewFolder }}_PostOp_{{ $cr->id }}" style="display:none">
                   <div class="card-header">Post Operative Instruction View</div>
                   <div class="card-body">
-                    <iframe id="iframePostOp{{ $cr->id }}" src="{{ file_exists(public_path('storage/printable_forms_files/pdfPostOp_' . $cr->id . '_' . $cr->patient->l_name . '.pdf')) ? asset('storage/printable_forms_files/pdfPostOp_' . $cr->id . '_' . $cr->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
+                    <iframe id="iframePostOp{{ $cr->id }}" src="{{ Storage::disk('spaces')->exists('/storage/printable_forms_files/pdfPostOp_' . $cr->id . '_' . $cr->patient->l_name . '.pdf') ? Storage::disk('spaces')->temporaryUrl('/storage/printable_forms_files/pdfPostOp_' . $cr->id . '_' . $cr->patient->l_name . '.pdf', now()->addMinutes(10)) : (file_exists(public_path('storage/printable_forms_files/pdfPostOp_' . $cr->id . '_' . $cr->patient->l_name . '.pdf')) ? asset('storage/printable_forms_files/pdfPostOp_' . $cr->id . '_' . $cr->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg') }}" width="100%" height="300" style="border:1"></iframe>
                     <small class="form-text text-muted">To print or download check the upper right part</small>
                   </div>
                   <div class="card-footer">
@@ -10294,6 +10333,9 @@
                         url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
                         success:
                         function (){
+                            setTimeout(function() {
+                                return false;
+                            }, 3000);
                             $.ajax({
                               type: 'GET',
                               url: '{{ Route::has($viewFolder . '.pdfPostOp') ? route($viewFolder . '.pdfPostOp', $cr->id) : '' }}',
@@ -12541,6 +12583,7 @@
                               <th colspan="11">Blood Chemistry</th>
                               <th colspan="4">Iron Studies</th>
                               <th colspan="3">Hepatitis Profile</th>
+                              <th rowspan="2">Date</th>
                             </tr>
                             <tr>  
                               <th>URR</th>
@@ -12594,6 +12637,7 @@
                               <td>{{ $dat->hbsag }}</td>
                               <td>{{ $dat->anti_hbs }}</td>
                               <td>{{ $dat->anti_hcv }}</td>
+                              <td>{{ $dat->bookingDate }}</td>
                             </tr>
                             @endforeach
                           @endif
@@ -13840,10 +13884,10 @@
                           item.file_link = item.file_link.replace('uploads', 'storage/uploads');
                         if(index == 0){
                           indicator = '<button type="button" data-bs-target="#carouselCur" data-bs-slide-to="' + index + '" class="active" aria-current="true" aria-label="Slide ' + (index+1) + '"></button>'
-                          inner = '<div class="carousel-item active"><iframe src="' + item.file_link + '" class="d-block w-100" alt=""></iframe><div class="carousel-caption d-none d-md-block"><p>' + item.bookingDate +'</p></div></div>';
+                          inner = '<div class="carousel-item active"><iframe src="' + item.file_link + '" class="d-block w-100" height="373" style="border:1" alt=""></iframe><div class="carousel-caption d-none d-md-block"><p>' + item.bookingDate +'</p></div></div>';
                         }else{
                           indicator += '<button type="button" data-bs-target="#carouselCur" data-bs-slide-to="' + index + '" aria-label="Slide ' + (index+1) + '"></button>'
-                          inner += '<div class="carousel-item"><iframe src="' + item.file_link + '" class="d-block w-100" alt=""></iframe><div class="carousel-caption d-none d-md-block"><p>' + item.bookingDate +'</p></div></div>';
+                          inner += '<div class="carousel-item"><iframe src="' + item.file_link + '" class="d-block w-100" height="373" style="border:1" alt=""></iframe><div class="carousel-caption d-none d-md-block"><p>' + item.bookingDate +'</p></div></div>';
                         }
                         grid += '<div class="img-div" data-bs-target="#carouselCur" data-bs-slide-to="' + index + '" id="img-div-save' + index + '""><iframe src="' + item.file_link + '" class="img-thumbnail" title="' + item.file_link.split("/")[item.file_link.split("/").length - 1] + '"></iframe><p>' + item.bookingDate +'</p><div class="middle"><button id="action-icon" value="img-div-save' + index + '" class="btn btn-danger" saved="' + item.id + '"><i class="bi bi-trash"></i></button></div></div>';
                       }else{
@@ -13888,6 +13932,9 @@
             url: '{{ Route::has('clinics_home.deleteUploadedFile') ? route('clinics_home.deleteUploadedFile') : ''}}/' + $(this).attr('saved'),
             success:
               function (){
+                setTimeout(function() {
+                    return false;
+                }, 3000);
                 $.ajax({
                   type: 'GET',
                   url: '{{ Route::has($viewFolder . '.getPrevBookingInfo') ? route($viewFolder . '.getPrevBookingInfo') : ''}}/{{ $datum->id }}/withhistory/0',

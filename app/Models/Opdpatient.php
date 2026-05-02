@@ -48,7 +48,10 @@ class Opdpatient extends Model
         'admitdiag',
         'dischadiag',
         'histillness',
-        'pertipasthist'
+        'pertipasthist',
+        'hr',
+        'rr',
+        'height'
     ];
 
     

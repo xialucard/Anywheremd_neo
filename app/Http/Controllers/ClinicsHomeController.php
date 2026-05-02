@@ -840,13 +840,18 @@ class ClinicsHomeController extends Controller
                 PrintableForm::where('consultation_id', $printableForm['consultation_id'])->update($printableForm);
         }
 
+        unset($referralEntry);
         if(isset($params['referal'])){
             $referralEntry = $params['referal'];
             unset($params['referal']);
         }
+
         $referer = $params['referer'];
         unset($params['referer']);
-
+        
+        unset($referral_id);
+        if(isset($params['referral_id']))
+            $referral_id = $params['referral_id'];
         if(isset($params['referral_id']) && isset($params['procedure_details'])){
             Consultation::find($params['referral_id'])->update(['procedure_details' => $params['procedure_details']]);
             unset($params['referral_id']);
@@ -911,7 +916,8 @@ class ClinicsHomeController extends Controller
             foreach($request->clinics_home['ConsultationFile']['files'] as $ind => $file){
                 unset($parFile);
                 $file_name = $clinics_home->id . '_consultation_' . date('ymdhis') . $ind . '.' . $file->extension();
-                $file->storeAs('public/consultation_files', $file_name);
+                // $file->storeAs('public/consultation_files', $file_name);
+                Storage::disk('spaces')->put('/storage/consultation_files/' . $file_name, file_get_contents($file->getRealPath()), 'private');
                 $parFile['consultation_id'] = $clinics_home->id;
                 $parFile['file_link'] = 'storage/consultation_files/' . $file_name;
                 $parFile['file_type'] = $file->getMimeType();
@@ -924,7 +930,8 @@ class ClinicsHomeController extends Controller
             foreach($request->clinics_home['NurseFile']['files'] as $ind => $file){
                 unset($parFile);
                 $file_name = $clinics_home->id . '_consultation_' . date('ymdhis') . $ind . '.' . $file->extension();
-                $file->storeAs('public/nurse_files', $file_name);
+                Storage::disk('spaces')->put('/storage/nurse_files/' . $file_name, file_get_contents($file->getRealPath()), 'private');
+                // $file->storeAs('public/nurse_files', $file_name);
                 $parFile['consultation_id'] = $clinics_home->id;
                 $parFile['file_link'] = 'storage/nurse_files/' . $file_name;
                 $parFile['file_type'] = $file->getMimeType();
@@ -1068,8 +1075,9 @@ class ClinicsHomeController extends Controller
         // exit();
         // dd($params);
         $clinics_home->update($params);
-
+        // dd($referral_id);
         if(isset($referralEntry)){
+            // dd("pumasok");
             $referalExp = explode(',', $referralEntry);
             unset($params['referal']);
             unset($referralIDArr);
@@ -1141,7 +1149,7 @@ class ClinicsHomeController extends Controller
                 // }
             }
             $clinics_home->consultation_referals()->whereNotIn('id', $referralIDArr)->delete();
-        }else{
+        }elseif(!isset($referral_id)){
             $clinics_home->where('consultation_parent_id',  $clinics_home->id)->delete();
         }
         
@@ -1164,10 +1172,16 @@ class ClinicsHomeController extends Controller
     }
 
     function deleteUploadedFile(?int $id){
+        $fileRes = ConsultationFile::find($id);
+        if(Storage::disk('spaces')->exists('/' . $fileRes->file_link))
+            Storage::disk('spaces')->delete('/' . $fileRes->file_link);
         ConsultationFile::destroy($id);
     }
 
     function deleteUploadedNurseFile(?int $id){
+        $fileRes = NurseFile::find($id);
+        if(Storage::disk('spaces')->exists('/' . $fileRes->file_link))
+            Storage::disk('spaces')->delete('/' . $fileRes->file_link);
         NurseFile::destroy($id);
     }
 
@@ -1433,8 +1447,9 @@ class ClinicsHomeController extends Controller
     function pdfPrintableForms(Consultation $clinics_home, $template){
         $user = Auth::user();
         $pdf = Pdf::loadView($this->viewFolder . '.' . $template, ['datum' => $clinics_home, 'user' => $user]);
-        Storage::put('public/printable_forms_files/' . $template . '_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf', $pdf->output());
-        $src = asset('storage/printable_forms_files/' . $template . '_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf');
+        Storage::disk('spaces')->put('/storage/printable_forms_files/' . $template . '_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf', $pdf->output());
+        // $src = asset('storage/printable_forms_files/' . $template . '_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf');
+        $src = Storage::disk('spaces')->temporaryUrl('/storage/printable_forms_files/' . $template . '_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf', now()->addMinutes(10));
         return $src;
         // return $pdf->download('hd_' . $clinics_home->id . '-' . $clinics_home->treatment_number . '.pdf');
         
@@ -1443,15 +1458,17 @@ class ClinicsHomeController extends Controller
     function pdfOpAdmit(Consultation $clinics_home){
         $pdf = Pdf::loadView($this->viewFolder . '.pdfOpAdmit', ['datum' => $clinics_home]);
         
-        Storage::put('public/printable_forms_files/pdfOpAdmit_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf', $pdf->output());
-        $src = asset('storage/printable_forms_files/pdfOpAdmit_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf');
+        Storage::disk('spaces')->put('/storage/printable_forms_files/pdfOpAdmit_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf', $pdf->output());
+        // $src = asset('storage/printable_forms_files/pdfOpAdmit_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf');
+        $src = Storage::disk('spaces')->temporaryUrl('/storage/printable_forms_files/pdfOpAdmit_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf', now()->addMinutes(10));
         return $src;
     }
 
     function pdfORTech(Consultation $clinics_home){
         $pdf = Pdf::loadView($this->viewFolder . '.pdfORTech', ['datum' => $clinics_home]);
-        Storage::put('public/printable_forms_files/pdfORTech_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf', $pdf->output());
-        $src = asset('storage/printable_forms_files/pdfORTech_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf');
+        Storage::disk('spaces')->put('/storage/printable_forms_files/pdfORTech_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf', $pdf->output());
+        // $src = asset('storage/printable_forms_files/pdfORTech_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf');
+        $src = Storage::disk('spaces')->temporaryUrl('/storage/printable_forms_files/pdfORTech_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf', now()->addMinutes(10));
         return $src;
     }
 
@@ -1459,8 +1476,9 @@ class ClinicsHomeController extends Controller
         $user = Auth::user();
         $pdf = Pdf::loadView($this->viewFolder . '.pdfNurseNotes', ['datum' => $clinics_home, 'user' => $user]);
         
-        Storage::put('public/printable_forms_files/pdfORTech_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf', $pdf->output());
-        $src = asset('storage/printable_forms_files/pdfORTech_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf');
+        Storage::disk('spaces')->put('/storage/printable_forms_files/pdfORTech_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf', $pdf->output());
+        // $src = asset('storage/printable_forms_files/pdfORTech_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf');
+        $src = Storage::disk('spaces')->temporaryUrl('/storage/printable_forms_files/pdfORTech_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf', now()->addMinutes(10));
         return $src;
         
     }
@@ -1468,8 +1486,9 @@ class ClinicsHomeController extends Controller
     function pdfPostOp(Consultation $clinics_home){
         $pdf = Pdf::loadView($this->viewFolder . '.pdfPostOp', ['datum' => $clinics_home]);
         
-        Storage::put('public/printable_forms_files/pdfPostOp_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf', $pdf->output());
-        $src = asset('storage/printable_forms_files/pdfPostOp_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf');
+        Storage::disk('spaces')->put('/storage/printable_forms_files/pdfPostOp_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf', $pdf->output());
+        // $src = asset('storage/printable_forms_files/pdfPostOp_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf');
+        $src = Storage::disk('spaces')->temporaryUrl('/storage/printable_forms_files/pdfPostOp_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf', now()->addMinutes(10));
         return $src;
         // return redirect()->route($this->viewFolder . '.index')->with('message', 'Admitting Order PDF is created.');
     }
@@ -1479,8 +1498,9 @@ class ClinicsHomeController extends Controller
         // dd($doctors_home);
         $pdf = Pdf::loadView($this->viewFolder . '.pdfDischargeSum', ['datum' => $clinics_home, 'user' => $user]);
         
-        Storage::put('public/printable_forms_files/pdfDischargeSum_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf', $pdf->output());
-        $src = asset('storage/printable_forms_files/pdfDischargeSum_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf');
+        Storage::disk('spaces')->put('/storage/printable_forms_files/pdfDischargeSum_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf', $pdf->output());
+        // $src = asset('storage/printable_forms_files/pdfDischargeSum_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf');
+        $src = Storage::disk('spaces')->temporaryUrl('/storage/printable_forms_files/pdfDischargeSum_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf', now()->addMinutes(10));
         return $src;
         // return redirect()->route($this->viewFolder . '.index')->with('message', 'Admitting Order PDF is created.');
     }
@@ -1519,6 +1539,9 @@ class ClinicsHomeController extends Controller
         $params['temp'] = $clinics_home->temp;
         $params['bp'] = $clinics_home->bpS . '/' . $clinics_home->bpD;
         $params['weight'] = $clinics_home->weight;
+        $params['hr'] = $clinics_home->heart;
+        $params['rr'] = $clinics_home->o2;
+        $params['height'] = $clinics_home->height;
         // $params['pwd'] = "";
         $params['phiccode'] = $clinics_home->patient->phil_mem_type;
         $params['phicmembr'] = $this->phicMemType[$clinics_home->patient->phil_mem_type];

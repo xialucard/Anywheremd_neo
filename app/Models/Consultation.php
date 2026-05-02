@@ -186,7 +186,8 @@ class Consultation extends Model
         'tsat',
         'hbsag',
         'anti_hbs',
-        'anti_hcv'
+        'anti_hcv',
+        'platelet'
     ];
 
     public $sortable = ['id'];

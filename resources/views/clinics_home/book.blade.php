@@ -416,7 +416,7 @@
                         $('#CreatePDFAdmitOpDiv').hide();
                         $('#ORTechInput').hide();
                         $('#CreatePDFORTechDiv').hide();
-                        $('#NurseNotesInput').hide();
+                        $('#NurseNotesInput').hide(); 
                         $('#CreatePDFNurseNotesDiv').hide();
                         $.ajax({
                           type: 'POST',
@@ -424,14 +424,17 @@
                           url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
                           success:
                           function (){
-                              $.ajax({
-                                type: 'GET',
-                                url: '{{ Route::has($viewFolder . '.pdfPrintableForms') ? route($viewFolder . '.pdfPrintableForms', [(isset($referal_conso->id) ? $referal_conso->id : $datum->id), 'pdfGeneralConsent']) : '' }}',
-                                success:
-                                function (data){
-                                  $('#iframeDynaForm').attr('src', data);
-                                }
-                              });
+                            setTimeout(function() {
+                                return false;
+                            }, 3000);
+                            $.ajax({
+                              type: 'GET',
+                              url: '{{ Route::has($viewFolder . '.pdfPrintableForms') ? route($viewFolder . '.pdfPrintableForms', [(isset($referal_conso->id) ? $referal_conso->id : $datum->id), 'pdfGeneralConsent']) : '' }}',
+                              success:
+                              function (data){
+                                $('#iframeDynaForm').attr('src', data);
+                              }
+                            })
                           }
                         });
                     ">General Consent</a>
@@ -460,6 +463,9 @@
                           url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
                           success:
                           function (){
+                              setTimeout(function() {
+                                  return false;
+                              }, 3000);
                               $.ajax({
                                 type: 'GET',
                                 url: '{{ Route::has($viewFolder . '.pdfPrintableForms') ? route($viewFolder . '.pdfPrintableForms', [(isset($referal_conso->id) ? $referal_conso->id : $datum->id), 'pdfDataPrivacyConsent']) : '' }}',
@@ -491,22 +497,26 @@
                         $('#CreatePDFORTechDiv').hide();
                         $('#NurseNotesInput').hide();
                         $('#CreatePDFNurseNotesDiv').hide();
-                        $.ajax({
-                          type: 'POST',
-                          data: $('#bookMod').serialize(),
-                          url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
-                          success:
-                          function (){
-                              $.ajax({
-                                type: 'GET',
-                                url: '{{ Route::has($viewFolder . '.pdfPrintableForms') ? route($viewFolder . '.pdfPrintableForms', [(isset($referal_conso->id) ? $referal_conso->id : $datum->id), 'pdfDischargeSum']) : '' }}',
-                                success:
-                                function (data){
-                                  $('#iframeDynaForm').attr('src', data);
-                                }
-                              });
-                          }
-                        });
+                        // $.ajax({
+                        //   type: 'POST',
+                        //   data: $('#bookMod').serialize(),
+                        //   url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
+                        //   success:
+                        //   function (){
+                        //       setTimeout(function() {
+                        //           return false;
+                        //       }, 3000);
+                        //       $.ajax({
+                        //         type: 'GET',
+                        //         url: '{{ Route::has($viewFolder . '.pdfPrintableForms') ? route($viewFolder . '.pdfPrintableForms', [(isset($referal_conso->id) ? $referal_conso->id : $datum->id), 'pdfDischargeSum']) : '' }}',
+                        //         success:
+                        //         function (data){
+                        //           $('#iframeDynaForm').attr('src', data);
+                        //         }
+                        //       });
+                        //   }
+                        // });
+                        $('#iframeDynaForm').attr('src', '{{ Storage::disk('spaces')->exists('/storage/printable_forms_files/pdfDischargeSum_' . (isset($referal_conso->id) ? $referal_conso->id : $datum->id) . '_' . (isset($referal_conso->patient->l_name) ? $referal_conso->patient->l_name : $datum->patient->l_name) . '.pdf') ? Storage::disk('spaces')->temporaryUrl('/storage/printable_forms_files/pdfDischargeSum_' . (isset($referal_conso->id) ? $referal_conso->id : $datum->id) . '_' . (isset($referal_conso->patient->l_name) ? $referal_conso->patient->l_name : $datum->patient->l_name) . '.pdf', now()->addMinutes(10)) : (file_exists(public_path('storage/printable_forms_files/pdfDischargeSum_' . (isset($referal_conso->id) ? $referal_conso->id : $datum->id) . '_' . (isset($referal_conso->patient->l_name) ? $referal_conso->patient->l_name : $datum->patient->l_name) . '.pdf')) ? asset('storage/printable_forms_files/pdfDischargeSum_' . (isset($referal_conso->id) ? $referal_conso->id : $datum->id) . '_' . (isset($referal_conso->patient->l_name) ? $referal_conso->patient->l_name : $datum->patient->l_name) . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg') }}');
                     ">Discharge Summary</a>
                     @endif
                     <a href="#" class="list-group-item list-group-item-action" id="nurseNotesLink" onclick="
@@ -534,6 +544,9 @@
                           url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
                           success:
                           function (){
+                              setTimeout(function() {
+                                  return false;
+                              }, 3000);
                               $.ajax({
                                 type: 'GET',
                                 url: '{{ Route::has($viewFolder . '.pdfPrintableForms') ? route($viewFolder . '.pdfPrintableForms', [(isset($referal_conso->id) ? $referal_conso->id : $datum->id), 'pdfNurseNotes']) : '' }}',
@@ -565,22 +578,26 @@
                         $('#CreatePDFORTechDiv').hide();
                         $('#NurseNotesInput').hide();
                         $('#CreatePDFNurseNotesDiv').hide();
-                        $.ajax({
-                          type: 'POST',
-                          data: $('#bookMod').serialize(),
-                          url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
-                          success:
-                          function (){
-                              $.ajax({
-                                type: 'GET',
-                                url: '{{ Route::has($viewFolder . '.pdfPrintableForms') ? route($viewFolder . '.pdfPrintableForms', [(isset($referal_conso->id) ? $referal_conso->id : $datum->id), 'pdfOpAdmit']) : '' }}',
-                                success:
-                                function (data){
-                                  $('#iframeDynaForm').attr('src', data);
-                                }
-                              });
-                          }
-                        });
+                        // $.ajax({
+                        //   type: 'POST',
+                        //   data: $('#bookMod').serialize(),
+                        //   url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
+                        //   success:
+                        //   function (){
+                        //       setTimeout(function() {
+                        //           return false;
+                        //       }, 3000);
+                        //       $.ajax({
+                        //         type: 'GET',
+                        //         url: '{{ Route::has($viewFolder . '.pdfPrintableForms') ? route($viewFolder . '.pdfPrintableForms', [(isset($referal_conso->id) ? $referal_conso->id : $datum->id), 'pdfOpAdmit']) : '' }}',
+                        //         success:
+                        //         function (data){
+                        //           $('#iframeDynaForm').attr('src', data);
+                        //         }
+                        //       });
+                        //   }
+                        // });
+                        $('#iframeDynaForm').attr('src', '{{ Storage::disk('spaces')->exists('/storage/printable_forms_files/pdfOpAdmit_' . (isset($referal_conso->id) ? $referal_conso->id : $datum->id) . '_' . (isset($referal_conso->patient->l_name) ? $referal_conso->patient->l_name : $datum->patient->l_name) . '.pdf') ? Storage::disk('spaces')->temporaryUrl('/storage/printable_forms_files/pdfOpAdmit_' . (isset($referal_conso->id) ? $referal_conso->id : $datum->id) . '_' . (isset($referal_conso->patient->l_name) ? $referal_conso->patient->l_name : $datum->patient->l_name) . '.pdf', now()->addMinutes(10)) : (file_exists(public_path('storage/printable_forms_files/pdfOpAdmit_' . (isset($referal_conso->id) ? $referal_conso->id : $datum->id) . '_' . (isset($referal_conso->patient->l_name) ? $referal_conso->patient->l_name : $datum->patient->l_name) . '.pdf')) ? asset('storage/printable_forms_files/pdfOpAdmit_' . (isset($referal_conso->id) ? $referal_conso->id : $datum->id) . '_' . (isset($referal_conso->patient->l_name) ? $referal_conso->patient->l_name : $datum->patient->l_name) . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg') }}');
                     ">Admitting and Peri-Op</a>
                     <a href="#" class="list-group-item list-group-item-action" id="orTechLink" onclick="
                         $(this).addClass('active');
@@ -601,22 +618,26 @@
                         $('#CreatePDFORTechDiv').show();
                         $('#NurseNotesInput').hide();
                         $('#CreatePDFNurseNotesDiv').hide();
-                        $.ajax({
-                          type: 'POST',
-                          data: $('#bookMod').serialize(),
-                          url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
-                          success:
-                          function (){
-                              $.ajax({
-                                type: 'GET',
-                                url: '{{ Route::has($viewFolder . '.pdfPrintableForms') ? route($viewFolder . '.pdfPrintableForms', [(isset($referal_conso->id) ? $referal_conso->id : $datum->id), 'pdfORTech']) : '' }}',
-                                success:
-                                function (data){
-                                  $('#iframeDynaForm').attr('src', data);
-                                }
-                              });
-                          }
-                        });
+                        // $.ajax({
+                        //   type: 'POST',
+                        //   data: $('#bookMod').serialize(),
+                        //   url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
+                        //   success:
+                        //   function (){
+                        //       setTimeout(function() {
+                        //           return false;
+                        //       }, 3000);
+                        //       $.ajax({
+                        //         type: 'GET',
+                        //         url: '{{ Route::has($viewFolder . '.pdfPrintableForms') ? route($viewFolder . '.pdfPrintableForms', [(isset($referal_conso->id) ? $referal_conso->id : $datum->id), 'pdfORTech']) : '' }}',
+                        //         success:
+                        //         function (data){
+                        //           $('#iframeDynaForm').attr('src', data);
+                        //         }
+                        //       });
+                        //   }
+                        // });
+                        $('#iframeDynaForm').attr('src', '{{ Storage::disk('spaces')->exists('/storage/printable_forms_files/pdfORTech_' . (isset($referal_conso->id) ? $referal_conso->id : $datum->id) . '_' . (isset($referal_conso->patient->l_name) ? $referal_conso->patient->l_name : $datum->patient->l_name) . '.pdf') ? Storage::disk('spaces')->temporaryUrl('/storage/printable_forms_files/pdfORTech_' . (isset($referal_conso->id) ? $referal_conso->id : $datum->id) . '_' . (isset($referal_conso->patient->l_name) ? $referal_conso->patient->l_name : $datum->patient->l_name) . '.pdf', now()->addMinutes(10)) : (file_exists(public_path('storage/printable_forms_files/pdfORTech_' . (isset($referal_conso->id) ? $referal_conso->id : $datum->id) . '_' . (isset($referal_conso->patient->l_name) ? $referal_conso->patient->l_name : $datum->patient->l_name) . '.pdf')) ? asset('storage/printable_forms_files/pdfORTech_' . (isset($referal_conso->id) ? $referal_conso->id : $datum->id) . '_' . (isset($referal_conso->patient->l_name) ? $referal_conso->patient->l_name : $datum->patient->l_name) . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg') }}');
                     ">OR Tech</a>
                     <a href="#" class="list-group-item list-group-item-action" id="postOpLink" onclick="
                         $(this).addClass('active');
@@ -637,22 +658,26 @@
                         $('#CreatePDFORTechDiv').hide();
                         $('#NurseNotesInput').hide();
                         $('#CreatePDFNurseNotesDiv').hide();
-                        $.ajax({
-                          type: 'POST',
-                          data: $('#bookMod').serialize(),
-                          url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
-                          success:
-                          function (){
-                              $.ajax({
-                                type: 'GET',
-                                url: '{{ Route::has($viewFolder . '.pdfPrintableForms') ? route($viewFolder . '.pdfPrintableForms', [(isset($referal_conso->id) ? $referal_conso->id : $datum->id), 'pdfPostOp']) : '' }}',
-                                success:
-                                function (data){
-                                  $('#iframeDynaForm').attr('src', data);
-                                }
-                              });
-                          }
-                        });
+                        // $.ajax({
+                        //   type: 'POST',
+                        //   data: $('#bookMod').serialize(),
+                        //   url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
+                        //   success:
+                        //   function (){
+                        //       setTimeout(function() {
+                        //           return false;
+                        //       }, 3000);
+                        //       $.ajax({
+                        //         type: 'GET',
+                        //         url: '{{ Route::has($viewFolder . '.pdfPrintableForms') ? route($viewFolder . '.pdfPrintableForms', [(isset($referal_conso->id) ? $referal_conso->id : $datum->id), 'pdfPostOp']) : '' }}',
+                        //         success:
+                        //         function (data){
+                        //           $('#iframeDynaForm').attr('src', data);
+                        //         }
+                        //       });
+                        //   }
+                        // });
+                        $('#iframeDynaForm').attr('src', '{{ Storage::disk('spaces')->exists('/storage/printable_forms_files/pdfPostOp_' . (isset($referal_conso->id) ? $referal_conso->id : $datum->id) . '_' . (isset($referal_conso->patient->l_name) ? $referal_conso->patient->l_name : $datum->patient->l_name) . '.pdf') ? Storage::disk('spaces')->temporaryUrl('/storage/printable_forms_files/pdfPostOp_' . (isset($referal_conso->id) ? $referal_conso->id : $datum->id) . '_' . (isset($referal_conso->patient->l_name) ? $referal_conso->patient->l_name : $datum->patient->l_name) . '.pdf', now()->addMinutes(10)) : (file_exists(public_path('storage/printable_forms_files/pdfPostOp_' . (isset($referal_conso->id) ? $referal_conso->id : $datum->id) . '_' . (isset($referal_conso->patient->l_name) ? $referal_conso->patient->l_name : $datum->patient->l_name) . '.pdf')) ? asset('storage/printable_forms_files/pdfPostOp_' . (isset($referal_conso->id) ? $referal_conso->id : $datum->id) . '_' . (isset($referal_conso->patient->l_name) ? $referal_conso->patient->l_name : $datum->patient->l_name) . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg') }}');
                     ">Post Operative Instructions</a>
                     @endif
                     <a href="#" class="list-group-item list-group-item-action" id="undertakingLink" onclick="
@@ -680,6 +705,9 @@
                           url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
                           success:
                           function (){
+                              setTimeout(function() {
+                                  return false;
+                              }, 3000);
                               $.ajax({
                                 type: 'GET',
                                 url: '{{ Route::has($viewFolder . '.pdfPrintableForms') ? route($viewFolder . '.pdfPrintableForms', [(isset($referal_conso->id) ? $referal_conso->id : $datum->id), 'pdfUndertaking']) : '' }}',
@@ -697,7 +725,7 @@
         <div class="card mb-3">
             <div class="card-header">Form Preview</div>
             <div class="card-body">
-                <iframe id="iframeDynaForm" src="{{ file_exists(public_path('storage/printable_forms_files/pdfGeneralConsent_' . $datum->id . '_' . $datum->patient->l_name . '.pdf')) ? asset('storage/printable_forms_files/pdfGeneralConsent_' . $datum->id . '_' . $datum->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="100%" height="300" style="border:1"></iframe>
+                <iframe id="iframeDynaForm" src="{{ Storage::disk('spaces')->exists('/storage/printable_forms_files/pdfGeneralConsent_' . $datum->id . '_' . $datum->patient->l_name . '.pdf') ? Storage::disk('spaces')->temporaryUrl('/storage/printable_forms_files/pdfGeneralConsent_' . $datum->id . '_' . $datum->patient->l_name . '.pdf', now()->addMinutes(10)) : (file_exists(public_path('storage/printable_forms_files/pdfGeneralConsent_' . $datum->id . '_' . $datum->patient->l_name . '.pdf')) ? asset('storage/printable_forms_files/pdfGeneralConsent_' . $datum->id . '_' . $datum->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg') }}" width="100%" height="300" style="border:1"></iframe>
                 <small class="form-text text-muted">To print or download check the upper right part</small>
             </div>
             <div class="card-footer" id="CreatePDFDischargeSumDiv" style="display:none">
@@ -708,6 +736,9 @@
                   url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
                   success:
                   function (){
+                      setTimeout(function() {
+                          return false;
+                      }, 3000);
                       $.ajax({
                         type: 'GET',
                         url: '{{ Route::has($viewFolder . '.pdfDischargeSum') ? route($viewFolder . '.pdfDischargeSum', (isset($referal_conso->id) ? $referal_conso->id : $datum->id)) : '' }}',
@@ -728,6 +759,9 @@
                   url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
                   success:
                   function (){
+                      setTimeout(function() {
+                          return false;
+                      }, 3000);
                       $.ajax({
                         type: 'GET',
                         url: '{{ Route::has($viewFolder . '.pdfPostOp') ? route($viewFolder . '.pdfPostOp', (isset($referal_conso->id) ? $referal_conso->id : $datum->id)) : '' }}',
@@ -748,6 +782,9 @@
                   url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
                   success:
                   function (){
+                      setTimeout(function() {
+                          return false;
+                      }, 3000);
                       $.ajax({
                         type: 'GET',
                         url: '{{ Route::has($viewFolder . '.pdfOpAdmit') ? route($viewFolder . '.pdfOpAdmit', (isset($referal_conso->id) ? $referal_conso->id : $datum->id)) : '' }}',
@@ -768,6 +805,9 @@
                   url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
                   success:
                   function (){
+                      setTimeout(function() {
+                          return false;
+                      }, 3000);
                       $.ajax({
                         type: 'GET',
                         url: '{{ Route::has($viewFolder . '.pdfORTech') ? route($viewFolder . '.pdfORTech', (isset($referal_conso->id) ? $referal_conso->id : $datum->id)) : '' }}',
@@ -788,6 +828,9 @@
                   url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
                   success:
                   function (){
+                      setTimeout(function() {
+                          return false;
+                      }, 3000);
                       $.ajax({
                         type: 'GET',
                         url: '{{ Route::has($viewFolder . '.pdfNurseNotes') ? route($viewFolder . '.pdfNurseNotes', $datum->id) : '' }}',
@@ -806,13 +849,13 @@
             <div class="card-body">
               <div class="mb-3">
               <label for="{{ $viewFolder }}_pre_op_diagnosis" class="form-label">Pre-Operative Diagnosis</label>
-              <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][pre_op_diagnosis]" id="{{ $viewFolder }}_pre_op_diagnosis" rows=3>{{ isset($referal_conso->printable_form['pre_op_diagnosis']) ? $referal_conso->printable_form['pre_op_diagnosis'] : (!isset($referal_conso) && isset($datum->printable_form['pre_op_diagnosis']) ? $datum->printable_form['pre_op_diagnosis'] : $datum->assessment) }}</textarea>
+              <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][pre_op_diagnosis]" id="{{ $viewFolder }}_pre_op_diagnosis" rows=3>{{ isset($referal_conso->printable_form['pre_op_diagnosis']) && $referal_conso->printable_form['pre_op_diagnosis'] != "" ? $referal_conso->printable_form['pre_op_diagnosis'] : (!isset($referal_conso) && isset($datum->printable_form['pre_op_diagnosis']) ? $datum->printable_form['pre_op_diagnosis'] : $datum->assessment) }}</textarea>
               <small id="help_{{ $viewFolder }}_address" class="text-muted">By defaulr this is from SOAP Secondary Diagnosis entry unless edited here.</small>
               </div>
 
               <div class="mb-3">
               <label for="{{ $viewFolder }}_post_op_diagnosis" class="form-label">Post-Operative Diagnosis</label>
-              <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][post_op_diagnosis]" id="{{ $viewFolder }}_post_op_diagnosis" rows=3>{{ isset($referal_conso->printable_form['post_op_diagnosis']) ? $referal_conso->printable_form['post_op_diagnosis'] : (!isset($referal_conso) && isset($datum->printable_form['post_op_diagnosis']) ? $datum->printable_form['post_op_diagnosis'] : $datum->post_op_assessment) }}</textarea>
+              <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][post_op_diagnosis]" id="{{ $viewFolder }}_post_op_diagnosis" rows=3>{{ isset($referal_conso->printable_form['post_op_diagnosis']) && $referal_conso->printable_form['post_op_diagnosis'] != "" ? $referal_conso->printable_form['post_op_diagnosis'] : (!isset($referal_conso) && isset($datum->printable_form['post_op_diagnosis']) ? $datum->printable_form['post_op_diagnosis'] : $datum->post_op_assessment) }}</textarea>
               <small id="help_{{ $viewFolder }}_address" class="text-muted">By default this is from SOAP Discharge Diagnosis entry unless edited here.</small>
               </div>
 
@@ -882,7 +925,7 @@
               
               <div class="input-group mb-3">
                 <div class="form-floating">
-                  <input class="form-control" type="number" name="{{ $viewFolder }}[PrintableForm][avoid_days]" min=30 step=.1 id="{{ $viewFolder }}_avoid_days" value="{{ isset($referal_conso->printable_form['avoid_days']) ? $referal_conso->printable_form['avoid_days'] : (!isset($referal_conso) && isset($datum->printable_form['avoid_days']) ? $datum->printable_form['avoid_days'] : '') }}" placeholder="">
+                  <input class="form-control" type="number" name="{{ $viewFolder }}[PrintableForm][avoid_days]" min=0 step=1 id="{{ $viewFolder }}_avoid_days" value="{{ isset($referal_conso->printable_form['avoid_days']) ? $referal_conso->printable_form['avoid_days'] : (!isset($referal_conso) && isset($datum->printable_form['avoid_days']) ? $datum->printable_form['avoid_days'] : '') }}" placeholder="">
                   <label for="{{ $viewFolder }}_avoid_days" class="form-label">Avoid strenuous activity for</label>
                   <small id="help_{{ $viewFolder }}_avoid_days" class="text-muted"></small>
                 </div>
@@ -1638,10 +1681,14 @@
         <div class="row" id="image_preview_saved">
           @if(isset($datum->consultation_files))
             @foreach($datum->consultation_files as $ind => $file)
-            @php
-              $exAr = explode('/', $file->file_link);
-            @endphp
-          <div class='img-div' id='img-div-save{{ $ind }}'><img src='{{ asset($file->file_link) }}' class='img-thumbnail' title='{{ $exAr[sizeof($exAr)-1] }}'><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
+              @php
+                $exAr = explode('/', $file->file_link);
+              @endphp
+              @if($file->file_type == 'application/pdf')
+          <div class='img-div' id='img-div-save{{ $ind }}'><iframe src='{{ Storage::disk('spaces')->exists('/' . $file->file_link) ? Storage::disk('spaces')->temporaryUrl('/' . $file->file_link, now()->addMinutes(10)) : (stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link))) }}' class='img-thumbnail' title='{{ $exAr[sizeof($exAr)-1] }}'></iframe><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
+              @else
+          <div class='img-div' id='img-div-save{{ $ind }}'><img src='{{ Storage::disk('spaces')->exists('/' . $file->file_link) ? Storage::disk('spaces')->temporaryUrl('/' . $file->file_link, now()->addMinutes(10)) : asset($file->file_link) }}' class='img-thumbnail' title='{{ $exAr[sizeof($exAr)-1] }}'><div class='middle'><button id='action-icon' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
+              @endif
             @endforeach
           @endif
         </div>
@@ -1655,10 +1702,14 @@
         <div class="row" id="image_preview_saved_nurse">
           @if(isset($datum->nurse_files))
             @foreach($datum->nurse_files as $ind => $file)
-            @php
-              $exAr = explode('/', $file->file_link);
-            @endphp
-          <div class='img-div' id='img-div-nurse-save{{ $ind }}'><img src='{{ asset($file->file_link) }}' class='img-thumbnail' title='{{ $exAr[sizeof($exAr)-1] }}'><div class='middle'><button id='action-icon-nurse' value='img-div-nurse-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
+              @php
+                $exAr = explode('/', $file->file_link);
+              @endphp
+              @if($file->file_type == 'application/pdf')
+          <div class='img-div' id='img-div-nurse-save{{ $ind }}'><iframe src='{{ Storage::disk('spaces')->exists('/' . $file->file_link) ? Storage::disk('spaces')->temporaryUrl('/' . $file->file_link, now()->addMinutes(10)) : (stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link))) }}' class='img-thumbnail' title='{{ $exAr[sizeof($exAr)-1] }}'></iframe><div class='middle'><button id='action-icon-nurse' value='img-div-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
+              @else
+          <div class='img-div' id='img-div-nurse-save{{ $ind }}'><img src='{{ Storage::disk('spaces')->exists('/' . $file->file_link) ? Storage::disk('spaces')->temporaryUrl('/' . $file->file_link, now()->addMinutes(10)) : asset($file->file_link) }}' class='img-thumbnail' title='{{ $exAr[sizeof($exAr)-1] }}'><div class='middle'><button id='action-icon-nurse' value='img-div-nurse-save{{ $ind }}' class='btn btn-danger' role='{{ $exAr[sizeof($exAr)-1] }}' saved='{{ $file->id }}'><i class='bi bi-trash'></i></button></div></div>
+              @endif
             @endforeach
           @endif
         </div>
@@ -2109,7 +2160,8 @@
                   <div class="form-floating">
                     <input class="form-control" type="number" name="{{ $viewFolder }}[height]" min=1 step=.1 id="{{ $viewFolder }}_height" value="{{ isset($datum->height) ? $datum->height : '' }}" placeholder="" {{ isset($datum->id) ? '' : '' }} onblur="
                         if($(this).val() != '' && $('#{{ $viewFolder }}_weight').val() != ''){
-                          $('#{{ $viewFolder }}_bmi').val($('#{{ $viewFolder }}_weight').val()/(($(this).val()/100)*($(this).val()/100)));
+                          bmiTwo = $('#{{ $viewFolder }}_weight').val()/(($(this).val()/100)*($(this).val()/100));
+                          $('#{{ $viewFolder }}_bmi').val(bmiTwo.toFixed(2));
                         }else{
                           $('#{{ $viewFolder }}_bmi').val('');
                         }
@@ -2123,7 +2175,8 @@
                   <div class="form-floating">
                     <input class="form-control" type="number" name="{{ $viewFolder }}[weight]" min=1 step=.1 id="{{ $viewFolder }}_weight" value="{{ isset($datum->weight) ? $datum->weight : '' }}" placeholder="" {{ isset($datum->id) ? '' : '' }} onblur="
                       if($(this).val() != '' && $('#{{ $viewFolder }}_height').val() != ''){
-                        $('#{{ $viewFolder }}_bmi').val($(this).val()/(($('#{{ $viewFolder }}_height').val()/100)*($('#{{ $viewFolder }}_height').val()/100)));
+                        bmiTwo = $(this).val()/(($('#{{ $viewFolder }}_height').val()/100)*($('#{{ $viewFolder }}_height').val()/100))
+                        $('#{{ $viewFolder }}_bmi').val(bmiTwo.toFixed(2));
                       }else{
                         $('#{{ $viewFolder }}_bmi').val('');
                       }
@@ -2143,7 +2196,7 @@
                 </div> --}}
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="number" name="{{ $viewFolder }}[bmi]" min=1 id="{{ $viewFolder }}_bmi" value="{{ !empty($datum->height) ? (int)$datum->weight/(((int)$datum->height/100)*((int)$datum->height/100)) : '' }}" placeholder="" disabled>
+                    <input class="form-control" type="number" name="{{ $viewFolder }}[bmi]" min=1 id="{{ $viewFolder }}_bmi" value="{{ !empty($datum->height) ? number_format((int)$datum->weight/(((int)$datum->height/100)*((int)$datum->height/100)), 2) : '' }}" placeholder="" disabled>
                     <label for="{{ $viewFolder }}_bmi" class="form-label">BMI</label>
                     <small id="help_{{ $viewFolder }}_bmi" class="text-muted"></small>
                   </div>
@@ -3245,6 +3298,13 @@
                         <label for="{{ $viewFolder }}_wbc" class="form-label">WBC</label>
                       </div>
                       <small id="help_{{ $viewFolder }}_wbc" class="text-muted"></small>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" step="1" name="{{ $viewFolder }}[platelet]" id="{{ $viewFolder }}_platelet" placeholder="" value="{{ !empty($datum->platelet) ? $datum->platelet : '' }}">
+                        <label for="{{ $viewFolder }}_platelet" class="form-label">Platelet</label>
+                      </div>
+                      <small id="help_{{ $viewFolder }}_platelet" class="text-muted"></small>
                     </div>
                     <p>Dialysis Adequacy</p>
                     <div class="input-group">
@@ -5127,7 +5187,11 @@
               return false;
             } else {
               fileArr.push(total_file[i]);
-              $('#image_preview').append("<div class='img-div' id='img-div"+i+"'><img src='"+URL.createObjectURL(event.target.files[i])+"' class='img-thumbnail' title='"+total_file[i].name+"'><div class='middle'><button id='action-icon' value='img-div"+i+"' class='btn btn-danger' role='"+total_file[i].name+"'><i class='bi bi-trash'></i></button></div></div>");
+              fileName = total_file[i].name;
+              if(fileName.includes(".pdf"))
+                $('#image_preview').append("<div class='img-div' id='img-div"+i+"'><iframe src='"+URL.createObjectURL(event.target.files[i])+"' class='img-thumbnail' title='"+total_file[i].name+"'></iframe><div class='middle'><button id='action-icon' value='img-div"+i+"' class='btn btn-danger' role='"+total_file[i].name+"'><i class='bi bi-trash'></i></button></div></div>");
+              else
+                $('#image_preview').append("<div class='img-div' id='img-div"+i+"'><img src='"+URL.createObjectURL(event.target.files[i])+"' class='img-thumbnail' title='"+total_file[i].name+"'><div class='middle'><button id='action-icon' value='img-div"+i+"' class='btn btn-danger' role='"+total_file[i].name+"'><i class='bi bi-trash'></i></button></div></div>");
             }
           }
     });
@@ -5143,9 +5207,12 @@
             if (total_file[i].size > 1048576) {
               return false;
             } else {
-
               fileArr.push(total_file[i]);
-              $('#image_preview_nurse').append("<div class='img-div' id='img-div-nurse"+i+"'><img src='"+URL.createObjectURL(event.target.files[i])+"' class='img-thumbnail' title='"+total_file[i].name+"'><div class='middle'><button id='action-icon-nurse' value='img-div-nurse"+i+"' class='btn btn-danger' role='"+total_file[i].name+"'><i class='bi bi-trash'></i></button></div></div>");
+              fileName = total_file[i].name;
+              if(fileName.includes(".pdf"))
+                $('#image_preview_nurse').append("<div class='img-div' id='img-div"+i+"'><iframe src='"+URL.createObjectURL(event.target.files[i])+"' class='img-thumbnail' title='"+total_file[i].name+"'></iframe><div class='middle'><button id='action-icon' value='img-div"+i+"' class='btn btn-danger' role='"+total_file[i].name+"'><i class='bi bi-trash'></i></button></div></div>");
+              else
+                $('#image_preview_nurse').append("<div class='img-div' id='img-div-nurse"+i+"'><img src='"+URL.createObjectURL(event.target.files[i])+"' class='img-thumbnail' title='"+total_file[i].name+"'><div class='middle'><button id='action-icon-nurse' value='img-div-nurse"+i+"' class='btn btn-danger' role='"+total_file[i].name+"'><i class='bi bi-trash'></i></button></div></div>");
             }
           }
     });

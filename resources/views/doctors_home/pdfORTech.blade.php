@@ -132,7 +132,7 @@
     </table>
     
     <center><h3>OPERATIVE TECHNIQUE</h3></center>
-    <div style="height:4in">
+    <div style="min-height:4in">
         <p>
             {!! isset($referal_conso->printable_form['operative_tech']) ? nl2br($referal_conso->printable_form['operative_tech']) : (!isset($referal_conso) ? nl2br($datum->printable_form['operative_tech']) : '') !!}
         </p>

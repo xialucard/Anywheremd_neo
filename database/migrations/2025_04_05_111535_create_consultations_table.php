@@ -170,6 +170,7 @@ return new class extends Migration
             $table->string('hbsag', 255)->nullable();
             $table->string('anti_hbs', 255)->nullable();
             $table->string('anti_hcv', 255)->nullable();
+            $table->string('platelet', 255)->nullable();
             
 
             $table->text('docNotesHPI')->nullable();
