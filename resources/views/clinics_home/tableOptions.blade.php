@@ -38,7 +38,7 @@
     @endif
 
     {{-- @if (Route::has($viewFolder . '.sendDrainwiz') && ($dat->payment_mode == 'Philhealth' || $dat->payment_mode == 'Both' || $dat->payment_mode == 'Both Cash') && !is_null($dat->temp) && !is_null($dat->weight)  && !is_null($dat->bpS) && !is_null($dat->bpD) && !is_null($dat->complain) && !is_null($dat->assessment) && !is_null($dat->docNotesHPI) && is_null($dat->consultation_parent_id) && $dat->patient->phil_num != '') --}}
-    @if (Route::has($viewFolder . '.sendDrainwiz') && ($dat->payment_mode == 'Philhealth' || $dat->payment_mode == 'Both' || $dat->payment_mode == 'Both Cash') && !is_null($dat->temp) && !is_null($dat->weight)  && !is_null($dat->bpS) && !is_null($dat->bpD) && !is_null($dat->complain) && !is_null($dat->heart) && !is_null($dat->o2) && !is_null($dat->height) && is_null($dat->consultation_parent_id) && $dat->patient->phil_num != '')
+    @if (Route::has($viewFolder . '.sendDrainwiz') && ($dat->payment_mode == 'Philhealth' || $dat->payment_mode == 'Both' || $dat->payment_mode == 'Both Cash') && !is_null($dat->temp) && !is_null($dat->weight)  && !is_null($dat->bpS) && !is_null($dat->bpD) && !is_null($dat->complain) && !is_null($dat->heart) && !is_null($dat->resp) && !is_null($dat->height) && is_null($dat->consultation_parent_id) && $dat->patient->phil_num != '')
         @can($viewFolder . '.sendDrainwiz')
     <div class="m-1"><a class="btn btn-{{ $bgColor }} btn-sm w-100 {{ isset($dat->opdpatient->id) ? 'disabled' : '' }}" href="{{ route($viewFolder . '.sendDrainwiz', [isset($referal_conso) ? $referal_conso->id : $dat->id, !empty(parse_url(Request::fullUrl())['query']) ? parse_url(Request::fullUrl())['query'] : '']) }}" title="Send to Drainwiz" role="button" onclick="if(!confirm('Are you sure you want to send this to Drainwiz?')) return false;"><i class="bi bi-coin"></i><span class="ps-1 d-sm-none">Send to Drainwiz</span></a></div>
         @endcan
@@ -55,8 +55,8 @@
                 $strArr[] = 'Chief Complain';
             if(is_null($dat->heart))
                 $strArr[] = 'Heart Rate';
-            if(is_null($dat->o2))
-                $strArr[] = 'O2 %';
+            if(is_null($dat->resp))
+                $strArr[] = 'Respiratory Rate';
             if(is_null($dat->height))
                 $strArr[] = 'Height';
             // if(is_null($dat->assessment))

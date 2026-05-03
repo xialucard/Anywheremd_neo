@@ -1540,7 +1540,7 @@ class ClinicsHomeController extends Controller
         $params['bp'] = $clinics_home->bpS . '/' . $clinics_home->bpD;
         $params['weight'] = $clinics_home->weight;
         $params['hr'] = $clinics_home->heart;
-        $params['rr'] = $clinics_home->o2;
+        $params['rr'] = $clinics_home->resp;
         $params['height'] = $clinics_home->height;
         // $params['pwd'] = "";
         $params['phiccode'] = $clinics_home->patient->phil_mem_type;

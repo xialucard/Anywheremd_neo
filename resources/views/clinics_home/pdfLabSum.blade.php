@@ -91,6 +91,7 @@
                 <th rowspan="2">Hematocrit</th>
                 <th rowspan="2">RBC</th>
                 <th rowspan="2">WBC</th>
+                <th rowspan="2">Platelet</th>
                 <th colspan="2">Dialysis Adequacy</th>
                 <th colspan="11">Blood Chemistry</th>
                 <th colspan="4">Iron Studies</th>
@@ -127,6 +128,7 @@
                 <td>{{ $dat->hematocrit }}</td>
                 <td>{{ $dat->rbc }}</td>
                 <td>{{ $dat->wbc }}</td>
+                <td>{{ $dat->platelet }}</td>
                 <td>{{ number_format($dat->urr, 2) }}</td>
                 <td>{{ number_format($dat->ktv2, 2) }}</td>
                 <td>{{ $dat->pre_bun }}</td>
