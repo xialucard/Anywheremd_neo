@@ -963,7 +963,7 @@
                   @foreach($pxC->consultation_files as $file)
                   @if(stristr($file->file_type, 'pdf'))
                 <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
-                  <iframe src="{{ Storage::disk('spaces')->exists('/' . $file->file_link) ? Storage::disk('spaces')->temporaryUrl('/' . $file->file_link, now()->addMinutes(10)) : (stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link))) }}" class="d-block w-100" alt=""></iframe>
+                  <iframe src="{{ Storage::disk('spaces')->exists('/' . $file->file_link) ? Storage::disk('spaces')->temporaryUrl('/' . $file->file_link, now()->addMinutes(10)) : (stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link))) }}" width="100%" height="373" style="border:1"></iframe>
                   <div class="carousel-caption d-none d-md-block">
                     {{-- <h5>First slide label</h5> --}}
                     <p>{{ $pxC->bookingDate }}</p>
@@ -4258,7 +4258,10 @@
                   inner = '<div class="carousel-item active"><img src="' + item.file_link + '" class="d-block w-100" alt=""><div class="carousel-caption d-none d-md-block"><p>' + item.bookingDate +'</p></div></div>';
               }else{
                 indicator += '<button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="' + index + '" aria-label="Slide ' + (index+1) + '"></button>'
-                inner += '<div class="carousel-item"><img src="' + item.file_link + '" class="d-block w-100" alt=""><div class="carousel-caption d-none d-md-block"><p>' + item.bookingDate +'</p></div></div>';
+                if(item.file_link.includes('.pdf'))
+                  inner += '<div class="carousel-item"><iframe src="' + item.file_link + '" width="100%" height="373" style="border:1"><div class="carousel-caption d-none d-md-block"><p>' + item.bookingDate +'</p></div></iframe></div>';
+                else
+                  inner += '<div class="carousel-item"><img src="' + item.file_link + '" class="d-block w-100" alt=""><div class="carousel-caption d-none d-md-block"><p>' + item.bookingDate +'</p></div></div>';
               }
             });
             $('#labPrevCarouselInd').html(indicator);
