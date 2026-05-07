@@ -4252,7 +4252,10 @@
                 item.file_link = item.file_link.replace('uploads', 'storage/uploads');
               if(index == 0){
                 indicator = '<button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="' + index + '" class="active" aria-current="true" aria-label="Slide ' + (index+1) + '"></button>'
-                inner = '<div class="carousel-item active"><img src="' + item.file_link + '" class="d-block w-100" alt=""><div class="carousel-caption d-none d-md-block"><p>' + item.bookingDate +'</p></div></div>';
+                if(item.file_link.includes('.pdf'))
+                  inner = '<div class="carousel-item active"><iframe src="' + item.file_link + '" width="100%" height="373" style="border:1"><div class="carousel-caption d-none d-md-block"><p>' + item.bookingDate +'</p></div></iframe></div>';
+                else
+                  inner = '<div class="carousel-item active"><img src="' + item.file_link + '" class="d-block w-100" alt=""><div class="carousel-caption d-none d-md-block"><p>' + item.bookingDate +'</p></div></div>';
               }else{
                 indicator += '<button type="button" data-bs-target="#carouselPrev" data-bs-slide-to="' + index + '" aria-label="Slide ' + (index+1) + '"></button>'
                 inner += '<div class="carousel-item"><img src="' + item.file_link + '" class="d-block w-100" alt=""><div class="carousel-caption d-none d-md-block"><p>' + item.bookingDate +'</p></div></div>';
