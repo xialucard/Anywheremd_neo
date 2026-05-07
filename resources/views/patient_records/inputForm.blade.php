@@ -963,7 +963,7 @@
                   @foreach($pxC->consultation_files as $file)
                   @if(stristr($file->file_type, 'pdf'))
                 <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
-                  <iframe src="{{stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt=""></iframe>
+                  <iframe src="{{ Storage::disk('spaces')->exists('/' . $file->file_link) ? Storage::disk('spaces')->temporaryUrl('/' . $file->file_link, now()->addMinutes(10)) : (stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link))) }}" class="d-block w-100" alt=""></iframe>
                   <div class="carousel-caption d-none d-md-block">
                     {{-- <h5>First slide label</h5> --}}
                     <p>{{ $pxC->bookingDate }}</p>
@@ -971,7 +971,7 @@
                 </div>
                   @else
                 <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
-                  <img src="{{stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
+                  <img src="{{ Storage::disk('spaces')->exists('/' . $file->file_link) ? Storage::disk('spaces')->temporaryUrl('/' . $file->file_link, now()->addMinutes(10)) : (stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link))) }}" class="d-block w-100" alt="">
                   <div class="carousel-caption d-none d-md-block">
                     {{-- <h5>First slide label</h5> --}}
                     <p>{{ $pxC->bookingDate }}</p>
@@ -988,7 +988,7 @@
                   @foreach($pxC->anesthesia_files as $file)
                   @if(stristr($file->file_type, 'pdf'))
                 <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
-                  <iframe src="{{stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt=""></iframe>
+                  <iframe src="{{ Storage::disk('spaces')->exists('/' . $file->file_link) ? Storage::disk('spaces')->temporaryUrl('/' . $file->file_link, now()->addMinutes(10)) : (stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link))) }}" class="d-block w-100" alt=""></iframe>
                   <div class="carousel-caption d-none d-md-block">
                     {{-- <h5>First slide label</h5> --}}
                     <p>{{ $pxC->bookingDate }}</p>
@@ -996,7 +996,7 @@
                 </div>
                   @else
                 <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
-                  <img src="{{stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
+                  <img src="{{ Storage::disk('spaces')->exists('/' . $file->file_link) ? Storage::disk('spaces')->temporaryUrl('/' . $file->file_link, now()->addMinutes(10)) : (stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link))) }}" class="d-block w-100" alt="">
                   <div class="carousel-caption d-none d-md-block">
                     {{-- <h5>First slide label</h5> --}}
                     <p>{{ $pxC->bookingDate }}</p>
@@ -1013,7 +1013,7 @@
                   @foreach($pxC->doctor_files as $file)
                   @if(stristr($file->file_type, 'pdf'))
                 <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
-                  <iframe src="{{stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt=""></iframe>
+                  <iframe src="{{ Storage::disk('spaces')->exists('/' . $file->file_link) ? Storage::disk('spaces')->temporaryUrl('/' . $file->file_link, now()->addMinutes(10)) : (stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link))) }}" class="d-block w-100" alt=""></iframe>
                   <div class="carousel-caption d-none d-md-block">
                     {{-- <h5>First slide label</h5> --}}
                     <p>{{ $pxC->bookingDate }}</p>
@@ -1021,7 +1021,7 @@
                 </div>
                   @else
                 <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
-                  <img src="{{stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
+                  <img src="{{ Storage::disk('spaces')->exists('/' . $file->file_link) ? Storage::disk('spaces')->temporaryUrl('/' . $file->file_link, now()->addMinutes(10)) : (stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link))) }}" class="d-block w-100" alt="">
                   <div class="carousel-caption d-none d-md-block">
                     {{-- <h5>First slide label</h5> --}}
                     <p>{{ $pxC->bookingDate }}</p>
@@ -1038,7 +1038,7 @@
                   @foreach($pxC->prescription_files as $file)
                   @if(stristr($file->file_type, 'pdf'))
                 <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
-                  <iframe src="{{stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt=""></iframe>
+                  <iframe src="{{ Storage::disk('spaces')->exists('/' . $file->file_link) ? Storage::disk('spaces')->temporaryUrl('/' . $file->file_link, now()->addMinutes(10)) : (stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link))) }}" class="d-block w-100" alt=""></iframe>
                   <div class="carousel-caption d-none d-md-block">
                     {{-- <h5>First slide label</h5> --}}
                     <p>{{ $pxC->bookingDate }}</p>
@@ -1046,7 +1046,7 @@
                 </div>
                   @else
                 <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
-                  <img src="{{stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link)) }}" class="d-block w-100" alt="">
+                  <img src="{{ Storage::disk('spaces')->exists('/' . $file->file_link) ? Storage::disk('spaces')->temporaryUrl('/' . $file->file_link, now()->addMinutes(10)) : (stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link))) }}" class="d-block w-100" alt="">
                   <div class="carousel-caption d-none d-md-block">
                     {{-- <h5>First slide label</h5> --}}
                     <p>{{ $pxC->bookingDate }}</p>
@@ -1081,7 +1081,7 @@
             <div class="card mb-3">
               <div class="card-header">Prescription Preview</div>
               <div class="card-body">
-                <iframe id="iframePrevPresc" src="{{ file_exists(public_path('storage/prescription_files/' . $bookings[0]->id . '_' . trim($bookings[0]->patient->l_name) . '.pdf')) ? asset('storage/prescription_files/' . $bookings[0]->id . '_' . trim($bookings[0]->patient->l_name) . '.pdf') : (file_exists(public_path('storage/uploads/prescription_files/' . $bookings[0]->id . '_' . trim($bookings[0]->patient->l_name) . '.pdf')) ? asset('storage//uploads/prescription_files/' . $bookings[0]->id . '_' . trim($bookings[0]->patient->l_name) . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg') }}" width="100%" height="300" style="border:1"></iframe>
+                <iframe id="iframePrevPresc" src="{{ Storage::disk('spaces')->exists('/storage/prescription_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf') ? Storage::disk('spaces')->temporaryUrl('/storage/prescription_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf', now()->addMinutes(10)) : (file_exists(public_path('storage/prescription_files/' . $bookings[0]->id . '_' . trim($bookings[0]->patient->l_name) . '.pdf')) ? asset('storage/prescription_files/' . $bookings[0]->id . '_' . trim($bookings[0]->patient->l_name) . '.pdf') : (file_exists(public_path('storage/uploads/prescription_files/' . $bookings[0]->id . '_' . trim($bookings[0]->patient->l_name) . '.pdf')) ? asset('storage//uploads/prescription_files/' . $bookings[0]->id . '_' . trim($bookings[0]->patient->l_name) . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg')) }}" width="100%" height="300" style="border:1"></iframe>
                 <small class="form-text text-muted">To print or download go to Tools</small>
               </div>
             </div>
@@ -1090,7 +1090,7 @@
             <div class="card mb-3">
               <div class="card-header">Med Cert Preview</div>
               <div class="card-body">
-                <iframe id="iframePrevMedCert" src="{{ file_exists(public_path('storage/med_cert_files/' . $bookings[0]->id . '_' . trim($bookings[0]->patient->l_name) . '.pdf')) ? asset('storage/med_cert_files/' . $bookings[0]->id . '_' . trim($bookings[0]->patient->l_name) . '.pdf') : (file_exists(public_path('storage/uploads/med_cert_files/' . $bookings[0]->id . '_' . trim($bookings[0]->patient->l_name) . '.pdf')) ? asset('storage//uploads/med_cert_files/' . $bookings[0]->id . '_' . trim($bookings[0]->patient->l_name) . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg') }}" width="100%" height="300" style="border:1"></iframe>
+                <iframe id="iframePrevMedCert" src="{{ Storage::disk('spaces')->exists('/storage/med_cert_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf') ? Storage::disk('spaces')->temporaryUrl('/storage/med_cert_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf', now()->addMinutes(10)) : (file_exists(public_path('storage/med_cert_files/' . $bookings[0]->id . '_' . trim($bookings[0]->patient->l_name) . '.pdf')) ? asset('storage/med_cert_files/' . $bookings[0]->id . '_' . trim($bookings[0]->patient->l_name) . '.pdf') : (file_exists(public_path('storage/uploads/med_cert_files/' . $bookings[0]->id . '_' . trim($bookings[0]->patient->l_name) . '.pdf')) ? asset('storage//uploads/med_cert_files/' . $bookings[0]->id . '_' . trim($bookings[0]->patient->l_name) . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg')) }}" width="100%" height="300" style="border:1"></iframe>
                 <small class="form-text text-muted">To print or download go to Tools</small>
               </div>
             </div>
@@ -1099,7 +1099,7 @@
             <div class="card mb-3">
               <div class="card-header">Admitting Orders Preview</div>
               <div class="card-body">
-                <iframe id="iframePrevAdmitting" src="{{ file_exists(public_path('storage/admitting_order_files/' . $bookings[0]->id . '_' . trim($bookings[0]->patient->l_name) . '.pdf')) ? asset('storage/admitting_order_files/' . $bookings[0]->id . '_' . trim($bookings[0]->patient->l_name) . '.pdf') : (file_exists(public_path('storage/uploads/admitting_order_files/' . $bookings[0]->id . '_' . trim($bookings[0]->patient->l_name) . '.pdf')) ? asset('storage//uploads/admitting_order_files/' . $bookings[0]->id . '_' . trim($bookings[0]->patient->l_name) . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg') }}" width="100%" height="300" style="border:1"></iframe>
+                <iframe id="iframePrevAdmitting" src="{{ Storage::disk('spaces')->exists('/storage/admitting_order_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf') ? Storage::disk('spaces')->temporaryUrl('/storage/admitting_order_files/' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf', now()->addMinutes(10)) : (file_exists(public_path('storage/admitting_order_files/' . $bookings[0]->id . '_' . trim($bookings[0]->patient->l_name) . '.pdf')) ? asset('storage/admitting_order_files/' . $bookings[0]->id . '_' . trim($bookings[0]->patient->l_name) . '.pdf') : (file_exists(public_path('storage/uploads/admitting_order_files/' . $bookings[0]->id . '_' . trim($bookings[0]->patient->l_name) . '.pdf')) ? asset('storage//uploads/admitting_order_files/' . $bookings[0]->id . '_' . trim($bookings[0]->patient->l_name) . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg')) }}" width="100%" height="300" style="border:1"></iframe>
                 <small class="form-text text-muted">To print or download go to Tools</small>
               </div>
             </div>
