@@ -963,7 +963,7 @@
                   @foreach($pxC->consultation_files as $file)
                   @if(stristr($file->file_type, 'pdf'))
                 <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
-                  <iframe src="{{ Storage::disk('spaces')->exists('/' . $file->file_link) ? Storage::disk('spaces')->temporaryUrl('/' . $file->file_link, now()->addMinutes(10)) : (stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link))) }}" width="100%" height="373" style="border:1></iframe>
+                  <iframe src="{{ Storage::disk('spaces')->exists('/' . $file->file_link) ? Storage::disk('spaces')->temporaryUrl('/' . $file->file_link, now()->addMinutes(10)) : (stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link))) }}" class="d-block w-100" alt=""></iframe>
                   <div class="carousel-caption d-none d-md-block">
                     {{-- <h5>First slide label</h5> --}}
                     <p>{{ $pxC->bookingDate }}</p>
@@ -988,7 +988,7 @@
                   @foreach($pxC->anesthesia_files as $file)
                   @if(stristr($file->file_type, 'pdf'))
                 <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
-                  <iframe src="{{ Storage::disk('spaces')->exists('/' . $file->file_link) ? Storage::disk('spaces')->temporaryUrl('/' . $file->file_link, now()->addMinutes(10)) : (stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link))) }}" width="100%" height="373" style="border:1"></iframe>
+                  <iframe src="{{ Storage::disk('spaces')->exists('/' . $file->file_link) ? Storage::disk('spaces')->temporaryUrl('/' . $file->file_link, now()->addMinutes(10)) : (stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link))) }}" class="d-block w-100" alt=""></iframe>
                   <div class="carousel-caption d-none d-md-block">
                     {{-- <h5>First slide label</h5> --}}
                     <p>{{ $pxC->bookingDate }}</p>
@@ -1013,7 +1013,7 @@
                   @foreach($pxC->doctor_files as $file)
                   @if(stristr($file->file_type, 'pdf'))
                 <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
-                  <iframe src="{{ Storage::disk('spaces')->exists('/' . $file->file_link) ? Storage::disk('spaces')->temporaryUrl('/' . $file->file_link, now()->addMinutes(10)) : (stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link))) }}" width="100%" height="373" style="border:1"></iframe>
+                  <iframe src="{{ Storage::disk('spaces')->exists('/' . $file->file_link) ? Storage::disk('spaces')->temporaryUrl('/' . $file->file_link, now()->addMinutes(10)) : (stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link))) }}" class="d-block w-100" alt=""></iframe>
                   <div class="carousel-caption d-none d-md-block">
                     {{-- <h5>First slide label</h5> --}}
                     <p>{{ $pxC->bookingDate }}</p>
@@ -1038,7 +1038,7 @@
                   @foreach($pxC->prescription_files as $file)
                   @if(stristr($file->file_type, 'pdf'))
                 <div class="carousel-item {{ $ind == 0 ? 'active' : '' }}">
-                  <iframe src="{{ Storage::disk('spaces')->exists('/' . $file->file_link) ? Storage::disk('spaces')->temporaryUrl('/' . $file->file_link, now()->addMinutes(10)) : (stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link))) }}" width="100%" height="373" style="border:1"></iframe>
+                  <iframe src="{{ Storage::disk('spaces')->exists('/' . $file->file_link) ? Storage::disk('spaces')->temporaryUrl('/' . $file->file_link, now()->addMinutes(10)) : (stristr($file->file_link, 'uploads') ? asset('storage/' . $file->file_link)  : asset(str_replace('public', 'storage', $file->file_link))) }}" class="d-block w-100" alt=""></iframe>
                   <div class="carousel-caption d-none d-md-block">
                     {{-- <h5>First slide label</h5> --}}
                     <p>{{ $pxC->bookingDate }}</p>
