@@ -151,7 +151,8 @@ class Controller extends BaseController
         "Urology"=>array(),
         "Family Medicine"=>array(),
         "POD"=>array(),
-        "ENT"=>array()
+        "ENT"=>array(),
+        "Nutritionist-Dietitian"=>array()
         
     );
 
