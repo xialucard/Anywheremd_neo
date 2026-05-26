@@ -132,7 +132,7 @@
     </table>
     
     <center><h3>OPERATIVE TECHNIQUE</h3></center>
-    <div style="min-height:4in">
+    <div style="min-height:3.5in">
         <p>
             {!! isset($referal_conso->printable_form['operative_tech']) ? nl2br($referal_conso->printable_form['operative_tech']) : (!isset($referal_conso) ? nl2br($datum->printable_form['operative_tech']) : '') !!}
         </p>
@@ -167,6 +167,8 @@
     
     @if(((isset($referal_conso) && isset($referal_conso->printable_form['orTechSigKey']) && $referal_conso->printable_form['orTechSigKey'] == 'yes') ? true : ((!isset($referal_conso) && $datum->printable_form['orTechSigKey'] == 'yes') ? true : false)) && ($datum->doctor->sig_pic != '' || $referal_conso->doctor->sig_pic))
     <img src="{{ public_path('storage/doctor_files/' . (isset($referal_conso->doctor->sig_pic) ? $referal_conso->doctor->sig_pic : (!isset($referal_conso) ? $datum->doctor->sig_pic : ''))) }}" style="width:1in"><br>
+    @else
+    <div style="min-height:.5in"></div>
     @endif
     <span>Surgeon: {{ isset($referal_conso->doctor->name) ? $referal_conso->doctor->name : (!isset($referal_conso) ? $datum->doctor->name : '') }} (Name & Signature)</span>
     <br>
