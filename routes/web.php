@@ -50,6 +50,7 @@ Route::group(['middleware' => ['auth', 'permission']], function() {
     Route::get('/clinics_home/deleteUploadedFile/{id?}', [ClinicsHomeController::class, 'deleteUploadedFile'])->name('clinics_home.deleteUploadedFile');
     Route::get('/clinics_home/deleteUploadedNurseFile/{id?}', [ClinicsHomeController::class, 'deleteUploadedNurseFile'])->name('clinics_home.deleteUploadedNurseFile');
     Route::get('clinics_home/{clinics_home}/pdfHD', [ClinicsHomeController::class, 'pdfHD'])->name('clinics_home.pdfHD');
+    Route::get('clinics_home/{clinics_home}/pdfOrderSum', [ClinicsHomeController::class, 'pdfOrderSum'])->name('clinics_home.pdfOrderSum');
     Route::get('clinics_home/{clinics_home}/pdfHDSum', [ClinicsHomeController::class, 'pdfHDSum'])->name('clinics_home.pdfHDSum');
     Route::get('clinics_home/{clinics_home}/pdfLabSum', [ClinicsHomeController::class, 'pdfLabSum'])->name('clinics_home.pdfLabSum');
     Route::get('clinics_home/{clinics_home}/pdfOpAdmit', [ClinicsHomeController::class, 'pdfOpAdmit'])->name('clinics_home.pdfOpAdmit');

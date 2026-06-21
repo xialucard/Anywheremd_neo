@@ -199,6 +199,7 @@
             $('#consoSOAP').hide();
             $('#hdSum').hide();
             $('#labSum').hide();
+            $('#orderSum').hide();
             $('#printableFormsDiv').hide();
             $(this).addClass('active');
             $('#docInfoLink').removeClass('active');
@@ -208,6 +209,7 @@
             $('#SOAPLink').removeClass('active');
             $('#hdSumLink').removeClass('active');
             $('#labSumLink').removeClass('active');
+            $('#orderSumLink').removeClass('active');
             $('#printableFormsLink').removeClass('active');
           ">Patient's Booking Chart</a>
         </li>
@@ -221,6 +223,7 @@
             $('#consoSOAP').hide();
             $('#hdSum').hide();
             $('#labSum').hide();
+            $('#orderSum').hide();
             $('#printableFormsDiv').hide();
             $(this).addClass('active');
             $('#docInfoLink').removeClass('active');
@@ -230,6 +233,7 @@
             $('#SOAPLink').removeClass('active');
             $('#hdSumLink').removeClass('active');
             $('#labSumLink').removeClass('active');
+            $('#orderSumLink').removeClass('active');
             $('#printableFormsLink').removeClass('active');
           ">File Uploads</a>
         </li>
@@ -243,6 +247,7 @@
             $('#consoSOAP').hide();
             $('#hdSum').hide();
             $('#labSum').hide();
+            $('#orderSum').hide();
             $('#printableFormsDiv').hide();
             $(this).addClass('active');
             $('#docInfoLink').removeClass('active');
@@ -252,6 +257,7 @@
             $('#SOAPLink').removeClass('active');
             $('#hdSumLink').removeClass('active');
             $('#labSumLink').removeClass('active');
+            $('#orderSumLink').removeClass('active');
             $('#printableFormsLink').removeClass('active');
           ">Nurse's File Uploads</a>
         </li>
@@ -266,6 +272,7 @@
             $('#consoSOAP').hide();
             $('#hdSum').hide();
             $('#labSum').hide();
+            $('#orderSum').hide();
             $('#printableFormsDiv').hide();
             $(this).addClass('active');
             $('#docInfoLink').removeClass('active');
@@ -275,6 +282,7 @@
             $('#SOAPLink').removeClass('active');
             $('#hdSumLink').removeClass('active');
             $('#labSumLink').removeClass('active');
+            $('#orderSumLink').removeClass('active');
             $('#printableFormsLink').removeClass('active');
           ">Patient's Info</a>
         </li>
@@ -288,6 +296,7 @@
             $('#consoSOAP').hide();
             $('#hdSum').hide();
             $('#labSum').hide();
+            $('#orderSum').hide();
             $('#printableFormsDiv').hide();
             $(this).addClass('active');
             $('#patInfoLink').removeClass('active');
@@ -297,10 +306,10 @@
             $('#SOAPLink').removeClass('active');
             $('#hdSumLink').removeClass('active');
             $('#labSumLink').removeClass('active');
+            $('#orderSumLink').removeClass('active');
             $('#printableFormsLink').removeClass('active');
           ">Doctor's Info</a>
         </li>
-        @if(isset($datum->booking_type) && $datum->booking_type == "Dialysis")
         <li class="nav-item">
           <a class="nav-link"  href="#" id="SOAPLink" onclick="
             $('#consoDocDiv').hide();  
@@ -311,6 +320,7 @@
             $('#consoSOAP').show();
             $('#hdSum').hide();
             $('#labSum').hide();
+            $('#orderSum').hide();
             $('#printableFormsDiv').hide();
             $(this).addClass('active');
             $('#docInfoLink').removeClass('active');
@@ -320,8 +330,34 @@
             $('#patBookChartLink').removeClass('active');
             $('#hdSumLink').removeClass('active');
             $('#labSumLink').removeClass('active');
+            $('#orderSumLink').removeClass('active');
             $('#printableFormsLink').removeClass('active');
           ">SOAP</a>
+        </li>
+        @if(isset($datum->booking_type) && $datum->booking_type == "Dialysis")
+        <li class="nav-item">
+          <a class="nav-link"  href="#" id="orderSumLink" onclick="
+            $('#consoDocDiv').hide();  
+            $('#consoPatientDiv').hide();
+            $('#consoPatUploadDiv').hide();
+            $('#consoNurseUploadDiv').hide();
+            $('#consoPatBookChartDiv').hide();
+            $('#consoSOAP').hide();
+            $('#hdSum').hide();
+            $('#labSum').hide();
+            $('#orderSum').show();
+            $('#printableFormsDiv').hide();
+            $(this).addClass('active');
+            $('#docInfoLink').removeClass('active');
+            $('#patInfoLink').removeClass('active');
+            $('#patUploadLink').removeClass('active');
+            $('#nurseUploadLink').removeClass('active');
+            $('#patBookChartLink').removeClass('active');
+            $('#SOAPLink').removeClass('active');
+            $('#hdSumLink').removeClass('active');
+            $('#labSumLink').removeClass('active');
+            $('#printableFormsLink').removeClass('active');
+          ">Orders Summary Sheet</a>
         </li>
         <li class="nav-item">
           <a class="nav-link"  href="#" id="hdSumLink" onclick="
@@ -333,6 +369,7 @@
             $('#consoSOAP').hide();
             $('#hdSum').show();
             $('#labSum').hide();
+            $('#orderSum').hide();
             $('#printableFormsDiv').hide();
             $(this).addClass('active');
             $('#docInfoLink').removeClass('active');
@@ -342,6 +379,7 @@
             $('#patBookChartLink').removeClass('active');
             $('#SOAPLink').removeClass('active');
             $('#labSumLink').removeClass('active');
+            $('#orderSumLink').removeClass('active');
             $('#printableFormsLink').removeClass('active');
           ">HD Summary Sheet</a>
         </li>
@@ -355,6 +393,7 @@
             $('#consoSOAP').hide();
             $('#hdSum').hide();
             $('#labSum').show();
+            $('#orderSum').hide();
             $('#printableFormsDiv').hide();
             $(this).addClass('active');
             $('#docInfoLink').removeClass('active');
@@ -364,6 +403,7 @@
             $('#patBookChartLink').removeClass('active');
             $('#SOAPLink').removeClass('active');
             $('#hdSumLink').removeClass('active');
+            $('#orderSumLink').removeClass('active');
             $('#printableFormsLink').removeClass('active');
           ">Laboratory Summary Sheet</a>
         </li>
@@ -379,6 +419,7 @@
           $('#consoSOAP').hide();
           $('#hdSum').hide();
           $('#labSum').hide();
+          $('#orderSum').hide();
           $('#printableFormsDiv').show();
           $(this).addClass('active');
           $('#patInfoLink').removeClass('active');
@@ -388,7 +429,7 @@
           $('#SOAPLink').removeClass('active');
           $('#labSumLink').removeClass('active');
           $('#hdSumLink').removeClass('active');
-          $('#hdSumLink').removeClass('active');
+          $('#orderSumLink').removeClass('active');
         ">Printable Forms</a>
         </li>
         @endif
@@ -1370,6 +1411,292 @@
           <table class="table table-bordered table-striped table-hover table-sm medsOn">
             <thead class="table-{{ $bgColor }}">
               <tr>
+                <th rowspan="2">&nbsp;</th>
+                <th colspan="{{ isset($allBooking) ? sizeof($allBooking) : 0 }}">Date</th>
+              </tr>
+              <tr>
+                @if(isset($allBooking))
+                  @foreach ($allBooking as $ind=>$dat)
+                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                      @continue
+                    @endif  
+                    <th>{{ $dat->bookingDate }}</th>
+                  @endforeach
+                @endif
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Hemoglobin</td>
+                @if(isset($allBooking))
+                  @foreach ($allBooking as $ind=>$dat)
+                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                      @continue
+                    @endif
+                    <td>{{ $dat->hemoglobin }}</td>
+                  @endforeach
+                @endif
+              </tr>
+              <tr>
+                <td>Hematocrit</td>
+                @if(isset($allBooking))
+                  @foreach ($allBooking as $ind=>$dat)
+                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)  
+                      @continue
+                    @endif
+                    <td>{{ $dat->hematocrit }}</td>
+                  @endforeach
+                @endif
+              </tr>
+              <tr>
+                <td>RBC</td>
+                @if(isset($allBooking))
+                  @foreach ($allBooking as $ind=>$dat)
+                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                      @continue
+                    @endif
+                    <td>{{ $dat->rbc }}</td>
+                  @endforeach
+                @endif
+              </tr>
+              <tr>
+                <td>WBC</td>
+                @if(isset($allBooking))
+                  @foreach ($allBooking as $ind=>$dat)
+                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                      @continue
+                    @endif
+                    <td>{{ $dat->wbc }}</td>
+                  @endforeach
+                @endif
+              </tr>
+              <tr>
+                <td>Platelet</td>
+                @if(isset($allBooking))
+                  @foreach ($allBooking as $ind=>$dat)
+                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                      @continue
+                    @endif
+                    <td>{{ $dat->platelet }}</td>
+                  @endforeach
+                @endif
+              </tr>
+              <tr>
+                <td>URR</td>
+                @if(isset($allBooking))
+                  @foreach ($allBooking as $ind=>$dat)
+                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                      @continue
+                    @endif
+                    <td>{{  number_format($dat->urr, 2) }}</td>
+                  @endforeach
+                @endif
+              </tr>
+              <tr>
+                <td>Kt/V</td>
+                @if(isset($allBooking))
+                  @foreach ($allBooking as $ind=>$dat)
+                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                      @continue
+                    @endif
+                    <td>{{ number_format($dat->ktv2, 2) }}</td>
+                  @endforeach
+                @endif
+              </tr>
+              <tr>
+                <td>Pre BUN</td>
+                @if(isset($allBooking))
+                  @foreach ($allBooking as $ind=>$dat)
+                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                      @continue
+                    @endif
+                    <td>{{ $dat->pre_bun }}</td>
+                  @endforeach
+                @endif
+              </tr>
+              <tr>
+                <td>Post BUN</td>
+                @if(isset($allBooking))
+                  @foreach ($allBooking as $ind=>$dat)
+                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                      @continue
+                    @endif
+                    <td>{{ $dat->post_bun }}</td>
+                  @endforeach
+                @endif
+              </tr>
+              <tr>
+                <td>Creatinine</td>
+                @if(isset($allBooking))
+                  @foreach ($allBooking as $ind=>$dat)
+                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                      @continue
+                    @endif
+                    <td>{{ $dat->creatinine }}</td>
+                  @endforeach
+                @endif
+              </tr>
+              <tr>
+                <td>Serum Albumin</td>
+                @if(isset($allBooking))
+                  @foreach ($allBooking as $ind=>$dat)
+                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                      @continue
+                    @endif
+                    <td>{{ $dat->serum_albumin }}</td>
+                  @endforeach
+                @endif
+              </tr>
+              <tr>
+                <td>Sodium</td>
+                @if(isset($allBooking))
+                  @foreach ($allBooking as $ind=>$dat)
+                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                      @continue
+                    @endif
+                    <td>{{ $dat->sodium }}</td>
+                  @endforeach
+                @endif
+              </tr>
+              <tr>
+                <td>Potassium</td>
+                @if(isset($allBooking))
+                  @foreach ($allBooking as $ind=>$dat)
+                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                      @continue
+                    @endif
+                    <td>{{ $dat->potassium }}</td>
+                  @endforeach
+                @endif
+              </tr>
+              <tr>
+                <td>Ionized Calcium</td>
+                @if(isset($allBooking))
+                  @foreach ($allBooking as $ind=>$dat)
+                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                      @continue
+                    @endif
+                    <td>{{ $dat->ionized_calcium }}</td>
+                  @endforeach
+                @endif
+              </tr>
+              <tr>
+                <td>Uric Acid</td>
+                @if(isset($allBooking))
+                  @foreach ($allBooking as $ind=>$dat)
+                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                      @continue
+                    @endif
+                    <td>{{ $dat->uric_acid }}</td>
+                  @endforeach
+                @endif
+              </tr>
+              <tr>
+                <td>SGPT</td>
+                @if(isset($allBooking))
+                  @foreach ($allBooking as $ind=>$dat)
+                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                      @continue
+                    @endif
+                    <td>{{ $dat->sgpt }}</td>
+                  @endforeach
+                @endif
+              </tr>
+              <tr>
+                <td>SGOT</td>
+                @if(isset($allBooking))
+                  @foreach ($allBooking as $ind=>$dat)
+                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                      @continue
+                    @endif
+                    <td>{{ $dat->sgot }}</td>
+                  @endforeach
+                @endif
+              </tr>
+              <tr>  
+                <td>Serum Ferritin</td>
+                @if(isset($allBooking))
+                  @foreach ($allBooking as $ind=>$dat)
+                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                      @continue
+                    @endif
+                    <td>{{ $dat->serum_ferritin }}</td>
+                  @endforeach
+                @endif
+              </tr>
+              <tr>
+                <td>Serum Iron</td>
+                @if(isset($allBooking))
+                  @foreach ($allBooking as $ind=>$dat)
+                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                      @continue
+                    @endif
+                    <td>{{ $dat->serum_iron }}</td>
+                  @endforeach
+                @endif
+              </tr>
+              <tr>
+                <td>TIBC</td>
+                @if(isset($allBooking))
+                  @foreach ($allBooking as $ind=>$dat)
+                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                      @continue
+                    @endif
+                    <td>{{ $dat->tibc }}</td>
+                  @endforeach
+                @endif
+              </tr>
+              <tr>
+                <td>TSAT</td>
+                @if(isset($allBooking))
+                  @foreach ($allBooking as $ind=>$dat)
+                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                      @continue
+                    @endif
+                    <td>{{ number_format($dat->tsat, 2) }}</td>
+                  @endforeach
+                @endif
+              </tr>
+              <tr>
+                <td>HBsAg</td>
+                @if(isset($allBooking))
+                  @foreach ($allBooking as $ind=>$dat)
+                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                      @continue
+                    @endif
+                    <td>{{ $dat->hbsag }}</td>
+                  @endforeach
+                @endif
+              </tr>
+              <tr>
+                <td>Anti-HBS</td>
+                @if(isset($allBooking))
+                  @foreach ($allBooking as $ind=>$dat)
+                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                      @continue
+                    @endif
+                    <td>{{ $dat->anti_hbs }}</td>
+                  @endforeach
+                @endif
+              </tr>
+              <tr>
+                <td>Anti-HCV</td>
+                @if(isset($allBooking))
+                  @foreach ($allBooking as $ind=>$dat)
+                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                      @continue
+                    @endif
+                    <td>{{ $dat->anti_hcv }}</td>
+                  @endforeach
+                @endif
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        {{-- <div class="table-responsive" style="max-height: 300px">
+          <table class="table table-bordered table-striped table-hover table-sm medsOn">
+            <thead class="table-{{ $bgColor }}">
+              <tr>
                 <th rowspan="2">Date</th>
                 <th rowspan="2">Hemoglobin</th>
                 <th rowspan="2">Hematocrit</th>
@@ -1439,6 +1766,37 @@
             @endif
             </tbody>
           </table>
+        </div> --}}
+      </div>
+      <div id="orderSum" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
+        @if(isset($datum->id))
+        @can('clinics_home.pdfOrderSum')
+          <div class="m-1"><a id="printLinkID" class="btn btn-{{ $bgColor }} btn-sm w-100 printLink" href="{{ route('clinics_home.pdfOrderSum', [isset($referal_conso) ? $referal_conso->id : $datum->id, !empty(parse_url(Request::fullUrl())['query']) ? parse_url(Request::fullUrl())['query'] : '']) }}" title="Print Order Summary Sheet" role="button" download><i class="bi bi-file-pdf-fill"></i><span class="ps-1 d-sm-none">Print Order Summary Sheet</span></a></div>
+        @endcan
+        @endif
+        <div class="table-responsive" style="max-height: 300px">
+          <table class="table table-bordered table-striped table-hover table-sm medsOn">
+            <thead class="table-{{ $bgColor }}">
+              <tr>
+                <th>Tx No.</th>
+                <th>Date</th>
+                <th>Plan</th>
+                <th>POD</th>
+              </tr>
+            </thead>
+            <tbody>
+            @if(isset($allBooking))
+              @foreach ($allBooking as $ind=>$dat)
+              <tr id="hdBooking_{{ $dat->id }}">
+                  <td>{{ $dat->treatment_number }}</td>
+                  <td>{{ $dat->bookingDate }}</td>
+                  <td>{{ nl2br($dat->planMed) }}</td>
+                  <td>{{ $dat->doctor->name }}</td>
+              </tr>
+              @endforeach
+            @endif
+            </tbody>
+          </table>
         </div>
       </div>
       <div id="hdSum" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
@@ -1472,6 +1830,7 @@
             <tbody>
             @if(isset($allBooking))
               @foreach ($allBooking as $ind=>$dat)
+                @if($dat->consultation_parent_id == null)
               <tr id="hdBooking_{{ $dat->id }}">
                   <td>{{ $dat->treatment_number }}</td>
                   <td>{{ $dat->bookingDate }}</td>
@@ -1490,6 +1849,7 @@
                   <td>{{ nl2br($dat->dialysis_complication) }}</td>
                   <td>{{ $dat->creator->name }}</td>
               </tr>
+                @endif
               @endforeach
             @endif
             </tbody>
@@ -1550,12 +1910,19 @@
         </div>
         <div id="{{ $viewFolder }}_SUMM_{{ isset($datum->id) ? $datum->id : '' }}" class="docNotesDiv" style="display: {{ $origConsoID != $datum->id ? 'none' : 'block' }}">
           <div class="card mb-3">
-            <div class="card-header">Doctor's Notes</div>
+            <div class="card-header">Subjective Findings</div>
             <div class="card-body table-responsive" style="height:300px; max-height: 300px">
               <p>
                 <strong>History of Present Illness:</strong><div class="m-3">{!! isset($datum->docNotesHPI) ? nl2br($datum->docNotesHPI) : '' !!}</div><br>
                 <strong>Subjective Complaints:</strong><br><div class="m-3">{!! isset($datum->docNotesSubject) ? nl2br($datum->docNotesSubject) : '' !!}</div><br>
-                <strong>Objective Findings:</strong><br><div class="m-3">{!! isset($datum->docNotes) ? nl2br($datum->docNotes) : '' !!}</div><br>
+              </p>
+            </div>
+          </div>
+          <div class="card mb-3">
+            <div class="card-header">Objective Findings</div>
+            <div class="card-body table-responsive" style="height:300px; max-height: 300px">
+              <p>
+                <div class="m-3">{!! isset($datum->docNotes) ? nl2br($datum->docNotes) : '' !!}</div><br>
               </p>
             </div>
           </div>

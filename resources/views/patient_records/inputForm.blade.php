@@ -586,12 +586,19 @@
             </div>
             
             <div class="card mb-3">
-              <div class="card-header">Doctor's Notes</div>
+              <div class="card-header">Subjective Findings</div>
               <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                 <p>
                   <strong>History of Present Illness:</strong><div class="m-3" id="{{ $viewFolder }}_prev_sum_docNotesHPI">{!! nl2br(isset($bookings[0]->docNotesHPI) ? $bookings[0]->docNotesHPI : '') !!}</div><br>
                   <strong>Subjective Complaints:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_docNotesSubject">{!! nl2br(isset($bookings[0]->docNotesSubject) ? $bookings[0]->docNotesSubject : '') !!}</div><br>
-                  <strong>Objective Findings:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_docNotes">{!! nl2br(isset($bookings[0]->docNotes) ? $bookings[0]->docNotes : '') !!}</div><br>
+                </p>
+              </div>
+            </div>
+            <div class="card mb-3">
+              <div class="card-header">Objective Findings</div>
+              <div class="card-body table-responsive" style="height:300px; max-height: 300px">
+                <p>
+                  <div class="m-3" id="{{ $viewFolder }}_prev_sum_docNotes">{!! nl2br(isset($bookings[0]->docNotes) ? $bookings[0]->docNotes : '') !!}</div><br>
                 </p>
               </div>
             </div>
@@ -664,22 +671,22 @@
               </li>
             </ul> --}}
             <div class="card mb-3">
-              <div class="card-header">Doctor's Notes</div>
+              <div class="card-header">Subjective Findings</div>
               <div class="card-body">
                 {{-- @if(sizeof($bookings) == 1) --}}
                 <div class="card mb-3">
                   <div class="card-header">History of Present Illness</div>
                   <div class="card-body">
-                    <small class="text-muted">Helper</small>
+                    {{-- <small class="text-muted">Helper</small>
                     <div class="input-group input-group-small flex-nowrap">
                       <select class="form-select" placeholder="" disabled>
                         <option value=""></option>
                       </select>
                       <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
-                    </div>
+                    </div> --}}
                     <small class="text-muted">Content</small>
                     <textarea class="form-control" name="{{ $viewFolder }}[docNotesHPI]" id="{{ $viewFolder }}_prev_docNotesHPI" rows=3 disabled>{{ $bookings[0]->docNotesHPI }}</textarea>
-                    <small class="text-muted">Helper Save/Edit</small>
+                    {{-- <small class="text-muted">Helper Save/Edit</small>
                     <div class="input-group input-group-small mb-3 flex-nowrap">
                       <div class="input-group-text">
                         <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
@@ -687,23 +694,23 @@
                       <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesHPITitle" name="{{ $viewFolder }}[docNotesHPITitle]" disabled>
                       <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                     </div>
-                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[docNotesHPIEdit]" id="{{ $viewFolder }}_docNotesHPIEdit" rows=3 disabled></textarea>
+                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[docNotesHPIEdit]" id="{{ $viewFolder }}_docNotesHPIEdit" rows=3 disabled></textarea> --}}
                   </div>
                 </div>
                 {{-- @else --}}
                 <div class="card mb-3">
                   <div class="card-header">Subjective Complaints</div>
                   <div class="card-body">
-                    <small class="text-muted">Helper</small>
+                    {{-- <small class="text-muted">Helper</small>
                     <div class="input-group input-group-small flex-nowrap">
                       <select class="form-select" placeholder="" disabled>
                         <option value=""></option>
                       </select>
                       <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
-                    </div>
+                    </div> --}}
                     <small class="text-muted">Content</small>
                     <textarea class="form-control" name="{{ $viewFolder }}[docNotesSubject]" id="{{ $viewFolder }}_prev_docNotesSubject" rows=3 disabled>{{ $bookings[0]->docNotesSubject }}</textarea>
-                    <small class="text-muted">Helper Save/Edit</small>
+                    {{-- <small class="text-muted">Helper Save/Edit</small>
                     <div class="input-group input-group-small mb-3 flex-nowrap">
                       <div class="input-group-text">
                         <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
@@ -711,33 +718,34 @@
                       <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesSubjectTitle" name="{{ $viewFolder }}[docNotesSubjectTitle]" disabled>
                       <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                     </div>
-                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[ddocNotesSubjectEdit]" id="{{ $viewFolder }}_docNotesSubjectEdit" rows=3 disabled></textarea>
+                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[ddocNotesSubjectEdit]" id="{{ $viewFolder }}_docNotesSubjectEdit" rows=3 disabled></textarea> --}}
                   </div>
                 </div>
                 {{-- @endif --}}
-                <div class="card mb-3">
-                  <div class="card-header">Objective Findings</div>
-                  <div class="card-body">
-                    <small class="text-muted">Helper</small>
-                    <div class="input-group input-group-small flex-nowrap">
-                      <select class="form-select" placeholder="" disabled>
-                        <option value=""></option>
-                      </select>
-                      <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
-                    </div>
-                    <small class="text-muted">Content</small>
-                    <textarea class="form-control" name="{{ $viewFolder }}[docNotes]" id="{{ $viewFolder }}_prev_docNotes" rows=3 disabled>{{ $bookings[0]->docNotes }}</textarea>
-                    <small class="text-muted">Helper Save/Edit</small>
-                    <div class="input-group input-group-small mb-3 flex-nowrap">
-                      <div class="input-group-text">
-                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
-                      </div>
-                      <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesTitle" name="{{ $viewFolder }}[docNotesTitle]" disabled>
-                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
-                    </div>
-                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[_docNotesEdit]" id="{{ $viewFolder }}_docNotesEdit" rows=3 disabled></textarea>
+                
+              </div>
+            </div>
+            <div class="card mb-3">
+              <div class="card-header">Objective Findings</div>
+              <div class="card-body">
+                {{-- <small class="text-muted">Helper</small>
+                <div class="input-group input-group-small flex-nowrap">
+                  <select class="form-select" placeholder="" disabled>
+                    <option value=""></option>
+                  </select>
+                  <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
+                </div> --}}
+                <small class="text-muted">Content</small>
+                <textarea class="form-control" name="{{ $viewFolder }}[docNotes]" id="{{ $viewFolder }}_prev_docNotes" rows=3 disabled>{{ $bookings[0]->docNotes }}</textarea>
+                {{-- <small class="text-muted">Helper Save/Edit</small>
+                <div class="input-group input-group-small mb-3 flex-nowrap">
+                  <div class="input-group-text">
+                    <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
                   </div>
+                  <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesTitle" name="{{ $viewFolder }}[docNotesTitle]" disabled>
+                  <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                 </div>
+                <textarea class="form-control mb-2" name="{{ $viewFolder }}[_docNotesEdit]" id="{{ $viewFolder }}_docNotesEdit" rows=3 disabled></textarea> --}}
               </div>
             </div>
             <div class="card mb-3">
@@ -751,16 +759,16 @@
                 <div class="card mb-3">
                   <div class="card-header">Secondary Diagnosis</div>
                   <div class="card-body">
-                    <small class="text-muted">Helper</small>
+                    {{-- <small class="text-muted">Helper</small>
                     <div class="input-group input-group-small flex-nowrap">
                       <select class="form-select" placeholder="" disabled>
                         <option value=""></option>
                       </select>
                       <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
-                    </div>
+                    </div> --}}
                     <small class="text-muted">Content</small>
                     <textarea class="form-control" name="{{ $viewFolder }}[assessment]" id="{{ $viewFolder }}_prev_assessment" rows=3 disabled>{{ $bookings[0]->assessment }}</textarea>
-                    <small class="text-muted">Helper Save/Edit</small>
+                    {{-- <small class="text-muted">Helper Save/Edit</small>
                     <div class="input-group input-group-small mb-3 flex-nowrap">
                       <div class="input-group-text">
                         <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
@@ -768,7 +776,7 @@
                       <input type="text" class="form-control" id="{{ $viewFolder }}_assessmentTitle" name="{{ $viewFolder }}[assessmentTitle]" disabled>
                       <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                     </div>
-                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[_assessmentEdit]" id="{{ $viewFolder }}_assessmentEdit" rows=3 disabled></textarea>
+                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[_assessmentEdit]" id="{{ $viewFolder }}_assessmentEdit" rows=3 disabled></textarea> --}}
                   </div>
                 </div>
               </div>
@@ -780,16 +788,16 @@
                 <div class="card mb-3">
                   <div class="card-header">Plan</div>
                   <div class="card-body">
-                    <small class="text-muted">Helper</small>
+                    {{-- <small class="text-muted">Helper</small>
                     <div class="input-group input-group-small flex-nowrap">
                       <select class="form-select" placeholder="" disabled>
                         <option value=""></option>
                       </select>
                       <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
-                    </div>
+                    </div> --}}
                     <small class="text-muted">Content</small>
                     <textarea class="form-control" name="{{ $viewFolder }}[planMed]" id="{{ $viewFolder }}_prev_planMed" rows=3 disabled>{{ $bookings[0]->planMed }}</textarea>
-                    <small class="text-muted">Helper Save/Edit</small>
+                    {{-- <small class="text-muted">Helper Save/Edit</small>
                     <div class="input-group input-group-small mb-3 flex-nowrap">
                       <div class="input-group-text">
                         <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
@@ -797,7 +805,7 @@
                       <input type="text" class="form-control" id="{{ $viewFolder }}_planMedTitle" name="{{ $viewFolder }}[planMedTitle]" disabled>
                       <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                     </div>
-                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planMedEdit]" id="{{ $viewFolder }}_planMedEdit" rows=3 disabled></textarea>
+                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planMedEdit]" id="{{ $viewFolder }}_planMedEdit" rows=3 disabled></textarea> --}}
                   </div>
                 </div>
                 <div class="card mb-3">
@@ -831,16 +839,16 @@
                 <div class="card mb-3">
                   <div class="card-header">Medical Therapeutics</div>
                   <div class="card-body">
-                    <small class="text-muted">Helper</small>
+                    {{-- <small class="text-muted">Helper</small>
                     <div class="input-group input-group-small flex-nowrap">
                       <select class="form-select" placeholder="" disabled>
                         <option value=""></option>
                       </select>
                       <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
-                    </div>
+                    </div> --}}
                     <small class="text-muted">Content</small>
                     <textarea class="form-control" name="{{ $viewFolder }}[planMed]" id="{{ $viewFolder }}_prev_planMed" rows=3 disabled>{{ $bookings[0]->planMed }}</textarea>
-                    <small class="text-muted">Helper Save/Edit</small>
+                    {{-- <small class="text-muted">Helper Save/Edit</small>
                     <div class="input-group input-group-small mb-3 flex-nowrap">
                       <div class="input-group-text">
                         <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
@@ -848,22 +856,22 @@
                       <input type="text" class="form-control" id="{{ $viewFolder }}_planMedTitle" name="{{ $viewFolder }}[planMedTitle]" disabled>
                       <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                     </div>
-                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planMedEdit]" id="{{ $viewFolder }}_planMedEdit" rows=3 disabled></textarea>
+                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planMedEdit]" id="{{ $viewFolder }}_planMedEdit" rows=3 disabled></textarea> --}}
                   </div>
                 </div>
                 <div class="card mb-3">
                   <div class="card-header">Diagnostics and Surgery</div>
                   <div class="card-body">
-                    <small class="text-muted">Helper</small>
+                    {{-- <small class="text-muted">Helper</small>
                     <div class="input-group input-group-small flex-nowrap">
                       <select class="form-select" placeholder="" disabled>
                         <option value=""></option>
                       </select>
                       <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
-                    </div>
+                    </div> --}}
                     <small class="text-muted">Content</small>
                     <textarea class="form-control" name="{{ $viewFolder }}[plan]" id="{{ $viewFolder }}_prev_plan" rows=3 disabled>{{ $bookings[0]->plan }}</textarea>
-                    <small class="text-muted">Helper Save/Edit</small>
+                    {{-- <small class="text-muted">Helper Save/Edit</small>
                     <div class="input-group input-group-small mb-3 flex-nowrap">
                       <div class="input-group-text">
                         <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
@@ -871,22 +879,22 @@
                       <input type="text" class="form-control" id="{{ $viewFolder }}_planTitle" name="{{ $viewFolder }}[planTitle]" disabled>
                       <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                     </div>
-                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planEdit]" id="{{ $viewFolder }}_planEdit" rows=3 disabled></textarea>
+                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planEdit]" id="{{ $viewFolder }}_planEdit" rows=3 disabled></textarea> --}}
                   </div>
                 </div>
                 <div class="card mb-3">
                   <div class="card-header">Remarks</div>
                   <div class="card-body">
-                    <small class="text-muted">Helper</small>
+                    {{-- <small class="text-muted">Helper</small>
                     <div class="input-group input-group-small flex-nowrap">
                       <select class="form-select" placeholder="" disabled>
                         <option value=""></option>
                       </select>
                       <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
-                    </div>
+                    </div> --}}
                     <small class="text-muted">Content</small>
                     <textarea class="form-control" name="{{ $viewFolder }}[planRem]" id="{{ $viewFolder }}_prev_planRem" rows=3 disabled>{{ $bookings[0]->planRem }}</textarea>
-                    <small class="text-muted">Helper Save/Edit</small>
+                    {{-- <small class="text-muted">Helper Save/Edit</small>
                     <div class="input-group input-group-small mb-3 flex-nowrap">
                       <div class="input-group-text">
                         <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
@@ -894,7 +902,7 @@
                       <input type="text" class="form-control" id="{{ $viewFolder }}_planRemTitle" name="{{ $viewFolder }}[planRemTitle]" disabled>
                       <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                     </div>
-                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planRemEdit]" id="{{ $viewFolder }}_planRemEdit" rows=3 disabled></textarea>
+                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planRemEdit]" id="{{ $viewFolder }}_planRemEdit" rows=3 disabled></textarea> --}}
                   </div>
                 </div>
                 @endif

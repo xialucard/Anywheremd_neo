@@ -2978,12 +2978,19 @@
                 </div>
                 @endif
                 <div class="card mb-3">
-                  <div class="card-header">Doctor's Notes</div>
+                  <div class="card-header">Subjective Findings</div>
                   <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                     <p>
                       <strong>History of Present Illness:</strong><div class="m-3" id="{{ $viewFolder }}_prev_sum_docNotesHPI">{!! isset($bookings[0]->docNotesHPI) ? nl2br($bookings[0]->docNotesHPI) : '' !!}</div><br>
                       <strong>Subjective Complaints:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_docNotesSubject">{!! isset($bookings[0]->docNotesSubject) ? nl2br($bookings[0]->docNotesSubject) : '' !!}</div><br>
-                      <strong>Objective Findings:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_docNotes">{!! isset($bookings[0]->docNotes) ? nl2br($bookings[0]->docNotes) : '' !!}</div><br>
+                    </p>
+                  </div>
+                </div>
+                <div class="card mb-3">
+                  <div class="card-header">Objective Findings</div>
+                  <div class="card-body table-responsive" style="height:300px; max-height: 300px">
+                    <p>
+                      <div class="m-3" id="{{ $viewFolder }}_prev_sum_docNotes">{!! isset($bookings[0]->docNotes) ? nl2br($bookings[0]->docNotes) : '' !!}</div><br>
                     </p>
                   </div>
                 </div>
@@ -3058,7 +3065,7 @@
                   </div>
                 </div>
                 <div class="card mb-3">
-                  <div class="card-header">Previous Doctor's Notes</div>
+                  <div class="card-header">Previous Subjective Findings</div>
                   <div class="card-body">
                     {{-- @if(sizeof($bookings) == 1) --}}
                     <div class="card mb-3">
@@ -3111,107 +3118,108 @@
                       </div>
                     </div>
                     {{-- @endif --}}
-                    <div class="card mb-3">
-                      <div class="card-header">Previous Objective Findings</div>
+                    
+                  </div>
+                </div>
+                <div class="card mb-3">
+                  <div class="card-header">Previous Objective Findings</div>
+                  <div class="card-body">
+                    @if(stristr($datum->doctor->specialty, 'Ophtha') && $datum->booking_type != "Dialysis")
+                    <div class="card mb-3" id="eeInfoPrev1">
+                      <div class="card-header">Eye Examination Information</div>
                       <div class="card-body">
-                        @if(stristr($datum->doctor->specialty, 'Ophtha') && $datum->booking_type != "Dialysis")
-                        <div class="card mb-3" id="eeInfoPrev1">
-                          <div class="card-header">Eye Examination Information</div>
-                          <div class="card-body">
-                            {{-- <p id="prevEyerBack">
-                              <strong>AR OD:</strong> <span class="text-primary">{{ $bookings[0]->arod_sphere != 'No Target' ? ($bookings[0]->arod_sphere) . ' - ' . ($bookings[0]->arod_cylinder) . ' x ' . $bookings[0]->arod_axis : 'No Refraction Possible' }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                              <strong>AR OS:</strong> <span class="text-primary">{{ $bookings[0]->aros_sphere != 'No Target' ? ($bookings[0]->aros_sphere) . ' - ' . ($bookings[0]->aros_cylinder) . ' x ' . $bookings[0]->aros_axis : 'No Refraction Possible' }}</span><br>
-                              <strong>UCVA OD:</strong> <span class="text-primary">{{ $bookings[0]->vaod_den != '' ? $bookings[0]->vaod_num . ' / ' . $bookings[0]->vaod_den : $bookings[0]->vaod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                              <strong>UCVA OD Present Correction:</strong> <span class="text-primary">{{ $bookings[0]->vaodcor_den != '' ? $bookings[0]->vaodcor_num . ' / ' . $bookings[0]->vaodcor_den : $bookings[0]->vaodcor_num }}</span><br>
-                              <strong>UCVA OS:</strong> <span class="text-primary">{{ $bookings[0]->vaos_den != '' ? $bookings[0]->vaos_num . ' / ' . $bookings[0]->vaos_den : $bookings[0]->vaos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                              <strong>UCVA OS Present Correction:</strong> <span class="text-primary">{{ $bookings[0]->vaoscor_den != '' ? $bookings[0]->vaoscor_num . ' / ' . $bookings[0]->vaoscor_den : $bookings[0]->vaoscor_num }}</span><br>
-                              <strong>VA OD Pinhole:</strong> <span class="text-primary">{{ $bookings[0]->pinod_den != '' ? $bookings[0]->pinod_num . ' / ' . $bookings[0]->pinod_den : $bookings[0]->pinod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                              <strong>BCVA OD:</strong> <span class="text-primary">{{ $bookings[0]->pinodcor_den != '' ? $bookings[0]->pinodcor_num . ' / ' . $bookings[0]->pinodcor_den : $bookings[0]->pinodcor_num }}</span><br>
-                              <strong>VA OS Pinhole:</strong> <span class="text-primary">{{ $bookings[0]->pinos_den != '' ? $bookings[0]->pinos_num . ' / ' . $bookings[0]->pinos_den : $bookings[0]->pinos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                              <strong>BCVA OS:</strong> <span class="text-primary">{{ $bookings[0]->pinoscor_den != '' ? $bookings[0]->pinoscor_num . ' / ' . $bookings[0]->pinoscor_den : $bookings[0]->pinoscor_num }}</span><br>
-                              <strong>Jaeger OU:</strong> <span class="text-primary">{{ $bookings[0]->jae_ou }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                              <strong>Jaeger OD:</strong> <span class="text-primary">{{ $bookings[0]->jae_od }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                              <strong>Jaeger OS:</strong> <span class="text-primary">{{ $bookings[0]->jae_os }}</span><br>
-                              <strong>IOP OD:</strong> <span class="text-primary">{{ $bookings[0]->iopod }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                              <strong>IOP OS:</strong> <span class="text-primary">{{ $bookings[0]->iopos }}</span>
-                            </p> --}}
-                            <table class="table table-bordered table-striped table-hover table-sm">
-                              <thead class="table-{{ $bgColor }}">
-                                  <tr>
-                                      <th>&nbsp;</th>
-                                      <th>OD</th>
-                                      <th>OS</th>
-                                      <th>OU</th>
-                                  </tr>
-                              </thead>
-                              <tbody id="prevEyer">
-                                <tr>
-                                    <td>AR</td>
-                                    <td>{{ $bookings[0]->arod_sphere != 'No Target' ? ($bookings[0]->arod_sphere) . ' - ' . ($bookings[0]->arod_cylinder) . ' x ' . $bookings[0]->arod_axis : 'No Refraction Possible' }}</td>
-                                    <td>{{ $bookings[0]->aros_sphere != 'No Target' ? ($bookings[0]->aros_sphere) . ' - ' . ($bookings[0]->aros_cylinder) . ' x ' . $bookings[0]->aros_axis : 'No Refraction Possible' }}</td>
-                                    <td>&nbsp;</td>
-                                </tr>
-                                <tr>
-                                    <td>UCVA</td>
-                                    <td>{{ $bookings[0]->vaod_den != '' ? $bookings[0]->vaod_num . ' / ' . $bookings[0]->vaod_den : $bookings[0]->vaod_num }}</td>
-                                    <td>{{ $bookings[0]->vaos_den != '' ? $bookings[0]->vaos_num . ' / ' . $bookings[0]->vaos_den : $bookings[0]->vaos_num }}</td>
-                                    <td>&nbsp;</td>
-                                </tr>
-                                <tr>
-                                    <td>UCVA Present Correction</td>
-                                    <td>{{ $bookings[0]->vaodcor_den != '' ? $bookings[0]->vaodcor_num . ' / ' . $bookings[0]->vaodcor_den : $bookings[0]->vaodcor_num }}</td>
-                                    <td>{{ $bookings[0]->vaoscor_den != '' ? $bookings[0]->vaoscor_num . ' / ' . $bookings[0]->vaoscor_den : $bookings[0]->vaoscor_num }}</td>
-                                    <td>&nbsp;</td>
-                                </tr>
-                                <tr>
-                                    <td>VA Pinhole</td>
-                                    <td>{{ $bookings[0]->pinod_den != '' ? $bookings[0]->pinod_num . ' / ' . $bookings[0]->pinod_den : $bookings[0]->pinod_num }}</td>
-                                    <td>{{ $bookings[0]->pinos_den != '' ? $bookings[0]->pinos_num . ' / ' . $bookings[0]->pinos_den : $bookings[0]->pinos_num }}</td>
-                                    <td>&nbsp;</td>
-                                </tr>
-                                <tr>
-                                    <td>BCVA</td>
-                                    <td>{{ $bookings[0]->pinodcor_den != '' ? $bookings[0]->pinodcor_num . ' / ' . $bookings[0]->pinodcor_den : $bookings[0]->pinodcor_num }}</td>
-                                    <td>{{ $bookings[0]->pinoscor_den != '' ? $bookings[0]->pinoscor_num . ' / ' . $bookings[0]->pinoscor_den : $bookings[0]->pinoscor_num }}</td>
-                                    <td>&nbsp;</td>
-                                </tr>
-                                <tr>
-                                    <td>Jaeger</td>
-                                    <td>{{ $bookings[0]->jae_od }}</td>
-                                    <td>{{ $bookings[0]->jae_os }}</td>
-                                    <td>{{ $bookings[0]->jae_ou }}</td>
-                                </tr>
-                                <tr>
-                                    <td>IOP</td>
-                                    <td>{{ $bookings[0]->iopod }}</td>
-                                    <td>{{ $bookings[0]->iopos }}</td>
-                                    <td>&nbsp;</td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-                        @endif
-                        {{-- <small class="text-muted">Helper</small>
-                        <div class="input-group input-group-small flex-nowrap">
-                          <select class="form-select" placeholder="" disabled>
-                            <option value=""></option>
-                          </select>
-                          <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
-                        </div> --}}
-                        <small class="text-muted">Content</small>
-                        <textarea class="form-control" name="{{ $viewFolder }}[docNotes]" id="{{ $viewFolder }}_prev_docNotes" rows=3 disabled>{{ $bookings[0]->docNotes }}</textarea>
-                        {{-- <small class="text-muted">Helper Save/Edit</small>
-                        <div class="input-group input-group-small mb-3 flex-nowrap">
-                          <div class="input-group-text">
-                            <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
-                          </div>
-                          <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesTitle" name="{{ $viewFolder }}[docNotesTitle]" disabled>
-                          <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
-                        </div>
-                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[_docNotesEdit]" id="{{ $viewFolder }}_docNotesEdit" rows=3 disabled></textarea> --}}
+                        {{-- <p id="prevEyerBack">
+                          <strong>AR OD:</strong> <span class="text-primary">{{ $bookings[0]->arod_sphere != 'No Target' ? ($bookings[0]->arod_sphere) . ' - ' . ($bookings[0]->arod_cylinder) . ' x ' . $bookings[0]->arod_axis : 'No Refraction Possible' }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                          <strong>AR OS:</strong> <span class="text-primary">{{ $bookings[0]->aros_sphere != 'No Target' ? ($bookings[0]->aros_sphere) . ' - ' . ($bookings[0]->aros_cylinder) . ' x ' . $bookings[0]->aros_axis : 'No Refraction Possible' }}</span><br>
+                          <strong>UCVA OD:</strong> <span class="text-primary">{{ $bookings[0]->vaod_den != '' ? $bookings[0]->vaod_num . ' / ' . $bookings[0]->vaod_den : $bookings[0]->vaod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                          <strong>UCVA OD Present Correction:</strong> <span class="text-primary">{{ $bookings[0]->vaodcor_den != '' ? $bookings[0]->vaodcor_num . ' / ' . $bookings[0]->vaodcor_den : $bookings[0]->vaodcor_num }}</span><br>
+                          <strong>UCVA OS:</strong> <span class="text-primary">{{ $bookings[0]->vaos_den != '' ? $bookings[0]->vaos_num . ' / ' . $bookings[0]->vaos_den : $bookings[0]->vaos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                          <strong>UCVA OS Present Correction:</strong> <span class="text-primary">{{ $bookings[0]->vaoscor_den != '' ? $bookings[0]->vaoscor_num . ' / ' . $bookings[0]->vaoscor_den : $bookings[0]->vaoscor_num }}</span><br>
+                          <strong>VA OD Pinhole:</strong> <span class="text-primary">{{ $bookings[0]->pinod_den != '' ? $bookings[0]->pinod_num . ' / ' . $bookings[0]->pinod_den : $bookings[0]->pinod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                          <strong>BCVA OD:</strong> <span class="text-primary">{{ $bookings[0]->pinodcor_den != '' ? $bookings[0]->pinodcor_num . ' / ' . $bookings[0]->pinodcor_den : $bookings[0]->pinodcor_num }}</span><br>
+                          <strong>VA OS Pinhole:</strong> <span class="text-primary">{{ $bookings[0]->pinos_den != '' ? $bookings[0]->pinos_num . ' / ' . $bookings[0]->pinos_den : $bookings[0]->pinos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                          <strong>BCVA OS:</strong> <span class="text-primary">{{ $bookings[0]->pinoscor_den != '' ? $bookings[0]->pinoscor_num . ' / ' . $bookings[0]->pinoscor_den : $bookings[0]->pinoscor_num }}</span><br>
+                          <strong>Jaeger OU:</strong> <span class="text-primary">{{ $bookings[0]->jae_ou }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                          <strong>Jaeger OD:</strong> <span class="text-primary">{{ $bookings[0]->jae_od }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                          <strong>Jaeger OS:</strong> <span class="text-primary">{{ $bookings[0]->jae_os }}</span><br>
+                          <strong>IOP OD:</strong> <span class="text-primary">{{ $bookings[0]->iopod }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                          <strong>IOP OS:</strong> <span class="text-primary">{{ $bookings[0]->iopos }}</span>
+                        </p> --}}
+                        <table class="table table-bordered table-striped table-hover table-sm">
+                          <thead class="table-{{ $bgColor }}">
+                              <tr>
+                                  <th>&nbsp;</th>
+                                  <th>OD</th>
+                                  <th>OS</th>
+                                  <th>OU</th>
+                              </tr>
+                          </thead>
+                          <tbody id="prevEyer">
+                            <tr>
+                                <td>AR</td>
+                                <td>{{ $bookings[0]->arod_sphere != 'No Target' ? ($bookings[0]->arod_sphere) . ' - ' . ($bookings[0]->arod_cylinder) . ' x ' . $bookings[0]->arod_axis : 'No Refraction Possible' }}</td>
+                                <td>{{ $bookings[0]->aros_sphere != 'No Target' ? ($bookings[0]->aros_sphere) . ' - ' . ($bookings[0]->aros_cylinder) . ' x ' . $bookings[0]->aros_axis : 'No Refraction Possible' }}</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>UCVA</td>
+                                <td>{{ $bookings[0]->vaod_den != '' ? $bookings[0]->vaod_num . ' / ' . $bookings[0]->vaod_den : $bookings[0]->vaod_num }}</td>
+                                <td>{{ $bookings[0]->vaos_den != '' ? $bookings[0]->vaos_num . ' / ' . $bookings[0]->vaos_den : $bookings[0]->vaos_num }}</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>UCVA Present Correction</td>
+                                <td>{{ $bookings[0]->vaodcor_den != '' ? $bookings[0]->vaodcor_num . ' / ' . $bookings[0]->vaodcor_den : $bookings[0]->vaodcor_num }}</td>
+                                <td>{{ $bookings[0]->vaoscor_den != '' ? $bookings[0]->vaoscor_num . ' / ' . $bookings[0]->vaoscor_den : $bookings[0]->vaoscor_num }}</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>VA Pinhole</td>
+                                <td>{{ $bookings[0]->pinod_den != '' ? $bookings[0]->pinod_num . ' / ' . $bookings[0]->pinod_den : $bookings[0]->pinod_num }}</td>
+                                <td>{{ $bookings[0]->pinos_den != '' ? $bookings[0]->pinos_num . ' / ' . $bookings[0]->pinos_den : $bookings[0]->pinos_num }}</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>BCVA</td>
+                                <td>{{ $bookings[0]->pinodcor_den != '' ? $bookings[0]->pinodcor_num . ' / ' . $bookings[0]->pinodcor_den : $bookings[0]->pinodcor_num }}</td>
+                                <td>{{ $bookings[0]->pinoscor_den != '' ? $bookings[0]->pinoscor_num . ' / ' . $bookings[0]->pinoscor_den : $bookings[0]->pinoscor_num }}</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>Jaeger</td>
+                                <td>{{ $bookings[0]->jae_od }}</td>
+                                <td>{{ $bookings[0]->jae_os }}</td>
+                                <td>{{ $bookings[0]->jae_ou }}</td>
+                            </tr>
+                            <tr>
+                                <td>IOP</td>
+                                <td>{{ $bookings[0]->iopod }}</td>
+                                <td>{{ $bookings[0]->iopos }}</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </div>
+                    @endif
+                    {{-- <small class="text-muted">Helper</small>
+                    <div class="input-group input-group-small flex-nowrap">
+                      <select class="form-select" placeholder="" disabled>
+                        <option value=""></option>
+                      </select>
+                      <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
+                    </div> --}}
+                    <small class="text-muted">Content</small>
+                    <textarea class="form-control" name="{{ $viewFolder }}[docNotes]" id="{{ $viewFolder }}_prev_docNotes" rows=3 disabled>{{ $bookings[0]->docNotes }}</textarea>
+                    {{-- <small class="text-muted">Helper Save/Edit</small>
+                    <div class="input-group input-group-small mb-3 flex-nowrap">
+                      <div class="input-group-text">
+                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                      </div>
+                      <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesTitle" name="{{ $viewFolder }}[docNotesTitle]" disabled>
+                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                    </div>
+                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[_docNotesEdit]" id="{{ $viewFolder }}_docNotesEdit" rows=3 disabled></textarea> --}}
                   </div>
                 </div>
                 <div class="card mb-3">
@@ -7755,13 +7763,22 @@
                 @endif
                 <div id="{{ $viewFolder }}_SUMM_{{ $datum->id }}" class="docNotesDiv">
                   <div class="card mb-3">
-                    <div class="card-header">Doctor's Notes</div>
+                    <div class="card-header">Subjective Findings</div>
                     <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                       <p>
                         {{-- @if(($datum->docNotesHPI == "" && isset($carryOverBookingsHPI[0]->docNotesHPI)) || (isset($carryOverBookingsHPI[0]->docNotesHPI) && $datum->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $datum->docNotesHPI))<br>[carry over from {{ $carryOverBookingsHPI[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsHPI[0]->booking_type }} booking last {{ $carryOverBookingsHPI[0]->bookingDate }}]@endif --}}
                         <strong>History of Present Illness:</strong><div class="m-3 {{ $datum->docNotesHPI == "" ? 'text-danger' : ((isset($carryOverBookingsHPI[0]->docNotesHPI) && $datum->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $datum->docNotesHPI) ? 'text-warning' : '') }}">{!! isset($datum->docNotesHPI) ? nl2br($datum->docNotesHPI) : nl2br((isset($carryOverBookingsHPI[0]->docNotesHPI) && $datum->doctor_id == $carryOverBookingsHPI[0]->doctor_id ? $carryOverBookingsHPI[0]->docNotesHPI : '')) !!}@if(($datum->docNotesHPI == "" && isset($carryOverBookingsHPI[0]->docNotesHPI)) || (isset($carryOverBookingsHPI[0]->docNotesHPI) && $datum->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $datum->docNotesHPI))<br>[carry over from {{ $carryOverBookingsHPI[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsHPI[0]->booking_type }} booking last {{ $carryOverBookingsHPI[0]->bookingDate }}]@endif</div><br>
                         <strong>Subjective Complaints:</strong><br><div class="m-3">{!! isset($datum->docNotesSubject) ? nl2br($datum->docNotesSubject) : '' !!}</div><br>
-                        <strong>Objective Findings:</strong><br><div class="m-3">{!! isset($datum->docNotes) ? nl2br($datum->docNotes) : '' !!}</div><br>
+                      </p>
+                      <small class="text-muted">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small>
+                    </div>
+                  </div>
+                  <div class="card mb-3">
+                    <div class="card-header">Objective Findings</div>
+                    <div class="card-body table-responsive" style="height:300px; max-height: 300px">
+                      <p>
+                        {{-- @if(($datum->docNotesHPI == "" && isset($carryOverBookingsHPI[0]->docNotesHPI)) || (isset($carryOverBookingsHPI[0]->docNotesHPI) && $datum->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $datum->docNotesHPI))<br>[carry over from {{ $carryOverBookingsHPI[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsHPI[0]->booking_type }} booking last {{ $carryOverBookingsHPI[0]->bookingDate }}]@endif --}}
+                        <div class="m-3">{!! isset($datum->docNotes) ? nl2br($datum->docNotes) : '' !!}</div><br>
                       </p>
                       <small class="text-muted">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small>
                     </div>
@@ -7830,13 +7847,22 @@
                   @foreach($datum->consultation_referals as $cr)
                 <div id="{{ $viewFolder }}_SUMM_{{ $cr->id }}" class="docNotesDiv" style="display: none">
                   <div class="card mb-3">
-                    <div class="card-header">Doctor's Notes</div>
+                    <div class="card-header">Subjective Findings</div>
                     <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                       <p>
                         {{-- @if(($cr->docNotesHPI == "" && isset($carryOverBookingsHPI[0]->docNotesHPI)) || (isset($carryOverBookingsHPI[0]->docNotesHPI) && $cr->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $cr->docNotesHPI))<br>[carry over from {{ $carryOverBookingsHPI[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsHPI[0]->booking_type }} booking last {{ $carryOverBookingsHPI[0]->bookingDate }}]@endif --}}
                         <strong>History of Present Illness:</strong><div class="m-3 {{ $cr->docNotesHPI == "" ? 'text-danger' : ((isset($carryOverBookingsHPI[0]->docNotesHPI) && $cr->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $cr->docNotesHPI) ? 'text-warning' : '') }}">{!! isset($cr->docNotesHPI) ? nl2br($cr->docNotesHPI) : nl2br((isset($carryOverBookingsHPI[0]->docNotesHPI) && $cr->doctor_id == $carryOverBookingsHPI[0]->doctor_id ? $carryOverBookingsHPI[0]->docNotesHPI : '')) !!}@if(($cr->docNotesHPI == "" && isset($carryOverBookingsHPI[0]->docNotesHPI)) || (isset($carryOverBookingsHPI[0]->docNotesHPI) && $cr->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $cr->docNotesHPI))<br>[carry over from {{ $carryOverBookingsHPI[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsHPI[0]->booking_type }} booking last {{ $carryOverBookingsHPI[0]->bookingDate }}]@endif</div><br>
                         <strong>Subjective Complaints:</strong><br><div class="m-3">{!! isset($cr->docNotesSubject) ? nl2br($cr->docNotesSubject) : '' !!}</div><br>
-                        <strong>Objective Findings:</strong><br><div class="m-3">{!! isset($cr->docNotes) ? nl2br($cr->docNotes) : '' !!}</div><br>
+                      </p>
+                      <small class="text-muted">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small>
+                    </div>
+                  </div>
+                  <div class="card mb-3">
+                    <div class="card-header">Objective Findings</div>
+                    <div class="card-body table-responsive" style="height:300px; max-height: 300px">
+                      <p>
+                        {{-- @if(($cr->docNotesHPI == "" && isset($carryOverBookingsHPI[0]->docNotesHPI)) || (isset($carryOverBookingsHPI[0]->docNotesHPI) && $cr->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $cr->docNotesHPI))<br>[carry over from {{ $carryOverBookingsHPI[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsHPI[0]->booking_type }} booking last {{ $carryOverBookingsHPI[0]->bookingDate }}]@endif --}}
+                        <div class="m-3">{!! isset($cr->docNotes) ? nl2br($cr->docNotes) : '' !!}</div><br>
                       </p>
                       <small class="text-muted">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small>
                     </div>
@@ -7925,7 +7951,7 @@
                 </div>
                 <div class="docNotesDiv" id="{{ $viewFolder }}_SOAP_{{ $datum->id }}">
                   <div class="card mb-3">
-                    <div class="card-header">Doctor's Notes</div>
+                    <div class="card-header">Subjective Findings</div>
                     <div class="card-body">
                       {{-- @if(!isset($bookings[0])) --}}
                       <div class="card mb-3">
@@ -7978,109 +8004,110 @@
                         </div>
                       </div>
                       {{-- @endif --}}
+                      
+                    </div>
+                  </div>
+                  <div class="card mb-3">
+                    <div class="card-header">Objective Findings</div>
+                    <div class="card-body">
+                      @if(stristr($datum->doctor->specialty, 'Ophtha') && $datum->booking_type != "Dialysis")
                       <div class="card mb-3">
-                        <div class="card-header">Objective Findings</div>
+                        <div class="card-header">Eye Examination Information</div>
                         <div class="card-body">
-                          @if(stristr($datum->doctor->specialty, 'Ophtha') && $datum->booking_type != "Dialysis")
-                          <div class="card mb-3">
-                            <div class="card-header">Eye Examination Information</div>
-                            <div class="card-body">
-                              {{-- <p>
-                                <strong>AR OD:</strong> <span class="text-primary">{{ $datum->arod_sphere != 'No Target' ? ($datum->arod_sphere > 0 ? '+' . $datum->arod_sphere : $datum->arod_sphere) . ' - ' . ($datum->arod_cylinder > 0 ? '+' . $datum->arod_cylinder : $datum->arod_cylinder) . ' x ' . $datum->arod_axis : 'No Refraction Possible' }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                                <strong>AR OS:</strong> <span class="text-primary">{{ $datum->aros_sphere != 'No Target' ? ($datum->aros_sphere > 0 ? '+' . $datum->aros_sphere : $datum->aros_sphere) . ' - ' . ($datum->aros_cylinder > 0 ? '+' . $datum->aros_cylinder : $datum->aros_cylinder) . ' x ' . $datum->aros_axis : 'No Refraction Possible' }}</span><br>
-                                <strong>UCVA OD:</strong> <span class="text-primary">{{ $datum->vaod_den != '' ? $datum->vaod_num . ' / ' . $datum->vaod_den : $datum->vaod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                                <strong>UCVA OD Present Correction:</strong> <span class="text-primary">{{ $datum->vaodcor_den != '' ? $datum->vaodcor_num . ' / ' . $datum->vaodcor_den : $datum->vaodcor_num }}</span><br>
-                                <strong>UCVA OS:</strong> <span class="text-primary">{{ $datum->vaos_den != '' ? $datum->vaos_num . ' / ' . $datum->vaos_den : $datum->vaos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                                <strong>UCVA OS Present Correction:</strong> <span class="text-primary">{{ $datum->vaoscor_den != '' ? $datum->vaoscor_num . ' / ' . $datum->vaoscor_den : $datum->vaoscor_num }}</span><br>
-                                <strong>VA OD Pinhole:</strong> <span class="text-primary">{{ $datum->pinod_den != '' ? $datum->pinod_num . ' / ' . $datum->pinod_den : $datum->pinod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                                <strong>BCVA OD:</strong> <span class="text-primary">{{ $datum->pinodcor_den != '' ? $datum->pinodcor_num . ' / ' . $datum->pinodcor_den : $datum->pinodcor_num }}</span><br>
-                                <strong>VA OS Pinhole:</strong> <span class="text-primary">{{ $datum->pinos_den != '' ? $datum->pinos_num . ' / ' . $datum->pinos_den : $datum->pinos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                                <strong>BCVA OS:</strong> <span class="text-primary">{{ $datum->pinoscor_den != '' ? $datum->pinoscor_num . ' / ' . $datum->pinoscor_den : $datum->pinoscor_num }}</span><br>
-                                <strong>Jaeger OU:</strong> <span class="text-primary">{{ $datum->jae_ou }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                                <strong>Jaeger OD:</strong> <span class="text-primary">{{ $datum->jae_od }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                                <strong>Jaeger OS:</strong> <span class="text-primary">{{ $datum->jae_os }}</span><br>
-                                <strong>IOP OD:</strong> <span class="text-primary">{{ $datum->iopod }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                                <strong>IOP OS:</strong> <span class="text-primary">{{ $datum->iopos }}</span>
-                              </p> --}}
-                              <table class="table table-bordered table-striped table-hover table-sm">
-                                <thead class="table-{{ $bgColor }}">
-                                    <tr>
-                                        <th>&nbsp;</th>
-                                        <th>OD</th>
-                                        <th>OS</th>
-                                        <th>OU</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="prevEyerSum">
-                                  <tr>
-                                      <td>AR</td>
-                                      <td>{{ $datum->arod_sphere != 'No Target' ? ( $datum->arod_sphere > 0 ? '+' . $datum->arod_sphere : $datum->arod_sphere ) . ' - ' . ( $datum->arod_cylinder > 0 ? '+' . $datum->arod_cylinder : $datum->arod_cylinder ) . ' x ' . $datum->arod_axis : 'No Refraction Possible' }}</td>
-                                      <td>{{ $datum->aros_sphere != 'No Target' ? ( $datum->aros_sphere > 0 ? '+' . $datum->aros_sphere : $datum->aros_sphere ) . ' - ' . ( $datum->aros_cylinder > 0 ? '+' . $datum->aros_cylinder : $datum->aros_cylinder ) . ' x ' . $datum->aros_axis : 'No Refraction Possible' }}</td>
-                                      <td>&nbsp;</td>
-                                  </tr>
-                                  <tr>
-                                      <td>UCVA</td>
-                                      <td>{{ $datum->vaod_den != '' ? $datum->vaod_num . ' / ' . $datum->vaod_den : $datum->vaod_num }}</td>
-                                      <td>{{ $datum->vaos_den != '' ? $datum->vaos_num . ' / ' . $datum->vaos_den : $datum->vaos_num }}</td>
-                                      <td>&nbsp;</td>
-                                  </tr>
-                                  <tr>
-                                      <td>UCVA Present Correction</td>
-                                      <td>{{ $datum->vaodcor_den != '' ? $datum->vaodcor_num . ' / ' . $datum->vaodcor_den : $datum->vaodcor_num }}</td>
-                                      <td>{{ $datum->vaoscor_den != '' ? $datum->vaoscor_num . ' / ' . $datum->vaoscor_den : $datum->vaoscor_num }}</td>
-                                      <td>&nbsp;</td>
-                                  </tr>
-                                  <tr>
-                                      <td>VA Pinhole</td>
-                                      <td>{{ $datum->pinod_den != '' ? $datum->pinod_num . ' / ' . $datum->pinod_den : $datum->pinod_num }}</td>
-                                      <td>{{ $datum->pinos_den != '' ? $datum->pinos_num . ' / ' . $datum->pinos_den : $datum->pinos_num }}</td>
-                                      <td>&nbsp;</td>
-                                  </tr>
-                                  <tr>
-                                      <td>BCVA</td>
-                                      <td>{{ $datum->pinodcor_den != '' ? $datum->pinodcor_num . ' / ' . $datum->pinodcor_den : $datum->pinodcor_num }}</td>
-                                      <td>{{ $datum->pinoscor_den != '' ? $datum->pinoscor_num . ' / ' . $datum->pinoscor_den : $datum->pinoscor_num }}</td>
-                                      <td>&nbsp;</td>
-                                  </tr>
-                                  <tr>
-                                      <td>Jaeger</td>
-                                      <td>{{ $datum->jae_od }}</td>
-                                      <td>{{ $datum->jae_os }}</td>
-                                      <td>{{ $datum->jae_ou }}</td>
-                                  </tr>
-                                  <tr>
-                                      <td>IOP</td>
-                                      <td>{{ $datum->iopod }}</td>
-                                      <td>{{ $datum->iopos }}</td>
-                                      <td>&nbsp;</td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                            </div>
-                          </div>
-                          @endif
-                          {{-- <small class="text-muted">Helper</small>
-                          <div class="input-group input-group-small flex-nowrap">
-                            <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
-                              <option value=""></option>
-                            </select>
-                            <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
-                          </div> --}}
-                          <small class="text-muted">Content</small>
-                          <textarea class="form-control" name="{{ $viewFolder }}[docNotes]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_docNotes" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }} onchange="
-                            $('#{{ $viewFolder }}_findings').val($(this).val());
-                          ">{{ isset($datum->docNotes) ? $datum->docNotes : '' }}</textarea>
-                          {{-- <small class="text-muted">Helper Save/Edit</small>
-                          <div class="input-group input-group-small mb-3 flex-nowrap">
-                            <div class="input-group-text">
-                              <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
-                            </div>
-                            <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesTitle" name="{{ $viewFolder }}[docNotesTitle]" disabled>
-                            <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
-                          </div>
-                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[_docNotesEdit]" id="{{ $viewFolder }}_docNotesEdit" rows=3 disabled></textarea> --}}
+                          {{-- <p>
+                            <strong>AR OD:</strong> <span class="text-primary">{{ $datum->arod_sphere != 'No Target' ? ($datum->arod_sphere > 0 ? '+' . $datum->arod_sphere : $datum->arod_sphere) . ' - ' . ($datum->arod_cylinder > 0 ? '+' . $datum->arod_cylinder : $datum->arod_cylinder) . ' x ' . $datum->arod_axis : 'No Refraction Possible' }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                            <strong>AR OS:</strong> <span class="text-primary">{{ $datum->aros_sphere != 'No Target' ? ($datum->aros_sphere > 0 ? '+' . $datum->aros_sphere : $datum->aros_sphere) . ' - ' . ($datum->aros_cylinder > 0 ? '+' . $datum->aros_cylinder : $datum->aros_cylinder) . ' x ' . $datum->aros_axis : 'No Refraction Possible' }}</span><br>
+                            <strong>UCVA OD:</strong> <span class="text-primary">{{ $datum->vaod_den != '' ? $datum->vaod_num . ' / ' . $datum->vaod_den : $datum->vaod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                            <strong>UCVA OD Present Correction:</strong> <span class="text-primary">{{ $datum->vaodcor_den != '' ? $datum->vaodcor_num . ' / ' . $datum->vaodcor_den : $datum->vaodcor_num }}</span><br>
+                            <strong>UCVA OS:</strong> <span class="text-primary">{{ $datum->vaos_den != '' ? $datum->vaos_num . ' / ' . $datum->vaos_den : $datum->vaos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                            <strong>UCVA OS Present Correction:</strong> <span class="text-primary">{{ $datum->vaoscor_den != '' ? $datum->vaoscor_num . ' / ' . $datum->vaoscor_den : $datum->vaoscor_num }}</span><br>
+                            <strong>VA OD Pinhole:</strong> <span class="text-primary">{{ $datum->pinod_den != '' ? $datum->pinod_num . ' / ' . $datum->pinod_den : $datum->pinod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                            <strong>BCVA OD:</strong> <span class="text-primary">{{ $datum->pinodcor_den != '' ? $datum->pinodcor_num . ' / ' . $datum->pinodcor_den : $datum->pinodcor_num }}</span><br>
+                            <strong>VA OS Pinhole:</strong> <span class="text-primary">{{ $datum->pinos_den != '' ? $datum->pinos_num . ' / ' . $datum->pinos_den : $datum->pinos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                            <strong>BCVA OS:</strong> <span class="text-primary">{{ $datum->pinoscor_den != '' ? $datum->pinoscor_num . ' / ' . $datum->pinoscor_den : $datum->pinoscor_num }}</span><br>
+                            <strong>Jaeger OU:</strong> <span class="text-primary">{{ $datum->jae_ou }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                            <strong>Jaeger OD:</strong> <span class="text-primary">{{ $datum->jae_od }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                            <strong>Jaeger OS:</strong> <span class="text-primary">{{ $datum->jae_os }}</span><br>
+                            <strong>IOP OD:</strong> <span class="text-primary">{{ $datum->iopod }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                            <strong>IOP OS:</strong> <span class="text-primary">{{ $datum->iopos }}</span>
+                          </p> --}}
+                          <table class="table table-bordered table-striped table-hover table-sm">
+                            <thead class="table-{{ $bgColor }}">
+                                <tr>
+                                    <th>&nbsp;</th>
+                                    <th>OD</th>
+                                    <th>OS</th>
+                                    <th>OU</th>
+                                </tr>
+                            </thead>
+                            <tbody id="prevEyerSum">
+                              <tr>
+                                  <td>AR</td>
+                                  <td>{{ $datum->arod_sphere != 'No Target' ? ( $datum->arod_sphere > 0 ? '+' . $datum->arod_sphere : $datum->arod_sphere ) . ' - ' . ( $datum->arod_cylinder > 0 ? '+' . $datum->arod_cylinder : $datum->arod_cylinder ) . ' x ' . $datum->arod_axis : 'No Refraction Possible' }}</td>
+                                  <td>{{ $datum->aros_sphere != 'No Target' ? ( $datum->aros_sphere > 0 ? '+' . $datum->aros_sphere : $datum->aros_sphere ) . ' - ' . ( $datum->aros_cylinder > 0 ? '+' . $datum->aros_cylinder : $datum->aros_cylinder ) . ' x ' . $datum->aros_axis : 'No Refraction Possible' }}</td>
+                                  <td>&nbsp;</td>
+                              </tr>
+                              <tr>
+                                  <td>UCVA</td>
+                                  <td>{{ $datum->vaod_den != '' ? $datum->vaod_num . ' / ' . $datum->vaod_den : $datum->vaod_num }}</td>
+                                  <td>{{ $datum->vaos_den != '' ? $datum->vaos_num . ' / ' . $datum->vaos_den : $datum->vaos_num }}</td>
+                                  <td>&nbsp;</td>
+                              </tr>
+                              <tr>
+                                  <td>UCVA Present Correction</td>
+                                  <td>{{ $datum->vaodcor_den != '' ? $datum->vaodcor_num . ' / ' . $datum->vaodcor_den : $datum->vaodcor_num }}</td>
+                                  <td>{{ $datum->vaoscor_den != '' ? $datum->vaoscor_num . ' / ' . $datum->vaoscor_den : $datum->vaoscor_num }}</td>
+                                  <td>&nbsp;</td>
+                              </tr>
+                              <tr>
+                                  <td>VA Pinhole</td>
+                                  <td>{{ $datum->pinod_den != '' ? $datum->pinod_num . ' / ' . $datum->pinod_den : $datum->pinod_num }}</td>
+                                  <td>{{ $datum->pinos_den != '' ? $datum->pinos_num . ' / ' . $datum->pinos_den : $datum->pinos_num }}</td>
+                                  <td>&nbsp;</td>
+                              </tr>
+                              <tr>
+                                  <td>BCVA</td>
+                                  <td>{{ $datum->pinodcor_den != '' ? $datum->pinodcor_num . ' / ' . $datum->pinodcor_den : $datum->pinodcor_num }}</td>
+                                  <td>{{ $datum->pinoscor_den != '' ? $datum->pinoscor_num . ' / ' . $datum->pinoscor_den : $datum->pinoscor_num }}</td>
+                                  <td>&nbsp;</td>
+                              </tr>
+                              <tr>
+                                  <td>Jaeger</td>
+                                  <td>{{ $datum->jae_od }}</td>
+                                  <td>{{ $datum->jae_os }}</td>
+                                  <td>{{ $datum->jae_ou }}</td>
+                              </tr>
+                              <tr>
+                                  <td>IOP</td>
+                                  <td>{{ $datum->iopod }}</td>
+                                  <td>{{ $datum->iopos }}</td>
+                                  <td>&nbsp;</td>
+                              </tr>
+                            </tbody>
+                          </table>
                         </div>
                       </div>
+                      @endif
+                      {{-- <small class="text-muted">Helper</small>
+                      <div class="input-group input-group-small flex-nowrap">
+                        <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                          <option value=""></option>
+                        </select>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
+                      </div> --}}
+                      <small class="text-muted">Content</small>
+                      <textarea class="form-control" name="{{ $viewFolder }}[docNotes]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_docNotes" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }} onchange="
+                        $('#{{ $viewFolder }}_findings').val($(this).val());
+                      ">{{ isset($datum->docNotes) ? $datum->docNotes : '' }}</textarea>
+                      {{-- <small class="text-muted">Helper Save/Edit</small>
+                      <div class="input-group input-group-small mb-3 flex-nowrap">
+                        <div class="input-group-text">
+                          <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                        </div>
+                        <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesTitle" name="{{ $viewFolder }}[docNotesTitle]" disabled>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                      </div>
+                      <textarea class="form-control mb-2" name="{{ $viewFolder }}[_docNotesEdit]" id="{{ $viewFolder }}_docNotesEdit" rows=3 disabled></textarea> --}}
                     </div>
                   </div>
                   <div class="card mb-3">
@@ -8460,7 +8487,7 @@
                     @endif
                 <div class="docNotesDiv" id="{{ $viewFolder }}_SOAP_{{ $cr->id }}" style="display:none">
                   <div class="card mb-3">
-                    <div class="card-header">Doctor's Notes</div>
+                    <div class="card-header">Subjective Findings</div>
                     <div class="card-body">
                       {{-- @if(!isset($bookings[0])) --}}
                       <div class="card mb-3">
@@ -8513,109 +8540,110 @@
                         </div>
                       </div>
                       {{-- @endif --}}
+                      
+                    </div>
+                  </div>
+                  <div class="card mb-3">
+                    <div class="card-header">Objective Findings</div>
+                    <div class="card-body">
+                      @if(stristr($datum->doctor->specialty, 'Ophtha') && $datum->booking_type != "Dialysis")
                       <div class="card mb-3">
-                        <div class="card-header">Objective Findings</div>
+                        <div class="card-header">Eye Examination Information</div>
                         <div class="card-body">
-                          @if(stristr($datum->doctor->specialty, 'Ophtha') && $datum->booking_type != "Dialysis")
-                          <div class="card mb-3">
-                            <div class="card-header">Eye Examination Information</div>
-                            <div class="card-body">
-                              {{-- <p>
-                                <strong>AR OD:</strong> <span class="text-primary">{{ $datum->arod_sphere != 'No Target' ? ($datum->arod_sphere > 0 ? '+' . $datum->arod_sphere : $datum->arod_sphere) . ' - ' . ($datum->arod_cylinder > 0 ? '+' . $datum->arod_cylinder : $datum->arod_cylinder) . ' x ' . $datum->arod_axis : 'No Refraction Possible' }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                                <strong>AR OS:</strong> <span class="text-primary">{{ $datum->aros_sphere != 'No Target' ? ($datum->aros_sphere > 0 ? '+' . $datum->aros_sphere : $datum->aros_sphere) . ' - ' . ($datum->aros_cylinder > 0 ? '+' . $datum->aros_cylinder : $datum->aros_cylinder) . ' x ' . $datum->aros_axis : 'No Refraction Possible' }}</span><br>
-                                <strong>UCVA OD:</strong> <span class="text-primary">{{ $datum->vaod_den != '' ? $datum->vaod_num . ' / ' . $datum->vaod_den : $datum->vaod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                                <strong>UCVA OD Present Correction:</strong> <span class="text-primary">{{ $datum->vaodcor_den != '' ? $datum->vaodcor_num . ' / ' . $datum->vaodcor_den : $datum->vaodcor_num }}</span><br>
-                                <strong>UCVA OS:</strong> <span class="text-primary">{{ $datum->vaos_den != '' ? $datum->vaos_num . ' / ' . $datum->vaos_den : $datum->vaos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                                <strong>UCVA OS Present Correction:</strong> <span class="text-primary">{{ $datum->vaoscor_den != '' ? $datum->vaoscor_num . ' / ' . $datum->vaoscor_den : $datum->vaoscor_num }}</span><br>
-                                <strong>VA OD Pinhole:</strong> <span class="text-primary">{{ $datum->pinod_den != '' ? $datum->pinod_num . ' / ' . $datum->pinod_den : $datum->pinod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                                <strong>BCVA OD:</strong> <span class="text-primary">{{ $datum->pinodcor_den != '' ? $datum->pinodcor_num . ' / ' . $datum->pinodcor_den : $datum->pinodcor_num }}</span><br>
-                                <strong>VA OS Pinhole:</strong> <span class="text-primary">{{ $datum->pinos_den != '' ? $datum->pinos_num . ' / ' . $datum->pinos_den : $datum->pinos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                                <strong>BCVA OS:</strong> <span class="text-primary">{{ $datum->pinoscor_den != '' ? $datum->pinoscor_num . ' / ' . $datum->pinoscor_den : $datum->pinoscor_num }}</span><br>
-                                <strong>Jaeger OU:</strong> <span class="text-primary">{{ $datum->jae_ou }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                                <strong>Jaeger OD:</strong> <span class="text-primary">{{ $datum->jae_od }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                                <strong>Jaeger OS:</strong> <span class="text-primary">{{ $datum->jae_os }}</span><br>
-                                <strong>IOP OD:</strong> <span class="text-primary">{{ $datum->iopod }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                                <strong>IOP OS:</strong> <span class="text-primary">{{ $datum->iopos }}</span>
-                              </p> --}}
-                              <table class="table table-bordered table-striped table-hover table-sm">
-                                <thead class="table-{{ $bgColor }}">
-                                    <tr>
-                                        <th>&nbsp;</th>
-                                        <th>OD</th>
-                                        <th>OS</th>
-                                        <th>OU</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="prevEyerSum">
-                                  <tr>
-                                      <td>AR</td>
-                                      <td>{{ $datum->arod_sphere != 'No Target' ? ( $datum->arod_sphere > 0 ? '+' . $datum->arod_sphere : $datum->arod_sphere ) . ' - ' . ( $datum->arod_cylinder > 0 ? '+' . $datum->arod_cylinder : $datum->arod_cylinder ) . ' x ' . $datum->arod_axis : 'No Refraction Possible' }}</td>
-                                      <td>{{ $datum->aros_sphere != 'No Target' ? ( $datum->aros_sphere > 0 ? '+' . $datum->aros_sphere : $datum->aros_sphere ) . ' - ' . ( $datum->aros_cylinder > 0 ? '+' . $datum->aros_cylinder : $datum->aros_cylinder ) . ' x ' . $datum->aros_axis : 'No Refraction Possible' }}</td>
-                                      <td>&nbsp;</td>
-                                  </tr>
-                                  <tr>
-                                      <td>UCVA</td>
-                                      <td>{{ $datum->vaod_den != '' ? $datum->vaod_num . ' / ' . $datum->vaod_den : $datum->vaod_num }}</td>
-                                      <td>{{ $datum->vaos_den != '' ? $datum->vaos_num . ' / ' . $datum->vaos_den : $datum->vaos_num }}</td>
-                                      <td>&nbsp;</td>
-                                  </tr>
-                                  <tr>
-                                      <td>UCVA Present Correction</td>
-                                      <td>{{ $datum->vaodcor_den != '' ? $datum->vaodcor_num . ' / ' . $datum->vaodcor_den : $datum->vaodcor_num }}</td>
-                                      <td>{{ $datum->vaoscor_den != '' ? $datum->vaoscor_num . ' / ' . $datum->vaoscor_den : $datum->vaoscor_num }}</td>
-                                      <td>&nbsp;</td>
-                                  </tr>
-                                  <tr>
-                                      <td>VA Pinhole</td>
-                                      <td>{{ $datum->pinod_den != '' ? $datum->pinod_num . ' / ' . $datum->pinod_den : $datum->pinod_num }}</td>
-                                      <td>{{ $datum->pinos_den != '' ? $datum->pinos_num . ' / ' . $datum->pinos_den : $datum->pinos_num }}</td>
-                                      <td>&nbsp;</td>
-                                  </tr>
-                                  <tr>
-                                      <td>BCVA</td>
-                                      <td>{{ $datum->pinodcor_den != '' ? $datum->pinodcor_num . ' / ' . $datum->pinodcor_den : $datum->pinodcor_num }}</td>
-                                      <td>{{ $datum->pinoscor_den != '' ? $datum->pinoscor_num . ' / ' . $datum->pinoscor_den : $datum->pinoscor_num }}</td>
-                                      <td>&nbsp;</td>
-                                  </tr>
-                                  <tr>
-                                      <td>Jaeger</td>
-                                      <td>{{ $datum->jae_od }}</td>
-                                      <td>{{ $datum->jae_os }}</td>
-                                      <td>{{ $datum->jae_ou }}</td>
-                                  </tr>
-                                  <tr>
-                                      <td>IOP</td>
-                                      <td>{{ $datum->iopod }}</td>
-                                      <td>{{ $datum->iopos }}</td>
-                                      <td>&nbsp;</td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                            </div>
-                          </div>
-                          @endif
-                          {{-- <small class="text-muted">Helper</small>
-                          <div class="input-group input-group-small flex-nowrap">
-                            <select class="form-select" placeholder="" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>
-                              <option value=""></option>
-                            </select>
-                            <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>Delete Helper</button>
-                          </div> --}}
-                          <small class="text-muted">Content</small>
-                          <textarea class="form-control" name="{{ $viewFolder }}[docNotes]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_docNotes" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }} onchange="
-                            $('#{{ $viewFolder }}_findings').val($(this).val());
-                          ">{{ isset($cr->docNotes) ? $cr->docNotes : '' }}</textarea>
-                          {{-- <small class="text-muted">Helper Save/Edit</small>
-                          <div class="input-group input-group-small mb-3 flex-nowrap">
-                            <div class="input-group-text">
-                              <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
-                            </div>
-                            <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesTitle" name="{{ $viewFolder }}[docNotesTitle]" disabled>
-                            <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
-                          </div>
-                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[_docNotesEdit]" id="{{ $viewFolder }}_docNotesEdit" rows=3 disabled></textarea> --}}
+                          {{-- <p>
+                            <strong>AR OD:</strong> <span class="text-primary">{{ $datum->arod_sphere != 'No Target' ? ($datum->arod_sphere > 0 ? '+' . $datum->arod_sphere : $datum->arod_sphere) . ' - ' . ($datum->arod_cylinder > 0 ? '+' . $datum->arod_cylinder : $datum->arod_cylinder) . ' x ' . $datum->arod_axis : 'No Refraction Possible' }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                            <strong>AR OS:</strong> <span class="text-primary">{{ $datum->aros_sphere != 'No Target' ? ($datum->aros_sphere > 0 ? '+' . $datum->aros_sphere : $datum->aros_sphere) . ' - ' . ($datum->aros_cylinder > 0 ? '+' . $datum->aros_cylinder : $datum->aros_cylinder) . ' x ' . $datum->aros_axis : 'No Refraction Possible' }}</span><br>
+                            <strong>UCVA OD:</strong> <span class="text-primary">{{ $datum->vaod_den != '' ? $datum->vaod_num . ' / ' . $datum->vaod_den : $datum->vaod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                            <strong>UCVA OD Present Correction:</strong> <span class="text-primary">{{ $datum->vaodcor_den != '' ? $datum->vaodcor_num . ' / ' . $datum->vaodcor_den : $datum->vaodcor_num }}</span><br>
+                            <strong>UCVA OS:</strong> <span class="text-primary">{{ $datum->vaos_den != '' ? $datum->vaos_num . ' / ' . $datum->vaos_den : $datum->vaos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                            <strong>UCVA OS Present Correction:</strong> <span class="text-primary">{{ $datum->vaoscor_den != '' ? $datum->vaoscor_num . ' / ' . $datum->vaoscor_den : $datum->vaoscor_num }}</span><br>
+                            <strong>VA OD Pinhole:</strong> <span class="text-primary">{{ $datum->pinod_den != '' ? $datum->pinod_num . ' / ' . $datum->pinod_den : $datum->pinod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                            <strong>BCVA OD:</strong> <span class="text-primary">{{ $datum->pinodcor_den != '' ? $datum->pinodcor_num . ' / ' . $datum->pinodcor_den : $datum->pinodcor_num }}</span><br>
+                            <strong>VA OS Pinhole:</strong> <span class="text-primary">{{ $datum->pinos_den != '' ? $datum->pinos_num . ' / ' . $datum->pinos_den : $datum->pinos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                            <strong>BCVA OS:</strong> <span class="text-primary">{{ $datum->pinoscor_den != '' ? $datum->pinoscor_num . ' / ' . $datum->pinoscor_den : $datum->pinoscor_num }}</span><br>
+                            <strong>Jaeger OU:</strong> <span class="text-primary">{{ $datum->jae_ou }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                            <strong>Jaeger OD:</strong> <span class="text-primary">{{ $datum->jae_od }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                            <strong>Jaeger OS:</strong> <span class="text-primary">{{ $datum->jae_os }}</span><br>
+                            <strong>IOP OD:</strong> <span class="text-primary">{{ $datum->iopod }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                            <strong>IOP OS:</strong> <span class="text-primary">{{ $datum->iopos }}</span>
+                          </p> --}}
+                          <table class="table table-bordered table-striped table-hover table-sm">
+                            <thead class="table-{{ $bgColor }}">
+                                <tr>
+                                    <th>&nbsp;</th>
+                                    <th>OD</th>
+                                    <th>OS</th>
+                                    <th>OU</th>
+                                </tr>
+                            </thead>
+                            <tbody id="prevEyerSum">
+                              <tr>
+                                  <td>AR</td>
+                                  <td>{{ $datum->arod_sphere != 'No Target' ? ( $datum->arod_sphere > 0 ? '+' . $datum->arod_sphere : $datum->arod_sphere ) . ' - ' . ( $datum->arod_cylinder > 0 ? '+' . $datum->arod_cylinder : $datum->arod_cylinder ) . ' x ' . $datum->arod_axis : 'No Refraction Possible' }}</td>
+                                  <td>{{ $datum->aros_sphere != 'No Target' ? ( $datum->aros_sphere > 0 ? '+' . $datum->aros_sphere : $datum->aros_sphere ) . ' - ' . ( $datum->aros_cylinder > 0 ? '+' . $datum->aros_cylinder : $datum->aros_cylinder ) . ' x ' . $datum->aros_axis : 'No Refraction Possible' }}</td>
+                                  <td>&nbsp;</td>
+                              </tr>
+                              <tr>
+                                  <td>UCVA</td>
+                                  <td>{{ $datum->vaod_den != '' ? $datum->vaod_num . ' / ' . $datum->vaod_den : $datum->vaod_num }}</td>
+                                  <td>{{ $datum->vaos_den != '' ? $datum->vaos_num . ' / ' . $datum->vaos_den : $datum->vaos_num }}</td>
+                                  <td>&nbsp;</td>
+                              </tr>
+                              <tr>
+                                  <td>UCVA Present Correction</td>
+                                  <td>{{ $datum->vaodcor_den != '' ? $datum->vaodcor_num . ' / ' . $datum->vaodcor_den : $datum->vaodcor_num }}</td>
+                                  <td>{{ $datum->vaoscor_den != '' ? $datum->vaoscor_num . ' / ' . $datum->vaoscor_den : $datum->vaoscor_num }}</td>
+                                  <td>&nbsp;</td>
+                              </tr>
+                              <tr>
+                                  <td>VA Pinhole</td>
+                                  <td>{{ $datum->pinod_den != '' ? $datum->pinod_num . ' / ' . $datum->pinod_den : $datum->pinod_num }}</td>
+                                  <td>{{ $datum->pinos_den != '' ? $datum->pinos_num . ' / ' . $datum->pinos_den : $datum->pinos_num }}</td>
+                                  <td>&nbsp;</td>
+                              </tr>
+                              <tr>
+                                  <td>BCVA</td>
+                                  <td>{{ $datum->pinodcor_den != '' ? $datum->pinodcor_num . ' / ' . $datum->pinodcor_den : $datum->pinodcor_num }}</td>
+                                  <td>{{ $datum->pinoscor_den != '' ? $datum->pinoscor_num . ' / ' . $datum->pinoscor_den : $datum->pinoscor_num }}</td>
+                                  <td>&nbsp;</td>
+                              </tr>
+                              <tr>
+                                  <td>Jaeger</td>
+                                  <td>{{ $datum->jae_od }}</td>
+                                  <td>{{ $datum->jae_os }}</td>
+                                  <td>{{ $datum->jae_ou }}</td>
+                              </tr>
+                              <tr>
+                                  <td>IOP</td>
+                                  <td>{{ $datum->iopod }}</td>
+                                  <td>{{ $datum->iopos }}</td>
+                                  <td>&nbsp;</td>
+                              </tr>
+                            </tbody>
+                          </table>
                         </div>
                       </div>
+                      @endif
+                      {{-- <small class="text-muted">Helper</small>
+                      <div class="input-group input-group-small flex-nowrap">
+                        <select class="form-select" placeholder="" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>
+                          <option value=""></option>
+                        </select>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>Delete Helper</button>
+                      </div> --}}
+                      <small class="text-muted">Content</small>
+                      <textarea class="form-control" name="{{ $viewFolder }}[docNotes]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_docNotes" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }} onchange="
+                        $('#{{ $viewFolder }}_findings').val($(this).val());
+                      ">{{ isset($cr->docNotes) ? $cr->docNotes : '' }}</textarea>
+                      {{-- <small class="text-muted">Helper Save/Edit</small>
+                      <div class="input-group input-group-small mb-3 flex-nowrap">
+                        <div class="input-group-text">
+                          <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                        </div>
+                        <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesTitle" name="{{ $viewFolder }}[docNotesTitle]" disabled>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                      </div>
+                      <textarea class="form-control mb-2" name="{{ $viewFolder }}[_docNotesEdit]" id="{{ $viewFolder }}_docNotesEdit" rows=3 disabled></textarea> --}}
                     </div>
                   </div>
                   <div class="card mb-3">
