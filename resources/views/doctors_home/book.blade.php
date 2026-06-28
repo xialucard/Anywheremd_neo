@@ -539,91 +539,6 @@
             @if($datum->booking_type == 'Surgery' || $datum->booking_type == 'Laser' || $datum->booking_type == 'Diagnostics')
             <li><hr class="dropdown-divider"></li>
             <li>
-              <a class="dropdown-item" id="dischargeSumBigLink" href="#" onclick="
-                $('#sumBigLink').removeClass('active');
-                $('#soapBigLink').removeClass('active');
-                $('#labBigLink').removeClass('active');  
-                $('#presBigLink').removeClass('active');  
-                $('#medBigLink').removeClass('active');
-                $('#admitBigLink').removeClass('active');
-                $('#dialysisBigLink').removeClass('active');
-                // $('#hdSummaryBigLink').removeClass('active');
-                $('#admitPeriBigLink').removeClass('active');
-                $('#printableFormsBigLink').addClass('active'); 
-                $('#orTechBigLink').removeClass('active');
-                $('#postOpBigLink').removeClass('active');
-                $('#dischargeSumBigLink').addClass('active');
-
-                $('#sumPrevLink').removeClass('active');
-                $('#soapPrevLink').removeClass('active');
-                $('#labPrevLink').removeClass('active');  
-                $('#presPrevLink').removeClass('active');  
-                $('#medPrevLink').removeClass('active');
-                $('#admitPrevLink').removeClass('active'); 
-                $('#dialysisPrevLink').removeClass('active');
-                // $('#hdSummaryPrevLink').removeClass('active');
-                $('#admitPeriPrevLink').removeClass('active');
-                $('#printableFormsPrevLink').addClass('active'); 
-                $('#orTechPrevLink').removeClass('active');
-                $('#postOpPrevLink').removeClass('active');
-                $('#dischargeSumPrevLink').addClass('active');
-
-                $('#sumPrevDiv').hide();  
-                $('#soapPrevDiv').hide();  
-                $('#labPrevDiv').hide();  
-                $('#presPrevDiv').hide();  
-                $('#medPrevDiv').hide(); 
-                $('#admitPrevDiv').hide();
-                $('#dialysisPrevDiv').hide();  
-                $('#admitPeriPrevDiv').hide();  
-                $('#orTechPrevDiv').hide();  
-                $('#postOpPrevDiv').hide(); 
-                $('#dischargeSumPrevDiv').show(); 
-
-                $('#sumCurLink').removeClass('active');
-                $('#soapCurLink').removeClass('active');
-                $('#labCurLink').removeClass('active');  
-                $('#presCurLink').removeClass('active');  
-                $('#medCurLink').removeClass('active');
-                $('#admitCurLink').removeClass('active'); 
-                $('#dialysisCurLink').removeClass('active');
-                $('#admitPeriCurLink').removeClass('active');
-                $('#printableFormsCurLink').addClass('active'); 
-                $('#orTechCurLink').removeClass('active');
-                $('#postOpCurLink').removeClass('active');
-                $('#dischargeSumCurLink').addClass('active');
-
-                $('#sumCurDiv').hide();  
-                $('#soapCurDiv').hide();  
-                $('#labCurDiv').hide();  
-                $('#presCurDiv').hide();  
-                $('#medCurDiv').hide(); 
-                $('#admitCurDiv').hide();  
-                $('#dialysisCurDiv').hide();
-                $('#admitPeriCurDiv').hide();  
-                $('#orTechCurDiv').hide();  
-                $('#postOpCurDiv').hide();
-                $('#dischargeSumCurDiv').show();
-
-                if(!$('#pastChartFile').is(':visible')){
-                  $('#pastChartFile').hide();
-                  $('#pastChart').show();
-                }else{
-                  $('#pastChartFile').hide();
-                  $('#pastChart').show();
-                  $('#pastChart').removeClass('d-none');
-                  $('#pastChart').removeClass('d-lg-none');
-                }
-                if(!$('#pastChartFile').is(':visible') && !$('#pastChart').is(':visible')){
-                  $('#showPrevLinkHide').hide();
-                  $('#showPrevLink').show();
-                }else{
-                  $('#showPrevLinkHide').show();
-                  $('#showPrevLink').hide();
-                }
-              ">Discharge Summary</a>
-            </li>
-            <li>
               <a class="dropdown-item" id="admitPeriBigLink" href="#" onclick="
                 $('#sumBigLink').removeClass('active');
                 $('#soapBigLink').removeClass('active');
@@ -883,6 +798,91 @@
                 }
                  
               ">Post Operative Instructions</a>
+            </li>
+            <li>
+              <a class="dropdown-item" id="dischargeSumBigLink" href="#" onclick="
+                $('#sumBigLink').removeClass('active');
+                $('#soapBigLink').removeClass('active');
+                $('#labBigLink').removeClass('active');  
+                $('#presBigLink').removeClass('active');  
+                $('#medBigLink').removeClass('active');
+                $('#admitBigLink').removeClass('active');
+                $('#dialysisBigLink').removeClass('active');
+                // $('#hdSummaryBigLink').removeClass('active');
+                $('#admitPeriBigLink').removeClass('active');
+                $('#printableFormsBigLink').addClass('active'); 
+                $('#orTechBigLink').removeClass('active');
+                $('#postOpBigLink').removeClass('active');
+                $('#dischargeSumBigLink').addClass('active');
+
+                $('#sumPrevLink').removeClass('active');
+                $('#soapPrevLink').removeClass('active');
+                $('#labPrevLink').removeClass('active');  
+                $('#presPrevLink').removeClass('active');  
+                $('#medPrevLink').removeClass('active');
+                $('#admitPrevLink').removeClass('active'); 
+                $('#dialysisPrevLink').removeClass('active');
+                // $('#hdSummaryPrevLink').removeClass('active');
+                $('#admitPeriPrevLink').removeClass('active');
+                $('#printableFormsPrevLink').addClass('active'); 
+                $('#orTechPrevLink').removeClass('active');
+                $('#postOpPrevLink').removeClass('active');
+                $('#dischargeSumPrevLink').addClass('active');
+
+                $('#sumPrevDiv').hide();  
+                $('#soapPrevDiv').hide();  
+                $('#labPrevDiv').hide();  
+                $('#presPrevDiv').hide();  
+                $('#medPrevDiv').hide(); 
+                $('#admitPrevDiv').hide();
+                $('#dialysisPrevDiv').hide();  
+                $('#admitPeriPrevDiv').hide();  
+                $('#orTechPrevDiv').hide();  
+                $('#postOpPrevDiv').hide(); 
+                $('#dischargeSumPrevDiv').show(); 
+
+                $('#sumCurLink').removeClass('active');
+                $('#soapCurLink').removeClass('active');
+                $('#labCurLink').removeClass('active');  
+                $('#presCurLink').removeClass('active');  
+                $('#medCurLink').removeClass('active');
+                $('#admitCurLink').removeClass('active'); 
+                $('#dialysisCurLink').removeClass('active');
+                $('#admitPeriCurLink').removeClass('active');
+                $('#printableFormsCurLink').addClass('active'); 
+                $('#orTechCurLink').removeClass('active');
+                $('#postOpCurLink').removeClass('active');
+                $('#dischargeSumCurLink').addClass('active');
+
+                $('#sumCurDiv').hide();  
+                $('#soapCurDiv').hide();  
+                $('#labCurDiv').hide();  
+                $('#presCurDiv').hide();  
+                $('#medCurDiv').hide(); 
+                $('#admitCurDiv').hide();  
+                $('#dialysisCurDiv').hide();
+                $('#admitPeriCurDiv').hide();  
+                $('#orTechCurDiv').hide();  
+                $('#postOpCurDiv').hide();
+                $('#dischargeSumCurDiv').show();
+
+                if(!$('#pastChartFile').is(':visible')){
+                  $('#pastChartFile').hide();
+                  $('#pastChart').show();
+                }else{
+                  $('#pastChartFile').hide();
+                  $('#pastChart').show();
+                  $('#pastChart').removeClass('d-none');
+                  $('#pastChart').removeClass('d-lg-none');
+                }
+                if(!$('#pastChartFile').is(':visible') && !$('#pastChart').is(':visible')){
+                  $('#showPrevLinkHide').hide();
+                  $('#showPrevLink').show();
+                }else{
+                  $('#showPrevLinkHide').show();
+                  $('#showPrevLink').hide();
+                }
+              ">Discharge Summary</a>
             </li>
             @endif
           </ul>
@@ -2495,75 +2495,8 @@
                       $('#dischargeSumCurDiv').hide();
                     ">Med Cert</a>
                   </li>
+                  @if($datum->booking_type == 'Surgery' || $datum->booking_type == 'Laser' || $datum->booking_type == 'Diagnostics')
                   <li><hr class="dropdown-divider"></li>
-                  <li>
-                    <a class="dropdown-item" id="dischargeSumPrevLink" href="#" onclick="
-                      $('#sumBigLink').removeClass('active');
-                      $('#soapBigLink').removeClass('active');
-                      $('#labBigLink').removeClass('active');  
-                      $('#presBigLink').removeClass('active');  
-                      $('#medBigLink').removeClass('active');
-                      $('#admitBigLink').removeClass('active');
-                      $('#dialysisBigLink').removeClass('active');
-                      // $('#hdSummaryBigLink').removeClass('active');
-                      $('#admitPeriBigLink').removeClass('active');
-                      $('#printableFormsBigLink').addClass('active'); 
-                      $('#orTechBigLink').removeClass('active');
-                      $('#postOpBigLink').removeClass('active');
-                      $('#dischargeSumBigLink').addClass('active');
-
-                      $('#sumPrevLink').removeClass('active');
-                      $('#soapPrevLink').removeClass('active');
-                      $('#labPrevLink').removeClass('active');  
-                      $('#presPrevLink').removeClass('active');  
-                      $('#medPrevLink').removeClass('active');
-                      $('#admitPrevLink').removeClass('active'); 
-                      $('#dialysisPrevLink').removeClass('active');
-                      // $('#hdSummaryPrevLink').removeClass('active');
-                      $('#admitPeriPrevLink').removeClass('active');
-                      $('#printableFormsPrevLink').addClass('active'); 
-                      $('#orTechPrevLink').removeClass('active');
-                      $('#postOpPrevLink').removeClass('active');
-                      $('#dischargeSumPrevLink').addClass('active');
-
-                      $('#sumPrevDiv').hide();  
-                      $('#soapPrevDiv').hide();  
-                      $('#labPrevDiv').hide();  
-                      $('#presPrevDiv').hide();  
-                      $('#medPrevDiv').hide(); 
-                      $('#admitPrevDiv').hide();
-                      $('#dialysisPrevDiv').hide();  
-                      $('#admitPeriPrevDiv').hide();  
-                      $('#orTechPrevDiv').hide();  
-                      $('#postOpPrevDiv').hide(); 
-                      $('#dischargeSumPrevDiv').show(); 
-
-                      $('#sumCurLink').removeClass('active');
-                      $('#soapCurLink').removeClass('active');
-                      $('#labCurLink').removeClass('active');  
-                      $('#presCurLink').removeClass('active');  
-                      $('#medCurLink').removeClass('active');
-                      $('#admitCurLink').removeClass('active'); 
-                      $('#dialysisCurLink').removeClass('active');
-                      $('#admitPeriCurLink').removeClass('active');
-                      $('#printableFormsCurLink').addClass('active'); 
-                      $('#orTechCurLink').removeClass('active');
-                      $('#postOpCurLink').removeClass('active');
-                      $('#dischargeSumCurLink').addClass('active');
-
-                      $('#sumCurDiv').hide();  
-                      $('#soapCurDiv').hide();  
-                      $('#labCurDiv').hide();  
-                      $('#presCurDiv').hide();  
-                      $('#medCurDiv').hide(); 
-                      $('#admitCurDiv').hide();  
-                      $('#dialysisCurDiv').hide();
-                      $('#admitPeriCurDiv').hide();  
-                      $('#orTechCurDiv').hide();  
-                      $('#postOpCurDiv').hide();
-                      $('#dischargeSumCurDiv').show();
-                    ">Discharge Summary</a>
-                  </li>
                   <li>
                     <a class="dropdown-item" id="admitPeriPrevLink" href="#" onclick="
                       $('#sumBigLink').removeClass('active');
@@ -2773,6 +2706,75 @@
                       $('#postOpCurDiv').show();
                     ">Post Operative Instructions</a>
                   </li>
+                  <li>
+                    <a class="dropdown-item" id="dischargeSumPrevLink" href="#" onclick="
+                      $('#sumBigLink').removeClass('active');
+                      $('#soapBigLink').removeClass('active');
+                      $('#labBigLink').removeClass('active');  
+                      $('#presBigLink').removeClass('active');  
+                      $('#medBigLink').removeClass('active');
+                      $('#admitBigLink').removeClass('active');
+                      $('#dialysisBigLink').removeClass('active');
+                      // $('#hdSummaryBigLink').removeClass('active');
+                      $('#admitPeriBigLink').removeClass('active');
+                      $('#printableFormsBigLink').addClass('active'); 
+                      $('#orTechBigLink').removeClass('active');
+                      $('#postOpBigLink').removeClass('active');
+                      $('#dischargeSumBigLink').addClass('active');
+
+                      $('#sumPrevLink').removeClass('active');
+                      $('#soapPrevLink').removeClass('active');
+                      $('#labPrevLink').removeClass('active');  
+                      $('#presPrevLink').removeClass('active');  
+                      $('#medPrevLink').removeClass('active');
+                      $('#admitPrevLink').removeClass('active'); 
+                      $('#dialysisPrevLink').removeClass('active');
+                      // $('#hdSummaryPrevLink').removeClass('active');
+                      $('#admitPeriPrevLink').removeClass('active');
+                      $('#printableFormsPrevLink').addClass('active'); 
+                      $('#orTechPrevLink').removeClass('active');
+                      $('#postOpPrevLink').removeClass('active');
+                      $('#dischargeSumPrevLink').addClass('active');
+
+                      $('#sumPrevDiv').hide();  
+                      $('#soapPrevDiv').hide();  
+                      $('#labPrevDiv').hide();  
+                      $('#presPrevDiv').hide();  
+                      $('#medPrevDiv').hide(); 
+                      $('#admitPrevDiv').hide();
+                      $('#dialysisPrevDiv').hide();  
+                      $('#admitPeriPrevDiv').hide();  
+                      $('#orTechPrevDiv').hide();  
+                      $('#postOpPrevDiv').hide(); 
+                      $('#dischargeSumPrevDiv').show(); 
+
+                      $('#sumCurLink').removeClass('active');
+                      $('#soapCurLink').removeClass('active');
+                      $('#labCurLink').removeClass('active');  
+                      $('#presCurLink').removeClass('active');  
+                      $('#medCurLink').removeClass('active');
+                      $('#admitCurLink').removeClass('active'); 
+                      $('#dialysisCurLink').removeClass('active');
+                      $('#admitPeriCurLink').removeClass('active');
+                      $('#printableFormsCurLink').addClass('active'); 
+                      $('#orTechCurLink').removeClass('active');
+                      $('#postOpCurLink').removeClass('active');
+                      $('#dischargeSumCurLink').addClass('active');
+
+                      $('#sumCurDiv').hide();  
+                      $('#soapCurDiv').hide();  
+                      $('#labCurDiv').hide();  
+                      $('#presCurDiv').hide();  
+                      $('#medCurDiv').hide(); 
+                      $('#admitCurDiv').hide();  
+                      $('#dialysisCurDiv').hide();
+                      $('#admitPeriCurDiv').hide();  
+                      $('#orTechCurDiv').hide();  
+                      $('#postOpCurDiv').hide();
+                      $('#dischargeSumCurDiv').show();
+                    ">Discharge Summary</a>
+                  </li>
+                  @endif
                 </ul>
               </li>
               @if($datum->booking_type == 'Dialysis' || isset($dialysisType))
@@ -7207,75 +7209,8 @@
                       $('#dischargeSumCurDiv').hide();
                     ">Med Cert</a>
                   </li>
+                  @if($datum->booking_type == 'Surgery' || $datum->booking_type == 'Laser' || $datum->booking_type == 'Diagnostics')
                   <li><hr class="dropdown-divider"></li>
-                  <li>
-                    <a class="dropdown-item" id="dischargeSumCurLink" href="#" onclick="
-                      $('#sumBigLink').removeClass('active');
-                      $('#soapBigLink').removeClass('active');
-                      $('#labBigLink').removeClass('active');  
-                      $('#presBigLink').removeClass('active');  
-                      $('#medBigLink').removeClass('active');
-                      $('#admitBigLink').removeClass('active');
-                      $('#dialysisBigLink').removeClass('active');
-                      // $('#hdSummaryBigLink').removeClass('active');
-                      $('#admitPeriBigLink').removeClass('active');
-                      $('#printableFormsBigLink').addClass('active'); 
-                      $('#orTechBigLink').removeClass('active');
-                      $('#postOpBigLink').removeClass('active');
-                      $('#dischargeSumBigLink').addClass('active');
-
-                      $('#sumPrevLink').removeClass('active');
-                      $('#soapPrevLink').removeClass('active');
-                      $('#labPrevLink').removeClass('active');  
-                      $('#presPrevLink').removeClass('active');  
-                      $('#medPrevLink').removeClass('active');
-                      $('#admitPrevLink').removeClass('active'); 
-                      $('#dialysisPrevLink').removeClass('active');
-                      // $('#hdSummaryPrevLink').removeClass('active');
-                      $('#admitPeriPrevLink').removeClass('active');
-                      $('#printableFormsPrevLink').addClass('active'); 
-                      $('#orTechPrevLink').removeClass('active');
-                      $('#postOpPrevLink').removeClass('active');
-                      $('#dischargeSumPrevLink').addClass('active');
-
-                      $('#sumPrevDiv').hide();  
-                      $('#soapPrevDiv').hide();  
-                      $('#labPrevDiv').hide();  
-                      $('#presPrevDiv').hide();  
-                      $('#medPrevDiv').hide(); 
-                      $('#admitPrevDiv').hide();
-                      $('#dialysisPrevDiv').hide();  
-                      $('#admitPeriPrevDiv').hide();  
-                      $('#orTechPrevDiv').hide();  
-                      $('#postOpPrevDiv').hide(); 
-                      $('#dischargeSumPrevDiv').show(); 
-
-                      $('#sumCurLink').removeClass('active');
-                      $('#soapCurLink').removeClass('active');
-                      $('#labCurLink').removeClass('active');  
-                      $('#presCurLink').removeClass('active');  
-                      $('#medCurLink').removeClass('active');
-                      $('#admitCurLink').removeClass('active'); 
-                      $('#dialysisCurLink').removeClass('active');
-                      $('#admitPeriCurLink').removeClass('active');
-                      $('#printableFormsCurLink').addClass('active'); 
-                      $('#orTechCurLink').removeClass('active');
-                      $('#postOpCurLink').removeClass('active');
-                      $('#dischargeSumCurLink').addClass('active');
-
-                      $('#sumCurDiv').hide();  
-                      $('#soapCurDiv').hide();  
-                      $('#labCurDiv').hide();  
-                      $('#presCurDiv').hide();  
-                      $('#medCurDiv').hide(); 
-                      $('#admitCurDiv').hide();  
-                      $('#dialysisCurDiv').hide();
-                      $('#admitPeriCurDiv').show();  
-                      $('#orTechCurDiv').hide();  
-                      $('#postOpCurDiv').hide();
-                      $('#dischargeSumCurDiv').hide();
-                    ">Discharge Summary</a>
-                  </li>
                   <li>
                     <a class="dropdown-item" id="admitPeriCurLink" href="#" onclick="
                       $('#sumBigLink').removeClass('active');
@@ -7485,6 +7420,75 @@
                       $('#postOpCurDiv').show();
                     ">Post Operative Instructions</a>
                   </li>
+                  <li>
+                    <a class="dropdown-item" id="dischargeSumCurLink" href="#" onclick="
+                      $('#sumBigLink').removeClass('active');
+                      $('#soapBigLink').removeClass('active');
+                      $('#labBigLink').removeClass('active');  
+                      $('#presBigLink').removeClass('active');  
+                      $('#medBigLink').removeClass('active');
+                      $('#admitBigLink').removeClass('active');
+                      $('#dialysisBigLink').removeClass('active');
+                      // $('#hdSummaryBigLink').removeClass('active');
+                      $('#admitPeriBigLink').removeClass('active');
+                      $('#printableFormsBigLink').addClass('active'); 
+                      $('#orTechBigLink').removeClass('active');
+                      $('#postOpBigLink').removeClass('active');
+                      $('#dischargeSumBigLink').addClass('active');
+
+                      $('#sumPrevLink').removeClass('active');
+                      $('#soapPrevLink').removeClass('active');
+                      $('#labPrevLink').removeClass('active');  
+                      $('#presPrevLink').removeClass('active');  
+                      $('#medPrevLink').removeClass('active');
+                      $('#admitPrevLink').removeClass('active'); 
+                      $('#dialysisPrevLink').removeClass('active');
+                      // $('#hdSummaryPrevLink').removeClass('active');
+                      $('#admitPeriPrevLink').removeClass('active');
+                      $('#printableFormsPrevLink').addClass('active'); 
+                      $('#orTechPrevLink').removeClass('active');
+                      $('#postOpPrevLink').removeClass('active');
+                      $('#dischargeSumPrevLink').addClass('active');
+
+                      $('#sumPrevDiv').hide();  
+                      $('#soapPrevDiv').hide();  
+                      $('#labPrevDiv').hide();  
+                      $('#presPrevDiv').hide();  
+                      $('#medPrevDiv').hide(); 
+                      $('#admitPrevDiv').hide();
+                      $('#dialysisPrevDiv').hide();  
+                      $('#admitPeriPrevDiv').hide();  
+                      $('#orTechPrevDiv').hide();  
+                      $('#postOpPrevDiv').hide(); 
+                      $('#dischargeSumPrevDiv').show(); 
+
+                      $('#sumCurLink').removeClass('active');
+                      $('#soapCurLink').removeClass('active');
+                      $('#labCurLink').removeClass('active');  
+                      $('#presCurLink').removeClass('active');  
+                      $('#medCurLink').removeClass('active');
+                      $('#admitCurLink').removeClass('active'); 
+                      $('#dialysisCurLink').removeClass('active');
+                      $('#admitPeriCurLink').removeClass('active');
+                      $('#printableFormsCurLink').addClass('active'); 
+                      $('#orTechCurLink').removeClass('active');
+                      $('#postOpCurLink').removeClass('active');
+                      $('#dischargeSumCurLink').addClass('active');
+
+                      $('#sumCurDiv').hide();  
+                      $('#soapCurDiv').hide();  
+                      $('#labCurDiv').hide();  
+                      $('#presCurDiv').hide();  
+                      $('#medCurDiv').hide(); 
+                      $('#admitCurDiv').hide();  
+                      $('#dialysisCurDiv').hide();
+                      $('#admitPeriCurDiv').show();  
+                      $('#orTechCurDiv').hide();  
+                      $('#postOpCurDiv').hide();
+                      $('#dischargeSumCurDiv').hide();
+                    ">Discharge Summary</a>
+                  </li>
+                  @endif
                 </ul>
               </li>
               {{-- <li class="nav-item">
@@ -12539,6 +12543,39 @@
                 <div class="row">
                   <div class="col-lg-12">
                     <div class="card mb-3">
+                      <div class="card-header">Orders Summary</div>
+                      <div class="card-body">
+                        <div class="table-responsive" style="max-height: 300px">
+                          <table class="table table-bordered table-striped table-hover table-sm medsOn">
+                            <thead class="table-{{ $bgColor }}">
+                              <tr>
+                                <th>Tx No.</th>
+                                <th>Date</th>
+                                <th>Plan</th>
+                                <th>POD</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                            @if(isset($allBooking))
+                              @foreach ($allBooking as $ind=>$dat)
+                              <tr id="hdBooking_{{ $dat->id }}">
+                                  <td>{{ $dat->treatment_number }}</td>
+                                  <td>{{ $dat->bookingDate }}</td>
+                                  <td>{{ nl2br($dat->planMed) }}</td>
+                                  <td>{{ $dat->doctor->name }}</td>
+                              </tr>
+                              @endforeach
+                            @endif
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="card mb-3">
                       <div class="card-header">HD Summary</div>
                       <div class="card-body">
                       <div class="table-responsive" style="max-height: 300px">
@@ -12566,6 +12603,7 @@
                           <tbody id="medsOnboardTable{{ $datum->id }}">
                           @if(isset($allBooking))
                             @foreach ($allBooking as $ind=>$dat)
+                              @if($dat->consultation_parent_id == null)
                             <tr id="hdBooking_{{ $dat->id }}">
                                 <td>{{ $dat->treatment_number }}</td>
                                 <td>{{ $dat->bookingDate }}</td>
@@ -12584,6 +12622,7 @@
                                 <td>{{ nl2br($dat->dialysis_complication) }}</td>
                                 <td>{{ $dat->creator->name }}</td>
                             </tr>
+                              @endif
                             @endforeach
                           @endif
                           </tbody>
@@ -12598,7 +12637,293 @@
                     <div class="card mb-3">
                       <div class="card-header">Laboratory Summary</div>
                       <div class="card-body">
-                      <div class="table-responsive" style="max-height: 300px">
+                        <div class="table-responsive" style="max-height: 300px">
+                          <table class="table table-bordered table-striped table-hover table-sm medsOn">
+                            <thead class="table-{{ $bgColor }}">
+                              <tr>
+                                <th rowspan="2">&nbsp;</th>
+                                <th colspan="{{ isset($allBooking) ? sizeof($allBooking) : 0 }}">Date</th>
+                              </tr>
+                              <tr>
+                                @if(isset($allBooking))
+                                  @foreach ($allBooking as $ind=>$dat)
+                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                      @continue
+                                    @endif  
+                                    <th>{{ $dat->bookingDate }}</th>
+                                  @endforeach
+                                @endif
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>Hemoglobin</td>
+                                @if(isset($allBooking))
+                                  @foreach ($allBooking as $ind=>$dat)
+                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                      @continue
+                                    @endif
+                                    <td>{{ $dat->hemoglobin }}</td>
+                                  @endforeach
+                                @endif
+                              </tr>
+                              <tr>
+                                <td>Hematocrit</td>
+                                @if(isset($allBooking))
+                                  @foreach ($allBooking as $ind=>$dat)
+                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)  
+                                      @continue
+                                    @endif
+                                    <td>{{ $dat->hematocrit }}</td>
+                                  @endforeach
+                                @endif
+                              </tr>
+                              <tr>
+                                <td>RBC</td>
+                                @if(isset($allBooking))
+                                  @foreach ($allBooking as $ind=>$dat)
+                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                      @continue
+                                    @endif
+                                    <td>{{ $dat->rbc }}</td>
+                                  @endforeach
+                                @endif
+                              </tr>
+                              <tr>
+                                <td>WBC</td>
+                                @if(isset($allBooking))
+                                  @foreach ($allBooking as $ind=>$dat)
+                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                      @continue
+                                    @endif
+                                    <td>{{ $dat->wbc }}</td>
+                                  @endforeach
+                                @endif
+                              </tr>
+                              <tr>
+                                <td>Platelet</td>
+                                @if(isset($allBooking))
+                                  @foreach ($allBooking as $ind=>$dat)
+                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                      @continue
+                                    @endif
+                                    <td>{{ $dat->platelet }}</td>
+                                  @endforeach
+                                @endif
+                              </tr>
+                              <tr>
+                                <td>URR</td>
+                                @if(isset($allBooking))
+                                  @foreach ($allBooking as $ind=>$dat)
+                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                      @continue
+                                    @endif
+                                    <td>{{  number_format($dat->urr, 2) }}</td>
+                                  @endforeach
+                                @endif
+                              </tr>
+                              <tr>
+                                <td>Kt/V</td>
+                                @if(isset($allBooking))
+                                  @foreach ($allBooking as $ind=>$dat)
+                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                      @continue
+                                    @endif
+                                    <td>{{ number_format($dat->ktv2, 2) }}</td>
+                                  @endforeach
+                                @endif
+                              </tr>
+                              <tr>
+                                <td>Pre BUN</td>
+                                @if(isset($allBooking))
+                                  @foreach ($allBooking as $ind=>$dat)
+                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                      @continue
+                                    @endif
+                                    <td>{{ $dat->pre_bun }}</td>
+                                  @endforeach
+                                @endif
+                              </tr>
+                              <tr>
+                                <td>Post BUN</td>
+                                @if(isset($allBooking))
+                                  @foreach ($allBooking as $ind=>$dat)
+                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                      @continue
+                                    @endif
+                                    <td>{{ $dat->post_bun }}</td>
+                                  @endforeach
+                                @endif
+                              </tr>
+                              <tr>
+                                <td>Creatinine</td>
+                                @if(isset($allBooking))
+                                  @foreach ($allBooking as $ind=>$dat)
+                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                      @continue
+                                    @endif
+                                    <td>{{ $dat->creatinine }}</td>
+                                  @endforeach
+                                @endif
+                              </tr>
+                              <tr>
+                                <td>Serum Albumin</td>
+                                @if(isset($allBooking))
+                                  @foreach ($allBooking as $ind=>$dat)
+                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                      @continue
+                                    @endif
+                                    <td>{{ $dat->serum_albumin }}</td>
+                                  @endforeach
+                                @endif
+                              </tr>
+                              <tr>
+                                <td>Sodium</td>
+                                @if(isset($allBooking))
+                                  @foreach ($allBooking as $ind=>$dat)
+                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                      @continue
+                                    @endif
+                                    <td>{{ $dat->sodium }}</td>
+                                  @endforeach
+                                @endif
+                              </tr>
+                              <tr>
+                                <td>Potassium</td>
+                                @if(isset($allBooking))
+                                  @foreach ($allBooking as $ind=>$dat)
+                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                      @continue
+                                    @endif
+                                    <td>{{ $dat->potassium }}</td>
+                                  @endforeach
+                                @endif
+                              </tr>
+                              <tr>
+                                <td>Ionized Calcium</td>
+                                @if(isset($allBooking))
+                                  @foreach ($allBooking as $ind=>$dat)
+                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                      @continue
+                                    @endif
+                                    <td>{{ $dat->ionized_calcium }}</td>
+                                  @endforeach
+                                @endif
+                              </tr>
+                              <tr>
+                                <td>Uric Acid</td>
+                                @if(isset($allBooking))
+                                  @foreach ($allBooking as $ind=>$dat)
+                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                      @continue
+                                    @endif
+                                    <td>{{ $dat->uric_acid }}</td>
+                                  @endforeach
+                                @endif
+                              </tr>
+                              <tr>
+                                <td>SGPT</td>
+                                @if(isset($allBooking))
+                                  @foreach ($allBooking as $ind=>$dat)
+                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                      @continue
+                                    @endif
+                                    <td>{{ $dat->sgpt }}</td>
+                                  @endforeach
+                                @endif
+                              </tr>
+                              <tr>
+                                <td>SGOT</td>
+                                @if(isset($allBooking))
+                                  @foreach ($allBooking as $ind=>$dat)
+                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                      @continue
+                                    @endif
+                                    <td>{{ $dat->sgot }}</td>
+                                  @endforeach
+                                @endif
+                              </tr>
+                              <tr>  
+                                <td>Serum Ferritin</td>
+                                @if(isset($allBooking))
+                                  @foreach ($allBooking as $ind=>$dat)
+                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                      @continue
+                                    @endif
+                                    <td>{{ $dat->serum_ferritin }}</td>
+                                  @endforeach
+                                @endif
+                              </tr>
+                              <tr>
+                                <td>Serum Iron</td>
+                                @if(isset($allBooking))
+                                  @foreach ($allBooking as $ind=>$dat)
+                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                      @continue
+                                    @endif
+                                    <td>{{ $dat->serum_iron }}</td>
+                                  @endforeach
+                                @endif
+                              </tr>
+                              <tr>
+                                <td>TIBC</td>
+                                @if(isset($allBooking))
+                                  @foreach ($allBooking as $ind=>$dat)
+                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                      @continue
+                                    @endif
+                                    <td>{{ $dat->tibc }}</td>
+                                  @endforeach
+                                @endif
+                              </tr>
+                              <tr>
+                                <td>TSAT</td>
+                                @if(isset($allBooking))
+                                  @foreach ($allBooking as $ind=>$dat)
+                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                      @continue
+                                    @endif
+                                    <td>{{ number_format($dat->tsat, 2) }}</td>
+                                  @endforeach
+                                @endif
+                              </tr>
+                              <tr>
+                                <td>HBsAg</td>
+                                @if(isset($allBooking))
+                                  @foreach ($allBooking as $ind=>$dat)
+                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                      @continue
+                                    @endif
+                                    <td>{{ $dat->hbsag }}</td>
+                                  @endforeach
+                                @endif
+                              </tr>
+                              <tr>
+                                <td>Anti-HBS</td>
+                                @if(isset($allBooking))
+                                  @foreach ($allBooking as $ind=>$dat)
+                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                      @continue
+                                    @endif
+                                    <td>{{ $dat->anti_hbs }}</td>
+                                  @endforeach
+                                @endif
+                              </tr>
+                              <tr>
+                                <td>Anti-HCV</td>
+                                @if(isset($allBooking))
+                                  @foreach ($allBooking as $ind=>$dat)
+                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                      @continue
+                                    @endif
+                                    <td>{{ $dat->anti_hcv }}</td>
+                                  @endforeach
+                                @endif
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      {{-- <div class="table-responsive" style="max-height: 300px">
                         <table class="table table-bordered table-striped table-hover table-sm medsOn">
                           <thead class="table-{{ $bgColor }}">
                             <tr>
@@ -12673,7 +12998,7 @@
                           @endif
                           </tbody>
                         </table>
-                      </div>
+                      </div> --}}
                       </div>
                     </div>
                   </div>
