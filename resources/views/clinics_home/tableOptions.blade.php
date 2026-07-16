@@ -59,13 +59,15 @@
                 $strArr[] = 'Respiratory Rate';
             if(is_null($dat->height))
                 $strArr[] = 'Height';
+            if(is_null($dat->patient->phil_num))
+                $strArr[] = 'Philhealth Number';
             // if(is_null($dat->assessment))
             //     $strArr[] = 'Secondary Assessment';
             // if(is_null($dat->docNotesHPI))
             //     $strArr[] = 'History of Present Illness';
         @endphp
         @can($viewFolder . '.sendDrainwiz')
-    <div class="m-1"><a class="btn btn-danger btn-sm w-100" style="cursor: default;"  title="Still no {{ implode(", ", $strArr) }} inputed" role="button"><i class="bi bi-coin"></i><span class="ps-1 d-sm-none">Send to Drainwiz</span></a></div>
+    <div class="m-1"><a class="btn btn-danger btn-sm w-100" style="cursor: default;"  title=" {{ isset($strArr) ? "Still no " . implode(", ", $strArr) . " inputed" : "" }} " role="button"><i class="bi bi-coin"></i><span class="ps-1 d-sm-none">Send to Drainwiz</span></a></div>
         @endcan
     @endif
     
