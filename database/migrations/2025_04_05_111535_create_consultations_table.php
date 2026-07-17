@@ -177,6 +177,7 @@ return new class extends Migration
             $table->text('docNotesSubject')->nullable();
             $table->text('docNotes')->nullable();
             $table->text('icd_code')->nullable();
+            $table->text('primary_assessment')->nullable();
             $table->text('assessment')->nullable();
             $table->text('post_op_assessment')->nullable();
             $table->text('planMed')->nullable();

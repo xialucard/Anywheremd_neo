@@ -18,6 +18,9 @@
   // print_r($datum->consultation_referals[0]->printable_form['operative_tech']);
   // print "</pre>";
   // exit();
+  // print "<pre>";
+  // print_r($datum->printable_form);
+  // print "</pre>";
 @endphp
 @php
   unset($bookings);
@@ -94,7 +97,7 @@
   <div class="row sticky-top bg-white">
     <div class="col-lg-12 d-none d-md-block">
       <ul class="nav nav-tabs mt-3 doctor-conso-nav">
-        <li class="nav-item">
+        {{-- <li class="nav-item">
           <a class="nav-link active" id="sumBigLink" href="#" onclick="
             $('#sumBigLink').addClass('active');  
             $('#soapBigLink').removeClass('active');  
@@ -180,9 +183,9 @@
             
               
           ">Summary</a>
-        </li>
+        </li> --}}
         <li class="nav-item">
-          <a class="nav-link" id="soapBigLink" href="#" onclick="
+          <a class="nav-link active" id="soapBigLink" href="#" onclick="
             $('#soapBigLink').addClass('active');  
             $('#sumBigLink').removeClass('active');  
             $('#labBigLink').removeClass('active');  
@@ -1044,8 +1047,8 @@
               $('#postOpPrevLink').removeClass('active');
               $('#dischargeSumPrevLink').removeClass('active');
               
-              $('#sumPrevDiv').show();  
-              $('#soapPrevDiv').hide();  
+              $('#sumPrevDiv').hide();  
+              $('#soapPrevDiv').show();  
               $('#labPrevDiv').hide();  
               $('#presPrevDiv').hide();  
               $('#medPrevDiv').hide();  
@@ -1069,8 +1072,8 @@
               $('#postOpCurLink').removeClass('active');
               $('#dischargeSumCurLink').removeClass('active');
               
-              $('#sumCurDiv').show();  
-              $('#soapCurDiv').hide();  
+              $('#sumCurDiv').hide();  
+              $('#soapCurDiv').show();  
               $('#labCurDiv').hide();  
               $('#presCurDiv').hide();  
               $('#medCurDiv').hide();  
@@ -1085,6 +1088,7 @@
             $('#pastChart').removeClass('d-none');
             $('#pastChart').removeClass('d-lg-none');
             $('#carouselCur').css('max-width', '100%');
+            $('#{{ $viewFolder }}_b-history-div').show();
             ">View Past Px's Panel</a>
         </li>
         <li class="nav-item">
@@ -1097,6 +1101,7 @@
             $('#pastChart').addClass('d-none');
             $('#pastChart').addClass('d-lg-none');
             $('#carouselCur').css('max-width', '60%');
+            $('#{{ $viewFolder }}_b-history-div').hide();
             ">Hide Past Px's Panel</a>
         </li>
         @endif
@@ -1186,7 +1191,7 @@
         </li>
         @if(isset($bookings[0]))
         <li class="nav-item">
-          <div class="mt-2 ml-2">
+          <div class="mt-2 ml-2" id="{{ $viewFolder }}_b-history-div" style="display:none">
             <label for="{{ $viewFolder }}_b-history">Booking History</label>
             <select id="{{ $viewFolder }}_b-history" onchange="
               // alert($(this).val());
@@ -2044,19 +2049,165 @@
             $('#pastChart').addClass('d-lg-none');
             $('#carouselCur').css('max-width', '60%');
           ">hide past patient's chart</a></div>
+          
           <div class="card-body">
-            <div class="card mb-3" id="vitalsPrev">
-              <div class="card-header">Vitals</div>
-              <div class="card-body">
-                <p id="prevVitaler">
-                  <strong>Temp:</strong> <span class="text-primary">{{ $bookings[0]->temp }}C</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                  <strong>Height:</strong> <span class="text-primary">{{ $bookings[0]->height }}cm</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                  <strong>Weight:</strong> <span class="text-primary">{{ $bookings[0]->weight }}kg</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                  <strong>BMI:</strong> <span class="text-primary">{{ (isset($bookings[0]->height) && (int)$bookings[0]->height != 0) ? number_format((int)$bookings[0]->weight/(((int)$bookings[0]->height/100)*((int)$bookings[0]->height/100)), 0) : '' }}</span><br>
-                  <strong>BP:</strong> <span class="text-primary">{{ $bookings[0]->bpS }}/{{ $bookings[0]->bpD }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                  <strong>O2 Sat:</strong> <span class="text-primary">{{ $bookings[0]->o2 }}%</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                  <strong>Heart Rate:</strong> <span class="text-primary">{{ $bookings[0]->heart }}beats/min</span>
-                </p>
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="card mb-3">
+                  <div class="card-header">Previous Clinic Booking Details</div>
+                  <div class="card-body table-responsive" style="max-height: 300px">
+                    <div class="card mb-3">
+                      <div class="card-header">Previous Scheduled Procedure</div>
+                      <div class="card-body" style="height: 1in; max-height: 1in">
+                        <p id="prevProcDet">{{ $bookings[0]->procedure_details }}</p>
+                      </div>
+                    </div>
+                    <div class="card mb-3">
+                      <div class="card-header">Previous Patient's Complaint</div>
+                      <div class="card-body" style="height: 1in; max-height: 1in">
+                        <p id="prevPatComp">{{ $bookings[0]->complain }}</p>
+                        <small class="text-muted" id="prevPatCompDur">{{ $bookings[0]->duration }}</small>
+                      </div>
+                    </div>
+                    <div class="card mb-3">
+                      <div class="card-header">Remarks</div>
+                      <div class="card-body" style="height: 1in; max-height: 1in">
+                        <p id="prevPatRem">{{ $bookings[0]->others }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6"> 
+                <div class="card mb-3" id="vitalsPrev">
+                  <div class="card-header">Vitals</div>
+                  <div class="card-body table-responsive" style="max-height: 300px">
+                    @if($datum->booking_type != 'Dialysis')
+                    <table class="table table-bordered table-striped table-hover table-sm">
+                      <thead class="table-{{ $bgColor }}">
+                          <tr>
+                              <th>&nbsp;</th>
+                              <th>Preoperative Vitals</th>
+                              <th>Intraoperative Vitals</th>
+                              <th>Post-Operative Vitals</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr>
+                              <td>Temp</td>
+                              <td><span id="prev_temp">{{ $bookings[0]->temp }}</span>C</td>
+                              <td><span id="prev_i_temp">{{ isset($bookings[0]->printable_form['i_temp']) ? $bookings[0]->printable_form['i_temp'] : '' }}</span>C</td>
+                              <td><span id="prev_o_temp">{{ isset($bookings[0]->printable_form['o_temp']) ? $bookings[0]->printable_form['o_temp'] : '' }}</span>C</td>
+                          </tr>
+                          <tr>
+                              <td>Height</td>
+                              <td><span id="prev_height">{{ $bookings[0]->height }}</span>cm</td>
+                              <td><span id="prev_i_height">{{ $bookings[0]->height }}</span>cm</td>
+                              <td><span id="prev_o_height">{{ $bookings[0]->height }}</span>cm</td>
+                          </tr>
+                          <tr>
+                              <td>Weight</td>
+                              <td><span id="prev_weight">{{ $bookings[0]->weight }}</span>kg</td>
+                              <td><span id="prev_i_weight">{{ isset($bookings[0]->printable_form['i_weight']) ? $bookings[0]->printable_form['i_weight'] : '' }}</span>kg</td>
+                              <td><span id="prev_o_weight">{{ isset($bookings[0]->printable_form['o_weight']) ? $bookings[0]->printable_form['o_weight'] : '' }}</span>kg</td>
+                          </tr>
+                          <tr>
+                              <td>BMI</td>
+                              <td><span id="prev_bmi">{{ isset($bookings[0]->height) && (int)$bookings[0]->height > 0 ? number_format($bookings[0]->weight/(($bookings[0]->height/100)*($bookings[0]->height/100)), 2) : '' }}</span></td>
+                              <td><span id="prev_i_bmi">{{ isset($bookings[0]->height) && (int)$bookings[0]->height > 0 ? number_format($bookings[0]->printable_form['i_weight']/(($bookings[0]->height/100)*($bookings[0]->height/100)), 2) : '' }}</span></td>
+                              <td><span id="prev_o_bmi">{{ isset($bookings[0]->height) && (int)$bookings[0]->height > 0 ? number_format($bookings[0]->printable_form['o_weight']/(($bookings[0]->height/100)*($bookings[0]->height/100)), 2) : '' }}</span></td>
+                          </tr>
+                          <tr>
+                              <td>BP</td>
+                              <td><span id="prev_bpS">{{ $bookings[0]->bpS }}</span>/<span id="prev_bpD">{{ $bookings[0]->bpD }}</span></td>
+                              <td><span id="prev_i_bpS">{{ isset($bookings[0]->printable_form['i_bpS']) ? $bookings[0]->printable_form['i_bpS'] : '' }}</span>/<span id="prev_i_bpD">{{ isset($bookings[0]->printable_form['i_bpD']) ? $bookings[0]->printable_form['i_bpD'] : '' }}</span></td>
+                              <td><span id="prev_o_bpS">{{ isset($bookings[0]->printable_form['o_bpS']) ? $bookings[0]->printable_form['o_bpS'] : '' }}</span>/<span id="prev_o_bpD">{{ isset($bookings[0]->printable_form['o_bpD']) ? $bookings[0]->printable_form['o_bpD'] : '' }}</span></td>
+                          </tr>
+                          <tr>  
+                              <td>O2 Sat</td>
+                              <td><span id="prev_o2">{{ $bookings[0]->o2 }}</span>%</td>
+                              <td><span id="prev_i_o2">{{ isset($bookings[0]->printable_form['i_o2']) ? $bookings[0]->printable_form['i_o2'] : '' }}</span>%</td>
+                              <td><span id="prev_o_o2">{{ isset($bookings[0]->printable_form['o_o2']) ? $bookings[0]->printable_form['o_o2'] : '' }}</span>%</td>
+                          </tr>
+                          <tr>
+                              <td>Heart Rate</td>
+                              <td><span id="prev_heart">{{ $bookings[0]->heart }}</span>beats/min</td>
+                              <td><span id="prev_i_heart">{{ isset($bookings[0]->printable_form['i_heart']) ? $bookings[0]->printable_form['i_heart'] : '' }}</span>beats/min</td>
+                              <td><span id="prev_o_heart">{{ isset($bookings[0]->printable_form['o_heart']) ? $bookings[0]->printable_form['o_heart'] : '' }}</span>beats/min</td>
+                          </tr>
+                          <tr>
+                              <td>Resp Rate</td>
+                              <td><span id="prev_resp">{{ $bookings[0]->resp }}</span>breaths/min</td>
+                              <td><span id="prev_i_resp">{{ isset($bookings[0]->printable_form['i_resp']) ? $bookings[0]->printable_form['i_resp'] : '' }}</span>breaths/min</td>
+                              <td><span id="prev_o_resp">{{ isset($bookings[0]->printable_form['o_resp']) ? $bookings[0]->printable_form['o_resp'] : '' }}</span>breaths/min</td>
+                          </tr>
+                      </tbody>
+                    </table>
+                    @else
+                    <table class="table table-bordered table-striped table-hover table-sm">
+                      <thead class="table-{{ $bgColor }}">
+                          <tr>
+                              <th>&nbsp;</th>
+                              <th>Pre-HD Vitals</th>
+                              <th>Post-HD Vitals</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr>
+                              <td>Temp</td>
+                              <td><span id="prev_temp">{{ $bookings[0]->temp }}</span>C</td>
+                              <td><span id="prev_post_temp">{{ $bookings[0]->post_temp }}</span>C</td>
+                              
+                          </tr>
+                          <tr>
+                              <td>Height</td>
+                              <td><span id="prev_height">{{ $bookings[0]->height }}</span>cm</td>
+                              <td><span id="prev_post_height">{{ $bookings[0]->post_height }}</span>cm</td>
+                          </tr>
+                          <tr>
+                              <td>Weight</td>
+                              <td><span id="prev_weight">{{ $bookings[0]->weight }}</span>kg</td>
+                              <td><span id="prev_post_weight">{{ $bookings[0]->post_weight }}</span>kg</td>
+                          </tr>
+                          <tr>
+                              <td>BMI</td>
+                              <td><span id="prev_bmi">{{ isset($bookings[0]->height) && (int)$bookings[0]->height > 0 ? number_format($bookings[0]->weight/(($bookings[0]->height/100)*($bookings[0]->height/100)), 2) : '' }}</span></td>
+                              <td><span id="prev_post_bmi">{{ isset($bookings[0]->height) && (int)$bookings[0]->height > 0 ? number_format($bookings[0]->post_weight/(($bookings[0]->height/100)*($bookings[0]->height/100)), 2) : '' }}</span></td>
+                          </tr>
+                          <tr>
+                              <td>BP</td>
+                              <td><span id="prev_bpS">{{ $bookings[0]->bpS }}</span>/<span id="prev_bpD">{{ $bookings[0]->bpD }}</span></td>
+                              <td><span id="prev_post_bpS">{{ $bookings[0]->post_bpS }}</span>/<span id="prev_post_bpD">{{ $bookings[0]->post_bpD }}</span></td>
+                          </tr>
+                          <tr>  
+                              <td>O2 Sat</td>
+                              <td><span id="prev_o2">{{ $bookings[0]->o2 }}</span>%</td>
+                              <td><span id="prev_post_o2">{{ $bookings[0]->post_o2 }}</span>%</td>
+                          </tr>
+                          <tr>
+                              <td>Heart Rate</td>
+                              <td><span id="prev_heart">{{ $bookings[0]->heart }}</span>beats/min</td>
+                              <td><span id="prev_post_heart">{{ $bookings[0]->post_heart }}</span>beats/min</td>
+                          </tr>
+                          <tr>
+                              <td>Resp Rate</td>
+                              <td><span id="prev_resp">{{ $bookings[0]->resp }}</span>breaths/min</td>
+                              <td><span id="prev_post_resp">{{ $bookings[0]->post_resp }}</span>breaths/min</td>
+                          </tr>
+                      </tbody>
+                    </table>
+                    @endif
+                    {{-- <p id="prevVitaler">
+                      <strong>Temp:</strong> <span class="text-primary">{{ $bookings[0]->temp }}C</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                      <strong>Height:</strong> <span class="text-primary">{{ $bookings[0]->height }}cm</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                      <strong>Weight:</strong> <span class="text-primary">{{ $bookings[0]->weight }}kg</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                      <strong>BMI:</strong> <span class="text-primary">{{ (isset($bookings[0]->height) && (int)$bookings[0]->height != 0) ? number_format((int)$bookings[0]->weight/(((int)$bookings[0]->height/100)*((int)$bookings[0]->height/100)), 0) : '' }}</span><br>
+                      <strong>BP:</strong> <span class="text-primary">{{ $bookings[0]->bpS }}/{{ $bookings[0]->bpD }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                      <strong>O2 Sat:</strong> <span class="text-primary">{{ $bookings[0]->o2 }}%</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                      <strong>Heart Rate:</strong> <span class="text-primary">{{ $bookings[0]->heart }}beats/min</span>
+                    </p> --}}
+                  </div>
+                </div>
               </div>
             </div>
             <div class="table-responsive" style="max-height: 55px">
@@ -2077,7 +2228,7 @@
               </ul>
             </div>
             <ul class="nav nav-tabs d-xs-block d-lg-none">
-              <li class="nav-item">
+              {{-- <li class="nav-item">
                 <a class="nav-link active" id="sumPrevLink" href="#" onclick="
                   $('#sumBigLink').addClass('active');  
                   $('#soapBigLink').removeClass('active');  
@@ -2143,9 +2294,9 @@
                   $('#postOpCurDiv').hide();
                   $('#dischargeSumCurDiv').hide();
                 ">Summary</a>
-              </li>
+              </li> --}}
               <li class="nav-item">
-                <a class="nav-link" id="soapPrevLink" href="#" onclick="
+                <a class="nav-link active" id="soapPrevLink" href="#" onclick="
                   $('#soapBigLink').addClass('active');  
                   $('#sumBigLink').removeClass('active');  
                   $('#labBigLink').removeClass('active');  
@@ -2880,8 +3031,8 @@
               </li>
               @endif
             </ul>
-            <div id="prevDiv" class="card-body table-responsive p-0" style="max-height: 600px">
-              <div id="sumPrevDiv" class="container border border-1 mb-3 p-3">
+            <div id="prevDiv">
+              <div id="sumPrevDiv" style="display:none" class="container border border-1 mb-3 p-3">
                 <div class="card mb-3">
                   <div class="card-header">Scheduled Procedure</div>
                   <div class="card-body" style="height: 1in; max-height: 1in">
@@ -3046,8 +3197,8 @@
                   </div>
                 </div>
               </div>
-              <div id="soapPrevDiv" style="display:none" class="container border border-1 mb-3 p-3">
-                <div class="card mb-3">
+              <div id="soapPrevDiv" class="container border border-1 mb-3 p-3">
+                {{-- <div class="card mb-3">
                   <div class="card-header">Previous Scheduled Procedure</div>
                   <div class="card-body" style="height: 1in; max-height: 1in">
                     <p id="prevProcDet">{{ $bookings[0]->procedure_details }}</p>
@@ -3065,14 +3216,181 @@
                   <div class="card-body" style="height: 1in; max-height: 1in">
                     <p id="prevPatRem">{{ $bookings[0]->others }}</p>
                   </div>
-                </div>
-                <div class="card mb-3">
-                  <div class="card-header">Previous Subjective Findings</div>
-                  <div class="card-body">
-                    {{-- @if(sizeof($bookings) == 1) --}}
-                    <div class="card mb-3">
-                      <div class="card-header">History of Present Illness</div>
+                </div> --}}
+                <div class="container">
+                  <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                      <a class="nav-link soapLink soapSubjective active" href="#" onclick="
+                        $('.soapLink').removeClass('active');
+                        $('.soapDiv').hide();
+                        $('.soapSubjective').addClass('active');
+                        $('.soapDivSubjective').show();
+                      ">Subjective</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link soapLink soapObjective" href="#" onclick="
+                        $('.soapLink').removeClass('active');
+                        $('.soapDiv').hide();
+                        $('.soapObjective').addClass('active');
+                        $('.soapDivObjective').show();
+                      ">Objective</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link soapLink soapAssess" href="#" onclick="
+                        $('.soapLink').removeClass('active');
+                        $('.soapDiv').hide();
+                        $('.soapAssess').addClass('active');
+                        $('.soapDivAssess').show();
+                      ">Assessment</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link soapLink soapPlan" href="#" onclick="
+                        $('.soapLink').removeClass('active');
+                        $('.soapDiv').hide();
+                        $('.soapPlan').addClass('active');
+                        $('.soapDivPlan').show();
+                      ">Plan</a>
+                    </li>
+                  </ul>
+                  <div id="soapDivPrev" class="container border border-1 border-top-0 p-3 mb-3 table-responsive" style="max-height: 300px">
+                    <div class="card soapDiv soapDivSubjective mb-3" id="{{ $viewFolder }}_SOAPPREV_{{ $datum->id }}_SUBJ">
+                      <div class="card-header">Previous Subjective Findings</div>
                       <div class="card-body">
+                        {{-- @if(sizeof($bookings) == 1) --}}
+                        <div class="card mb-3">
+                          <div class="card-header">History of Present Illness</div>
+                          <div class="card-body">
+                            {{-- <small class="text-muted">Helper</small>
+                            <div class="input-group input-group-small flex-nowrap">
+                              <select class="form-select" placeholder="" disabled>
+                                <option value=""></option>
+                              </select>
+                              <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
+                            </div> --}}
+                            <small class="text-muted">Content</small>
+                            <textarea class="form-control" name="{{ $viewFolder }}[docNotesHPI]" id="{{ $viewFolder }}_prev_docNotesHPI" rows=3 disabled>{{ $bookings[0]->docNotesHPI }}</textarea>
+                            <small class="mb-3"></small><br>
+                            <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
+                            {{-- <small class="text-muted">Helper Save/Edit</small>
+                            <div class="input-group input-group-small mb-3 flex-nowrap">
+                              <div class="input-group-text">
+                                <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                              </div>
+                              <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesHPITitle" name="{{ $viewFolder }}[docNotesHPITitle]" disabled>
+                              <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                            </div>
+                            <textarea class="form-control mb-2" name="{{ $viewFolder }}[docNotesHPIEdit]" id="{{ $viewFolder }}_docNotesHPIEdit" rows=3 disabled></textarea> --}}
+                          </div>
+                        </div>
+                        {{-- @else --}}
+                        <div class="card mb-3">
+                          <div class="card-header">Previous Subjective Complaints</div>
+                          <div class="card-body">
+                            {{-- <small class="text-muted">Helper</small>
+                            <div class="input-group input-group-small flex-nowrap">
+                              <select class="form-select" placeholder="" disabled>
+                                <option value=""></option>
+                              </select>
+                              <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
+                            </div> --}}
+                            <small class="text-muted">Content</small>
+                            <textarea class="form-control" name="{{ $viewFolder }}[docNotesSubject]" id="{{ $viewFolder }}_prev_docNotesSubject" rows=3 disabled>{{ $bookings[0]->docNotesSubject }}</textarea>
+                            {{-- <small class="text-muted">Helper Save/Edit</small>
+                            <div class="input-group input-group-small mb-3 flex-nowrap">
+                              <div class="input-group-text">
+                                <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                              </div>
+                              <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesSubjectTitle" name="{{ $viewFolder }}[docNotesSubjectTitle]" disabled>
+                              <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                            </div>
+                            <textarea class="form-control mb-2" name="{{ $viewFolder }}[ddocNotesSubjectEdit]" id="{{ $viewFolder }}_docNotesSubjectEdit" rows=3 disabled></textarea> --}}
+                          </div>
+                        </div>
+                        {{-- @endif --}}
+                        
+                      </div>
+                    </div>
+                    <div class="card soapDiv soapDivObjective mb-3" style="display: none" id="{{ $viewFolder }}_SOAPPREV_{{ $datum->id }}_OBJ">
+                      <div class="card-header">Previous Objective Findings</div>
+                      <div class="card-body">
+                        @if(stristr($datum->doctor->specialty, 'Ophtha') && $datum->booking_type != "Dialysis")
+                        <div class="card mb-3" id="eeInfoPrev1">
+                          <div class="card-header">Eye Examination Information</div>
+                          <div class="card-body">
+                            {{-- <p id="prevEyerBack">
+                              <strong>AR OD:</strong> <span class="text-primary">{{ $bookings[0]->arod_sphere != 'No Target' ? ($bookings[0]->arod_sphere) . ' - ' . ($bookings[0]->arod_cylinder) . ' x ' . $bookings[0]->arod_axis : 'No Refraction Possible' }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                              <strong>AR OS:</strong> <span class="text-primary">{{ $bookings[0]->aros_sphere != 'No Target' ? ($bookings[0]->aros_sphere) . ' - ' . ($bookings[0]->aros_cylinder) . ' x ' . $bookings[0]->aros_axis : 'No Refraction Possible' }}</span><br>
+                              <strong>UCVA OD:</strong> <span class="text-primary">{{ $bookings[0]->vaod_den != '' ? $bookings[0]->vaod_num . ' / ' . $bookings[0]->vaod_den : $bookings[0]->vaod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                              <strong>UCVA OD Present Correction:</strong> <span class="text-primary">{{ $bookings[0]->vaodcor_den != '' ? $bookings[0]->vaodcor_num . ' / ' . $bookings[0]->vaodcor_den : $bookings[0]->vaodcor_num }}</span><br>
+                              <strong>UCVA OS:</strong> <span class="text-primary">{{ $bookings[0]->vaos_den != '' ? $bookings[0]->vaos_num . ' / ' . $bookings[0]->vaos_den : $bookings[0]->vaos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                              <strong>UCVA OS Present Correction:</strong> <span class="text-primary">{{ $bookings[0]->vaoscor_den != '' ? $bookings[0]->vaoscor_num . ' / ' . $bookings[0]->vaoscor_den : $bookings[0]->vaoscor_num }}</span><br>
+                              <strong>VA OD Pinhole:</strong> <span class="text-primary">{{ $bookings[0]->pinod_den != '' ? $bookings[0]->pinod_num . ' / ' . $bookings[0]->pinod_den : $bookings[0]->pinod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                              <strong>BCVA OD:</strong> <span class="text-primary">{{ $bookings[0]->pinodcor_den != '' ? $bookings[0]->pinodcor_num . ' / ' . $bookings[0]->pinodcor_den : $bookings[0]->pinodcor_num }}</span><br>
+                              <strong>VA OS Pinhole:</strong> <span class="text-primary">{{ $bookings[0]->pinos_den != '' ? $bookings[0]->pinos_num . ' / ' . $bookings[0]->pinos_den : $bookings[0]->pinos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                              <strong>BCVA OS:</strong> <span class="text-primary">{{ $bookings[0]->pinoscor_den != '' ? $bookings[0]->pinoscor_num . ' / ' . $bookings[0]->pinoscor_den : $bookings[0]->pinoscor_num }}</span><br>
+                              <strong>Jaeger OU:</strong> <span class="text-primary">{{ $bookings[0]->jae_ou }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                              <strong>Jaeger OD:</strong> <span class="text-primary">{{ $bookings[0]->jae_od }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                              <strong>Jaeger OS:</strong> <span class="text-primary">{{ $bookings[0]->jae_os }}</span><br>
+                              <strong>IOP OD:</strong> <span class="text-primary">{{ $bookings[0]->iopod }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                              <strong>IOP OS:</strong> <span class="text-primary">{{ $bookings[0]->iopos }}</span>
+                            </p> --}}
+                            <table class="table table-bordered table-striped table-hover table-sm">
+                              <thead class="table-{{ $bgColor }}">
+                                  <tr>
+                                      <th>&nbsp;</th>
+                                      <th>OD</th>
+                                      <th>OS</th>
+                                      <th>OU</th>
+                                  </tr>
+                              </thead>
+                              <tbody id="prevEyer">
+                                <tr>
+                                    <td>AR</td>
+                                    <td>{{ $bookings[0]->arod_sphere != 'No Target' ? ($bookings[0]->arod_sphere) . ' - ' . ($bookings[0]->arod_cylinder) . ' x ' . $bookings[0]->arod_axis : 'No Refraction Possible' }}</td>
+                                    <td>{{ $bookings[0]->aros_sphere != 'No Target' ? ($bookings[0]->aros_sphere) . ' - ' . ($bookings[0]->aros_cylinder) . ' x ' . $bookings[0]->aros_axis : 'No Refraction Possible' }}</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>UCVA</td>
+                                    <td>{{ $bookings[0]->vaod_den != '' ? $bookings[0]->vaod_num . ' / ' . $bookings[0]->vaod_den : $bookings[0]->vaod_num }}</td>
+                                    <td>{{ $bookings[0]->vaos_den != '' ? $bookings[0]->vaos_num . ' / ' . $bookings[0]->vaos_den : $bookings[0]->vaos_num }}</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>UCVA Present Correction</td>
+                                    <td>{{ $bookings[0]->vaodcor_den != '' ? $bookings[0]->vaodcor_num . ' / ' . $bookings[0]->vaodcor_den : $bookings[0]->vaodcor_num }}</td>
+                                    <td>{{ $bookings[0]->vaoscor_den != '' ? $bookings[0]->vaoscor_num . ' / ' . $bookings[0]->vaoscor_den : $bookings[0]->vaoscor_num }}</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>VA Pinhole</td>
+                                    <td>{{ $bookings[0]->pinod_den != '' ? $bookings[0]->pinod_num . ' / ' . $bookings[0]->pinod_den : $bookings[0]->pinod_num }}</td>
+                                    <td>{{ $bookings[0]->pinos_den != '' ? $bookings[0]->pinos_num . ' / ' . $bookings[0]->pinos_den : $bookings[0]->pinos_num }}</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>BCVA</td>
+                                    <td>{{ $bookings[0]->pinodcor_den != '' ? $bookings[0]->pinodcor_num . ' / ' . $bookings[0]->pinodcor_den : $bookings[0]->pinodcor_num }}</td>
+                                    <td>{{ $bookings[0]->pinoscor_den != '' ? $bookings[0]->pinoscor_num . ' / ' . $bookings[0]->pinoscor_den : $bookings[0]->pinoscor_num }}</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>Jaeger</td>
+                                    <td>{{ $bookings[0]->jae_od }}</td>
+                                    <td>{{ $bookings[0]->jae_os }}</td>
+                                    <td>{{ $bookings[0]->jae_ou }}</td>
+                                </tr>
+                                <tr>
+                                    <td>IOP</td>
+                                    <td>{{ $bookings[0]->iopod }}</td>
+                                    <td>{{ $bookings[0]->iopos }}</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                        @endif
                         {{-- <small class="text-muted">Helper</small>
                         <div class="input-group input-group-small flex-nowrap">
                           <select class="form-select" placeholder="" disabled>
@@ -3080,483 +3398,467 @@
                           </select>
                           <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
                         </div> --}}
-                        <small class="text-muted">Content</small>
-                        <textarea class="form-control" name="{{ $viewFolder }}[docNotesHPI]" id="{{ $viewFolder }}_prev_docNotesHPI" rows=3 disabled>{{ $bookings[0]->docNotesHPI }}</textarea>
-                        <small class="mb-3"></small><br>
-                        <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
+                        <div class="card mb-3">
+                          <div class="card-header">Previous Preoperative PE</div>
+                          <div class="card-body">
+                            <small class="text-muted">Content</small>
+                            <textarea class="form-control" name="{{ $viewFolder }}[docNotes]" id="{{ $viewFolder }}_prev_docNotes" rows=3 disabled>{{ $bookings[0]->docNotes }}</textarea>
+                          </div>
+                        </div>
                         {{-- <small class="text-muted">Helper Save/Edit</small>
                         <div class="input-group input-group-small mb-3 flex-nowrap">
                           <div class="input-group-text">
                             <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
                           </div>
-                          <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesHPITitle" name="{{ $viewFolder }}[docNotesHPITitle]" disabled>
+                          <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesTitle" name="{{ $viewFolder }}[docNotesTitle]" disabled>
                           <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                         </div>
-                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[docNotesHPIEdit]" id="{{ $viewFolder }}_docNotesHPIEdit" rows=3 disabled></textarea> --}}
+                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[_docNotesEdit]" id="{{ $viewFolder }}_docNotesEdit" rows=3 disabled></textarea> --}}
+                        <div class="card mb-3">
+                          <div class="card-header">Previous Intraoperative Findings</div>
+                          <div class="card-body">
+                            <small class="text-muted">Content</small>
+                            <textarea class="form-control mb-3" name="{{ $viewFolder }}[PrintableForm][intraoperative_findings]" id="{{ $viewFolder }}_prev_intraoperative_findings" disabled rows=3>{{ isset($bookings[0]->printable_form['intraoperative_findings']) ? $bookings[0]->printable_form['intraoperative_findings'] : '' }}</textarea>
+                            <label class="form-label">Intraoperative Course</label>
+                            <div class="form-check">
+                              <input class="form-check-input soapField" type="radio" name="{{ $viewFolder }}[PrintableForm][intraoperative_course]" value="Unremarkable" id="{{ $viewFolder }}_prev_intraoperative_course_unremarkable" {{ (isset($bookings[0]->printable_form['intraoperative_course']) && $bookings[0]->printable_form['intraoperative_course'] == 'Unremarkable') ? 'checked' : '' }} disabled>
+                              <label class="form-check-label" for="{{ $viewFolder }}_prev_intraoperative_course_unremarkable">Unremarkable</label>
+                            </div>
+                            <div class="form-check">
+                              <input class="form-check-input soapField" type="radio" name="{{ $viewFolder }}[PrintableForm][intraoperative_course]" value="With Complications" id="{{ $viewFolder }}_prev_intraoperative_course_with_complications" {{ (isset($bookings[0]->printable_form['intraoperative_course']) && $bookings[0]->printable_form['intraoperative_course'] == 'With Complications') ? 'checked' : '' }} disabled>
+                              <label class="form-check-label" for="{{ $viewFolder }}_prev_intraoperative_course_with_complications">With Complications (specify)</label>
+                            </div>
+                            <textarea class="form-control soapField mb-3" name="{{ $viewFolder }}[PrintableForm][complication_specify]" id="{{ $viewFolder }}_prev_complication_specify" disabled rows=3 disabled>{{ isset($bookings[0]->printable_form['complication_specify']) ? $bookings[0]->printable_form['complication_specify'] : '' }}</textarea>
+                            <div class="input-group mb-3">
+                              <div class="form-floating">
+                                <input class="form-control soapField" type="number" name="{{ $viewFolder }}[PrintableForm][blood_loss]" min=30 step=.1 id="{{ $viewFolder }}_prev_blood_loss" value="{{ isset($bookings[0]->printable_form['blood_loss']) ? $bookings[0]->printable_form['blood_loss'] : ''}}" disabled placeholder="">
+                                <label for="{{ $viewFolder }}_prev_blood_loss" class="form-label">Estimated Blood Loss</label>
+                                <small id="help_{{ $viewFolder }}_prev_blood_loss" class="text-muted"></small>
+                              </div>
+                              <span class="input-group-text">mL</span>
+                            </div>
+                            <label class="form-label">Specimen Sent</label>
+                            <div class="form-check">
+                              <input class="form-check-input soapField" type="radio" name="{{ $viewFolder }}[PrintableForm][specimen_sent]" value="yes" id="{{ $viewFolder }}_prev_specimen_sent_yes" {{ (isset($bookings[0]->printable_form['specimen_sent']) && $bookings[0]->printable_form['specimen_sent'] == 'yes') ? 'checked' : '' }} disabled>
+                              <label class="form-check-label" for="{{ $viewFolder }}_prev_specimen_sent_yes">Yes</label>
+                            </div>
+                            <div class="form-check">
+                              <input class="form-check-input soapField" type="radio" name="{{ $viewFolder }}[PrintableForm][specimen_sent]" value="no" id="{{ $viewFolder }}_prev_specimen_sent_no" {{ (isset($bookings[0]->printable_form['specimen_sent']) && $bookings[0]->printable_form['specimen_sent'] == 'no') ? 'checked' : '' }} disabled>
+                              <label class="form-check-label" for="{{ $viewFolder }}_prev_specimen_sent_no">No</label>
+                            </div>
+                            <label class="form-label mt-3" for="{{ $viewFolder }}_prev_specimen_sent_remarks">Specimen Remarks</label>
+                            <textarea class="form-control soapField mb-3" name="{{ $viewFolder }}[PrintableForm][specimen_sent_remarks]" id="{{ $viewFolder }}_prev_specimen_sent_remarks" disabled rows=3>{{ isset($bookings[0]->printable_form['specimen_sent_remarks']) ? $bookings[0]->printable_form['specimen_sent_remarks'] : '' }}</textarea>
+                          </div>
+                        </div>
+                        <div class="card mb-3">
+                          <div class="card-header">Previous Post-Operative Condition</div>
+                          <div class="card-body">
+                            <div class="form-check">
+                              <input class="form-check-input soapField" type="radio" name="{{ $viewFolder }}[PrintableForm][post_operative_condition]" value="Stable" id="{{ $viewFolder }}_prev_post_operative_condition_stable" {{ (isset($bookings[0]->printable_form['post_operative_condition']) && $bookings[0]->printable_form['post_operative_condition'] == 'Stable') ? 'checked' : '' }} disabled>
+                              <label class="form-check-label" for="{{ $viewFolder }}_prev_post_operative_condition_stable">Stable</label>
+                            </div>
+                            <div class="form-check">
+                              <input class="form-check-input soapField" type="radio" name="{{ $viewFolder }}[PrintableForm][post_operative_condition]" value="Requires Observation" id="{{ $viewFolder }}_prev_post_operative_condition_requires" {{ (isset($bookings[0]->printable_form['post_operative_condition']) && $bookings[0]->printable_form['post_operative_condition'] == 'Requires Observation') ? 'checked' : '' }} disabled>
+                              <label class="form-check-label" for="{{ $viewFolder }}_prev_post_operative_condition_requires">Requires Observation</label>
+                            </div>
+                            <label class="form-label" for="{{ $viewFolder }}_prev_post_operative_condition_remarks">Post-Operative Condition Remarks</label>
+                            <textarea class="form-control soapField mb-3" name="{{ $viewFolder }}[PrintableForm][post_operative_condition_remarks]" id="{{ $viewFolder }}_prev_post_operative_condition_remarks" disabled rows=3>{{ isset($bookings[0]->printable_form['post_operative_condition_remarks']) ? $bookings[0]->printable_form['post_operative_condition_remarks'] : '' }}</textarea>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    {{-- @else --}}
-                    <div class="card mb-3">
-                      <div class="card-header">Previous Subjective Complaints</div>
+                    <div class="card soapDiv soapDivAssess mb-3" style="display: none;" id="{{ $viewFolder }}_SOAPPREV_{{ $datum->id }}_ASSESS">
+                      <div class="card-header">Previous Assessment</div>
                       <div class="card-body">
-                        {{-- <small class="text-muted">Helper</small>
-                        <div class="input-group input-group-small flex-nowrap">
-                          <select class="form-select" placeholder="" disabled>
+                        {{-- <div class="form-floating mb-3"> --}}
+                          {{-- <select class="form-select" name="{{ $viewFolder }}[icd_code]" id="{{ $viewFolder }}_icd_code" placeholder="" disabled>
                             <option value=""></option>
-                          </select>
-                          <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
-                        </div> --}}
-                        <small class="text-muted">Content</small>
-                        <textarea class="form-control" name="{{ $viewFolder }}[docNotesSubject]" id="{{ $viewFolder }}_prev_docNotesSubject" rows=3 disabled>{{ $bookings[0]->docNotesSubject }}</textarea>
-                        {{-- <small class="text-muted">Helper Save/Edit</small>
-                        <div class="input-group input-group-small mb-3 flex-nowrap">
-                          <div class="input-group-text">
-                            <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                          </select> --}}
+                          {{-- <input class="form-control" list="icdCodeList" id="{{ $viewFolder }}_prev_icd_code" name="{{ $viewFolder }}[icd_code]" value="{{ isset($bookings[0]->icd_code_obj) ? $bookings[0]->icd_code_obj->icd_code . ' - ' . $bookings[0]->icd_code_obj->details : '' }}" autocomplete="off" disabled>
+                          <label for="{{ $viewFolder }}_icd_code">Previous Primary Diagnosis</label>
+                          <small class="mb-3"></small><br>
+                          <small id="help_{{ $viewFolder }}_icd_code" class="text-muted">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small> --}}
+                        {{-- </div> --}}
+                        <div class="card mb-3">
+                          <div class="card-header">Previous Primary Diagnosis</div>
+                          <div class="card-body">
+                            {{-- <small class="text-muted">Helper</small>
+                            <div class="input-group input-group-small flex-nowrap">
+                              <select class="form-select" placeholder="" disabled>
+                                <option value=""></option>
+                              </select>
+                              <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
+                            </div> --}}
+                            <small class="text-muted">Content</small>
+                            <textarea class="form-control" name="{{ $viewFolder }}[primary_assessment]" id="{{ $viewFolder }}_prev_primary_assessment" rows=3 disabled>{{ $bookings[0]->primary_assessment }}</textarea>
+                            <small class="mb-3"></small><br>
+                            <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
+                            {{-- <small class="text-muted">Helper Save/Edit</small>
+                            <div class="input-group input-group-small mb-3 flex-nowrap">
+                              <div class="input-group-text">
+                                <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                              </div>
+                              <input type="text" class="form-control" id="{{ $viewFolder }}_assessmentTitle" name="{{ $viewFolder }}[assessmentTitle]" disabled>
+                              <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                            </div>
+                            <textarea class="form-control mb-2" name="{{ $viewFolder }}[_assessmentEdit]" id="{{ $viewFolder }}_assessmentEdit" rows=3 disabled></textarea> --}}
                           </div>
-                          <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesSubjectTitle" name="{{ $viewFolder }}[docNotesSubjectTitle]" disabled>
-                          <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                         </div>
-                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[ddocNotesSubjectEdit]" id="{{ $viewFolder }}_docNotesSubjectEdit" rows=3 disabled></textarea> --}}
-                      </div>
-                    </div>
-                    {{-- @endif --}}
-                    
-                  </div>
-                </div>
-                <div class="card mb-3">
-                  <div class="card-header">Previous Objective Findings</div>
-                  <div class="card-body">
-                    @if(stristr($datum->doctor->specialty, 'Ophtha') && $datum->booking_type != "Dialysis")
-                    <div class="card mb-3" id="eeInfoPrev1">
-                      <div class="card-header">Eye Examination Information</div>
-                      <div class="card-body">
-                        {{-- <p id="prevEyerBack">
-                          <strong>AR OD:</strong> <span class="text-primary">{{ $bookings[0]->arod_sphere != 'No Target' ? ($bookings[0]->arod_sphere) . ' - ' . ($bookings[0]->arod_cylinder) . ' x ' . $bookings[0]->arod_axis : 'No Refraction Possible' }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                          <strong>AR OS:</strong> <span class="text-primary">{{ $bookings[0]->aros_sphere != 'No Target' ? ($bookings[0]->aros_sphere) . ' - ' . ($bookings[0]->aros_cylinder) . ' x ' . $bookings[0]->aros_axis : 'No Refraction Possible' }}</span><br>
-                          <strong>UCVA OD:</strong> <span class="text-primary">{{ $bookings[0]->vaod_den != '' ? $bookings[0]->vaod_num . ' / ' . $bookings[0]->vaod_den : $bookings[0]->vaod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                          <strong>UCVA OD Present Correction:</strong> <span class="text-primary">{{ $bookings[0]->vaodcor_den != '' ? $bookings[0]->vaodcor_num . ' / ' . $bookings[0]->vaodcor_den : $bookings[0]->vaodcor_num }}</span><br>
-                          <strong>UCVA OS:</strong> <span class="text-primary">{{ $bookings[0]->vaos_den != '' ? $bookings[0]->vaos_num . ' / ' . $bookings[0]->vaos_den : $bookings[0]->vaos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                          <strong>UCVA OS Present Correction:</strong> <span class="text-primary">{{ $bookings[0]->vaoscor_den != '' ? $bookings[0]->vaoscor_num . ' / ' . $bookings[0]->vaoscor_den : $bookings[0]->vaoscor_num }}</span><br>
-                          <strong>VA OD Pinhole:</strong> <span class="text-primary">{{ $bookings[0]->pinod_den != '' ? $bookings[0]->pinod_num . ' / ' . $bookings[0]->pinod_den : $bookings[0]->pinod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                          <strong>BCVA OD:</strong> <span class="text-primary">{{ $bookings[0]->pinodcor_den != '' ? $bookings[0]->pinodcor_num . ' / ' . $bookings[0]->pinodcor_den : $bookings[0]->pinodcor_num }}</span><br>
-                          <strong>VA OS Pinhole:</strong> <span class="text-primary">{{ $bookings[0]->pinos_den != '' ? $bookings[0]->pinos_num . ' / ' . $bookings[0]->pinos_den : $bookings[0]->pinos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                          <strong>BCVA OS:</strong> <span class="text-primary">{{ $bookings[0]->pinoscor_den != '' ? $bookings[0]->pinoscor_num . ' / ' . $bookings[0]->pinoscor_den : $bookings[0]->pinoscor_num }}</span><br>
-                          <strong>Jaeger OU:</strong> <span class="text-primary">{{ $bookings[0]->jae_ou }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                          <strong>Jaeger OD:</strong> <span class="text-primary">{{ $bookings[0]->jae_od }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                          <strong>Jaeger OS:</strong> <span class="text-primary">{{ $bookings[0]->jae_os }}</span><br>
-                          <strong>IOP OD:</strong> <span class="text-primary">{{ $bookings[0]->iopod }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                          <strong>IOP OS:</strong> <span class="text-primary">{{ $bookings[0]->iopos }}</span>
-                        </p> --}}
-                        <table class="table table-bordered table-striped table-hover table-sm">
-                          <thead class="table-{{ $bgColor }}">
-                              <tr>
-                                  <th>&nbsp;</th>
-                                  <th>OD</th>
-                                  <th>OS</th>
-                                  <th>OU</th>
-                              </tr>
-                          </thead>
-                          <tbody id="prevEyer">
-                            <tr>
-                                <td>AR</td>
-                                <td>{{ $bookings[0]->arod_sphere != 'No Target' ? ($bookings[0]->arod_sphere) . ' - ' . ($bookings[0]->arod_cylinder) . ' x ' . $bookings[0]->arod_axis : 'No Refraction Possible' }}</td>
-                                <td>{{ $bookings[0]->aros_sphere != 'No Target' ? ($bookings[0]->aros_sphere) . ' - ' . ($bookings[0]->aros_cylinder) . ' x ' . $bookings[0]->aros_axis : 'No Refraction Possible' }}</td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td>UCVA</td>
-                                <td>{{ $bookings[0]->vaod_den != '' ? $bookings[0]->vaod_num . ' / ' . $bookings[0]->vaod_den : $bookings[0]->vaod_num }}</td>
-                                <td>{{ $bookings[0]->vaos_den != '' ? $bookings[0]->vaos_num . ' / ' . $bookings[0]->vaos_den : $bookings[0]->vaos_num }}</td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td>UCVA Present Correction</td>
-                                <td>{{ $bookings[0]->vaodcor_den != '' ? $bookings[0]->vaodcor_num . ' / ' . $bookings[0]->vaodcor_den : $bookings[0]->vaodcor_num }}</td>
-                                <td>{{ $bookings[0]->vaoscor_den != '' ? $bookings[0]->vaoscor_num . ' / ' . $bookings[0]->vaoscor_den : $bookings[0]->vaoscor_num }}</td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td>VA Pinhole</td>
-                                <td>{{ $bookings[0]->pinod_den != '' ? $bookings[0]->pinod_num . ' / ' . $bookings[0]->pinod_den : $bookings[0]->pinod_num }}</td>
-                                <td>{{ $bookings[0]->pinos_den != '' ? $bookings[0]->pinos_num . ' / ' . $bookings[0]->pinos_den : $bookings[0]->pinos_num }}</td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td>BCVA</td>
-                                <td>{{ $bookings[0]->pinodcor_den != '' ? $bookings[0]->pinodcor_num . ' / ' . $bookings[0]->pinodcor_den : $bookings[0]->pinodcor_num }}</td>
-                                <td>{{ $bookings[0]->pinoscor_den != '' ? $bookings[0]->pinoscor_num . ' / ' . $bookings[0]->pinoscor_den : $bookings[0]->pinoscor_num }}</td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td>Jaeger</td>
-                                <td>{{ $bookings[0]->jae_od }}</td>
-                                <td>{{ $bookings[0]->jae_os }}</td>
-                                <td>{{ $bookings[0]->jae_ou }}</td>
-                            </tr>
-                            <tr>
-                                <td>IOP</td>
-                                <td>{{ $bookings[0]->iopod }}</td>
-                                <td>{{ $bookings[0]->iopos }}</td>
-                                <td>&nbsp;</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                    @endif
-                    {{-- <small class="text-muted">Helper</small>
-                    <div class="input-group input-group-small flex-nowrap">
-                      <select class="form-select" placeholder="" disabled>
-                        <option value=""></option>
-                      </select>
-                      <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
-                    </div> --}}
-                    <small class="text-muted">Content</small>
-                    <textarea class="form-control" name="{{ $viewFolder }}[docNotes]" id="{{ $viewFolder }}_prev_docNotes" rows=3 disabled>{{ $bookings[0]->docNotes }}</textarea>
-                    {{-- <small class="text-muted">Helper Save/Edit</small>
-                    <div class="input-group input-group-small mb-3 flex-nowrap">
-                      <div class="input-group-text">
-                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
-                      </div>
-                      <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesTitle" name="{{ $viewFolder }}[docNotesTitle]" disabled>
-                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
-                    </div>
-                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[_docNotesEdit]" id="{{ $viewFolder }}_docNotesEdit" rows=3 disabled></textarea> --}}
-                  </div>
-                </div>
-                <div class="card mb-3">
-                  <div class="card-header">Previous Assessment</div>
-                  <div class="card-body">
-                    <div class="form-floating mb-3">
-                      {{-- <select class="form-select" name="{{ $viewFolder }}[icd_code]" id="{{ $viewFolder }}_icd_code" placeholder="" disabled>
-                        <option value=""></option>
-                      </select> --}}
-                      <input class="form-control" list="icdCodeList" id="{{ $viewFolder }}_prev_icd_code" name="{{ $viewFolder }}[icd_code]" value="{{ isset($bookings[0]->icd_code_obj) ? $bookings[0]->icd_code_obj->icd_code . ' - ' . $bookings[0]->icd_code_obj->details : '' }}" autocomplete="off" disabled>
-                      <label for="{{ $viewFolder }}_icd_code">Previous Primary Diagnosis</label>
-                      <small class="mb-3"></small><br>
-                      <small id="help_{{ $viewFolder }}_icd_code" class="text-muted">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small>
-                    </div>
-                    <div class="card mb-3">
-                      <div class="card-header">Previous Secondary Diagnosis</div>
-                      <div class="card-body">
-                        {{-- <small class="text-muted">Helper</small>
-                        <div class="input-group input-group-small flex-nowrap">
-                          <select class="form-select" placeholder="" disabled>
-                            <option value=""></option>
-                          </select>
-                          <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
-                        </div> --}}
-                        <small class="text-muted">Content</small>
-                        <textarea class="form-control" name="{{ $viewFolder }}[assessment]" id="{{ $viewFolder }}_prev_assessment" rows=3 disabled>{{ $bookings[0]->assessment }}</textarea>
-                        <small class="mb-3"></small><br>
-                        <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
-                        {{-- <small class="text-muted">Helper Save/Edit</small>
-                        <div class="input-group input-group-small mb-3 flex-nowrap">
-                          <div class="input-group-text">
-                            <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                        <div class="card mb-3">
+                          <div class="card-header">Previous Secondary Diagnosis</div>
+                          <div class="card-body">
+                            {{-- <small class="text-muted">Helper</small>
+                            <div class="input-group input-group-small flex-nowrap">
+                              <select class="form-select" placeholder="" disabled>
+                                <option value=""></option>
+                              </select>
+                              <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
+                            </div> --}}
+                            <small class="text-muted">Content</small>
+                            <textarea class="form-control" name="{{ $viewFolder }}[assessment]" id="{{ $viewFolder }}_prev_assessment" rows=3 disabled>{{ $bookings[0]->assessment }}</textarea>
+                            <small class="mb-3"></small><br>
+                            <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
+                            {{-- <small class="text-muted">Helper Save/Edit</small>
+                            <div class="input-group input-group-small mb-3 flex-nowrap">
+                              <div class="input-group-text">
+                                <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                              </div>
+                              <input type="text" class="form-control" id="{{ $viewFolder }}_assessmentTitle" name="{{ $viewFolder }}[assessmentTitle]" disabled>
+                              <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                            </div>
+                            <textarea class="form-control mb-2" name="{{ $viewFolder }}[_assessmentEdit]" id="{{ $viewFolder }}_assessmentEdit" rows=3 disabled></textarea> --}}
                           </div>
-                          <input type="text" class="form-control" id="{{ $viewFolder }}_assessmentTitle" name="{{ $viewFolder }}[assessmentTitle]" disabled>
-                          <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                         </div>
-                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[_assessmentEdit]" id="{{ $viewFolder }}_assessmentEdit" rows=3 disabled></textarea> --}}
-                      </div>
-                    </div>
-                    <div class="card mb-3">
-                      <div class="card-header">Previous Discharge Diagnosis (Post-op Diagnosis)</div>
-                      <div class="card-body">
-                        {{-- <small class="text-muted">Helper</small>
-                        <div class="input-group input-group-small flex-nowrap">
-                          <select class="form-select" placeholder="" disabled>
-                            <option value=""></option>
-                          </select>
-                          <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
-                        </div> --}}
-                        <small class="text-muted">Content</small>
-                        <textarea class="form-control" name="{{ $viewFolder }}[post_op_assessment]" id="{{ $viewFolder }}_prev_post_op_assessment" rows=3 disabled>{{ $bookings[0]->post_op_assessment }}</textarea>
-                        <small class="mb-3"></small><br>
-                        <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
-                        {{-- <small class="text-muted">Helper Save/Edit</small>
-                        <div class="input-group input-group-small mb-3 flex-nowrap">
-                          <div class="input-group-text">
-                            <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                        <div class="card mb-3">
+                          <div class="card-header">Previous Discharge Diagnosis (Post-op Diagnosis)</div>
+                          <div class="card-body">
+                            {{-- <small class="text-muted">Helper</small>
+                            <div class="input-group input-group-small flex-nowrap">
+                              <select class="form-select" placeholder="" disabled>
+                                <option value=""></option>
+                              </select>
+                              <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
+                            </div> --}}
+                            <small class="text-muted">Content</small>
+                            <textarea class="form-control" name="{{ $viewFolder }}[post_op_assessment]" id="{{ $viewFolder }}_prev_post_op_assessment" rows=3 disabled>{{ $bookings[0]->post_op_assessment }}</textarea>
+                            <small class="mb-3"></small><br>
+                            <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
+                            {{-- <small class="text-muted">Helper Save/Edit</small>
+                            <div class="input-group input-group-small mb-3 flex-nowrap">
+                              <div class="input-group-text">
+                                <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                              </div>
+                              <input type="text" class="form-control" id="{{ $viewFolder }}_post_op_assessmentTitle" name="{{ $viewFolder }}[post_op_assessmentTitle]" disabled>
+                              <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                            </div>
+                            <textarea class="form-control mb-2" name="{{ $viewFolder }}[_post_op_assessmentEdit]" id="{{ $viewFolder }}_post_op_assessmentEdit" rows=3 disabled></textarea> --}}
                           </div>
-                          <input type="text" class="form-control" id="{{ $viewFolder }}_post_op_assessmentTitle" name="{{ $viewFolder }}[post_op_assessmentTitle]" disabled>
-                          <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                         </div>
-                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[_post_op_assessmentEdit]" id="{{ $viewFolder }}_post_op_assessmentEdit" rows=3 disabled></textarea> --}}
                       </div>
                     </div>
-                  </div>
-                </div>
-                <div class="card mb-3">
-                  <div class="card-header">Previous Plan</div>
-                  <div class="card-body">
-                    @if($bookings[0]->booking_type == 'Dialysis')
-                    <div class="card mb-3">
+                    <div class="card soapDiv soapDivPlan mb-3" style="display: none;" id="{{ $viewFolder }}_SOAPPREV_{{ $datum->id }}_PLAN">
                       <div class="card-header">Previous Plan</div>
                       <div class="card-body">
-                        {{-- <small class="text-muted">Helper</small>
-                        <div class="input-group input-group-small flex-nowrap">
-                          <select class="form-select" placeholder="" disabled>
-                            <option value=""></option>
-                          </select>
-                          <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
-                        </div> --}}
-                        <small class="text-muted">Content</small>
-                        <textarea class="form-control" name="{{ $viewFolder }}[planMed]" id="{{ $viewFolder }}_prev_planMed" rows=3 disabled>{{ $bookings[0]->planMed }}</textarea>
-                        <small class="mb-3"></small><br>
-                        <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
-                        {{-- <small class="text-muted">Helper Save/Edit</small>
-                        <div class="input-group input-group-small mb-3 flex-nowrap">
-                          <div class="input-group-text">
-                            <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
-                          </div>
-                          <input type="text" class="form-control" id="{{ $viewFolder }}_planMedTitle" name="{{ $viewFolder }}[planMedTitle]" disabled>
-                          <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
-                        </div>
-                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planMedEdit]" id="{{ $viewFolder }}_planMedEdit" rows=3 disabled></textarea> --}}
-                      </div>
-                    </div>
-                    <div class="card mb-3">
-                      <div class="card-header">Current Meds Onboard</div>
-                      <div class="card-body">
+                        @if($bookings[0]->booking_type == 'Dialysis')
                         <div class="card mb-3">
-                          <div class="card-header">Add/Edit Entry</div>
+                          <div class="card-header">Previous Plan</div>
                           <div class="card-body">
-                            <div class="input-group mb-3">
-                              <div class="form-floating">
-                                <input class="form-control" type="text" name="{{ $viewFolder }}[MedsOnboard][meds]" @if(!isset($referal_conso)) id="{{ $viewFolder }}_mo_meds" @endif value="" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }} onchange="
-                                  if($(this).val() != ''){
-                                    $('#{{ $viewFolder }}_mo_meds').prop('required', true);
-                                    $('#{{ $viewFolder }}_mo_dose').prop('required', true);
-                                    $('#{{ $viewFolder }}_mo_delivery').prop('required', true);
-                                    $('#{{ $viewFolder }}_mo_duration').prop('required', true);
-                                  }else{
-                                    $('#{{ $viewFolder }}_mo_meds').prop('required', false);
-                                    $('#{{ $viewFolder }}_mo_dose').prop('required', false);
-                                    $('#{{ $viewFolder }}_mo_delivery').prop('required', false);
-                                    $('#{{ $viewFolder }}_mo_duration').prop('required', false);
-                                  }
-                                  if($(this).val() != '' && $('#{{ $viewFolder }}_mo_meds').val() != '' && $('#{{ $viewFolder }}_mo_dose').val() != '' && $('#{{ $viewFolder }}_mo_delivery').val() != '' && $('#{{ $viewFolder }}_mo_duration').val() != '')
-                                    $('#addMedsOnboard{{ $datum->id }}').prop('disabled', false);
-                                  else
-                                    $('#addMedsOnboard{{ $datum->id }}').prop('disabled', true);
-                                " disabled>
-                                <label for="{{ $viewFolder }}_notes_time" class="form-label">Meds</label>
-                                <small id="help_{{ $viewFolder }}_notes_time" class="text-muted"></small>
+                            {{-- <small class="text-muted">Helper</small>
+                            <div class="input-group input-group-small flex-nowrap">
+                              <select class="form-select" placeholder="" disabled>
+                                <option value=""></option>
+                              </select>
+                              <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
+                            </div> --}}
+                            <small class="text-muted">Content</small>
+                            <textarea class="form-control" name="{{ $viewFolder }}[planMed]" id="{{ $viewFolder }}_prev_planMed" rows=3 disabled>{{ $bookings[0]->planMed }}</textarea>
+                            <small class="mb-3"></small><br>
+                            <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
+                            {{-- <small class="text-muted">Helper Save/Edit</small>
+                            <div class="input-group input-group-small mb-3 flex-nowrap">
+                              <div class="input-group-text">
+                                <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
                               </div>
+                              <input type="text" class="form-control" id="{{ $viewFolder }}_planMedTitle" name="{{ $viewFolder }}[planMedTitle]" disabled>
+                              <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                             </div>
-                            <div class="input-group mb-3">
-                              <div class="form-floating">
-                                <input class="form-control" type="text" name="{{ $viewFolder }}[MedsOnboard][dose]" @if(!isset($referal_conso)) id="{{ $viewFolder }}_mo_dose" @endif placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }} onchange="
-                                  if($('#{{ $viewFolder }}_mo_meds').val() != ''){
-                                    $('#{{ $viewFolder }}_mo_meds').prop('required', true);
-                                    $('#{{ $viewFolder }}_mo_dose').prop('required', true);
-                                    $('#{{ $viewFolder }}_mo_delivery').prop('required', true);
-                                    $('#{{ $viewFolder }}_mo_duration').prop('required', true);
-                                  }else{
-                                    $('#{{ $viewFolder }}_mo_meds').prop('required', false);
-                                    $('#{{ $viewFolder }}_mo_dose').prop('required', false);
-                                    $('#{{ $viewFolder }}_mo_delivery').prop('required', false);
-                                    $('#{{ $viewFolder }}_mo_duration').prop('required', false);
-                                  }
-                                  if($(this).val() != '' && $('#{{ $viewFolder }}_mo_meds').val() != '' && $('#{{ $viewFolder }}_mo_dose').val() != '' && $('#{{ $viewFolder }}_mo_delivery').val() != '' && $('#{{ $viewFolder }}_mo_duration').val() != '')
-                                    $('#addMedsOnboard{{ $datum->id }}').prop('disabled', false);
-                                  else
-                                    $('#addMedsOnboard{{ $datum->id }}').prop('disabled', true);
-                                " disabled>
-                                
-                                <label for="{{ $viewFolder }}_nurse_notes" class="form-label">Dose</label>
-                                <small id="help_{{ $viewFolder }}_nurse_notes" class="text-muted"></small>
-                              </div>
-                            </div>
-                            <div class="input-group mb-3">
-                              <div class="form-floating">
-                                <input class="form-control" type="text" name="{{ $viewFolder }}[MedsOnboard][delivery]" @if(!isset($referal_conso)) id="{{ $viewFolder }}_mo_delivery" @endif placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }} onchange="
-                                  if($('#{{ $viewFolder }}_mo_meds').val() != ''){
-                                    $('#{{ $viewFolder }}_mo_meds').prop('required', true);
-                                    $('#{{ $viewFolder }}_mo_dose').prop('required', true);
-                                    $('#{{ $viewFolder }}_mo_delivery').prop('required', true);
-                                    $('#{{ $viewFolder }}_mo_duration').prop('required', true);
-                                  }else{
-                                    $('#{{ $viewFolder }}_mo_meds').prop('required', false);
-                                    $('#{{ $viewFolder }}_mo_dose').prop('required', false);
-                                    $('#{{ $viewFolder }}_mo_delivery').prop('required', false);
-                                    $('#{{ $viewFolder }}_mo_duration').prop('required', false);
-                                  }
-                                  if($(this).val() != '' && $('#{{ $viewFolder }}_mo_meds').val() != '' && $('#{{ $viewFolder }}_mo_dose').val() != '' && $('#{{ $viewFolder }}_mo_delivery').val() != '' && $('#{{ $viewFolder }}_mo_duration').val() != '')
-                                    $('#addMedsOnboard{{ $datum->id }}').prop('disabled', false);
-                                  else
-                                    $('#addMedsOnboard{{ $datum->id }}').prop('disabled', true);
-                                " disabled>
-                                
-                                <label for="{{ $viewFolder }}_nurse_notes" class="form-label">Delivery</label>
-                                <small id="help_{{ $viewFolder }}_nurse_notes" class="text-muted"></small>
-                              </div>
-                            </div>
-                            <div class="input-group mb-3">
-                              <div class="form-floating">
-                                <input class="form-control" type="text" name="{{ $viewFolder }}[MedsOnboard][duration]" @if(!isset($referal_conso)) id="{{ $viewFolder }}_mo_duration" @endif placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }} onchange="
-                                  if($('#{{ $viewFolder }}_mo_meds').val() != ''){
-                                    $('#{{ $viewFolder }}_mo_meds').prop('required', true);
-                                    $('#{{ $viewFolder }}_mo_dose').prop('required', true);
-                                    $('#{{ $viewFolder }}_mo_delivery').prop('required', true);
-                                    $('#{{ $viewFolder }}_mo_duration').prop('required', true);
-                                  }else{
-                                    $('#{{ $viewFolder }}_mo_meds').prop('required', false);
-                                    $('#{{ $viewFolder }}_mo_dose').prop('required', false);
-                                    $('#{{ $viewFolder }}_mo_delivery').prop('required', false);
-                                    $('#{{ $viewFolder }}_mo_duration').prop('required', false);
-                                  }
-                                  if($(this).val() != '' && $('#{{ $viewFolder }}_mo_meds').val() != '' && $('#{{ $viewFolder }}_mo_dose').val() != '' && $('#{{ $viewFolder }}_mo_delivery').val() != '' && $('#{{ $viewFolder }}_mo_duration').val() != '')
-                                    $('#addMedsOnboard{{ $datum->id }}').prop('disabled', false);
-                                  else
-                                    $('#addMedsOnboard{{ $datum->id }}').prop('disabled', true);
-                                " disabled>
-                                
-                                <label for="{{ $viewFolder }}_nurse_notes" class="form-label">Duration</label>
-                                <small id="help_{{ $viewFolder }}_nurse_notes" class="text-muted"></small>
-                              </div>
-                            </div>
-                            <input type="hidden" class="form-control" @if(!isset($referal_conso)) id="{{ $viewFolder }}_mo_id" @endif name="{{ $viewFolder }}[MedsOnboard][id]" value="" disabled>
+                            <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planMedEdit]" id="{{ $viewFolder }}_planMedEdit" rows=3 disabled></textarea> --}}
                           </div>
-                          <div class="card-footer">
-                            <button id="{{ !isset($referal_conso)  ? 'addMedsOnboard' . $datum->id : '' }}" type="button" class="addNurseNotesLog btn btn-{{ $bgColor }} btn-sm" disabled onclick="
-                              $('#doctors_home_submit_type').val('Pause');
-                              $.ajax({
-                                type: 'POST',
-                                data: $('#bookMod').serialize(),
-                                url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
-                                success:
-                                function (){
-                                    $.ajax({
-                                      type: 'GET',
-                                      url: '{{ Route::has($viewFolder . '.getMedsOnboardTable') ? route($viewFolder . '.getMedsOnboardTable', $datum->id) : '' }}',
-                                      success:
-                                      function (data){
-                                        medObj = jQuery.parseJSON(data);
-                                        var tr;
-                                        medObj.forEach(function (item, index){
-                                          tr += '<tr id=\'' + item.id + '\' log=\'medsOnboards\'><td><div class=\'d-sm-flex flex-sm-row\'><div class=\'m-1\'><button type=\'submit\' class=\'btn btn-{{ $bgColor }} btn-sm w-100 rowBtnEdit\'><i class=\'bi bi-pencil\'></i><span class=\'ps-1 d-sm-none\'>Edit</span></button></div><div class=\'m-1\'><button type=\'submit\' class=\'btn btn-{{ $bgColor }} btn-sm w-100 rowBtnDel\'><i class=\'bi bi-trash\'></i><span class=\'ps-1 d-sm-none\'>Delete</span></button></div></div></td><td>' + item.meds + '</td><td>' + item.dose + '</td><td>' + item.delivery + '</td><td>' + item.duration + '</td></tr>';
-                                        });
-                                        $('#medsOnboardTable{{ $datum->id }}').html(tr);
+                        </div>
+                        <div class="card mb-3">
+                          <div class="card-header">Current Meds Onboard</div>
+                          <div class="card-body">
+                            <div class="card mb-3">
+                              <div class="card-header">Add/Edit Entry</div>
+                              <div class="card-body">
+                                <div class="input-group mb-3">
+                                  <div class="form-floating">
+                                    <input class="form-control" type="text" name="{{ $viewFolder }}[MedsOnboard][meds]" @if(!isset($referal_conso)) id="{{ $viewFolder }}_mo_meds" @endif value="" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }} onchange="
+                                      if($(this).val() != ''){
+                                        $('#{{ $viewFolder }}_mo_meds').prop('required', true);
+                                        $('#{{ $viewFolder }}_mo_dose').prop('required', true);
+                                        $('#{{ $viewFolder }}_mo_delivery').prop('required', true);
+                                        $('#{{ $viewFolder }}_mo_duration').prop('required', true);
+                                      }else{
+                                        $('#{{ $viewFolder }}_mo_meds').prop('required', false);
+                                        $('#{{ $viewFolder }}_mo_dose').prop('required', false);
+                                        $('#{{ $viewFolder }}_mo_delivery').prop('required', false);
+                                        $('#{{ $viewFolder }}_mo_duration').prop('required', false);
                                       }
-                                    });
-                                    $('#{{ $viewFolder }}_mo_meds').val('')
-                                    $('#{{ $viewFolder }}_mo_dose').val('');
-                                    $('#{{ $viewFolder }}_mo_delivery').val('');
-                                    $('#{{ $viewFolder }}_mo_duration').val('');
-                                    $('#{{ $viewFolder }}_mo_dose').prop('required', false);
-                                    $('#{{ $viewFolder }}_mo_delivery').prop('required', false);
-                                    $('#{{ $viewFolder }}_mo_duration').prop('required', false);
-                                    $('#medsOnboardTable{{ $datum->id }}').prop('disabled', true);
-                                }
-                              });
+                                      if($(this).val() != '' && $('#{{ $viewFolder }}_mo_meds').val() != '' && $('#{{ $viewFolder }}_mo_dose').val() != '' && $('#{{ $viewFolder }}_mo_delivery').val() != '' && $('#{{ $viewFolder }}_mo_duration').val() != '')
+                                        $('#addMedsOnboard{{ $datum->id }}').prop('disabled', false);
+                                      else
+                                        $('#addMedsOnboard{{ $datum->id }}').prop('disabled', true);
+                                    " disabled>
+                                    <label for="{{ $viewFolder }}_notes_time" class="form-label">Meds</label>
+                                    <small id="help_{{ $viewFolder }}_notes_time" class="text-muted"></small>
+                                  </div>
+                                </div>
+                                <div class="input-group mb-3">
+                                  <div class="form-floating">
+                                    <input class="form-control" type="text" name="{{ $viewFolder }}[MedsOnboard][dose]" @if(!isset($referal_conso)) id="{{ $viewFolder }}_mo_dose" @endif placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }} onchange="
+                                      if($('#{{ $viewFolder }}_mo_meds').val() != ''){
+                                        $('#{{ $viewFolder }}_mo_meds').prop('required', true);
+                                        $('#{{ $viewFolder }}_mo_dose').prop('required', true);
+                                        $('#{{ $viewFolder }}_mo_delivery').prop('required', true);
+                                        $('#{{ $viewFolder }}_mo_duration').prop('required', true);
+                                      }else{
+                                        $('#{{ $viewFolder }}_mo_meds').prop('required', false);
+                                        $('#{{ $viewFolder }}_mo_dose').prop('required', false);
+                                        $('#{{ $viewFolder }}_mo_delivery').prop('required', false);
+                                        $('#{{ $viewFolder }}_mo_duration').prop('required', false);
+                                      }
+                                      if($(this).val() != '' && $('#{{ $viewFolder }}_mo_meds').val() != '' && $('#{{ $viewFolder }}_mo_dose').val() != '' && $('#{{ $viewFolder }}_mo_delivery').val() != '' && $('#{{ $viewFolder }}_mo_duration').val() != '')
+                                        $('#addMedsOnboard{{ $datum->id }}').prop('disabled', false);
+                                      else
+                                        $('#addMedsOnboard{{ $datum->id }}').prop('disabled', true);
+                                    " disabled>
+                                    
+                                    <label for="{{ $viewFolder }}_nurse_notes" class="form-label">Dose</label>
+                                    <small id="help_{{ $viewFolder }}_nurse_notes" class="text-muted"></small>
+                                  </div>
+                                </div>
+                                <div class="input-group mb-3">
+                                  <div class="form-floating">
+                                    <input class="form-control" type="text" name="{{ $viewFolder }}[MedsOnboard][delivery]" @if(!isset($referal_conso)) id="{{ $viewFolder }}_mo_delivery" @endif placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }} onchange="
+                                      if($('#{{ $viewFolder }}_mo_meds').val() != ''){
+                                        $('#{{ $viewFolder }}_mo_meds').prop('required', true);
+                                        $('#{{ $viewFolder }}_mo_dose').prop('required', true);
+                                        $('#{{ $viewFolder }}_mo_delivery').prop('required', true);
+                                        $('#{{ $viewFolder }}_mo_duration').prop('required', true);
+                                      }else{
+                                        $('#{{ $viewFolder }}_mo_meds').prop('required', false);
+                                        $('#{{ $viewFolder }}_mo_dose').prop('required', false);
+                                        $('#{{ $viewFolder }}_mo_delivery').prop('required', false);
+                                        $('#{{ $viewFolder }}_mo_duration').prop('required', false);
+                                      }
+                                      if($(this).val() != '' && $('#{{ $viewFolder }}_mo_meds').val() != '' && $('#{{ $viewFolder }}_mo_dose').val() != '' && $('#{{ $viewFolder }}_mo_delivery').val() != '' && $('#{{ $viewFolder }}_mo_duration').val() != '')
+                                        $('#addMedsOnboard{{ $datum->id }}').prop('disabled', false);
+                                      else
+                                        $('#addMedsOnboard{{ $datum->id }}').prop('disabled', true);
+                                    " disabled>
+                                    
+                                    <label for="{{ $viewFolder }}_nurse_notes" class="form-label">Delivery</label>
+                                    <small id="help_{{ $viewFolder }}_nurse_notes" class="text-muted"></small>
+                                  </div>
+                                </div>
+                                <div class="input-group mb-3">
+                                  <div class="form-floating">
+                                    <input class="form-control" type="text" name="{{ $viewFolder }}[MedsOnboard][duration]" @if(!isset($referal_conso)) id="{{ $viewFolder }}_mo_duration" @endif placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }} onchange="
+                                      if($('#{{ $viewFolder }}_mo_meds').val() != ''){
+                                        $('#{{ $viewFolder }}_mo_meds').prop('required', true);
+                                        $('#{{ $viewFolder }}_mo_dose').prop('required', true);
+                                        $('#{{ $viewFolder }}_mo_delivery').prop('required', true);
+                                        $('#{{ $viewFolder }}_mo_duration').prop('required', true);
+                                      }else{
+                                        $('#{{ $viewFolder }}_mo_meds').prop('required', false);
+                                        $('#{{ $viewFolder }}_mo_dose').prop('required', false);
+                                        $('#{{ $viewFolder }}_mo_delivery').prop('required', false);
+                                        $('#{{ $viewFolder }}_mo_duration').prop('required', false);
+                                      }
+                                      if($(this).val() != '' && $('#{{ $viewFolder }}_mo_meds').val() != '' && $('#{{ $viewFolder }}_mo_dose').val() != '' && $('#{{ $viewFolder }}_mo_delivery').val() != '' && $('#{{ $viewFolder }}_mo_duration').val() != '')
+                                        $('#addMedsOnboard{{ $datum->id }}').prop('disabled', false);
+                                      else
+                                        $('#addMedsOnboard{{ $datum->id }}').prop('disabled', true);
+                                    " disabled>
+                                    
+                                    <label for="{{ $viewFolder }}_nurse_notes" class="form-label">Duration</label>
+                                    <small id="help_{{ $viewFolder }}_nurse_notes" class="text-muted"></small>
+                                  </div>
+                                </div>
+                                <input type="hidden" class="form-control" @if(!isset($referal_conso)) id="{{ $viewFolder }}_mo_id" @endif name="{{ $viewFolder }}[MedsOnboard][id]" value="" disabled>
+                              </div>
+                              <div class="card-footer">
+                                <button id="{{ !isset($referal_conso)  ? 'addMedsOnboard' . $datum->id : '' }}" type="button" class="addNurseNotesLog btn btn-{{ $bgColor }} btn-sm" disabled onclick="
+                                  $('#doctors_home_submit_type').val('Pause');
+                                  $.ajax({
+                                    type: 'POST',
+                                    data: $('#bookMod').serialize(),
+                                    url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
+                                    success:
+                                    function (){
+                                        $.ajax({
+                                          type: 'GET',
+                                          url: '{{ Route::has($viewFolder . '.getMedsOnboardTable') ? route($viewFolder . '.getMedsOnboardTable', $datum->id) : '' }}',
+                                          success:
+                                          function (data){
+                                            medObj = jQuery.parseJSON(data);
+                                            var tr;
+                                            medObj.forEach(function (item, index){
+                                              tr += '<tr id=\'' + item.id + '\' log=\'medsOnboards\'><td><div class=\'d-sm-flex flex-sm-row\'><div class=\'m-1\'><button type=\'submit\' class=\'btn btn-{{ $bgColor }} btn-sm w-100 rowBtnEdit\'><i class=\'bi bi-pencil\'></i><span class=\'ps-1 d-sm-none\'>Edit</span></button></div><div class=\'m-1\'><button type=\'submit\' class=\'btn btn-{{ $bgColor }} btn-sm w-100 rowBtnDel\'><i class=\'bi bi-trash\'></i><span class=\'ps-1 d-sm-none\'>Delete</span></button></div></div></td><td>' + item.meds + '</td><td>' + item.dose + '</td><td>' + item.delivery + '</td><td>' + item.duration + '</td></tr>';
+                                            });
+                                            $('#medsOnboardTable{{ $datum->id }}').html(tr);
+                                          }
+                                        });
+                                        $('#{{ $viewFolder }}_mo_meds').val('')
+                                        $('#{{ $viewFolder }}_mo_dose').val('');
+                                        $('#{{ $viewFolder }}_mo_delivery').val('');
+                                        $('#{{ $viewFolder }}_mo_duration').val('');
+                                        $('#{{ $viewFolder }}_mo_dose').prop('required', false);
+                                        $('#{{ $viewFolder }}_mo_delivery').prop('required', false);
+                                        $('#{{ $viewFolder }}_mo_duration').prop('required', false);
+                                        $('#medsOnboardTable{{ $datum->id }}').prop('disabled', true);
+                                    }
+                                  });
 
-                            " disabled>Add/Edit Meds Onboard</button>
+                                " disabled>Add/Edit Meds Onboard</button>
+                              </div>
+                            </div>
+                            <div class="card-body table-responsive" style="max-height: 300px">
+                              <table class="table table-bordered table-striped table-hover table-sm medsOn">
+                                <thead class="table-{{ $bgColor }}">
+                                  <tr>
+                                    <th>Meds</th>
+                                    <th>Dose</th>
+                                    <th>Delivery</th>
+                                    <th>Duration</th>
+                                  </tr>
+                                </thead>
+                                <tbody id="medsOnboardTablePrev">
+                                @foreach ($bookings[0]->consultation_meds_onboards()->orderBy('id', 'desc')->get() as $dat)
+                                  <tr id="{{ $dat->id }}" log="medsOnboards">
+                                      <td>{{ $dat->meds }}</td>
+                                      <td>{{ $dat->dose }}</td>
+                                      <td>{{ $dat->delivery }}</td>
+                                      <td>{{ $dat->duration }}</td>
+                                  </tr>
+                                @endforeach
+                                </tbody>
+                              </table>
+                            </div>
                           </div>
                         </div>
-                        <div class="card-body table-responsive" style="max-height: 300px">
-                          <table class="table table-bordered table-striped table-hover table-sm medsOn">
-                            <thead class="table-{{ $bgColor }}">
-                              <tr>
-                                <th>Meds</th>
-                                <th>Dose</th>
-                                <th>Delivery</th>
-                                <th>Duration</th>
-                              </tr>
-                            </thead>
-                            <tbody id="medsOnboardTablePrev">
-                            @foreach ($bookings[0]->consultation_meds_onboards()->orderBy('id', 'desc')->get() as $dat)
-                              <tr id="{{ $dat->id }}" log="medsOnboards">
-                                  <td>{{ $dat->meds }}</td>
-                                  <td>{{ $dat->dose }}</td>
-                                  <td>{{ $dat->delivery }}</td>
-                                  <td>{{ $dat->duration }}</td>
-                              </tr>
-                            @endforeach
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                    </div>
-                    @else
-                    <div class="card mb-3">
-                      <div class="card-header">Previous Medical Therapeutics</div>
-                      <div class="card-body">
-                        {{-- <small class="text-muted">Helper</small>
-                        <div class="input-group input-group-small flex-nowrap">
-                          <select class="form-select" placeholder="" disabled>
-                            <option value=""></option>
-                          </select>
-                          <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
-                        </div> --}}
-                        <small class="text-muted">Content</small>
-                        <textarea class="form-control" name="{{ $viewFolder }}[planMed]" id="{{ $viewFolder }}_prev_planMed" rows=3 disabled>{{ $bookings[0]->planMed }}</textarea>
-                        <small class="mb-3"></small><br>
-                        <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
-                        {{-- <small class="text-muted">Helper Save/Edit</small>
-                        <div class="input-group input-group-small mb-3 flex-nowrap">
-                          <div class="input-group-text">
-                            <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                        @else
+                        <div class="card mb-3">
+                          <div class="card-header">Previous Medical Therapeutics</div>
+                          <div class="card-body">
+                            {{-- <small class="text-muted">Helper</small>
+                            <div class="input-group input-group-small flex-nowrap">
+                              <select class="form-select" placeholder="" disabled>
+                                <option value=""></option>
+                              </select>
+                              <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
+                            </div> --}}
+                            {{-- <small class="text-muted">Content</small>
+                            <textarea class="form-control" name="{{ $viewFolder }}[planMed]" id="{{ $viewFolder }}_prev_planMed" rows=3 disabled>{{ $bookings[0]->planMed }}</textarea>
+                            <small class="mb-3"></small><br>
+                            <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br> --}}
+                            {{-- <small class="text-muted">Helper Save/Edit</small>
+                            <div class="input-group input-group-small mb-3 flex-nowrap">
+                              <div class="input-group-text">
+                                <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                              </div>
+                              <input type="text" class="form-control" id="{{ $viewFolder }}_planMedTitle" name="{{ $viewFolder }}[planMedTitle]" disabled>
+                              <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                            </div>
+                            <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planMedEdit]" id="{{ $viewFolder }}_planMedEdit" rows=3 disabled></textarea> --}}
+                            <label class="form-label" for="{{ $viewFolder }}_prev_medication_given_recovery">Medication Given in Recovery</label>
+                            <textarea class="form-control mb-3" name="{{ $viewFolder }}[PrintableForm][medication_given_recovery]" id="{{ $viewFolder }}_prev_medication_given_recovery" disabled rows=3>{{ isset($bookings[0]->printable_form['medication_given_recovery']) ? $bookings[0]->printable_form['medication_given_recovery'] : '' }}</textarea>
+                            <label class="form-label" for="{{ $viewFolder }}_prev_discharge_medication">Discharge Medications (dose, frequency, duration)</label>
+                            <textarea class="form-control mb-3" name="{{ $viewFolder }}[PrintableForm][discharge_medication]" id="{{ $viewFolder }}_prev_discharge_medication" disabled rows=3>{{ isset($bookings[0]->printable_form['discharge_medication']) ? $bookings[0]->printable_form['discharge_medication'] : '' }}</textarea>
                           </div>
-                          <input type="text" class="form-control" id="{{ $viewFolder }}_planMedTitle" name="{{ $viewFolder }}[planMedTitle]" disabled>
-                          <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                         </div>
-                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planMedEdit]" id="{{ $viewFolder }}_planMedEdit" rows=3 disabled></textarea> --}}
-                      </div>
-                    </div>
-                    <div class="card mb-3">
-                      <div class="card-header">Previous Diagnostics and Surgery</div>
-                      <div class="card-body">
-                        {{-- <small class="text-muted">Helper</small>
-                        <div class="input-group input-group-small flex-nowrap">
-                          <select class="form-select" placeholder="" disabled>
-                            <option value=""></option>
-                          </select>
-                          <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
-                        </div> --}}
-                        <small class="text-muted">Content</small>
-                        <textarea class="form-control" name="{{ $viewFolder }}[plan]" id="{{ $viewFolder }}_prev_plan" rows=3 disabled>{{ $bookings[0]->plan }}</textarea>
-                        <small class="mb-3"></small><br>
-                        <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
-                        {{-- <small class="text-muted">Helper Save/Edit</small>
-                        <div class="input-group input-group-small mb-3 flex-nowrap">
-                          <div class="input-group-text">
-                            <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                        <div class="card mb-3">
+                          <div class="card-header">Previous Surgery (Procedure Performed)</div>
+                          <div class="card-body">
+                            {{-- <small class="text-muted">Helper</small>
+                            <div class="input-group input-group-small flex-nowrap">
+                              <select class="form-select" placeholder="" disabled>
+                                <option value=""></option>
+                              </select>
+                              <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
+                            </div> --}}
+                            <small class="text-muted">Content</small>
+                            <textarea class="form-control" name="{{ $viewFolder }}[plan]" id="{{ $viewFolder }}_prev_plan" rows=3 disabled>{{ $bookings[0]->plan }}</textarea>
+                            <small class="mb-3"></small><br>
+                            <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
+                            {{-- <small class="text-muted">Helper Save/Edit</small>
+                            <div class="input-group input-group-small mb-3 flex-nowrap">
+                              <div class="input-group-text">
+                                <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                              </div>
+                              <input type="text" class="form-control" id="{{ $viewFolder }}_planTitle" name="{{ $viewFolder }}[planTitle]" disabled>
+                              <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                            </div>
+                            <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planEdit]" id="{{ $viewFolder }}_planEdit" rows=3 disabled></textarea> --}}
                           </div>
-                          <input type="text" class="form-control" id="{{ $viewFolder }}_planTitle" name="{{ $viewFolder }}[planTitle]" disabled>
-                          <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                         </div>
-                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planEdit]" id="{{ $viewFolder }}_planEdit" rows=3 disabled></textarea> --}}
-                      </div>
-                    </div>
-                    <div class="card mb-3">
-                      <div class="card-header">Previous Remarks</div>
-                      <div class="card-body">
-                        {{-- <small class="text-muted">Helper</small>
-                        <div class="input-group input-group-small flex-nowrap">
-                          <select class="form-select" placeholder="" disabled>
-                            <option value=""></option>
-                          </select>
-                          <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
-                        </div> --}}
-                        <small class="text-muted">Content</small>
-                        <textarea class="form-control" name="{{ $viewFolder }}[planRem]" id="{{ $viewFolder }}_prev_planRem" rows=3 disabled>{{ $bookings[0]->planRem }}</textarea>
-                        <small class="mb-3"></small><br>
-                        <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
-                        {{-- <small class="text-muted">Helper Save/Edit</small>
-                        <div class="input-group input-group-small mb-3 flex-nowrap">
-                          <div class="input-group-text">
-                            <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                        <div class="card mb-3">
+                          <div class="card-header">Previous Admitting Orders</div>
+                          <div class="card-body">
+                            <label for="{{ $viewFolder }}_prev_additional_orders" class="form-label">Additional Peri-Operative Orders</label>
+                            <textarea class="form-control mb-3" name="{{ $viewFolder }}[PrintableForm][additional_orders]" id="{{ $viewFolder }}_prev_additional_orders" disabled rows=3>{{ isset($bookings[0]->printable_form['additional_orders']) ? $bookings[0]->printable_form['additional_orders'] : '' }}</textarea>
+                            <label for="{{ $viewFolder }}_prev_operative_technique" class="form-label">Operative Technique</label>
+                            <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][operative_tech]" id="{{ $viewFolder }}_prev_operative_technique" disabled rows=3>{{ isset($bookings[0]->printable_form['operative_tech']) ? $bookings[0]->printable_form['operative_tech'] : '' }}</textarea>
                           </div>
-                          <input type="text" class="form-control" id="{{ $viewFolder }}_planRemTitle" name="{{ $viewFolder }}[planRemTitle]" disabled>
-                          <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                         </div>
-                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planRemEdit]" id="{{ $viewFolder }}_planRemEdit" rows=3 disabled></textarea> --}}
+                        <div class="card mb-3">
+                          <div class="card-header">Previous Post-Operative Care/Home Care Instructions</div>
+                          <div class="card-body">
+                            <label for="{{ $viewFolder }}_prev_after_proc" class="form-label">Things to expect after the procedure:</label>
+                            <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][after_proc]" id="{{ $viewFolder }}_prev_after_proc" disabled rows=3>{{ isset($bookings[0]->printable_form['after_proc']) ? $bookings[0]->printable_form['after_proc'] : '' }}</textarea>
+                            <label for="{{ $viewFolder }}_prev_things_watch_out" class="form-label mt-3">Things to watch out for:</label>
+                            <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][things_watch_out]" id="{{ $viewFolder }}_prev_things_watch_out" disabled rows=3>{{ isset($bookings[0]->printable_form['things_watch_out']) ? $bookings[0]->printable_form['things_watch_out'] : '' }}</textarea>
+                            <small id="help_{{ $viewFolder }}_prev_things_watch_out" class="text-muted"></small>
+
+                            <label for="{{ $viewFolder }}_prev_things_avoid" class="form-label mt-3">Things to avoid:</label>
+                            <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][things_avoid]" id="{{ $viewFolder }}_prev_things_avoid" disabled rows=3>{{ isset($bookings[0]->printable_form['things_avoid']) ? $bookings[0]->printable_form['things_avoid'] : '' }}</textarea>
+                            <small id="help_{{ $viewFolder }}_prev_things_avoid" class="text-muted"></small>
+
+                            <label for="{{ $viewFolder }}_prev_wound_care" class="form-label mt-3">Wound care:</label>
+                            <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][wound_care]" id="{{ $viewFolder }}_prev_wound_care" disabled rows=3>{{ isset($bookings[0]->printable_form['wound_care']) ? $bookings[0]->printable_form['wound_care'] : '' }}</textarea>
+                            <small id="help_{{ $viewFolder }}_prev_wound_care" class="text-muted"></small>
+
+                          </div>
+                        </div>
+                        @endif
                       </div>
                     </div>
-                    @endif
+                  </div>
+                  <div class="card mb-3">
+                    <div class="card-header">Previous Remarks</div>
+                    <div class="card-body">
+                      {{-- <small class="text-muted">Helper</small>
+                      <div class="input-group input-group-small flex-nowrap">
+                        <select class="form-select" placeholder="" disabled>
+                          <option value=""></option>
+                        </select>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
+                      </div> --}}
+                      <small class="text-muted">Content</small>
+                      <textarea class="form-control" name="{{ $viewFolder }}[planRem]" id="{{ $viewFolder }}_prev_planRem" rows=3 disabled>{{ $bookings[0]->planRem }}</textarea>
+                      <small class="mb-3"></small><br>
+                      <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
+                      {{-- <small class="text-muted">Helper Save/Edit</small>
+                      <div class="input-group input-group-small mb-3 flex-nowrap">
+                        <div class="input-group-text">
+                          <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                        </div>
+                        <input type="text" class="form-control" id="{{ $viewFolder }}_planRemTitle" name="{{ $viewFolder }}[planRemTitle]" disabled>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                      </div>
+                      <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planRemEdit]" id="{{ $viewFolder }}_planRemEdit" rows=3 disabled></textarea> --}}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -4011,7 +4313,7 @@
                       <div class="col-lg-6">
                         <div class="input-group mb-3">
                           <div class="form-floating">
-                            <input class="form-control" type="number" name="{{ $viewFolder }}[prev_post_hd_weight]" min=1 step=.1 id="{{ $viewFolder }}_prev_prev_post_hd_weight" value="{{ isset($bookings[0]->prev_post_hd_weight) ? $bookings[0]->prev_post_hd_weight : ''}}" placeholder="" disabled>
+                            <input class="form-control" type="number" name="{{ $viewFolder }}[prev_post_hd_weight]" min=1 step=.01 id="{{ $viewFolder }}_prev_prev_post_hd_weight" value="{{ isset($bookings[0]->prev_post_hd_weight) ? $bookings[0]->prev_post_hd_weight : ''}}" placeholder="" disabled>
                             <label for="{{ $viewFolder }}_prev_prev_post_hd_weight" class="form-label">Prev. Post HD Weight</label>
                             <small id="help_{{ $viewFolder }}_prev_prev_post_hd_weight" class="text-muted"></small>
                           </div>
@@ -4023,9 +4325,17 @@
                       <div class="col-lg-6">
                         <div class="input-group mb-3">
                           <div class="form-floating">
-                            <input class="form-control" type="number" name="{{ $viewFolder }}[weight]" min=1 step=.1 id="{{ $viewFolder }}_prev_pre_hd_weight" value="{{ isset($bookings[0]->weight) ? $bookings[0]->weight : ''}}" placeholder="" onchange="
+                            <input class="form-control" type="number" name="{{ $viewFolder }}[weight]" min=1 step=.01 id="{{ $viewFolder }}_prev_pre_hd_weight" value="{{ isset($bookings[0]->weight) ? $bookings[0]->weight : ''}}" placeholder="" onchange="
                               if($('#{{ $viewFolder }}_prev_pre_hd_weight').val() != '' &&  $('#{{ $viewFolder }}_prev_post_hd_weight').val() != ''){
-                                $('#{{ $viewFolder }}_prev_weight_loss').val($('#{{ $viewFolder }}_prev_pre_hd_weight').val() - $('#{{ $viewFolder }}_prev_post_hd_weight').val());
+                                var weightLoss = $('#{{ $viewFolder }}_prev_pre_hd_weight').val() - $('#{{ $viewFolder }}_prev_post_hd_weight').val();
+                                if(weightLoss > 0) {
+                                  $('#{{ $viewFolder }}_weight_loss').val(weightLoss.toFixed(2));
+                                  $('#{{ $viewFolder }}_weight_gain').val('');
+                                }else{
+                                  $('#{{ $viewFolder }}_weight_gain').val(-1*weightLoss.toFixed(2));
+                                  $('#{{ $viewFolder }}_weight_loss').val('');
+                                }
+                                
                               }
                             " disabled>
                             <label for="{{ $viewFolder }}_prev_pre_hd_weight" class="form-label">Pre HD Weight</label>
@@ -4037,9 +4347,16 @@
                       <div class="col-lg-6">
                         <div class="input-group mb-3">
                           <div class="form-floating">
-                            <input class="form-control" type="number" name="{{ $viewFolder }}[post_weight]" min=1 step=.1 id="{{ $viewFolder }}_prev_post_hd_weight" value="{{ isset($bookings[0]->post_weight) ? $bookings[0]->post_weight : ''}}" placeholder="" onchange="
+                            <input class="form-control" type="number" name="{{ $viewFolder }}[post_weight]" min=1 step=.01 id="{{ $viewFolder }}_prev_post_hd_weight" value="{{ isset($bookings[0]->post_weight) ? $bookings[0]->post_weight : ''}}" placeholder="" onchange="
                               if($('#{{ $viewFolder }}_prev_pre_hd_weight').val() != '' &&  $('#{{ $viewFolder }}_prev_post_hd_weight').val() != ''){
-                                $('#{{ $viewFolder }}_prev_weight_loss').val($('#{{ $viewFolder }}_prev_pre_hd_weight').val() - $('#{{ $viewFolder }}_prev_post_hd_weight').val());
+                                var weightLoss = $('#{{ $viewFolder }}_prev_pre_hd_weight').val() - $('#{{ $viewFolder }}_prev_post_hd_weight').val();
+                                if(weightLoss > 0) {
+                                  $('#{{ $viewFolder }}_weight_loss').val(weightLoss.toFixed(2));
+                                  $('#{{ $viewFolder }}_weight_gain').val('');
+                                }else{
+                                  $('#{{ $viewFolder }}_weight_gain').val(-1*weightLoss.toFixed(2));
+                                  $('#{{ $viewFolder }}_weight_loss').val('');
+                                }
                               }
                             " disabled>
                             <label for="{{ $viewFolder }}_prev_post_hd_weight" class="form-label">Post HD Weight</label>
@@ -6195,32 +6512,193 @@
             $('#carouselCur').css('max-width', '100%');
           ">show past patient's chart</a></div>
           <div class="card-body">
-            <div class="card mb-3">
-              <div class="card-header">Vitals</div>
-              <div class="card-body">
-                <p>
-                  <strong>Temp:</strong> <span class="text-primary">{{ $datum->temp }}C</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                  <strong>Height:</strong> <span class="text-primary">{{ $datum->height }}cm</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                  <strong>Weight:</strong> <span class="text-primary">{{ $datum->weight }}kg</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                  <strong>BMI:</strong> <span class="text-primary">{{ isset($datum->height) && (int)$datum->height > 0 ? number_format($datum->weight/(($datum->height/100)*($datum->height/100)), 0) : '' }}</span><br>
-                  <strong>BP:</strong> <span class="text-primary">{{ $datum->bpS }}/{{ $datum->bpD }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                  <strong>O2 Sat:</strong> <span class="text-primary">{{ $datum->o2 }}%</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                  <strong>Heart Rate:</strong> <span class="text-primary">{{ $datum->heart }}beats/min</span>
-                </p>
+            <div class="row">
+              <div class="col-lg-6"> 
+                <div class="card mb-3">
+                  <div class="card-header">Clinic Booking Details</div>
+                  <div class="card-body table-responsive" style="max-height: 300px">
+                    <div class="card mb-3">
+                      <div class="card-header">Scheduled Procedure</div>
+                      <div class="card-body" style="height: 1in; max-height: 1in">
+                        <p>{{ $datum->procedure_details }}</p>
+                      </div>
+                    </div>
+                    <div class="card mb-3">
+                      <div class="card-header">Patient's Complaint</div>
+                      <div class="card-body" style="height: 1in; max-height: 1in">
+                        <p>{{ $datum->complain }}</p>
+                        <small class="text-muted">{{ $datum->duration }}</small>
+                      </div>
+                    </div>
+                    <div class="card mb-3">
+                      <div class="card-header">Remarks</div>
+                      <div class="card-body" style="height: 1in; max-height: 1in">
+                        <p>{{ $datum->others }}</p>
+                      </div>
+                    </div> 
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6"> 
+                <div class="card mb-3">
+                  <div class="card-header">Vitals</div>
+                  <div class="card-body table-responsive" style="max-height: 300px">
+                    @if($datum->booking_type != 'Dialysis')
+                    <table class="table table-bordered table-striped table-hover table-sm">
+                      <thead class="table-{{ $bgColor }}">
+                          <tr>
+                              <th>&nbsp;</th>
+                              <th>Preoperative Vitals</th>
+                              <th>Intraoperative Vitals</th>
+                              <th>Post-Operative Vitals</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr>
+                              <td>Temp</td>
+                              <td><span id="temp">{{ $datum->temp }}</span>C</td>
+                              <td><span id="i_temp">{{ isset($datum->printable_form['i_temp']) ? $datum->printable_form['i_temp'] : '' }}</span>C</td>
+                              <td><span id="o_temp">{{ isset($datum->printable_form['o_temp']) ? $datum->printable_form['o_temp'] : '' }}</span>C</td>
+                          </tr>
+                          <tr>
+                              <td>Height</td>
+                              <td><span id="height">{{ $datum->height }}</span>cm</td>
+                              <td><span id="i_height">{{ $datum->height }}</span>cm</td>
+                              <td><span id="o_height">{{ $datum->height }}</span>cm</td>
+                          </tr>
+                          <tr>
+                              <td>Weight</td>
+                              <td><span id="weight">{{ $datum->weight }}</span>kg</td>
+                              <td><span id="i_weight">{{ isset($datum->printable_form['i_weight']) ? $datum->printable_form['i_weight'] : '' }}</span>kg</td>
+                              <td><span id="o_weight">{{ isset($datum->printable_form['o_weight']) ? $datum->printable_form['o_weight'] : '' }}</span>kg</td>
+                          </tr>
+                          <tr>
+                              <td>BMI</td>
+                              <td><span id="bmi">{{ isset($datum->height) && (int)$datum->height > 0 ? number_format($datum->weight/(($datum->height/100)*($datum->height/100)), 2) : '' }}</span></td>
+                              <td><span id="i_bmi">{{ isset($datum->height) && (int)$datum->height > 0 ? number_format($datum->printable_form['i_weight']/(($datum->height/100)*($datum->height/100)), 2) : '' }}</span></td>
+                              <td><span id="o_bmi">{{ isset($datum->height) && (int)$datum->height > 0 ? number_format($datum->printable_form['o_weight']/(($datum->height/100)*($datum->height/100)), 2) : '' }}</span></td>
+                          </tr>
+                          <tr>
+                              <td>BP</td>
+                              <td><span id="bpS">{{ $datum->bpS }}</span>/<span id="bpD">{{ $datum->bpD }}</span></td>
+                              <td><span id="i_bpS">{{ isset($datum->printable_form['i_bpS']) ? $datum->printable_form['i_bpS'] : '' }}</span>/<span id="i_bpD">{{ isset($datum->printable_form['i_bpD']) ? $datum->printable_form['i_bpD'] : '' }}</span></td>
+                              <td><span id="o_bpS">{{ isset($datum->printable_form['o_bpS']) ? $datum->printable_form['o_bpS'] : '' }}</span>/<span id="o_bpD">{{ isset($datum->printable_form['o_bpD']) ? $datum->printable_form['o_bpD'] : '' }}</span></td>
+                          </tr>
+                          <tr>  
+                              <td>O2 Sat</td>
+                              <td><span id="o2">{{ $datum->o2 }}</span>%</td>
+                              <td><span id="i_o2">{{ isset($datum->printable_form['i_o2']) ? $datum->printable_form['i_o2'] : '' }}</span>%</td>
+                              <td><span id="o_o2">{{ isset($datum->printable_form['o_o2']) ? $datum->printable_form['o_o2'] : '' }}</span>%</td>
+                          </tr>
+                          <tr>
+                              <td>Heart Rate</td>
+                              <td><span id="heart">{{ $datum->heart }}</span>beats/min</td>
+                              <td><span id="i_heart">{{ isset($datum->printable_form['i_heart']) ? $datum->printable_form['i_heart'] : '' }}</span>beats/min</td>
+                              <td><span id="o_heart">{{ isset($datum->printable_form['o_heart']) ? $datum->printable_form['o_heart'] : '' }}</span>beats/min</td>
+                          </tr>
+                          <tr>
+                              <td>Resp Rate</td>
+                              <td><span id="resp">{{ $datum->resp }}</span>breaths/min</td>
+                              <td><span id="i_resp">{{ isset($datum->printable_form['i_resp']) ? $datum->printable_form['i_resp'] : '' }}</span>breaths/min</td>
+                              <td><span id="o_resp">{{ isset($datum->printable_form['o_resp']) ? $datum->printable_form['o_resp'] : '' }}</span>breaths/min</td>
+                          </tr>
+                      </tbody>
+                    </table>
+                    @else
+                    <table class="table table-bordered table-striped table-hover table-sm">
+                      <thead class="table-{{ $bgColor }}">
+                          <tr>
+                              <th>&nbsp;</th>
+                              <th>Pre-HD Vitals</th>
+                              <th>Post-HD Vitals</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr>
+                              <td>Temp</td>
+                              <td><span id="temp">{{ $datum->temp }}</span>C</td>
+                              <td><span id="post_temp">{{ $datum->post_temp }}</span>C</td>
+                              
+                          </tr>
+                          <tr>
+                              <td>Height</td>
+                              <td><span id="height">{{ $datum->height }}</span>cm</td>
+                              <td><span id="post_height">{{ $datum->height }}</span>cm</td>
+                          </tr>
+                          <tr>
+                              <td>Weight</td>
+                              <td><span id="weight">{{ $datum->weight }}</span>kg</td>
+                              <td><span id="post_weight">{{ $datum->post_weight }}</span>kg</td>
+                          </tr>
+                          <tr>
+                              <td>BMI</td>
+                              <td><span id="bmi">{{ isset($datum->height) && (int)$datum->height > 0 ? number_format($datum->weight/(($datum->height/100)*($datum->height/100)), 2) : '' }}</span></td>
+                              <td><span id="post_bmi">{{ isset($datum->height) && (int)$datum->height > 0 ? number_format($datum->post_weight/(($datum->height/100)*($datum->height/100)), 2) : '' }}</span></td>
+                          </tr>
+                          <tr>
+                              <td>BP</td>
+                              <td><span id="bpS">{{ $datum->bpS }}</span>/<span id="bpD">{{ $datum->bpD }}</span></td>
+                              <td><span id="post_bpS">{{ $datum->post_bpS }}</span>/<span id="post_bpD">{{ $datum->post_bpD }}</span></td>
+                          </tr>
+                          <tr>  
+                              <td>O2 Sat</td>
+                              <td><span id="o2">{{ $datum->o2 }}</span>%</td>
+                              <td><span id="post_o2">{{ $datum->post_o2 }}</span>%</td>
+                          </tr>
+                          <tr>
+                              <td>Heart Rate</td>
+                              <td><span id="heart">{{ $datum->heart }}</span>beats/min</td>
+                              <td><span id="post_heart">{{ $datum->post_heart }}</span>beats/min</td>
+                          </tr>
+                          <tr>
+                              <td>Resp Rate</td>
+                              <td><span id="resp">{{ $datum->resp }}</span>breaths/min</td>
+                              <td><span id="post_resp">{{ $datum->post_resp }}</span>breaths/min</td>
+                          </tr>
+                      </tbody>
+                    </table>
+                    @endif
+                    {{-- <p>
+                      <strong>Temp:</strong> <span class="text-primary">{{ $datum->temp }}C</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                      <strong>Height:</strong> <span class="text-primary">{{ $datum->height }}cm</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                      <strong>Weight:</strong> <span class="text-primary">{{ $datum->weight }}kg</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                      <strong>BMI:</strong> <span class="text-primary">{{ isset($datum->height) && (int)$datum->height > 0 ? number_format($datum->weight/(($datum->height/100)*($datum->height/100)), 0) : '' }}</span><br>
+                      <strong>BP:</strong> <span class="text-primary">{{ $datum->bpS }}/{{ $datum->bpD }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                      <strong>O2 Sat:</strong> <span class="text-primary">{{ $datum->o2 }}%</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                      <strong>Heart Rate:</strong> <span class="text-primary">{{ $datum->heart }}beats/min</span>
+                    </p> --}}
+                  </div>
+                </div>
               </div>
             </div>
             <div class="table-responsive" style="max-height: 55px">
             <ul class="nav nav-pills mb-3">
               <li class="nav-item">
                 <a class="nav-link docNotesLink active" href="#" onclick="
-                    $('.docNotesLink').each(function(){
+                    $('.docNotesLink').each(function(element){
                       $(this).removeClass('active');
                     });
                     $(this).addClass('active');
+                    loadCurrentBooking({{ $datum->id }});
+                    // $('.docNotesLink').each(function(){
+                    //   $(this).removeClass('active');
+                    // });
+                    // $(this).addClass('active');
                     $('.docNotesDiv').each(function(){
                       $(this).hide();
                     });
-                    $('#{{ $viewFolder }}_SUMM_{{ $datum->id }}').show();
+                    @if(!isset($referal_conso))
+                    $('.soapField').each(function(){
+                      $(this).prop('disabled', false);
+                    });
+                    @else
+                    $('.soapField').each(function(){
+                      $(this).prop('disabled', true);
+                    });
+                    @endif
+                    $('#{{ $viewFolder }}_referral_id').prop('disabled', true);
+                    $('#{{ $viewFolder }}_printable_form_consultation_id').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_SUMM_{{ $datum->id }}').show();
                     $('#{{ $viewFolder }}_SOAP_{{ $datum->id }}').show();
                     $('#{{ $viewFolder }}_Presc_{{ $datum->id }}').show();
                     $('#{{ $viewFolder }}_MedCert_{{ $datum->id }}').show();
@@ -6230,230 +6708,230 @@
                     $('#{{ $viewFolder }}_OpAdmit_{{ $datum->id }}').show();
                     $('#{{ $viewFolder }}_DischargeSum_{{ $datum->id }}').show();
 
-                    @if(!isset($referal_conso))
-                    $('#{{ $viewFolder }}_prescription').prop('disabled', false);
-                    $('#{{ $viewFolder }}_prescriptionSelect').prop('disabled', false);
-                    $('#{{ $viewFolder }}_prescriptionHelperDelete').prop('disabled', false);
-                    $('#{{ $viewFolder }}_findings').prop('disabled', false);
-                    $('#{{ $viewFolder }}_diagnosis').prop('disabled', false);
-                    $('#{{ $viewFolder }}_recommendations').prop('disabled', false);
-                    $('#{{ $viewFolder }}_con_date_ao').prop('disabled', false);
-                    $('#{{ $viewFolder }}_procedure_ao').prop('disabled', false);
-                    $('#{{ $viewFolder }}_procedure_aoSelect').prop('disabled', false);
-                    $('#{{ $viewFolder }}_procedure_aoHelperDelete').prop('disabled', false);
-                    $('#{{ $viewFolder }}_anesthesia_type_ao').prop('disabled', false);
-                    $('#{{ $viewFolder }}_anesthesiologist_ao').prop('disabled', false);
-                    $('#{{ $viewFolder }}_admittingOrder').prop('disabled', false);
-                    $('#{{ $viewFolder }}_admittingOrderSelect').prop('disabled', false);
-                    $('#{{ $viewFolder }}_admittingOrderHelperDelete').prop('disabled', false);
-                    $('#{{ $viewFolder }}_anesthesia_type_ot').prop('disabled', false);
-                    $('#{{ $viewFolder }}_anesthesiologist_ot').prop('disabled', false);
-                    $('#{{ $viewFolder }}_operative_technique').prop('disabled', false);
-                    $('#{{ $viewFolder }}_after_proc').prop('disabled', false);
-                    $('#{{ $viewFolder }}_things_watch_out').prop('disabled', false);
-                    $('#{{ $viewFolder }}_things_avoid').prop('disabled', false);
-                    $('#{{ $viewFolder }}_wound_care').prop('disabled', false);
-                    $('#{{ $viewFolder }}_medication_post').prop('disabled', false);
+                    // @if(!isset($referal_conso))
+                    // $('#{{ $viewFolder }}_prescription').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_prescriptionSelect').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_prescriptionHelperDelete').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_findings').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_diagnosis').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_recommendations').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_con_date_ao').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_procedure_ao').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_procedure_aoSelect').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_procedure_aoHelperDelete').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_anesthesia_type_ao').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_anesthesiologist_ao').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_admittingOrder').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_admittingOrderSelect').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_admittingOrderHelperDelete').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_anesthesia_type_ot').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_anesthesiologist_ot').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_operative_technique').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_after_proc').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_things_watch_out').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_things_avoid').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_wound_care').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_medication_post').prop('disabled', false);
 
-                    $('#{{ $viewFolder }}_anesthesia_type_ot').prop('disabled', false);
-                    $('#{{ $viewFolder }}_anesthesiologist_ot').prop('disabled', false);
-                    $('#{{ $viewFolder }}_room').prop('disabled', false);
-                    $('#{{ $viewFolder }}_dilate_check').prop('disabled', false);
-                    $('#{{ $viewFolder }}_dilate').prop('disabled', false);
-                    $('#{{ $viewFolder }}_constrict_check').prop('disabled', false);
-                    $('#{{ $viewFolder }}_constrict').prop('disabled', false);
-                    $('#{{ $viewFolder }}_intake_blood_thinner_check').prop('disabled', false);
-                    $('#{{ $viewFolder }}_intake_blood_thinner').prop('disabled', false);
-                    $('#{{ $viewFolder }}_intake_maintenance_meds_check').prop('disabled', false);
-                    $('#{{ $viewFolder }}_intake_maintenance_meds').prop('disabled', false);
-                    $('#{{ $viewFolder }}_additional_orders').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_anesthesia_type_ot').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_anesthesiologist_ot').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_room').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_dilate_check').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_dilate').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_constrict_check').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_constrict').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_intake_blood_thinner_check').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_intake_blood_thinner').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_intake_maintenance_meds_check').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_intake_maintenance_meds').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_additional_orders').prop('disabled', false);
 
-                    $('#{{ $viewFolder }}_pre_op_diagnosis').prop('disabled', false);
-                    $('#{{ $viewFolder }}_post_op_diagnosis').prop('disabled', false);
-                    $('#{{ $viewFolder }}_procedure_performed').prop('disabled', false);
-                    $('#{{ $viewFolder }}_intraoperative_findings').prop('disabled', false);
-                    $('#{{ $viewFolder }}_intraoperative_course_unremarkable').prop('disabled', false);
-                    $('#{{ $viewFolder }}_intraoperative_course_with_complications').prop('disabled', false);
-                    $('#{{ $viewFolder }}_complication_specify').prop('disabled', false);
-                    $('#{{ $viewFolder }}_blood_loss').prop('disabled', false);
-                    $('#{{ $viewFolder }}_specimen_sent_yes').prop('disabled', false);
-                    $('#{{ $viewFolder }}_specimen_sent_no').prop('disabled', false);
-                    $('#{{ $viewFolder }}_specimen_sent_remarks').prop('disabled', false);
-                    $('#{{ $viewFolder }}_post_operative_condition_stable').prop('disabled', false);
-                    $('#{{ $viewFolder }}_post_operative_condition_requires').prop('disabled', false);
-                    $('#{{ $viewFolder }}_post_operative_condition_remarks').prop('disabled', false);
-                    $('#{{ $viewFolder }}_medication_given_recovery').prop('disabled', false);
-                    $('#{{ $viewFolder }}_discharge_medication').prop('disabled', false);
-                    $('#{{ $viewFolder }}_avoid_days').prop('disabled', false);
-                    $('#{{ $viewFolder }}_diet_regular').prop('disabled', false);
-                    $('#{{ $viewFolder }}_diet_soft').prop('disabled', false);
-                    $('#{{ $viewFolder }}_diet_others').prop('disabled', false);
-                    $('#{{ $viewFolder }}_diet_remarks').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_pre_op_diagnosis').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_post_op_diagnosis').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_procedure_performed').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_intraoperative_findings').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_intraoperative_course_unremarkable').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_intraoperative_course_with_complications').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_complication_specify').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_blood_loss').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_specimen_sent_yes').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_specimen_sent_no').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_specimen_sent_remarks').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_post_operative_condition_stable').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_post_operative_condition_requires').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_post_operative_condition_remarks').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_medication_given_recovery').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_discharge_medication').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_avoid_days').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_diet_regular').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_diet_soft').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_diet_others').prop('disabled', false);
+                    // $('#{{ $viewFolder }}_diet_remarks').prop('disabled', false);
                     
-                    @else
-                    $('#{{ $viewFolder }}_prescription').prop('disabled', true);
-                    $('#{{ $viewFolder }}_prescriptionSelect').prop('disabled', true);
-                    $('#{{ $viewFolder }}_prescriptionHelperDelete').prop('disabled', true);
-                    $('#{{ $viewFolder }}_findings').prop('disabled', true);
-                    $('#{{ $viewFolder }}_diagnosis').prop('disabled', true);
-                    $('#{{ $viewFolder }}_recommendations').prop('disabled', true);
-                    $('#{{ $viewFolder }}_con_date_ao').prop('disabled', true);
-                    $('#{{ $viewFolder }}_procedure_ao').prop('disabled', true);
-                    $('#{{ $viewFolder }}_procedure_aoSelect').prop('disabled', true);
-                    $('#{{ $viewFolder }}_procedure_aoHelperDelete').prop('disabled', true);
-                    $('#{{ $viewFolder }}_anesthesia_type_ao').prop('disabled', true);
-                    $('#{{ $viewFolder }}_anesthesiologist_ao').prop('disabled', true);
-                    $('#{{ $viewFolder }}_admittingOrder').prop('disabled', true);
-                    $('#{{ $viewFolder }}_admittingOrderSelect').prop('disabled', true);
-                    $('#{{ $viewFolder }}_admittingOrderHelperDelete').prop('disabled', true);
-                    $('#{{ $viewFolder }}_anesthesia_type_ot').prop('disabled', true);
-                    $('#{{ $viewFolder }}_anesthesiologist_ot').prop('disabled', true);
-                    $('#{{ $viewFolder }}_operative_technique').prop('disabled', true);
-                    $('#{{ $viewFolder }}_after_proc').prop('disabled', true);
-                    $('#{{ $viewFolder }}_things_watch_out').prop('disabled', true);
-                    $('#{{ $viewFolder }}_things_avoid').prop('disabled', true);
-                    $('#{{ $viewFolder }}_wound_care').prop('disabled', true);
-                    $('#{{ $viewFolder }}_medication_post').prop('disabled', true);
+                    // @else
+                    // $('#{{ $viewFolder }}_prescription').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_prescriptionSelect').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_prescriptionHelperDelete').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_findings').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_diagnosis').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_recommendations').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_con_date_ao').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_procedure_ao').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_procedure_aoSelect').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_procedure_aoHelperDelete').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_anesthesia_type_ao').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_anesthesiologist_ao').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_admittingOrder').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_admittingOrderSelect').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_admittingOrderHelperDelete').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_anesthesia_type_ot').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_anesthesiologist_ot').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_operative_technique').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_after_proc').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_things_watch_out').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_things_avoid').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_wound_care').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_medication_post').prop('disabled', true);
 
-                    $('#{{ $viewFolder }}_room').prop('disabled', true);
-                    $('#{{ $viewFolder }}_dilate_check').prop('disabled', true);
-                    $('#{{ $viewFolder }}_dilate').prop('disabled', true);
-                    $('#{{ $viewFolder }}_constrict_check').prop('disabled', true);
-                    $('#{{ $viewFolder }}_constrict').prop('disabled', true);
-                    $('#{{ $viewFolder }}_intake_blood_thinner_check').prop('disabled', true);
-                    $('#{{ $viewFolder }}_intake_blood_thinner').prop('disabled', true);
-                    $('#{{ $viewFolder }}_intake_maintenance_meds_check').prop('disabled', true);
-                    $('#{{ $viewFolder }}_intake_maintenance_meds').prop('disabled', true);
-                    $('#{{ $viewFolder }}_additional_orders').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_room').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_dilate_check').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_dilate').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_constrict_check').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_constrict').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_intake_blood_thinner_check').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_intake_blood_thinner').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_intake_maintenance_meds_check').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_intake_maintenance_meds').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_additional_orders').prop('disabled', true);
 
-                    $('#{{ $viewFolder }}_pre_op_diagnosis').prop('disabled', true);
-                    $('#{{ $viewFolder }}_post_op_diagnosis').prop('disabled', true);
-                    $('#{{ $viewFolder }}_procedure_performed').prop('disabled', true);
-                    $('#{{ $viewFolder }}_intraoperative_findings').prop('disabled', true);
-                    $('#{{ $viewFolder }}_intraoperative_course_unremarkable').prop('disabled', true);
-                    $('#{{ $viewFolder }}_intraoperative_course_with_complications').prop('disabled', true);
-                    $('#{{ $viewFolder }}_complication_specify').prop('disabled', true);
-                    $('#{{ $viewFolder }}_blood_loss').prop('disabled', true);
-                    $('#{{ $viewFolder }}_specimen_sent_yes').prop('disabled', true);
-                    $('#{{ $viewFolder }}_specimen_sent_no').prop('disabled', true);
-                    $('#{{ $viewFolder }}_specimen_sent_remarks').prop('disabled', true);
-                    $('#{{ $viewFolder }}_post_operative_condition_stable').prop('disabled', true);
-                    $('#{{ $viewFolder }}_post_operative_condition_requires').prop('disabled', true);
-                    $('#{{ $viewFolder }}_post_operative_condition_remarks').prop('disabled', true);
-                    $('#{{ $viewFolder }}_medication_given_recovery').prop('disabled', true);
-                    $('#{{ $viewFolder }}_discharge_medication').prop('disabled', true);
-                    $('#{{ $viewFolder }}_avoid_days').prop('disabled', true);
-                    $('#{{ $viewFolder }}_diet_regular').prop('disabled', true);
-                    $('#{{ $viewFolder }}_diet_soft').prop('disabled', true);
-                    $('#{{ $viewFolder }}_diet_others').prop('disabled', true);
-                    $('#{{ $viewFolder }}_diet_remarks').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_pre_op_diagnosis').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_post_op_diagnosis').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_procedure_performed').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_intraoperative_findings').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_intraoperative_course_unremarkable').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_intraoperative_course_with_complications').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_complication_specify').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_blood_loss').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_specimen_sent_yes').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_specimen_sent_no').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_specimen_sent_remarks').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_post_operative_condition_stable').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_post_operative_condition_requires').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_post_operative_condition_remarks').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_medication_given_recovery').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_discharge_medication').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_avoid_days').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_diet_regular').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_diet_soft').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_diet_others').prop('disabled', true);
+                    // $('#{{ $viewFolder }}_diet_remarks').prop('disabled', true);
 
-                    @endif
-                    $('#{{ $viewFolder }}_prescription').val($('#{{ $viewFolder }}_parent_prescription_hidden').val());
-                    $('#{{ $viewFolder }}_findings').val($('#{{ $viewFolder }}_parent_findings_hidden').val());
-                    $('#{{ $viewFolder }}_diagnosis').val($('#{{ $viewFolder }}_parent_diagnosis_hidden').val());
-                    $('#{{ $viewFolder }}_recommendations').val($('#{{ $viewFolder }}_parent_recommendations_hidden').val());
-                    $('#{{ $viewFolder }}_con_date_ao').val($('#{{ $viewFolder }}_parent_con_date_ao_hidden').val());
-                    $('#{{ $viewFolder }}_procedure_ao').val($('#{{ $viewFolder }}_parent_procedure_ao_hidden').val());
-                    $('#{{ $viewFolder }}_anesthesia_type_ao').val($('#{{ $viewFolder }}_parent_anesthesia_type_ao_hidden').val());
-                    $('#{{ $viewFolder }}_anesthesiologist_ao').val($('#{{ $viewFolder }}_parent_anesthesiologist_ao_hidden').val());
-                    $('#{{ $viewFolder }}_admittingOrder').val($('#{{ $viewFolder }}_parent_admittingOrder_hidden').val());
-                    $('#{{ $viewFolder }}_printable_form_consultation_id').val({{ $datum->id }});
-                    $('#{{ $viewFolder }}_anesthesia_type_ot').val($('#{{ $viewFolder }}_parent_anesthesia_type_ot_hidden').val());
-                    $('#{{ $viewFolder }}_anesthesiologist_ot').val($('#{{ $viewFolder }}_parent_anesthesiologist_ot_hidden').val());
-                    $('#{{ $viewFolder }}_operative_technique').val($('#{{ $viewFolder }}_parent_operative_tech_hidden').val());
-                    $('#{{ $viewFolder }}_after_proc').val($('#{{ $viewFolder }}_parent_after_proc_hidden').val());
-                    $('#{{ $viewFolder }}_things_watch_out').val($('#{{ $viewFolder }}_parent_things_watch_out_hidden').val());
-                    $('#{{ $viewFolder }}_things_avoid').val($('#{{ $viewFolder }}_parent_things_avoid_hidden').val());
-                    $('#{{ $viewFolder }}_wound_care').val($('#{{ $viewFolder }}_parent_wound_care_hidden').val());
-                    $('#{{ $viewFolder }}_medication_post').val($('#{{ $viewFolder }}_parent_medication_post_hidden').val());
-                    $('#{{ $viewFolder }}_room').val($('#{{ $viewFolder }}_parent_room_hidden').val());
-                    if($('#{{ $viewFolder }}_parent_dilate_hidden').val() != ''){
-                      $('#{{ $viewFolder }}_dilate_check').prop('checked', true);
-                      // $('#{{ $viewFolder }}_dilate').prop('disabled', false);
-                    }else{
-                      $('#{{ $viewFolder }}_dilate_check').prop('checked', false);
-                      // $('#{{ $viewFolder }}_dilate').prop('disabled', true);
-                    }
-                    $('#{{ $viewFolder }}_dilate').val($('#{{ $viewFolder }}_parent_dilate_hidden').val());
+                    // @endif
+                    // $('#{{ $viewFolder }}_prescription').val($('#{{ $viewFolder }}_parent_prescription_hidden').val());
+                    // $('#{{ $viewFolder }}_findings').val($('#{{ $viewFolder }}_parent_findings_hidden').val());
+                    // $('#{{ $viewFolder }}_diagnosis').val($('#{{ $viewFolder }}_parent_diagnosis_hidden').val());
+                    // $('#{{ $viewFolder }}_recommendations').val($('#{{ $viewFolder }}_parent_recommendations_hidden').val());
+                    // $('#{{ $viewFolder }}_con_date_ao').val($('#{{ $viewFolder }}_parent_con_date_ao_hidden').val());
+                    // $('#{{ $viewFolder }}_procedure_ao').val($('#{{ $viewFolder }}_parent_procedure_ao_hidden').val());
+                    // $('#{{ $viewFolder }}_anesthesia_type_ao').val($('#{{ $viewFolder }}_parent_anesthesia_type_ao_hidden').val());
+                    // $('#{{ $viewFolder }}_anesthesiologist_ao').val($('#{{ $viewFolder }}_parent_anesthesiologist_ao_hidden').val());
+                    // $('#{{ $viewFolder }}_admittingOrder').val($('#{{ $viewFolder }}_parent_admittingOrder_hidden').val());
+                    // $('#{{ $viewFolder }}_printable_form_consultation_id').val({{ $datum->id }});
+                    // $('#{{ $viewFolder }}_anesthesia_type_ot').val($('#{{ $viewFolder }}_parent_anesthesia_type_ot_hidden').val());
+                    // $('#{{ $viewFolder }}_anesthesiologist_ot').val($('#{{ $viewFolder }}_parent_anesthesiologist_ot_hidden').val());
+                    // $('#{{ $viewFolder }}_operative_technique').val($('#{{ $viewFolder }}_parent_operative_tech_hidden').val());
+                    // $('#{{ $viewFolder }}_after_proc').val($('#{{ $viewFolder }}_parent_after_proc_hidden').val());
+                    // $('#{{ $viewFolder }}_things_watch_out').val($('#{{ $viewFolder }}_parent_things_watch_out_hidden').val());
+                    // $('#{{ $viewFolder }}_things_avoid').val($('#{{ $viewFolder }}_parent_things_avoid_hidden').val());
+                    // $('#{{ $viewFolder }}_wound_care').val($('#{{ $viewFolder }}_parent_wound_care_hidden').val());
+                    // $('#{{ $viewFolder }}_medication_post').val($('#{{ $viewFolder }}_parent_medication_post_hidden').val());
+                    // $('#{{ $viewFolder }}_room').val($('#{{ $viewFolder }}_parent_room_hidden').val());
+                    // if($('#{{ $viewFolder }}_parent_dilate_hidden').val() != ''){
+                    //   $('#{{ $viewFolder }}_dilate_check').prop('checked', true);
+                    //   // $('#{{ $viewFolder }}_dilate').prop('disabled', false);
+                    // }else{
+                    //   $('#{{ $viewFolder }}_dilate_check').prop('checked', false);
+                    //   // $('#{{ $viewFolder }}_dilate').prop('disabled', true);
+                    // }
+                    // $('#{{ $viewFolder }}_dilate').val($('#{{ $viewFolder }}_parent_dilate_hidden').val());
 
-                    if($('#{{ $viewFolder }}_parent_constrict_hidden').val() != ''){
-                      $('#{{ $viewFolder }}_constrict_check').prop('checked', true);
-                      // $('#{{ $viewFolder }}_constrict').prop('disabled', false);
-                    }else{
-                      $('#{{ $viewFolder }}_constrict_check').prop('checked', false);
-                      // $('#{{ $viewFolder }}_constrict').prop('disabled', true);
-                    }
-                    $('#{{ $viewFolder }}_constrict').val($('#{{ $viewFolder }}_parent_constrict_hidden').val());
-                    $('#{{ $viewFolder }}_additional_orders').val($('#{{ $viewFolder }}_parent_additional_orders_hidden').val());
+                    // if($('#{{ $viewFolder }}_parent_constrict_hidden').val() != ''){
+                    //   $('#{{ $viewFolder }}_constrict_check').prop('checked', true);
+                    //   // $('#{{ $viewFolder }}_constrict').prop('disabled', false);
+                    // }else{
+                    //   $('#{{ $viewFolder }}_constrict_check').prop('checked', false);
+                    //   // $('#{{ $viewFolder }}_constrict').prop('disabled', true);
+                    // }
+                    // $('#{{ $viewFolder }}_constrict').val($('#{{ $viewFolder }}_parent_constrict_hidden').val());
+                    // $('#{{ $viewFolder }}_additional_orders').val($('#{{ $viewFolder }}_parent_additional_orders_hidden').val());
 
-                    $('#{{ $viewFolder }}_pre_op_diagnosis').val($('#{{ $viewFolder }}_parent_pre_op_diagnosis_hidden').val());
-                    $('#{{ $viewFolder }}_post_op_diagnosis').val($('#{{ $viewFolder }}_parent_post_op_diagnosis_hidden').val());
-                    $('#{{ $viewFolder }}_procedure_performed').val($('#{{ $viewFolder }}_parent_procedure_performed_hidden').val());
-                    $('#{{ $viewFolder }}_intraoperative_findings').val($('#{{ $viewFolder }}_parent_intraoperative_findings_hidden').val());
-                    if($('#{{ $viewFolder }}_parent_intraoperative_course_hidden').val() == 'Unremarkable'){
-                      $('#{{ $viewFolder }}_intraoperative_course_unremarkable').prop('checked', true);
-                      $('#{{ $viewFolder }}_complication_specify').prop('disabled', true);
-                    }else{
-                      $('#{{ $viewFolder }}_intraoperative_course_with_complications').prop('checked', true);
-                      // $('#{{ $viewFolder }}_complication_specify').prop('disabled', false);
-                    }
-                    $('#{{ $viewFolder }}_complication_specify').val($('#{{ $viewFolder }}_parent_complication_specify_hidden').val());
-                    $('#{{ $viewFolder }}_blood_loss').val($('#{{ $viewFolder }}_parent_blood_loss_hidden').val());
-                    if($('#{{ $viewFolder }}_parent_specimen_sent_hidden').val() == 'no'){
-                      $('#{{ $viewFolder }}_specimen_sent_no').prop('checked', true);
-                    }else{
-                      $('#{{ $viewFolder }}_specimen_sent_yes').prop('checked', true);
-                    }
-                    $('#{{ $viewFolder }}_specimen_sent_remarks').val($('#{{ $viewFolder }}_parent_specimen_sent_remarks_hidden').val());
-                    if($('#{{ $viewFolder }}_parent_post_operative_condition_hidden').val() == 'Stable'){
-                      $('#{{ $viewFolder }}_post_operative_condition_stable').prop('checked', true);
-                    }else{
-                      $('#{{ $viewFolder }}_post_operative_condition_requires').prop('checked', true);
-                    }
-                    $('#{{ $viewFolder }}_post_operative_condition_remarks').val($('#{{ $viewFolder }}_parent_post_operative_condition_remarks_hidden').val());
-                    $('#{{ $viewFolder }}_medication_given_recovery').val($('#{{ $viewFolder }}_parent_medication_given_recovery_hidden').val());
-                    $('#{{ $viewFolder }}_discharge_medication').val($('#{{ $viewFolder }}_parent_discharge_medication_hidden').val());
-                    $('#{{ $viewFolder }}_avoid_days').val($('#{{ $viewFolder }}_parent_avoid_days_hidden').val());
-                    if($('#{{ $viewFolder }}_parent_diet_hidden').val() == 'Regular'){
-                      $('#{{ $viewFolder }}_diet_regular').prop('checked', true);
-                      $('#{{ $viewFolder }}_diet_remarks').prop('disabled', true);
-                    }else if($('#{{ $viewFolder }}_parent_diet_hidden').val() == 'Soft'){
-                      $('#{{ $viewFolder }}_diet_soft').prop('checked', true);
-                      $('#{{ $viewFolder }}_diet_remarks').prop('disabled', true);
-                    }else{
-                      $('#{{ $viewFolder }}_diet_others').prop('checked', true);
-                      // $('#{{ $viewFolder }}_diet_remarks').prop('disabled', false);
-                    }
-                    $('#{{ $viewFolder }}_diet_remarks').val($('#{{ $viewFolder }}_parent_diet_remarks_hidden').val());
+                    // $('#{{ $viewFolder }}_pre_op_diagnosis').val($('#{{ $viewFolder }}_parent_pre_op_diagnosis_hidden').val());
+                    // $('#{{ $viewFolder }}_post_op_diagnosis').val($('#{{ $viewFolder }}_parent_post_op_diagnosis_hidden').val());
+                    // $('#{{ $viewFolder }}_procedure_performed').val($('#{{ $viewFolder }}_parent_procedure_performed_hidden').val());
+                    // $('#{{ $viewFolder }}_intraoperative_findings').val($('#{{ $viewFolder }}_parent_intraoperative_findings_hidden').val());
+                    // if($('#{{ $viewFolder }}_parent_intraoperative_course_hidden').val() == 'Unremarkable'){
+                    //   $('#{{ $viewFolder }}_intraoperative_course_unremarkable').prop('checked', true);
+                    //   $('#{{ $viewFolder }}_complication_specify').prop('disabled', true);
+                    // }else{
+                    //   $('#{{ $viewFolder }}_intraoperative_course_with_complications').prop('checked', true);
+                    //   // $('#{{ $viewFolder }}_complication_specify').prop('disabled', false);
+                    // }
+                    // $('#{{ $viewFolder }}_complication_specify').val($('#{{ $viewFolder }}_parent_complication_specify_hidden').val());
+                    // $('#{{ $viewFolder }}_blood_loss').val($('#{{ $viewFolder }}_parent_blood_loss_hidden').val());
+                    // if($('#{{ $viewFolder }}_parent_specimen_sent_hidden').val() == 'no'){
+                    //   $('#{{ $viewFolder }}_specimen_sent_no').prop('checked', true);
+                    // }else{
+                    //   $('#{{ $viewFolder }}_specimen_sent_yes').prop('checked', true);
+                    // }
+                    // $('#{{ $viewFolder }}_specimen_sent_remarks').val($('#{{ $viewFolder }}_parent_specimen_sent_remarks_hidden').val());
+                    // if($('#{{ $viewFolder }}_parent_post_operative_condition_hidden').val() == 'Stable'){
+                    //   $('#{{ $viewFolder }}_post_operative_condition_stable').prop('checked', true);
+                    // }else{
+                    //   $('#{{ $viewFolder }}_post_operative_condition_requires').prop('checked', true);
+                    // }
+                    // $('#{{ $viewFolder }}_post_operative_condition_remarks').val($('#{{ $viewFolder }}_parent_post_operative_condition_remarks_hidden').val());
+                    // $('#{{ $viewFolder }}_medication_given_recovery').val($('#{{ $viewFolder }}_parent_medication_given_recovery_hidden').val());
+                    // $('#{{ $viewFolder }}_discharge_medication').val($('#{{ $viewFolder }}_parent_discharge_medication_hidden').val());
+                    // $('#{{ $viewFolder }}_avoid_days').val($('#{{ $viewFolder }}_parent_avoid_days_hidden').val());
+                    // if($('#{{ $viewFolder }}_parent_diet_hidden').val() == 'Regular'){
+                    //   $('#{{ $viewFolder }}_diet_regular').prop('checked', true);
+                    //   $('#{{ $viewFolder }}_diet_remarks').prop('disabled', true);
+                    // }else if($('#{{ $viewFolder }}_parent_diet_hidden').val() == 'Soft'){
+                    //   $('#{{ $viewFolder }}_diet_soft').prop('checked', true);
+                    //   $('#{{ $viewFolder }}_diet_remarks').prop('disabled', true);
+                    // }else{
+                    //   $('#{{ $viewFolder }}_diet_others').prop('checked', true);
+                    //   // $('#{{ $viewFolder }}_diet_remarks').prop('disabled', false);
+                    // }
+                    // $('#{{ $viewFolder }}_diet_remarks').val($('#{{ $viewFolder }}_parent_diet_remarks_hidden').val());
 
-                    if($('#{{ $viewFolder }}_parent_dischargeSumSigKey_hidden').val() == 'yes'){
-                      $('#{{ $viewFolder }}_dischargeSumSigKey_check').prop('checked', true);
-                    }else{
-                      $('#{{ $viewFolder }}_dischargeSumSigKey_check').prop('checked', true);
-                    }
+                    // if($('#{{ $viewFolder }}_parent_dischargeSumSigKey_hidden').val() == 'yes'){
+                    //   $('#{{ $viewFolder }}_dischargeSumSigKey_check').prop('checked', true);
+                    // }else{
+                    //   $('#{{ $viewFolder }}_dischargeSumSigKey_check').prop('checked', true);
+                    // }
 
-                    if($('#{{ $viewFolder }}_parent_opAdmitSigKey_hidden').val() == 'yes'){
-                      $('#{{ $viewFolder }}_opAdmitSigKey_check').prop('checked', true);
-                    }else{
-                      $('#{{ $viewFolder }}_opAdmitSigKey_check').prop('checked', true);
-                    }
+                    // if($('#{{ $viewFolder }}_parent_opAdmitSigKey_hidden').val() == 'yes'){
+                    //   $('#{{ $viewFolder }}_opAdmitSigKey_check').prop('checked', true);
+                    // }else{
+                    //   $('#{{ $viewFolder }}_opAdmitSigKey_check').prop('checked', true);
+                    // }
 
-                    if($('#{{ $viewFolder }}_parent_orTechSigKey_hidden').val() == 'yes'){
-                      $('#{{ $viewFolder }}_orTechSigKey_check').prop('checked', true);
-                    }else{
-                      $('#{{ $viewFolder }}_orTechSigKey_check').prop('checked', true);
-                    }
+                    // if($('#{{ $viewFolder }}_parent_orTechSigKey_hidden').val() == 'yes'){
+                    //   $('#{{ $viewFolder }}_orTechSigKey_check').prop('checked', true);
+                    // }else{
+                    //   $('#{{ $viewFolder }}_orTechSigKey_check').prop('checked', true);
+                    // }
 
-                    if($('#{{ $viewFolder }}_parent_postOpSigKey_hidden').val() == 'yes'){
-                      $('#{{ $viewFolder }}_postOpSigKey_check').prop('checked', true);
-                    }else{
-                      $('#{{ $viewFolder }}_postOpSigKey_check').prop('checked', true);
-                    }
+                    // if($('#{{ $viewFolder }}_parent_postOpSigKey_hidden').val() == 'yes'){
+                    //   $('#{{ $viewFolder }}_postOpSigKey_check').prop('checked', true);
+                    // }else{
+                    //   $('#{{ $viewFolder }}_postOpSigKey_check').prop('checked', true);
+                    // }
 
                   ">{{ !isset($referal_conso) ? 'Yours - ' . $datum->clinic->name . ' | ' . ($datum->booking_type == '' ? 'Consultations' : $datum->booking_type) : 'Dr. ' . Str::substr($datum->doctor->f_name, 0, 1) . '. ' . $datum->doctor->l_name . ' - ' . $datum->clinic->name . ' | ' . ($datum->booking_type == '' ? 'Consultations' : $datum->booking_type)}}</a>
               </li>
-              <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_prescription_hidden" value="{{ addslashes($datum->prescription) }}">
+              {{-- <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_prescription_hidden" value="{{ addslashes($datum->prescription) }}">
               <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_findings_hidden" value="{{ addslashes($datum->findings) }}">
               <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_diagnosis_hidden" value="{{ addslashes($datum->diagnosis) }}">
               <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_recommendations_hidden" value="{{ addslashes($datum->recommendations) }}">
@@ -6461,10 +6939,10 @@
               <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_procedure_ao_hidden" value="{{ addslashes($datum->procedure_ao) }}">
               <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_anesthesia_type_ao_hidden" value="{{ addslashes($datum->anesthesia_type_ao) }}">
               <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_anesthesiologist_ao_hidden" value="{{ addslashes($datum->anesthesiologist_ao) }}">
-              <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_admittingOrder_hidden" value="{{ addslashes($datum->admittingOrder) }}">
+              <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_admittingOrder_hidden" value="{{ addslashes($datum->admittingOrder) }}"> --}}
               {{-- <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_anesthesia_type_ot_hidden" value="{{ isset($datum->printable_form['operative_tech']) ? addslashes($datum->printable_form['anesthesia_type_ot']) : '' }}">
               <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_anesthesiologist_ot_hidden" value="{{ isset($datum->printable_form['operative_tech']) ? addslashes($datum->printable_form['anesthesiologist_ot']) : '' }}"> --}}
-              <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_anesthesia_type_ot_hidden" value="{{ addslashes($datum->anesthesia_type_ao) }}">
+              {{-- <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_anesthesia_type_ot_hidden" value="{{ addslashes($datum->anesthesia_type_ao) }}">
               <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_anesthesiologist_ot_hidden" value="{{ addslashes($datum->admittingOrder) }}">
               <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_operative_tech_hidden" value="{{ isset($datum->printable_form['operative_tech']) ? addslashes($datum->printable_form['operative_tech']) : '' }}">
               <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_after_proc_hidden" value="{{ isset($datum->printable_form['after_proc']) ? addslashes($datum->printable_form['after_proc']) : '' }}">
@@ -6497,252 +6975,272 @@
               <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_dischargeSumSigKey_hidden" value="{{ isset($datum->printable_form['dischargeSumSigKey']) ? addslashes($datum->printable_form['dischargeSumSigKey']) : '' }}">
               <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_opAdmitSigKey_hidden" value="{{ isset($datum->printable_form['opAdmitSigKey']) ? addslashes($datum->printable_form['opAdmitSigKey']) : '' }}">
               <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_orTechSigKey_hidden" value="{{ isset($datum->printable_form['orTechSigKey']) ? addslashes($datum->printable_form['orTechSigKey']) : '' }}">
-              <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_postOpSigKey_hidden" value="{{ isset($datum->printable_form['postOpSigKey']) ? addslashes($datum->printable_form['postOpSigKey']) : '' }}">
+              <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_postOpSigKey_hidden" value="{{ isset($datum->printable_form['postOpSigKey']) ? addslashes($datum->printable_form['postOpSigKey']) : '' }}"> --}}
               
               @if(isset($datum->consultation_referals[0]->id))
                 @foreach($datum->consultation_referals as $cr)
               <li class="nav-item">
                 <a class="nav-link docNotesLink" id="{{ $viewFolder }}_doctorLink_{{ $cr->id }}" href="#"  onclick="
-                  $('.docNotesLink').each(function(){
+                  $('.docNotesLink').each(function(element){
                     $(this).removeClass('active');
                   });
                   $(this).addClass('active');
+                  loadCurrentBooking({{ $cr->id }});
+                  // $('.docNotesLink').each(function(){
+                  //   $(this).removeClass('active');
+                  // });
+                  // $(this).addClass('active');
                   $('.docNotesDiv').each(function(){
-                      $(this).hide();
-                    });
-                    $('#{{ $viewFolder }}_SUMM_{{ $cr->id }}').show();
-                    $('#{{ $viewFolder }}_SOAP_{{ $cr->id }}').show();
-                    $('#{{ $viewFolder }}_Presc_{{ $cr->id }}').show();
-                    $('#{{ $viewFolder }}_MedCert_{{ $cr->id }}').show();
-                    $('#{{ $viewFolder }}_Admitting_{{ $cr->id }}').show();
-                    $('#{{ $viewFolder }}_OpTech_{{ $cr->id }}').show();
-                    $('#{{ $viewFolder }}_PostOp_{{ $cr->id }}').show();
-                    $('#{{ $viewFolder }}_OpAdmit_{{ $cr->id }}').show();
-                    $('#{{ $viewFolder }}_DischargeSum_{{ $cr->id }}').show();
-                    
-                    @if(isset($referal_conso) && $referal_conso->id == $cr->id)
-                    $('#{{ $viewFolder }}_prescription').prop('disabled', false);
-                    $('#{{ $viewFolder }}_prescriptionSelect').prop('disabled', false);
-                    $('#{{ $viewFolder }}_prescriptionHelperDelete').prop('disabled', false);
-                    $('#{{ $viewFolder }}_findings').prop('disabled', false);
-                    $('#{{ $viewFolder }}_diagnosis').prop('disabled', false);
-                    $('#{{ $viewFolder }}_recommendations').prop('disabled', false);
-                    $('#{{ $viewFolder }}_con_date_ao').prop('disabled', false);
-                    $('#{{ $viewFolder }}_procedure_ao').prop('disabled', false);
-                    $('#{{ $viewFolder }}_procedure_aoSelect').prop('disabled', false);
-                    $('#{{ $viewFolder }}_procedure_aoHelperDelete').prop('disabled', false);
-                    $('#{{ $viewFolder }}_anesthesia_type_ao').prop('disabled', false);
-                    $('#{{ $viewFolder }}_anesthesiologist_ao').prop('disabled', false);
-                    $('#{{ $viewFolder }}_admittingOrder').prop('disabled', false);
-                    $('#{{ $viewFolder }}_admittingOrderSelect').prop('disabled', false);
-                    $('#{{ $viewFolder }}_admittingOrderHelperDelete').prop('disabled', false);
-                    $('#{{ $viewFolder }}_anesthesia_type_ot').prop('disabled', false);
-                    $('#{{ $viewFolder }}_anesthesiologist_ot').prop('disabled', false);
-                    $('#{{ $viewFolder }}_operative_technique').prop('disabled', false);
-                    $('#{{ $viewFolder }}_after_proc').prop('disabled', false);
-                    $('#{{ $viewFolder }}_things_watch_out').prop('disabled', false);
-                    $('#{{ $viewFolder }}_things_avoid').prop('disabled', false);
-                    $('#{{ $viewFolder }}_wound_care').prop('disabled', false);
-                    $('#{{ $viewFolder }}_medication_post').prop('disabled', false);
-
-                    $('#{{ $viewFolder }}_anesthesia_type_ot').prop('disabled', false);
-                    $('#{{ $viewFolder }}_anesthesiologist_ot').prop('disabled', false);
-                    $('#{{ $viewFolder }}_room').prop('disabled', false);
-                    $('#{{ $viewFolder }}_dilate_check').prop('disabled', false);
-                    $('#{{ $viewFolder }}_dilate').prop('disabled', false);
-                    $('#{{ $viewFolder }}_constrict_check').prop('disabled', false);
-                    $('#{{ $viewFolder }}_constrict').prop('disabled', false);
-                    $('#{{ $viewFolder }}_intake_blood_thinner_check').prop('disabled', false);
-                    $('#{{ $viewFolder }}_intake_blood_thinner').prop('disabled', false);
-                    $('#{{ $viewFolder }}_intake_maintenance_meds_check').prop('disabled', false);
-                    $('#{{ $viewFolder }}_intake_maintenance_meds').prop('disabled', false);
-                    $('#{{ $viewFolder }}_additional_orders').prop('disabled', false);
-
-                    $('#{{ $viewFolder }}_pre_op_diagnosis').prop('disabled', false);
-                    $('#{{ $viewFolder }}_post_op_diagnosis').prop('disabled', false);
-                    $('#{{ $viewFolder }}_procedure_performed').prop('disabled', false);
-                    $('#{{ $viewFolder }}_intraoperative_findings').prop('disabled', false);
-                    $('#{{ $viewFolder }}_intraoperative_course_unremarkable').prop('disabled', false);
-                    $('#{{ $viewFolder }}_intraoperative_course_with_complications').prop('disabled', false);
-                    $('#{{ $viewFolder }}_complication_specify').prop('disabled', false);
-                    $('#{{ $viewFolder }}_blood_loss').prop('disabled', false);
-                    $('#{{ $viewFolder }}_specimen_sent_yes').prop('disabled', false);
-                    $('#{{ $viewFolder }}_specimen_sent_no').prop('disabled', false);
-                    $('#{{ $viewFolder }}_specimen_sent_remarks').prop('disabled', false);
-                    $('#{{ $viewFolder }}_post_operative_condition_stable').prop('disabled', false);
-                    $('#{{ $viewFolder }}_post_operative_condition_requires').prop('disabled', false);
-                    $('#{{ $viewFolder }}_post_operative_condition_remarks').prop('disabled', false);
-                    $('#{{ $viewFolder }}_medication_given_recovery').prop('disabled', false);
-                    $('#{{ $viewFolder }}_discharge_medication').prop('disabled', false);
-                    $('#{{ $viewFolder }}_avoid_days').prop('disabled', false);
-                    $('#{{ $viewFolder }}_diet_regular').prop('disabled', false);
-                    $('#{{ $viewFolder }}_diet_soft').prop('disabled', false);
-                    $('#{{ $viewFolder }}_diet_others').prop('disabled', false);
-                    $('#{{ $viewFolder }}_diet_remarks').prop('disabled', false);
-                    @else
-                    $('#{{ $viewFolder }}_prescription').prop('disabled', true);
-                    $('#{{ $viewFolder }}_prescriptionSelect').prop('disabled', true);
-                    $('#{{ $viewFolder }}_prescriptionHelperDelete').prop('disabled', true);
-                    $('#{{ $viewFolder }}_findings').prop('disabled', true);
-                    $('#{{ $viewFolder }}_diagnosis').prop('disabled', true);
-                    $('#{{ $viewFolder }}_recommendations').prop('disabled', true);
-                    $('#{{ $viewFolder }}_con_date_ao').prop('disabled', true);
-                    $('#{{ $viewFolder }}_procedure_ao').prop('disabled', true);
-                    $('#{{ $viewFolder }}_procedure_aoSelect').prop('disabled', true);
-                    $('#{{ $viewFolder }}_procedure_aoHelperDelete').prop('disabled', true);
-                    $('#{{ $viewFolder }}_anesthesia_type_ao').prop('disabled', true);
-                    $('#{{ $viewFolder }}_anesthesiologist_ao').prop('disabled', true);
-                    $('#{{ $viewFolder }}_admittingOrder').prop('disabled', true);
-                    $('#{{ $viewFolder }}_admittingOrderSelect').prop('disabled', true);
-                    $('#{{ $viewFolder }}_admittingOrderHelperDelete').prop('disabled', true);
-                    $('#{{ $viewFolder }}_anesthesia_type_ot').prop('disabled', true);
-                    $('#{{ $viewFolder }}_anesthesiologist_ot').prop('disabled', true);
-                    $('#{{ $viewFolder }}_operative_technique').prop('disabled', true);
-                    $('#{{ $viewFolder }}_after_proc').prop('disabled', true);
-                    $('#{{ $viewFolder }}_things_watch_out').prop('disabled', true);
-                    $('#{{ $viewFolder }}_things_avoid').prop('disabled', true);
-                    $('#{{ $viewFolder }}_wound_care').prop('disabled', true);
-                    $('#{{ $viewFolder }}_medication_post').prop('disabled', true);
-
-                    $('#{{ $viewFolder }}_anesthesia_type_ot').prop('disabled', true);
-                    $('#{{ $viewFolder }}_anesthesiologist_ot').prop('disabled', true);
-                    $('#{{ $viewFolder }}_room').prop('disabled', true);
-                    $('#{{ $viewFolder }}_dilate_check').prop('disabled', true);
-                    $('#{{ $viewFolder }}_dilate').prop('disabled', true);
-                    $('#{{ $viewFolder }}_constrict_check').prop('disabled', true);
-                    $('#{{ $viewFolder }}_constrict').prop('disabled', true);
-                    $('#{{ $viewFolder }}_intake_blood_thinner_check').prop('disabled', true);
-                    $('#{{ $viewFolder }}_intake_blood_thinner').prop('disabled', true);
-                    $('#{{ $viewFolder }}_intake_maintenance_meds_check').prop('disabled', true);
-                    $('#{{ $viewFolder }}_intake_maintenance_meds').prop('disabled', true);
-                    $('#{{ $viewFolder }}_additional_orders').prop('disabled', true);
-
-                    $('#{{ $viewFolder }}_pre_op_diagnosis').prop('disabled', true);
-                    $('#{{ $viewFolder }}_post_op_diagnosis').prop('disabled', true);
-                    $('#{{ $viewFolder }}_procedure_performed').prop('disabled', true);
-                    $('#{{ $viewFolder }}_intraoperative_findings').prop('disabled', true);
-                    $('#{{ $viewFolder }}_intraoperative_course_unremarkable').prop('disabled', true);
-                    $('#{{ $viewFolder }}_intraoperative_course_with_complications').prop('disabled', true);
-                    $('#{{ $viewFolder }}_complication_specify').prop('disabled', true);
-                    $('#{{ $viewFolder }}_blood_loss').prop('disabled', true);
-                    $('#{{ $viewFolder }}_specimen_sent_yes').prop('disabled', true);
-                    $('#{{ $viewFolder }}_specimen_sent_no').prop('disabled', true);
-                    $('#{{ $viewFolder }}_specimen_sent_remarks').prop('disabled', true);
-                    $('#{{ $viewFolder }}_post_operative_condition_stable').prop('disabled', true);
-                    $('#{{ $viewFolder }}_post_operative_condition_requires').prop('disabled', true);
-                    $('#{{ $viewFolder }}_post_operative_condition_remarks').prop('disabled', true);
-                    $('#{{ $viewFolder }}_medication_given_recovery').prop('disabled', true);
-                    $('#{{ $viewFolder }}_discharge_medication').prop('disabled', true);
-                    $('#{{ $viewFolder }}_avoid_days').prop('disabled', true);
-                    $('#{{ $viewFolder }}_diet_regular').prop('disabled', true);
-                    $('#{{ $viewFolder }}_diet_soft').prop('disabled', true);
-                    $('#{{ $viewFolder }}_diet_others').prop('disabled', true);
-                    $('#{{ $viewFolder }}_diet_remarks').prop('disabled', true);
-                    @endif
-                    $('#{{ $viewFolder }}_prescription').val($('#{{ $viewFolder . $cr->id }}_prescription_hidden').val());
-                    $('#{{ $viewFolder }}_findings').val($('#{{ $viewFolder . $cr->id }}_findings_hidden').val());
-                    $('#{{ $viewFolder }}_diagnosis').val($('#{{ $viewFolder . $cr->id }}_diagnosis_hidden').val());
-                    $('#{{ $viewFolder }}_recommendations').val($('#{{ $viewFolder . $cr->id }}_recommendations_hidden').val());
-                    $('#{{ $viewFolder }}_con_date_ao').val($('#{{ $viewFolder . $cr->id }}_con_date_ao_hidden').val());
-                    $('#{{ $viewFolder }}_procedure_ao').val($('#{{ $viewFolder . $cr->id }}_procedure_ao_hidden').val());
-                    $('#{{ $viewFolder }}_anesthesia_type_ao').val($('#{{ $viewFolder . $cr->id }}_anesthesia_type_ao_hidden').val());
-                    $('#{{ $viewFolder }}_anesthesiologist_ao').val($('#{{ $viewFolder . $cr->id }}_anesthesiologist_ao_hidden').val());
-                    $('#{{ $viewFolder }}_admittingOrder').val($('#{{ $viewFolder . $cr->id }}_admittingOrder_hidden').val());
+                    $(this).hide();
+                  });
+                  @if(isset($referal_conso) && $referal_conso->id == $cr->id)
+                  $('.soapField').each(function(){
+                    $(this).prop('disabled', false);
+                    $('#{{ $viewFolder }}_referral_id').val({{ $cr->id }});
                     $('#{{ $viewFolder }}_printable_form_consultation_id').val({{ $cr->id }});
-                    $('#{{ $viewFolder }}_anesthesia_type_ot').val($('#{{ $viewFolder . $cr->id }}_anesthesia_type_ot_hidden').val());
-                    $('#{{ $viewFolder }}_anesthesiologist_ot').val($('#{{ $viewFolder . $cr->id }}_anesthesiologist_ot_hidden').val());
-                    $('#{{ $viewFolder }}_operative_technique').val($('#{{ $viewFolder . $cr->id }}_operative_tech_hidden').val());
-                    $('#{{ $viewFolder }}_after_proc').val($('#{{ $viewFolder . $cr->id }}_after_proc_hidden').val());
-                    $('#{{ $viewFolder }}_things_watch_out').val($('#{{ $viewFolder . $cr->id }}_things_watch_out_hidden').val());
-                    $('#{{ $viewFolder }}_things_avoid').val($('#{{ $viewFolder . $cr->id }}_things_avoid_hidden').val());
-                    $('#{{ $viewFolder }}_wound_care').val($('#{{ $viewFolder . $cr->id }}_wound_care_hidden').val());
-                    $('#{{ $viewFolder }}_medication_post').val($('#{{ $viewFolder . $cr->id }}_medication_post_hidden').val());
-                    $('#{{ $viewFolder }}_room').val($('#{{ $viewFolder . $cr->id }}_room_hidden').val());
-                    if($('#{{ $viewFolder . $cr->id }}_dilate_hidden').val() != ''){
-                      $('#{{ $viewFolder }}_dilate_check').prop('checked', true);
-                      // $('#{{ $viewFolder }}_dilate').prop('disabled', false);
-                    }else{
-                      $('#{{ $viewFolder }}_dilate_check').prop('checked', false);
-                      // $('#{{ $viewFolder }}_dilate').prop('disabled', true);
-                    }
-                    $('#{{ $viewFolder }}_dilate').val($('#{{ $viewFolder . $cr->id }}_dilate_hidden').val());
+                    $('#{{ $viewFolder }}_referral_id').prop('disabled', false);
+                    $('#{{ $viewFolder }}_printable_form_consultation_id').prop('disabled', false);
+                  });
+                  @else
+                  $('.soapField').each(function(){
+                    $(this).prop('disabled', true);
+                    $('#{{ $viewFolder }}_referral_id').prop('disabled', true);
+                    $('#{{ $viewFolder }}_printable_form_consultation_id').prop('disabled', true);
+                  });
+                  @endif
+                  //   $('#{{ $viewFolder }}_SUMM_{{ $cr->id }}').show();
+                  $('#{{ $viewFolder }}_SOAP_{{ $datum->id }}').show();
+                  $('#{{ $viewFolder }}_Presc_{{ $cr->id }}').show();
+                  $('#{{ $viewFolder }}_MedCert_{{ $cr->id }}').show();
+                  $('#{{ $viewFolder }}_Admitting_{{ $cr->id }}').show();
+                  $('#{{ $viewFolder }}_OpTech_{{ $cr->id }}').show();
+                  $('#{{ $viewFolder }}_PostOp_{{ $cr->id }}').show();
+                  $('#{{ $viewFolder }}_OpAdmit_{{ $cr->id }}').show();
+                  $('#{{ $viewFolder }}_DischargeSum_{{ $cr->id }}').show();
+                    
+                  //   @if(isset($referal_conso) && $referal_conso->id == $cr->id)
+                  //   $('#{{ $viewFolder }}_prescription').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_prescriptionSelect').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_prescriptionHelperDelete').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_findings').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_diagnosis').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_recommendations').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_con_date_ao').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_procedure_ao').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_procedure_aoSelect').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_procedure_aoHelperDelete').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_anesthesia_type_ao').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_anesthesiologist_ao').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_admittingOrder').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_admittingOrderSelect').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_admittingOrderHelperDelete').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_anesthesia_type_ot').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_anesthesiologist_ot').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_operative_technique').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_after_proc').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_things_watch_out').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_things_avoid').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_wound_care').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_medication_post').prop('disabled', false);
 
-                    if($('#{{ $viewFolder . $cr->id }}_constrict_hidden').val() != ''){
-                      $('#{{ $viewFolder }}_constrict_check').prop('checked', true);
-                      // $('#{{ $viewFolder }}_constrict').prop('disabled', false);
-                    }else{
-                      $('#{{ $viewFolder }}_constrict_check').prop('checked', false);
-                      // $('#{{ $viewFolder }}_constrict').prop('disabled', true);
-                    }
-                    $('#{{ $viewFolder }}_constrict').val($('#{{ $viewFolder . $cr->id }}_constrict_hidden').val());
-                    $('#{{ $viewFolder }}_additional_orders').val($('#{{ $viewFolder . $cr->id }}_additional_orders_hidden').val());
+                  //   $('#{{ $viewFolder }}_anesthesia_type_ot').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_anesthesiologist_ot').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_room').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_dilate_check').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_dilate').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_constrict_check').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_constrict').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_intake_blood_thinner_check').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_intake_blood_thinner').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_intake_maintenance_meds_check').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_intake_maintenance_meds').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_additional_orders').prop('disabled', false);
 
-                    $('#{{ $viewFolder }}_pre_op_diagnosis').val($('#{{ $viewFolder . $cr->id }}_pre_op_diagnosis_hidden').val());
-                    $('#{{ $viewFolder }}_post_op_diagnosis').val($('#{{ $viewFolder . $cr->id }}_post_op_diagnosis_hidden').val());
-                    $('#{{ $viewFolder }}_procedure_performed').val($('#{{ $viewFolder . $cr->id }}_procedure_performed_hidden').val());
-                    $('#{{ $viewFolder }}_intraoperative_findings').val($('#{{ $viewFolder . $cr->id }}_intraoperative_findings_hidden').val());
-                    if($('#{{ $viewFolder . $cr->id }}_intraoperative_course_hidden').val() == 'Unremarkable'){
-                      $('#{{ $viewFolder }}_intraoperative_course_unremarkable').prop('checked', true);
-                      $('#{{ $viewFolder }}_complication_specify').prop('disabled', true);
-                    }else{
-                      $('#{{ $viewFolder }}_intraoperative_course_with_complications').prop('checked', true);
-                      // $('#{{ $viewFolder }}_complication_specify').prop('disabled', false);
-                    }
-                    $('#{{ $viewFolder }}_complication_specify').val($('#{{ $viewFolder . $cr->id }}_complication_specify_hidden').val());
-                    $('#{{ $viewFolder }}_blood_loss').val($('#{{ $viewFolder . $cr->id }}_blood_loss_hidden').val());
-                    if($('#{{ $viewFolder . $cr->id }}_specimen_sent_hidden').val() == 'no'){
-                      $('#{{ $viewFolder }}_specimen_sent_no').prop('checked', true);
-                    }else{
-                      $('#{{ $viewFolder }}_specimen_sent_yes').prop('checked', true);
-                    }
-                    $('#{{ $viewFolder }}_specimen_sent_remarks').val($('#{{ $viewFolder . $cr->id }}_specimen_sent_remarks_hidden').val());
-                    if($('#{{ $viewFolder . $cr->id }}_post_operative_condition_hidden').val() == 'Stable'){
-                      $('#{{ $viewFolder }}_post_operative_condition_stable').prop('checked', true);
-                    }else{
-                      $('#{{ $viewFolder }}_post_operative_condition_requires').prop('checked', true);
-                    }
-                    $('#{{ $viewFolder }}_post_operative_condition_remarks').val($('#{{ $viewFolder . $cr->id }}_post_operative_condition_remarks_hidden').val());
-                    $('#{{ $viewFolder }}_medication_given_recovery').val($('#{{ $viewFolder . $cr->id }}_medication_given_recovery_hidden').val());
-                    $('#{{ $viewFolder }}_discharge_medication').val($('#{{ $viewFolder . $cr->id }}_discharge_medication_hidden').val());
-                    $('#{{ $viewFolder }}_avoid_days').val($('#{{ $viewFolder . $cr->id }}_avoid_days_hidden').val());
-                    if($('#{{ $viewFolder . $cr->id }}_diet_hidden').val() == 'Regular'){
-                      $('#{{ $viewFolder }}_diet_regular').prop('checked', true);
-                      $('#{{ $viewFolder }}_diet_remarks').prop('disabled', true);
-                    }else if($('#{{ $viewFolder . $cr->id }}_diet_hidden').val() == 'Soft'){
-                      $('#{{ $viewFolder }}_diet_soft').prop('checked', true);
-                      $('#{{ $viewFolder }}_diet_remarks').prop('disabled', true);
-                    }else{
-                      $('#{{ $viewFolder }}_diet_others').prop('checked', true);
-                      // $('#{{ $viewFolder }}_diet_remarks').prop('disabled', false);
-                    }
-                    $('#{{ $viewFolder }}_diet_remarks').val($('#{{ $viewFolder . $cr->id }}_diet_remarks_hidden').val());
+                  //   $('#{{ $viewFolder }}_pre_op_diagnosis').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_post_op_diagnosis').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_procedure_performed').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_intraoperative_findings').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_intraoperative_course_unremarkable').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_intraoperative_course_with_complications').prop('disabled', false);
+                  //   // $('#{{ $viewFolder }}_complication_specify').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_blood_loss').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_specimen_sent_yes').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_specimen_sent_no').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_specimen_sent_remarks').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_post_operative_condition_stable').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_post_operative_condition_requires').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_post_operative_condition_remarks').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_medication_given_recovery').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_discharge_medication').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_avoid_days').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_diet_regular').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_diet_soft').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_diet_others').prop('disabled', false);
+                  //   $('#{{ $viewFolder }}_diet_remarks').prop('disabled', false);
+                  //   @else
+                  //   $('#{{ $viewFolder }}_prescription').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_prescriptionSelect').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_prescriptionHelperDelete').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_findings').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_diagnosis').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_recommendations').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_con_date_ao').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_procedure_ao').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_procedure_aoSelect').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_procedure_aoHelperDelete').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_anesthesia_type_ao').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_anesthesiologist_ao').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_admittingOrder').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_admittingOrderSelect').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_admittingOrderHelperDelete').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_anesthesia_type_ot').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_anesthesiologist_ot').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_operative_technique').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_after_proc').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_things_watch_out').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_things_avoid').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_wound_care').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_medication_post').prop('disabled', true);
 
-                    if($('#{{ $viewFolder }}_dischargeSumSigKey_hidden').val() == 'yes'){
-                      $('#{{ $viewFolder }}_dischargeSumSigKey_check').prop('checked', true);
-                    }else{
-                      $('#{{ $viewFolder }}_dischargeSumSigKey_check').prop('checked', true);
-                    }
+                  //   $('#{{ $viewFolder }}_anesthesia_type_ot').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_anesthesiologist_ot').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_room').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_dilate_check').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_dilate').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_constrict_check').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_constrict').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_intake_blood_thinner_check').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_intake_blood_thinner').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_intake_maintenance_meds_check').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_intake_maintenance_meds').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_additional_orders').prop('disabled', true);
 
-                    if($('#{{ $viewFolder }}_opAdmitSigKey_hidden').val() == 'yes'){
-                      $('#{{ $viewFolder }}_opAdmitSigKey_check').prop('checked', true);
-                    }else{
-                      $('#{{ $viewFolder }}_opAdmitSigKey_check').prop('checked', true);
-                    }
+                  //   $('#{{ $viewFolder }}_pre_op_diagnosis').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_post_op_diagnosis').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_procedure_performed').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_intraoperative_findings').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_intraoperative_course_unremarkable').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_intraoperative_course_with_complications').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_complication_specify').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_blood_loss').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_specimen_sent_yes').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_specimen_sent_no').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_specimen_sent_remarks').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_post_operative_condition_stable').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_post_operative_condition_requires').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_post_operative_condition_remarks').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_medication_given_recovery').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_discharge_medication').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_avoid_days').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_diet_regular').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_diet_soft').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_diet_others').prop('disabled', true);
+                  //   $('#{{ $viewFolder }}_diet_remarks').prop('disabled', true);
+                  //   @endif
+                  //   $('#{{ $viewFolder }}_prescription').val($('#{{ $viewFolder . $cr->id }}_prescription_hidden').val());
+                  //   $('#{{ $viewFolder }}_findings').val($('#{{ $viewFolder . $cr->id }}_findings_hidden').val());
+                  //   $('#{{ $viewFolder }}_diagnosis').val($('#{{ $viewFolder . $cr->id }}_diagnosis_hidden').val());
+                  //   $('#{{ $viewFolder }}_recommendations').val($('#{{ $viewFolder . $cr->id }}_recommendations_hidden').val());
+                  //   $('#{{ $viewFolder }}_con_date_ao').val($('#{{ $viewFolder . $cr->id }}_con_date_ao_hidden').val());
+                  //   $('#{{ $viewFolder }}_procedure_ao').val($('#{{ $viewFolder . $cr->id }}_procedure_ao_hidden').val());
+                  //   $('#{{ $viewFolder }}_anesthesia_type_ao').val($('#{{ $viewFolder . $cr->id }}_anesthesia_type_ao_hidden').val());
+                  //   $('#{{ $viewFolder }}_anesthesiologist_ao').val($('#{{ $viewFolder . $cr->id }}_anesthesiologist_ao_hidden').val());
+                  //   $('#{{ $viewFolder }}_admittingOrder').val($('#{{ $viewFolder . $cr->id }}_admittingOrder_hidden').val());
+                  //   $('#{{ $viewFolder }}_printable_form_consultation_id').val({{ $cr->id }});
+                  //   $('#{{ $viewFolder }}_anesthesia_type_ot').val($('#{{ $viewFolder . $cr->id }}_anesthesia_type_ot_hidden').val());
+                  //   $('#{{ $viewFolder }}_anesthesiologist_ot').val($('#{{ $viewFolder . $cr->id }}_anesthesiologist_ot_hidden').val());
+                  //   $('#{{ $viewFolder }}_operative_technique').val($('#{{ $viewFolder . $cr->id }}_operative_tech_hidden').val());
+                  //   $('#{{ $viewFolder }}_after_proc').val($('#{{ $viewFolder . $cr->id }}_after_proc_hidden').val());
+                  //   $('#{{ $viewFolder }}_things_watch_out').val($('#{{ $viewFolder . $cr->id }}_things_watch_out_hidden').val());
+                  //   $('#{{ $viewFolder }}_things_avoid').val($('#{{ $viewFolder . $cr->id }}_things_avoid_hidden').val());
+                  //   $('#{{ $viewFolder }}_wound_care').val($('#{{ $viewFolder . $cr->id }}_wound_care_hidden').val());
+                  //   $('#{{ $viewFolder }}_medication_post').val($('#{{ $viewFolder . $cr->id }}_medication_post_hidden').val());
+                  //   $('#{{ $viewFolder }}_room').val($('#{{ $viewFolder . $cr->id }}_room_hidden').val());
+                  //   if($('#{{ $viewFolder . $cr->id }}_dilate_hidden').val() != ''){
+                  //     $('#{{ $viewFolder }}_dilate_check').prop('checked', true);
+                  //     // $('#{{ $viewFolder }}_dilate').prop('disabled', false);
+                  //   }else{
+                  //     $('#{{ $viewFolder }}_dilate_check').prop('checked', false);
+                  //     // $('#{{ $viewFolder }}_dilate').prop('disabled', true);
+                  //   }
+                  //   $('#{{ $viewFolder }}_dilate').val($('#{{ $viewFolder . $cr->id }}_dilate_hidden').val());
 
-                    if($('#{{ $viewFolder }}_orTechSigKey_hidden').val() == 'yes'){
-                      $('#{{ $viewFolder }}_orTechSigKey_check').prop('checked', true);
-                    }else{
-                      $('#{{ $viewFolder }}_orTechSigKey_check').prop('checked', true);
-                    }
+                  //   if($('#{{ $viewFolder . $cr->id }}_constrict_hidden').val() != ''){
+                  //     $('#{{ $viewFolder }}_constrict_check').prop('checked', true);
+                  //     // $('#{{ $viewFolder }}_constrict').prop('disabled', false);
+                  //   }else{
+                  //     $('#{{ $viewFolder }}_constrict_check').prop('checked', false);
+                  //     // $('#{{ $viewFolder }}_constrict').prop('disabled', true);
+                  //   }
+                  //   $('#{{ $viewFolder }}_constrict').val($('#{{ $viewFolder . $cr->id }}_constrict_hidden').val());
+                  //   $('#{{ $viewFolder }}_additional_orders').val($('#{{ $viewFolder . $cr->id }}_additional_orders_hidden').val());
 
-                    if($('#{{ $viewFolder }}_postOpSigKey_hidden').val() == 'yes'){
-                      $('#{{ $viewFolder }}_postOpSigKey_check').prop('checked', true);
-                    }else{
-                      $('#{{ $viewFolder }}_postOpSigKey_check').prop('checked', true);
-                    }
+                  //   $('#{{ $viewFolder }}_pre_op_diagnosis').val($('#{{ $viewFolder . $cr->id }}_pre_op_diagnosis_hidden').val());
+                  //   $('#{{ $viewFolder }}_post_op_diagnosis').val($('#{{ $viewFolder . $cr->id }}_post_op_diagnosis_hidden').val());
+                  //   $('#{{ $viewFolder }}_procedure_performed').val($('#{{ $viewFolder . $cr->id }}_procedure_performed_hidden').val());
+                  //   $('#{{ $viewFolder }}_intraoperative_findings').val($('#{{ $viewFolder . $cr->id }}_intraoperative_findings_hidden').val());
+                  //   if($('#{{ $viewFolder . $cr->id }}_intraoperative_course_hidden').val() == 'Unremarkable'){
+                  //     $('#{{ $viewFolder . $cr->id }}_intraoperative_course_unremarkable').prop('checked', true);
+                  //     $('#{{ $viewFolder . $cr->id }}_complication_specify').prop('disabled', true);
+                  //   }else{
+                  //     $('#{{ $viewFolder . $cr->id }}_intraoperative_course_with_complications').prop('checked', true);
+                  //     // $('#{{ $viewFolder . $cr->id }}_complication_specify').prop('disabled', false);
+                  //   }
+                  //   $('#{{ $viewFolder . $cr->id }}_complication_specify').val($('#{{ $viewFolder . $cr->id }}_complication_specify_hidden').val());
+                  //   $('#{{ $viewFolder }}_blood_loss').val($('#{{ $viewFolder . $cr->id }}_blood_loss_hidden').val());
+                  //   if($('#{{ $viewFolder . $cr->id }}_specimen_sent_hidden').val() == 'no'){
+                  //     $('#{{ $viewFolder }}_specimen_sent_no').prop('checked', true);
+                  //   }else{
+                  //     $('#{{ $viewFolder }}_specimen_sent_yes').prop('checked', true);
+                  //   }
+                  //   $('#{{ $viewFolder }}_specimen_sent_remarks').val($('#{{ $viewFolder . $cr->id }}_specimen_sent_remarks_hidden').val());
+                  //   if($('#{{ $viewFolder . $cr->id }}_post_operative_condition_hidden').val() == 'Stable'){
+                  //     $('#{{ $viewFolder }}_post_operative_condition_stable').prop('checked', true);
+                  //   }else{
+                  //     $('#{{ $viewFolder }}_post_operative_condition_requires').prop('checked', true);
+                  //   }
+                  //   $('#{{ $viewFolder }}_post_operative_condition_remarks').val($('#{{ $viewFolder . $cr->id }}_post_operative_condition_remarks_hidden').val());
+                  //   $('#{{ $viewFolder }}_medication_given_recovery').val($('#{{ $viewFolder . $cr->id }}_medication_given_recovery_hidden').val());
+                  //   $('#{{ $viewFolder }}_discharge_medication').val($('#{{ $viewFolder . $cr->id }}_discharge_medication_hidden').val());
+                  //   $('#{{ $viewFolder }}_avoid_days').val($('#{{ $viewFolder . $cr->id }}_avoid_days_hidden').val());
+                  //   if($('#{{ $viewFolder . $cr->id }}_diet_hidden').val() == 'Regular'){
+                  //     $('#{{ $viewFolder }}_diet_regular').prop('checked', true);
+                  //     $('#{{ $viewFolder }}_diet_remarks').prop('disabled', true);
+                  //   }else if($('#{{ $viewFolder . $cr->id }}_diet_hidden').val() == 'Soft'){
+                  //     $('#{{ $viewFolder }}_diet_soft').prop('checked', true);
+                  //     $('#{{ $viewFolder }}_diet_remarks').prop('disabled', true);
+                  //   }else{
+                  //     $('#{{ $viewFolder }}_diet_others').prop('checked', true);
+                  //     // $('#{{ $viewFolder }}_diet_remarks').prop('disabled', false);
+                  //   }
+                  //   $('#{{ $viewFolder }}_diet_remarks').val($('#{{ $viewFolder . $cr->id }}_diet_remarks_hidden').val());
+
+                  //   if($('#{{ $viewFolder }}_dischargeSumSigKey_hidden').val() == 'yes'){
+                  //     $('#{{ $viewFolder }}_dischargeSumSigKey_check').prop('checked', true);
+                  //   }else{
+                  //     $('#{{ $viewFolder }}_dischargeSumSigKey_check').prop('checked', true);
+                  //   }
+
+                  //   if($('#{{ $viewFolder }}_opAdmitSigKey_hidden').val() == 'yes'){
+                  //     $('#{{ $viewFolder }}_opAdmitSigKey_check').prop('checked', true);
+                  //   }else{
+                  //     $('#{{ $viewFolder }}_opAdmitSigKey_check').prop('checked', true);
+                  //   }
+
+                  //   if($('#{{ $viewFolder }}_orTechSigKey_hidden').val() == 'yes'){
+                  //     $('#{{ $viewFolder }}_orTechSigKey_check').prop('checked', true);
+                  //   }else{
+                  //     $('#{{ $viewFolder }}_orTechSigKey_check').prop('checked', true);
+                  //   }
+
+                  //   if($('#{{ $viewFolder }}_postOpSigKey_hidden').val() == 'yes'){
+                  //     $('#{{ $viewFolder }}_postOpSigKey_check').prop('checked', true);
+                  //   }else{
+                  //     $('#{{ $viewFolder }}_postOpSigKey_check').prop('checked', true);
+                  //   }
                 ">{{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'Yours - ' . $cr->clinic->name . ' | ' . ($cr->booking_type == '' ? 'Consultations' : $cr->booking_type) : 'Dr. ' . Str::substr($cr->doctor->f_name, 0, 1) . '. ' . $cr->doctor->l_name . ' - ' . $cr->clinic->name . ' | ' . ($cr->booking_type == '' ? 'Consultations' : $cr->booking_type) }}</a>
               </li>
-                <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_prescription_hidden" value="{{ addslashes($cr->prescription) }}">
+                {{-- <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_prescription_hidden" value="{{ addslashes($cr->prescription) }}">
                 <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_findings_hidden" value="{{ addslashes($cr->findings) }}">
                 <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_diagnosis_hidden" value="{{ addslashes($cr->diagnosis) }}">
                 <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_recommendations_hidden" value="{{ addslashes($cr->recommendations) }}">
@@ -6750,10 +7248,10 @@
                 <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_procedure_ao_hidden" value="{{ addslashes($cr->procedure_ao) }}">
                 <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_anesthesia_type_ao_hidden" value="{{ addslashes($cr->anesthesia_type_ao) }}">
                 <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_anesthesiologist_ao_hidden" value="{{ addslashes($cr->anesthesiologist_ao) }}">
-                <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_admittingOrder_hidden" value="{{ addslashes($cr->admittingOrder) }}">
+                <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_admittingOrder_hidden" value="{{ addslashes($cr->admittingOrder) }}"> --}}
                 {{-- <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_anesthesia_type_ot_hidden" value="{{ isset($cr->printable_form['anesthesia_type_ot']) ? addslashes($cr->printable_form['anesthesia_type_ot']) : '' }}">
                 <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_anesthesiologist_ot_hidden" value="{{ isset($cr->printable_form['anesthesiologist_ot']) ? addslashes($cr->printable_form['anesthesiologist_ot']) : '' }}"> --}}
-                <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_anesthesia_type_ot_hidden" value="{{ addslashes($cr->anesthesia_type_ao) }}">
+                {{-- <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_anesthesia_type_ot_hidden" value="{{ addslashes($cr->anesthesia_type_ao) }}">
                 <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_anesthesiologist_ot_hidden" value="{{ addslashes($cr->anesthesiologist_ao) }}">
                 <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_operative_tech_hidden" value="{{ isset($cr->printable_form['operative_tech']) ? addslashes($cr->printable_form['operative_tech']) : '' }}">
                 <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_after_proc_hidden" value="{{ isset($cr->printable_form['after_proc']) ? addslashes($cr->printable_form['after_proc']) : '' }}">
@@ -6786,13 +7284,13 @@
                 <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_dischargeSumSigKey_hidden" value="{{ isset($cr->printable_form['dischargeSumSigKey']) ? addslashes($cr->printable_form['dischargeSumSigKey']) : '' }}">
                 <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_opAdmitSigKey_hidden" value="{{ isset($cr->printable_form['opAdmitSigKey']) ? addslashes($cr->printable_form['opAdmitSigKey']) : '' }}">
                 <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_orTechSigKey_hidden" value="{{ isset($cr->printable_form['orTechSigKey']) ? addslashes($cr->printable_form['orTechSigKey']) : '' }}">
-                <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_postOpSigKey_hidden" value="{{ isset($cr->printable_form['postOpSigKey']) ? addslashes($cr->printable_form['postOpSigKey']) : '' }}">
+                <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_postOpSigKey_hidden" value="{{ isset($cr->printable_form['postOpSigKey']) ? addslashes($cr->printable_form['postOpSigKey']) : '' }}"> --}}
                 @endforeach
               @endif
             </ul>
           </div>
             <ul class="nav nav-tabs d-xs-block d-lg-none">
-              <li class="nav-item">
+              {{-- <li class="nav-item">
                 <a class="nav-link active" id="sumCurLink" href="#" onclick="
                   $('#sumBigLink').addClass('active');  
                   $('#soapBigLink').removeClass('active');  
@@ -6857,9 +7355,9 @@
                   $('#postOpCurDiv').hide();
                   $('#dischargeSumCurDiv').hide();
                 ">Summary</a>
-              </li>
+              </li> --}}
               <li class="nav-item">
-                <a class="nav-link" id="soapCurLink" href="#" onclick="
+                <a class="nav-link active" id="soapCurLink" href="#" onclick="
                   $('#soapBigLink').addClass('active');  
                   $('#sumBigLink').removeClass('active');  
                   $('#labBigLink').removeClass('active');  
@@ -7666,8 +8164,8 @@
                   ">Show Past Patient's Chart</a>
               </li> --}}
             </ul>
-            <div id="curDiv" class="card-body table-responsive p-0" style="max-height: 600px">
-              <div id="sumCurDiv" class="container border border-1 mb-3 p-3">
+            <div id="curDiv">
+              <div id="sumCurDiv" style="display:none" class="container border border-1 mb-3 p-3">
                 <div class="card mb-3">
                   <div class="card-header">Scheduled Procedure</div>
                   <div class="card-body" style="height: 1in; max-height: 1in">
@@ -7847,14 +8345,14 @@
                     </div>
                   </div>
                 </div>
-                @if(isset($datum->consultation_referals[0]->id))
+                {{-- @if(isset($datum->consultation_referals[0]->id))
                   @foreach($datum->consultation_referals as $cr)
                 <div id="{{ $viewFolder }}_SUMM_{{ $cr->id }}" class="docNotesDiv" style="display: none">
                   <div class="card mb-3">
                     <div class="card-header">Subjective Findings</div>
                     <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                       <p>
-                        {{-- @if(($cr->docNotesHPI == "" && isset($carryOverBookingsHPI[0]->docNotesHPI)) || (isset($carryOverBookingsHPI[0]->docNotesHPI) && $cr->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $cr->docNotesHPI))<br>[carry over from {{ $carryOverBookingsHPI[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsHPI[0]->booking_type }} booking last {{ $carryOverBookingsHPI[0]->bookingDate }}]@endif --}}
+                        {{-- @if(($cr->docNotesHPI == "" && isset($carryOverBookingsHPI[0]->docNotesHPI)) || (isset($carryOverBookingsHPI[0]->docNotesHPI) && $cr->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $cr->docNotesHPI))<br>[carry over from {{ $carryOverBookingsHPI[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsHPI[0]->booking_type }} booking last {{ $carryOverBookingsHPI[0]->bookingDate }}]@endif --}
                         <strong>History of Present Illness:</strong><div class="m-3 {{ $cr->docNotesHPI == "" ? 'text-danger' : ((isset($carryOverBookingsHPI[0]->docNotesHPI) && $cr->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $cr->docNotesHPI) ? 'text-warning' : '') }}">{!! isset($cr->docNotesHPI) ? nl2br($cr->docNotesHPI) : nl2br((isset($carryOverBookingsHPI[0]->docNotesHPI) && $cr->doctor_id == $carryOverBookingsHPI[0]->doctor_id ? $carryOverBookingsHPI[0]->docNotesHPI : '')) !!}@if(($cr->docNotesHPI == "" && isset($carryOverBookingsHPI[0]->docNotesHPI)) || (isset($carryOverBookingsHPI[0]->docNotesHPI) && $cr->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $cr->docNotesHPI))<br>[carry over from {{ $carryOverBookingsHPI[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsHPI[0]->booking_type }} booking last {{ $carryOverBookingsHPI[0]->bookingDate }}]@endif</div><br>
                         <strong>Subjective Complaints:</strong><br><div class="m-3">{!! isset($cr->docNotesSubject) ? nl2br($cr->docNotesSubject) : '' !!}</div><br>
                       </p>
@@ -7865,7 +8363,7 @@
                     <div class="card-header">Objective Findings</div>
                     <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                       <p>
-                        {{-- @if(($cr->docNotesHPI == "" && isset($carryOverBookingsHPI[0]->docNotesHPI)) || (isset($carryOverBookingsHPI[0]->docNotesHPI) && $cr->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $cr->docNotesHPI))<br>[carry over from {{ $carryOverBookingsHPI[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsHPI[0]->booking_type }} booking last {{ $carryOverBookingsHPI[0]->bookingDate }}]@endif --}}
+                        {{-- @if(($cr->docNotesHPI == "" && isset($carryOverBookingsHPI[0]->docNotesHPI)) || (isset($carryOverBookingsHPI[0]->docNotesHPI) && $cr->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $cr->docNotesHPI))<br>[carry over from {{ $carryOverBookingsHPI[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsHPI[0]->booking_type }} booking last {{ $carryOverBookingsHPI[0]->bookingDate }}]@endif --}
                         <div class="m-3">{!! isset($cr->docNotes) ? nl2br($cr->docNotes) : '' !!}</div><br>
                       </p>
                       <small class="text-muted">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small>
@@ -7875,11 +8373,11 @@
                     <div class="card-header">Assessment</div>
                     <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                       <p>
-                        {{-- @if(!isset($cr->icd_code_obj->icd_code) || (isset($cr->icd_code_obj->icd_code) && $cr->icd_code_obj->icd_code == "" && isset($carryOverBookingsICD[0]->icd_code_obj->icd_code)) || (isset($carryOverBookingsICD[0]->icd_code_obj->icd_code) && $cr->doctor_id == $carryOverBookingsICD[0]->doctor_id && $carryOverBookingsICD[0]->icd_code_obj->icd_code == $cr->icd_code_obj->icd_code))<br>[carry over from {{ $carryOverBookingsICD[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsICD[0]->booking_type }} booking last {{ $carryOverBookingsICD[0]->bookingDate }}]@endif --}}
+                        {{-- @if(!isset($cr->icd_code_obj->icd_code) || (isset($cr->icd_code_obj->icd_code) && $cr->icd_code_obj->icd_code == "" && isset($carryOverBookingsICD[0]->icd_code_obj->icd_code)) || (isset($carryOverBookingsICD[0]->icd_code_obj->icd_code) && $cr->doctor_id == $carryOverBookingsICD[0]->doctor_id && $carryOverBookingsICD[0]->icd_code_obj->icd_code == $cr->icd_code_obj->icd_code))<br>[carry over from {{ $carryOverBookingsICD[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsICD[0]->booking_type }} booking last {{ $carryOverBookingsICD[0]->bookingDate }}]@endif --}
                         <strong>Primary Diagnosis:</strong> <div class="m-3 {{ (!isset($cr->icd_code_obj->icd_code) || (isset($cr->icd_code_obj->icd_code) && $cr->icd_code_obj->icd_code == "")) ? 'text-danger' : ((isset($carryOverBookingsICD[0]->icd_code_obj->icd_code) && $cr->doctor_id == $carryOverBookingsICD[0]->doctor_id && $carryOverBookingsICD[0]->icd_code_obj->icd_code == $cr->icd_code_obj->icd_code) ? 'text-warning' : '') }}">{!! isset($cr->icd_code_obj->icd_code) ? $cr->icd_code_obj->icd_code . ' - ' . $cr->icd_code_obj->details : (isset($carryOverBookingsICD[0]->icd_code_obj->icd_code) && $cr->doctor_id == $carryOverBookingsICD[0]->doctor_id ? $carryOverBookingsICD[0]->icd_code_obj->icd_code . ' - ' . $carryOverBookingsICD[0]->icd_code_obj->details : '') !!}</div><br>
-                        {{-- @if(($cr->assessment == "" && isset($carryOverBookings[0]->assessment)) || (isset($carryOverBookings[0]->assessment) && $cr->doctor_id == $carryOverBookings[0]->doctor_id && $carryOverBookings[0]->assessment == $cr->assessment))<br>[carry over from {{ $carryOverBookings[0]->booking_type == '' ? 'Consultation' : $carryOverBookings[0]->booking_type }} booking last {{ $carryOverBookings[0]->bookingDate }}]@endif --}}
+                        {{-- @if(($cr->assessment == "" && isset($carryOverBookings[0]->assessment)) || (isset($carryOverBookings[0]->assessment) && $cr->doctor_id == $carryOverBookings[0]->doctor_id && $carryOverBookings[0]->assessment == $cr->assessment))<br>[carry over from {{ $carryOverBookings[0]->booking_type == '' ? 'Consultation' : $carryOverBookings[0]->booking_type }} booking last {{ $carryOverBookings[0]->bookingDate }}]@endif --}
                         <strong>Secondary Diagnosis:</strong><br><div class="m-3 {{ $cr->assessment == "" ? 'text-danger' : ((isset($carryOverBookings[0]->assessment) && $cr->doctor_id == $carryOverBookings[0]->doctor_id && $carryOverBookings[0]->assessment == $cr->assessment) ? 'text-warning' : '') }}">{!! isset($cr->assessment) ? nl2br($cr->assessment) : nl2br(isset($carryOverBookings[0]->assessment) && $cr->doctor_id == $carryOverBookings[0]->doctor_id ? $carryOverBookings[0]->assessment : '') !!}@if(($cr->assessment == "" && isset($carryOverBookings[0]->assessment)) || (isset($carryOverBookings[0]->assessment) && $cr->doctor_id == $carryOverBookings[0]->doctor_id && $carryOverBookings[0]->assessment == $cr->assessment))<br>[carry over from {{ $carryOverBookings[0]->booking_type == '' ? 'Consultation' : $carryOverBookings[0]->booking_type }} booking last {{ $carryOverBookings[0]->bookingDate }}]@endif</div><br>
-                        {{-- @if(($cr->post_op_assessment == "" && isset($carryOverBookingsPostOp[0]->post_op_assessment)) || (isset($carryOverBookingsPostOp[0]->post_op_assessment) && $cr->doctor_id == $carryOverBookingsPostOp[0]->doctor_id && $carryOverBookingsPostOp[0]->post_op_assessment == $cr->post_op_assessment))<br>[carry over from {{ $carryOverBookingsPostOp[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPostOp[0]->booking_type }} booking last {{ $carryOverBookingsPostOp[0]->bookingDate }}]@endif --}}
+                        {{-- @if(($cr->post_op_assessment == "" && isset($carryOverBookingsPostOp[0]->post_op_assessment)) || (isset($carryOverBookingsPostOp[0]->post_op_assessment) && $cr->doctor_id == $carryOverBookingsPostOp[0]->doctor_id && $carryOverBookingsPostOp[0]->post_op_assessment == $cr->post_op_assessment))<br>[carry over from {{ $carryOverBookingsPostOp[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPostOp[0]->booking_type }} booking last {{ $carryOverBookingsPostOp[0]->bookingDate }}]@endif --}
                         <strong>Discharge Diagnosis (Post-op Diagnosis):</strong><br><div class="m-3 {{ $cr->post_op_assessment == "" ? 'text-danger' : ((isset($carryOverBookingsPostOp[0]->post_op_assessment) && $cr->doctor_id == $carryOverBookingsPostOp[0]->doctor_id && $carryOverBookingsPostOp[0]->post_op_assessment == $cr->post_op_assessment) ? 'text-warning' : '') }}">{!! isset($cr->post_op_assessment) ? nl2br($cr->post_op_assessment) : nl2br(isset($carryOverBookingsPostOp[0]->post_op_assessment) && $cr->doctor_id == $carryOverBookingsPostOp[0]->doctor_id ? $carryOverBookingsPostOp[0]->post_op_assessment : '') !!}@if(($cr->post_op_assessment == "" && isset($carryOverBookingsPostOp[0]->post_op_assessment)) || (isset($carryOverBookingsPostOp[0]->post_op_assessment) && $cr->doctor_id == $carryOverBookingsPostOp[0]->doctor_id && $carryOverBookingsPostOp[0]->post_op_assessment == $cr->post_op_assessment))<br>[carry over from {{ $carryOverBookingsPostOp[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPostOp[0]->booking_type }} booking last {{ $carryOverBookingsPostOp[0]->bookingDate }}]@endif</div><br>
                       </p>
                       <small class="text-muted">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small>
@@ -7890,7 +8388,7 @@
                     <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                       @if($cr->booking_type == 'Dialysis')
                       <p>
-                        {{-- @if(($cr->planMed == "" && isset($carryOverBookingsPlanMed[0]->planMed)) || (isset($carryOverBookingsPlanMed[0]->planMed) && $cr->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $cr->planMed))<br>[carry over from {{ $carryOverBookingsPlanMed[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlanMed[0]->booking_type }} booking last {{ $carryOverBookingsPlanMed[0]->bookingDate }}]@endif --}}
+                        {{-- @if(($cr->planMed == "" && isset($carryOverBookingsPlanMed[0]->planMed)) || (isset($carryOverBookingsPlanMed[0]->planMed) && $cr->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $cr->planMed))<br>[carry over from {{ $carryOverBookingsPlanMed[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlanMed[0]->booking_type }} booking last {{ $carryOverBookingsPlanMed[0]->bookingDate }}]@endif --}
                         <strong>Plan:</strong><br><div class="m-3 {{ $cr->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $cr->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $cr->planMed) ? 'text-danger' : '') }}">{!! isset($cr->planMed) ? nl2br($cr->planMed) : nl2br(isset($carryOverBookingsPlanMed[0]->planMed) ? $carryOverBookingsPlanMed[0]->planMed : '') !!}@if(($cr->planMed == "" && isset($carryOverBookingsPlanMed[0]->planMed)) || (isset($carryOverBookingsPlanMed[0]->planMed) && $cr->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $cr->planMed))<br>[carry over from {{ $carryOverBookingsPlanMed[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlanMed[0]->booking_type }} booking last {{ $carryOverBookingsPlanMed[0]->bookingDate }}]@endif</div><br>
                         <strong>Current Meds Onboard:</strong>
                         <div class="table-responsive" style="max-height: 300px">
@@ -7918,11 +8416,11 @@
                       </p>
                       @else
                       <p>
-                        {{-- @if(($cr->planMed == "" && isset($carryOverBookingsPlanMed[0]->planMed)) || (isset($carryOverBookingsPlanMed[0]->planMed) && $cr->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $cr->planMed))<br>[carry over from {{ $carryOverBookingsPlanMed[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlanMed[0]->booking_type }} booking last {{ $carryOverBookingsPlanMed[0]->bookingDate }}]@endif --}}
+                        {{-- @if(($cr->planMed == "" && isset($carryOverBookingsPlanMed[0]->planMed)) || (isset($carryOverBookingsPlanMed[0]->planMed) && $cr->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $cr->planMed))<br>[carry over from {{ $carryOverBookingsPlanMed[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlanMed[0]->booking_type }} booking last {{ $carryOverBookingsPlanMed[0]->bookingDate }}]@endif --}
                         <strong>Medical Therapeutics:</strong><br><div class="m-3 {{ $cr->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $cr->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $cr->planMed) ? 'text-warning' : '') }}">{!! isset($cr->planMed) ? nl2br($cr->planMed) : nl2br(isset($carryOverBookingsPlanMed[0]->planMed) && $cr->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id ? $carryOverBookingsPlanMed[0]->planMed : '') !!}@if(($cr->planMed == "" && isset($carryOverBookingsPlanMed[0]->planMed)) || (isset($carryOverBookingsPlanMed[0]->planMed) && $cr->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $cr->planMed))<br>[carry over from {{ $carryOverBookingsPlanMed[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlanMed[0]->booking_type }} booking last {{ $carryOverBookingsPlanMed[0]->bookingDate }}]@endif</div><br>
-                        {{-- @if(($cr->plan == "" && isset($carryOverBookingsPlan[0]->plan)) || (isset($carryOverBookingsPlan[0]->plan) && $cr->doctor_id == $carryOverBookingsPlan[0]->doctor_id && $carryOverBookingsPlan[0]->plan == $cr->plan))<br>[carry over from {{ $carryOverBookingsPlan[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlan[0]->booking_type }} booking last {{ $carryOverBookingsPlan[0]->bookingDate }}]@endif --}}
+                        {{-- @if(($cr->plan == "" && isset($carryOverBookingsPlan[0]->plan)) || (isset($carryOverBookingsPlan[0]->plan) && $cr->doctor_id == $carryOverBookingsPlan[0]->doctor_id && $carryOverBookingsPlan[0]->plan == $cr->plan))<br>[carry over from {{ $carryOverBookingsPlan[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlan[0]->booking_type }} booking last {{ $carryOverBookingsPlan[0]->bookingDate }}]@endif --}
                         <strong>Diagnostics and Surgery:</strong><br><div class="m-3 {{ $cr->plan == "" ? 'text-danger' : ((isset($carryOverBookingsPlan[0]->plan) && $cr->doctor_id == $carryOverBookingsPlan[0]->doctor_id && $carryOverBookingsPlan[0]->plan == $cr->plan) ? 'text-warnign' : '') }}">{!! isset($cr->plan) ? nl2br($cr->plan) : nl2br(isset($carryOverBookingsPlan[0]->plan) && $cr->doctor_id == $carryOverBookingsPlan[0]->doctor_id ? $carryOverBookingsPlan[0]->plan : '') !!}@if(($cr->plan == "" && isset($carryOverBookingsPlan[0]->plan)) || (isset($carryOverBookingsPlan[0]->plan) && $cr->doctor_id == $carryOverBookingsPlan[0]->doctor_id && $carryOverBookingsPlan[0]->plan == $cr->plan))<br>[carry over from {{ $carryOverBookingsPlan[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlan[0]->booking_type }} booking last {{ $carryOverBookingsPlan[0]->bookingDate }}]@endif</div><br>
-                        {{-- @if(($cr->planRem == "" && isset($carryOverBookingsPlanRem[0]->planRem)) || (isset($carryOverBookingsPlanRem[0]->planRem) && $cr->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id && $carryOverBookingsPlanRem[0]->planRem == $cr->planRem))<br>[carry over from {{ $carryOverBookingsPlanRem[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlanRem[0]->booking_type }} booking last {{ $carryOverBookingsPlanRem[0]->bookingDate }}]@endif --}}
+                        {{-- @if(($cr->planRem == "" && isset($carryOverBookingsPlanRem[0]->planRem)) || (isset($carryOverBookingsPlanRem[0]->planRem) && $cr->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id && $carryOverBookingsPlanRem[0]->planRem == $cr->planRem))<br>[carry over from {{ $carryOverBookingsPlanRem[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlanRem[0]->booking_type }} booking last {{ $carryOverBookingsPlanRem[0]->bookingDate }}]@endif --}
                         <strong>Remarks:</strong><br><div class="m-3 {{ $cr->planRem == "" ? 'text-danger' : ((isset($carryOverBookingsPlanRem[0]->planRem) && $cr->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id && $carryOverBookingsPlanRem[0]->planRem == $cr->planRem) ? 'text-warning' : '') }}">{!! isset($cr->planRem) ? nl2br($cr->planRem) : nl2br(isset($carryOverBookingsPlanRem[0]->planRem) && $cr->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id ? $carryOverBookingsPlanRem[0]->planRem : '') !!}@if(($cr->planRem == "" && isset($carryOverBookingsPlanRem[0]->planRem)) || (isset($carryOverBookingsPlanRem[0]->planRem) && $cr->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id && $carryOverBookingsPlanRem[0]->planRem == $cr->planRem))<br>[carry over from {{ $carryOverBookingsPlanRem[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlanRem[0]->booking_type }} booking last {{ $carryOverBookingsPlanRem[0]->bookingDate }}]@endif</div><br>
                       </p>
                       <small class="text-muted">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small>
@@ -7931,10 +8429,10 @@
                   </div>
                 </div>
                   @endforeach
-                @endif
+                @endif --}}
               </div>
-              <div id="soapCurDiv" style="display:none" class="container border border-1 mb-3 p-3">
-                <div class="card mb-3">
+              <div id="soapCurDiv" class="container border border-1 mb-3 p-3">
+                {{-- <div class="card mb-3">
                   <div class="card-header">Scheduled Procedure</div>
                   <div class="card-body" style="height: 1in; max-height: 1in">
                     <p>{{ $datum->procedure_details }}</p>
@@ -7952,146 +8450,710 @@
                   <div class="card-body" style="height: 1in; max-height: 1in">
                     <p>{{ $datum->others }}</p>
                   </div>
-                </div>
+                </div> --}}
                 <div class="docNotesDiv" id="{{ $viewFolder }}_SOAP_{{ $datum->id }}">
-                  <div class="card mb-3">
-                    <div class="card-header">Subjective Findings</div>
-                    <div class="card-body">
-                      {{-- @if(!isset($bookings[0])) --}}
-                      <div class="card mb-3">
-                        <div class="card-header">History of Present Illness</div>
-                        <div class="card-body">
-                          {{-- <small class="text-muted">Helper</small>
-                          <div class="input-group input-group-small flex-nowrap">
-                            <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
-                              <option value=""></option>
-                            </select>
-                            <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso) ? '' : 'disabled' }}>Delete Helper</button>
-                          </div> --}}
-                          <small class="text-muted">Content</small>
-                          <textarea class="form-control {{ $datum->docNotesHPI == "" ? 'text-danger' : ((isset($carryOverBookingsHPI[0]->docNotesHPI) && $datum->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $datum->docNotesHPI) ? 'text-warning' : '') }}" name="{{ $viewFolder }}[docNotesHPI]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_docNotesHPI" @endif rows=3 {{ !isset($referal_conso)  ? '' : 'disabled' }}>{{ isset($datum->docNotesHPI) ? $datum->docNotesHPI : (isset($carryOverBookingsHPI[0]->docNotesHPI) && $datum->doctor_id == $carryOverBookingsHPI[0]->doctor_id ? $carryOverBookingsHPI[0]->docNotesHPI : '') }}</textarea>
-                          <small class="{{ $datum->docNotesHPI == "" ? 'text-danger' : ((isset($carryOverBookingsHPI[0]->docNotesHPI) && $datum->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $datum->docNotesHPI) ? 'text-warning' : '') }} mb-3">@if(($datum->docNotesHPI == "" && isset($carryOverBookingsHPI[0]->docNotesHPI)) || (isset($carryOverBookingsHPI[0]->docNotesHPI) && $datum->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $datum->docNotesHPI))[carry over from {{ $carryOverBookingsHPI[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsHPI[0]->booking_type }} booking last {{ $carryOverBookingsHPI[0]->bookingDate }}]@endif</small><br>
-                          <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
-                          {{-- <small class="text-muted">Helper Save/Edit</small>
-                          <div class="input-group input-group-small mb-3 flex-nowrap">
-                            <div class="input-group-text">
-                              <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                  <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                      <a class="nav-link soapLink soapSubjective active" href="#" onclick="
+                        $('.soapLink').removeClass('active');
+                        $('.soapDiv').hide();
+                        $('.soapSubjective').addClass('active');
+                        $('.soapDivSubjective').show();
+                      ">Subjective</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link soapLink soapObjective" href="#" onclick="
+                        $('.soapLink').removeClass('active');
+                        $('.soapDiv').hide();
+                        $('.soapObjective').addClass('active');
+                        $('.soapDivObjective').show();
+                      ">Objective</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link soapLink soapAssess" href="#" onclick="
+                        $('.soapLink').removeClass('active');
+                        $('.soapDiv').hide();
+                        $('.soapAssess').addClass('active');
+                        $('.soapDivAssess').show();
+                      ">Assessment</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link soapLink soapPlan" href="#" onclick="
+                        $('.soapLink').removeClass('active');
+                        $('.soapDiv').hide();
+                        $('.soapPlan').addClass('active');
+                        $('.soapDivPlan').show();
+                      ">Plan</a>
+                    </li>
+                  </ul>
+                  <div id="soapDivCur" class="container border border-1 border-top-0 p-3 mb-3 table-responsive" style="max-height: 300px">
+                    <div class="card soapDiv soapDivSubjective mb-3" id="{{ $viewFolder }}_SOAPCURR_{{ $datum->id }}_SUBJ">
+                      <div class="card-header">Subjective Findings</div>
+                      <div class="card-body">
+                        {{-- @if(!isset($bookings[0])) --}}
+                        <div class="card mb-3">
+                          <div class="card-header">History of Present Illness</div>
+                          <div class="card-body">
+                            {{-- <small class="text-muted">Helper</small>
+                            <div class="input-group input-group-small flex-nowrap">
+                              <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                                <option value=""></option>
+                              </select>
+                              <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso) ? '' : 'disabled' }}>Delete Helper</button>
+                            </div> --}}
+                            <small class="text-muted">Content</small>
+                            <textarea class="form-control soapField {{ $datum->docNotesHPI == "" ? 'text-danger' : ((isset($carryOverBookingsHPI[0]->docNotesHPI) && $datum->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $datum->docNotesHPI) ? 'text-warning' : '') }}" name="{{ $viewFolder }}[docNotesHPI]" id="{{ $viewFolder }}_docNotesHPI" rows=3 {{ !isset($referal_conso)  ? '' : 'disabled' }}>{{ isset($datum->docNotesHPI) ? $datum->docNotesHPI : (isset($carryOverBookingsHPI[0]->docNotesHPI) && $datum->doctor_id == $carryOverBookingsHPI[0]->doctor_id ? $carryOverBookingsHPI[0]->docNotesHPI : '') }}</textarea>
+                            <small class="{{ $datum->docNotesHPI == "" ? 'text-danger' : ((isset($carryOverBookingsHPI[0]->docNotesHPI) && $datum->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $datum->docNotesHPI) ? 'text-warning' : '') }} mb-3">@if(($datum->docNotesHPI == "" && isset($carryOverBookingsHPI[0]->docNotesHPI)) || (isset($carryOverBookingsHPI[0]->docNotesHPI) && $datum->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $datum->docNotesHPI))[carry over from {{ $carryOverBookingsHPI[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsHPI[0]->booking_type }} booking last {{ $carryOverBookingsHPI[0]->bookingDate }}]@endif</small><br>
+                            <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
+                            {{-- <small class="text-muted">Helper Save/Edit</small>
+                            <div class="input-group input-group-small mb-3 flex-nowrap">
+                              <div class="input-group-text">
+                                <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                              </div>
+                              <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesHPITitle" name="{{ $viewFolder }}[docNotesHPITitle]" disabled>
+                              <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                             </div>
-                            <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesHPITitle" name="{{ $viewFolder }}[docNotesHPITitle]" disabled>
-                            <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                            <textarea class="form-control mb-2" name="{{ $viewFolder }}[docNotesHPIEdit]" id="{{ $viewFolder }}_docNotesHPIEdit" rows=3 disabled></textarea> --}}
                           </div>
-                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[docNotesHPIEdit]" id="{{ $viewFolder }}_docNotesHPIEdit" rows=3 disabled></textarea> --}}
+                        </div>
+                        {{-- @else --}}
+                        <div class="card mb-3">
+                          <div class="card-header">Subjective Complaints</div>
+                          <div class="card-body">
+                            {{-- <small class="text-muted">Helper</small>
+                            <div class="input-group input-group-small flex-nowrap">
+                              <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                                <option value=""></option>
+                              </select>
+                              <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
+                            </div> --}}
+                            <small class="text-muted">Content</small>
+                            <textarea class="form-control soapField" name="{{ $viewFolder }}[docNotesSubject]" id="{{ $viewFolder }}_docNotesSubject" rows=3 {{ !isset($referal_conso)  ? '' : 'disabled' }}>{{ isset($datum->docNotesSubject) ? $datum->docNotesSubject : '' }}</textarea>
+                            {{-- <small class="text-muted">Helper Save/Edit</small>
+                            <div class="input-group input-group-small mb-3 flex-nowrap">
+                              <div class="input-group-text">
+                                <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                              </div>
+                              <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesSubjectTitle" name="{{ $viewFolder }}[docNotesSubjectTitle]" disabled>
+                              <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                            </div>
+                            <textarea class="form-control mb-2" name="{{ $viewFolder }}[ddocNotesSubjectEdit]" id="{{ $viewFolder }}_docNotesSubjectEdit" rows=3 disabled></textarea> --}}
+                          </div>
+                        </div>
+                        {{-- @endif --}}
+                        
+                      </div>
+                    </div>
+                    <div class="card soapDiv soapDivObjective mb-3" style="display: none;" id="{{ $viewFolder }}_SOAPCURR_{{ $datum->id }}_OBJ">
+                      <div class="card-header">Objective Findings</div>
+                      <div class="card-body">
+                        @if(stristr($datum->doctor->specialty, 'Ophtha') && $datum->booking_type != "Dialysis")
+                        <div class="card mb-3">
+                          <div class="card-header">Eye Examination Information</div>
+                          <div class="card-body">
+                            {{-- <p>
+                              <strong>AR OD:</strong> <span class="text-primary">{{ $datum->arod_sphere != 'No Target' ? ($datum->arod_sphere > 0 ? '+' . $datum->arod_sphere : $datum->arod_sphere) . ' - ' . ($datum->arod_cylinder > 0 ? '+' . $datum->arod_cylinder : $datum->arod_cylinder) . ' x ' . $datum->arod_axis : 'No Refraction Possible' }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                              <strong>AR OS:</strong> <span class="text-primary">{{ $datum->aros_sphere != 'No Target' ? ($datum->aros_sphere > 0 ? '+' . $datum->aros_sphere : $datum->aros_sphere) . ' - ' . ($datum->aros_cylinder > 0 ? '+' . $datum->aros_cylinder : $datum->aros_cylinder) . ' x ' . $datum->aros_axis : 'No Refraction Possible' }}</span><br>
+                              <strong>UCVA OD:</strong> <span class="text-primary">{{ $datum->vaod_den != '' ? $datum->vaod_num . ' / ' . $datum->vaod_den : $datum->vaod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                              <strong>UCVA OD Present Correction:</strong> <span class="text-primary">{{ $datum->vaodcor_den != '' ? $datum->vaodcor_num . ' / ' . $datum->vaodcor_den : $datum->vaodcor_num }}</span><br>
+                              <strong>UCVA OS:</strong> <span class="text-primary">{{ $datum->vaos_den != '' ? $datum->vaos_num . ' / ' . $datum->vaos_den : $datum->vaos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                              <strong>UCVA OS Present Correction:</strong> <span class="text-primary">{{ $datum->vaoscor_den != '' ? $datum->vaoscor_num . ' / ' . $datum->vaoscor_den : $datum->vaoscor_num }}</span><br>
+                              <strong>VA OD Pinhole:</strong> <span class="text-primary">{{ $datum->pinod_den != '' ? $datum->pinod_num . ' / ' . $datum->pinod_den : $datum->pinod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                              <strong>BCVA OD:</strong> <span class="text-primary">{{ $datum->pinodcor_den != '' ? $datum->pinodcor_num . ' / ' . $datum->pinodcor_den : $datum->pinodcor_num }}</span><br>
+                              <strong>VA OS Pinhole:</strong> <span class="text-primary">{{ $datum->pinos_den != '' ? $datum->pinos_num . ' / ' . $datum->pinos_den : $datum->pinos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                              <strong>BCVA OS:</strong> <span class="text-primary">{{ $datum->pinoscor_den != '' ? $datum->pinoscor_num . ' / ' . $datum->pinoscor_den : $datum->pinoscor_num }}</span><br>
+                              <strong>Jaeger OU:</strong> <span class="text-primary">{{ $datum->jae_ou }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                              <strong>Jaeger OD:</strong> <span class="text-primary">{{ $datum->jae_od }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                              <strong>Jaeger OS:</strong> <span class="text-primary">{{ $datum->jae_os }}</span><br>
+                              <strong>IOP OD:</strong> <span class="text-primary">{{ $datum->iopod }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                              <strong>IOP OS:</strong> <span class="text-primary">{{ $datum->iopos }}</span>
+                            </p> --}}
+                            <table class="table table-bordered table-striped table-hover table-sm">
+                              <thead class="table-{{ $bgColor }}">
+                                  <tr>
+                                      <th>&nbsp;</th>
+                                      <th>OD</th>
+                                      <th>OS</th>
+                                      <th>OU</th>
+                                  </tr>
+                              </thead>
+                              <tbody id="prevEyerSum">
+                                <tr>
+                                    <td>AR</td>
+                                    <td>{{ $datum->arod_sphere != 'No Target' ? ( $datum->arod_sphere > 0 ? '+' . $datum->arod_sphere : $datum->arod_sphere ) . ' - ' . ( $datum->arod_cylinder > 0 ? '+' . $datum->arod_cylinder : $datum->arod_cylinder ) . ' x ' . $datum->arod_axis : 'No Refraction Possible' }}</td>
+                                    <td>{{ $datum->aros_sphere != 'No Target' ? ( $datum->aros_sphere > 0 ? '+' . $datum->aros_sphere : $datum->aros_sphere ) . ' - ' . ( $datum->aros_cylinder > 0 ? '+' . $datum->aros_cylinder : $datum->aros_cylinder ) . ' x ' . $datum->aros_axis : 'No Refraction Possible' }}</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>UCVA</td>
+                                    <td>{{ $datum->vaod_den != '' ? $datum->vaod_num . ' / ' . $datum->vaod_den : $datum->vaod_num }}</td>
+                                    <td>{{ $datum->vaos_den != '' ? $datum->vaos_num . ' / ' . $datum->vaos_den : $datum->vaos_num }}</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>UCVA Present Correction</td>
+                                    <td>{{ $datum->vaodcor_den != '' ? $datum->vaodcor_num . ' / ' . $datum->vaodcor_den : $datum->vaodcor_num }}</td>
+                                    <td>{{ $datum->vaoscor_den != '' ? $datum->vaoscor_num . ' / ' . $datum->vaoscor_den : $datum->vaoscor_num }}</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>VA Pinhole</td>
+                                    <td>{{ $datum->pinod_den != '' ? $datum->pinod_num . ' / ' . $datum->pinod_den : $datum->pinod_num }}</td>
+                                    <td>{{ $datum->pinos_den != '' ? $datum->pinos_num . ' / ' . $datum->pinos_den : $datum->pinos_num }}</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>BCVA</td>
+                                    <td>{{ $datum->pinodcor_den != '' ? $datum->pinodcor_num . ' / ' . $datum->pinodcor_den : $datum->pinodcor_num }}</td>
+                                    <td>{{ $datum->pinoscor_den != '' ? $datum->pinoscor_num . ' / ' . $datum->pinoscor_den : $datum->pinoscor_num }}</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>Jaeger</td>
+                                    <td>{{ $datum->jae_od }}</td>
+                                    <td>{{ $datum->jae_os }}</td>
+                                    <td>{{ $datum->jae_ou }}</td>
+                                </tr>
+                                <tr>
+                                    <td>IOP</td>
+                                    <td>{{ $datum->iopod }}</td>
+                                    <td>{{ $datum->iopos }}</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                        @endif
+                        {{-- <small class="text-muted">Helper</small>
+                        <div class="input-group input-group-small flex-nowrap">
+                          <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                            <option value=""></option>
+                          </select>
+                          <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
+                        </div> --}}
+                        <div class="card mb-3">
+                          <div class="card-header">Preoperative PE</div>
+                          <div class="card-body">
+                            <small class="text-muted">Content</small>
+                            <textarea class="form-control soapField" name="{{ $viewFolder }}[docNotes]" id="{{ $viewFolder }}_docNotes" rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }} onchange="
+                              $('#{{ $viewFolder }}_findings').val($(this).val());
+                            ">{{ isset($datum->docNotes) ? $datum->docNotes : '' }}</textarea>
+                            {{-- <small class="text-muted">Helper Save/Edit</small>
+                            <div class="input-group input-group-small mb-3 flex-nowrap">
+                              <div class="input-group-text">
+                                <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                              </div>
+                              <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesTitle" name="{{ $viewFolder }}[docNotesTitle]" disabled>
+                              <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                            </div>
+                            <textarea class="form-control mb-2" name="{{ $viewFolder }}[_docNotesEdit]" id="{{ $viewFolder }}_docNotesEdit" rows=3 disabled></textarea> --}}
+                          </div>
+                        </div>
+                        <div class="card mb-3">
+                          <div class="card-header">Intraoperative Findings</div>
+                          <div class="card-body">
+                            <small class="text-muted">Content</small>
+                            <textarea class="form-control soapField mb-3" name="{{ $viewFolder }}[PrintableForm][intraoperative_findings]" id="{{ $viewFolder }}_intraoperative_findings" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 
+                                {{-- onblur="
+                                  if($('#{{ $viewFolder }}_intraoperative_findings').val() == ''){
+                                    $('.createPDFDischargeSum').each(function(){
+                                      $(this).prop('disabled', true);
+                                    });
+                                  }else{`
+                                    $('.createPDFDischargeSum').each(function(){
+                                      $(this).prop('disabled', false);
+                                    });
+                                  }
+                                " --}}
+                            >{{ isset($datum->printable_form['intraoperative_findings']) ? $datum->printable_form['intraoperative_findings'] : '' }}</textarea>
+                            <label class="form-label">Intraoperative Course</label>
+                            
+                            <div class="form-check">
+                              <input class="form-check-input soapField" type="radio" name="{{ $viewFolder }}[PrintableForm][intraoperative_course]" value="Unremarkable" id="{{ $viewFolder }}_intraoperative_course_unremarkable" onchange="
+                                  if($(this).prop('checked'))
+                                    $('#{{ $viewFolder }}_complication_specify').prop('disabled', true);
+                                  else
+                                    $('#{{ $viewFolder }}_complication_specify').prop('disabled', false);
+                                " {{ (isset($datum->printable_form['intraoperative_course']) && $datum->printable_form['intraoperative_course'] == 'Unremarkable') ? 'checked' : '' }} {{ !isset($referal_conso) ? '' : 'disabled' }}>
+                              <label class="form-check-label" for="{{ $viewFolder }}_intraoperative_course_unremarkable">Unremarkable</label>
+                            </div>
+                            <div class="form-check">
+                              <input class="form-check-input soapField" type="radio" name="{{ $viewFolder }}[PrintableForm][intraoperative_course]" value="With Complications" id="{{ $viewFolder }}_intraoperative_course_with_complications" onchange="
+                                  if($(this).prop('checked'))
+                                    $('#{{ $viewFolder }}_complication_specify').prop('disabled', false);
+                                  else
+                                    $('#{{ $viewFolder }}_complication_specify').prop('disabled', true);
+                                " {{ (isset($datum->printable_form['intraoperative_course']) && $datum->printable_form['intraoperative_course'] == 'With Complications') ? 'checked' : '' }} {{ !isset($referal_conso) ? '' : 'disabled' }}>
+                              <label class="form-check-label" for="{{ $viewFolder }}_intraoperative_course_with_complications">With Complications (specify)</label>
+                            </div>
+                            <textarea class="form-control soapField mb-3" name="{{ $viewFolder }}[PrintableForm][complication_specify]" id="{{ $viewFolder }}_complication_specify" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 
+                                {{-- onblur="
+                                  if($('#{{ $viewFolder }}_complication_specify').val() == ''){
+                                    $('.createPDFDischargeSum').each(function(){
+                                      $(this).prop('disabled', true);
+                                    });
+                                  }else{
+                                    $('.createPDFDischargeSum').each(function(){
+                                      $(this).prop('disabled', false);
+                                    });
+                                  }
+                                "  --}}
+                                {{ (isset($datum->printable_form['intraoperative_course']) && $datum->printable_form['intraoperative_course'] == 'With Complications') ? '' : 'disabled' }}>{{ isset($datum->printable_form['complication_specify']) ? $datum->printable_form['complication_specify'] : '' }}</textarea>
+                            <div class="input-group mb-3">
+                              <div class="form-floating">
+                                <input class="form-control soapField" type="number" name="{{ $viewFolder }}[PrintableForm][blood_loss]" min=30 step=.1 id="{{ $viewFolder }}_blood_loss" value="{{ isset($datum->printable_form['blood_loss']) ? $datum->printable_form['blood_loss'] : ''}}" {{ !isset($referal_conso) ? '' : 'disabled' }} placeholder="">
+                                <label for="{{ $viewFolder }}_blood_loss" class="form-label">Estimated Blood Loss</label>
+                                <small id="help_{{ $viewFolder }}_blood_loss" class="text-muted"></small>
+                              </div>
+                              <span class="input-group-text">mL</span>
+                            </div>
+                            <label class="form-label">Specimen Sent</label>
+                            <div class="form-check">
+                              <input class="form-check-input soapField" type="radio" name="{{ $viewFolder }}[PrintableForm][specimen_sent]" value="yes" id="{{ $viewFolder }}_specimen_sent_yes" {{ (isset($datum->printable_form['specimen_sent']) && $datum->printable_form['specimen_sent'] == 'yes') ? 'checked' : '' }} {{ !isset($referal_conso) ? '' : 'disabled' }}>
+                              <label class="form-check-label" for="{{ $viewFolder }}_specimen_sent_yes">Yes</label>
+                            </div>
+                            <div class="form-check">
+                              <input class="form-check-input soapField" type="radio" name="{{ $viewFolder }}[PrintableForm][specimen_sent]" value="no" id="{{ $viewFolder }}_specimen_sent_no" {{ (isset($datum->printable_form['specimen_sent']) && $datum->printable_form['specimen_sent'] == 'no') ? 'checked' : '' }} {{ !isset($referal_conso) ? '' : 'disabled' }}>
+                              <label class="form-check-label" for="{{ $viewFolder }}_specimen_sent_no">No</label>
+                            </div>
+                            <label class="form-label mt-3" for="{{ $viewFolder }}_specimen_sent_remarks">Sepcimen Remarks</label>
+                            <textarea class="form-control soapField mb-3" name="{{ $viewFolder }}[PrintableForm][specimen_sent_remarks]" id="{{ $viewFolder }}_specimen_sent_remarks" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 
+                                {{-- onblur="
+                                  if($('#{{ $viewFolder }}_specimen_sent_remarks').val() == ''){
+                                    $('.createPDFDischargeSum').each(function(){
+                                      $(this).prop('disabled', true);
+                                    });
+                                  }else{
+                                    $('.createPDFDischargeSum').each(function(){
+                                      $(this).prop('disabled', false);
+                                    });
+                                  }
+                                " --}}
+                                >{{ isset($datum->printable_form['specimen_sent_remarks']) ? $datum->printable_form['specimen_sent_remarks'] : '' }}</textarea>
+                          </div>
+                        </div>
+                        <div class="card mb-3">
+                          <div class="card-header">Post-Operative Condition</div>
+                          <div class="card-body">
+                            <div class="form-check">
+                              <input class="form-check-input soapField" type="radio" name="{{ $viewFolder }}[PrintableForm][post_operative_condition]" value="Stable" id="{{ $viewFolder }}_post_operative_condition_stable" {{ (isset($datum->printable_form['post_operative_condition']) && $datum->printable_form['post_operative_condition'] == 'Stable') ? 'checked' : '' }} {{ !isset($referal_conso) ? '' : 'disabled' }}>
+                              <label class="form-check-label" for="{{ $viewFolder }}_post_operative_condition_stable">Stable</label>
+                            </div>
+                            <div class="form-check">
+                              <input class="form-check-input soapField" type="radio" name="{{ $viewFolder }}[PrintableForm][post_operative_condition]" value="Requires Observation" id="{{ $viewFolder }}_post_operative_condition_requires" {{ (isset($datum->printable_form['post_operative_condition']) && $datum->printable_form['post_operative_condition'] == 'Requires Observation') ? 'checked' : '' }} {{ !isset($referal_conso) ? '' : 'disabled' }}>
+                              <label class="form-check-label" for="{{ $viewFolder }}_post_operative_condition_requires">Requires Observation</label>
+                            </div>
+                            <label class="form-label" for="{{ $viewFolder }}_post_operative_condition_remarks">Post-Operative Condition Remarks</label>
+                            <textarea class="form-control soapField mb-3" name="{{ $viewFolder }}[PrintableForm][post_operative_condition_remarks]" id="{{ $viewFolder }}_post_operative_condition_remarks" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 
+                                {{-- onblur="
+                                  if($('#{{ $viewFolder }}_post_operative_condition_remarks').val() == ''){
+                                    $('.createPDFDischargeSum').each(function(){
+                                      $(this).prop('disabled', true);
+                                    });
+                                  }else{
+                                    $('.createPDFDischargeSum').each(function(){
+                                      $(this).prop('disabled', false);
+                                    });
+                                  }
+                                " --}}
+                                >{{ isset($datum->printable_form['post_operative_condition_remarks']) ? $datum->printable_form['post_operative_condition_remarks'] : '' }}</textarea>
+                          </div>
                         </div>
                       </div>
-                      {{-- @else --}}
-                      <div class="card mb-3">
-                        <div class="card-header">Subjective Complaints</div>
-                        <div class="card-body">
-                          {{-- <small class="text-muted">Helper</small>
-                          <div class="input-group input-group-small flex-nowrap">
-                            <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
-                              <option value=""></option>
-                            </select>
-                            <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
-                          </div> --}}
-                          <small class="text-muted">Content</small>
-                          <textarea class="form-control" name="{{ $viewFolder }}[docNotesSubject]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_docNotesSubject" @endif rows=3 {{ !isset($referal_conso)  ? '' : 'disabled' }}>{{ isset($datum->docNotesSubject) ? $datum->docNotesSubject : '' }}</textarea>
-                          {{-- <small class="text-muted">Helper Save/Edit</small>
-                          <div class="input-group input-group-small mb-3 flex-nowrap">
-                            <div class="input-group-text">
-                              <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                    </div>
+                    <div class="card soapDiv soapDivAssess mb-3" style="display:none" id="{{ $viewFolder }}_SOAPCURR_{{ $datum->id }}_ASSESS">
+                      <div class="card-header">Assessment</div>
+                      <div class="card-body">
+                        {{-- <div class="form-floating mb-3"> --}}
+                          {{-- <select class="form-select" name="{{ $viewFolder }}[icd_code]" id="{{ $viewFolder }}_icd_code" placeholder="" {{ $user->id == $datum->doctor->id ? '' : 'disabled' }}>
+                            <option value=""></option>
+                          </select> --}}
+                          {{-- <input class="form-control {{ !isset($datum->icd_code_obj->icd_code) ? 'text-danger' : ((isset($carryOverBookingsICD[0]->icd_code_obj->icd_code) && $datum->doctor_id == $carryOverBookingsICD[0]->doctor_id && $carryOverBookingsICD[0]->icd_code_obj->icd_code == $datum->icd_code_obj->icd_code) ? 'text-warning' : '') }}" list="icdCodeList" {{ !isset($referal_conso) ? 'id=' . $viewFolder . '_icd_code' : '' }} name="{{ $viewFolder }}[icd_code]" value="{{ isset($datum->icd_code_obj->icd_code) ? $datum->icd_code_obj->icd_code . ' - ' . $datum->icd_code_obj->details : (isset($carryOverBookingsICD[0]->icd_code_obj) && $datum->doctor_id == $carryOverBookingsICD[0]->doctor_id ? $carryOverBookingsICD[0]->icd_code_obj->icd_code . ' - ' . $carryOverBookingsICD[0]->icd_code_obj->details : '') }}" autocomplete="off" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                          <label for="{{ $viewFolder }}_icd_code">Primary Diagnosis</label> --}}
+                          {{-- <small class="{{ !isset($datum->icd_code_obj->icd_code) ? 'text-danger' : ((isset($carryOverBookingsICD[0]->icd_code_obj->icd_code) && $datum->doctor_id == $carryOverBookingsICD[0]->doctor_id && $carryOverBookingsICD[0]->icd_code_obj->icd_code == $datum->icd_code_obj->icd_code) ? 'text-warning' : '') }} mb-3">@if(!isset($datum->icd_code_obj->icd_code) || (isset($datum->icd_code_obj->icd_code) && $datum->icd_code_obj->icd_code == "" && isset($carryOverBookingsICD[0]->icd_code_obj->icd_code)) || (isset($datum->icd_code_obj->icd_code) && $datum->doctor_id == $carryOverBookingsICD[0]->doctor_id && isset($carryOverBookingsICD[0]->icd_code_obj->icd_code) && $carryOverBookingsICD[0]->icd_code_obj->icd_code == $datum->icd_code_obj->icd_code))[carry over from {{ $carryOverBookingsICD[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsICD[0]->booking_type }} booking last {{ $carryOverBookingsICD[0]->bookingDate }}]@endif</small><br> --}}
+                          {{-- <small id="help_{{ $viewFolder }}_icd_code" class="text-muted">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small> --}}
+                        {{-- </div> --}}
+                        <div class="card mb-3">
+                          <div class="card-header">Primary Diagnosis</div>
+                          <div class="card-body">
+                            {{-- <small class="text-muted">Helper</small>
+                            <div class="input-group input-group-small flex-nowrap">
+                              <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                                <option value=""></option>
+                              </select>
+                              <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
+                            </div> --}}
+                            <small class="text-muted">Content</small>
+                            <textarea class="form-control soapField {{ $datum->primary_assessment == "" ? 'text-danger' : ((isset($carryOverBookings[0]->primary_assessment) && $datum->doctor_id == $carryOverBookings[0]->doctor_id && $carryOverBookings[0]->primary_assessment == $datum->primary_assessment) ? 'text-warning' : '') }}" name="{{ $viewFolder }}[primary_assessment]" id="{{ $viewFolder }}_primary_assessment" rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }} onchange="
+                              $('#{{ $viewFolder }}_diagnosis').val($(this).val());
+                              $('#{{ $viewFolder }}_parent_diagnosis_hidden').val($(this).val());
+                              $('#{{ $viewFolder }}_pre_op_diagnosis').val($(this).val());
+                              $('#{{ $viewFolder }}_parent_pre_op_diagnosis_hidden').val($(this).val());
+                            ">{{ isset($datum->primary_assessment) ? $datum->primary_assessment : (isset($carryOverBookings[0]->primary_assessment) && $datum->doctor_id == $carryOverBookings[0]->doctor_id ? $carryOverBookings[0]->primary_assessment : '') }}</textarea>
+                            <small class="{{ $datum->primary_assessment == "" ? 'text-danger' : ((isset($carryOverBookings[0]->primary_assessment) && $datum->doctor_id == $carryOverBookings[0]->doctor_id && $carryOverBookings[0]->primary_assessment == $datum->primary_assessment) ? 'text-warning' : '') }} mb-3">@if(($datum->primary_assessment == "" && isset($carryOverBookings[0]->primary_assessment)) || (isset($carryOverBookings[0]->primary_assessment) && $datum->doctor_id == $carryOverBookings[0]->doctor_id && $carryOverBookings[0]->primary_assessment == $datum->primary_assessment))[carry over from {{ $carryOverBookings[0]->booking_type == '' ? 'Consultation' : $carryOverBookings[0]->booking_type }} booking last {{ $carryOverBookings[0]->bookingDate }}]@endif</small><br>
+                            <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
+                            {{-- <small class="text-muted">Helper Save/Edit</small>
+                            <div class="input-group input-group-small mb-3 flex-nowrap">
+                              <div class="input-group-text">
+                                <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                              </div>
+                              <input type="text" class="form-control" id="{{ $viewFolder }}_assessmentTitle" name="{{ $viewFolder }}[assessmentTitle]" disabled>
+                              <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                             </div>
-                            <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesSubjectTitle" name="{{ $viewFolder }}[docNotesSubjectTitle]" disabled>
-                            <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                            <textarea class="form-control mb-2" name="{{ $viewFolder }}[_assessmentEdit]" id="{{ $viewFolder }}_assessmentEdit" rows=3 disabled></textarea> --}}
                           </div>
-                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[ddocNotesSubjectEdit]" id="{{ $viewFolder }}_docNotesSubjectEdit" rows=3 disabled></textarea> --}}
+                        </div>
+                        <div class="card mb-3">
+                          <div class="card-header">Secondary Diagnosis</div>
+                          <div class="card-body">
+                            {{-- <small class="text-muted">Helper</small>
+                            <div class="input-group input-group-small flex-nowrap">
+                              <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                                <option value=""></option>
+                              </select>
+                              <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
+                            </div> --}}
+                            <small class="text-muted">Content</small>
+                            <textarea class="form-control soapField {{ $datum->assessment == "" ? 'text-danger' : ((isset($carryOverBookings[0]->assessment) && $datum->doctor_id == $carryOverBookings[0]->doctor_id && $carryOverBookings[0]->assessment == $datum->assessment) ? 'text-warning' : '') }}" name="{{ $viewFolder }}[assessment]" id="{{ $viewFolder }}_assessment" rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }} onchange="
+                              $('#{{ $viewFolder }}_diagnosis').val($(this).val());
+                              $('#{{ $viewFolder }}_parent_diagnosis_hidden').val($(this).val());
+                              $('#{{ $viewFolder }}_pre_op_diagnosis').val($(this).val());
+                              $('#{{ $viewFolder }}_parent_pre_op_diagnosis_hidden').val($(this).val());
+                            ">{{ isset($datum->assessment) ? $datum->assessment : (isset($carryOverBookings[0]->assessment) && $datum->doctor_id == $carryOverBookings[0]->doctor_id ? $carryOverBookings[0]->assessment : '') }}</textarea>
+                            <small class="{{ $datum->assessment == "" ? 'text-danger' : ((isset($carryOverBookings[0]->assessment) && $datum->doctor_id == $carryOverBookings[0]->doctor_id && $carryOverBookings[0]->assessment == $datum->assessment) ? 'text-warning' : '') }} mb-3">@if(($datum->assessment == "" && isset($carryOverBookings[0]->assessment)) || (isset($carryOverBookings[0]->assessment) && $datum->doctor_id == $carryOverBookings[0]->doctor_id && $carryOverBookings[0]->assessment == $datum->assessment))[carry over from {{ $carryOverBookings[0]->booking_type == '' ? 'Consultation' : $carryOverBookings[0]->booking_type }} booking last {{ $carryOverBookings[0]->bookingDate }}]@endif</small><br>
+                            <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
+                            {{-- <small class="text-muted">Helper Save/Edit</small>
+                            <div class="input-group input-group-small mb-3 flex-nowrap">
+                              <div class="input-group-text">
+                                <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                              </div>
+                              <input type="text" class="form-control" id="{{ $viewFolder }}_assessmentTitle" name="{{ $viewFolder }}[assessmentTitle]" disabled>
+                              <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                            </div>
+                            <textarea class="form-control mb-2" name="{{ $viewFolder }}[_assessmentEdit]" id="{{ $viewFolder }}_assessmentEdit" rows=3 disabled></textarea> --}}
+                          </div>
+                        </div>
+                        <div class="card mb-3">
+                          <div class="card-header">Discharge Diagnosis (Post-Operative Diagnosis)</div>
+                          <div class="card-body">
+                            {{-- <small class="text-muted">Helper</small>
+                            <div class="input-group input-group-small flex-nowrap">
+                              <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                                <option value=""></option>
+                              </select>
+                              <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
+                            </div> --}}
+                            <small class="text-muted">Content</small>
+                            <textarea class="form-control soapField {{ $datum->post_op_assessment == "" ? 'text-danger' : ((isset($carryOverBookingsPostOp[0]->post_op_assessment) && $datum->doctor_id == $carryOverBookingsPostOp[0]->doctor_id && $carryOverBookingsPostOp[0]->post_op_assessment == $datum->post_op_assessment) ? 'text-warning' : '') }}" name="{{ $viewFolder }}[post_op_assessment]" id="{{ $viewFolder }}_post_op_assessment" rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }} onchange="
+                              $('#{{ $viewFolder }}_post_op_diagnosis').val($(this).val());
+                              $('#{{ $viewFolder }}_parent_post_op_diagnosis_hidden').val($(this).val());
+                            ">{{ isset($datum->post_op_assessment) ? $datum->post_op_assessment : (isset($carryOverBookingsPostOp[0]->post_op_assessment) && $datum->doctor_id == $carryOverBookingsPostOp[0]->doctor_id ? $carryOverBookingsPostOp[0]->post_op_assessment : '') }}</textarea>
+                            <small class="{{ $datum->post_op_assessment == "" ? 'text-danger' : ((isset($carryOverBookingsPostOp[0]->post_op_assessment) && $datum->doctor_id == $carryOverBookingsPostOp[0]->doctor_id && $carryOverBookingsPostOp[0]->post_op_assessment == $datum->post_op_assessment) ? 'text-warning' : '') }} mb-3">@if(($datum->post_op_assessment == "" && isset($carryOverBookingsPostOp[0]->post_op_assessment)) || (isset($carryOverBookingsPostOp[0]->post_op_assessment) && $datum->doctor_id == $carryOverBookingsPostOp[0]->doctor_id && $carryOverBookingsPostOp[0]->post_op_assessment == $datum->post_op_assessment))[carry over from {{ $carryOverBookingsPostOp[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPostOp[0]->booking_type }} booking last {{ $carryOverBookingsPostOp[0]->bookingDate }}]@endif</small><br>
+                            <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
+                            {{-- <small class="text-muted">Helper Save/Edit</small>
+                            <div class="input-group input-group-small mb-3 flex-nowrap">
+                              <div class="input-group-text">
+                                <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                              </div>
+                              <input type="text" class="form-control" id="{{ $viewFolder }}_post_op_assessmentTitle" name="{{ $viewFolder }}[post_op_assessmentTitle]" disabled>
+                              <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                            </div>
+                            <textarea class="form-control mb-2" name="{{ $viewFolder }}[_post_op_assessmentEdit]" id="{{ $viewFolder }}_post_op_assessmentEdit" rows=3 disabled></textarea> --}}
+                          </div>
                         </div>
                       </div>
-                      {{-- @endif --}}
-                      
+                    </div>
+                    <div class="card soapDiv soapDivPlan mb-3" style="display:none" id="{{ $viewFolder }}_SOAPCURR_{{ $datum->id }}_PLAN">
+                      <div class="card-header">Plan</div>
+                      <div class="card-body">
+                        @if($datum->booking_type != 'Dialysis')
+                        <div class="card mb-3">
+                          <div class="card-header">Medical Therapeutics</div>
+                          <div class="card-body">
+                            {{-- <small class="text-muted">Helper</small>
+                            <div class="input-group input-group-small flex-nowrap">
+                              <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                                <option value=""></option>
+                              </select>
+                              <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
+                            </div> --}}
+                            {{-- <small class="text-muted">Content</small>
+                            <textarea class="form-control soapField {{ $datum->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed) ? 'text-warning' : '') }}" name="{{ $viewFolder }}[planMed]" id="{{ $viewFolder }}_planMed" rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }}>{{ isset($datum->planMed) ? $datum->planMed : (isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id ? $carryOverBookingsPlanMed[0]->planMed : '') }}</textarea>
+                            <small class="{{ $datum->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed) ? 'text-warning' : '') }} mb-3">@if(($datum->planMed == "" && isset($carryOverBookingsPlanMed[0]->planMed)) || (isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed))[carry over from {{ $carryOverBookingsPlanMed[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlanMed[0]->booking_type }} booking last {{ $carryOverBookingsPlanMed[0]->bookingDate }}]@endif</small><br>
+                            <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br> --}}
+                            {{-- <small class="text-muted">Helper Save/Edit</small>
+                            <div class="input-group input-group-small mb-3 flex-nowrap">
+                              <div class="input-group-text">
+                                <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                              </div>
+                              <input type="text" class="form-control" id="{{ $viewFolder }}_planMedTitle" name="{{ $viewFolder }}[planMedTitle]" disabled>
+                              <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                            </div>
+                            <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planMedEdit]" id="{{ $viewFolder }}_planMedEdit" rows=3 disabled></textarea> --}}
+                            <label class="form-label" for="{{ $viewFolder }}_medication_given_recovery">Medication Given in Recovery</label>
+                            <textarea class="form-control soapField mb-3" name="{{ $viewFolder }}[PrintableForm][medication_given_recovery]" id="{{ $viewFolder }}_medication_given_recovery" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3>{{ isset($datum->printable_form['medication_given_recovery']) ? $datum->printable_form['medication_given_recovery'] : '' }}</textarea>
+                            <label class="form-label" for="{{ $viewFolder }}_discharge_medication">Discharge Medications (dose, frequency, duration)</label>
+                            <textarea class="form-control soapField mb-3" name="{{ $viewFolder }}[PrintableForm][discharge_medication]" id="{{ $viewFolder }}_discharge_medication" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3>{{ isset($datum->printable_form['discharge_medication']) ? $datum->printable_form['discharge_medication'] : '' }}</textarea>
+                          </div>
+                        </div>
+                        <div class="card mb-3">
+                          <div class="card-header">Surgery (Procedure Performed)</div>
+                          <div class="card-body">
+                            {{-- <small class="text-muted">Helper</small>
+                            <div class="input-group input-group-small flex-nowrap">
+                              <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                                <option value=""></option>
+                              </select>
+                              <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
+                            </div> --}}
+                            <small class="text-muted">Content</small>
+                            <textarea class="form-control soapField {{ $datum->plan == "" ? 'text-danger' : ((isset($carryOverBookingsPlan[0]->plan) && $datum->doctor_id == $carryOverBookingsPlan[0]->doctor_id && $carryOverBookingsPlan[0]->plan == $datum->plan) ? 'text-warning' : '') }}" name="{{ $viewFolder }}[plan]" id="{{ $viewFolder }}_plan" rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }}>{{ isset($datum->plan) ? $datum->plan : (isset($carryOverBookingsPlan[0]->plan) && $datum->doctor_id == $carryOverBookingsPlan[0]->doctor_id ? $carryOverBookingsPlan[0]->plan : '') }}</textarea>
+                            <small class="{{ $datum->plan == "" ? 'text-danger' : ((isset($carryOverBookingsPlan[0]->plan) && $datum->doctor_id == $carryOverBookingsPlan[0]->doctor_id && $carryOverBookingsPlan[0]->plan == $datum->plan) ? 'text-warning' : '') }} mb-3">@if(($datum->plan == "" && isset($carryOverBookingsPlan[0]->plan)) || (isset($carryOverBookingsPlan[0]->plan) && $datum->doctor_id == $carryOverBookingsPlan[0]->doctor_id && $carryOverBookingsPlan[0]->plan == $datum->plan))[carry over from {{ $carryOverBookingsPlan[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlan[0]->booking_type }} booking last {{ $carryOverBookingsPlan[0]->bookingDate }}]@endif</small><br>
+                            <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
+                            {{-- <small class="text-muted">Helper Save/Edit</small>
+                            <div class="input-group input-group-small mb-3 flex-nowrap">
+                              <div class="input-group-text">
+                                <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                              </div>
+                              <input type="text" class="form-control" id="{{ $viewFolder }}_planTitle" name="{{ $viewFolder }}[planTitle]" disabled>
+                              <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                            </div>
+                            <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planEdit]" id="{{ $viewFolder }}_planEdit" rows=3 disabled></textarea> --}}
+                          </div>
+                        </div>
+                        <div class="card mb-3">
+                          <div class="card-header">Admitting Orders</div>
+                          <div class="card-body">
+                            <label for="{{ $viewFolder }}_additional_orders" class="form-label">Additional Peri-Operative Orders</label>
+                            <textarea class="form-control soapField mb-3" name="{{ $viewFolder }}[PrintableForm][additional_orders]" id="{{ $viewFolder }}_additional_orders" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3>{{ isset($datum->printable_form['additional_orders']) ? $datum->printable_form['additional_orders'] : '' }}</textarea>
+                            <label for="{{ $viewFolder }}_operative_technique" class="form-label">Operative Technique</label>
+                            <textarea class="form-control soapField" name="{{ $viewFolder }}[PrintableForm][operative_tech]" id="{{ $viewFolder }}_operative_technique" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3>{{ isset($datum->printable_form['operative_tech']) ? $datum->printable_form['operative_tech'] : '' }}</textarea>
+                          </div>
+                        </div>
+                        <div class="card mb-3">
+                          <div class="card-header">Post-Operative Care/Home Care Instructions</div>
+                          <div class="card-body">
+                            <label for="{{ $viewFolder }}_after_proc" class="form-label">Things to expect after the procedure:</label>
+                            <textarea class="form-control soapField" name="{{ $viewFolder }}[PrintableForm][after_proc]" id="{{ $viewFolder }}_after_proc" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3>{{ isset($datum->printable_form['after_proc']) ? $datum->printable_form['after_proc'] : '' }}</textarea>
+                            <label for="{{ $viewFolder }}_things_watch_out" class="form-label mt-3">Things to watch out for:</label>
+                            <textarea class="form-control soapField" name="{{ $viewFolder }}[PrintableForm][things_watch_out]" id="{{ $viewFolder }}_things_watch_out" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3>{{ isset($datum->printable_form['things_watch_out']) ? $datum->printable_form['things_watch_out'] : '' }}</textarea>
+                            <small id="help_{{ $viewFolder }}_things_watch_out" class="text-muted"></small>
+
+                            <label for="{{ $viewFolder }}_things_avoid" class="form-label mt-3">Things to avoid:</label>
+                            <textarea class="form-control soapField" name="{{ $viewFolder }}[PrintableForm][things_avoid]" id="{{ $viewFolder }}_things_avoid" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3>{{ isset($datum->printable_form['things_avoid']) ? $datum->printable_form['things_avoid'] : '' }}</textarea>
+                            <small id="help_{{ $viewFolder }}_things_avoid" class="text-muted"></small>
+
+                            <label for="{{ $viewFolder }}_wound_care" class="form-label mt-3">Wound care:</label>
+                            <textarea class="form-control soapField" name="{{ $viewFolder }}[PrintableForm][wound_care]" id="{{ $viewFolder }}_wound_care" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3>{{ isset($datum->printable_form['wound_care']) ? $datum->printable_form['wound_care'] : '' }}</textarea>
+                            <small id="help_{{ $viewFolder }}_wound_care" class="text-muted"></small>
+
+                          </div>
+                        </div>
+                        
+                        @else
+                        <div class="card mb-3">
+                          <div class="card-header">Plan</div>
+                          <div class="card-body">
+                            {{-- <small class="text-muted">Helper</small>
+                            <div class="input-group input-group-small flex-nowrap">
+                              <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                                <option value=""></option>
+                              </select>
+                              <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
+                            </div> --}}
+                            <small class="text-muted">Content</small>
+                            <textarea class="form-control soapField {{ $datum->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed) ? 'text-warning' : '') }}" name="{{ $viewFolder }}[planMed]" id="{{ $viewFolder }}_planMed" rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }}>{{ isset($datum->planMed) ? $datum->planMed : (isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id ? $carryOverBookingsPlanMed[0]->planMed : '') }}</textarea>
+                            <small class="{{ $datum->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed) ? 'text-warning' : '') }} mb-3">@if(($datum->planMed == "" && isset($carryOverBookingsPlanMed[0]->planMed)) || (isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed))[carry over from {{ $carryOverBookingsPlanMed[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlanMed[0]->booking_type }} booking last {{ $carryOverBookingsPlanMed[0]->bookingDate }}]@endif</small><br>
+                            <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
+                            {{-- <small class="text-muted">Helper Save/Edit</small>
+                            <div class="input-group input-group-small mb-3 flex-nowrap">
+                              <div class="input-group-text">
+                                <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                              </div>
+                              <input type="text" class="form-control" id="{{ $viewFolder }}_planMedTitle" name="{{ $viewFolder }}[planMedTitle]" disabled>
+                              <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                            </div>
+                            <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planMedEdit]" id="{{ $viewFolder }}_planMedEdit" rows=3 disabled></textarea> --}}
+                          </div>
+                        </div>
+                        <div class="card mb-3">
+                          <div class="card-header">Current Meds Onboard</div>
+                          <div class="card-body">
+                            <div class="card mb-3">
+                              <div class="card-header">Add/Edit Entry</div>
+                              <div class="card-body">
+                                <div class="input-group mb-3">
+                                  <div class="form-floating">
+                                    <input class="form-control soapField" type="text" name="{{ $viewFolder }}[MedsOnboard][meds]" @if(!isset($referal_conso)) id="{{ $viewFolder }}_mo_meds" @endif value="" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }} onchange="
+                                      if($(this).val() != ''){
+                                        $('#{{ $viewFolder }}_mo_meds').prop('required', true);
+                                        $('#{{ $viewFolder }}_mo_dose').prop('required', true);
+                                        $('#{{ $viewFolder }}_mo_delivery').prop('required', true);
+                                        $('#{{ $viewFolder }}_mo_duration').prop('required', true);
+                                      }else{
+                                        $('#{{ $viewFolder }}_mo_meds').prop('required', false);
+                                        $('#{{ $viewFolder }}_mo_dose').prop('required', false);
+                                        $('#{{ $viewFolder }}_mo_delivery').prop('required', false);
+                                        $('#{{ $viewFolder }}_mo_duration').prop('required', false);
+                                      }
+                                      if($(this).val() != '' && $('#{{ $viewFolder }}_mo_meds').val() != '' && $('#{{ $viewFolder }}_mo_dose').val() != '' && $('#{{ $viewFolder }}_mo_delivery').val() != '' && $('#{{ $viewFolder }}_mo_duration').val() != '')
+                                        $('#addMedsOnboard{{ $datum->id }}').prop('disabled', false);
+                                      else
+                                        $('#addMedsOnboard{{ $datum->id }}').prop('disabled', true);
+                                    ">
+                                    <label for="{{ $viewFolder }}_notes_time" class="form-label">Meds</label>
+                                    <small id="help_{{ $viewFolder }}_notes_time" class="text-muted"></small>
+                                  </div>
+                                </div>
+                                <div class="input-group mb-3">
+                                  <div class="form-floating">
+                                    <input class="form-control soapField" type="text" name="{{ $viewFolder }}[MedsOnboard][dose]" @if(!isset($referal_conso)) id="{{ $viewFolder }}_mo_dose" @endif placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }} onchange="
+                                      if($('#{{ $viewFolder }}_mo_meds').val() != ''){
+                                        $('#{{ $viewFolder }}_mo_meds').prop('required', true);
+                                        $('#{{ $viewFolder }}_mo_dose').prop('required', true);
+                                        $('#{{ $viewFolder }}_mo_delivery').prop('required', true);
+                                        $('#{{ $viewFolder }}_mo_duration').prop('required', true);
+                                      }else{
+                                        $('#{{ $viewFolder }}_mo_meds').prop('required', false);
+                                        $('#{{ $viewFolder }}_mo_dose').prop('required', false);
+                                        $('#{{ $viewFolder }}_mo_delivery').prop('required', false);
+                                        $('#{{ $viewFolder }}_mo_duration').prop('required', false);
+                                      }
+                                      if($(this).val() != '' && $('#{{ $viewFolder }}_mo_meds').val() != '' && $('#{{ $viewFolder }}_mo_dose').val() != '' && $('#{{ $viewFolder }}_mo_delivery').val() != '' && $('#{{ $viewFolder }}_mo_duration').val() != '')
+                                        $('#addMedsOnboard{{ $datum->id }}').prop('disabled', false);
+                                      else
+                                        $('#addMedsOnboard{{ $datum->id }}').prop('disabled', true);
+                                    ">
+                                    
+                                    <label for="{{ $viewFolder }}_nurse_notes" class="form-label">Dose</label>
+                                    <small id="help_{{ $viewFolder }}_nurse_notes" class="text-muted"></small>
+                                  </div>
+                                </div>
+                                <div class="input-group mb-3">
+                                  <div class="form-floating">
+                                    <input class="form-control soapField" type="text" name="{{ $viewFolder }}[MedsOnboard][delivery]" @if(!isset($referal_conso)) id="{{ $viewFolder }}_mo_delivery" @endif placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }} onchange="
+                                      if($('#{{ $viewFolder }}_mo_meds').val() != ''){
+                                        $('#{{ $viewFolder }}_mo_meds').prop('required', true);
+                                        $('#{{ $viewFolder }}_mo_dose').prop('required', true);
+                                        $('#{{ $viewFolder }}_mo_delivery').prop('required', true);
+                                        $('#{{ $viewFolder }}_mo_duration').prop('required', true);
+                                      }else{
+                                        $('#{{ $viewFolder }}_mo_meds').prop('required', false);
+                                        $('#{{ $viewFolder }}_mo_dose').prop('required', false);
+                                        $('#{{ $viewFolder }}_mo_delivery').prop('required', false);
+                                        $('#{{ $viewFolder }}_mo_duration').prop('required', false);
+                                      }
+                                      if($(this).val() != '' && $('#{{ $viewFolder }}_mo_meds').val() != '' && $('#{{ $viewFolder }}_mo_dose').val() != '' && $('#{{ $viewFolder }}_mo_delivery').val() != '' && $('#{{ $viewFolder }}_mo_duration').val() != '')
+                                        $('#addMedsOnboard{{ $datum->id }}').prop('disabled', false);
+                                      else
+                                        $('#addMedsOnboard{{ $datum->id }}').prop('disabled', true);
+                                    ">
+                                    
+                                    <label for="{{ $viewFolder }}_nurse_notes" class="form-label">Delivery</label>
+                                    <small id="help_{{ $viewFolder }}_nurse_notes" class="text-muted"></small>
+                                  </div>
+                                </div>
+                                <div class="input-group mb-3">
+                                  <div class="form-floating">
+                                    <input class="form-control soapField" type="text" name="{{ $viewFolder }}[MedsOnboard][duration]" @if(!isset($referal_conso)) id="{{ $viewFolder }}_mo_duration" @endif placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }} onchange="
+                                      if($('#{{ $viewFolder }}_mo_meds').val() != ''){
+                                        $('#{{ $viewFolder }}_mo_meds').prop('required', true);
+                                        $('#{{ $viewFolder }}_mo_dose').prop('required', true);
+                                        $('#{{ $viewFolder }}_mo_delivery').prop('required', true);
+                                        $('#{{ $viewFolder }}_mo_duration').prop('required', true);
+                                      }else{
+                                        $('#{{ $viewFolder }}_mo_meds').prop('required', false);
+                                        $('#{{ $viewFolder }}_mo_dose').prop('required', false);
+                                        $('#{{ $viewFolder }}_mo_delivery').prop('required', false);
+                                        $('#{{ $viewFolder }}_mo_duration').prop('required', false);
+                                      }
+                                      if($(this).val() != '' && $('#{{ $viewFolder }}_mo_meds').val() != '' && $('#{{ $viewFolder }}_mo_dose').val() != '' && $('#{{ $viewFolder }}_mo_delivery').val() != '' && $('#{{ $viewFolder }}_mo_duration').val() != '')
+                                        $('#addMedsOnboard{{ $datum->id }}').prop('disabled', false);
+                                      else
+                                        $('#addMedsOnboard{{ $datum->id }}').prop('disabled', true);
+                                    ">
+                                    
+                                    <label for="{{ $viewFolder }}_nurse_notes" class="form-label">Duration</label>
+                                    <small id="help_{{ $viewFolder }}_nurse_notes" class="text-muted"></small>
+                                  </div>
+                                </div>
+                                <input type="hidden" class="form-control" @if(!isset($referal_conso)) id="{{ $viewFolder }}_mo_id" @endif name="{{ $viewFolder }}[MedsOnboard][id]" value="">
+                              </div>
+                              <div class="card-footer">
+                                <button id="{{ !isset($referal_conso)  ? 'addMedsOnboard' . $datum->id : '' }}" type="button" class="addNurseNotesLog soapField btn btn-{{ $bgColor }} btn-sm" disabled onclick="
+                                  $('#doctors_home_submit_type').val('Pause');
+                                  $.ajax({
+                                    type: 'POST',
+                                    data: $('#bookMod').serialize(),
+                                    url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
+                                    success:
+                                    function (){
+                                        $.ajax({
+                                          type: 'GET',
+                                          url: '{{ Route::has($viewFolder . '.getMedsOnboardTable') ? route($viewFolder . '.getMedsOnboardTable', $datum->id) : '' }}',
+                                          success:
+                                          function (data){
+                                            medObj = jQuery.parseJSON(data);
+                                            var tr;
+                                            medObj.forEach(function (item, index){
+                                              tr += '<tr id=\'' + item.id + '\' log=\'medsOnboards\'><td><div class=\'d-sm-flex flex-sm-row\'><div class=\'m-1\'><button type=\'submit\' class=\'btn btn-{{ $bgColor }} btn-sm w-100 rowBtnEdit\'><i class=\'bi bi-pencil\'></i><span class=\'ps-1 d-sm-none\'>Edit</span></button></div><div class=\'m-1\'><button type=\'submit\' class=\'btn btn-{{ $bgColor }} btn-sm w-100 rowBtnDel\'><i class=\'bi bi-trash\'></i><span class=\'ps-1 d-sm-none\'>Delete</span></button></div></div></td><td>' + item.meds + '</td><td>' + item.dose + '</td><td>' + item.delivery + '</td><td>' + item.duration + '</td></tr>';
+                                            });
+                                            $('#medsOnboardTable{{ $datum->id }}').html(tr);
+                                          }
+                                        });
+                                        $('#{{ $viewFolder }}_mo_meds').val('')
+                                        $('#{{ $viewFolder }}_mo_dose').val('');
+                                        $('#{{ $viewFolder }}_mo_delivery').val('');
+                                        $('#{{ $viewFolder }}_mo_duration').val('');
+                                        $('#{{ $viewFolder }}_mo_dose').prop('required', false);
+                                        $('#{{ $viewFolder }}_mo_delivery').prop('required', false);
+                                        $('#{{ $viewFolder }}_mo_duration').prop('required', false);
+                                        $('#medsOnboardTable{{ $datum->id }}').prop('disabled', true);
+                                    }
+                                  });
+
+                                ">Add/Edit Meds Onboard</button>
+                              </div>
+                            </div>
+                            <div class="card-body table-responsive" style="max-height: 300px">
+                              <table class="table table-bordered table-striped table-hover table-sm medsOn">
+                                <thead class="table-{{ $bgColor }}">
+                                  <tr>
+                                    <th class=""><i class="bi bi-gear"></i></th>
+                                    <th>Meds</th>
+                                    <th>Dose</th>
+                                    <th>Delivery</th>
+                                    <th>Duration</th>
+                                  </tr>
+                                </thead>
+                                <tbody id="{{ !isset($referal_conso)  ? 'medsOnboardTable' . $datum->id : '' }}">
+                                @foreach ($datum->consultation_meds_onboards()->orderBy('id', 'desc')->get() as $dat)
+                                  <tr id="{{ $dat->id }}" log="medsOnboards">
+                                      <td>
+                                        <div class="d-sm-flex flex-sm-row">
+                                          <div class="m-1"><button type="submit" class="btn btn-{{ $bgColor }} btn-sm w-100 rowBtnEdit"><i class="bi bi-pencil"></i><span class="ps-1 d-sm-none">Edit</span></button></div>
+                                          <div class="m-1"><button type="submit" class="btn btn-{{ $bgColor }} btn-sm w-100 rowBtnDel"><i class="bi bi-trash"></i><span class="ps-1 d-sm-none">Delete</span></button></div>
+                                        </div>
+                                      </td>
+                                      <td>{{ $dat->meds }}</td>
+                                      <td>{{ $dat->dose }}</td>
+                                      <td>{{ $dat->delivery }}</td>
+                                      <td>{{ $dat->duration }}</td>
+                                  </tr>
+                                @endforeach
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                        @endif
+                      </div>
                     </div>
                   </div>
                   <div class="card mb-3">
-                    <div class="card-header">Objective Findings</div>
+                    <div class="card-header">Remarks</div>
                     <div class="card-body">
-                      @if(stristr($datum->doctor->specialty, 'Ophtha') && $datum->booking_type != "Dialysis")
-                      <div class="card mb-3">
-                        <div class="card-header">Eye Examination Information</div>
-                        <div class="card-body">
-                          {{-- <p>
-                            <strong>AR OD:</strong> <span class="text-primary">{{ $datum->arod_sphere != 'No Target' ? ($datum->arod_sphere > 0 ? '+' . $datum->arod_sphere : $datum->arod_sphere) . ' - ' . ($datum->arod_cylinder > 0 ? '+' . $datum->arod_cylinder : $datum->arod_cylinder) . ' x ' . $datum->arod_axis : 'No Refraction Possible' }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                            <strong>AR OS:</strong> <span class="text-primary">{{ $datum->aros_sphere != 'No Target' ? ($datum->aros_sphere > 0 ? '+' . $datum->aros_sphere : $datum->aros_sphere) . ' - ' . ($datum->aros_cylinder > 0 ? '+' . $datum->aros_cylinder : $datum->aros_cylinder) . ' x ' . $datum->aros_axis : 'No Refraction Possible' }}</span><br>
-                            <strong>UCVA OD:</strong> <span class="text-primary">{{ $datum->vaod_den != '' ? $datum->vaod_num . ' / ' . $datum->vaod_den : $datum->vaod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                            <strong>UCVA OD Present Correction:</strong> <span class="text-primary">{{ $datum->vaodcor_den != '' ? $datum->vaodcor_num . ' / ' . $datum->vaodcor_den : $datum->vaodcor_num }}</span><br>
-                            <strong>UCVA OS:</strong> <span class="text-primary">{{ $datum->vaos_den != '' ? $datum->vaos_num . ' / ' . $datum->vaos_den : $datum->vaos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                            <strong>UCVA OS Present Correction:</strong> <span class="text-primary">{{ $datum->vaoscor_den != '' ? $datum->vaoscor_num . ' / ' . $datum->vaoscor_den : $datum->vaoscor_num }}</span><br>
-                            <strong>VA OD Pinhole:</strong> <span class="text-primary">{{ $datum->pinod_den != '' ? $datum->pinod_num . ' / ' . $datum->pinod_den : $datum->pinod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                            <strong>BCVA OD:</strong> <span class="text-primary">{{ $datum->pinodcor_den != '' ? $datum->pinodcor_num . ' / ' . $datum->pinodcor_den : $datum->pinodcor_num }}</span><br>
-                            <strong>VA OS Pinhole:</strong> <span class="text-primary">{{ $datum->pinos_den != '' ? $datum->pinos_num . ' / ' . $datum->pinos_den : $datum->pinos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                            <strong>BCVA OS:</strong> <span class="text-primary">{{ $datum->pinoscor_den != '' ? $datum->pinoscor_num . ' / ' . $datum->pinoscor_den : $datum->pinoscor_num }}</span><br>
-                            <strong>Jaeger OU:</strong> <span class="text-primary">{{ $datum->jae_ou }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                            <strong>Jaeger OD:</strong> <span class="text-primary">{{ $datum->jae_od }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                            <strong>Jaeger OS:</strong> <span class="text-primary">{{ $datum->jae_os }}</span><br>
-                            <strong>IOP OD:</strong> <span class="text-primary">{{ $datum->iopod }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
-                            <strong>IOP OS:</strong> <span class="text-primary">{{ $datum->iopos }}</span>
-                          </p> --}}
-                          <table class="table table-bordered table-striped table-hover table-sm">
-                            <thead class="table-{{ $bgColor }}">
-                                <tr>
-                                    <th>&nbsp;</th>
-                                    <th>OD</th>
-                                    <th>OS</th>
-                                    <th>OU</th>
-                                </tr>
-                            </thead>
-                            <tbody id="prevEyerSum">
-                              <tr>
-                                  <td>AR</td>
-                                  <td>{{ $datum->arod_sphere != 'No Target' ? ( $datum->arod_sphere > 0 ? '+' . $datum->arod_sphere : $datum->arod_sphere ) . ' - ' . ( $datum->arod_cylinder > 0 ? '+' . $datum->arod_cylinder : $datum->arod_cylinder ) . ' x ' . $datum->arod_axis : 'No Refraction Possible' }}</td>
-                                  <td>{{ $datum->aros_sphere != 'No Target' ? ( $datum->aros_sphere > 0 ? '+' . $datum->aros_sphere : $datum->aros_sphere ) . ' - ' . ( $datum->aros_cylinder > 0 ? '+' . $datum->aros_cylinder : $datum->aros_cylinder ) . ' x ' . $datum->aros_axis : 'No Refraction Possible' }}</td>
-                                  <td>&nbsp;</td>
-                              </tr>
-                              <tr>
-                                  <td>UCVA</td>
-                                  <td>{{ $datum->vaod_den != '' ? $datum->vaod_num . ' / ' . $datum->vaod_den : $datum->vaod_num }}</td>
-                                  <td>{{ $datum->vaos_den != '' ? $datum->vaos_num . ' / ' . $datum->vaos_den : $datum->vaos_num }}</td>
-                                  <td>&nbsp;</td>
-                              </tr>
-                              <tr>
-                                  <td>UCVA Present Correction</td>
-                                  <td>{{ $datum->vaodcor_den != '' ? $datum->vaodcor_num . ' / ' . $datum->vaodcor_den : $datum->vaodcor_num }}</td>
-                                  <td>{{ $datum->vaoscor_den != '' ? $datum->vaoscor_num . ' / ' . $datum->vaoscor_den : $datum->vaoscor_num }}</td>
-                                  <td>&nbsp;</td>
-                              </tr>
-                              <tr>
-                                  <td>VA Pinhole</td>
-                                  <td>{{ $datum->pinod_den != '' ? $datum->pinod_num . ' / ' . $datum->pinod_den : $datum->pinod_num }}</td>
-                                  <td>{{ $datum->pinos_den != '' ? $datum->pinos_num . ' / ' . $datum->pinos_den : $datum->pinos_num }}</td>
-                                  <td>&nbsp;</td>
-                              </tr>
-                              <tr>
-                                  <td>BCVA</td>
-                                  <td>{{ $datum->pinodcor_den != '' ? $datum->pinodcor_num . ' / ' . $datum->pinodcor_den : $datum->pinodcor_num }}</td>
-                                  <td>{{ $datum->pinoscor_den != '' ? $datum->pinoscor_num . ' / ' . $datum->pinoscor_den : $datum->pinoscor_num }}</td>
-                                  <td>&nbsp;</td>
-                              </tr>
-                              <tr>
-                                  <td>Jaeger</td>
-                                  <td>{{ $datum->jae_od }}</td>
-                                  <td>{{ $datum->jae_os }}</td>
-                                  <td>{{ $datum->jae_ou }}</td>
-                              </tr>
-                              <tr>
-                                  <td>IOP</td>
-                                  <td>{{ $datum->iopod }}</td>
-                                  <td>{{ $datum->iopos }}</td>
-                                  <td>&nbsp;</td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                      @endif
                       {{-- <small class="text-muted">Helper</small>
                       <div class="input-group input-group-small flex-nowrap">
                         <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
@@ -8100,368 +9162,18 @@
                         <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
                       </div> --}}
                       <small class="text-muted">Content</small>
-                      <textarea class="form-control" name="{{ $viewFolder }}[docNotes]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_docNotes" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }} onchange="
-                        $('#{{ $viewFolder }}_findings').val($(this).val());
-                      ">{{ isset($datum->docNotes) ? $datum->docNotes : '' }}</textarea>
+                      <textarea class="form-control soapField {{ $datum->planRem == "" ? 'text-danger' : ((isset($carryOverBookingsPlanRem[0]->planRem) && $datum->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id && $carryOverBookingsPlanRem[0]->planRem == $datum->planRem) ? 'text-warning' : '') }}" name="{{ $viewFolder }}[planRem]" id="{{ $viewFolder }}_planRem" rows=3 {{ !isset($referal_conso)  ? '' : 'disabled' }}>{{ isset($datum->planRem) ? $datum->planRem : (isset($carryOverBookingsPlanRem[0]->planRem) && $datum->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id ? $carryOverBookingsPlanRem[0]->planRem : '') }}</textarea>
+                      <small class="{{ $datum->planRem == "" ? 'text-danger' : ((isset($carryOverBookingsPlanRem[0]->planRem) && $datum->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id && $carryOverBookingsPlanRem[0]->planRem == $datum->planRem) ? 'text-warning' : '') }} mb-3">@if(($datum->planRem == "" && isset($carryOverBookingsPlanRem[0]->planRem)) || (isset($carryOverBookingsPlanRem[0]->planRem) && $datum->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id && $carryOverBookingsPlanRem[0]->planRem == $datum->planRem))[carry over from {{ $carryOverBookingsPlanRem[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlanRem[0]->booking_type }} booking last {{ $carryOverBookingsPlanRem[0]->bookingDate }}]@endif</small><br>
+                      <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
                       {{-- <small class="text-muted">Helper Save/Edit</small>
                       <div class="input-group input-group-small mb-3 flex-nowrap">
                         <div class="input-group-text">
                           <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
                         </div>
-                        <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesTitle" name="{{ $viewFolder }}[docNotesTitle]" disabled>
+                        <input type="text" class="form-control" id="{{ $viewFolder }}_planRemTitle" name="{{ $viewFolder }}[planRemTitle]" disabled>
                         <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                       </div>
-                      <textarea class="form-control mb-2" name="{{ $viewFolder }}[_docNotesEdit]" id="{{ $viewFolder }}_docNotesEdit" rows=3 disabled></textarea> --}}
-                    </div>
-                  </div>
-                  <div class="card mb-3">
-                    <div class="card-header">Assessment</div>
-                    <div class="card-body">
-                      <div class="form-floating mb-3">
-                        {{-- <select class="form-select" name="{{ $viewFolder }}[icd_code]" id="{{ $viewFolder }}_icd_code" placeholder="" {{ $user->id == $datum->doctor->id ? '' : 'disabled' }}>
-                          <option value=""></option>
-                        </select> --}}
-                        <input class="form-control {{ !isset($datum->icd_code_obj->icd_code) ? 'text-danger' : ((isset($carryOverBookingsICD[0]->icd_code_obj->icd_code) && $datum->doctor_id == $carryOverBookingsICD[0]->doctor_id && $carryOverBookingsICD[0]->icd_code_obj->icd_code == $datum->icd_code_obj->icd_code) ? 'text-warning' : '') }}" list="icdCodeList" {{ !isset($referal_conso) ? 'id=' . $viewFolder . '_icd_code' : '' }} name="{{ $viewFolder }}[icd_code]" value="{{ isset($datum->icd_code_obj->icd_code) ? $datum->icd_code_obj->icd_code . ' - ' . $datum->icd_code_obj->details : (isset($carryOverBookingsICD[0]->icd_code_obj) && $datum->doctor_id == $carryOverBookingsICD[0]->doctor_id ? $carryOverBookingsICD[0]->icd_code_obj->icd_code . ' - ' . $carryOverBookingsICD[0]->icd_code_obj->details : '') }}" autocomplete="off" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
-                        <label for="{{ $viewFolder }}_icd_code">Primary Diagnosis</label>
-                        {{-- <small class="{{ !isset($datum->icd_code_obj->icd_code) ? 'text-danger' : ((isset($carryOverBookingsICD[0]->icd_code_obj->icd_code) && $datum->doctor_id == $carryOverBookingsICD[0]->doctor_id && $carryOverBookingsICD[0]->icd_code_obj->icd_code == $datum->icd_code_obj->icd_code) ? 'text-warning' : '') }} mb-3">@if(!isset($datum->icd_code_obj->icd_code) || (isset($datum->icd_code_obj->icd_code) && $datum->icd_code_obj->icd_code == "" && isset($carryOverBookingsICD[0]->icd_code_obj->icd_code)) || (isset($datum->icd_code_obj->icd_code) && $datum->doctor_id == $carryOverBookingsICD[0]->doctor_id && isset($carryOverBookingsICD[0]->icd_code_obj->icd_code) && $carryOverBookingsICD[0]->icd_code_obj->icd_code == $datum->icd_code_obj->icd_code))[carry over from {{ $carryOverBookingsICD[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsICD[0]->booking_type }} booking last {{ $carryOverBookingsICD[0]->bookingDate }}]@endif</small><br> --}}
-                        <small id="help_{{ $viewFolder }}_icd_code" class="text-muted">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small>
-                      </div>
-                      <div class="card mb-3">
-                        <div class="card-header">Secondary Diagnosis</div>
-                        <div class="card-body">
-                          {{-- <small class="text-muted">Helper</small>
-                          <div class="input-group input-group-small flex-nowrap">
-                            <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
-                              <option value=""></option>
-                            </select>
-                            <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
-                          </div> --}}
-                          <small class="text-muted">Content</small>
-                          <textarea class="form-control {{ $datum->assessment == "" ? 'text-danger' : ((isset($carryOverBookings[0]->assessment) && $datum->doctor_id == $carryOverBookings[0]->doctor_id && $carryOverBookings[0]->assessment == $datum->assessment) ? 'text-warning' : '') }}" name="{{ $viewFolder }}[assessment]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_assessment" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }} onchange="
-                            $('#{{ $viewFolder }}_diagnosis').val($(this).val());
-                            $('#{{ $viewFolder }}_parent_diagnosis_hidden').val($(this).val());
-                            $('#{{ $viewFolder }}_pre_op_diagnosis').val($(this).val());
-                            $('#{{ $viewFolder }}_parent_pre_op_diagnosis_hidden').val($(this).val());
-                          ">{{ isset($datum->assessment) ? $datum->assessment : (isset($carryOverBookings[0]->assessment) && $datum->doctor_id == $carryOverBookings[0]->doctor_id ? $carryOverBookings[0]->assessment : '') }}</textarea>
-                          <small class="{{ $datum->assessment == "" ? 'text-danger' : ((isset($carryOverBookings[0]->assessment) && $datum->doctor_id == $carryOverBookings[0]->doctor_id && $carryOverBookings[0]->assessment == $datum->assessment) ? 'text-warning' : '') }} mb-3">@if(($datum->assessment == "" && isset($carryOverBookings[0]->assessment)) || (isset($carryOverBookings[0]->assessment) && $datum->doctor_id == $carryOverBookings[0]->doctor_id && $carryOverBookings[0]->assessment == $datum->assessment))[carry over from {{ $carryOverBookings[0]->booking_type == '' ? 'Consultation' : $carryOverBookings[0]->booking_type }} booking last {{ $carryOverBookings[0]->bookingDate }}]@endif</small><br>
-                          <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
-                          {{-- <small class="text-muted">Helper Save/Edit</small>
-                          <div class="input-group input-group-small mb-3 flex-nowrap">
-                            <div class="input-group-text">
-                              <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
-                            </div>
-                            <input type="text" class="form-control" id="{{ $viewFolder }}_assessmentTitle" name="{{ $viewFolder }}[assessmentTitle]" disabled>
-                            <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
-                          </div>
-                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[_assessmentEdit]" id="{{ $viewFolder }}_assessmentEdit" rows=3 disabled></textarea> --}}
-                        </div>
-                      </div>
-                      <div class="card mb-3">
-                        <div class="card-header">Discharge Diagnosis (Post-op Diagnosis)</div>
-                        <div class="card-body">
-                          {{-- <small class="text-muted">Helper</small>
-                          <div class="input-group input-group-small flex-nowrap">
-                            <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
-                              <option value=""></option>
-                            </select>
-                            <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
-                          </div> --}}
-                          <small class="text-muted">Content</small>
-                          <textarea class="form-control {{ $datum->post_op_assessment == "" ? 'text-danger' : ((isset($carryOverBookingsPostOp[0]->post_op_assessment) && $datum->doctor_id == $carryOverBookingsPostOp[0]->doctor_id && $carryOverBookingsPostOp[0]->post_op_assessment == $datum->post_op_assessment) ? 'text-warning' : '') }}" name="{{ $viewFolder }}[post_op_assessment]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_post_op_assessment" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }} onchange="
-                            $('#{{ $viewFolder }}_post_op_diagnosis').val($(this).val());
-                            $('#{{ $viewFolder }}_parent_post_op_diagnosis_hidden').val($(this).val());
-                          ">{{ isset($datum->post_op_assessment) ? $datum->post_op_assessment : (isset($carryOverBookingsPostOp[0]->post_op_assessment) && $datum->doctor_id == $carryOverBookingsPostOp[0]->doctor_id ? $carryOverBookingsPostOp[0]->post_op_assessment : '') }}</textarea>
-                          <small class="{{ $datum->post_op_assessment == "" ? 'text-danger' : ((isset($carryOverBookingsPostOp[0]->post_op_assessment) && $datum->doctor_id == $carryOverBookingsPostOp[0]->doctor_id && $carryOverBookingsPostOp[0]->post_op_assessment == $datum->post_op_assessment) ? 'text-warning' : '') }} mb-3">@if(($datum->post_op_assessment == "" && isset($carryOverBookingsPostOp[0]->post_op_assessment)) || (isset($carryOverBookingsPostOp[0]->post_op_assessment) && $datum->doctor_id == $carryOverBookingsPostOp[0]->doctor_id && $carryOverBookingsPostOp[0]->post_op_assessment == $datum->post_op_assessment))[carry over from {{ $carryOverBookingsPostOp[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPostOp[0]->booking_type }} booking last {{ $carryOverBookingsPostOp[0]->bookingDate }}]@endif</small><br>
-                          <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
-                          {{-- <small class="text-muted">Helper Save/Edit</small>
-                          <div class="input-group input-group-small mb-3 flex-nowrap">
-                            <div class="input-group-text">
-                              <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
-                            </div>
-                            <input type="text" class="form-control" id="{{ $viewFolder }}_post_op_assessmentTitle" name="{{ $viewFolder }}[post_op_assessmentTitle]" disabled>
-                            <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
-                          </div>
-                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[_post_op_assessmentEdit]" id="{{ $viewFolder }}_post_op_assessmentEdit" rows=3 disabled></textarea> --}}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="card mb-3">
-                    <div class="card-header">Plan</div>
-                    <div class="card-body">
-                      @if($datum->booking_type != 'Dialysis')
-                      <div class="card mb-3">
-                        <div class="card-header">Medical Therapeutics</div>
-                        <div class="card-body">
-                          {{-- <small class="text-muted">Helper</small>
-                          <div class="input-group input-group-small flex-nowrap">
-                            <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
-                              <option value=""></option>
-                            </select>
-                            <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
-                          </div> --}}
-                          <small class="text-muted">Content</small>
-                          <textarea class="form-control {{ $datum->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed) ? 'text-warning' : '') }}" name="{{ $viewFolder }}[planMed]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_planMed" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }}>{{ isset($datum->planMed) ? $datum->planMed : (isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id ? $carryOverBookingsPlanMed[0]->planMed : '') }}</textarea>
-                          <small class="{{ $datum->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed) ? 'text-warning' : '') }} mb-3">@if(($datum->planMed == "" && isset($carryOverBookingsPlanMed[0]->planMed)) || (isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed))[carry over from {{ $carryOverBookingsPlanMed[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlanMed[0]->booking_type }} booking last {{ $carryOverBookingsPlanMed[0]->bookingDate }}]@endif</small><br>
-                          <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
-                          {{-- <small class="text-muted">Helper Save/Edit</small>
-                          <div class="input-group input-group-small mb-3 flex-nowrap">
-                            <div class="input-group-text">
-                              <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
-                            </div>
-                            <input type="text" class="form-control" id="{{ $viewFolder }}_planMedTitle" name="{{ $viewFolder }}[planMedTitle]" disabled>
-                            <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
-                          </div>
-                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planMedEdit]" id="{{ $viewFolder }}_planMedEdit" rows=3 disabled></textarea> --}}
-                        </div>
-                      </div>
-                      <div class="card mb-3">
-                        <div class="card-header">Diagnostics and Surgery</div>
-                        <div class="card-body">
-                          {{-- <small class="text-muted">Helper</small>
-                          <div class="input-group input-group-small flex-nowrap">
-                            <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
-                              <option value=""></option>
-                            </select>
-                            <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
-                          </div> --}}
-                          <small class="text-muted">Content</small>
-                          <textarea class="form-control {{ $datum->plan == "" ? 'text-danger' : ((isset($carryOverBookingsPlan[0]->plan) && $datum->doctor_id == $carryOverBookingsPlan[0]->doctor_id && $carryOverBookingsPlan[0]->plan == $datum->plan) ? 'text-warning' : '') }}" name="{{ $viewFolder }}[plan]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_plan" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }}>{{ isset($datum->plan) ? $datum->plan : (isset($carryOverBookingsPlan[0]->plan) && $datum->doctor_id == $carryOverBookingsPlan[0]->doctor_id ? $carryOverBookingsPlan[0]->plan : '') }}</textarea>
-                          <small class="{{ $datum->plan == "" ? 'text-danger' : ((isset($carryOverBookingsPlan[0]->plan) && $datum->doctor_id == $carryOverBookingsPlan[0]->doctor_id && $carryOverBookingsPlan[0]->plan == $datum->plan) ? 'text-warning' : '') }} mb-3">@if(($datum->plan == "" && isset($carryOverBookingsPlan[0]->plan)) || (isset($carryOverBookingsPlan[0]->plan) && $datum->doctor_id == $carryOverBookingsPlan[0]->doctor_id && $carryOverBookingsPlan[0]->plan == $datum->plan))[carry over from {{ $carryOverBookingsPlan[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlan[0]->booking_type }} booking last {{ $carryOverBookingsPlan[0]->bookingDate }}]@endif</small><br>
-                          <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
-                          {{-- <small class="text-muted">Helper Save/Edit</small>
-                          <div class="input-group input-group-small mb-3 flex-nowrap">
-                            <div class="input-group-text">
-                              <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
-                            </div>
-                            <input type="text" class="form-control" id="{{ $viewFolder }}_planTitle" name="{{ $viewFolder }}[planTitle]" disabled>
-                            <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
-                          </div>
-                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planEdit]" id="{{ $viewFolder }}_planEdit" rows=3 disabled></textarea> --}}
-                        </div>
-                      </div>
-                      <div class="card mb-3">
-                        <div class="card-header">Remarks</div>
-                        <div class="card-body">
-                          {{-- <small class="text-muted">Helper</small>
-                          <div class="input-group input-group-small flex-nowrap">
-                            <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
-                              <option value=""></option>
-                            </select>
-                            <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
-                          </div> --}}
-                          <small class="text-muted">Content</small>
-                          <textarea class="form-control {{ $datum->planRem == "" ? 'text-danger' : ((isset($carryOverBookingsPlanRem[0]->planRem) && $datum->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id && $carryOverBookingsPlanRem[0]->planRem == $datum->planRem) ? 'text-warning' : '') }}" name="{{ $viewFolder }}[planRem]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_planRem" @endif rows=3 {{ !isset($referal_conso)  ? '' : 'disabled' }}>{{ isset($datum->planRem) ? $datum->planRem : (isset($carryOverBookingsPlanRem[0]->planRem) && $datum->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id ? $carryOverBookingsPlanRem[0]->planRem : '') }}</textarea>
-                          <small class="{{ $datum->planRem == "" ? 'text-danger' : ((isset($carryOverBookingsPlanRem[0]->planRem) && $datum->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id && $carryOverBookingsPlanRem[0]->planRem == $datum->planRem) ? 'text-warning' : '') }} mb-3">@if(($datum->planRem == "" && isset($carryOverBookingsPlanRem[0]->planRem)) || (isset($carryOverBookingsPlanRem[0]->planRem) && $datum->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id && $carryOverBookingsPlanRem[0]->planRem == $datum->planRem))[carry over from {{ $carryOverBookingsPlanRem[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlanRem[0]->booking_type }} booking last {{ $carryOverBookingsPlanRem[0]->bookingDate }}]@endif</small><br>
-                          <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
-                          {{-- <small class="text-muted">Helper Save/Edit</small>
-                          <div class="input-group input-group-small mb-3 flex-nowrap">
-                            <div class="input-group-text">
-                              <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
-                            </div>
-                            <input type="text" class="form-control" id="{{ $viewFolder }}_planRemTitle" name="{{ $viewFolder }}[planRemTitle]" disabled>
-                            <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
-                          </div>
-                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planRemEdit]" id="{{ $viewFolder }}_planRemEdit" rows=3 disabled></textarea> --}}
-                        </div>
-                      </div>
-                      @else
-                      <div class="card mb-3">
-                        <div class="card-header">Plan</div>
-                        <div class="card-body">
-                          {{-- <small class="text-muted">Helper</small>
-                          <div class="input-group input-group-small flex-nowrap">
-                            <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
-                              <option value=""></option>
-                            </select>
-                            <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
-                          </div> --}}
-                          <small class="text-muted">Content</small>
-                          <textarea class="form-control {{ $datum->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed) ? 'text-warning' : '') }}" name="{{ $viewFolder }}[planMed]" @if($user->id == $datum->doctor->id) id="{{ $viewFolder }}_planMed" @endif rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }}>{{ isset($datum->planMed) ? $datum->planMed : (isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id ? $carryOverBookingsPlanMed[0]->planMed : '') }}</textarea>
-                          <small class="{{ $datum->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed) ? 'text-warning' : '') }} mb-3">@if(($datum->planMed == "" && isset($carryOverBookingsPlanMed[0]->planMed)) || (isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed))[carry over from {{ $carryOverBookingsPlanMed[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlanMed[0]->booking_type }} booking last {{ $carryOverBookingsPlanMed[0]->bookingDate }}]@endif</small><br>
-                          <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
-                          {{-- <small class="text-muted">Helper Save/Edit</small>
-                          <div class="input-group input-group-small mb-3 flex-nowrap">
-                            <div class="input-group-text">
-                              <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
-                            </div>
-                            <input type="text" class="form-control" id="{{ $viewFolder }}_planMedTitle" name="{{ $viewFolder }}[planMedTitle]" disabled>
-                            <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
-                          </div>
-                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planMedEdit]" id="{{ $viewFolder }}_planMedEdit" rows=3 disabled></textarea> --}}
-                        </div>
-                      </div>
-                      <div class="card mb-3">
-                        <div class="card-header">Current Meds Onboard</div>
-                        <div class="card-body">
-                          <div class="card mb-3">
-                            <div class="card-header">Add/Edit Entry</div>
-                            <div class="card-body">
-                              <div class="input-group mb-3">
-                                <div class="form-floating">
-                                  <input class="form-control" type="text" name="{{ $viewFolder }}[MedsOnboard][meds]" @if(!isset($referal_conso)) id="{{ $viewFolder }}_mo_meds" @endif value="" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }} onchange="
-                                    if($(this).val() != ''){
-                                      $('#{{ $viewFolder }}_mo_meds').prop('required', true);
-                                      $('#{{ $viewFolder }}_mo_dose').prop('required', true);
-                                      $('#{{ $viewFolder }}_mo_delivery').prop('required', true);
-                                      $('#{{ $viewFolder }}_mo_duration').prop('required', true);
-                                    }else{
-                                      $('#{{ $viewFolder }}_mo_meds').prop('required', false);
-                                      $('#{{ $viewFolder }}_mo_dose').prop('required', false);
-                                      $('#{{ $viewFolder }}_mo_delivery').prop('required', false);
-                                      $('#{{ $viewFolder }}_mo_duration').prop('required', false);
-                                    }
-                                    if($(this).val() != '' && $('#{{ $viewFolder }}_mo_meds').val() != '' && $('#{{ $viewFolder }}_mo_dose').val() != '' && $('#{{ $viewFolder }}_mo_delivery').val() != '' && $('#{{ $viewFolder }}_mo_duration').val() != '')
-                                      $('#addMedsOnboard{{ $datum->id }}').prop('disabled', false);
-                                    else
-                                      $('#addMedsOnboard{{ $datum->id }}').prop('disabled', true);
-                                  ">
-                                  <label for="{{ $viewFolder }}_notes_time" class="form-label">Meds</label>
-                                  <small id="help_{{ $viewFolder }}_notes_time" class="text-muted"></small>
-                                </div>
-                              </div>
-                              <div class="input-group mb-3">
-                                <div class="form-floating">
-                                  <input class="form-control" type="text" name="{{ $viewFolder }}[MedsOnboard][dose]" @if(!isset($referal_conso)) id="{{ $viewFolder }}_mo_dose" @endif placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }} onchange="
-                                    if($('#{{ $viewFolder }}_mo_meds').val() != ''){
-                                      $('#{{ $viewFolder }}_mo_meds').prop('required', true);
-                                      $('#{{ $viewFolder }}_mo_dose').prop('required', true);
-                                      $('#{{ $viewFolder }}_mo_delivery').prop('required', true);
-                                      $('#{{ $viewFolder }}_mo_duration').prop('required', true);
-                                    }else{
-                                      $('#{{ $viewFolder }}_mo_meds').prop('required', false);
-                                      $('#{{ $viewFolder }}_mo_dose').prop('required', false);
-                                      $('#{{ $viewFolder }}_mo_delivery').prop('required', false);
-                                      $('#{{ $viewFolder }}_mo_duration').prop('required', false);
-                                    }
-                                    if($(this).val() != '' && $('#{{ $viewFolder }}_mo_meds').val() != '' && $('#{{ $viewFolder }}_mo_dose').val() != '' && $('#{{ $viewFolder }}_mo_delivery').val() != '' && $('#{{ $viewFolder }}_mo_duration').val() != '')
-                                      $('#addMedsOnboard{{ $datum->id }}').prop('disabled', false);
-                                    else
-                                      $('#addMedsOnboard{{ $datum->id }}').prop('disabled', true);
-                                  ">
-                                  
-                                  <label for="{{ $viewFolder }}_nurse_notes" class="form-label">Dose</label>
-                                  <small id="help_{{ $viewFolder }}_nurse_notes" class="text-muted"></small>
-                                </div>
-                              </div>
-                              <div class="input-group mb-3">
-                                <div class="form-floating">
-                                  <input class="form-control" type="text" name="{{ $viewFolder }}[MedsOnboard][delivery]" @if(!isset($referal_conso)) id="{{ $viewFolder }}_mo_delivery" @endif placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }} onchange="
-                                    if($('#{{ $viewFolder }}_mo_meds').val() != ''){
-                                      $('#{{ $viewFolder }}_mo_meds').prop('required', true);
-                                      $('#{{ $viewFolder }}_mo_dose').prop('required', true);
-                                      $('#{{ $viewFolder }}_mo_delivery').prop('required', true);
-                                      $('#{{ $viewFolder }}_mo_duration').prop('required', true);
-                                    }else{
-                                      $('#{{ $viewFolder }}_mo_meds').prop('required', false);
-                                      $('#{{ $viewFolder }}_mo_dose').prop('required', false);
-                                      $('#{{ $viewFolder }}_mo_delivery').prop('required', false);
-                                      $('#{{ $viewFolder }}_mo_duration').prop('required', false);
-                                    }
-                                    if($(this).val() != '' && $('#{{ $viewFolder }}_mo_meds').val() != '' && $('#{{ $viewFolder }}_mo_dose').val() != '' && $('#{{ $viewFolder }}_mo_delivery').val() != '' && $('#{{ $viewFolder }}_mo_duration').val() != '')
-                                      $('#addMedsOnboard{{ $datum->id }}').prop('disabled', false);
-                                    else
-                                      $('#addMedsOnboard{{ $datum->id }}').prop('disabled', true);
-                                  ">
-                                  
-                                  <label for="{{ $viewFolder }}_nurse_notes" class="form-label">Delivery</label>
-                                  <small id="help_{{ $viewFolder }}_nurse_notes" class="text-muted"></small>
-                                </div>
-                              </div>
-                              <div class="input-group mb-3">
-                                <div class="form-floating">
-                                  <input class="form-control" type="text" name="{{ $viewFolder }}[MedsOnboard][duration]" @if(!isset($referal_conso)) id="{{ $viewFolder }}_mo_duration" @endif placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }} onchange="
-                                    if($('#{{ $viewFolder }}_mo_meds').val() != ''){
-                                      $('#{{ $viewFolder }}_mo_meds').prop('required', true);
-                                      $('#{{ $viewFolder }}_mo_dose').prop('required', true);
-                                      $('#{{ $viewFolder }}_mo_delivery').prop('required', true);
-                                      $('#{{ $viewFolder }}_mo_duration').prop('required', true);
-                                    }else{
-                                      $('#{{ $viewFolder }}_mo_meds').prop('required', false);
-                                      $('#{{ $viewFolder }}_mo_dose').prop('required', false);
-                                      $('#{{ $viewFolder }}_mo_delivery').prop('required', false);
-                                      $('#{{ $viewFolder }}_mo_duration').prop('required', false);
-                                    }
-                                    if($(this).val() != '' && $('#{{ $viewFolder }}_mo_meds').val() != '' && $('#{{ $viewFolder }}_mo_dose').val() != '' && $('#{{ $viewFolder }}_mo_delivery').val() != '' && $('#{{ $viewFolder }}_mo_duration').val() != '')
-                                      $('#addMedsOnboard{{ $datum->id }}').prop('disabled', false);
-                                    else
-                                      $('#addMedsOnboard{{ $datum->id }}').prop('disabled', true);
-                                  ">
-                                  
-                                  <label for="{{ $viewFolder }}_nurse_notes" class="form-label">Duration</label>
-                                  <small id="help_{{ $viewFolder }}_nurse_notes" class="text-muted"></small>
-                                </div>
-                              </div>
-                              <input type="hidden" class="form-control" @if(!isset($referal_conso)) id="{{ $viewFolder }}_mo_id" @endif name="{{ $viewFolder }}[MedsOnboard][id]" value="">
-                            </div>
-                            <div class="card-footer">
-                              <button id="{{ !isset($referal_conso)  ? 'addMedsOnboard' . $datum->id : '' }}" type="button" class="addNurseNotesLog btn btn-{{ $bgColor }} btn-sm" disabled onclick="
-                                $('#doctors_home_submit_type').val('Pause');
-                                $.ajax({
-                                  type: 'POST',
-                                  data: $('#bookMod').serialize(),
-                                  url: '{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}',
-                                  success:
-                                  function (){
-                                      $.ajax({
-                                        type: 'GET',
-                                        url: '{{ Route::has($viewFolder . '.getMedsOnboardTable') ? route($viewFolder . '.getMedsOnboardTable', $datum->id) : '' }}',
-                                        success:
-                                        function (data){
-                                          medObj = jQuery.parseJSON(data);
-                                          var tr;
-                                          medObj.forEach(function (item, index){
-                                            tr += '<tr id=\'' + item.id + '\' log=\'medsOnboards\'><td><div class=\'d-sm-flex flex-sm-row\'><div class=\'m-1\'><button type=\'submit\' class=\'btn btn-{{ $bgColor }} btn-sm w-100 rowBtnEdit\'><i class=\'bi bi-pencil\'></i><span class=\'ps-1 d-sm-none\'>Edit</span></button></div><div class=\'m-1\'><button type=\'submit\' class=\'btn btn-{{ $bgColor }} btn-sm w-100 rowBtnDel\'><i class=\'bi bi-trash\'></i><span class=\'ps-1 d-sm-none\'>Delete</span></button></div></div></td><td>' + item.meds + '</td><td>' + item.dose + '</td><td>' + item.delivery + '</td><td>' + item.duration + '</td></tr>';
-                                          });
-                                          $('#medsOnboardTable{{ $datum->id }}').html(tr);
-                                        }
-                                      });
-                                      $('#{{ $viewFolder }}_mo_meds').val('')
-                                      $('#{{ $viewFolder }}_mo_dose').val('');
-                                      $('#{{ $viewFolder }}_mo_delivery').val('');
-                                      $('#{{ $viewFolder }}_mo_duration').val('');
-                                      $('#{{ $viewFolder }}_mo_dose').prop('required', false);
-                                      $('#{{ $viewFolder }}_mo_delivery').prop('required', false);
-                                      $('#{{ $viewFolder }}_mo_duration').prop('required', false);
-                                      $('#medsOnboardTable{{ $datum->id }}').prop('disabled', true);
-                                  }
-                                });
-
-                              ">Add/Edit Meds Onboard</button>
-                            </div>
-                          </div>
-                          <div class="card-body table-responsive" style="max-height: 300px">
-                            <table class="table table-bordered table-striped table-hover table-sm medsOn">
-                              <thead class="table-{{ $bgColor }}">
-                                <tr>
-                                  <th class=""><i class="bi bi-gear"></i></th>
-                                  <th>Meds</th>
-                                  <th>Dose</th>
-                                  <th>Delivery</th>
-                                  <th>Duration</th>
-                                </tr>
-                              </thead>
-                              <tbody id="{{ !isset($referal_conso)  ? 'medsOnboardTable' . $datum->id : '' }}">
-                              @foreach ($datum->consultation_meds_onboards()->orderBy('id', 'desc')->get() as $dat)
-                                <tr id="{{ $dat->id }}" log="medsOnboards">
-                                    <td>
-                                      <div class="d-sm-flex flex-sm-row">
-                                        <div class="m-1"><button type="submit" class="btn btn-{{ $bgColor }} btn-sm w-100 rowBtnEdit"><i class="bi bi-pencil"></i><span class="ps-1 d-sm-none">Edit</span></button></div>
-                                        <div class="m-1"><button type="submit" class="btn btn-{{ $bgColor }} btn-sm w-100 rowBtnDel"><i class="bi bi-trash"></i><span class="ps-1 d-sm-none">Delete</span></button></div>
-                                      </div>
-                                    </td>
-                                    <td>{{ $dat->meds }}</td>
-                                    <td>{{ $dat->dose }}</td>
-                                    <td>{{ $dat->delivery }}</td>
-                                    <td>{{ $dat->duration }}</td>
-                                </tr>
-                              @endforeach
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-                      </div>
-                      @endif
+                      <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planRemEdit]" id="{{ $viewFolder }}_planRemEdit" rows=3 disabled></textarea> --}}
                     </div>
                   </div>
                   <div class="card mb-3">
@@ -8470,8 +9182,8 @@
                       {{-- <div class="form-floating mb-3"> --}}
                         {{-- <label for="{{ $viewFolder }}_referal" class="form-label">Booking Date</label> --}}
                         <div class="input-group input-group-small mb-3 flex-nowrap">
-                          <input class="form-control" type="date" name="{{ $viewFolder }}[referal]" id="{{ $viewFolder }}_referals" value="{{ isset($datum->advance_booking->id) ? $datum->advance_booking->bookingDate : '' }}" min="{{ date('Y-m-d', strtotime($datum->bookingDate . '+ 7days')) }}" step=7 max="{{ $maxDateSched }}" onkeydown="return false">
-                          <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="
+                          <input class="form-control soapField" type="date" name="{{ $viewFolder }}[referal]" id="{{ $viewFolder }}_referals" value="{{ isset($datum->advance_booking->id) ? $datum->advance_booking->bookingDate : '' }}" min="{{ date('Y-m-d', strtotime($datum->bookingDate . '+ 7days')) }}" step=7 max="{{ $maxDateSched }}" onkeydown="return false">
+                          <button class="btn btn-outline-secondary soapField" type="button" id="button-addon2" onclick="
                             $('#{{ $viewFolder }}_referals').val('');
                           ">Clear Booking</button>
                         </div>
@@ -8483,8 +9195,10 @@
                       </div> --}}
                     </div>
                   </div>
+                  <input type="hidden" class="form-control" id="{{ $viewFolder }}_referral_id" name="{{ $viewFolder }}[referral_id]" disabled>
                 </div>
-                @if(isset($datum->consultation_referals[0]->id))
+                {{-- @if(isset($datum->consultation_referals[0]->id)) --}}
+                @if(false)
                   @foreach($datum->consultation_referals as $cr)
                     @if(isset($referal_conso) && $referal_conso->id == $cr->id)  
                 <input type="hidden" class="form-control" id="{{ $viewFolder }}_referral_id" name="{{ $viewFolder }}[referral_id]" value="{{ $cr->id }}">
@@ -8635,10 +9349,13 @@
                         </select>
                         <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>Delete Helper</button>
                       </div> --}}
-                      <small class="text-muted">Content</small>
-                      <textarea class="form-control" name="{{ $viewFolder }}[docNotes]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_docNotes" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }} onchange="
-                        $('#{{ $viewFolder }}_findings').val($(this).val());
-                      ">{{ isset($cr->docNotes) ? $cr->docNotes : '' }}</textarea>
+                      <div class="card mb-3">
+                        <div class="card-header">Preoperative PE</div>
+                        <div class="card-body">
+                          <small class="text-muted">Content</small>
+                          <textarea class="form-control" name="{{ $viewFolder }}[docNotes]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_docNotes" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }} onchange="
+                            $('#{{ $viewFolder }}_findings').val($(this).val());
+                          ">{{ isset($cr->docNotes) ? $cr->docNotes : '' }}</textarea>
                       {{-- <small class="text-muted">Helper Save/Edit</small>
                       <div class="input-group input-group-small mb-3 flex-nowrap">
                         <div class="input-group-text">
@@ -8648,19 +9365,160 @@
                         <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                       </div>
                       <textarea class="form-control mb-2" name="{{ $viewFolder }}[_docNotesEdit]" id="{{ $viewFolder }}_docNotesEdit" rows=3 disabled></textarea> --}}
+                        </div>
+                      </div>
+                      <div class="card mb-3">
+                        <div class="card-header">Intraoperative Findings</div>
+                        <div class="card-body">
+                          <small class="text-muted">Content</small>
+                          <textarea class="form-control mb-3" name="{{ $viewFolder }}[PrintableForm][intraoperative_findings]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_intraoperative_findings" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }}
+                              {{-- onblur="
+                                if($('#{{ $viewFolder }}_intraoperative_findings').val() == ''){
+                                  $('.createPDFDischargeSum').each(function(){
+                                    $(this).prop('disabled', true);
+                                  });
+                                }else{`
+                                  $('.createPDFDischargeSum').each(function(){
+                                    $(this).prop('disabled', false);
+                                  });
+                                }
+                              " --}}
+                          >{{ isset($cr->printable_form['intraoperative_findings']) ? $cr->printable_form['intraoperative_findings'] : '' }}</textarea>
+                          <label class="form-label">Intraoperative Course</label>
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" value="Unremarkable" name="{{ $viewFolder }}[PrintableForm][intraoperative_course]" id="{{ $viewFolder  . $cr->id }}_intraoperative_course_unremarkable" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }} onchange="
+                                if($(this).prop('checked'))
+                                  $('#{{ $viewFolder . $cr->id }}_complication_specify').prop('disabled', true);
+                                else
+                                  $('#{{ $viewFolder . $cr->id }}_complication_specify').prop('disabled', false);
+                              " {{ (isset($cr->printable_form['intraoperative_course']) && $cr->printable_form['intraoperative_course'] == 'Unremarkable') ? 'checked' : '' }} {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }}>
+                            <label class="form-check-label" for="{{ $viewFolder }}_intraoperative_course_unremarkable">Unremarkable</label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="{{ $viewFolder }}[PrintableForm][intraoperative_course]" value="With Complications" id="{{ $viewFolder . $cr->id  }}_intraoperative_course_with_complications"  {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }} onchange="
+                                if($(this).prop('checked'))
+                                  $('#{{ $viewFolder . $cr->id }}_complication_specify').prop('disabled', false);
+                                else
+                                  $('#{{ $viewFolder . $cr->id }}_complication_specify').prop('disabled', true);
+                              " {{ (isset($cr->printable_form['intraoperative_course']) && $cr->printable_form['intraoperative_course'] == 'With Complications') ? 'checked' : '' }} {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }}>
+                            <label class="form-check-label" for="{{ $viewFolder }}_intraoperative_course_with_complications">With Complications (specify)</label>
+                          </div>
+                          <textarea class="form-control mb-3" name="{{ $viewFolder }}[PrintableForm][complication_specify]" id="{{ $viewFolder  . $cr->id }}_complication_specify" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }} rows=3 
+                              {{-- onblur="
+                                if($('#{{ $viewFolder }}_complication_specify').val() == ''){
+                                  $('.createPDFDischargeSum').each(function(){
+                                    $(this).prop('disabled', true);
+                                  });
+                                }else{
+                                  $('.createPDFDischargeSum').each(function(){
+                                    $(this).prop('disabled', false);
+                                  });
+                                }
+                              "  --}}
+                              {{ (isset($cr->printable_form['intraoperative_course']) && $cr->printable_form['intraoperative_course'] == 'With Complications') ? '' : 'disabled' }}>{{ isset($cr->printable_form['complication_specify']) ? $cr->printable_form['complication_specify'] : '' }}</textarea>
+                          <div class="input-group mb-3">
+                            <div class="form-floating">
+                              <input class="form-control" type="number" name="{{ $viewFolder }}[PrintableForm][blood_loss]" min=30 step=.1 @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_blood_loss" @endif value="{{ isset($cr->printable_form['blood_loss']) ? $cr->printable_form['blood_loss'] : ''}}" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }} placeholder="">
+                              <label for="{{ $viewFolder }}_blood_loss" class="form-label">Estimated Blood Loss</label>
+                              <small id="help_{{ $viewFolder }}_blood_loss" class="text-muted"></small>
+                            </div>
+                            <span class="input-group-text">mL</span>
+                          </div>
+                          <label class="form-label">Specimen Sent</label>
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="{{ $viewFolder }}[PrintableForm][specimen_sent]" value="yes" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_specimen_sent_yes" @endif {{ (isset($cr->printable_form['specimen_sent']) && $cr->printable_form['specimen_sent'] == 'yes') ? 'checked' : '' }} {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }}>
+                            <label class="form-check-label" for="{{ $viewFolder }}_specimen_sent_yes">Yes</label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="{{ $viewFolder }}[PrintableForm][specimen_sent]" value="no" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_specimen_sent_no" @endif {{ (isset($cr->printable_form['specimen_sent']) && $cr->printable_form['specimen_sent'] == 'no') ? 'checked' : '' }} {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }}>
+                            <label class="form-check-label" for="{{ $viewFolder }}_specimen_sent_no">No</label>
+                          </div>
+                          <label class="form-label" for="{{ $viewFolder }}_specimen_sent_remarks">Remarks</label>
+                          <textarea class="form-control mb-3" name="{{ $viewFolder }}[PrintableForm][specimen_sent_remarks]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_specimen_sent_remarks" @endif {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }} rows=3 
+                              {{-- onblur="
+                                if($('#{{ $viewFolder }}_specimen_sent_remarks').val() == ''){
+                                  $('.createPDFDischargeSum').each(function(){
+                                    $(this).prop('disabled', true);
+                                  });
+                                }else{
+                                  $('.createPDFDischargeSum').each(function(){
+                                    $(this).prop('disabled', false);
+                                  });
+                                }
+                              " --}}
+                              >{{ isset($cr->printable_form['specimen_sent_remarks']) ? $cr->printable_form['specimen_sent_remarks'] : '' }}</textarea>
+                        </div>
+                      </div>
+                      <div class="card mb-3">
+                        <div class="card-header">Post-Operative Condition</div>
+                        <div class="card-body">
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="{{ $viewFolder }}[PrintableForm][post_operative_condition]" value="Stable" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_post_operative_condition_stable" @endif {{ (isset($cr->printable_form['post_operative_condition']) && $cr->printable_form['post_operative_condition'] == 'Stable') ? 'checked' : '' }} {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }}>
+                            <label class="form-check-label" for="{{ $viewFolder }}_post_operative_condition_stable">Stable</label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="{{ $viewFolder }}[PrintableForm][post_operative_condition]" value="Requires Observation" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_post_operative_condition_requires" @endif {{ (isset($cr->printable_form['post_operative_condition']) && $cr->printable_form['post_operative_condition'] == 'Requires Observation') ? 'checked' : '' }} {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }}>
+                            <label class="form-check-label" for="{{ $viewFolder }}_post_operative_condition_requires">Requires Observation</label>
+                          </div>
+                          <label class="form-label" for="{{ $viewFolder }}_post_operative_condition_remarks">Remarks</label>
+                          <textarea class="form-control mb-3" name="{{ $viewFolder }}[PrintableForm][post_operative_condition_remarks]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_post_operative_condition_remarks" @endif {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }} rows=3 
+                              {{-- onblur="
+                                if($('#{{ $viewFolder }}_post_operative_condition_remarks').val() == ''){
+                                  $('.createPDFDischargeSum').each(function(){
+                                    $(this).prop('disabled', true);
+                                  });
+                                }else{
+                                  $('.createPDFDischargeSum').each(function(){
+                                    $(this).prop('disabled', false);
+                                  });
+                                }
+                              " --}}
+                              >{{ isset($cr->printable_form['post_operative_condition_remarks']) ? $cr->printable_form['post_operative_condition_remarks'] : '' }}</textarea>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <div class="card mb-3">
                     <div class="card-header">Assessment</div>
                     <div class="card-body">
-                      <div class="form-floating mb-3">
+                      {{-- <div class="form-floating mb-3"> --}}
                         {{-- <select class="form-select" name="{{ $viewFolder }}[icd_code]" id="{{ $viewFolder }}_icd_code" placeholder="" {{ $user->id == $cr->doctor->id ? '' : 'disabled' }}>
                           <option value=""></option>
                         </select> --}}
-                        <input class="form-control {{ !isset($cr->icd_code_obj->icd_code) ? 'text-danger' : ((isset($carryOverBookingsICD[0]->icd_code_obj->icd_code) && $cr->doctor_id == $carryOverBookingsICD[0]->doctor_id && $carryOverBookingsICD[0]->icd_code_obj->icd_code == $cr->icd_code_obj->icd_code) ? 'text-danger' : '') }}" list="icdCodeList" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'id=' . $viewFolder . '_icd_code' : '' }} name="{{ $viewFolder }}[icd_code]" value="{{ isset($cr->icd_code_obj->icd_code) ? $cr->icd_code_obj->icd_code . ' - ' . $cr->icd_code_obj->details : (isset($carryOverBookingsICD[0]->icd_code_obj) && $cr->doctor_id == $carryOverBookingsICD[0]->doctor_id ? $carryOverBookingsICD[0]->icd_code_obj->icd_code . ' - ' . $carryOverBookingsICD[0]->icd_code_obj->details : '') }}" autocomplete="off" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>
-                        <label for="{{ $viewFolder }}_icd_code">Primary Diagnosis</label>
+                        {{-- <input class="form-control {{ !isset($cr->icd_code_obj->icd_code) ? 'text-danger' : ((isset($carryOverBookingsICD[0]->icd_code_obj->icd_code) && $cr->doctor_id == $carryOverBookingsICD[0]->doctor_id && $carryOverBookingsICD[0]->icd_code_obj->icd_code == $cr->icd_code_obj->icd_code) ? 'text-danger' : '') }}" list="icdCodeList" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'id=' . $viewFolder . '_icd_code' : '' }} name="{{ $viewFolder }}[icd_code]" value="{{ isset($cr->icd_code_obj->icd_code) ? $cr->icd_code_obj->icd_code . ' - ' . $cr->icd_code_obj->details : (isset($carryOverBookingsICD[0]->icd_code_obj) && $cr->doctor_id == $carryOverBookingsICD[0]->doctor_id ? $carryOverBookingsICD[0]->icd_code_obj->icd_code . ' - ' . $carryOverBookingsICD[0]->icd_code_obj->details : '') }}" autocomplete="off" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>
+                        <label for="{{ $viewFolder }}_icd_code">Primary Diagnosis</label> --}}
                         {{-- <small class="{{ !isset($cr->icd_code_obj->icd_code) ? 'text-danger' : ((isset($carryOverBookingsICD[0]->icd_code_obj->icd_code) && $cr->doctor_id == $carryOverBookingsICD[0]->doctor_id && $carryOverBookingsICD[0]->icd_code_obj->icd_code == $datum->icd_code_obj->icd_code) ? 'text-warning' : '') }} mb-3">@if(!isset($cr->icd_code_obj->icd_code) || (isset($cr->icd_code_obj->icd_code) && $cr->icd_code_obj->icd_code == "" && isset($carryOverBookingsICD[0]->icd_code_obj->icd_code)) || (isset($carryOverBookingsICD[0]->icd_code_obj->icd_code) && $cr->doctor_id == $carryOverBookingsICD[0]->doctor_id && $carryOverBookingsICD[0]->icd_code_obj->icd_code == $cr->icd_code_obj->icd_code))[carry over from {{ $carryOverBookingsICD[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsICD[0]->booking_type }} booking last {{ $carryOverBookingsICD[0]->bookingDate }}]@endif</small><br> --}}
-                        <small id="help_{{ $viewFolder }}_icd_code" class="text-muted">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small>
+                        {{-- <small id="help_{{ $viewFolder }}_icd_code" class="text-muted">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small> --}}
+                      {{-- </div> --}}
+                      <div class="card mb-3">
+                        <div class="card-header">Primary Diagnosis</div>
+                        <div class="card-body">
+                          {{-- <small class="text-muted">Helper</small>
+                          <div class="input-group input-group-small flex-nowrap">
+                            <select class="form-select" placeholder="" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>
+                              <option value=""></option>
+                            </select>
+                            <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? '' : 'disabled' }}>Delete Helper</button>
+                          </div> --}}
+                          <small class="text-muted">Content</small>
+                          <textarea class="form-control {{ $cr->primary_assessment == "" ? 'text-danger' : ((isset($carryOverBookings[0]->primary_assessment) && $cr->doctor_id == $carryOverBookings[0]->doctor_id && $carryOverBookings[0]->primary_assessment == $cr->primary_assessment) ? 'text-warning' : '') }}" name="{{ $viewFolder }}[primary_assessment]" @if($user->id == $cr->doctor->id) id="{{ $viewFolder }}_primary_assessment" @endif rows=3 {{ isset($referal_conso) && $referal_conso->id == $cr->id  ? 'required' : 'disabled' }}  onchange="
+                            $('#{{ $viewFolder }}_diagnosis').val($(this).val());
+                            $('#{{ $viewFolder . $cr->id }}_diagnosis_hidden').val($(this).val());
+                            $('#{{ $viewFolder }}_pre_op_diagnosis').val($(this).val());
+                            $('#{{ $viewFolder . $cr->id }}_pre_op_diagnosis_hidden').val($(this).val());
+                          ">{{ isset($cr->primary_assessment) ? $cr->primary_assessment : (isset($carryOverBookings[0]->primary_assessment) && $cr->doctor_id == $carryOverBookings[0]->doctor_id ? $carryOverBookings[0]->primary_assessment : '') }}</textarea>
+                          <small class="{{ $cr->primary_assessment == "" ? 'text-danger' : ((isset($carryOverBookings[0]->primary_assessment) && $cr->doctor_id == $carryOverBookings[0]->doctor_id && $carryOverBookings[0]->primary_assessment == $cr->primary_assessment) ? 'text-warning' : '') }} mb-3">@if(($cr->primary_assessment == "" && isset($carryOverBookings[0]->primary_assessment)) || (isset($carryOverBookings[0]->primary_assessment) && $cr->doctor_id == $carryOverBookings[0]->doctor_id && $carryOverBookings[0]->primary_assessment == $cr->primary_assessment))[carry over from {{ $carryOverBookings[0]->booking_type == '' ? 'Consultation' : $carryOverBookings[0]->booking_type }} booking last {{ $carryOverBookings[0]->bookingDate }}]@endif</small><br>
+                          <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
+                          {{-- <small class="text-muted">Helper Save/Edit</small>
+                          <div class="input-group input-group-small mb-3 flex-nowrap">
+                            <div class="input-group-text">
+                              <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                            </div>
+                            <input type="text" class="form-control" id="{{ $viewFolder }}_assessmentTitle" name="{{ $viewFolder }}[assessmentTitle]" disabled>
+                            <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                          </div>
+                          <textarea class="form-control mb-2" name="{{ $viewFolder }}[_assessmentEdit]" id="{{ $viewFolder }}_assessmentEdit" rows=3 disabled></textarea> --}}
+                        </div>
                       </div>
                       <div class="card mb-3">
                         <div class="card-header">Secondary Diagnosis</div>
@@ -9671,7 +10529,7 @@
                   </div>
                   <div class="card-footer">
                     @if(!isset($referal_conso))
-                    <button id="createPDFDischargeSum{{ $datum->id }}" type="button" class="createPDFDischargeSum btn btn-{{ $bgColor }} btn-sm" {{ !isset($datum->printable_form['operative_tech']) ? 'disabled' : '' }} onclick="
+                    <button id="createPDFDischargeSum{{ $datum->id }}" type="button" class="createPDFDischargeSum btn btn-{{ $bgColor }} btn-sm" onclick="
                       $('#doctors_home_submit_type').val('Pause');
                       $.ajax({
                         type: 'POST',
@@ -9707,7 +10565,7 @@
                   </div>
                   <div class="card-footer">
                     @if(isset($referal_conso) && $referal_conso->id == $cr->id)
-                    <button id="createPDFDischargeSum{{ $cr->id }}" type="button" class="createPDFDischargeSum btn btn-{{ $bgColor }} btn-sm" {{ !isset($cr->printable_form['operative_tech']) ? 'disabled' : '' }} onclick="
+                    <button id="createPDFDischargeSum{{ $cr->id }}" type="button" class="createPDFDischargeSum btn btn-{{ $bgColor }} btn-sm" onclick="
                       $('#doctors_home_submit_type').val('Pause');
                       $.ajax({
                         type: 'POST',
@@ -9735,7 +10593,7 @@
                 </div>
                   @endforeach
                 @endif
-                <div class="card mb-3">
+                {{-- <div class="card mb-3">
                   <div class="card-header">Form Inputs</div>
                   <div class="card-body">
                     <div class="mb-3">
@@ -9954,7 +10812,7 @@
                     </div>
                     @endif
                   </div>
-                </div>
+                </div> --}}
               </div>
               <div id="admitPeriCurDiv" style="display:none" class="container border border-1 mb-3 p-3">
                 <div class="docNotesDiv card mb-3" id="{{ $viewFolder }}_OpAdmit_{{ $datum->id }}">
@@ -9965,7 +10823,7 @@
                   </div>
                   <div class="card-footer">
                     @if(!isset($referal_conso))
-                    <button id="createPDFButOpAdmit{{ $datum->id }}" type="button" class="createPDFButOpAdmit btn btn-{{ $bgColor }} btn-sm" {{ !isset($datum->printable_form['operative_tech']) ? 'disabled' : '' }} onclick="
+                    <button id="createPDFButOpAdmit{{ $datum->id }}" type="button" class="createPDFButOpAdmit btn btn-{{ $bgColor }} btn-sm" onclick="
                       $('#doctors_home_submit_type').val('Pause');
                       $.ajax({
                         type: 'POST',
@@ -10001,7 +10859,7 @@
                   </div>
                   <div class="card-footer">
                     @if(isset($referal_conso) && $referal_conso->id == $cr->id)
-                    <button id="createPDFButOpAdmit{{ $cr->id }}" type="button" class="createPDFButOpAdmit btn btn-{{ $bgColor }} btn-sm" {{ !isset($cr->printable_form['operative_tech']) ? 'disabled' : '' }} onclick="
+                    <button id="createPDFButOpAdmit{{ $cr->id }}" type="button" class="createPDFButOpAdmit btn btn-{{ $bgColor }} btn-sm" onclick="
                       $('#doctors_home_submit_type').val('Pause');
                       $.ajax({
                         type: 'POST',
@@ -10029,7 +10887,7 @@
                 </div>
                   @endforeach
                 @endif
-                <div class="card mb-3">
+                {{-- <div class="card mb-3">
                   <div class="card-header">Form Inputs</div>
                   <div class="card-body">
                     <div class="form-floating mb-3">
@@ -10166,7 +11024,7 @@
                     </div>
                     @endif
                   </div>
-                </div>
+                </div> --}}
               </div>
               <div id="orTechCurDiv" style="display:none" class="container border border-1 mb-3 p-3">
                 <div class="docNotesDiv card mb-3" id="{{ $viewFolder }}_OpTech_{{ $datum->id }}">
@@ -10177,7 +11035,7 @@
                   </div>
                   <div class="card-footer">
                     @if(!isset($referal_conso))
-                    <button id="createPDFButORTech{{ $datum->id }}" type="button" class="createPDFButORTech btn btn-{{ $bgColor }} btn-sm" {{ !isset($datum->printable_form['operative_tech']) ? 'disabled' : '' }} onclick="
+                    <button id="createPDFButORTech{{ $datum->id }}" type="button" class="createPDFButORTech btn btn-{{ $bgColor }} btn-sm" onclick="
                       $('#doctors_home_submit_type').val('Pause');
                       $.ajax({
                         type: 'POST',
@@ -10213,7 +11071,7 @@
                   </div>
                   <div class="card-footer">
                     @if(isset($referal_conso) && $referal_conso->id == $cr->id)
-                    <button id="createPDFButORTech{{ $cr->id }}" type="button" class="createPDFButORTech btn btn-{{ $bgColor }} btn-sm" {{ !isset($cr->printable_form['operative_tech']) ? 'disabled' : '' }} onclick="
+                    <button id="createPDFButORTech{{ $cr->id }}" type="button" class="createPDFButORTech btn btn-{{ $bgColor }} btn-sm" onclick="
                       $('#doctors_home_submit_type').val('Pause');
                       $.ajax({
                         type: 'POST',
@@ -10257,7 +11115,7 @@
                   <label for="{{ $viewFolder }}_anesthesiologist_ot" class="form-label">Anesthesiologist</label>
                   <small id="help_{{ $viewFolder }}_anesthesiologist_ot" class="text-muted"></small>
                 </div> --}}
-                <div class="card mb-3">
+                {{-- <div class="card mb-3">
                   <div class="card-header">Form Inputs</div>
                   <div class="card-body">
                     <div class="form-floating mb-3">
@@ -10309,8 +11167,9 @@
                     @endif
                   </div>
                   
-                </div>
+                </div> --}}
                 {{-- </div> --}}
+                <input type="hidden" id="{{ $viewFolder }}_printable_form_consultation_id" class="form-control" name="{{ $viewFolder }}[PrintableForm][consultation_id]" value="{{ $datum->id }}">
               </div>
               <div id="postOpCurDiv" style="display:none" class="container border border-1 mb-3 p-3">
                 <div class="docNotesDiv card mb-3" id="{{ $viewFolder }}_PostOp_{{ $datum->id }}">
@@ -10321,7 +11180,7 @@
                   </div>
                   <div class="card-footer">
                     @if(!isset($referal_conso))
-                    <button id="createPDFButPostOp{{ $datum->id }}" type="button" class="createPDFButPostOp btn btn-{{ $bgColor }} btn-sm" {{ isset($datum->printable_form['after_proc']) && ( $datum->printable_form['after_proc'] != '' || $datum->printable_form['things_watch_out'] != '' || $datum->printable_form['things_avoid'] != '' || $datum->printable_form['wound_care'] != '' || $datum->printable_form['medication'] != '') ? 'disabled' : '' }} onclick="
+                    <button id="createPDFButPostOp{{ $datum->id }}" type="button" class="createPDFButPostOp btn btn-{{ $bgColor }} btn-sm" onclick="
                       $('#doctors_home_submit_type').val('Pause');
                       $.ajax({
                         type: 'POST',
@@ -10357,7 +11216,7 @@
                   </div>
                   <div class="card-footer">
                     @if(isset($referal_conso) && $referal_conso->id == $cr->id)
-                    <button id="createPDFButPostOp{{ $cr->id }}" type="button" class="createPDFButPostOp btn btn-{{ $bgColor }} btn-sm" {{ isset($cr->printable_form['after_proc']) && ($cr->printable_form['after_proc'] != '' || $cr->printable_form['things_watch_out'] != '' || $cr->printable_form['things_avoid'] != '' || $cr->printable_form['wound_care'] != '' || $cr->printable_form['medication'] != '') ? 'disabled' : '' }} onclick="
+                    <button id="createPDFButPostOp{{ $cr->id }}" type="button" class="createPDFButPostOp btn btn-{{ $bgColor }} btn-sm" onclick="
                       $('#doctors_home_submit_type').val('Pause');
                       $.ajax({
                         type: 'POST',
@@ -10385,7 +11244,7 @@
                 </div>
                   @endforeach
                 @endif
-                <div class="card mb-3">
+                {{-- <div class="card mb-3">
                   <div class="card-header">Form Inputs</div>
                   <div class="card-body">
                     <label for="{{ $viewFolder }}_after_proc" class="form-label">Things to expect after the procedure:</label>
@@ -10400,7 +11259,7 @@
                             });
                           }
                         ">{{ isset($datum->printable_form['after_proc']) ? $datum->printable_form['after_proc'] : '' }}</textarea>
-                    {{-- <input type="hidden" id="{{ $viewFolder }}_printable_form_consultation_id" class="form-control" name="{{ $viewFolder }}[PrintableForm][consultation_id]" value="{{ $datum->id }}"> --}}
+                    {{-- <input type="hidden" id="{{ $viewFolder }}_printable_form_consultation_id" class="form-control" name="{{ $viewFolder }}[PrintableForm][consultation_id]" value="{{ $datum->id }}">
                     <small id="help_{{ $viewFolder }}_after_proc" class="text-muted"></small>
                     
                     <label for="{{ $viewFolder }}_things_watch_out" class="form-label mt-3">Things to watch out for:</label>
@@ -10469,7 +11328,7 @@
                     </div>
                     @endif
                   </div>
-                </div>
+                </div> --}}
               </div>
               <div id="dialysisCurDiv" style="display:none" class="container border border-1 mb-3 p-3">
                 @if((isset($datum->booking_type) && $datum->booking_type == 'Dialysis'))
@@ -10732,7 +11591,7 @@
                       <div class="col-lg-6">
                         <div class="input-group mb-3">
                           <div class="form-floating">
-                            <input class="form-control" type="number" name="{{ $viewFolder }}[weight_loss]" min=0 step=.1 id="{{ $viewFolder }}_weight_loss" value="{{ isset($datum->weight_loss) ? $datum->weight_loss : ''}}" placeholder=""  {{ !isset($referal_conso)  ? '' : '' }}>
+                            <input class="form-control" type="number" name="{{ $viewFolder }}[weight_loss]" min=0 step=.01 id="{{ $viewFolder }}_weight_loss" value="{{ isset($datum->weight_loss) ? $datum->weight_loss : ''}}" placeholder=""  {{ !isset($referal_conso)  ? '' : '' }}>
                             <label for="{{ $viewFolder }}_weight_loss" class="form-label">Weight Loss</label>
                             <small id="help_{{ $viewFolder }}_weight_loss" class="text-muted"></small>
                           </div>
@@ -12647,10 +13506,12 @@
                               <tr>
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
-                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
-                                      @continue
-                                    @endif  
-                                    <th>{{ $dat->bookingDate }}</th>
+                                    @if($dat->consultation_parent_id == null)
+                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                        @continue
+                                      @endif  
+                                      <th>{{ $dat->bookingDate }}</th>
+                                    @endif
                                   @endforeach
                                 @endif
                               </tr>
@@ -12660,10 +13521,12 @@
                                 <td>Hemoglobin</td>
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
-                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
-                                      @continue
+                                    @if($dat->consultation_parent_id == null)
+                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                        @continue
+                                      @endif
+                                      <td>{{ $dat->hemoglobin }}</td>
                                     @endif
-                                    <td>{{ $dat->hemoglobin }}</td>
                                   @endforeach
                                 @endif
                               </tr>
@@ -12671,10 +13534,12 @@
                                 <td>Hematocrit</td>
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
-                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)  
-                                      @continue
+                                    @if($dat->consultation_parent_id == null)
+                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)  
+                                        @continue
+                                      @endif
+                                      <td>{{ $dat->hematocrit }}</td>
                                     @endif
-                                    <td>{{ $dat->hematocrit }}</td>
                                   @endforeach
                                 @endif
                               </tr>
@@ -12682,10 +13547,12 @@
                                 <td>RBC</td>
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
-                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
-                                      @continue
+                                    @if($dat->consultation_parent_id == null)
+                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                        @continue
+                                      @endif
+                                      <td>{{ $dat->rbc }}</td>
                                     @endif
-                                    <td>{{ $dat->rbc }}</td>
                                   @endforeach
                                 @endif
                               </tr>
@@ -12693,10 +13560,12 @@
                                 <td>WBC</td>
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
-                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
-                                      @continue
+                                    @if($dat->consultation_parent_id == null)
+                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                        @continue
+                                      @endif
+                                      <td>{{ $dat->wbc }}</td>
                                     @endif
-                                    <td>{{ $dat->wbc }}</td>
                                   @endforeach
                                 @endif
                               </tr>
@@ -12704,10 +13573,12 @@
                                 <td>Platelet</td>
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
-                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
-                                      @continue
+                                    @if($dat->consultation_parent_id == null)
+                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                        @continue
+                                      @endif
+                                      <td>{{ $dat->platelet }}</td>
                                     @endif
-                                    <td>{{ $dat->platelet }}</td>
                                   @endforeach
                                 @endif
                               </tr>
@@ -12715,10 +13586,12 @@
                                 <td>URR</td>
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
-                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
-                                      @continue
-                                    @endif
+                                    @if($dat->consultation_parent_id == null)
+                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                        @continue
+                                      @endif
                                     <td>{{  number_format($dat->urr, 2) }}</td>
+                                    @endif
                                   @endforeach
                                 @endif
                               </tr>
@@ -12726,10 +13599,12 @@
                                 <td>Kt/V</td>
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
-                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
-                                      @continue
-                                    @endif
+                                    @if($dat->consultation_parent_id == null)
+                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                        @continue
+                                      @endif
                                     <td>{{ number_format($dat->ktv2, 2) }}</td>
+                                    @endif
                                   @endforeach
                                 @endif
                               </tr>
@@ -12737,10 +13612,12 @@
                                 <td>Pre BUN</td>
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
-                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
-                                      @continue
-                                    @endif
+                                    @if($dat->consultation_parent_id == null)
+                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                        @continue
+                                      @endif
                                     <td>{{ $dat->pre_bun }}</td>
+                                    @endif
                                   @endforeach
                                 @endif
                               </tr>
@@ -12748,10 +13625,12 @@
                                 <td>Post BUN</td>
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
-                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
-                                      @continue
-                                    @endif
+                                    @if($dat->consultation_parent_id == null)
+                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                        @continue
+                                      @endif
                                     <td>{{ $dat->post_bun }}</td>
+                                    @endif
                                   @endforeach
                                 @endif
                               </tr>
@@ -12759,10 +13638,12 @@
                                 <td>Creatinine</td>
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
-                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
-                                      @continue
+                                    @if($dat->consultation_parent_id == null)
+                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                        @continue
+                                      @endif
+                                      <td>{{ $dat->creatinine }}</td>
                                     @endif
-                                    <td>{{ $dat->creatinine }}</td>
                                   @endforeach
                                 @endif
                               </tr>
@@ -12770,10 +13651,12 @@
                                 <td>Serum Albumin</td>
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
+                                    @if($dat->consultation_parent_id == null)
                                     @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
-                                      @continue
+                                        @continue
+                                      @endif
+                                      <td>{{ $dat->serum_albumin }}</td>
                                     @endif
-                                    <td>{{ $dat->serum_albumin }}</td>
                                   @endforeach
                                 @endif
                               </tr>
@@ -12781,10 +13664,12 @@
                                 <td>Sodium</td>
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
-                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
-                                      @continue
+                                    @if($dat->consultation_parent_id == null)
+                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                        @continue
+                                      @endif
+                                      <td>{{ $dat->sodium }}</td>
                                     @endif
-                                    <td>{{ $dat->sodium }}</td>
                                   @endforeach
                                 @endif
                               </tr>
@@ -12792,10 +13677,12 @@
                                 <td>Potassium</td>
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
+                                    @if($dat->consultation_parent_id == null)
                                     @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
-                                      @continue
+                                        @continue
+                                      @endif
+                                      <td>{{ $dat->potassium }}</td>
                                     @endif
-                                    <td>{{ $dat->potassium }}</td>
                                   @endforeach
                                 @endif
                               </tr>
@@ -12803,10 +13690,12 @@
                                 <td>Ionized Calcium</td>
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
-                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
-                                      @continue
+                                    @if($dat->consultation_parent_id == null)
+                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                        @continue
+                                      @endif
+                                      <td>{{ $dat->ionized_calcium }}</td>
                                     @endif
-                                    <td>{{ $dat->ionized_calcium }}</td>
                                   @endforeach
                                 @endif
                               </tr>
@@ -12814,10 +13703,12 @@
                                 <td>Uric Acid</td>
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
-                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
-                                      @continue
+                                    @if($dat->consultation_parent_id == null)
+                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                        @continue
+                                      @endif
+                                      <td>{{ $dat->uric_acid }}</td>
                                     @endif
-                                    <td>{{ $dat->uric_acid }}</td>
                                   @endforeach
                                 @endif
                               </tr>
@@ -12825,10 +13716,12 @@
                                 <td>SGPT</td>
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
-                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
-                                      @continue
+                                    @if($dat->consultation_parent_id == null)
+                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                        @continue
+                                      @endif
+                                      <td>{{ $dat->sgpt }}</td>
                                     @endif
-                                    <td>{{ $dat->sgpt }}</td>
                                   @endforeach
                                 @endif
                               </tr>
@@ -12836,10 +13729,12 @@
                                 <td>SGOT</td>
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
-                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
-                                      @continue
+                                    @if($dat->consultation_parent_id == null)
+                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                        @continue
+                                      @endif
+                                      <td>{{ $dat->sgot }}</td>
                                     @endif
-                                    <td>{{ $dat->sgot }}</td>
                                   @endforeach
                                 @endif
                               </tr>
@@ -12847,10 +13742,25 @@
                                 <td>Serum Ferritin</td>
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
-                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
-                                      @continue
+                                    @if($dat->consultation_parent_id == null)
+                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                        @continue
+                                      @endif
+                                      <td>{{ $dat->serum_ferritin }}</td>
                                     @endif
-                                    <td>{{ $dat->serum_ferritin }}</td>
+                                  @endforeach
+                                @endif
+                              </tr>
+                              <tr>  
+                                <td>Serum Ferritin</td>
+                                @if(isset($allBooking))
+                                  @foreach ($allBooking as $ind=>$dat)
+                                    @if($dat->consultation_parent_id == null)
+                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                        @continue
+                                      @endif
+                                      <td>{{ $dat->serum_ferritin }}</td>
+                                    @endif
                                   @endforeach
                                 @endif
                               </tr>
@@ -12858,10 +13768,12 @@
                                 <td>Serum Iron</td>
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
-                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
-                                      @continue
+                                    @if($dat->consultation_parent_id == null)
+                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                        @continue
+                                      @endif
+                                      <td>{{ $dat->serum_iron }}</td>
                                     @endif
-                                    <td>{{ $dat->serum_iron }}</td>
                                   @endforeach
                                 @endif
                               </tr>
@@ -12869,10 +13781,12 @@
                                 <td>TIBC</td>
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
-                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
-                                      @continue
+                                    @if($dat->consultation_parent_id == null)
+                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                        @continue
+                                      @endif
+                                      <td>{{ $dat->tibc }}</td>
                                     @endif
-                                    <td>{{ $dat->tibc }}</td>
                                   @endforeach
                                 @endif
                               </tr>
@@ -12880,10 +13794,12 @@
                                 <td>TSAT</td>
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
-                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
-                                      @continue
+                                    @if($dat->consultation_parent_id == null)
+                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                        @continue
+                                      @endif
+                                      <td>{{ number_format($dat->tsat, 2) }}</td>
                                     @endif
-                                    <td>{{ number_format($dat->tsat, 2) }}</td>
                                   @endforeach
                                 @endif
                               </tr>
@@ -12891,10 +13807,12 @@
                                 <td>HBsAg</td>
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
-                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
-                                      @continue
+                                    @if($dat->consultation_parent_id == null)
+                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                        @continue
+                                      @endif
+                                      <td>{{ $dat->hbsag }}</td>
                                     @endif
-                                    <td>{{ $dat->hbsag }}</td>
                                   @endforeach
                                 @endif
                               </tr>
@@ -12902,10 +13820,12 @@
                                 <td>Anti-HBS</td>
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
-                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
-                                      @continue
+                                    @if($dat->consultation_parent_id == null)
+                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                        @continue
+                                      @endif
+                                      <td>{{ $dat->anti_hbs }}</td>
                                     @endif
-                                    <td>{{ $dat->anti_hbs }}</td>
                                   @endforeach
                                 @endif
                               </tr>
@@ -12913,10 +13833,12 @@
                                 <td>Anti-HCV</td>
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
-                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
-                                      @continue
+                                    @if($dat->consultation_parent_id == null)
+                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                        @continue
+                                      @endif
+                                      <td>{{ $dat->anti_hcv }}</td>
                                     @endif
-                                    <td>{{ $dat->anti_hcv }}</td>
                                   @endforeach
                                 @endif
                               </tr>
@@ -13017,31 +13939,53 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    const div1 = document.getElementById('prevDiv');
-    const div2 = document.getElementById('curDiv');
+    // const div1 = document.getElementById('prevDiv');
+    // const div2 = document.getElementById('curDiv');
+    const soapDivPrev = document.getElementById('soapDivPrev');
+    const soapDivCur = document.getElementById('soapDivCur');
 
     let isScrolling = false; // Flag to prevent infinite loops
-    div1.addEventListener('scroll', function() {
-      if(!$('#labPrevDiv').is(':visible')){
-        if (!isScrolling) {
-          isScrolling = true;
-          div2.scrollTop = div1.scrollTop;
-          setTimeout(() => { isScrolling = false; }, 50); // Small delay to reset flag
-        }
-      }
+    // div1.addEventListener('scroll', function() {
+    //   if(!$('#labPrevDiv').is(':visible')){
+    //     if (!isScrolling) {
+    //       isScrolling = true;
+    //       div2.scrollTop = div1.scrollTop;
+    //       setTimeout(() => { isScrolling = false; }, 50); // Small delay to reset flag
+    //     }
+    //   }
     
       
-    });
+    // });
 
-    div2.addEventListener('scroll', function() {
+    // div2.addEventListener('scroll', function() {
+    //   if(!$('#labPrevDiv').is(':visible')){
+    //     if (!isScrolling) {
+    //       isScrolling = true;
+    //       div1.scrollTop = div2.scrollTop;
+    //       setTimeout(() => { isScrolling = false; }, 50); // Small delay to reset flag
+    //     }
+    //   }
+    // });
+
+    soapDivPrev.addEventListener('scroll', function() {
       if(!$('#labPrevDiv').is(':visible')){
         if (!isScrolling) {
           isScrolling = true;
-          div1.scrollTop = div2.scrollTop;
+          soapDivCur.scrollTop = soapDivPrev.scrollTop;
           setTimeout(() => { isScrolling = false; }, 50); // Small delay to reset flag
         }
       }
     });
+    soapDivCur.addEventListener('scroll', function() {
+      if(!$('#labPrevDiv').is(':visible')){
+        if (!isScrolling) {
+          isScrolling = true;
+          soapDivPrev.scrollTop = soapDivCur.scrollTop;
+          setTimeout(() => { isScrolling = false; }, 50); // Small delay to reset flag
+        }
+      }
+    });
+
   });
   function nl2br (str, is_xhtml) {
     // http://kevin.vanzonneveld.net
@@ -13064,7 +14008,118 @@
 
     return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
   }
- function loadPrevBooking(consultation_id, index){
+  function loadCurrentBooking(consultation_id){
+    $.ajax({
+      type: 'GET',
+      url: '{{ Route::has($viewFolder . '.getBookingInfo') ? route($viewFolder . '.getBookingInfo') : '' }}/' + consultation_id,
+      success:
+        function(data, status){
+          bookingObj = jQuery.parseJSON(data);
+          if(bookingObj.consultation.docNotesHPI != null){
+            $('#{{ $viewFolder }}_docNotesHPI').val(bookingObj.consultation.docNotesHPI);
+          }else{
+            $('#{{ $viewFolder }}_docNotesHPI').val('');
+          }
+          if(bookingObj.consultation.docNotesSubject != null){
+            $('#{{ $viewFolder }}_docNotesSubject').val(bookingObj.consultation.docNotesSubject);
+          }else{
+            $('#{{ $viewFolder }}_docNotesSubject').val('');
+          }
+          if(bookingObj.consultation.docNotes != null){
+            $('#{{ $viewFolder }}_docNotes').val(bookingObj.consultation.docNotes);
+          }else{
+            $('#{{ $viewFolder }}_docNotes').val('');
+          }
+          if(bookingObj.consultation.icd_code_obj != null){
+            $('#{{ $viewFolder }}_icd_code').val(bookingObj.consultation.icd_code_obj.icd_code + ' - ' + bookingObj.consultation.icd_code_obj.details);
+          }else{
+            $('#{{ $viewFolder }}_icd_code').val('');
+          }
+          if(bookingObj.consultation.primary_assessment != null){
+            $('#{{ $viewFolder }}_primary_assessment').val(bookingObj.consultation.primary_assessment);
+          }else{
+            $('#{{ $viewFolder }}_primary_assessment').val('');
+          }
+          if(bookingObj.consultation.post_op_assessment != null){
+            $('#{{ $viewFolder }}_post_op_assessment').val(bookingObj.consultation.post_op_assessment);
+          }else{
+            $('#{{ $viewFolder }}_post_op_assessment').val('');
+          }
+          if(bookingObj.consultation.assessment != null){
+            $('#{{ $viewFolder }}_assessment').val(bookingObj.consultation.assessment);
+          }else{
+            $('#{{ $viewFolder }}_assessment').val('');
+          }
+          if(bookingObj.consultation.plan != null){
+            $('#{{ $viewFolder }}_plan').val(bookingObj.consultation.plan);
+          }else{
+            $('#{{ $viewFolder }}_plan').val('');
+          }
+          if(bookingObj.consultation.planMed != null){
+            $('#{{ $viewFolder }}_planMed').val(bookingObj.consultation.planMed);
+          }else{
+            $('#{{ $viewFolder }}_planMed').val('');
+          }
+          if(bookingObj.consultation.planRem != null){
+            $('#{{ $viewFolder }}_planRem').val(bookingObj.consultation.planRem);
+          }else{
+            $('#{{ $viewFolder }}_planRem').val('');
+          }
+          if(typeof bookingObj.consultation.printable_form !== 'undefined' && bookingObj.consultation.printable_form !== null){
+           $('#{{ $viewFolder }}_intraoperative_findings').val(bookingObj.consultation.printable_form.intraoperative_findings);
+            if(bookingObj.consultation.printable_form.intraoperative_course == 'Unremarkable'){
+              $('#{{ $viewFolder }}_intraoperative_course_unremarkable').prop('checked', true);
+              $('#{{ $viewFolder }}_complication_specify').prop('disabled', true);
+            }else{
+              $('#{{ $viewFolder }}_intraoperative_course_with_complications').prop('checked', true);
+            }
+            $('#{{ $viewFolder }}_complication_specify').val(bookingObj.consultation.printable_form.complication_specify);
+            $('#{{ $viewFolder }}_blood_loss').val(bookingObj.consultation.printable_form.blood_loss);
+            if(bookingObj.consultation.printable_form.specimen_sent == 'no'){
+              $('#{{ $viewFolder }}_specimen_sent_no').prop('checked', true);
+            }else{
+              $('#{{ $viewFolder }}_specimen_sent_yes').prop('checked', true);
+            }
+            $('#{{ $viewFolder }}_specimen_sent_remarks').val(bookingObj.consultation.printable_form.specimen_sent_remarks);
+            if(bookingObj.consultation.printable_form.post_operative_condition == 'Stable'){
+              $('#{{ $viewFolder }}_post_operative_condition_stable').prop('checked', true);
+            }else{
+              $('#{{ $viewFolder }}_post_operative_condition_requires').prop('checked', true);
+            }
+            $('#{{ $viewFolder }}_post_operative_condition_remarks').val(bookingObj.consultation.printable_form.post_operative_condition_remarks);
+            $('#{{ $viewFolder }}_medication_given_recovery').val(bookingObj.consultation.printable_form.medication_given_recovery);
+            $('#{{ $viewFolder }}_discharge_medication').val(bookingObj.consultation.printable_form.discharge_medication);
+            $('#{{ $viewFolder }}_additional_orders').val(bookingObj.consultation.printable_form.additional_orders);
+            $('#{{ $viewFolder }}_operative_tech').val(bookingObj.consultation.printable_form.operative_tech);
+            $('#{{ $viewFolder }}_after_proc').val(bookingObj.consultation.printable_form.after_proc);
+            $('#{{ $viewFolder }}_things_to_watch_out_for').val(bookingObj.consultation.printable_form.things_to_watch_out_for);
+            $('#{{ $viewFolder }}_things_to_avoid').val(bookingObj.consultation.printable_form.things_to_avoid);
+            $('#{{ $viewFolder }}_wound_care').val(bookingObj.consultation.printable_form.wound_care);
+          }else{
+            $('#{{ $viewFolder }}_intraoperative_findings').val('');
+            $('#{{ $viewFolder }}_intraoperative_course_unremarkable').prop('checked', false);
+            $('#{{ $viewFolder }}_intraoperative_course_with_complications').prop('checked', false);
+            $('#{{ $viewFolder }}_complication_specify').val('');
+            $('#{{ $viewFolder }}_blood_loss').val('');
+            $('#{{ $viewFolder }}_specimen_sent_no').prop('checked', false);
+            $('#{{ $viewFolder }}_specimen_sent_yes').prop('checked', false);
+            $('#{{ $viewFolder }}_specimen_sent_remarks').val('');
+            $('#{{ $viewFolder }}_post_operative_condition_stable').prop('checked', false);
+            $('#{{ $viewFolder }}_post_operative_condition_requires').prop('checked', false);
+            $('#{{ $viewFolder }}_post_operative_condition_remarks').val(''); 
+            $('#{{ $viewFolder }}_medication_given_recovery').val('');
+            $('#{{ $viewFolder }}_discharge_medication').val('');
+            $('#{{ $viewFolder }}_additional_orders').val('');
+            $('#{{ $viewFolder }}_operative_tech').val('');
+            $('#{{ $viewFolder }}_after_proc').val('');
+            $('#{{ $viewFolder }}_things_to_watch_out_for').val('');
+            $('#{{ $viewFolder }}_things_to_avoid').val('');
+            $('#{{ $viewFolder }}_wound_care').val('');
+          }
+        }
+    });
+  }
+  function loadPrevBooking(consultation_id, index){
     $.ajax({
       type: 'GET',
       url: '{{ Route::has($viewFolder . '.getPrevBookingInfo') ? route($viewFolder . '.getPrevBookingInfo') : ''}}/' + consultation_id + '/withhistory/' + index,
@@ -13163,20 +14218,75 @@
             bmiKey = true;
           
           var bmi = '';
-          if(bmiKey)
-            bmi = Math.round(bookingObj.consultation.weight/((bookingObj.consultation.height/100)*(bookingObj.consultation.height/100)));
-
+          var i_bmi = '';
+          var o_bmi = '';
+          if(bmiKey){
+            bmi = Math.round(bookingObj.consultation.weight/((bookingObj.consultation.height/100)*(bookingObj.consultation.height/100))*100)/100;
+            i_bmi = Math.round(bookingObj.consultation.printable_form.i_weight/((bookingObj.consultation.height/100)*(bookingObj.consultation.height/100))*100)/100;
+            o_bmi = Math.round(bookingObj.consultation.printable_form.o_weight/((bookingObj.consultation.height/100)*(bookingObj.consultation.height/100))*100)/100;
+          }
+            
+          if(bookingObj.consultation.weight == null)
+            bookingObj.consultation.weight = '';
+          if(bookingObj.consultation.printable_form.i_weight == null)
+            bookingObj.consultation.printable_form.i_weight = '';
+          if(bookingObj.consultation.printable_form.o_weight == null)
+            bookingObj.consultation.printable_form.o_weight = '';
           if(bookingObj.consultation.bpS == null)
             bookingObj.consultation.bpS = '';
+          if(bookingObj.consultation.printable_form.i_bpS == null)
+            bookingObj.consultation.printable_form.i_bpS = '';
           if(bookingObj.consultation.bpD == null)
             bookingObj.consultation.bpD = '';
+          if(bookingObj.consultation.printable_form.o_bpD == null)
+            bookingObj.consultation.printable_form.o_bpD = '';
           if(bookingObj.consultation.o2 == null)
             bookingObj.consultation.o2 = '';
+          if(bookingObj.consultation.printable_form.i_o2 == null)
+            bookingObj.consultation.printable_form.i_o2 = '';
+          if(bookingObj.consultation.printable_form.o_o2 == null)
+            bookingObj.consultation.printable_form.o_o2 = '';
           if(bookingObj.consultation.heart == null)
             bookingObj.consultation.heart = '';
-            
-          vitalStr = '<strong>Temp:</strong>&nbsp;<span class="text-primary">' + bookingObj.consultation.temp + 'C</span>&nbsp;&nbsp;|&nbsp;&nbsp;<strong>Height:</strong>&nbsp;<span class="text-primary">' + bookingObj.consultation.height + 'cm</span>&nbsp;&nbsp;|&nbsp;&nbsp;<strong>Weight:</strong>&nbsp;<span class="text-primary">' + bookingObj.consultation.weight + 'kg</span>&nbsp;&nbsp;|&nbsp;&nbsp;<strong>BMI:</strong>&nbsp;<span class="text-primary">' + bmi + '</span><br><strong>BP:</strong>&nbsp;<span class="text-primary">' + bookingObj.consultation.bpS + '/' + bookingObj.consultation.bpD + '</span>&nbsp;&nbsp;|&nbsp;&nbsp;<strong>O2 Sat:</strong>&nbsp;<span class="text-primary">' + bookingObj.consultation.o2 + '%</span>&nbsp;&nbsp;|&nbsp;&nbsp;<strong>Heart Rate:</strong>&nbsp;<span class="text-primary">' + bookingObj.consultation.heart + 'beats/min</span>';
-          $('#prevVitaler').html(vitalStr);
+          if(bookingObj.consultation.printable_form.i_heart == null)
+            bookingObj.consultation.printable_form.i_heart = '';
+          if(bookingObj.consultation.printable_form.o_heart == null)
+            bookingObj.consultation.printable_form.o_heart = '';
+          if(bookingObj.consultation.resp == null)
+            bookingObj.consultation.resp = '';
+          if(bookingObj.consultation.printable_form.i_resp == null)
+            bookingObj.consultation.printable_form.i_resp = '';
+          if(bookingObj.consultation.printable_form.o_resp == null)
+            bookingObj.consultation.printable_form.o_resp = '';
+
+          $('#prev_temp').html(bookingObj.consultation.temp);
+          $('#prev_height').html(bookingObj.consultation.height);
+          $('#prev_i_height').html(bookingObj.consultation.height);
+          $('#prev_o_height').html(bookingObj.consultation.height);
+          $('#prev_weight').html(bookingObj.consultation.weight);
+          $('#prev_i_weight').html(bookingObj.consultation.printable_form.i_weight);
+          $('#prev_o_weight').html(bookingObj.consultation.printable_form.o_weight);
+          $('#prev_bmi').html(bmi);
+          $('#prev_i_bmi').html(i_bmi);
+          $('#prev_o_bmi').html(o_bmi);
+          $('#prev_bpD').html(bookingObj.consultation.bpD);
+          $('#prev_i_bpD').html(bookingObj.consultation.printable_form.i_bpD);
+          $('#prev_o_bpD').html(bookingObj.consultation.printable_form.o_bpD);
+          $('#prev_bpS').html(bookingObj.consultation.bpS);
+          $('#prev_i_bpS').html(bookingObj.consultation.printable_form.i_bpS);
+          $('#prev_o_bpS').html(bookingObj.consultation.printable_form.o_bpS);
+          $('#prev_o2').html(bookingObj.consultation.o2);
+          $('#prev_i_o2').html(bookingObj.consultation.printable_form.i_o2);
+          $('#prev_o_o2').html(bookingObj.consultation.printable_form.o_o2);
+          $('#prev_heart').html(bookingObj.consultation.heart);
+          $('#prev_i_heart').html(bookingObj.consultation.printable_form.i_heart);
+          $('#prev_o_heart').html(bookingObj.consultation.printable_form.o_heart);
+          $('#prev_resp').html(bookingObj.consultation.resp);
+          $('#prev_i_resp').html(bookingObj.consultation.printable_form.i_resp);
+          $('#prev_o_resp').html(bookingObj.consultation.printable_form.o_resp);
+
+          // vitalStr = '<strong>Temp:</strong>&nbsp;<span class="text-primary">' + bookingObj.consultation.temp + 'C</span>&nbsp;&nbsp;|&nbsp;&nbsp;<strong>Height:</strong>&nbsp;<span class="text-primary">' + bookingObj.consultation.height + 'cm</span>&nbsp;&nbsp;|&nbsp;&nbsp;<strong>Weight:</strong>&nbsp;<span class="text-primary">' + bookingObj.consultation.weight + 'kg</span>&nbsp;&nbsp;|&nbsp;&nbsp;<strong>BMI:</strong>&nbsp;<span class="text-primary">' + bmi + '</span><br><strong>BP:</strong>&nbsp;<span class="text-primary">' + bookingObj.consultation.bpS + '/' + bookingObj.consultation.bpD + '</span>&nbsp;&nbsp;|&nbsp;&nbsp;<strong>O2 Sat:</strong>&nbsp;<span class="text-primary">' + bookingObj.consultation.o2 + '%</span>&nbsp;&nbsp;|&nbsp;&nbsp;<strong>Heart Rate:</strong>&nbsp;<span class="text-primary">' + bookingObj.consultation.heart + 'beats/min</span>';
+          // $('#prevVitaler').html(vitalStr);
           $('#prevProcDet').html(bookingObj.consultation.procedure_details);
           $('#prevSumProcDet').html(bookingObj.consultation.procedure_details);
           $('#prevPatComp').html(bookingObj.consultation.complains);
@@ -13368,6 +14478,11 @@
             $('#{{ $viewFolder }}_prev_post_op_assessment').val('');
             $('#{{ $viewFolder }}_prev_sum_post_op_assessment').html('');
           }
+          if(bookingObj.consultation.primary_assessment != null){
+            $('#{{ $viewFolder }}_prev_primary_assessment').val(bookingObj.consultation.primary_assessment);
+          }else{
+            $('#{{ $viewFolder }}_primary_assessment').val('');
+          }
           if(bookingObj.consultation.assessment != null){
             $('#{{ $viewFolder }}_prev_assessment').val(bookingObj.consultation.assessment);
             $('#{{ $viewFolder }}_prev_sum_assessment').html(nl2br(bookingObj.consultation.assessment));
@@ -13395,6 +14510,58 @@
           }else{
             $('#{{ $viewFolder }}_prev_planRem').val('');
             $('#{{ $viewFolder }}_prev_sum_planRem').html('');
+          }
+
+          if(typeof bookingObj.consultation.printable_form !== 'undefined' && bookingObj.consultation.printable_form !== null){
+           $('#{{ $viewFolder }}_prev_intraoperative_findings').val(bookingObj.consultation.printable_form.intraoperative_findings);
+            if(bookingObj.consultation.printable_form.intraoperative_course == 'Unremarkable'){
+              $('#{{ $viewFolder }}_prev_intraoperative_course_unremarkable').prop('checked', true);
+              $('#{{ $viewFolder }}_prev_complication_specify').prop('disabled', true);
+            }else{
+              $('#{{ $viewFolder }}_prev_intraoperative_course_with_complications').prop('checked', true);
+            }
+            $('#{{ $viewFolder }}_prev_complication_specify').val(bookingObj.consultation.printable_form.complication_specify);
+            $('#{{ $viewFolder }}_prev_blood_loss').val(bookingObj.consultation.printable_form.blood_loss);
+            if(bookingObj.consultation.printable_form.specimen_sent == 'no'){
+              $('#{{ $viewFolder }}_prev_specimen_sent_no').prop('checked', true);
+            }else{
+              $('#{{ $viewFolder }}_prev_specimen_sent_yes').prop('checked', true);
+            }
+            $('#{{ $viewFolder }}_prev_specimen_sent_remarks').val(bookingObj.consultation.printable_form.specimen_sent_remarks);
+            if(bookingObj.consultation.printable_form.post_operative_condition == 'Stable'){
+              $('#{{ $viewFolder }}_prev_post_operative_condition_stable').prop('checked', true);
+            }else{
+              $('#{{ $viewFolder }}_prev_post_operative_condition_requires').prop('checked', true);
+            }
+            $('#{{ $viewFolder }}_prev_post_operative_condition_remarks').val(bookingObj.consultation.printable_form.post_operative_condition_remarks);
+            $('#{{ $viewFolder }}_prev_medication_given_recovery').val(bookingObj.consultation.printable_form.medication_given_recovery);
+            $('#{{ $viewFolder }}_prev_discharge_medication').val(bookingObj.consultation.printable_form.discharge_medication);
+            $('#{{ $viewFolder }}_prev_additional_orders').val(bookingObj.consultation.printable_form.additional_orders);
+            $('#{{ $viewFolder }}_prev_operative_technique').val(bookingObj.consultation.printable_form.operative_tech);
+            $('#{{ $viewFolder }}_prev_after_proc').val(bookingObj.consultation.printable_form.after_proc);
+            $('#{{ $viewFolder }}_prev_things_watch_out').val(bookingObj.consultation.printable_form.things_watch_out);
+            $('#{{ $viewFolder }}_prev_things_avoid').val(bookingObj.consultation.printable_form.things_avoid);
+            $('#{{ $viewFolder }}_prev_wound_care').val(bookingObj.consultation.printable_form.wound_care);
+          }else{
+            $('#{{ $viewFolder }}_prev_intraoperative_findings').val('');
+            $('#{{ $viewFolder }}_prev_intraoperative_course_unremarkable').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_intraoperative_course_with_complications').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_complication_specify').val('');
+            $('#{{ $viewFolder }}_prev_blood_loss').val('');
+            $('#{{ $viewFolder }}_prev_specimen_sent_no').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_specimen_sent_yes').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_specimen_sent_remarks').val('');
+            $('#{{ $viewFolder }}_prev_post_operative_condition_stable').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_post_operative_condition_requires').prop('checked', false);
+            $('#{{ $viewFolder }}_prev_post_operative_condition_remarks').val(''); 
+            $('#{{ $viewFolder }}_prev_medication_given_recovery').val('');
+            $('#{{ $viewFolder }}_prev_discharge_medication').val('');
+            $('#{{ $viewFolder }}_prev_additional_orders').val('');
+            $('#{{ $viewFolder }}_prev_operative_technique').val('');
+            $('#{{ $viewFolder }}_prev_after_proc').val('');
+            $('#{{ $viewFolder }}_prev_things_watch_out').val('');
+            $('#{{ $viewFolder }}_prev_things_avoid').val('');
+            $('#{{ $viewFolder }}_prev_wound_care').val('');
           }
           
           if(bookingObj.consultation.id != null){

@@ -1098,7 +1098,7 @@
             <div class="row mt-3">
               <div class="col-md-6">
                 <div class="card mb-3">
-                  <div class="card-header">Intraoperative Vital Signs</div>
+                  <div class="card-header">Intraoperative Vitals</div>
                   <div class="card-body">
                     <div class="input-group mb-3">
                       <div class="form-floating">
@@ -1107,6 +1107,43 @@
                         <small id="help_{{ $viewFolder }}_i_temp" class="text-muted"></small>
                       </div>
                       <span class="input-group-text">C</span>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" name="{{ $viewFolder }}[PrintableForm][i_height]" min=1 step=.1 id="{{ $viewFolder }}_i_height" value="{{ isset($referal_conso->height) ? $referal_conso->height : (!isset($referal_conso) && isset($datum->height) ? $datum->height: '') }}" placeholder="" onblur="
+                            if($(this).val() != '' && $('#{{ $viewFolder }}_i_weight').val() != ''){
+                              bmiTwo = $('#{{ $viewFolder }}_i_weight').val()/(($(this).val()/100)*($(this).val()/100));
+                              $('#{{ $viewFolder }}_i_bmi').val(bmiTwo.toFixed(2));
+                            }else{
+                              $('#{{ $viewFolder }}_i_bmi').val('');
+                            }
+                          " disabled>
+                        <label for="{{ $viewFolder }}_i_height" class="form-label">Height</label>
+                        <small id="help_{{ $viewFolder }}_i_height" class="text-muted"></small>
+                      </div>
+                      <span class="input-group-text">cm</span>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" name="{{ $viewFolder }}[PrintableForm][i_weight]" min=1 step=.1 id="{{ $viewFolder }}_i_weight" value="{{ isset($referal_conso->printable_form['i_weight']) ? $referal_conso->printable_form['i_weight'] : (!isset($referal_conso) && isset($datum->printable_form['i_weight']) ? $datum->printable_form['i_weight'] : '') }}" placeholder="" {{ isset($datum->id) ? '' : '' }} onblur="
+                          if($(this).val() != '' && $('#{{ $viewFolder }}_i_height').val() != ''){
+                            bmiTwo = $(this).val()/(($('#{{ $viewFolder }}_i_height').val()/100)*($('#{{ $viewFolder }}_i_height').val()/100))
+                            $('#{{ $viewFolder }}_i_bmi').val(bmiTwo.toFixed(2));
+                          }else{
+                            $('#{{ $viewFolder }}_i_bmi').val('');
+                          }
+                        ">
+                        <label for="{{ $viewFolder }}_i_weight" class="form-label">Weight</label>
+                        <small id="help_{{ $viewFolder }}_i_weight" class="text-muted"></small>
+                      </div>
+                      <span class="input-group-text">kg</span>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" name="{{ $viewFolder }}[PrintableForm][i_bmi]" min=1 id="{{ $viewFolder }}_i_bmi" value="{{ !empty($datum->height) ? number_format((int)$datum->printable_form['i_weight']/(((int)$datum->height/100)*((int)$datum->height/100)), 2) : '' }}" placeholder="" disabled>
+                        <label for="{{ $viewFolder }}_i_bmi" class="form-label">BMI</label>
+                        <small id="help_{{ $viewFolder }}_i_bmi" class="text-muted"></small>
+                      </div>
                     </div>
                     <label for="{{ $viewFolder }}_bpS" class="form-label">BP</label>
                     <div class="input-group mb-3">
@@ -1122,6 +1159,22 @@
                       </div>
                       <span class="input-group-text">%</span>
                     </div>
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" name="{{ $viewFolder }}[PrintableForm][i_heart]" min=1 id="{{ $viewFolder }}_i_heart" value="{{ isset($referal_conso->printable_form['i_heart']) ? $referal_conso->printable_form['i_heart'] : (!isset($referal_conso) && isset($datum->printable_form['i_heart']) ? $datum->printable_form['i_heart'] : '') }}" placeholder="" {{ isset($datum->id) ? '' : '' }}>
+                        <label for="{{ $viewFolder }}_i_heart" class="form-label">Heart/Pulse Rate</label>
+                        <small id="help_{{ $viewFolder }}_i_heart" class="text-muted"></small>
+                      </div>
+                      <span class="input-group-text">BPM</span>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" name="{{ $viewFolder }}[PrintableForm][i_resp]" min=1 id="{{ $viewFolder }}_i_resp" value="{{ isset($referal_conso->printable_form['i_resp']) ? $referal_conso->printable_form['i_resp'] : (!isset($referal_conso) && isset($datum->printable_form['i_resp']) ? $datum->printable_form['i_resp'] : '') }}" placeholder="" {{ isset($datum->id) ? '' : '' }}>
+                        <label for="{{ $viewFolder }}_i_resp" class="form-label">Resp</label>
+                        <small id="help_{{ $viewFolder }}_i_resp" class="text-muted"></small>
+                      </div>
+                      <span class="input-group-text">CPM</span>
+                    </div>
                     <label for="{{ $viewFolder }}_i_remarks" class="form-label">Remarks</label>
                     <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][i_remarks]" id="{{ $viewFolder }}_i_remarks" rows=3>{{ isset($referal_conso->printable_form['i_remarks']) ? $referal_conso->printable_form['i_remarks'] : (!isset($referal_conso) && isset($datum->printable_form['i_remarks']) ? $datum->printable_form['i_remarks'] : '') }}</textarea>
                     <div class="form-floating mt-3">
@@ -1136,7 +1189,7 @@
               </div>
               <div class="col-md-6">
                 <div class="card mb-3">
-                  <div class="card-header">Post Operative Vital Signs</div>
+                  <div class="card-header">Post Operative Vitals</div>
                   <div class="card-body">
                     <div class="input-group mb-3">
                       <div class="form-floating">
@@ -1145,6 +1198,43 @@
                         <small id="help_{{ $viewFolder }}_o_temp" class="text-muted"></small>
                       </div>
                       <span class="input-group-text">C</span>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" name="{{ $viewFolder }}[PrintableForm][height]" min=1 step=.1 id="{{ $viewFolder }}_o_height" value="{{ isset($referal_conso->height) ? $referal_conso->height : (!isset($referal_conso) && isset($datum->height) ? $datum->height : '') }}" placeholder="" {{ isset($datum->id) ? '' : '' }} onblur="
+                            if($(this).val() != '' && $('#{{ $viewFolder }}_o_weight').val() != ''){
+                              bmiTwo = $('#{{ $viewFolder }}_o_weight').val()/(($(this).val()/100)*($(this).val()/100));
+                              $('#{{ $viewFolder }}_o_bmi').val(bmiTwo.toFixed(2));
+                            }else{
+                              $('#{{ $viewFolder }}_o_bmi').val('');
+                            }
+                          " disabled>
+                        <label for="{{ $viewFolder }}_o_height" class="form-label">Height</label>
+                        <small id="help_{{ $viewFolder }}_o_height" class="text-muted"></small>
+                      </div>
+                      <span class="input-group-text">cm</span>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" name="{{ $viewFolder }}[PrintableForm][o_weight]" min=1 step=.1 id="{{ $viewFolder }}_o_weight" value="{{ isset($referal_conso->printable_form['o_weight']) ? $referal_conso->printable_form['o_weight'] : (!isset($referal_conso) && isset($datum->printable_form['o_weight']) ? $datum->printable_form['o_weight'] : '') }}" placeholder="" {{ isset($datum->id) ? '' : '' }} onblur="
+                          if($(this).val() != '' && $('#{{ $viewFolder }}_o_height').val() != ''){
+                            bmiTwo = $(this).val()/(($('#{{ $viewFolder }}_o_height').val()/100)*($('#{{ $viewFolder }}_o_height').val()/100))
+                            $('#{{ $viewFolder }}_o_bmi').val(bmiTwo.toFixed(2));
+                          }else{
+                            $('#{{ $viewFolder }}_o_bmi').val('');
+                          }
+                        ">
+                        <label for="{{ $viewFolder }}_o_weight" class="form-label">Weight</label>
+                        <small id="help_{{ $viewFolder }}_o_weight" class="text-muted"></small>
+                      </div>
+                      <span class="input-group-text">kg</span>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" name="{{ $viewFolder }}[PrintableForm][o_bmi]" min=1 id="{{ $viewFolder }}_o_bmi" value="{{ !empty($datum->height) ? number_format((int)$datum->printable_form['o_weight']/(((int)$datum->height/100)*((int)$datum->height/100)), 2) : '' }}" placeholder="" disabled>
+                        <label for="{{ $viewFolder }}_o_bmi" class="form-label">BMI</label>
+                        <small id="help_{{ $viewFolder }}_o_bmi" class="text-muted"></small>
+                      </div>
                     </div>
                     <label for="{{ $viewFolder }}_bpS" class="form-label">BP</label>
                     <div class="input-group mb-3">
@@ -1159,6 +1249,22 @@
                         <small id="help_{{ $viewFolder }}_o_o2" class="text-muted"></small>
                       </div>
                       <span class="input-group-text">%</span>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" name="{{ $viewFolder }}[PrintableForm][o_heart]" min=1 id="{{ $viewFolder }}_o_heart" value="{{ isset($referal_conso->printable_form['o_heart']) ? $referal_conso->printable_form['o_heart'] : (!isset($referal_conso) && isset($datum->printable_form['o_heart']) ? $datum->printable_form['o_heart'] : '') }}" placeholder="" {{ isset($datum->id) ? '' : '' }}>
+                        <label for="{{ $viewFolder }}_o_heart" class="form-label">Heart/Pulse Rate</label>
+                        <small id="help_{{ $viewFolder }}_o_heart" class="text-muted"></small>
+                      </div>
+                      <span class="input-group-text">BPM</span>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="form-floating">
+                        <input class="form-control" type="number" name="{{ $viewFolder }}[PrintableForm][o_resp]" min=1 id="{{ $viewFolder }}_o_resp" value="{{ isset($referal_conso->printable_form['o_resp']) ? $referal_conso->printable_form['o_resp'] : (!isset($referal_conso) && isset($datum->printable_form['o_resp']) ? $datum->printable_form['o_resp'] : '') }}" placeholder="" {{ isset($datum->id) ? '' : '' }}>
+                        <label for="{{ $viewFolder }}_o_resp" class="form-label">Resp</label>
+                        <small id="help_{{ $viewFolder }}_o_resp" class="text-muted"></small>
+                      </div>
+                      <span class="input-group-text">CPM</span>
                     </div>
                     <label for="{{ $viewFolder }}_o_remarks" class="form-label">Remarks</label>
                     <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][o_remarks]" id="{{ $viewFolder }}_o_remarks" rows=3>{{ isset($referal_conso->printable_form['o_remarks']) ? $referal_conso->printable_form['o_remarks'] : (!isset($referal_conso) && isset($datum->printable_form['o_remarks']) ? $datum->printable_form['o_remarks'] : '') }}</textarea>
@@ -2257,7 +2363,7 @@
               <div class="col-lg-6">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="number" name="{{ $viewFolder }}[prev_post_hd_weight]" min=1 step=.1 id="{{ $viewFolder }}_prev_post_hd_weight" value="{{ isset($datum->prev_post_hd_weight) ? $datum->prev_post_hd_weight : (isset($prevBooking->post_weight) ? $prevBooking->post_weight : '') }}" placeholder="">
+                    <input class="form-control" type="number" name="{{ $viewFolder }}[prev_post_hd_weight]" min=1 step=.01 id="{{ $viewFolder }}_prev_post_hd_weight" value="{{ isset($datum->prev_post_hd_weight) ? $datum->prev_post_hd_weight : (isset($prevBooking->post_weight) ? $prevBooking->post_weight : '') }}" placeholder="">
                     <label for="{{ $viewFolder }}_prev_post_hd_weight" class="form-label">Prev. Post HD Weight</label>
                     <small id="help_{{ $viewFolder }}_prev_post_hd_weight" class="text-muted"></small>
                   </div>
@@ -2269,9 +2375,16 @@
               <div class="col-lg-6">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="number" name="{{ $viewFolder }}[weight]" min=1 step=.1 id="{{ $viewFolder }}_pre_hd_weight" value="{{ isset($datum->weight) ? $datum->weight : ''}}" placeholder="" onchange="
+                    <input class="form-control" type="number" name="{{ $viewFolder }}[weight]" min=1 step=.01 id="{{ $viewFolder }}_pre_hd_weight" value="{{ isset($datum->weight) ? $datum->weight : ''}}" placeholder="" onchange="
                       if($('#{{ $viewFolder }}_pre_hd_weight').val() != '' &&  $('#{{ $viewFolder }}_post_hd_weight').val() != ''){
-                        $('#{{ $viewFolder }}_weight_loss').val($('#{{ $viewFolder }}_pre_hd_weight').val() - $('#{{ $viewFolder }}_post_hd_weight').val());
+                        var weightLoss = $('#{{ $viewFolder }}_prev_pre_hd_weight').val() - $('#{{ $viewFolder }}_prev_post_hd_weight').val();
+                        if(weightLoss > 0) {
+                          $('#{{ $viewFolder }}_weight_loss').val(weightLoss.toFixed(2));
+                          $('#{{ $viewFolder }}_weight_gain').val('');
+                        }else{
+                          $('#{{ $viewFolder }}_weight_gain').val(-1*weightLoss.toFixed(2));
+                          $('#{{ $viewFolder }}_weight_loss').val('');
+                        }
                       }
                     ">
                     <label for="{{ $viewFolder }}_pre_hd_weight" class="form-label">Pre HD Weight</label>
@@ -2283,9 +2396,17 @@
               <div class="col-lg-6">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="number" name="{{ $viewFolder }}[post_weight]" min=1 step=.1 id="{{ $viewFolder }}_post_hd_weight" value="{{ isset($datum->post_weight) ? $datum->post_weight : ''}}" placeholder="" onchange="
+                    <input class="form-control" type="number" name="{{ $viewFolder }}[post_weight]" min=1 step=.01 id="{{ $viewFolder }}_post_hd_weight" value="{{ isset($datum->post_weight) ? $datum->post_weight : ''}}" placeholder="" onchange="
                     if($('#{{ $viewFolder }}_pre_hd_weight').val() != '' &&  $('#{{ $viewFolder }}_post_hd_weight').val() != ''){
-                      $('#{{ $viewFolder }}_weight_loss').val($('#{{ $viewFolder }}_pre_hd_weight').val() - $('#{{ $viewFolder }}_post_hd_weight').val());
+                      var weightLoss = $('#{{ $viewFolder }}_pre_hd_weight').val() - $('#{{ $viewFolder }}_post_hd_weight').val();
+                      alert(weightLoss);
+                      if(weightLoss > 0) {
+                        $('#{{ $viewFolder }}_weight_loss').val(weightLoss.toFixed(2));
+                        $('#{{ $viewFolder }}_weight_gain').val('');
+                      }else{
+                        $('#{{ $viewFolder }}_weight_gain').val(-1*weightLoss.toFixed(2));
+                        $('#{{ $viewFolder }}_weight_loss').val('');
+                      }
                     }
                     if($('#{{ $viewFolder }}_time_started').val() != '' && $('#{{ $viewFolder }}_time_ended').val() != '' && $('#{{ $viewFolder }}_pre_bun').val() != '' && $('#{{ $viewFolder }}_post_bun').val() != '' && $('#{{ $viewFolder }}_post_hd_weight').val() != '' && $('#{{ $viewFolder }}_achieved_uf').val() != ''){
                       var start = new Date('1970-01-01 ' + $('#{{ $viewFolder }}_time_started').val());
@@ -2427,7 +2548,7 @@
               <div class="col-lg-6">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="number" name="{{ $viewFolder }}[weight_loss]" min=0 step=.1 id="{{ $viewFolder }}_weight_loss" value="{{ isset($datum->weight_loss) ? $datum->weight_loss : ''}}" placeholder="">
+                    <input class="form-control" type="number" name="{{ $viewFolder }}[weight_loss]" min=0 step=.01 id="{{ $viewFolder }}_weight_loss" value="{{ isset($datum->weight_loss) ? $datum->weight_loss : ''}}" placeholder="">
                     <label for="{{ $viewFolder }}_weight_loss" class="form-label">Weight Loss</label>
                     <small id="help_{{ $viewFolder }}_weight_loss" class="text-muted"></small>
                   </div>
@@ -2437,7 +2558,7 @@
               <div class="col-lg-6">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="number" name="{{ $viewFolder }}[weight_gain]" min=0 step=.1 id="{{ $viewFolder }}_weight_gain" value="{{ isset($datum->weight_gain) ? $datum->weight_gain : ''}}" placeholder="">
+                    <input class="form-control" type="number" name="{{ $viewFolder }}[weight_gain]" min=0 step=.01 id="{{ $viewFolder }}_weight_gain" value="{{ isset($datum->weight_gain) ? $datum->weight_gain : ''}}" placeholder="">
                     <label for="{{ $viewFolder }}_weight_gain" class="form-label">Weight Gain</label>
                     <small id="help_{{ $viewFolder }}_weight_gain" class="text-muted"></small>
                   </div>
@@ -2514,7 +2635,7 @@
         <div class="row">
           <div class="col-lg-{{ stristr($doctor->specialty, 'Ophtha') && (isset($datum->booking_type) && $datum->booking_type != 'Dialysis') ? 4 : (isset($datum->booking_type) && $datum->booking_type == 'Dialysis' ? 6 : 12) }}">
             <div class="card mb-3">
-              <div class="card-header">{{ isset($datum->booking_type) && $datum->booking_type == 'Dialysis' ? 'Pre-HD ' : '' }}Vitals</div>
+              <div class="card-header">{{ isset($datum->booking_type) && $datum->booking_type == 'Dialysis' ? 'Pre-HD ' : 'Preoperative ' }}Vitals</div>
               <div class="card-body">
                 <div class="input-group mb-3">
                   <div class="form-floating">
@@ -3657,21 +3778,21 @@
                     </div>
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[rbc]" id="{{ $viewFolder }}_rbc" placeholder="" value="{{ !empty($datum->rbc) ? $datum->rbc : '' }}">
+                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[rbc]" id="{{ $viewFolder }}_rbc" placeholder="" value="{{ !empty($datum->rbc) ? $datum->rbc : '' }}">
                         <label for="{{ $viewFolder }}_rbc" class="form-label">RBC</label>
                         <small id="help_{{ $viewFolder }}_rbc" class="text-muted"></small>
                       </div>
                     </div>
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[wbc]" id="{{ $viewFolder }}_wbc" placeholder="" value="{{ !empty($datum->wbc) ? $datum->wbc : '' }}">
+                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[wbc]" id="{{ $viewFolder }}_wbc" placeholder="" value="{{ !empty($datum->wbc) ? $datum->wbc : '' }}">
                         <label for="{{ $viewFolder }}_wbc" class="form-label">WBC</label>
                       </div>
                       <small id="help_{{ $viewFolder }}_wbc" class="text-muted"></small>
                     </div>
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="number" step="1" name="{{ $viewFolder }}[platelet]" id="{{ $viewFolder }}_platelet" placeholder="" value="{{ !empty($datum->platelet) ? $datum->platelet : '' }}">
+                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[platelet]" id="{{ $viewFolder }}_platelet" placeholder="" value="{{ !empty($datum->platelet) ? $datum->platelet : '' }}">
                         <label for="{{ $viewFolder }}_platelet" class="form-label">Platelet</label>
                       </div>
                       <small id="help_{{ $viewFolder }}_platelet" class="text-muted"></small>
@@ -3687,7 +3808,7 @@
                     <small id="help_{{ $viewFolder }}_urr" class="text-muted mb-3">URR = ((Pre BUN - Post BUN)/Pre BUN) x 100</small>
                     <div class="input-group">
                       <div class="form-floating">
-                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[ktv2]" id="{{ $viewFolder }}_ktv2" placeholder="" value="{{ !empty($datum->ktv2) ? $datum->ktv2 : '' }}" readonly>
+                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[ktv2]" id="{{ $viewFolder }}_ktv2" placeholder="" value="{{ !empty($datum->ktv2) ? $datum->ktv2 : '' }}" readonly>
                         <label for="{{ $viewFolder }}_ktv2" class="form-label">Kt/V</label>
                       </div>
                     </div>
@@ -3695,7 +3816,7 @@
                     <p>Blood Chemistry</p>
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[pre_bun]" id="{{ $viewFolder }}_pre_bun" placeholder="" value="{{ !empty($datum->pre_bun) ? $datum->pre_bun : '' }}" onchange="
+                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[pre_bun]" id="{{ $viewFolder }}_pre_bun" placeholder="" value="{{ !empty($datum->pre_bun) ? $datum->pre_bun : '' }}" onchange="
                           if($('#{{ $viewFolder }}_pre_bun').val() != '' && $('#{{ $viewFolder }}_post_bun').val() != ''){
                             var urr = (($('#{{ $viewFolder }}_pre_bun').val() - $('#{{ $viewFolder }}_post_bun').val())/$('#{{ $viewFolder }}_pre_bun').val())*100;
                             $('#{{ $viewFolder }}_urr').val(urr.toFixed(2));
@@ -3721,7 +3842,7 @@
                     </div>
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[post_bun]" id="{{ $viewFolder }}_post_bun" placeholder="" value="{{ !empty($datum->post_bun) ? $datum->post_bun : '' }}" onchange="
+                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[post_bun]" id="{{ $viewFolder }}_post_bun" placeholder="" value="{{ !empty($datum->post_bun) ? $datum->post_bun : '' }}" onchange="
                           if($('#{{ $viewFolder }}_pre_bun').val() != '' && $('#{{ $viewFolder }}_post_bun').val() != ''){
                             var urr = (($('#{{ $viewFolder }}_pre_bun').val() - $('#{{ $viewFolder }}_post_bun').val())/$('#{{ $viewFolder }}_pre_bun').val())*100;
                             $('#{{ $viewFolder }}_urr').val(urr.toFixed(2));
@@ -3750,63 +3871,63 @@
                   <div class="col-lg-6">
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[creatinine]" id="{{ $viewFolder }}_creatinine" placeholder="" value="{{ !empty($datum->creatinine) ? $datum->creatinine : '' }}">
+                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[creatinine]" id="{{ $viewFolder }}_creatinine" placeholder="" value="{{ !empty($datum->creatinine) ? $datum->creatinine : '' }}">
                         <label for="{{ $viewFolder }}_creatinine" class="form-label">Creatinine</label>
                         <small id="help_{{ $viewFolder }}_creatinine" class="text-muted"></small>
                       </div>
                     </div>
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[serum_albumin]" id="{{ $viewFolder }}_serum_albumin" placeholder="" value="{{ !empty($datum->serum_albumin) ? $datum->serum_albumin : '' }}">
+                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[serum_albumin]" id="{{ $viewFolder }}_serum_albumin" placeholder="" value="{{ !empty($datum->serum_albumin) ? $datum->serum_albumin : '' }}">
                         <label for="{{ $viewFolder }}_serum_albumin" class="form-label">Serum Albumin</label>
                         <small id="help_{{ $viewFolder }}_serum_albumin" class="text-muted"></small>
                       </div>
                     </div>
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[sodium]" id="{{ $viewFolder }}_sodium" placeholder="" value="{{ !empty($datum->sodium) ? $datum->sodium : '' }}">
+                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[sodium]" id="{{ $viewFolder }}_sodium" placeholder="" value="{{ !empty($datum->sodium) ? $datum->sodium : '' }}">
                         <label for="{{ $viewFolder }}_sodium" class="form-label">Sodium</label>
                         <small id="help_{{ $viewFolder }}_sodium" class="text-muted"></small>
                       </div>
                     </div>
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[potassium]" id="{{ $viewFolder }}_potassium" placeholder="" value="{{ !empty($datum->potassium) ? $datum->potassium : '' }}">
+                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[potassium]" id="{{ $viewFolder }}_potassium" placeholder="" value="{{ !empty($datum->potassium) ? $datum->potassium : '' }}">
                         <label for="{{ $viewFolder }}_potassium" class="form-label">Potassium</label>
                         <small id="help_{{ $viewFolder }}_potassium" class="text-muted"></small>
                       </div>
                     </div>
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[phosphorus]" id="{{ $viewFolder }}_phosphorus" placeholder="" value="{{ !empty($datum->phosphorus) ? $datum->phosphorus : '' }}">
+                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[phosphorus]" id="{{ $viewFolder }}_phosphorus" placeholder="" value="{{ !empty($datum->phosphorus) ? $datum->phosphorus : '' }}">
                         <label for="{{ $viewFolder }}_phosphorus" class="form-label">Phosphorus</label>
                         <small id="help_{{ $viewFolder }}_phosphorus" class="text-muted"></small>
                       </div>
                     </div>
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[ionized_calcium]" id="{{ $viewFolder }}_ionized_calcium" placeholder="" value="{{ !empty($datum->ionized_calcium) ? $datum->ionized_calcium : '' }}">
+                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[ionized_calcium]" id="{{ $viewFolder }}_ionized_calcium" placeholder="" value="{{ !empty($datum->ionized_calcium) ? $datum->ionized_calcium : '' }}">
                         <label for="{{ $viewFolder }}_ionized_calcium" class="form-label">Ionized Calcium</label>
                         <small id="help_{{ $viewFolder }}_ionized_calcium" class="text-muted"></small>
                       </div>
                     </div>
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[uric_acid]" id="{{ $viewFolder }}_uric_acid" placeholder="" value="{{ !empty($datum->uric_acid) ? $datum->uric_acid : '' }}">
+                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[uric_acid]" id="{{ $viewFolder }}_uric_acid" placeholder="" value="{{ !empty($datum->uric_acid) ? $datum->uric_acid : '' }}">
                         <label for="{{ $viewFolder }}_uric_acid" class="form-label">Uric Acid</label>
                         <small id="help_{{ $viewFolder }}_uric_acid" class="text-muted"></small>
                       </div>
                     </div>
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[sgpt]" id="{{ $viewFolder }}_sgpt" placeholder="" value="{{ !empty($datum->sgpt) ? $datum->sgpt : '' }}">
+                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[sgpt]" id="{{ $viewFolder }}_sgpt" placeholder="" value="{{ !empty($datum->sgpt) ? $datum->sgpt : '' }}">
                         <label for="{{ $viewFolder }}_sgpt" class="form-label">SGPT</label>
                         <small id="help_{{ $viewFolder }}_sgpt" class="text-muted"></small>
                       </div>
                     </div>
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[sgot]" id="{{ $viewFolder }}_sgot" placeholder="" value="{{ !empty($datum->sgot) ? $datum->sgot : '' }}">
+                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[sgot]" id="{{ $viewFolder }}_sgot" placeholder="" value="{{ !empty($datum->sgot) ? $datum->sgot : '' }}">
                         <label for="{{ $viewFolder }}_sgot" class="form-label">SGOT</label>
                         <small id="help_{{ $viewFolder }}_sgot" class="text-muted"></small>
                       </div>
@@ -3818,14 +3939,14 @@
                     <p>Iron Studies</p>
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[serum_ferritin]" id="{{ $viewFolder }}_serum_ferritin" placeholder="" value="{{ !empty($datum->serum_ferritin) ? $datum->serum_ferritin : '' }}">
+                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[serum_ferritin]" id="{{ $viewFolder }}_serum_ferritin" placeholder="" value="{{ !empty($datum->serum_ferritin) ? $datum->serum_ferritin : '' }}">
                         <label for="{{ $viewFolder }}_serum_ferritin" class="form-label">Serum Ferritin</label>
                         <small id="help_{{ $viewFolder }}_serum_ferritin" class="text-muted"></small>
                       </div>
                     </div>
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[serum_iron]" id="{{ $viewFolder }}_serum_iron" placeholder="" value="{{ !empty($datum->serum_iron) ? $datum->serum_iron : '' }}" onchange="
+                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[serum_iron]" id="{{ $viewFolder }}_serum_iron" placeholder="" value="{{ !empty($datum->serum_iron) ? $datum->serum_iron : '' }}" onchange="
                             var tsat = ($('#{{ $viewFolder }}_serum_iron').val()/$('#{{ $viewFolder }}_tibc').val())*100;
                             $('#{{ $viewFolder }}_tsat').val(tsat.toFixed(2));
                         ">
@@ -3835,7 +3956,7 @@
                     </div>
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[tibc]" id="{{ $viewFolder }}_tibc" placeholder="" value="{{ !empty($datum->tibc) ? $datum->tibc : '' }}" onchange="
+                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[tibc]" id="{{ $viewFolder }}_tibc" placeholder="" value="{{ !empty($datum->tibc) ? $datum->tibc : '' }}" onchange="
                             var tsat = ($('#{{ $viewFolder }}_serum_iron').val()/$('#{{ $viewFolder }}_tibc').val())*100;
                             $('#{{ $viewFolder }}_tsat').val(tsat.toFixed(2));
                         ">
@@ -3845,7 +3966,7 @@
                     </div>
                     <div class="input-group">
                       <div class="form-floating">
-                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[tsat]" id="{{ $viewFolder }}_tsat" placeholder="" value="{{ !empty($datum->tsat) ? $datum->tsat : '' }}" readonly>
+                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[tsat]" id="{{ $viewFolder }}_tsat" placeholder="" value="{{ !empty($datum->tsat) ? $datum->tsat : '' }}" readonly>
                         <label for="{{ $viewFolder }}_tsat" class="form-label">TSAT</label>
                         <small id="help_{{ $viewFolder }}_tsat" class="text-muted mb-3"></small>
                       </div>
@@ -3857,21 +3978,21 @@
                     <p>Hepatitis Profile</p>
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[hbsag]" id="{{ $viewFolder }}_hbsag" placeholder="" value="{{ !empty($datum->hbsag) ? $datum->hbsag : '' }}">
+                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[hbsag]" id="{{ $viewFolder }}_hbsag" placeholder="" value="{{ !empty($datum->hbsag) ? $datum->hbsag : '' }}">
                         <label for="{{ $viewFolder }}_hbsag" class="form-label">HBsAg</label>
                         <small id="help_{{ $viewFolder }}_hbsag" class="text-muted"></small>
                       </div>
                     </div>
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[anti_hbs]" id="{{ $viewFolder }}_anti_hbs" placeholder="" value="{{ !empty($datum->anti_hbs) ? $datum->anti_hbs : '' }}">
+                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[anti_hbs]" id="{{ $viewFolder }}_anti_hbs" placeholder="" value="{{ !empty($datum->anti_hbs) ? $datum->anti_hbs : '' }}">
                         <label for="{{ $viewFolder }}_anti_hbs" class="form-label">Anti-HBS</label>
                         <small id="help_{{ $viewFolder }}_anti_hbs" class="text-muted"></small>
                       </div>
                     </div>
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[anti_hcv]" id="{{ $viewFolder }}_anti_hcv" placeholder="" value="{{ !empty($datum->anti_hcv) ? $datum->anti_hcv : '' }}">
+                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[anti_hcv]" id="{{ $viewFolder }}_anti_hcv" placeholder="" value="{{ !empty($datum->anti_hcv) ? $datum->anti_hcv : '' }}">
                         <label for="{{ $viewFolder }}_anti_hcv" class="form-label">Anti-HCV</label>
                         <small id="help_{{ $viewFolder }}_anti_hcv" class="text-muted"></small>
                       </div>

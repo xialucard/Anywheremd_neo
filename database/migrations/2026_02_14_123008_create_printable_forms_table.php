@@ -51,6 +51,10 @@ return new class extends Migration
             $table->integer('i_o2')->nullable();
             $table->text('i_remarks')->nullable();
             $table->text('c_nurse')->nullable();
+            $table->integer('i_weight')->nullable();
+            $table->integer('i_heart')->nullable();
+            $table->integer('i_resp')->nullable();
+            
 
             $table->string('o_temp', 255)->nullable();
             $table->integer('o_bpS')->nullable();
@@ -58,7 +62,11 @@ return new class extends Migration
             $table->integer('o_o2')->nullable();
             $table->text('o_remarks')->nullable();
             $table->text('r_nurse')->nullable();
-            
+            $table->integer('o_weight')->nullable();
+            $table->integer('o_heart')->nullable();
+            $table->integer('o_resp')->nullable();
+
+
             $table->time('time_admitted', $precision = 0)->nullable();
             $table->time('time_discharged', $precision = 0)->nullable();
 
