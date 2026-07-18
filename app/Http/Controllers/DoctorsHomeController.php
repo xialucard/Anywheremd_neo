@@ -548,9 +548,10 @@ class DoctorsHomeController extends Controller
         }
 
         if(isset($params['MedsOnboard'])){
+            unset($medsOnboard);
             $medsOnboard = $params['MedsOnboard'];
             unset($params['MedsOnboard']);
-            if($medsOnboard['meds'] != ''){
+            if(isset($medsOnboard['meds']) && $medsOnboard['meds'] != ''){
                 $medsOnboard['consultation_id'] = $doctors_home->id;
                 $medsOnboard['created_by'] = $user->id;
                 $medsOnboard['updated_by'] = $user->id;
