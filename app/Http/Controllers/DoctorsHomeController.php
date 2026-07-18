@@ -465,7 +465,7 @@ class DoctorsHomeController extends Controller
         $user = Auth::user();
         unset($params);
         $params = $request->input($this->viewFolder);
-        // dd($params);
+        dd($params);
         if(isset($params['anesthesia_type_ot'])){
             $params['anesthesia_type_ao'] = $params['anesthesia_type_ot'];
             unset($params['anesthesia_type_ot']);
