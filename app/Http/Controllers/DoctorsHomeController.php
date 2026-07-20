@@ -366,7 +366,7 @@ class DoctorsHomeController extends Controller
                     'patients'=>$patients, 
                     'viewFolder' => $this->viewFolder, 
                     'modalSize' => 'modal-fullscreen',
-                    'maxDateSched' =>$datum->doctor->schedules()->max('dateSched'),
+                    'maxDateSched' =>date("Y-m-d", strtotime($datum->bookingDate . ' + 2 months')),
                     'doctorClinic' =>$doctorClinic,
                     'allBooking' => $allBooking,
                     'referer' => urldecode($request->headers->get('referer'))
@@ -452,7 +452,7 @@ class DoctorsHomeController extends Controller
                     'patients'=>$patients, 
                     'viewFolder' => $this->viewFolder, 
                     'modalSize' => 'modal-fullscreen',
-                    'maxDateSched' =>$datum->doctor->schedules()->max('dateSched'),
+                    'maxDateSched' =>date("Y-m-d", strtotime($datum->bookingDate . ' + 2 months')),
                     'doctorClinic' =>$doctorClinic,
                     'allBooking' => $allBooking,
                     'referer' => urldecode($request->headers->get('referer'))

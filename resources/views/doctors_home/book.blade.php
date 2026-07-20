@@ -89,6 +89,18 @@
             font-size: 1.2em;
             font-weight:bold;
         }
+        .soapLink{
+            font-size: 1.1em;
+            font-weight:bold;
+        }
+        .docNotesLinkPrev{
+            font-size: 1.1em;
+            font-weight:bold;
+        }
+        .docNotesLink{
+            font-size: 1.1em;
+            font-weight:bold;
+        }
 </style>
 
 <datalist id="icdCodeList"></datalist>
@@ -2041,14 +2053,16 @@
         </ul>
         @if(isset($bookings[0]))
         <div id="pastChart" class="card mb-3 d-none d-lg-none">
-          <div class="card-header">Past Patient's Chart (<span id="prevBookingDater">{{ $bookings[0]->bookingDate }}</span>)&nbsp;<a id="showPast" class="d-none d-lg-block" href="#" onclick="
-            $('#curChart').removeClass('col-lg-6');
-            $('#curChart').addClass('col-lg-12');
-            $('#pastChart').hide();
-            $('#pastChart').addClass('d-none');
-            $('#pastChart').addClass('d-lg-none');
-            $('#carouselCur').css('max-width', '60%');
-          ">hide past patient's chart</a></div>
+          <div class="card-header">Past Patient's Chart (<span id="prevBookingDater">{{ $bookings[0]->bookingDate }}</span>)&nbsp;
+            {{-- <a id="showPast" class="d-none d-lg-block" href="#" onclick="
+              $('#curChart').removeClass('col-lg-6');
+              $('#curChart').addClass('col-lg-12');
+              $('#pastChart').hide();
+              $('#pastChart').addClass('d-none');
+              $('#pastChart').addClass('d-lg-none');
+              $('#carouselCur').css('max-width', '60%');
+            ">hide past patient's chart</a> --}}
+          </div>
           
           <div class="card-body">
             <div class="row">
@@ -3218,7 +3232,7 @@
                   </div>
                 </div> --}}
                 <div class="container">
-                  <ul class="nav nav-tabs">
+                  <ul class="nav nav-tabs soapLink">
                     <li class="nav-item">
                       <a class="nav-link soapLink soapSubjective active" href="#" onclick="
                         $('.soapLink').removeClass('active');
@@ -3252,7 +3266,8 @@
                       ">Plan</a>
                     </li>
                   </ul>
-                  <div id="soapDivPrev" class="container border border-1 border-top-0 p-3 mb-3 table-responsive" style="max-height: 300px">
+                  {{-- <div id="soapDivPrev" class="container border border-1 border-top-0 p-3 mb-3 table-responsive" style="max-height: 300px"> --}}
+                  <div id="soapDivPrev" class="container border border-1 border-top-0 p-3 mb-3">
                     <div class="card soapDiv soapDivSubjective mb-3" id="{{ $viewFolder }}_SOAPPREV_{{ $datum->id }}_SUBJ">
                       <div class="card-header">Previous Subjective Findings</div>
                       <div class="card-body">
@@ -6503,14 +6518,16 @@
       @endphp --}}
       <div id="curChart" class="col-lg-12">
         <div class="card mb-3 d-lg-block">
-          <div class="card-header">Current Patient's Chart ({{ $datum->bookingDate }})&nbsp;<a id="showPast" class="d-none d-lg-block" href="#" onclick="
-            $('#curChart').removeClass('col-lg-12');
-            $('#curChart').addClass('col-lg-6');
-            $('#pastChart').show();
-            $('#pastChart').removeClass('d-none');
-            $('#pastChart').removeClass('d-lg-none');
-            $('#carouselCur').css('max-width', '100%');
-          ">show past patient's chart</a></div>
+          <div class="card-header">Current Patient's Chart ({{ $datum->bookingDate }})&nbsp;
+            {{-- <a id="showPast" class="d-none d-lg-block" href="#" onclick="
+              $('#curChart').removeClass('col-lg-12');
+              $('#curChart').addClass('col-lg-6');
+              $('#pastChart').show();
+              $('#pastChart').removeClass('d-none');
+              $('#pastChart').removeClass('d-lg-none');
+              $('#carouselCur').css('max-width', '100%');
+            ">show past patient's chart</a> --}}
+          </div>
           <div class="card-body">
             <div class="row">
               <div class="col-lg-6"> 
@@ -8452,7 +8469,7 @@
                   </div>
                 </div> --}}
                 <div class="docNotesDiv" id="{{ $viewFolder }}_SOAP_{{ $datum->id }}">
-                  <ul class="nav nav-tabs">
+                  <ul class="nav nav-tabs soapLink">
                     <li class="nav-item">
                       <a class="nav-link soapLink soapSubjective active" href="#" onclick="
                         $('.soapLink').removeClass('active');
@@ -8486,7 +8503,8 @@
                       ">Plan</a>
                     </li>
                   </ul>
-                  <div id="soapDivCur" class="container border border-1 border-top-0 p-3 mb-3 table-responsive" style="max-height: 300px">
+                  {{-- <div id="soapDivCur" class="container border border-1 border-top-0 p-3 mb-3 table-responsive" style="max-height: 300px"> --}}
+                  <div id="soapDivCur" class="container border border-1 border-top-0 p-3 mb-3">
                     <div class="card soapDiv soapDivSubjective mb-3" id="{{ $viewFolder }}_SOAPCURR_{{ $datum->id }}_SUBJ">
                       <div class="card-header">Subjective Findings</div>
                       <div class="card-body">
@@ -8717,7 +8735,7 @@
                               <input class="form-check-input soapField" type="radio" name="{{ $viewFolder }}[PrintableForm][specimen_sent]" value="no" id="{{ $viewFolder }}_specimen_sent_no" {{ (isset($datum->printable_form['specimen_sent']) && $datum->printable_form['specimen_sent'] == 'no') ? 'checked' : '' }} {{ !isset($referal_conso) ? '' : 'disabled' }}>
                               <label class="form-check-label" for="{{ $viewFolder }}_specimen_sent_no">No</label>
                             </div>
-                            <label class="form-label mt-3" for="{{ $viewFolder }}_specimen_sent_remarks">Sepcimen Remarks</label>
+                            <label class="form-label mt-3" for="{{ $viewFolder }}_specimen_sent_remarks">Specimen Remarks</label>
                             <textarea class="form-control soapField mb-3" name="{{ $viewFolder }}[PrintableForm][specimen_sent_remarks]" id="{{ $viewFolder }}_specimen_sent_remarks" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 
                                 {{-- onblur="
                                   if($('#{{ $viewFolder }}_specimen_sent_remarks').val() == ''){
@@ -13938,13 +13956,13 @@
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  // document.addEventListener('DOMContentLoaded', function() {
     // const div1 = document.getElementById('prevDiv');
     // const div2 = document.getElementById('curDiv');
-    const soapDivPrev = document.getElementById('soapDivPrev');
-    const soapDivCur = document.getElementById('soapDivCur');
+    // const soapDivPrev = document.getElementById('soapDivPrev');
+    // const soapDivCur = document.getElementById('soapDivCur');
 
-    let isScrolling = false; // Flag to prevent infinite loops
+    // let isScrolling = false; // Flag to prevent infinite loops
     // div1.addEventListener('scroll', function() {
     //   if(!$('#labPrevDiv').is(':visible')){
     //     if (!isScrolling) {
@@ -13967,26 +13985,26 @@
     //   }
     // });
 
-    soapDivPrev.addEventListener('scroll', function() {
-      if(!$('#labPrevDiv').is(':visible')){
-        if (!isScrolling) {
-          isScrolling = true;
-          soapDivCur.scrollTop = soapDivPrev.scrollTop;
-          setTimeout(() => { isScrolling = false; }, 50); // Small delay to reset flag
-        }
-      }
-    });
-    soapDivCur.addEventListener('scroll', function() {
-      if(!$('#labPrevDiv').is(':visible')){
-        if (!isScrolling) {
-          isScrolling = true;
-          soapDivPrev.scrollTop = soapDivCur.scrollTop;
-          setTimeout(() => { isScrolling = false; }, 50); // Small delay to reset flag
-        }
-      }
-    });
+    // soapDivPrev.addEventListener('scroll', function() {
+    //   if(!$('#labPrevDiv').is(':visible')){
+    //     if (!isScrolling) {
+    //       isScrolling = true;
+    //       soapDivCur.scrollTop = soapDivPrev.scrollTop;
+    //       setTimeout(() => { isScrolling = false; }, 50); // Small delay to reset flag
+    //     }
+    //   }
+    // });
+    // soapDivCur.addEventListener('scroll', function() {
+    //   if(!$('#labPrevDiv').is(':visible')){
+    //     if (!isScrolling) {
+    //       isScrolling = true;
+    //       soapDivPrev.scrollTop = soapDivCur.scrollTop;
+    //       setTimeout(() => { isScrolling = false; }, 50); // Small delay to reset flag
+    //     }
+    //   }
+    // });
 
-  });
+  // });
   function nl2br (str, is_xhtml) {
     // http://kevin.vanzonneveld.net
     // +   original by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
@@ -14222,42 +14240,55 @@
           var o_bmi = '';
           if(bmiKey){
             bmi = Math.round(bookingObj.consultation.weight/((bookingObj.consultation.height/100)*(bookingObj.consultation.height/100))*100)/100;
-            i_bmi = Math.round(bookingObj.consultation.printable_form.i_weight/((bookingObj.consultation.height/100)*(bookingObj.consultation.height/100))*100)/100;
-            o_bmi = Math.round(bookingObj.consultation.printable_form.o_weight/((bookingObj.consultation.height/100)*(bookingObj.consultation.height/100))*100)/100;
+            if(typeof bookingObj.consultation.printable_form !== 'undefined' && bookingObj.consultation.printable_form !== null){
+              i_bmi = Math.round(bookingObj.consultation.printable_form.i_weight/((bookingObj.consultation.height/100)*(bookingObj.consultation.height/100))*100)/100;
+              o_bmi = Math.round(bookingObj.consultation.printable_form.o_weight/((bookingObj.consultation.height/100)*(bookingObj.consultation.height/100))*100)/100;
+            }else{
+              i_bmi = '';
+              o_bmi = '';
+            }
           }
             
           if(bookingObj.consultation.weight == null)
             bookingObj.consultation.weight = '';
-          if(bookingObj.consultation.printable_form.i_weight == null)
-            bookingObj.consultation.printable_form.i_weight = '';
-          if(bookingObj.consultation.printable_form.o_weight == null)
-            bookingObj.consultation.printable_form.o_weight = '';
           if(bookingObj.consultation.bpS == null)
             bookingObj.consultation.bpS = '';
-          if(bookingObj.consultation.printable_form.i_bpS == null)
-            bookingObj.consultation.printable_form.i_bpS = '';
           if(bookingObj.consultation.bpD == null)
             bookingObj.consultation.bpD = '';
-          if(bookingObj.consultation.printable_form.o_bpD == null)
-            bookingObj.consultation.printable_form.o_bpD = '';
           if(bookingObj.consultation.o2 == null)
             bookingObj.consultation.o2 = '';
-          if(bookingObj.consultation.printable_form.i_o2 == null)
-            bookingObj.consultation.printable_form.i_o2 = '';
-          if(bookingObj.consultation.printable_form.o_o2 == null)
-            bookingObj.consultation.printable_form.o_o2 = '';
           if(bookingObj.consultation.heart == null)
             bookingObj.consultation.heart = '';
-          if(bookingObj.consultation.printable_form.i_heart == null)
-            bookingObj.consultation.printable_form.i_heart = '';
-          if(bookingObj.consultation.printable_form.o_heart == null)
-            bookingObj.consultation.printable_form.o_heart = '';
           if(bookingObj.consultation.resp == null)
             bookingObj.consultation.resp = '';
-          if(bookingObj.consultation.printable_form.i_resp == null)
-            bookingObj.consultation.printable_form.i_resp = '';
-          if(bookingObj.consultation.printable_form.o_resp == null)
-            bookingObj.consultation.printable_form.o_resp = '';
+
+          if(typeof bookingObj.consultation.printable_form !== 'undefined' && bookingObj.consultation.printable_form !== null){
+            if(bookingObj.consultation.printable_form.i_weight == null)
+              bookingObj.consultation.printable_form.i_weight = '';
+            if(bookingObj.consultation.printable_form.o_weight == null)
+              bookingObj.consultation.printable_form.o_weight = '';
+            if(bookingObj.consultation.printable_form.i_bpS == null)
+              bookingObj.consultation.printable_form.i_bpS = '';
+            if(bookingObj.consultation.printable_form.o_bpD == null)
+              bookingObj.consultation.printable_form.o_bpD = '';
+            if(bookingObj.consultation.printable_form.i_o2 == null)
+              bookingObj.consultation.printable_form.i_o2 = '';
+            if(bookingObj.consultation.printable_form.o_o2 == null)
+              bookingObj.consultation.printable_form.o_o2 = '';
+            if(bookingObj.consultation.printable_form.i_heart == null)
+              bookingObj.consultation.printable_form.i_heart = '';
+            if(bookingObj.consultation.printable_form.o_heart == null)
+              bookingObj.consultation.printable_form.o_heart = '';
+            if(bookingObj.consultation.printable_form.i_resp == null)
+              bookingObj.consultation.printable_form.i_resp = '';
+            if(bookingObj.consultation.printable_form.o_resp == null)
+              bookingObj.consultation.printable_form.o_resp = '';
+          }else{
+            bookingObj.consultation.printable_form = {};
+          }
+          
+          
+
 
           $('#prev_temp').html(bookingObj.consultation.temp);
           $('#prev_height').html(bookingObj.consultation.height);
