@@ -2113,9 +2113,9 @@
                           </tr>
                           <tr>
                               <td>BMI</td>
-                              <td><span id="prev_bmi">{{ isset($bookings[0]->height) && (int)$bookings[0]->height > 0 ? number_format($bookings[0]->weight/(($bookings[0]->height/100)*($bookings[0]->height/100)), 2) : '' }}</span></td>
-                              <td><span id="prev_i_bmi">{{ isset($bookings[0]->height) && (int)$bookings[0]->height > 0 ? number_format($bookings[0]->printable_form['i_weight']/(($bookings[0]->height/100)*($bookings[0]->height/100)), 2) : '' }}</span></td>
-                              <td><span id="prev_o_bmi">{{ isset($bookings[0]->height) && (int)$bookings[0]->height > 0 ? number_format($bookings[0]->printable_form['o_weight']/(($bookings[0]->height/100)*($bookings[0]->height/100)), 2) : '' }}</span></td>
+                              <td><span id="prev_bmi">{{ isset($bookings[0]->height) && (int)$bookings[0]->height > 0 && isset($bookings[0]->weight) && $bookings[0]->weight > 0 ? number_format($bookings[0]->weight/(($bookings[0]->height/100)*($bookings[0]->height/100)), 2) : '' }}</span></td>
+                              <td><span id="prev_i_bmi">{{ isset($bookings[0]->height) && (int)$bookings[0]->height > 0 && isset($bookings[0]->printable_form['i_weight']) && $bookings[0]->printable_form['i_weight'] > 0 ? number_format($bookings[0]->printable_form['i_weight']/(($bookings[0]->height/100)*($bookings[0]->height/100)), 2) : '' }}</span></td>
+                              <td><span id="prev_o_bmi">{{ isset($bookings[0]->height) && (int)$bookings[0]->height > 0 && isset($bookings[0]->printable_form['o_weight']) && $bookings[0]->printable_form['o_weight'] > 0 ? number_format($bookings[0]->printable_form['o_weight']/(($bookings[0]->height/100)*($bookings[0]->height/100)), 2) : '' }}</span></td>
                           </tr>
                           <tr>
                               <td>BP</td>
