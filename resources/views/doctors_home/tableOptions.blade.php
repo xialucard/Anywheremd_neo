@@ -4,7 +4,7 @@
         <div class="m-1"><a class="btn pe-none"><i class="bi bi-exclamation-triangle-fill text-danger"></i></a></div>
         @endif
     @else
-        @if($dat->assessment == '' || $dat->planMed == '' || $dat->plan == '')
+        @if($dat->assessment == '' || ($dat->printable_form['discharge_medication'] == '' && $dat->printable_form['medication_given_recovery'] == '') || $dat->plan == '')
         <div class="m-1"><a class="btn pe-none"><i class="bi bi-exclamation-triangle-fill text-danger"></i></a></div>
         @endif
     @endif
