@@ -634,8 +634,10 @@ class DoctorsHomeController extends Controller
             unset($params['primary_assessment']);
             $paramsRef['assessment'] = $params['assessment'];
             unset($params['assessment']);
-            $paramsRef['post_op_assessment'] = $params['post_op_assessment'];
-            unset($params['post_op_assessment']);
+            if(isset($params['post_op_assessment'])){
+                $paramsRef['post_op_assessment'] = $params['post_op_assessment'];
+                unset($params['post_op_assessment']);
+            }
             $paramsRef['planMed'] = $params['planMed'];
             unset($params['planMed']);
             if(isset($params['plan'])){

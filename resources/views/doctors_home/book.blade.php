@@ -3792,7 +3792,7 @@
                         </div>
                         @else
                         <div class="card mb-3">
-                          <div class="card-header">Previous Diagnosis</div>
+                          <div class="card-header">Previous Diagnostics</div>
                           <div class="card-body">
                             <small class="text-muted">Content</small>
                             <textarea class="form-control mb-3" name="{{ $viewFolder }}[PrintableForm][diagnosis]" id="{{ $viewFolder }}_prev_diagnosis" disabled rows=3>{{ isset($bookings[0]->printable_form['diagnosis']) ? $bookings[0]->printable_form['diagnosis'] : '' }}</textarea>
@@ -8947,7 +8947,7 @@
                       <div class="card-body">
                         @if($datum->booking_type != 'Dialysis')
                         <div class="card mb-3">
-                          <div class="card-header">Diagnosis</div>
+                          <div class="card-header">Diagnostics</div>
                           <div class="card-body">
                             <small class="text-muted">Content</small>
                             <textarea class="form-control soapField mb-3" name="{{ $viewFolder }}[PrintableForm][diagnosis]" id="{{ $viewFolder }}_diagnosis" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3>{{ isset($datum->printable_form['diagnosis']) ? $datum->printable_form['diagnosis'] : '' }}</textarea>
