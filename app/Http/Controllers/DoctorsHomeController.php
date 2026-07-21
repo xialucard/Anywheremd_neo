@@ -420,7 +420,7 @@ class DoctorsHomeController extends Controller
         $dayNum = null;
         $allBooking = null;
         if($datum->booking_type == 'Dialysis'){
-            $allBooking = Consultation::where('patient_id', $datum->patient_id)->where('booking_type', 'Dialysis')->whereNotNull('time_ended')->whereNot('id', $datum->id)->where('bookingDate', '<', $datum->bookingDate)->orderBy('bookingDate','desc')->get();
+            $allBooking = Consultation::where('patient_id', $datum->patient_id)->where('booking_type', 'Dialysis')->whereNotNull('time_ended')->whereNot('id', $datum->id)->where('bookingDate', '<=', $datum->bookingDate)->orderBy('bookingDate','desc')->get();
         }
         // dd($allBooking);
         $patients = $user->patients->sortBy('name');

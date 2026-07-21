@@ -99,7 +99,7 @@
           </div>
           <div class="form-floating mb-3">
             <textarea class="form-control" name="{{ $viewFolder }}[complain]" id="{{ $viewFolder }}" rows=3 id="{{ $viewFolder }}_complain" required>{{ !empty($datum->complain) ? $datum->complain : '' }}</textarea>
-            <label for="{{ $viewFolder }}_complain" class="form-label">Chief Complaint</label>
+            <label for="{{ $viewFolder }}_complain" class="form-label">Reason for Visit</label>
             <small id="help_{{ $viewFolder }}_complain" class="text-muted"></small>
           </div>
           <div class="input-group mb-3">
