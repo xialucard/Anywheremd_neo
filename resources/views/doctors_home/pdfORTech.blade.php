@@ -121,8 +121,8 @@
             <td><strong>RVS Code:</strong><br>{{ isset($referal_conso->printable_form['rvs_code1']) ? $referal_conso->printable_form['rvs_code1'] : (!isset($referal_conso) ? $datum->printable_form['rvs_code1'] : '') }}</td>
         </tr>
         <tr>
-            <td colspan="3"><strong>Specimen:</strong> {{ isset($referal_conso->printable_form['specimen_remarks']) ? $referal_conso->printable_form['specimen_remarks'] : (!isset($referal_conso) ? $datum->printable_form['specimen_remarks'] : '') }}</td>
-            <td><input type="checkbox" {{ isset($referal_conso->printable_form['specimen']) && $referal_conso->printable_form['specimen'] == 'yes' ? 'checked' : (!isset($referal_conso) && $datum->printable_form['specimen'] == 'yes' ? 'checked' : '') }}>Yes <input type="checkbox" {{ isset($referal_conso->printable_form['specimen']) && $referal_conso->printable_form['specimen'] == 'no' ? 'checked' : (!isset($referal_conso) && $datum->printable_form['specimen'] == 'no' ? 'checked' : '') }}> No</td>
+            <td colspan="3"><strong>Specimen:</strong> {{ isset($referal_conso->printable_form['specimen_sent_remarks']) ? $referal_conso->printable_form['specimen_sent_remarks'] : (!isset($referal_conso) ? $datum->printable_form['specimen_sent_remarks'] : '') }}</td>
+            <td><input type="checkbox" {{ isset($referal_conso->printable_form['specimen_sent']) && $referal_conso->printable_form['specimen_sent'] == 'yes' ? 'checked' : (!isset($referal_conso) && $datum->printable_form['specimen_sent'] == 'yes' ? 'checked' : '') }}>Yes <input type="checkbox" {{ isset($referal_conso->printable_form['specimen_sent']) && $referal_conso->printable_form['specimen_sent'] == 'no' ? 'checked' : (!isset($referal_conso) && $datum->printable_form['specimen_sent'] == 'no' ? 'checked' : '') }}> No</td>
         </tr>
         
         {{-- <tr>

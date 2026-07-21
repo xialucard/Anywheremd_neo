@@ -1403,17 +1403,28 @@
               <label for="{{ $viewFolder }}_anesthesia_type_ao">Anesthesia Type</label>
               <small id="help_{{ $viewFolder }}_anesthesia_type_ao" class="text-muted"></small>
             </div>
-            <label class="form-label">Specimen</label>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="{{ $viewFolder }}[PrintableForm][specimen]" value="yes" id="{{ $viewFolder }}_specimen_yes" {{ isset($referal_conso->printable_form['specimen']) && $referal_conso->printable_form['specimen'] == 'yes' ? 'checked' : (!isset($referal_conso) && isset($datum->printable_form['specimen']) && $datum->printable_form['specimen'] == 'yes' ? 'checked' : '') }}>
-                <label class="form-check-label" for="{{ $viewFolder }}_specimen_yes">Yes</label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="{{ $viewFolder }}[PrintableForm][specimen]" value="no" id="{{ $viewFolder }}_specimen_no" {{ isset($referal_conso->printable_form['specimen']) && $referal_conso->printable_form['specimen'] == 'no' ? 'checked' : (!isset($referal_conso) && isset($datum->printable_form['specimen']) && $datum->printable_form['specimen'] == 'no' ? 'checked' : '') }}>
-                <label class="form-check-label" for="{{ $viewFolder }}_specimen_sent_no">No</label>
-              </div>
-              <label class="form-label" for="{{ $viewFolder }}_specimen_remarks">Remarks</label>
-              <textarea class="form-control mb-3" name="{{ $viewFolder }}[PrintableForm][specimen_remarks]" id="{{ $viewFolder }}_specimen_remarks" rows=3>{{ isset($referal_conso->printable_form['specimen_remarks']) ? $referal_conso->printable_form['specimen_remarks'] : (!isset($referal_conso) && isset($datum->printable_form['specimen_remarks']) ? $datum->printable_form['specimen_remarks'] : '') }}</textarea>
+            {{-- <label class="form-label">Specimen</label>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="{{ $viewFolder }}[PrintableForm][specimen]" value="yes" id="{{ $viewFolder }}_specimen_yes" {{ isset($referal_conso->printable_form['specimen']) && $referal_conso->printable_form['specimen'] == 'yes' ? 'checked' : (!isset($referal_conso) && isset($datum->printable_form['specimen']) && $datum->printable_form['specimen'] == 'yes' ? 'checked' : '') }}>
+              <label class="form-check-label" for="{{ $viewFolder }}_specimen_yes">Yes</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="{{ $viewFolder }}[PrintableForm][specimen]" value="no" id="{{ $viewFolder }}_specimen_no" {{ isset($referal_conso->printable_form['specimen']) && $referal_conso->printable_form['specimen'] == 'no' ? 'checked' : (!isset($referal_conso) && isset($datum->printable_form['specimen']) && $datum->printable_form['specimen'] == 'no' ? 'checked' : '') }}>
+              <label class="form-check-label" for="{{ $viewFolder }}_specimen_sent_no">No</label>
+            </div>
+            <label class="form-label" for="{{ $viewFolder }}_specimen_remarks">Remarks</label>
+            <textarea class="form-control mb-3" name="{{ $viewFolder }}[PrintableForm][specimen_remarks]" id="{{ $viewFolder }}_specimen_remarks" rows=3>{{ isset($referal_conso->printable_form['specimen_remarks']) ? $referal_conso->printable_form['specimen_remarks'] : (!isset($referal_conso) && isset($datum->printable_form['specimen_remarks']) ? $datum->printable_form['specimen_remarks'] : '') }}</textarea> --}}
+            <label class="form-label">Specimen Sent</label>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="{{ $viewFolder }}[PrintableForm][specimen_sent]" value="yes" id="{{ $viewFolder }}_specimen_sent_yes" {{ isset($referal_conso->printable_form['specimen_sent']) && $referal_conso->printable_form['specimen_sent'] == 'yes' ? 'checked' : (!isset($referal_conso) && isset($datum->printable_form['specimen_sent']) && $datum->printable_form['specimen_sent'] == 'yes' ? 'checked' : '') }}>
+              <label class="form-check-label" for="{{ $viewFolder }}_specimen_sent_yes">Yes</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="{{ $viewFolder }}[PrintableForm][specimen_sent]" value="no" id="{{ $viewFolder }}_specimen_sent_no" {{ isset($referal_conso->printable_form['specimen_sent']) && $referal_conso->printable_form['specimen_sent'] == 'no' ? 'checked' : (!isset($referal_conso) && isset($datum->printable_form['specimen_sent']) && $datum->printable_form['specimen_sent'] == 'no' ? 'checked' : '') }}>
+              <label class="form-check-label" for="{{ $viewFolder }}_specimen_sent_no">No</label>
+            </div>
+            <label class="form-label" for="{{ $viewFolder }}_specimen_sent_remarks">Remarks</label>
+            <textarea class="form-control mb-3" name="{{ $viewFolder }}[PrintableForm][specimen_sent_remarks]" id="{{ $viewFolder }}_specimen_sent_remarks" rows=3>{{ isset($referal_conso->printable_form['specimen_sent_remarks']) ? $referal_conso->printable_form['specimen_sent_remarks'] : (!isset($referal_conso) && isset($datum->printable_form['specimen_sent_remarks']) ? $datum->printable_form['specimen_sent_remarks'] : '') }}</textarea>
             <label for="{{ $viewFolder }}_operative_technique" class="form-label">Operative Technique</label>
             <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][operative_tech]" id="{{ $viewFolder }}_operative_technique" rows=3>{{ isset($referal_conso->printable_form['operative_tech']) ? $referal_conso->printable_form['operative_tech'] : (!isset($referal_conso) ? (isset($datum->printable_form['operative_tech']) ? $datum->printable_form['operative_tech'] : '') : '') }}</textarea>
             <small id="help_{{ $viewFolder }}_operative_technique" class="text-muted"></small>
