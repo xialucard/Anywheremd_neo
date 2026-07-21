@@ -85,6 +85,7 @@ return new class extends Migration
             $table->text('post_operative_condition_remarks')->nullable();
             $table->text('medication_given_recovery')->nullable();
             $table->text('discharge_medication')->nullable();
+            $table->text('diagnosis')->nullable();
             $table->integer('avoid_days')->nullable();
             $table->text('diet')->nullable();
             $table->text('diet_remarks')->nullable();

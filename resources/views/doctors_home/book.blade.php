@@ -89,6 +89,10 @@
             font-size: 1.2em;
             font-weight:bold;
         }
+        .nav-tabs {
+            font-size: 1.2em;
+            font-weight:bold;
+        }
         .soapLink{
             font-size: 1.1em;
             font-weight:bold;
@@ -283,7 +287,90 @@
 
           ">SOAP</a>
         </li>
-        
+        <li class="nav-item">
+          <a class="nav-link" id="labBigLink" href="#" onclick="
+            // $('#sumBigLink').removeClass('active');
+            // $('#soapBigLink').removeClass('active');
+            // $('#labBigLink').addClass('active');  
+            // $('#presBigLink').removeClass('active');  
+            // $('#medBigLink').removeClass('active');  
+            // $('#admitBigLink').removeClass('active');
+            // $('#dialysisBigLink').removeClass('active');
+            // // $('#hdSummaryBigLink').removeClass('active');
+            // $('#printableFormsBigLink').removeClass('active');
+            // $('#admitPeriBigLink').removeClass('active');
+            // $('#orTechBigLink').removeClass('active');
+            // $('#postOpBigLink').removeClass('active');
+            // $('#dischargeSumBigLink').removeClass('active');
+
+            // $('#sumPrevLink').removeClass('active');
+            // $('#soapPrevLink').removeClass('active');
+            // $('#labPrevLink').addClass('active');  
+            // $('#presPrevLink').removeClass('active');  
+            // $('#medPrevLink').removeClass('active');  
+            // $('#admitPrevLink').removeClass('active');
+            // $('#dialysisPrevLink').removeClass('active');
+            // // $('#hdSummaryPrevLink').removeClass('active');
+            // $('#printableFormsPrevLink').removeClass('active');
+            // $('#admitPeriPrevLink').removeClass('active');
+            // $('#orTechPrevLink').removeClass('active');
+            // $('#postOpPrevLink').removeClass('active');
+            // $('#dischargeSumPrevLink').removeClass('active');
+            
+            // $('#sumPrevDiv').hide();  
+            // $('#soapPrevDiv').hide();  
+            // // $('#labPrevDiv').show();  
+            // $('#presPrevDiv').hide();  
+            // $('#medPrevDiv').hide();  
+            // $('#admitPrevDiv').hide();
+            // $('#dialysisPrevDiv').hide();
+            // $('#admitPeriPrevDiv').hide();  
+            // $('#orTechPrevDiv').hide();  
+            // $('#postOpPrevDiv').hide();
+            // $('#dischargeSumPrevDiv').hide();
+
+
+            // $('#sumCurLink').removeClass('active');
+            // $('#soapCurLink').removeClass('active');
+            // $('#labCurLink').addClass('active');  
+            // $('#presCurLink').removeClass('active');  
+            // $('#medPCurLink').removeClass('active');  
+            // $('#admitCurLink').removeClass('active');
+            // $('#dialysisCurLink').removeClass('active');
+            // $('#printableFormsCurLink').removeClass('active');
+            // $('#admitPeriCurLink').removeClass('active');
+            // $('#orTechCurLink').removeClass('active');
+            // $('#postOpCurLink').removeClass('active');
+            // $('#dischargeSumCurLink').removeClass('active');
+            
+            // $('#sumCurDiv').hide();  
+            // $('#soapCurDiv').hide();  
+            $('#labCurDiv').show();  
+            // $('#presCurDiv').hide();  
+            // $('#medCurDiv').hide();  
+            // $('#admitCurDiv').hide();
+            // $('#dialysisCurDiv').hide();
+            // $('#admitPeriCurDiv').hide();  
+            // $('#orTechCurDiv').hide();  
+            // $('#postOpCurDiv').hide();
+            // $('#dischargeSumCurDiv').hide();
+
+            $('#curChart').removeClass('col-lg-12');
+            $('#curChart').addClass('col-lg-6');
+            $('#showPrevLinkHide').hide();
+            $('#showPrevLink').show();
+            if($('#pastChart').is(':visible')){
+              $('#pastChart').hide();
+              $('#pastChart').addClass('d-none');
+              $('#pastChart').addClass('d-lg-none');
+            }
+            $('#pastChartFile').show();
+            $('#pastChartFile').removeClass('d-none');
+            $('#pastChartFile').removeClass('d-lg-none');
+            $('#carouselCur').css('max-width', '100%');
+
+          ">View File Uploads</a>
+        </li>
         @if($datum->booking_type == 'Dialysis' || isset($dialysisType))
         <li class="nav-item">
           <a class="nav-link" id="dialysisBigLink" href="#" onclick="
@@ -499,90 +586,7 @@
             ">Hide Past Px's Panel</a>
         </li>
         @endif
-        <li class="nav-item">
-          <a class="nav-link" id="labBigLink" href="#" onclick="
-            // $('#sumBigLink').removeClass('active');
-            // $('#soapBigLink').removeClass('active');
-            // $('#labBigLink').addClass('active');  
-            // $('#presBigLink').removeClass('active');  
-            // $('#medBigLink').removeClass('active');  
-            // $('#admitBigLink').removeClass('active');
-            // $('#dialysisBigLink').removeClass('active');
-            // // $('#hdSummaryBigLink').removeClass('active');
-            // $('#printableFormsBigLink').removeClass('active');
-            // $('#admitPeriBigLink').removeClass('active');
-            // $('#orTechBigLink').removeClass('active');
-            // $('#postOpBigLink').removeClass('active');
-            // $('#dischargeSumBigLink').removeClass('active');
-
-            // $('#sumPrevLink').removeClass('active');
-            // $('#soapPrevLink').removeClass('active');
-            // $('#labPrevLink').addClass('active');  
-            // $('#presPrevLink').removeClass('active');  
-            // $('#medPrevLink').removeClass('active');  
-            // $('#admitPrevLink').removeClass('active');
-            // $('#dialysisPrevLink').removeClass('active');
-            // // $('#hdSummaryPrevLink').removeClass('active');
-            // $('#printableFormsPrevLink').removeClass('active');
-            // $('#admitPeriPrevLink').removeClass('active');
-            // $('#orTechPrevLink').removeClass('active');
-            // $('#postOpPrevLink').removeClass('active');
-            // $('#dischargeSumPrevLink').removeClass('active');
-            
-            // $('#sumPrevDiv').hide();  
-            // $('#soapPrevDiv').hide();  
-            // // $('#labPrevDiv').show();  
-            // $('#presPrevDiv').hide();  
-            // $('#medPrevDiv').hide();  
-            // $('#admitPrevDiv').hide();
-            // $('#dialysisPrevDiv').hide();
-            // $('#admitPeriPrevDiv').hide();  
-            // $('#orTechPrevDiv').hide();  
-            // $('#postOpPrevDiv').hide();
-            // $('#dischargeSumPrevDiv').hide();
-
-
-            // $('#sumCurLink').removeClass('active');
-            // $('#soapCurLink').removeClass('active');
-            // $('#labCurLink').addClass('active');  
-            // $('#presCurLink').removeClass('active');  
-            // $('#medPCurLink').removeClass('active');  
-            // $('#admitCurLink').removeClass('active');
-            // $('#dialysisCurLink').removeClass('active');
-            // $('#printableFormsCurLink').removeClass('active');
-            // $('#admitPeriCurLink').removeClass('active');
-            // $('#orTechCurLink').removeClass('active');
-            // $('#postOpCurLink').removeClass('active');
-            // $('#dischargeSumCurLink').removeClass('active');
-            
-            // $('#sumCurDiv').hide();  
-            // $('#soapCurDiv').hide();  
-            $('#labCurDiv').show();  
-            // $('#presCurDiv').hide();  
-            // $('#medCurDiv').hide();  
-            // $('#admitCurDiv').hide();
-            // $('#dialysisCurDiv').hide();
-            // $('#admitPeriCurDiv').hide();  
-            // $('#orTechCurDiv').hide();  
-            // $('#postOpCurDiv').hide();
-            // $('#dischargeSumCurDiv').hide();
-
-            $('#curChart').removeClass('col-lg-12');
-            $('#curChart').addClass('col-lg-6');
-            $('#showPrevLinkHide').hide();
-            $('#showPrevLink').show();
-            if($('#pastChart').is(':visible')){
-              $('#pastChart').hide();
-              $('#pastChart').addClass('d-none');
-              $('#pastChart').addClass('d-lg-none');
-            }
-            $('#pastChartFile').show();
-            $('#pastChartFile').removeClass('d-none');
-            $('#pastChartFile').removeClass('d-lg-none');
-            $('#carouselCur').css('max-width', '100%');
-
-          ">View File Uploads</a>
-        </li>
+        
         @if(isset($bookings[0]))
         <li class="nav-item">
           <div class="mt-2 ml-2" id="{{ $viewFolder }}_b-history-div" style="display:none">
@@ -2102,59 +2106,77 @@
                       <thead class="table-{{ $bgColor }}">
                           <tr>
                               <th>&nbsp;</th>
-                              <th>Preoperative Vitals</th>
+                              <th>@if($datum->booking_type == 'Surgery') Preoperative @endif Vitals</th>
+                              @if($datum->booking_type == 'Surgery')
                               <th>Intraoperative Vitals</th>
                               <th>Post-Operative Vitals</th>
+                              @endif
                           </tr>
                       </thead>
                       <tbody>
                           <tr>
                               <td>Temp</td>
                               <td><span id="prev_temp">{{ $bookings[0]->temp }}</span>C</td>
+                              @if($datum->booking_type == 'Surgery')
                               <td><span id="prev_i_temp">{{ isset($bookings[0]->printable_form['i_temp']) ? $bookings[0]->printable_form['i_temp'] : '' }}</span>C</td>
                               <td><span id="prev_o_temp">{{ isset($bookings[0]->printable_form['o_temp']) ? $bookings[0]->printable_form['o_temp'] : '' }}</span>C</td>
+                              @endif
                           </tr>
                           <tr>
                               <td>Height</td>
                               <td><span id="prev_height">{{ $bookings[0]->height }}</span>cm</td>
+                              @if($datum->booking_type == 'Surgery')
                               <td><span id="prev_i_height">{{ $bookings[0]->height }}</span>cm</td>
                               <td><span id="prev_o_height">{{ $bookings[0]->height }}</span>cm</td>
+                              @endif
                           </tr>
                           <tr>
                               <td>Weight</td>
                               <td><span id="prev_weight">{{ $bookings[0]->weight }}</span>kg</td>
+                              @if($datum->booking_type == 'Surgery')
                               <td><span id="prev_i_weight">{{ isset($bookings[0]->printable_form['i_weight']) ? $bookings[0]->printable_form['i_weight'] : '' }}</span>kg</td>
                               <td><span id="prev_o_weight">{{ isset($bookings[0]->printable_form['o_weight']) ? $bookings[0]->printable_form['o_weight'] : '' }}</span>kg</td>
+                              @endif
                           </tr>
                           <tr>
                               <td>BMI</td>
                               <td><span id="prev_bmi">{{ isset($bookings[0]->height) && (int)$bookings[0]->height > 0 && isset($bookings[0]->weight) && $bookings[0]->weight > 0 ? number_format($bookings[0]->weight/(($bookings[0]->height/100)*($bookings[0]->height/100)), 2) : '' }}</span></td>
+                              @if($datum->booking_type == 'Surgery')
                               <td><span id="prev_i_bmi">{{ isset($bookings[0]->height) && (int)$bookings[0]->height > 0 && isset($bookings[0]->printable_form['i_weight']) && $bookings[0]->printable_form['i_weight'] > 0 ? number_format($bookings[0]->printable_form['i_weight']/(($bookings[0]->height/100)*($bookings[0]->height/100)), 2) : '' }}</span></td>
                               <td><span id="prev_o_bmi">{{ isset($bookings[0]->height) && (int)$bookings[0]->height > 0 && isset($bookings[0]->printable_form['o_weight']) && $bookings[0]->printable_form['o_weight'] > 0 ? number_format($bookings[0]->printable_form['o_weight']/(($bookings[0]->height/100)*($bookings[0]->height/100)), 2) : '' }}</span></td>
+                              @endif
                           </tr>
                           <tr>
                               <td>BP</td>
                               <td><span id="prev_bpS">{{ $bookings[0]->bpS }}</span>/<span id="prev_bpD">{{ $bookings[0]->bpD }}</span></td>
+                              @if($datum->booking_type == 'Surgery')
                               <td><span id="prev_i_bpS">{{ isset($bookings[0]->printable_form['i_bpS']) ? $bookings[0]->printable_form['i_bpS'] : '' }}</span>/<span id="prev_i_bpD">{{ isset($bookings[0]->printable_form['i_bpD']) ? $bookings[0]->printable_form['i_bpD'] : '' }}</span></td>
                               <td><span id="prev_o_bpS">{{ isset($bookings[0]->printable_form['o_bpS']) ? $bookings[0]->printable_form['o_bpS'] : '' }}</span>/<span id="prev_o_bpD">{{ isset($bookings[0]->printable_form['o_bpD']) ? $bookings[0]->printable_form['o_bpD'] : '' }}</span></td>
+                              @endif
                           </tr>
                           <tr>  
                               <td>O2 Sat</td>
                               <td><span id="prev_o2">{{ $bookings[0]->o2 }}</span>%</td>
+                              @if($datum->booking_type == 'Surgery')
                               <td><span id="prev_i_o2">{{ isset($bookings[0]->printable_form['i_o2']) ? $bookings[0]->printable_form['i_o2'] : '' }}</span>%</td>
                               <td><span id="prev_o_o2">{{ isset($bookings[0]->printable_form['o_o2']) ? $bookings[0]->printable_form['o_o2'] : '' }}</span>%</td>
+                              @endif
                           </tr>
                           <tr>
                               <td>Heart Rate</td>
                               <td><span id="prev_heart">{{ $bookings[0]->heart }}</span>beats/min</td>
+                              @if($datum->booking_type == 'Surgery')
                               <td><span id="prev_i_heart">{{ isset($bookings[0]->printable_form['i_heart']) ? $bookings[0]->printable_form['i_heart'] : '' }}</span>beats/min</td>
                               <td><span id="prev_o_heart">{{ isset($bookings[0]->printable_form['o_heart']) ? $bookings[0]->printable_form['o_heart'] : '' }}</span>beats/min</td>
+                              @endif
                           </tr>
                           <tr>
                               <td>Resp Rate</td>
                               <td><span id="prev_resp">{{ $bookings[0]->resp }}</span>breaths/min</td>
+                              @if($datum->booking_type == 'Surgery')
                               <td><span id="prev_i_resp">{{ isset($bookings[0]->printable_form['i_resp']) ? $bookings[0]->printable_form['i_resp'] : '' }}</span>breaths/min</td>
                               <td><span id="prev_o_resp">{{ isset($bookings[0]->printable_form['o_resp']) ? $bookings[0]->printable_form['o_resp'] : '' }}</span>breaths/min</td>
+                              @endif
                           </tr>
                       </tbody>
                     </table>
@@ -3770,6 +3792,13 @@
                         </div>
                         @else
                         <div class="card mb-3">
+                          <div class="card-header">Previous Diagnosis</div>
+                          <div class="card-body">
+                            <small class="text-muted">Content</small>
+                            <textarea class="form-control mb-3" name="{{ $viewFolder }}[PrintableForm][diagnosis]" id="{{ $viewFolder }}_prev_diagnosis" disabled rows=3>{{ isset($bookings[0]->printable_form['diagnosis']) ? $bookings[0]->printable_form['diagnosis'] : '' }}</textarea>
+                          </div>
+                        </div>
+                        <div class="card mb-3">
                           <div class="card-header">Previous Medical Therapeutics</div>
                           <div class="card-body">
                             {{-- <small class="text-muted">Helper</small>
@@ -3798,9 +3827,18 @@
                             <textarea class="form-control mb-3" name="{{ $viewFolder }}[PrintableForm][discharge_medication]" id="{{ $viewFolder }}_prev_discharge_medication" disabled rows=3>{{ isset($bookings[0]->printable_form['discharge_medication']) ? $bookings[0]->printable_form['discharge_medication'] : '' }}</textarea>
                           </div>
                         </div>
+                        <div class="card mb-3">
+                          <div class="card-header">Previous Admitting Orders</div>
+                          <div class="card-body">
+                            <label for="{{ $viewFolder }}_prev_additional_orders" class="form-label">Additional Peri-Operative Orders</label>
+                            <textarea class="form-control mb-3" name="{{ $viewFolder }}[PrintableForm][additional_orders]" id="{{ $viewFolder }}_prev_additional_orders" disabled rows=3>{{ isset($bookings[0]->printable_form['additional_orders']) ? $bookings[0]->printable_form['additional_orders'] : '' }}</textarea>
+                            <label for="{{ $viewFolder }}_prev_operative_technique" class="form-label">Operative Technique</label>
+                            <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][operative_tech]" id="{{ $viewFolder }}_prev_operative_technique" disabled rows=3>{{ isset($bookings[0]->printable_form['operative_tech']) ? $bookings[0]->printable_form['operative_tech'] : '' }}</textarea>
+                          </div>
+                        </div>
                           @if($datum->booking_type == "Surgery")
                         <div class="card mb-3">
-                          <div class="card-header">Previous Surgery (Procedure Performed)</div>
+                          <div class="card-header">Previous Surgery (Planned/Performed)</div>
                           <div class="card-body">
                             {{-- <small class="text-muted">Helper</small>
                             <div class="input-group input-group-small flex-nowrap">
@@ -3824,15 +3862,7 @@
                             <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planEdit]" id="{{ $viewFolder }}_planEdit" rows=3 disabled></textarea> --}}
                           </div>
                         </div>
-                        <div class="card mb-3">
-                          <div class="card-header">Previous Admitting Orders</div>
-                          <div class="card-body">
-                            <label for="{{ $viewFolder }}_prev_additional_orders" class="form-label">Additional Peri-Operative Orders</label>
-                            <textarea class="form-control mb-3" name="{{ $viewFolder }}[PrintableForm][additional_orders]" id="{{ $viewFolder }}_prev_additional_orders" disabled rows=3>{{ isset($bookings[0]->printable_form['additional_orders']) ? $bookings[0]->printable_form['additional_orders'] : '' }}</textarea>
-                            <label for="{{ $viewFolder }}_prev_operative_technique" class="form-label">Operative Technique</label>
-                            <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][operative_tech]" id="{{ $viewFolder }}_prev_operative_technique" disabled rows=3>{{ isset($bookings[0]->printable_form['operative_tech']) ? $bookings[0]->printable_form['operative_tech'] : '' }}</textarea>
-                          </div>
-                        </div>
+                        
                         <div class="card mb-3">
                           <div class="card-header">Previous Post-Operative Care/Home Care Instructions</div>
                           <div class="card-body">
@@ -6572,59 +6602,77 @@
                       <thead class="table-{{ $bgColor }}">
                           <tr>
                               <th>&nbsp;</th>
-                              <th>Preoperative Vitals</th>
+                              <th>@if($datum->booking_type == 'Surgery') Preoperative @endif Vitals</th>
+                              @if($datum->booking_type == 'Surgery')
                               <th>Intraoperative Vitals</th>
                               <th>Post-Operative Vitals</th>
+                              @endif
                           </tr>
                       </thead>
                       <tbody>
                           <tr>
                               <td>Temp</td>
                               <td><span id="temp">{{ $datum->temp }}</span>C</td>
+                              @if($datum->booking_type == 'Surgery')
                               <td><span id="i_temp">{{ isset($datum->printable_form['i_temp']) ? $datum->printable_form['i_temp'] : '' }}</span>C</td>
                               <td><span id="o_temp">{{ isset($datum->printable_form['o_temp']) ? $datum->printable_form['o_temp'] : '' }}</span>C</td>
+                              @endif
                           </tr>
                           <tr>
                               <td>Height</td>
                               <td><span id="height">{{ $datum->height }}</span>cm</td>
+                              @if($datum->booking_type == 'Surgery')
                               <td><span id="i_height">{{ $datum->height }}</span>cm</td>
                               <td><span id="o_height">{{ $datum->height }}</span>cm</td>
+                              @endif
                           </tr>
                           <tr>
                               <td>Weight</td>
                               <td><span id="weight">{{ $datum->weight }}</span>kg</td>
+                              @if($datum->booking_type == 'Surgery')
                               <td><span id="i_weight">{{ isset($datum->printable_form['i_weight']) ? $datum->printable_form['i_weight'] : '' }}</span>kg</td>
                               <td><span id="o_weight">{{ isset($datum->printable_form['o_weight']) ? $datum->printable_form['o_weight'] : '' }}</span>kg</td>
+                              @endif
                           </tr>
                           <tr>
                               <td>BMI</td>
                               <td><span id="bmi">{{ isset($datum->height) && (int)$datum->height > 0 ? number_format($datum->weight/(($datum->height/100)*($datum->height/100)), 2) : '' }}</span></td>
+                              @if($datum->booking_type == 'Surgery')
                               <td><span id="i_bmi">{{ isset($datum->height) && (int)$datum->height > 0 ? number_format($datum->printable_form['i_weight']/(($datum->height/100)*($datum->height/100)), 2) : '' }}</span></td>
                               <td><span id="o_bmi">{{ isset($datum->height) && (int)$datum->height > 0 ? number_format($datum->printable_form['o_weight']/(($datum->height/100)*($datum->height/100)), 2) : '' }}</span></td>
+                              @endif
                           </tr>
                           <tr>
                               <td>BP</td>
                               <td><span id="bpS">{{ $datum->bpS }}</span>/<span id="bpD">{{ $datum->bpD }}</span></td>
+                              @if($datum->booking_type == 'Surgery')
                               <td><span id="i_bpS">{{ isset($datum->printable_form['i_bpS']) ? $datum->printable_form['i_bpS'] : '' }}</span>/<span id="i_bpD">{{ isset($datum->printable_form['i_bpD']) ? $datum->printable_form['i_bpD'] : '' }}</span></td>
                               <td><span id="o_bpS">{{ isset($datum->printable_form['o_bpS']) ? $datum->printable_form['o_bpS'] : '' }}</span>/<span id="o_bpD">{{ isset($datum->printable_form['o_bpD']) ? $datum->printable_form['o_bpD'] : '' }}</span></td>
+                              @endif
                           </tr>
                           <tr>  
                               <td>O2 Sat</td>
                               <td><span id="o2">{{ $datum->o2 }}</span>%</td>
+                              @if($datum->booking_type == 'Surgery')
                               <td><span id="i_o2">{{ isset($datum->printable_form['i_o2']) ? $datum->printable_form['i_o2'] : '' }}</span>%</td>
                               <td><span id="o_o2">{{ isset($datum->printable_form['o_o2']) ? $datum->printable_form['o_o2'] : '' }}</span>%</td>
+                              @endif
                           </tr>
                           <tr>
                               <td>Heart Rate</td>
                               <td><span id="heart">{{ $datum->heart }}</span>beats/min</td>
+                              @if($datum->booking_type == 'Surgery')
                               <td><span id="i_heart">{{ isset($datum->printable_form['i_heart']) ? $datum->printable_form['i_heart'] : '' }}</span>beats/min</td>
                               <td><span id="o_heart">{{ isset($datum->printable_form['o_heart']) ? $datum->printable_form['o_heart'] : '' }}</span>beats/min</td>
+                              @endif
                           </tr>
                           <tr>
                               <td>Resp Rate</td>
                               <td><span id="resp">{{ $datum->resp }}</span>breaths/min</td>
+                              @if($datum->booking_type == 'Surgery')
                               <td><span id="i_resp">{{ isset($datum->printable_form['i_resp']) ? $datum->printable_form['i_resp'] : '' }}</span>breaths/min</td>
                               <td><span id="o_resp">{{ isset($datum->printable_form['o_resp']) ? $datum->printable_form['o_resp'] : '' }}</span>breaths/min</td>
+                              @endif
                           </tr>
                       </tbody>
                     </table>
@@ -8899,6 +8947,13 @@
                       <div class="card-body">
                         @if($datum->booking_type != 'Dialysis')
                         <div class="card mb-3">
+                          <div class="card-header">Diagnosis</div>
+                          <div class="card-body">
+                            <small class="text-muted">Content</small>
+                            <textarea class="form-control soapField mb-3" name="{{ $viewFolder }}[PrintableForm][diagnosis]" id="{{ $viewFolder }}_diagnosis" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3>{{ isset($datum->printable_form['diagnosis']) ? $datum->printable_form['diagnosis'] : '' }}</textarea>
+                          </div>
+                        </div>
+                        <div class="card mb-3">
                           <div class="card-header">Medical Therapeutics</div>
                           <div class="card-body">
                             {{-- <small class="text-muted">Helper</small>
@@ -8927,9 +8982,18 @@
                             <textarea class="form-control soapField mb-3" name="{{ $viewFolder }}[PrintableForm][discharge_medication]" id="{{ $viewFolder }}_discharge_medication" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3>{{ isset($datum->printable_form['discharge_medication']) ? $datum->printable_form['discharge_medication'] : '' }}</textarea>
                           </div>
                         </div>
+                        <div class="card mb-3">
+                          <div class="card-header">Admitting Orders</div>
+                          <div class="card-body">
+                            <label for="{{ $viewFolder }}_additional_orders" class="form-label">Additional Peri-Operative Orders</label>
+                            <textarea class="form-control soapField mb-3" name="{{ $viewFolder }}[PrintableForm][additional_orders]" id="{{ $viewFolder }}_additional_orders" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3>{{ isset($datum->printable_form['additional_orders']) ? $datum->printable_form['additional_orders'] : '' }}</textarea>
+                            <label for="{{ $viewFolder }}_operative_technique" class="form-label">Operative Technique</label>
+                            <textarea class="form-control soapField" name="{{ $viewFolder }}[PrintableForm][operative_tech]" id="{{ $viewFolder }}_operative_technique" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3>{{ isset($datum->printable_form['operative_tech']) ? $datum->printable_form['operative_tech'] : '' }}</textarea>
+                          </div>
+                        </div>
                           @if($datum->booking_type == "Surgery")
                         <div class="card mb-3">
-                          <div class="card-header">Surgery (Procedure Performed)</div>
+                          <div class="card-header">Surgery (Planned/Performed)</div>
                           <div class="card-body">
                             {{-- <small class="text-muted">Helper</small>
                             <div class="input-group input-group-small flex-nowrap">
@@ -8953,15 +9017,7 @@
                             <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planEdit]" id="{{ $viewFolder }}_planEdit" rows=3 disabled></textarea> --}}
                           </div>
                         </div>
-                        <div class="card mb-3">
-                          <div class="card-header">Admitting Orders</div>
-                          <div class="card-body">
-                            <label for="{{ $viewFolder }}_additional_orders" class="form-label">Additional Peri-Operative Orders</label>
-                            <textarea class="form-control soapField mb-3" name="{{ $viewFolder }}[PrintableForm][additional_orders]" id="{{ $viewFolder }}_additional_orders" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3>{{ isset($datum->printable_form['additional_orders']) ? $datum->printable_form['additional_orders'] : '' }}</textarea>
-                            <label for="{{ $viewFolder }}_operative_technique" class="form-label">Operative Technique</label>
-                            <textarea class="form-control soapField" name="{{ $viewFolder }}[PrintableForm][operative_tech]" id="{{ $viewFolder }}_operative_technique" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3>{{ isset($datum->printable_form['operative_tech']) ? $datum->printable_form['operative_tech'] : '' }}</textarea>
-                          </div>
-                        </div>
+                        
                         <div class="card mb-3">
                           <div class="card-header">Post-Operative Care/Home Care Instructions</div>
                           <div class="card-body">

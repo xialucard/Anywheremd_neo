@@ -70,6 +70,7 @@ class PrintableForm extends Model
         'post_operative_condition_remarks',
         'medication_given_recovery',
         'discharge_medication',
+        'diagnosis',
         'avoid_days',
         'diet',
         'diet_remarks',
