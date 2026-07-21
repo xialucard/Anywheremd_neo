@@ -14176,6 +14176,7 @@
             $('#{{ $viewFolder }}_post_operative_condition_remarks').val(bookingObj.consultation.printable_form.post_operative_condition_remarks);
             $('#{{ $viewFolder }}_medication_given_recovery').val(bookingObj.consultation.printable_form.medication_given_recovery);
             $('#{{ $viewFolder }}_discharge_medication').val(bookingObj.consultation.printable_form.discharge_medication);
+            $('#{{ $viewFolder }}_diagnosis').val(bookingObj.consultation.printable_form.diagnosis);
             $('#{{ $viewFolder }}_additional_orders').val(bookingObj.consultation.printable_form.additional_orders);
             $('#{{ $viewFolder }}_operative_tech').val(bookingObj.consultation.printable_form.operative_tech);
             $('#{{ $viewFolder }}_after_proc').val(bookingObj.consultation.printable_form.after_proc);
@@ -14196,6 +14197,7 @@
             $('#{{ $viewFolder }}_post_operative_condition_remarks').val(''); 
             $('#{{ $viewFolder }}_medication_given_recovery').val('');
             $('#{{ $viewFolder }}_discharge_medication').val('');
+            $('#{{ $viewFolder }}_diagnosis').val('');
             $('#{{ $viewFolder }}_additional_orders').val('');
             $('#{{ $viewFolder }}_operative_tech').val('');
             $('#{{ $viewFolder }}_after_proc').val('');
@@ -14636,6 +14638,7 @@
             $('#{{ $viewFolder }}_prev_post_operative_condition_remarks').val(bookingObj.consultation.printable_form.post_operative_condition_remarks);
             $('#{{ $viewFolder }}_prev_medication_given_recovery').val(bookingObj.consultation.printable_form.medication_given_recovery);
             $('#{{ $viewFolder }}_prev_discharge_medication').val(bookingObj.consultation.printable_form.discharge_medication);
+            $('#{{ $viewFolder }}_prev_diagnosis').val(bookingObj.consultation.printable_form.diagnosis);
             $('#{{ $viewFolder }}_prev_additional_orders').val(bookingObj.consultation.printable_form.additional_orders);
             $('#{{ $viewFolder }}_prev_operative_technique').val(bookingObj.consultation.printable_form.operative_tech);
             $('#{{ $viewFolder }}_prev_after_proc').val(bookingObj.consultation.printable_form.after_proc);
@@ -14656,6 +14659,7 @@
             $('#{{ $viewFolder }}_prev_post_operative_condition_remarks').val(''); 
             $('#{{ $viewFolder }}_prev_medication_given_recovery').val('');
             $('#{{ $viewFolder }}_prev_discharge_medication').val('');
+            $('#{{ $viewFolder }}_prev_diagnosis').val('');
             $('#{{ $viewFolder }}_prev_additional_orders').val('');
             $('#{{ $viewFolder }}_prev_operative_technique').val('');
             $('#{{ $viewFolder }}_prev_after_proc').val('');
