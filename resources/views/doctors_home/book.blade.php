@@ -14178,7 +14178,7 @@
             $('#{{ $viewFolder }}_discharge_medication').val(bookingObj.consultation.printable_form.discharge_medication);
             $('#{{ $viewFolder }}_diagnosis').val(bookingObj.consultation.printable_form.diagnosis);
             $('#{{ $viewFolder }}_additional_orders').val(bookingObj.consultation.printable_form.additional_orders);
-            $('#{{ $viewFolder }}_operative_tech').val(bookingObj.consultation.printable_form.operative_tech);
+            $('#{{ $viewFolder }}_operative_technique').val(bookingObj.consultation.printable_form.operative_tech);
             $('#{{ $viewFolder }}_after_proc').val(bookingObj.consultation.printable_form.after_proc);
             $('#{{ $viewFolder }}_things_to_watch_out_for').val(bookingObj.consultation.printable_form.things_to_watch_out_for);
             $('#{{ $viewFolder }}_things_to_avoid').val(bookingObj.consultation.printable_form.things_to_avoid);
@@ -14199,7 +14199,7 @@
             $('#{{ $viewFolder }}_discharge_medication').val('');
             $('#{{ $viewFolder }}_diagnosis').val('');
             $('#{{ $viewFolder }}_additional_orders').val('');
-            $('#{{ $viewFolder }}_operative_tech').val('');
+            $('#{{ $viewFolder }}_operative_technique').val('');
             $('#{{ $viewFolder }}_after_proc').val('');
             $('#{{ $viewFolder }}_things_to_watch_out_for').val('');
             $('#{{ $viewFolder }}_things_to_avoid').val('');
