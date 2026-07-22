@@ -3795,7 +3795,7 @@
                           <div class="card-header">Previous Diagnostics</div>
                           <div class="card-body">
                             <small class="text-muted">Content</small>
-                            <textarea class="form-control mb-3" name="{{ $viewFolder }}[PrintableForm][diagnosis]" id="{{ $viewFolder }}_prev_diagnosis" disabled rows=3>{{ isset($bookings[0]->printable_form['diagnosis']) ? $bookings[0]->printable_form['diagnosis'] : '' }}</textarea>
+                            <textarea class="form-control mb-3" name="{{ $viewFolder }}[PrintableForm][diagnosis]" id="{{ $viewFolder }}_prev_diagnosisN" disabled rows=3>{{ isset($bookings[0]->printable_form['diagnosis']) ? $bookings[0]->printable_form['diagnosis'] : '' }}</textarea>
                           </div>
                         </div>
                         <div class="card mb-3">
@@ -6767,13 +6767,15 @@
                     $('.soapField').each(function(){
                       $(this).prop('disabled', false);
                     });
+                    $('#{{ $viewFolder }}_referral_id').prop('disabled', false);
+                    $('#{{ $viewFolder }}_printable_form_consultation_id').prop('disabled', false);
                     @else
                     $('.soapField').each(function(){
                       $(this).prop('disabled', true);
                     });
-                    @endif
                     $('#{{ $viewFolder }}_referral_id').prop('disabled', true);
                     $('#{{ $viewFolder }}_printable_form_consultation_id').prop('disabled', true);
+                    @endif
                     // $('#{{ $viewFolder }}_SUMM_{{ $datum->id }}').show();
                     $('#{{ $viewFolder }}_SOAP_{{ $datum->id }}').show();
                     $('#{{ $viewFolder }}_Presc_{{ $datum->id }}').show();
@@ -8954,7 +8956,7 @@
                           <div class="card-header">Diagnostics</div>
                           <div class="card-body">
                             <small class="text-muted">Content</small>
-                            <textarea class="form-control soapField mb-3" name="{{ $viewFolder }}[PrintableForm][diagnosis]" id="{{ $viewFolder }}_diagnosis" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3>{{ isset($datum->printable_form['diagnosis']) ? $datum->printable_form['diagnosis'] : '' }}</textarea>
+                            <textarea class="form-control soapField mb-3" name="{{ $viewFolder }}[PrintableForm][diagnosis]" id="{{ $viewFolder }}_diagnosisN" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3>{{ isset($datum->printable_form['diagnosis']) ? $datum->printable_form['diagnosis'] : '' }}</textarea>
                           </div>
                         </div>
                         <div class="card mb-3">
@@ -11265,7 +11267,7 @@
                   
                 </div> --}}
                 {{-- </div> --}}
-                <input type="hidden" id="{{ $viewFolder }}_printable_form_consultation_id" class="form-control" name="{{ $viewFolder }}[PrintableForm][consultation_id]" value="{{ $datum->id }}">
+                <input type="hidden" id="{{ $viewFolder }}_printable_form_consultation_id" class="form-control" name="{{ $viewFolder }}[PrintableForm][consultation_id]" value="{{ $datum->id }}" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
               </div>
               <div id="postOpCurDiv" style="display:none" class="container border border-1 mb-3 p-3">
                 <div class="docNotesDiv card mb-3" id="{{ $viewFolder }}_PostOp_{{ $datum->id }}">
@@ -14185,7 +14187,7 @@
             $('#{{ $viewFolder }}_post_operative_condition_remarks').val(bookingObj.consultation.printable_form.post_operative_condition_remarks);
             $('#{{ $viewFolder }}_medication_given_recovery').val(bookingObj.consultation.printable_form.medication_given_recovery);
             $('#{{ $viewFolder }}_discharge_medication').val(bookingObj.consultation.printable_form.discharge_medication);
-            $('#{{ $viewFolder }}_diagnosis').val(bookingObj.consultation.printable_form.diagnosis);
+            $('#{{ $viewFolder }}_diagnosisN').val(bookingObj.consultation.printable_form.diagnosis);
             $('#{{ $viewFolder }}_additional_orders').val(bookingObj.consultation.printable_form.additional_orders);
             $('#{{ $viewFolder }}_operative_technique').val(bookingObj.consultation.printable_form.operative_tech);
             $('#{{ $viewFolder }}_after_proc').val(bookingObj.consultation.printable_form.after_proc);
@@ -14206,7 +14208,7 @@
             $('#{{ $viewFolder }}_post_operative_condition_remarks').val(''); 
             $('#{{ $viewFolder }}_medication_given_recovery').val('');
             $('#{{ $viewFolder }}_discharge_medication').val('');
-            $('#{{ $viewFolder }}_diagnosis').val('');
+            $('#{{ $viewFolder }}_diagnosisN').val('');
             $('#{{ $viewFolder }}_additional_orders').val('');
             $('#{{ $viewFolder }}_operative_technique').val('');
             $('#{{ $viewFolder }}_after_proc').val('');
@@ -14647,7 +14649,7 @@
             $('#{{ $viewFolder }}_prev_post_operative_condition_remarks').val(bookingObj.consultation.printable_form.post_operative_condition_remarks);
             $('#{{ $viewFolder }}_prev_medication_given_recovery').val(bookingObj.consultation.printable_form.medication_given_recovery);
             $('#{{ $viewFolder }}_prev_discharge_medication').val(bookingObj.consultation.printable_form.discharge_medication);
-            $('#{{ $viewFolder }}_prev_diagnosis').val(bookingObj.consultation.printable_form.diagnosis);
+            $('#{{ $viewFolder }}_prev_diagnosisN').val(bookingObj.consultation.printable_form.diagnosis);
             $('#{{ $viewFolder }}_prev_additional_orders').val(bookingObj.consultation.printable_form.additional_orders);
             $('#{{ $viewFolder }}_prev_operative_technique').val(bookingObj.consultation.printable_form.operative_tech);
             $('#{{ $viewFolder }}_prev_after_proc').val(bookingObj.consultation.printable_form.after_proc);
@@ -14668,7 +14670,7 @@
             $('#{{ $viewFolder }}_prev_post_operative_condition_remarks').val(''); 
             $('#{{ $viewFolder }}_prev_medication_given_recovery').val('');
             $('#{{ $viewFolder }}_prev_discharge_medication').val('');
-            $('#{{ $viewFolder }}_prev_diagnosis').val('');
+            $('#{{ $viewFolder }}_prev_diagnosisN').val('');
             $('#{{ $viewFolder }}_prev_additional_orders').val('');
             $('#{{ $viewFolder }}_prev_operative_technique').val('');
             $('#{{ $viewFolder }}_prev_after_proc').val('');
