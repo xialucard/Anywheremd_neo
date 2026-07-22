@@ -3840,7 +3840,6 @@
                             <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][operative_tech]" id="{{ $viewFolder }}_prev_operative_technique" disabled rows=3>{{ isset($bookings[0]->printable_form['operative_tech']) ? $bookings[0]->printable_form['operative_tech'] : '' }}</textarea>
                           </div>
                         </div>
-                          @if($datum->booking_type == "Surgery")
                         <div class="card mb-3">
                           <div class="card-header">Previous Surgery (Planned/Performed)</div>
                           <div class="card-body">
@@ -3866,6 +3865,8 @@
                             <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planEdit]" id="{{ $viewFolder }}_planEdit" rows=3 disabled></textarea> --}}
                           </div>
                         </div>
+                          @if($datum->booking_type == "Surgery")
+                        
                         
                         <div class="card mb-3">
                           <div class="card-header">Previous Post-Operative Care/Home Care Instructions</div>
@@ -9002,7 +9003,6 @@
                             <textarea class="form-control soapField" name="{{ $viewFolder }}[PrintableForm][operative_tech]" id="{{ $viewFolder }}_operative_technique" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3>{{ isset($datum->printable_form['operative_tech']) ? $datum->printable_form['operative_tech'] : '' }}</textarea>
                           </div>
                         </div>
-                          @if($datum->booking_type == "Surgery")
                         <div class="card mb-3">
                           <div class="card-header">Surgery (Planned/Performed)</div>
                           <div class="card-body">
@@ -9028,6 +9028,8 @@
                             <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planEdit]" id="{{ $viewFolder }}_planEdit" rows=3 disabled></textarea> --}}
                           </div>
                         </div>
+                          @if($datum->booking_type == "Surgery")
+                        
                         
                         <div class="card mb-3">
                           <div class="card-header">Post-Operative Care/Home Care Instructions</div>
