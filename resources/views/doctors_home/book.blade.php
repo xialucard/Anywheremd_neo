@@ -3437,7 +3437,7 @@
                           <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
                         </div> --}}
                         <div class="card mb-3">
-                          <div class="card-header">Previous Preoperative PE</div>
+                          <div class="card-header">Previous PE Findings</div>
                           <div class="card-body">
                             <small class="text-muted">Content</small>
                             <textarea class="form-control" name="{{ $viewFolder }}[docNotes]" id="{{ $viewFolder }}_prev_docNotes" rows=3 disabled>{{ $bookings[0]->docNotes }}</textarea>
@@ -3808,10 +3808,11 @@
                               </select>
                               <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
                             </div> --}}
-                            {{-- <small class="text-muted">Content</small>
+                            @if($datum->booking_type != "Surgery")
+                            <small class="text-muted">Content</small>
                             <textarea class="form-control" name="{{ $viewFolder }}[planMed]" id="{{ $viewFolder }}_prev_planMed" rows=3 disabled>{{ $bookings[0]->planMed }}</textarea>
                             <small class="mb-3"></small><br>
-                            <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br> --}}
+                            <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
                             {{-- <small class="text-muted">Helper Save/Edit</small>
                             <div class="input-group input-group-small mb-3 flex-nowrap">
                               <div class="input-group-text">
@@ -3820,11 +3821,14 @@
                               <input type="text" class="form-control" id="{{ $viewFolder }}_planMedTitle" name="{{ $viewFolder }}[planMedTitle]" disabled>
                               <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                             </div>
-                            <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planMedEdit]" id="{{ $viewFolder }}_planMedEdit" rows=3 disabled></textarea> --}}
+                            <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planMedEdit]" id="{{ $viewFolder }}_planMedEdit" rows=3 disabled></textarea>--}}
+                            @endif
+                            @if($datum->booking_type == "Surgery")
                             <label class="form-label" for="{{ $viewFolder }}_prev_medication_given_recovery">Medication Given in Recovery</label>
                             <textarea class="form-control mb-3" name="{{ $viewFolder }}[PrintableForm][medication_given_recovery]" id="{{ $viewFolder }}_prev_medication_given_recovery" disabled rows=3>{{ isset($bookings[0]->printable_form['medication_given_recovery']) ? $bookings[0]->printable_form['medication_given_recovery'] : '' }}</textarea>
                             <label class="form-label" for="{{ $viewFolder }}_prev_discharge_medication">Discharge Medications (dose, frequency, duration)</label>
                             <textarea class="form-control mb-3" name="{{ $viewFolder }}[PrintableForm][discharge_medication]" id="{{ $viewFolder }}_prev_discharge_medication" disabled rows=3>{{ isset($bookings[0]->printable_form['discharge_medication']) ? $bookings[0]->printable_form['discharge_medication'] : '' }}</textarea>
+                            @endif
                           </div>
                         </div>
                         <div class="card mb-3">
@@ -8707,7 +8711,7 @@
                           <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
                         </div> --}}
                         <div class="card mb-3">
-                          <div class="card-header">Preoperative PE</div>
+                          <div class="card-header">PE Findings</div>
                           <div class="card-body">
                             <small class="text-muted">Content</small>
                             <textarea class="form-control soapField" name="{{ $viewFolder }}[docNotes]" id="{{ $viewFolder }}_docNotes" rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }} onchange="
@@ -8963,10 +8967,12 @@
                               </select>
                               <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
                             </div> --}}
-                            {{-- <small class="text-muted">Content</small>
+                            @if($datum->booking_type != "Surgery")
+                            <small class="text-muted">Content</small>
                             <textarea class="form-control soapField {{ $datum->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed) ? 'text-warning' : '') }}" name="{{ $viewFolder }}[planMed]" id="{{ $viewFolder }}_planMed" rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }}>{{ isset($datum->planMed) ? $datum->planMed : (isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id ? $carryOverBookingsPlanMed[0]->planMed : '') }}</textarea>
                             <small class="{{ $datum->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed) ? 'text-warning' : '') }} mb-3">@if(($datum->planMed == "" && isset($carryOverBookingsPlanMed[0]->planMed)) || (isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed))[carry over from {{ $carryOverBookingsPlanMed[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlanMed[0]->booking_type }} booking last {{ $carryOverBookingsPlanMed[0]->bookingDate }}]@endif</small><br>
-                            <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br> --}}
+                            <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
+                            
                             {{-- <small class="text-muted">Helper Save/Edit</small>
                             <div class="input-group input-group-small mb-3 flex-nowrap">
                               <div class="input-group-text">
@@ -8975,11 +8981,14 @@
                               <input type="text" class="form-control" id="{{ $viewFolder }}_planMedTitle" name="{{ $viewFolder }}[planMedTitle]" disabled>
                               <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                             </div>
-                            <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planMedEdit]" id="{{ $viewFolder }}_planMedEdit" rows=3 disabled></textarea> --}}
+                            <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planMedEdit]" id="{{ $viewFolder }}_planMedEdit" rows=3 disabled></textarea>--}}
+                            @endif
+                            @if($datum->booking_type == "Surgery")
                             <label class="form-label" for="{{ $viewFolder }}_medication_given_recovery">Medication Given in Recovery</label>
                             <textarea class="form-control soapField mb-3" name="{{ $viewFolder }}[PrintableForm][medication_given_recovery]" id="{{ $viewFolder }}_medication_given_recovery" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3>{{ isset($datum->printable_form['medication_given_recovery']) ? $datum->printable_form['medication_given_recovery'] : '' }}</textarea>
                             <label class="form-label" for="{{ $viewFolder }}_discharge_medication">Discharge Medications (dose, frequency, duration)</label>
                             <textarea class="form-control soapField mb-3" name="{{ $viewFolder }}[PrintableForm][discharge_medication]" id="{{ $viewFolder }}_discharge_medication" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3>{{ isset($datum->printable_form['discharge_medication']) ? $datum->printable_form['discharge_medication'] : '' }}</textarea>
+                            @endif
                           </div>
                         </div>
                         <div class="card mb-3">
