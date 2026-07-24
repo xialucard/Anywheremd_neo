@@ -1,4 +1,4 @@
-@php
+]@php
   // unset($referal_conso);
   // $clinicDat = $datum->clinic->id;
   // $doctorDat = $datum->doctor->id;
@@ -3832,15 +3832,6 @@
                           </div>
                         </div>
                         <div class="card mb-3">
-                          <div class="card-header">Previous Admitting Orders</div>
-                          <div class="card-body">
-                            <label for="{{ $viewFolder }}_prev_additional_orders" class="form-label">Additional Peri-Operative Orders</label>
-                            <textarea class="form-control mb-3" name="{{ $viewFolder }}[PrintableForm][additional_orders]" id="{{ $viewFolder }}_prev_additional_orders" disabled rows=3>{{ isset($bookings[0]->printable_form['additional_orders']) ? $bookings[0]->printable_form['additional_orders'] : '' }}</textarea>
-                            <label for="{{ $viewFolder }}_prev_operative_technique" class="form-label">Operative Technique</label>
-                            <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][operative_tech]" id="{{ $viewFolder }}_prev_operative_technique" disabled rows=3>{{ isset($bookings[0]->printable_form['operative_tech']) ? $bookings[0]->printable_form['operative_tech'] : '' }}</textarea>
-                          </div>
-                        </div>
-                        <div class="card mb-3">
                           <div class="card-header">Previous Surgery (Planned/Performed)</div>
                           <div class="card-body">
                             {{-- <small class="text-muted">Helper</small>
@@ -3865,6 +3856,16 @@
                             <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planEdit]" id="{{ $viewFolder }}_planEdit" rows=3 disabled></textarea> --}}
                           </div>
                         </div>
+                        <div class="card text-bg-warning mb-3">
+                          <div class="card-header">Previous Admitting Orders</div>
+                          <div class="card-body">
+                            <label for="{{ $viewFolder }}_prev_additional_orders" class="form-label">Additional Peri-Operative Orders</label>
+                            <textarea class="form-control mb-3" name="{{ $viewFolder }}[PrintableForm][additional_orders]" id="{{ $viewFolder }}_prev_additional_orders" disabled rows=3>{{ isset($bookings[0]->printable_form['additional_orders']) ? $bookings[0]->printable_form['additional_orders'] : '' }}</textarea>
+                            <label for="{{ $viewFolder }}_prev_operative_technique" class="form-label">Operative Technique</label>
+                            <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][operative_tech]" id="{{ $viewFolder }}_prev_operative_technique" disabled rows=3>{{ isset($bookings[0]->printable_form['operative_tech']) ? $bookings[0]->printable_form['operative_tech'] : '' }}</textarea>
+                          </div>
+                        </div>
+                        
                           @if($datum->booking_type == "Surgery")
                         
                         
@@ -8995,15 +8996,6 @@
                           </div>
                         </div>
                         <div class="card mb-3">
-                          <div class="card-header">Admitting Orders</div>
-                          <div class="card-body">
-                            <label for="{{ $viewFolder }}_additional_orders" class="form-label">Additional Peri-Operative Orders</label>
-                            <textarea class="form-control soapField mb-3" name="{{ $viewFolder }}[PrintableForm][additional_orders]" id="{{ $viewFolder }}_additional_orders" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3>{{ isset($datum->printable_form['additional_orders']) ? $datum->printable_form['additional_orders'] : '' }}</textarea>
-                            <label for="{{ $viewFolder }}_operative_technique" class="form-label">Operative Technique</label>
-                            <textarea class="form-control soapField" name="{{ $viewFolder }}[PrintableForm][operative_tech]" id="{{ $viewFolder }}_operative_technique" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3>{{ isset($datum->printable_form['operative_tech']) ? $datum->printable_form['operative_tech'] : '' }}</textarea>
-                          </div>
-                        </div>
-                        <div class="card mb-3">
                           <div class="card-header">Surgery (Planned/Performed)</div>
                           <div class="card-body">
                             {{-- <small class="text-muted">Helper</small>
@@ -9028,6 +9020,16 @@
                             <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planEdit]" id="{{ $viewFolder }}_planEdit" rows=3 disabled></textarea> --}}
                           </div>
                         </div>
+                        <div class="card text-bg-warning mb-3">
+                          <div class="card-header">Admitting Orders</div>
+                          <div class="card-body">
+                            <label for="{{ $viewFolder }}_additional_orders" class="form-label">Additional Peri-Operative Orders</label>
+                            <textarea class="form-control soapField mb-3" name="{{ $viewFolder }}[PrintableForm][additional_orders]" id="{{ $viewFolder }}_additional_orders" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3>{{ isset($datum->printable_form['additional_orders']) ? $datum->printable_form['additional_orders'] : '' }}</textarea>
+                            <label for="{{ $viewFolder }}_operative_technique" class="form-label">Operative Technique</label>
+                            <textarea class="form-control soapField" name="{{ $viewFolder }}[PrintableForm][operative_tech]" id="{{ $viewFolder }}_operative_technique" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3>{{ isset($datum->printable_form['operative_tech']) ? $datum->printable_form['operative_tech'] : '' }}</textarea>
+                          </div>
+                        </div>
+                        
                           @if($datum->booking_type == "Surgery")
                         
                         
