@@ -3908,35 +3908,36 @@
                           </div>
                         </div>
                           @endif
+                        <div class="card mb-3">
+                          <div class="card-header">Previous Remarks/Recommendation</div>
+                          <div class="card-body">
+                            {{-- <small class="text-muted">Helper</small>
+                            <div class="input-group input-group-small flex-nowrap">
+                              <select class="form-select" placeholder="" disabled>
+                                <option value=""></option>
+                              </select>
+                              <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
+                            </div> --}}
+                            <small class="text-muted">Content</small>
+                            <textarea class="form-control" name="{{ $viewFolder }}[planRem]" id="{{ $viewFolder }}_prev_planRem" rows=3 disabled>{{ $bookings[0]->planRem }}</textarea>
+                            <small class="mb-3"></small><br>
+                            <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
+                            {{-- <small class="text-muted">Helper Save/Edit</small>
+                            <div class="input-group input-group-small mb-3 flex-nowrap">
+                              <div class="input-group-text">
+                                <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                              </div>
+                              <input type="text" class="form-control" id="{{ $viewFolder }}_planRemTitle" name="{{ $viewFolder }}[planRemTitle]" disabled>
+                              <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                            </div>
+                            <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planRemEdit]" id="{{ $viewFolder }}_planRemEdit" rows=3 disabled></textarea> --}}
+                          </div>
+                        </div>
                         @endif
                       </div>
                     </div>
                   </div>
-                  <div class="card mb-3">
-                    <div class="card-header">Previous Remarks</div>
-                    <div class="card-body">
-                      {{-- <small class="text-muted">Helper</small>
-                      <div class="input-group input-group-small flex-nowrap">
-                        <select class="form-select" placeholder="" disabled>
-                          <option value=""></option>
-                        </select>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
-                      </div> --}}
-                      <small class="text-muted">Content</small>
-                      <textarea class="form-control" name="{{ $viewFolder }}[planRem]" id="{{ $viewFolder }}_prev_planRem" rows=3 disabled>{{ $bookings[0]->planRem }}</textarea>
-                      <small class="mb-3"></small><br>
-                      <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
-                      {{-- <small class="text-muted">Helper Save/Edit</small>
-                      <div class="input-group input-group-small mb-3 flex-nowrap">
-                        <div class="input-group-text">
-                          <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
-                        </div>
-                        <input type="text" class="form-control" id="{{ $viewFolder }}_planRemTitle" name="{{ $viewFolder }}[planRemTitle]" disabled>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
-                      </div>
-                      <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planRemEdit]" id="{{ $viewFolder }}_planRemEdit" rows=3 disabled></textarea> --}}
-                    </div>
-                  </div>
+                  
                 </div>
               </div>
               <div id="labPrevDiv" style="display:none" class="container border border-1 mb-3 p-3">
@@ -9080,10 +9081,7 @@
                             <textarea class="form-control soapField" name="{{ $viewFolder }}[PrintableForm][operative_tech]" id="{{ $viewFolder }}_operative_technique" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3>{{ isset($datum->printable_form['operative_tech']) ? $datum->printable_form['operative_tech'] : '' }}</textarea>
                           </div>
                         </div>
-                        
                           @if($datum->booking_type == "Surgery")
-                        
-                        
                         <div class="card mb-3">
                           <div class="card-header">Post-Operative Care/Home Care Instructions</div>
                           <div class="card-body">
@@ -9104,6 +9102,35 @@
                           </div>
                         </div>
                           @endif
+                        <div class="card mb-3">
+                          <div class="card-header">Remarks/Recommendation</div>
+                          <div class="card-body">
+                            {{-- <small class="text-muted">Helper</small>
+                            <div class="input-group input-group-small flex-nowrap">
+                              <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                                <option value=""></option>
+                              </select>
+                              <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
+                            </div> --}}
+                            <small class="text-muted">Content</small>
+                            @include('elements.carryOverField', ['fieldName' => 'planRem', 'fieldEntry' => $datum->planRem, 'fieldCarryOver' => isset($bookings[0]->planRem) ? $bookings[0]->planRem : '', 'fieldCarryOverBookingType' => isset($bookings[0]->booking_type) ? $bookings[0]->booking_type : '', 'fieldCarryOverBookingDate' => isset($bookings[0]->bookingDate) ? $bookings[0]->bookingDate : '', 'onChange' => "
+                              $('#" . $viewFolder . "_recommendations').val($(this).val());
+                            "])
+                                  
+                            {{-- <textarea class="form-control soapField {{ $datum->planRem == "" ? 'text-danger' : ((isset($carryOverBookingsPlanRem[0]->planRem) && $datum->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id && $carryOverBookingsPlanRem[0]->planRem == $datum->planRem) ? 'text-warning' : '') }}" name="{{ $viewFolder }}[planRem]" id="{{ $viewFolder }}_planRem" rows=3 {{ !isset($referal_conso)  ? '' : 'disabled' }}>{{ isset($datum->planRem) ? $datum->planRem : (isset($carryOverBookingsPlanRem[0]->planRem) && $datum->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id ? $carryOverBookingsPlanRem[0]->planRem : '') }}</textarea>
+                            <small class="{{ $datum->planRem == "" ? 'text-danger' : ((isset($carryOverBookingsPlanRem[0]->planRem) && $datum->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id && $carryOverBookingsPlanRem[0]->planRem == $datum->planRem) ? 'text-warning' : '') }} mb-3">@if(($datum->planRem == "" && isset($carryOverBookingsPlanRem[0]->planRem)) || (isset($carryOverBookingsPlanRem[0]->planRem) && $datum->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id && $carryOverBookingsPlanRem[0]->planRem == $datum->planRem))[carry over from {{ $carryOverBookingsPlanRem[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlanRem[0]->booking_type }} booking last {{ $carryOverBookingsPlanRem[0]->bookingDate }}]@endif</small><br>
+                            <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br> --}}
+                            {{-- <small class="text-muted">Helper Save/Edit</small>
+                            <div class="input-group input-group-small mb-3 flex-nowrap">
+                              <div class="input-group-text">
+                                <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                              </div>
+                              <input type="text" class="form-control" id="{{ $viewFolder }}_planRemTitle" name="{{ $viewFolder }}[planRemTitle]" disabled>
+                              <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                            </div>
+                            <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planRemEdit]" id="{{ $viewFolder }}_planRemEdit" rows=3 disabled></textarea> --}}
+                          </div>
+                        </div>
                         @else
                         <div class="card mb-3">
                           <div class="card-header">Plan</div>
@@ -9304,35 +9331,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="card mb-3">
-                    <div class="card-header">Remarks/Recommendation</div>
-                    <div class="card-body">
-                      {{-- <small class="text-muted">Helper</small>
-                      <div class="input-group input-group-small flex-nowrap">
-                        <select class="form-select" placeholder="" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
-                          <option value=""></option>
-                        </select>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
-                      </div> --}}
-                      <small class="text-muted">Content</small>
-                      @include('elements.carryOverField', ['fieldName' => 'planRem', 'fieldEntry' => $datum->planRem, 'fieldCarryOver' => isset($bookings[0]->planRem) ? $bookings[0]->planRem : '', 'fieldCarryOverBookingType' => isset($bookings[0]->booking_type) ? $bookings[0]->booking_type : '', 'fieldCarryOverBookingDate' => isset($bookings[0]->bookingDate) ? $bookings[0]->bookingDate : '', 'onChange' => "
-                        $('#" . $viewFolder . "_recommendations').val($(this).val());
-                      "])
-                            
-                      {{-- <textarea class="form-control soapField {{ $datum->planRem == "" ? 'text-danger' : ((isset($carryOverBookingsPlanRem[0]->planRem) && $datum->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id && $carryOverBookingsPlanRem[0]->planRem == $datum->planRem) ? 'text-warning' : '') }}" name="{{ $viewFolder }}[planRem]" id="{{ $viewFolder }}_planRem" rows=3 {{ !isset($referal_conso)  ? '' : 'disabled' }}>{{ isset($datum->planRem) ? $datum->planRem : (isset($carryOverBookingsPlanRem[0]->planRem) && $datum->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id ? $carryOverBookingsPlanRem[0]->planRem : '') }}</textarea>
-                      <small class="{{ $datum->planRem == "" ? 'text-danger' : ((isset($carryOverBookingsPlanRem[0]->planRem) && $datum->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id && $carryOverBookingsPlanRem[0]->planRem == $datum->planRem) ? 'text-warning' : '') }} mb-3">@if(($datum->planRem == "" && isset($carryOverBookingsPlanRem[0]->planRem)) || (isset($carryOverBookingsPlanRem[0]->planRem) && $datum->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id && $carryOverBookingsPlanRem[0]->planRem == $datum->planRem))[carry over from {{ $carryOverBookingsPlanRem[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlanRem[0]->booking_type }} booking last {{ $carryOverBookingsPlanRem[0]->bookingDate }}]@endif</small><br>
-                      <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br> --}}
-                      {{-- <small class="text-muted">Helper Save/Edit</small>
-                      <div class="input-group input-group-small mb-3 flex-nowrap">
-                        <div class="input-group-text">
-                          <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
-                        </div>
-                        <input type="text" class="form-control" id="{{ $viewFolder }}_planRemTitle" name="{{ $viewFolder }}[planRemTitle]" disabled>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
-                      </div>
-                      <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planRemEdit]" id="{{ $viewFolder }}_planRemEdit" rows=3 disabled></textarea> --}}
-                    </div>
-                  </div>
+                  
                   <div class="card mb-3">
                     <div class="card-header">Book Follow Up</div>
                     <div class="card-body">
