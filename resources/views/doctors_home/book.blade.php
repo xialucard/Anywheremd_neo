@@ -8925,7 +8925,7 @@
                             </div> --}}
                             <small class="text-muted">Content</small>
                             @include('elements.carryOverField', ['fieldName' => 'assessment', 'fieldEntry' => $datum->assessment, 'fieldCarryOver' => isset($bookings[0]->assessment) ? $bookings[0]->assessment : '', 'fieldCarryOverBookingType' => isset($bookings[0]->booking_type) ? $bookings[0]->booking_type : '', 'fieldCarryOverBookingDate' => isset($bookings[0]->bookingDate) ? $bookings[0]->bookingDate : '', 'onChange' => "
-                              $('#" . $viewFolder . "_diagnosis').val($(this).val());
+                              $('#" . $viewFolder . "_diagnosisN').val($(this).val());
                               $('#" . $viewFolder . "_parent_diagnosis_hidden').val($(this).val());
                               $('#" . $viewFolder . "_pre_op_diagnosis').val($(this).val());
                               $('#" . $viewFolder . "_parent_pre_op_diagnosis_hidden').val($(this).val());
