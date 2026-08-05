@@ -336,7 +336,7 @@ class DoctorsHomeController extends Controller
         $dayNum = null;
         $allBooking = null;
         if($datum->booking_type == 'Dialysis'){
-            $allBooking = Consultation::where('patient_id', $datum->patient_id)->where('booking_type', 'Dialysis')->whereNotNull('time_ended')->whereNot('id', $datum->id)->where('bookingDate', '<', $datum->bookingDate)->orderBy('bookingDate','desc')->get();
+            $allBooking = Consultation::where('patient_id', $datum->patient_id)->where('booking_type', 'Dialysis')->whereNot('id', $datum->id)->where('bookingDate', '<', $datum->bookingDate)->orderBy('bookingDate','desc')->get();
         }
         // dd($allBooking);
         $patients = $user->patients->sortBy('name');
@@ -420,7 +420,7 @@ class DoctorsHomeController extends Controller
         $dayNum = null;
         $allBooking = null;
         if($datum->booking_type == 'Dialysis'){
-            $allBooking = Consultation::where('patient_id', $datum->patient_id)->where('booking_type', 'Dialysis')->whereNotNull('time_ended')->whereNot('id', $datum->id)->where('bookingDate', '<=', $datum->bookingDate)->orderBy('bookingDate','desc')->get();
+            $allBooking = Consultation::where('patient_id', $datum->patient_id)->where('booking_type', 'Dialysis')->whereNot('id', $datum->id)->where('bookingDate', '<=', $datum->bookingDate)->orderBy('bookingDate','desc')->get();
         }
         // dd($allBooking);
         $patients = $user->patients->sortBy('name');
@@ -876,6 +876,7 @@ class DoctorsHomeController extends Controller
             $ind = 0;
             if(!empty($pxConsultations)){
                 foreach($pxConsultations as $pxC){
+                    $prevBookingArr['referal_conso'][$ind] = $pxC->bookingDate;
                     if(!empty($pxC->consultation_files[0]->file_link)){
                         foreach($pxC->consultation_files as $consultation_file){
                             $prevBookingArr['consultation_files'][$ind]['file_link'] = Storage::disk('spaces')->exists('/' . $consultation_file->file_link) ? Storage::disk('spaces')->temporaryUrl('/' . $consultation_file->file_link, now()->addMinutes(10)) : asset($consultation_file->file_link);
@@ -984,6 +985,7 @@ class DoctorsHomeController extends Controller
             foreach($doctors_home->consultation_referals as $ind=>$consoDet){
                 $prevBookingArr['consultation_referals'][$ind]['doctor'] = $consoDet->doctor;
                 $prevBookingArr['consultation_referals'][$ind]['clinic'] = $consoDet->clinic;
+                $prevBookingArr['consultation_referals'][$ind]['printable_form'] = $consoDet->printable_form;
             }
         }else{
             $prevBookingArr['consultation_referals'][0]['id'] = '';
@@ -998,6 +1000,7 @@ class DoctorsHomeController extends Controller
 
         if(isset($doctors_home->parent_consultation->id)){
             $prevBookingArr['parent_consultation'] = $doctors_home->parent_consultation;
+            $prevBookingArr['parent_consultation']['printable_form'] = $doctors_home->parent_consultation->printable_form;
             $prevBookingArr['parent_consultation']['doctor'] = $doctors_home->parent_consultation->doctor;
             $prevBookingArr['parent_consultation']['clinic'] = $doctors_home->parent_consultation->clinic;
             if(isset($doctors_home->parent_consultation->consultation_referals[0]->id)){
@@ -1005,6 +1008,7 @@ class DoctorsHomeController extends Controller
                 foreach($doctors_home->parent_consultation->consultation_referals as $ind=>$consoDet){
                     $prevBookingArr['consultation_referals'][$ind]['doctor'] = $consoDet->doctor;
                     $prevBookingArr['consultation_referals'][$ind]['clinic'] = $consoDet->clinic;
+                    $prevBookingArr['consultation_referals'][$ind]['printable_form'] = $consoDet->printable_form;
                 }
             }else{
                 $prevBookingArr['consultation_referals'][0]['id'] = '';
@@ -1012,6 +1016,9 @@ class DoctorsHomeController extends Controller
         }else{
             $prevBookingArr['parent_consultation']['id'] = '';
         }
+        // print"<pre>";
+        // print_r($prevBookingArr);
+        // print"</pre>";
         return json_encode($prevBookingArr);
     }
 

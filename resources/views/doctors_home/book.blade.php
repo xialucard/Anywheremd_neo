@@ -2255,7 +2255,7 @@
                 </div>
               </div>
             </div>
-            <div class="table-responsive" style="max-height: 55px">
+            {{-- <div class="table-responsive" style="max-height: 55px">
               <ul class="nav nav-pills mb-3" id="referral_pill">
                 @if(isset($bookings[0]->consultation_parent_id) && $bookings[0]->consultation_parent_id != "")
                 <li class="nav-item">
@@ -2271,7 +2271,7 @@
                 </li>
                 @endforeach
               </ul>
-            </div>
+            </div> --}}
             <ul class="nav nav-tabs d-xs-block d-lg-none">
               {{-- <li class="nav-item">
                 <a class="nav-link active" id="sumPrevLink" href="#" onclick="
@@ -3306,7 +3306,7 @@
                       <div class="card-body">
                         {{-- @if(sizeof($bookings) == 1) --}}
                         <div class="card mb-3">
-                          <div class="card-header">History of Present Illness</div>
+                          <div class="card-header">Previous History of Present Illness</div>
                           <div class="card-body">
                             {{-- <small class="text-muted">Helper</small>
                             <div class="input-group input-group-small flex-nowrap">
@@ -3316,6 +3316,7 @@
                               <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
                             </div> --}}
                             <small class="text-muted">Content</small>
+                            @include('elements.carryOverFieldPrev', ['fieldName' => 'docNotesHPI'])
                             <textarea class="form-control" name="{{ $viewFolder }}[docNotesHPI]" id="{{ $viewFolder }}_prev_docNotesHPI" rows=3 disabled>{{ $bookings[0]->docNotesHPI }}</textarea>
                             <small class="mb-3"></small><br>
                             <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
@@ -3342,6 +3343,7 @@
                               <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
                             </div> --}}
                             <small class="text-muted">Content</small>
+                            @include('elements.carryOverFieldPrev', ['fieldName' => 'docNotesSubject'])
                             <textarea class="form-control" name="{{ $viewFolder }}[docNotesSubject]" id="{{ $viewFolder }}_prev_docNotesSubject" rows=3 disabled>{{ $bookings[0]->docNotesSubject }}</textarea>
                             <small class="mb-3"></small><br>
                             <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
@@ -3452,6 +3454,7 @@
                           <div class="card-header">Previous PE Findings</div>
                           <div class="card-body">
                             <small class="text-muted">Content</small>
+                            @include('elements.carryOverFieldPrev', ['fieldName' => 'docNotes'])
                             <textarea class="form-control" name="{{ $viewFolder }}[docNotes]" id="{{ $viewFolder }}_prev_docNotes" rows=3 disabled>{{ $bookings[0]->docNotes }}</textarea>
                             <small class="mb-3"></small><br>
                             <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
@@ -3544,6 +3547,7 @@
                               <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
                             </div> --}}
                             <small class="text-muted">Content</small>
+                            @include('elements.carryOverFieldPrev', ['fieldName' => 'primary_assessment'])
                             <textarea class="form-control" name="{{ $viewFolder }}[primary_assessment]" id="{{ $viewFolder }}_prev_primary_assessment" rows=3 disabled>{{ $bookings[0]->primary_assessment }}</textarea>
                             <small class="mb-3"></small><br>
                             <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
@@ -3569,6 +3573,7 @@
                               <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
                             </div> --}}
                             <small class="text-muted">Content</small>
+                            @include('elements.carryOverFieldPrev', ['fieldName' => 'assessment'])
                             <textarea class="form-control" name="{{ $viewFolder }}[assessment]" id="{{ $viewFolder }}_prev_assessment" rows=3 disabled>{{ $bookings[0]->assessment }}</textarea>
                             <small class="mb-3"></small><br>
                             <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
@@ -3595,6 +3600,7 @@
                               <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
                             </div> --}}
                             <small class="text-muted">Content</small>
+                            @include('elements.carryOverFieldPrev', ['fieldName' => 'post_op_assessment'])
                             <textarea class="form-control" name="{{ $viewFolder }}[post_op_assessment]" id="{{ $viewFolder }}_prev_post_op_assessment" rows=3 disabled>{{ $bookings[0]->post_op_assessment }}</textarea>
                             <small class="mb-3"></small><br>
                             <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
@@ -3627,6 +3633,7 @@
                               <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
                             </div> --}}
                             <small class="text-muted">Content</small>
+                            @include('elements.carryOverFieldPrev', ['fieldName' => 'planMed'])
                             <textarea class="form-control" name="{{ $viewFolder }}[planMed]" id="{{ $viewFolder }}_prev_planMed" rows=3 disabled>{{ $bookings[0]->planMed }}</textarea>
                             <small class="mb-3"></small><br>
                             <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
@@ -3809,6 +3816,7 @@
                           <div class="card-header">Previous Diagnostics</div>
                           <div class="card-body">
                             <small class="text-muted">Content</small>
+                            @include('elements.carryOverFieldPrev', ['fieldName' => 'diagnosis', 'fieldNameParent' => 'PrintableForm'])
                             <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][diagnosis]" id="{{ $viewFolder }}_prev_diagnosisN" disabled rows=3>{{ isset($bookings[0]->printable_form['diagnosis']) ? $bookings[0]->printable_form['diagnosis'] : '' }}</textarea>
                             <small class="mb-3"></small><br>
                             <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
@@ -3826,6 +3834,7 @@
                             </div> --}}
                             @if($datum->booking_type != "Surgery")
                             <small class="text-muted">Content</small>
+                            @include('elements.carryOverFieldPrev', ['fieldName' => 'planMed'])
                             <textarea class="form-control" name="{{ $viewFolder }}[planMed]" id="{{ $viewFolder }}_prev_planMed" rows=3 disabled>{{ $bookings[0]->planMed }}</textarea>
                             <small class="mb-3"></small><br>
                             <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>{{-- <small class="text-muted">Helper Save/Edit</small>
@@ -3840,10 +3849,12 @@
                             @endif
                             @if($datum->booking_type == "Surgery")
                             <label class="form-label" for="{{ $viewFolder }}_prev_medication_given_recovery">Medication Given in Recovery</label>
+                            @include('elements.carryOverFieldPrev', ['fieldName' => 'medication_given_recovery', 'fieldNameParent' => 'PrintableForm'])
                             <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][medication_given_recovery]" id="{{ $viewFolder }}_prev_medication_given_recovery" disabled rows=3>{{ isset($bookings[0]->printable_form['medication_given_recovery']) ? $bookings[0]->printable_form['medication_given_recovery'] : '' }}</textarea>
                             <small class="mb-3"></small><br>
                             <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
                             <label class="form-label" for="{{ $viewFolder }}_prev_discharge_medication">Discharge Medications (dose, frequency, duration)</label>
+                            @include('elements.carryOverFieldPrev', ['fieldName' => 'discharge_medication', 'fieldNameParent' => 'PrintableForm'])
                             <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][discharge_medication]" id="{{ $viewFolder }}_prev_discharge_medication" disabled rows=3>{{ isset($bookings[0]->printable_form['discharge_medication']) ? $bookings[0]->printable_form['discharge_medication'] : '' }}</textarea>
                             <small class="mb-3"></small><br>
                             <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
@@ -3861,6 +3872,7 @@
                               <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
                             </div> --}}
                             <small class="text-muted">Content</small>
+                            @include('elements.carryOverFieldPrev', ['fieldName' => 'plan'])
                             <textarea class="form-control" name="{{ $viewFolder }}[plan]" id="{{ $viewFolder }}_prev_plan" rows=3 disabled>{{ $bookings[0]->plan }}</textarea>
                             <small class="mb-3"></small><br>
                             <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
@@ -3919,6 +3931,7 @@
                               <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
                             </div> --}}
                             <small class="text-muted">Content</small>
+                            @include('elements.carryOverFieldPrev', ['fieldName' => 'planRem'])
                             <textarea class="form-control" name="{{ $viewFolder }}[planRem]" id="{{ $viewFolder }}_prev_planRem" rows=3 disabled>{{ $bookings[0]->planRem }}</textarea>
                             <small class="mb-3"></small><br>
                             <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
@@ -6769,7 +6782,7 @@
                 </div>
               </div>
             </div>
-            <div class="table-responsive" style="max-height: 55px">
+            {{-- <div class="table-responsive" style="max-height: 55px">
             <ul class="nav nav-pills mb-3">
               <li class="nav-item">
                 <a class="nav-link docNotesLink active" href="#" onclick="
@@ -7075,7 +7088,7 @@
               <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_dischargeSumSigKey_hidden" value="{{ isset($datum->printable_form['dischargeSumSigKey']) ? addslashes($datum->printable_form['dischargeSumSigKey']) : '' }}">
               <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_opAdmitSigKey_hidden" value="{{ isset($datum->printable_form['opAdmitSigKey']) ? addslashes($datum->printable_form['opAdmitSigKey']) : '' }}">
               <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_orTechSigKey_hidden" value="{{ isset($datum->printable_form['orTechSigKey']) ? addslashes($datum->printable_form['orTechSigKey']) : '' }}">
-              <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_postOpSigKey_hidden" value="{{ isset($datum->printable_form['postOpSigKey']) ? addslashes($datum->printable_form['postOpSigKey']) : '' }}"> --}}
+              <input type="hidden" class="form-control" id="{{ $viewFolder }}_parent_postOpSigKey_hidden" value="{{ isset($datum->printable_form['postOpSigKey']) ? addslashes($datum->printable_form['postOpSigKey']) : '' }}">
               
               @if(isset($datum->consultation_referals[0]->id))
                 @foreach($datum->consultation_referals as $cr)
@@ -7350,7 +7363,7 @@
                 <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_anesthesiologist_ao_hidden" value="{{ addslashes($cr->anesthesiologist_ao) }}">
                 <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_admittingOrder_hidden" value="{{ addslashes($cr->admittingOrder) }}"> --}}
                 {{-- <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_anesthesia_type_ot_hidden" value="{{ isset($cr->printable_form['anesthesia_type_ot']) ? addslashes($cr->printable_form['anesthesia_type_ot']) : '' }}">
-                <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_anesthesiologist_ot_hidden" value="{{ isset($cr->printable_form['anesthesiologist_ot']) ? addslashes($cr->printable_form['anesthesiologist_ot']) : '' }}"> --}}
+                <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_anesthesiologist_ot_hidden" value="{{ isset($cr->printable_form['anesthesiologist_ot']) ? addslashes($cr->printable_form['anesthesiologist_ot']) : '' }}">
                 {{-- <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_anesthesia_type_ot_hidden" value="{{ addslashes($cr->anesthesia_type_ao) }}">
                 <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_anesthesiologist_ot_hidden" value="{{ addslashes($cr->anesthesiologist_ao) }}">
                 <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_operative_tech_hidden" value="{{ isset($cr->printable_form['operative_tech']) ? addslashes($cr->printable_form['operative_tech']) : '' }}">
@@ -7384,11 +7397,12 @@
                 <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_dischargeSumSigKey_hidden" value="{{ isset($cr->printable_form['dischargeSumSigKey']) ? addslashes($cr->printable_form['dischargeSumSigKey']) : '' }}">
                 <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_opAdmitSigKey_hidden" value="{{ isset($cr->printable_form['opAdmitSigKey']) ? addslashes($cr->printable_form['opAdmitSigKey']) : '' }}">
                 <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_orTechSigKey_hidden" value="{{ isset($cr->printable_form['orTechSigKey']) ? addslashes($cr->printable_form['orTechSigKey']) : '' }}">
-                <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_postOpSigKey_hidden" value="{{ isset($cr->printable_form['postOpSigKey']) ? addslashes($cr->printable_form['postOpSigKey']) : '' }}"> --}}
+                <input type="hidden" class="form-control" id="{{ $viewFolder . $cr->id }}_postOpSigKey_hidden" value="{{ isset($cr->printable_form['postOpSigKey']) ? addslashes($cr->printable_form['postOpSigKey']) : '' }}">
                 @endforeach
               @endif
             </ul>
-          </div>
+          </div> --}}
+
             <ul class="nav nav-tabs d-xs-block d-lg-none">
               {{-- <li class="nav-item">
                 <a class="nav-link active" id="sumCurLink" href="#" onclick="
@@ -8604,7 +8618,7 @@
                               <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso) ? '' : 'disabled' }}>Delete Helper</button>
                             </div> --}}
                             <small class="text-muted">Content</small>
-                            @include('elements.carryOverField', ['fieldName' => 'docNotesHPI', 'fieldEntry' => $datum->docNotesHPI, 'fieldCarryOver' => isset($bookings[0]->docNotesHPI) ? $bookings[0]->docNotesHPI : '', 'fieldCarryOverBookingType' => isset($bookings[0]->booking_type) ? $bookings[0]->booking_type : '', 'fieldCarryOverBookingDate' => isset($bookings[0]->bookingDate) ? $bookings[0]->bookingDate : '' ])
+                            @include('elements.carryOverField', ['fieldName' => 'docNotesHPI', 'fieldEntryOrig' => $datum->docNotesHPI, 'fieldEntry' => isset($referal_conso->docNotesHPI) ? $referal_conso->docNotesHPI : $datum->docNotesHPI, 'fieldCarryOver' => isset($bookings[0]->docNotesHPI) ? $bookings[0]->docNotesHPI : '', 'fieldCarryOverBookingType' => isset($bookings[0]->booking_type) ? $bookings[0]->booking_type : '', 'fieldCarryOverBookingDate' => isset($bookings[0]->bookingDate) ? $bookings[0]->bookingDate : '' ])
                           
                             {{-- <textarea class="form-control soapField {{ $datum->docNotesHPI == "" ? 'text-danger' : ((isset($carryOverBookingsHPI[0]->docNotesHPI) && $datum->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $datum->docNotesHPI) ? 'text-warning' : '') }}" name="{{ $viewFolder }}[docNotesHPI]" id="{{ $viewFolder }}_docNotesHPI" rows=3 {{ !isset($referal_conso)  ? '' : 'disabled' }}>{{ isset($datum->docNotesHPI) ? $datum->docNotesHPI : (isset($carryOverBookingsHPI[0]->docNotesHPI) && $datum->doctor_id == $carryOverBookingsHPI[0]->doctor_id ? $carryOverBookingsHPI[0]->docNotesHPI : '') }}</textarea>
                             <small class="{{ $datum->docNotesHPI == "" ? 'text-danger' : ((isset($carryOverBookingsHPI[0]->docNotesHPI) && $datum->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $datum->docNotesHPI) ? 'text-warning' : '') }} mb-3">@if(($datum->docNotesHPI == "" && isset($carryOverBookingsHPI[0]->docNotesHPI)) || (isset($carryOverBookingsHPI[0]->docNotesHPI) && $datum->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $datum->docNotesHPI))[carry over from {{ $carryOverBookingsHPI[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsHPI[0]->booking_type }} booking last {{ $carryOverBookingsHPI[0]->bookingDate }}]@endif</small><br>
@@ -8632,7 +8646,7 @@
                               <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
                             </div> --}}
                             <small class="text-muted">Content</small>
-                            @include('elements.carryOverField', ['fieldName' => 'docNotesSubject', 'fieldEntry' => $datum->docNotesSubject, 'fieldCarryOver' => isset($bookings[0]->docNotesSubject) ? $bookings[0]->docNotesSubject : '', 'fieldCarryOverBookingType' => isset($bookings[0]->booking_type) ? $bookings[0]->booking_type : '', 'fieldCarryOverBookingDate' => isset($bookings[0]->bookingDate) ? $bookings[0]->bookingDate : '' ])
+                            @include('elements.carryOverField', ['fieldName' => 'docNotesSubject', 'fieldEntryOrig' => $datum->docNotesSubject, 'fieldEntry' => isset($referal_conso->docNotesSubject) ? $referal_conso->docNotesSubject : $datum->docNotesSubject, 'fieldCarryOver' => isset($bookings[0]->docNotesSubject) ? $bookings[0]->docNotesSubject : '', 'fieldCarryOverBookingType' => isset($bookings[0]->booking_type) ? $bookings[0]->booking_type : '', 'fieldCarryOverBookingDate' => isset($bookings[0]->bookingDate) ? $bookings[0]->bookingDate : '' ])
                             {{-- <textarea class="form-control soapField" name="{{ $viewFolder }}[docNotesSubject]" id="{{ $viewFolder }}_docNotesSubject" rows=3 {{ !isset($referal_conso)  ? '' : 'disabled' }}>{{ isset($datum->docNotesSubject) ? $datum->docNotesSubject : '' }}</textarea> --}}
                             {{-- <small class="text-muted">Helper Save/Edit</small>
                             <div class="input-group input-group-small mb-3 flex-nowrap">
@@ -8741,7 +8755,7 @@
                           <div class="card-header">PE Findings</div>
                           <div class="card-body">
                             <small class="text-muted">Content</small>
-                            @include('elements.carryOverField', ['fieldName' => 'docNotes', 'fieldEntry' => $datum->docNotes, 'fieldCarryOver' => isset($bookings[0]->docNotes) ? $bookings[0]->docNotes : '', 'fieldCarryOverBookingType' => isset($bookings[0]->booking_type) ? $bookings[0]->booking_type : '', 'fieldCarryOverBookingDate' => isset($bookings[0]->bookingDate) ? $bookings[0]->bookingDate : '', 'onChange' => "$('#" . $viewFolder . "_findings').val($(this).val());"])
+                            @include('elements.carryOverField', ['fieldName' => 'docNotes', 'fieldEntryOrig' => $datum->docNotes, 'fieldEntry' => isset($referal_conso->docNotes) ? $referal_conso->docNotes : $datum->docNotes, 'fieldCarryOver' => isset($bookings[0]->docNotes) ? $bookings[0]->docNotes : '', 'fieldCarryOverBookingType' => isset($bookings[0]->booking_type) ? $bookings[0]->booking_type : '', 'fieldCarryOverBookingDate' => isset($bookings[0]->bookingDate) ? $bookings[0]->bookingDate : '', 'onblur' => "$('#" . $viewFolder . "_findings').val($(this).val());"])
                             
                             {{-- <textarea class="form-control soapField" name="{{ $viewFolder }}[docNotes]" id="{{ $viewFolder }}_docNotes" rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }} onchange="
                               $('#{{ $viewFolder }}_findings').val($(this).val());
@@ -8762,7 +8776,7 @@
                           <div class="card-header">Intraoperative Findings</div>
                           <div class="card-body">
                             <small class="text-muted">Content</small>
-                            <textarea class="form-control soapField mb-3" name="{{ $viewFolder }}[PrintableForm][intraoperative_findings]" id="{{ $viewFolder }}_intraoperative_findings" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 
+                            <textarea class="form-control soapField mb-3" name="{{ $viewFolder }}[PrintableForm][intraoperative_findings]" id="{{ $viewFolder }}_intraoperative_findings" rows=3 
                                 {{-- onblur="
                                   if($('#{{ $viewFolder }}_intraoperative_findings').val() == ''){
                                     $('.createPDFDischargeSum').each(function(){
@@ -8774,7 +8788,7 @@
                                     });
                                   }
                                 " --}}
-                            >{{ isset($datum->printable_form['intraoperative_findings']) ? $datum->printable_form['intraoperative_findings'] : '' }}</textarea>
+                            >{{ isset($referal_conso->printable_form['intraoperative_findings']) ? $referal_conso->printable_form['intraoperative_findings'] : (!isset($referal_conso) && isset($datum->printable_form['intraoperative_findings']) && $datum->printable_form['intraoperative_findings'] != '' ? $datum->printable_form['intraoperative_findings'] : '') }}</textarea>
                             <label class="form-label">Intraoperative Course</label>
                             
                             <div class="form-check">
@@ -8783,7 +8797,7 @@
                                     $('#{{ $viewFolder }}_complication_specify').prop('disabled', true);
                                   else
                                     $('#{{ $viewFolder }}_complication_specify').prop('disabled', false);
-                                " {{ (isset($datum->printable_form['intraoperative_course']) && $datum->printable_form['intraoperative_course'] == 'Unremarkable') ? 'checked' : '' }} {{ !isset($referal_conso) ? '' : 'disabled' }}>
+                                " {{ isset($referal_conso->printable_form['intraoperative_course']) && $referal_conso->printable_form['intraoperative_course'] == 'Unremarkable' ? 'checked' : ((!isset($referal_conso) && isset($datum->printable_form['intraoperative_course']) && $datum->printable_form['intraoperative_course'] == 'Unremarkable') ? 'checked' : '') }}>
                               <label class="form-check-label" for="{{ $viewFolder }}_intraoperative_course_unremarkable">Unremarkable</label>
                             </div>
                             <div class="form-check">
@@ -8792,10 +8806,10 @@
                                     $('#{{ $viewFolder }}_complication_specify').prop('disabled', false);
                                   else
                                     $('#{{ $viewFolder }}_complication_specify').prop('disabled', true);
-                                " {{ (isset($datum->printable_form['intraoperative_course']) && $datum->printable_form['intraoperative_course'] == 'With Complications') ? 'checked' : '' }} {{ !isset($referal_conso) ? '' : 'disabled' }}>
+                                " {{ isset($referal_conso->printable_form['intraoperative_course']) && $referal_conso->printable_form['intraoperative_course'] == 'With Complications' ? 'checked' : ((!isset($referal_conso) && isset($datum->printable_form['intraoperative_course']) && $datum->printable_form['intraoperative_course'] == 'With Complications') ? 'checked' : '') }}>
                               <label class="form-check-label" for="{{ $viewFolder }}_intraoperative_course_with_complications">With Complications (specify)</label>
                             </div>
-                            <textarea class="form-control soapField mb-3" name="{{ $viewFolder }}[PrintableForm][complication_specify]" id="{{ $viewFolder }}_complication_specify" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 
+                            <textarea class="form-control soapField mb-3" name="{{ $viewFolder }}[PrintableForm][complication_specify]" id="{{ $viewFolder }}_complication_specify" {{ (isset($referal_conso->printable_form['intraoperative_course']) && $referal_conso->printable_form['intraoperative_course'] != 'With Complications') || (!isset($referal_conso) && $datum->printable_form['intraoperative_course'] != 'With Complications') ? 'disabled' : '' }} rows=3 
                                 {{-- onblur="
                                   if($('#{{ $viewFolder }}_complication_specify').val() == ''){
                                     $('.createPDFDischargeSum').each(function(){
@@ -8807,10 +8821,10 @@
                                     });
                                   }
                                 "  --}}
-                                {{ (isset($datum->printable_form['intraoperative_course']) && $datum->printable_form['intraoperative_course'] == 'With Complications') ? '' : 'disabled' }}>{{ isset($datum->printable_form['complication_specify']) ? $datum->printable_form['complication_specify'] : '' }}</textarea>
+                                {{ isset($referal_conso->printable_form['intraoperative_course']) && $referal_conso->printable_form['intraoperative_course'] == 'With Complications' ? '' : ((!isset($referal_conso) && isset($datum->printable_form['intraoperative_course']) && $datum->printable_form['intraoperative_course'] == 'With Complications') ? '' : 'disabled') }}>{{ isset($referal_conso->printable_form['complication_specify']) ? $referal_conso->printable_form['complication_specify'] : (isset($datum->printable_form['complication_specify']) ? $datum->printable_form['complication_specify'] : '') }}</textarea>
                             <div class="input-group mb-3">
                               <div class="form-floating">
-                                <input class="form-control soapField" type="number" name="{{ $viewFolder }}[PrintableForm][blood_loss]" min=30 step=.1 id="{{ $viewFolder }}_blood_loss" value="{{ isset($datum->printable_form['blood_loss']) ? $datum->printable_form['blood_loss'] : ''}}" {{ !isset($referal_conso) ? '' : 'disabled' }} placeholder="">
+                                <input class="form-control soapField" type="number" name="{{ $viewFolder }}[PrintableForm][blood_loss]" min=30 step=.1 id="{{ $viewFolder }}_blood_loss" value="{{ isset($referal_conso->printable_form['blood_loss']) ? $referal_conso->printable_form['blood_loss'] : (!isset($referal_conso) && isset($datum->printable_form['blood_loss']) ? $datum->printable_form['blood_loss'] : '')}}" placeholder="">
                                 <label for="{{ $viewFolder }}_blood_loss" class="form-label">Estimated Blood Loss</label>
                                 <small id="help_{{ $viewFolder }}_blood_loss" class="text-muted"></small>
                               </div>
@@ -8818,15 +8832,15 @@
                             </div>
                             <label class="form-label">Specimen Sent</label>
                             <div class="form-check">
-                              <input class="form-check-input soapField" type="radio" name="{{ $viewFolder }}[PrintableForm][specimen_sent]" value="yes" id="{{ $viewFolder }}_specimen_sent_yes" {{ (isset($datum->printable_form['specimen_sent']) && $datum->printable_form['specimen_sent'] == 'yes') ? 'checked' : '' }} {{ !isset($referal_conso) ? '' : 'disabled' }}>
+                              <input class="form-check-input soapField" type="radio" name="{{ $viewFolder }}[PrintableForm][specimen_sent]" value="yes" id="{{ $viewFolder }}_specimen_sent_yes" {{ isset($referal_conso->printable_form['specimen_sent']) && $referal_conso->printable_form['specimen_sent'] == 'yes' ? 'checked' : ((!isset($referal_conso) && isset($datum->printable_form['specimen_sent']) && $datum->printable_form['specimen_sent'] == 'yes') ? 'checked' : '') }}>
                               <label class="form-check-label" for="{{ $viewFolder }}_specimen_sent_yes">Yes</label>
                             </div>
                             <div class="form-check">
-                              <input class="form-check-input soapField" type="radio" name="{{ $viewFolder }}[PrintableForm][specimen_sent]" value="no" id="{{ $viewFolder }}_specimen_sent_no" {{ (isset($datum->printable_form['specimen_sent']) && $datum->printable_form['specimen_sent'] == 'no') ? 'checked' : '' }} {{ !isset($referal_conso) ? '' : 'disabled' }}>
+                              <input class="form-check-input soapField" type="radio" name="{{ $viewFolder }}[PrintableForm][specimen_sent]" value="no" id="{{ $viewFolder }}_specimen_sent_no" {{ isset($referal_conso->printable_form['specimen_sent']) && $referal_conso->printable_form['specimen_sent'] == 'no' ? 'checked' : ((!isset($referal_conso) && isset($datum->printable_form['specimen_sent']) && $datum->printable_form['specimen_sent'] == 'no') ? 'checked' : '') }}>
                               <label class="form-check-label" for="{{ $viewFolder }}_specimen_sent_no">No</label>
                             </div>
                             <label class="form-label mt-3" for="{{ $viewFolder }}_specimen_sent_remarks">Specimen Remarks</label>
-                            <textarea class="form-control soapField mb-3" name="{{ $viewFolder }}[PrintableForm][specimen_sent_remarks]" id="{{ $viewFolder }}_specimen_sent_remarks" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 
+                            <textarea class="form-control soapField mb-3" name="{{ $viewFolder }}[PrintableForm][specimen_sent_remarks]" id="{{ $viewFolder }}_specimen_sent_remarks" rows=3 
                                 {{-- onblur="
                                   if($('#{{ $viewFolder }}_specimen_sent_remarks').val() == ''){
                                     $('.createPDFDischargeSum').each(function(){
@@ -8838,22 +8852,22 @@
                                     });
                                   }
                                 " --}}
-                                >{{ isset($datum->printable_form['specimen_sent_remarks']) ? $datum->printable_form['specimen_sent_remarks'] : '' }}</textarea>
+                                >{{ isset($referal_conso->printable_form['specimen_sent_remarks']) ? $referal_conso->printable_form['specimen_sent_remarks'] : (!isset($referal_conso) && isset($datum->printable_form['specimen_sent_remarks']) ? $datum->printable_form['specimen_sent_remarks'] : '') }}</textarea>
                           </div>
                         </div>
                         <div class="card mb-3">
                           <div class="card-header">Post-Operative Condition</div>
                           <div class="card-body">
                             <div class="form-check">
-                              <input class="form-check-input soapField" type="radio" name="{{ $viewFolder }}[PrintableForm][post_operative_condition]" value="Stable" id="{{ $viewFolder }}_post_operative_condition_stable" {{ (isset($datum->printable_form['post_operative_condition']) && $datum->printable_form['post_operative_condition'] == 'Stable') ? 'checked' : '' }} {{ !isset($referal_conso) ? '' : 'disabled' }}>
+                              <input class="form-check-input soapField" type="radio" name="{{ $viewFolder }}[PrintableForm][post_operative_condition]" value="Stable" id="{{ $viewFolder }}_post_operative_condition_stable" {{ isset($referal_conso->printable_form['post_operative_condition']) && $referal_conso->printable_form['post_operative_condition'] == 'Stable' ? 'checked' : ((!isset($referal_conso) && isset($datum->printable_form['post_operative_condition']) && $datum->printable_form['post_operative_condition'] == 'Stable') ? 'checked' : '') }}>
                               <label class="form-check-label" for="{{ $viewFolder }}_post_operative_condition_stable">Stable</label>
                             </div>
                             <div class="form-check">
-                              <input class="form-check-input soapField" type="radio" name="{{ $viewFolder }}[PrintableForm][post_operative_condition]" value="Requires Observation" id="{{ $viewFolder }}_post_operative_condition_requires" {{ (isset($datum->printable_form['post_operative_condition']) && $datum->printable_form['post_operative_condition'] == 'Requires Observation') ? 'checked' : '' }} {{ !isset($referal_conso) ? '' : 'disabled' }}>
+                              <input class="form-check-input soapField" type="radio" name="{{ $viewFolder }}[PrintableForm][post_operative_condition]" value="Requires Observation" id="{{ $viewFolder }}_post_operative_condition_requires" {{ isset($referal_conso->printable_form['post_operative_condition']) && $referal_conso->printable_form['post_operative_condition'] == 'Requires Observation' ? 'checked' : ((!isset($referal_conso) && isset($datum->printable_form['post_operative_condition']) && $datum->printable_form['post_operative_condition'] == 'Requires Observation') ? 'checked' : '') }}>
                               <label class="form-check-label" for="{{ $viewFolder }}_post_operative_condition_requires">Requires Observation</label>
                             </div>
                             <label class="form-label" for="{{ $viewFolder }}_post_operative_condition_remarks">Post-Operative Condition Remarks</label>
-                            <textarea class="form-control soapField mb-3" name="{{ $viewFolder }}[PrintableForm][post_operative_condition_remarks]" id="{{ $viewFolder }}_post_operative_condition_remarks" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 
+                            <textarea class="form-control soapField mb-3" name="{{ $viewFolder }}[PrintableForm][post_operative_condition_remarks]" id="{{ $viewFolder }}_post_operative_condition_remarks" rows=3 
                                 {{-- onblur="
                                   if($('#{{ $viewFolder }}_post_operative_condition_remarks').val() == ''){
                                     $('.createPDFDischargeSum').each(function(){
@@ -8865,7 +8879,7 @@
                                     });
                                   }
                                 " --}}
-                                >{{ isset($datum->printable_form['post_operative_condition_remarks']) ? $datum->printable_form['post_operative_condition_remarks'] : '' }}</textarea>
+                                >{{ isset($referal_conso->printable_form['post_operative_condition_remarks']) ? $referal_conso->printable_form['post_operative_condition_remarks'] : (!isset($referal_conso) && isset($datum->printable_form['post_operative_condition_remarks']) ? $datum->printable_form['post_operative_condition_remarks'] : '') }}</textarea>
                           </div>
                         </div>
                         @endif
@@ -8894,7 +8908,7 @@
                               <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
                             </div> --}}
                             <small class="text-muted">Content</small>
-                            @include('elements.carryOverField', ['fieldName' => 'primary_assessment', 'fieldEntry' => $datum->primary_assessment, 'fieldCarryOver' => isset($bookings[0]->primary_assessment) ? $bookings[0]->primary_assessment : '', 'fieldCarryOverBookingType' => isset($bookings[0]->booking_type) ? $bookings[0]->booking_type : '', 'fieldCarryOverBookingDate' => isset($bookings[0]->bookingDate) ? $bookings[0]->bookingDate : ''])
+                            @include('elements.carryOverField', ['fieldName' => 'primary_assessment', 'fieldEntryOrig' => $datum->primary_assessment, 'fieldEntry' => isset($referal_conso->primary_assessment) ? $referal_conso->primary_assessment : $datum->primary_assessment, 'fieldCarryOver' => isset($bookings[0]->primary_assessment) ? $bookings[0]->primary_assessment : '', 'fieldCarryOverBookingType' => isset($bookings[0]->booking_type) ? $bookings[0]->booking_type : '', 'fieldCarryOverBookingDate' => isset($bookings[0]->bookingDate) ? $bookings[0]->bookingDate : ''])
                             {{-- <textarea class="form-control soapField {{ $datum->primary_assessment == "" ? 'text-danger' : ((isset($carryOverBookings[0]->primary_assessment) && $datum->doctor_id == $carryOverBookings[0]->doctor_id && $carryOverBookings[0]->primary_assessment == $datum->primary_assessment) ? 'text-warning' : '') }}" name="{{ $viewFolder }}[primary_assessment]" id="{{ $viewFolder }}_primary_assessment" rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }} onchange="
                               $('#{{ $viewFolder }}_diagnosis').val($(this).val());
                               $('#{{ $viewFolder }}_parent_diagnosis_hidden').val($(this).val());
@@ -8925,8 +8939,8 @@
                               <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
                             </div> --}}
                             <small class="text-muted">Content</small>
-                            @include('elements.carryOverField', ['fieldName' => 'assessment', 'fieldEntry' => $datum->assessment, 'fieldCarryOver' => isset($bookings[0]->assessment) ? $bookings[0]->assessment : '', 'fieldCarryOverBookingType' => isset($bookings[0]->booking_type) ? $bookings[0]->booking_type : '', 'fieldCarryOverBookingDate' => isset($bookings[0]->bookingDate) ? $bookings[0]->bookingDate : '', 'onChange' => "
-                              $('#" . $viewFolder . "_diagnosisN').val($(this).val());
+                            @include('elements.carryOverField', ['fieldName' => 'assessment', 'fieldEntryOrig' => $datum->assessment, 'fieldEntry' => isset($referal_conso->assessment) ? $referal_conso->assessment : $datum->assessment, 'fieldCarryOver' => isset($bookings[0]->assessment) ? $bookings[0]->assessment : '', 'fieldCarryOverBookingType' => isset($bookings[0]->booking_type) ? $bookings[0]->booking_type : '', 'fieldCarryOverBookingDate' => isset($bookings[0]->bookingDate) ? $bookings[0]->bookingDate : '', 'onblur' => "
+                              $('#" . $viewFolder . "_diagnosis').val($(this).val());
                               $('#" . $viewFolder . "_parent_diagnosis_hidden').val($(this).val());
                               $('#" . $viewFolder . "_pre_op_diagnosis').val($(this).val());
                               $('#" . $viewFolder . "_parent_pre_op_diagnosis_hidden').val($(this).val());
@@ -8963,7 +8977,7 @@
                               <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
                             </div> --}}
                             <small class="text-muted">Content</small>
-                            @include('elements.carryOverField', ['fieldName' => 'post_op_assessment', 'fieldEntry' => $datum->post_op_assessment, 'fieldCarryOver' => isset($bookings[0]->post_op_assessment) ? $bookings[0]->post_op_assessment : '', 'fieldCarryOverBookingType' => isset($bookings[0]->booking_type) ? $bookings[0]->booking_type : '', 'fieldCarryOverBookingDate' => isset($bookings[0]->bookingDate) ? $bookings[0]->bookingDate : '', 'onChange' => "
+                            @include('elements.carryOverField', ['fieldName' => 'post_op_assessment', 'fieldEntryOrig' => $datum->post_op_assessment, 'fieldEntry' => isset($referal_conso->post_op_assessment) ? $referal_conso->post_op_assessment : $datum->post_op_assessment, 'fieldCarryOver' => isset($bookings[0]->post_op_assessment) ? $bookings[0]->post_op_assessment : '', 'fieldCarryOverBookingType' => isset($bookings[0]->booking_type) ? $bookings[0]->booking_type : '', 'fieldCarryOverBookingDate' => isset($bookings[0]->bookingDate) ? $bookings[0]->bookingDate : '', 'onChange' => "
                               $('#" . $viewFolder . "_post_op_diagnosis').val($(this).val());
                               $('#" . $viewFolder . "_parent_post_op_diagnosis_hidden').val($(this).val());
                             "])
@@ -8996,7 +9010,7 @@
                           <div class="card-header">Diagnostics</div>
                           <div class="card-body">
                             <small class="text-muted">Content</small>
-                            @include('elements.carryOverField', ['fieldNameParent' => 'PrintableForm', 'fieldName' => 'diagnosis', 'fieldEntry' => isset($datum->printable_form['diagnosis']) ? $datum->printable_form['diagnosis'] : null, 'fieldCarryOver' => isset($bookings[0]->printable_form['diagnosis']) ? $bookings[0]->printable_form['diagnosis'] : null, 'fieldCarryOverBookingType' => isset($bookings[0]->booking_type) ? $bookings[0]->booking_type : '', 'fieldCarryOverBookingDate' => isset($bookings[0]->bookingDate) ? $bookings[0]->bookingDate : ''])
+                            @include('elements.carryOverField', ['fieldNameParent' => 'PrintableForm', 'fieldEntryOrig' => isset($datum->printable_form['diagnosis']) ? $datum->printable_form['diagnosis'] : null, 'fieldName' => 'diagnosis', 'fieldEntry' => isset($referal_conso->printable_form['diagnosis']) ? $referal_conso->printable_form['diagnosis'] : (!isset($referal_conso) && isset($datum->printable_form['diagnosis']) ? $datum->printable_form['diagnosis'] : null), 'fieldCarryOver' => isset($bookings[0]->printable_form['diagnosis']) ? $bookings[0]->printable_form['diagnosis'] : null, 'fieldCarryOverBookingType' => isset($bookings[0]->booking_type) ? $bookings[0]->booking_type : '', 'fieldCarryOverBookingDate' => isset($bookings[0]->bookingDate) ? $bookings[0]->bookingDate : ''])
                             
                             {{-- <textarea class="form-control soapField mb-3" name="{{ $viewFolder }}[PrintableForm][diagnosis]" id="{{ $viewFolder }}_diagnosisN" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3>{{ isset($datum->printable_form['diagnosis']) ? $datum->printable_form['diagnosis'] : '' }}</textarea> --}}
                           </div>
@@ -9013,7 +9027,7 @@
                             </div> --}}
                             @if($datum->booking_type != "Surgery")
                             <small class="text-muted">Content</small>
-                            @include('elements.carryOverField', ['fieldName' => 'planMed', 'fieldEntry' => $datum->planMed, 'fieldCarryOver' => isset($bookings[0]->planMed) ? $bookings[0]->planMed : '', 'fieldCarryOverBookingType' => isset($bookings[0]->booking_type) ? $bookings[0]->booking_type : '', 'fieldCarryOverBookingDate' => isset($bookings[0]->bookingDate) ? $bookings[0]->bookingDate : '', 'onChange' => "
+                            @include('elements.carryOverField', ['fieldName' => 'planMed', 'fieldEntryOrig' => $datum->planMed, 'fieldEntry' => isset($referal_conso->planMed) ? $referal_conso->planMed : $datum->planMed, 'fieldCarryOver' => isset($bookings[0]->planMed) ? $bookings[0]->planMed : '', 'fieldCarryOverBookingType' => isset($bookings[0]->booking_type) ? $bookings[0]->booking_type : '', 'fieldCarryOverBookingDate' => isset($bookings[0]->bookingDate) ? $bookings[0]->bookingDate : '', 'onChange' => "
                               $('#" . $viewFolder . "_prescription').val($(this).val());
                             "])
                             
@@ -9033,11 +9047,11 @@
                             @endif
                             @if($datum->booking_type == "Surgery")
                             <label class="form-label" for="{{ $viewFolder }}_medication_given_recovery">Medication Given in Recovery</label>
-                            @include('elements.carryOverField', ['fieldNameParent' => 'PrintableForm', 'fieldName' => 'medication_given_recovery', 'fieldEntry' => isset($datum->printable_form['medication_given_recovery']) ? $datum->printable_form['medication_given_recovery'] : null , 'fieldCarryOver' => isset($bookings[0]->printable_form['medication_given_recovery']) ? $bookings[0]->printable_form['medication_given_recovery'] : null, 'fieldCarryOverBookingType' => isset($bookings[0]->booking_type) ? $bookings[0]->booking_type : '', 'fieldCarryOverBookingDate' => isset($bookings[0]->bookingDate) ? $bookings[0]->bookingDate : ''])
+                            @include('elements.carryOverField', ['fieldNameParent' => 'PrintableForm', 'fieldName' => 'medication_given_recovery', 'fieldEntryOrig' => isset($datum->printable_form['medication_given_recovery']) ? $datum->printable_form['medication_given_recovery'] : '', 'fieldEntry' => isset($referal_conso->printable_form['medication_given_recovery']) ? $referal_conso->printable_form['medication_given_recovery'] : (!isset($referal_conso) && isset($datum->printable_form['medication_given_recovery']) ? $datum->printable_form['medication_given_recovery'] : null), 'fieldCarryOver' => isset($bookings[0]->printable_form['medication_given_recovery']) ? $bookings[0]->printable_form['medication_given_recovery'] : null, 'fieldCarryOverBookingType' => isset($bookings[0]->booking_type) ? $bookings[0]->booking_type : '', 'fieldCarryOverBookingDate' => isset($bookings[0]->bookingDate) ? $bookings[0]->bookingDate : ''])
                             
                             {{-- <textarea class="form-control soapField mb-3" name="{{ $viewFolder }}[PrintableForm][medication_given_recovery]" id="{{ $viewFolder }}_medication_given_recovery" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3>{{ isset($datum->printable_form['medication_given_recovery']) ? $datum->printable_form['medication_given_recovery'] : '' }}</textarea> --}}
                             <label class="form-label" for="{{ $viewFolder }}_discharge_medication">Discharge Medications (dose, frequency, duration)</label>
-                            @include('elements.carryOverField', ['fieldNameParent' => 'PrintableForm', 'fieldName' => 'discharge_medication', 'fieldEntry' => isset($datum->printable_form['discharge_medication']) ? $datum->printable_form['discharge_medication'] : null, 'fieldCarryOver' => isset($bookings[0]->printable_form['discharge_medication']) ? $bookings[0]->printable_form['discharge_medication'] : null, 'fieldCarryOverBookingType' => isset($bookings[0]->booking_type) ? $bookings[0]->booking_type : '', 'fieldCarryOverBookingDate' => isset($bookings[0]->bookingDate) ? $bookings[0]->bookingDate : '', 'onChange' => "
+                            @include('elements.carryOverField', ['fieldNameParent' => 'PrintableForm', 'fieldName' => 'discharge_medication', 'fieldEntryOrig' => isset($datum->printable_form['discharge_medication']) ? $datum->printable_form['discharge_medication'] : '', 'fieldEntry' => isset($referal_conso->printable_form['discharge_medication']) ? $referal_conso->printable_form['discharge_medication'] : (!isset($referal_conso) && isset($datum->printable_form['discharge_medication']) ? $datum->printable_form['discharge_medication'] : null), 'fieldCarryOver' => isset($bookings[0]->printable_form['discharge_medication']) ? $bookings[0]->printable_form['discharge_medication'] : null, 'fieldCarryOverBookingType' => isset($bookings[0]->booking_type) ? $bookings[0]->booking_type : '', 'fieldCarryOverBookingDate' => isset($bookings[0]->bookingDate) ? $bookings[0]->bookingDate : '', 'onChange' => "
                               $('#" . $viewFolder . "_prescription').val($(this).val());
                             "])
                             
@@ -9056,7 +9070,7 @@
                               <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
                             </div> --}}
                             <small class="text-muted">Content</small>
-                            @include('elements.carryOverField', ['fieldName' => 'plan', 'fieldEntry' => $datum->plan, 'fieldCarryOver' => isset($bookings[0]->plan) ? $bookings[0]->plan : '', 'fieldCarryOverBookingType' => isset($bookings[0]->booking_type) ? $bookings[0]->booking_type : '', 'fieldCarryOverBookingDate' => isset($bookings[0]->bookingDate) ? $bookings[0]->bookingDate : ''])
+                            @include('elements.carryOverField', ['fieldName' => 'plan', 'fieldEntryOrig' => isset($datum->plan) ? $datum->plan : '', 'fieldEntry' => isset($referal_conso->plan) ? $referal_conso->plan : $datum->plan, 'fieldCarryOver' => isset($bookings[0]->plan) ? $bookings[0]->plan : '', 'fieldCarryOverBookingType' => isset($bookings[0]->booking_type) ? $bookings[0]->booking_type : '', 'fieldCarryOverBookingDate' => isset($bookings[0]->bookingDate) ? $bookings[0]->bookingDate : ''])
                             
                             {{-- <textarea class="form-control soapField {{ $datum->plan == "" ? 'text-danger' : ((isset($carryOverBookingsPlan[0]->plan) && $datum->doctor_id == $carryOverBookingsPlan[0]->doctor_id && $carryOverBookingsPlan[0]->plan == $datum->plan) ? 'text-warning' : '') }}" name="{{ $viewFolder }}[plan]" id="{{ $viewFolder }}_plan" rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }}>{{ isset($datum->plan) ? $datum->plan : (isset($carryOverBookingsPlan[0]->plan) && $datum->doctor_id == $carryOverBookingsPlan[0]->doctor_id ? $carryOverBookingsPlan[0]->plan : '') }}</textarea>
                             <small class="{{ $datum->plan == "" ? 'text-danger' : ((isset($carryOverBookingsPlan[0]->plan) && $datum->doctor_id == $carryOverBookingsPlan[0]->doctor_id && $carryOverBookingsPlan[0]->plan == $datum->plan) ? 'text-warning' : '') }} mb-3">@if(($datum->plan == "" && isset($carryOverBookingsPlan[0]->plan)) || (isset($carryOverBookingsPlan[0]->plan) && $datum->doctor_id == $carryOverBookingsPlan[0]->doctor_id && $carryOverBookingsPlan[0]->plan == $datum->plan))[carry over from {{ $carryOverBookingsPlan[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlan[0]->booking_type }} booking last {{ $carryOverBookingsPlan[0]->bookingDate }}]@endif</small><br>
@@ -9076,9 +9090,9 @@
                           <div class="card-header">Admitting Orders</div>
                           <div class="card-body">
                             <label for="{{ $viewFolder }}_additional_orders" class="form-label">Additional Peri-Operative Orders</label>
-                            <textarea class="form-control soapField mb-3" name="{{ $viewFolder }}[PrintableForm][additional_orders]" id="{{ $viewFolder }}_additional_orders" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3>{{ isset($datum->printable_form['additional_orders']) ? $datum->printable_form['additional_orders'] : '' }}</textarea>
+                            <textarea class="form-control soapField mb-3" name="{{ $viewFolder }}[PrintableForm][additional_orders]" id="{{ $viewFolder }}_additional_orders" rows=3>{{ isset($referal_conso->printable_form['additional_orders']) ? $referal_conso->printable_form['additional_orders'] : (!isset($referal_conso) && isset($datum->printable_form['additional_orders']) ? $datum->printable_form['additional_orders'] : '') }}</textarea>
                             <label for="{{ $viewFolder }}_operative_technique" class="form-label">Operative Technique</label>
-                            <textarea class="form-control soapField" name="{{ $viewFolder }}[PrintableForm][operative_tech]" id="{{ $viewFolder }}_operative_technique" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3>{{ isset($datum->printable_form['operative_tech']) ? $datum->printable_form['operative_tech'] : '' }}</textarea>
+                            <textarea class="form-control soapField" name="{{ $viewFolder }}[PrintableForm][operative_tech]" id="{{ $viewFolder }}_operative_technique" rows=3>{{ isset($referal_conso->printable_form['operative_tech']) ? $referal_conso->printable_form['operative_tech'] : (!isset($referal_conso) && isset($datum->printable_form['operative_tech']) ? $datum->printable_form['operative_tech'] : '') }}</textarea>
                           </div>
                         </div>
                           @if($datum->booking_type == "Surgery")
@@ -9086,17 +9100,17 @@
                           <div class="card-header">Post-Operative Care/Home Care Instructions</div>
                           <div class="card-body">
                             <label for="{{ $viewFolder }}_after_proc" class="form-label">Things to expect after the procedure:</label>
-                            <textarea class="form-control soapField" name="{{ $viewFolder }}[PrintableForm][after_proc]" id="{{ $viewFolder }}_after_proc" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3>{{ isset($datum->printable_form['after_proc']) ? $datum->printable_form['after_proc'] : '' }}</textarea>
+                            <textarea class="form-control soapField" name="{{ $viewFolder }}[PrintableForm][after_proc]" id="{{ $viewFolder }}_after_proc" rows=3>{{ isset($referal_conso->printable_form['after_proc']) ? $referal_conso->printable_form['after_proc'] : (!isset($referal_conso) && isset($datum->printable_form['after_proc']) ? $datum->printable_form['after_proc'] : '') }}</textarea>
                             <label for="{{ $viewFolder }}_things_watch_out" class="form-label mt-3">Things to watch out for:</label>
-                            <textarea class="form-control soapField" name="{{ $viewFolder }}[PrintableForm][things_watch_out]" id="{{ $viewFolder }}_things_watch_out" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3>{{ isset($datum->printable_form['things_watch_out']) ? $datum->printable_form['things_watch_out'] : '' }}</textarea>
+                            <textarea class="form-control soapField" name="{{ $viewFolder }}[PrintableForm][things_watch_out]" id="{{ $viewFolder }}_things_watch_out" rows=3>{{ isset($referal_conso->printable_form['things_watch_out']) ? $referal_conso->printable_form['things_watch_out'] : (!isset($referal_conso) && isset($datum->printable_form['things_watch_out']) ? $datum->printable_form['things_watch_out'] : '') }}</textarea>
                             <small id="help_{{ $viewFolder }}_things_watch_out" class="text-muted"></small>
 
                             <label for="{{ $viewFolder }}_things_avoid" class="form-label mt-3">Things to avoid:</label>
-                            <textarea class="form-control soapField" name="{{ $viewFolder }}[PrintableForm][things_avoid]" id="{{ $viewFolder }}_things_avoid" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3>{{ isset($datum->printable_form['things_avoid']) ? $datum->printable_form['things_avoid'] : '' }}</textarea>
+                            <textarea class="form-control soapField" name="{{ $viewFolder }}[PrintableForm][things_avoid]" id="{{ $viewFolder }}_things_avoid" rows=3>{{ isset($referal_conso->printable_form['things_avoid']) ? $referal_conso->printable_form['things_avoid'] : (!isset($referal_conso) && isset($datum->printable_form['things_avoid']) ? $datum->printable_form['things_avoid'] : '') }}</textarea>
                             <small id="help_{{ $viewFolder }}_things_avoid" class="text-muted"></small>
 
                             <label for="{{ $viewFolder }}_wound_care" class="form-label mt-3">Wound care:</label>
-                            <textarea class="form-control soapField" name="{{ $viewFolder }}[PrintableForm][wound_care]" id="{{ $viewFolder }}_wound_care" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3>{{ isset($datum->printable_form['wound_care']) ? $datum->printable_form['wound_care'] : '' }}</textarea>
+                            <textarea class="form-control soapField" name="{{ $viewFolder }}[PrintableForm][wound_care]" id="{{ $viewFolder }}_wound_care" rows=3>{{ isset($referal_conso->printable_form['wound_care']) ? $referal_conso->printable_form['wound_care'] : (!isset($referal_conso) && isset($datum->printable_form['wound_care']) ? $datum->printable_form['wound_care'] : '') }}</textarea>
                             <small id="help_{{ $viewFolder }}_wound_care" class="text-muted"></small>
 
                           </div>
@@ -9113,7 +9127,7 @@
                               <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
                             </div> --}}
                             <small class="text-muted">Content</small>
-                            @include('elements.carryOverField', ['fieldName' => 'planRem', 'fieldEntry' => $datum->planRem, 'fieldCarryOver' => isset($bookings[0]->planRem) ? $bookings[0]->planRem : '', 'fieldCarryOverBookingType' => isset($bookings[0]->booking_type) ? $bookings[0]->booking_type : '', 'fieldCarryOverBookingDate' => isset($bookings[0]->bookingDate) ? $bookings[0]->bookingDate : '', 'onChange' => "
+                            @include('elements.carryOverField', ['fieldName' => 'planRem', 'fieldEntryOrig' => isset($datum->planRem) ? $datum->planRem : '', 'fieldEntry' => isset($referal_conso->planRem) ? $referal_conso->planRem : $datum->planRem, 'fieldCarryOver' => isset($bookings[0]->planRem) ? $bookings[0]->planRem : '', 'fieldCarryOverBookingType' => isset($bookings[0]->booking_type) ? $bookings[0]->booking_type : '', 'fieldCarryOverBookingDate' => isset($bookings[0]->bookingDate) ? $bookings[0]->bookingDate : '', 'onblur' => "
                               $('#" . $viewFolder . "_recommendations').val($(this).val());
                             "])
                                   
@@ -9143,9 +9157,10 @@
                               <button class="btn btn-outline-secondary" type="button" id="button-addon2" {{ !isset($referal_conso)  ? '' : 'disabled' }}>Delete Helper</button>
                             </div> --}}
                             <small class="text-muted">Content</small>
-                            <textarea class="form-control soapField {{ $datum->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed) ? 'text-warning' : '') }}" name="{{ $viewFolder }}[planMed]" id="{{ $viewFolder }}_planMed" rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }}>{{ isset($datum->planMed) ? $datum->planMed : (isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id ? $carryOverBookingsPlanMed[0]->planMed : '') }}</textarea>
+                            @include('elements.carryOverField', ['fieldName' => 'planMed', 'fieldEntryOrig' => $datum->planMed, 'fieldEntry' => isset($referal_conso->planMed) ? $referal_conso->planMed : $datum->planMed, 'fieldCarryOver' => isset($bookings[0]->planMed) ? $bookings[0]->planMed : '', 'fieldCarryOverBookingType' => isset($bookings[0]->booking_type) ? $bookings[0]->booking_type : '', 'fieldCarryOverBookingDate' => isset($bookings[0]->bookingDate) ? $bookings[0]->bookingDate : ''])
+                            {{-- <textarea class="form-control soapField {{ $datum->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed) ? 'text-warning' : '') }}" name="{{ $viewFolder }}[planMed]" id="{{ $viewFolder }}_planMed" rows=3 {{ !isset($referal_conso)  ? 'required' : 'disabled' }}>{{ isset($datum->planMed) ? $datum->planMed : (isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id ? $carryOverBookingsPlanMed[0]->planMed : '') }}</textarea>
                             <small class="{{ $datum->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed) ? 'text-warning' : '') }} mb-3">@if(($datum->planMed == "" && isset($carryOverBookingsPlanMed[0]->planMed)) || (isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed))[carry over from {{ $carryOverBookingsPlanMed[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlanMed[0]->booking_type }} booking last {{ $carryOverBookingsPlanMed[0]->bookingDate }}]@endif</small><br>
-                            <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br>
+                            <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br> --}}
                             {{-- <small class="text-muted">Helper Save/Edit</small>
                             <div class="input-group input-group-small mb-3 flex-nowrap">
                               <div class="input-group-text">
@@ -9351,7 +9366,7 @@
                       </div> --}}
                     </div>
                   </div>
-                  <input type="hidden" class="form-control" id="{{ $viewFolder }}_referral_id" name="{{ $viewFolder }}[referral_id]" disabled>
+                  <input type="hidden" class="form-control" id="{{ $viewFolder }}_referral_id" name="{{ $viewFolder }}[referral_id]" @if(isset($referal_conso)) value="{{ $origConsoID }}" @else disabled @endif >
                 </div>
                 {{-- @if(isset($datum->consultation_referals[0]->id)) --}}
                 @if(false)
@@ -11326,7 +11341,7 @@
                   
                 </div> --}}
                 {{-- </div> --}}
-                <input type="hidden" id="{{ $viewFolder }}_printable_form_consultation_id" class="form-control" name="{{ $viewFolder }}[PrintableForm][consultation_id]" value="{{ $datum->id }}" {{ !isset($referal_conso)  ? '' : 'disabled' }}>
+                <input type="hidden" id="{{ $viewFolder }}_printable_form_consultation_id" class="form-control" name="{{ $viewFolder }}[PrintableForm][consultation_id]" value="{{ $origConsoID }}">
               </div>
               <div id="postOpCurDiv" style="display:none" class="container border border-1 mb-3 p-3">
                 <div class="docNotesDiv card mb-3" id="{{ $viewFolder }}_PostOp_{{ $datum->id }}">
@@ -15435,6 +15450,124 @@
           $('#iframePrevPostOp').attr('src', bookingObj.consultation.iframePrevPostOpSrc);
           $('#iframePrevOpAdmit').attr('src', bookingObj.consultation.iframePrevOpAdmitSrc);
           $('#iframePrevDischargeSum').attr('src', bookingObj.consultation.iframePrevDischargeSumSrc);
+          $('#docNotesHPIPrevDiv').html('');
+          $('#docNotesSubjectPrevDiv').html('');
+          $('#docNotesPrevDiv').html('');
+          $('#primary_assessmentPrevDiv').html('');
+          $('#assessmentPrevDiv').html('');
+          $('#post_op_assessmentPrevDiv').html('');
+          $('#planPrevDiv').html('');
+          $('#planRemPrevDiv').html('');
+          $('#planMedPrevDiv').html('');
+          $('#diagnosisPrevDiv').html('');
+          $('#medication_given_recoveryPrevDiv').html('');
+          $('#discharge_medicationPrevDiv').html('');
+          if(bookingObj.parent_consultation.doctor !== undefined){
+            if(bookingObj.parent_consultation.docNotesHPI != '')
+              $('#docNotesHPIPrevDiv').append('<div class="card mb-3"><div class="card-header bg-secondary text-light">Dr. ' + bookingObj.parent_consultation.doctor.name + '</div><div class="card-body">' + bookingObj.parent_consultation.docNotesHPI + '</div></div>');
+            if(bookingObj.parent_consultation.docNotesSubject != '')
+              $('#docNotesSubjectPrevDiv').append('<div class="card mb-3"><div class="card-header bg-secondary text-light">Dr. ' + bookingObj.parent_consultation.doctor.name + '</div><div class="card-body">' + bookingObj.parent_consultation.docNotesSubject + '</div></div>');
+            if(bookingObj.parent_consultation.docNotes != '')
+              $('#docNotesPrevDiv').append('<div class="card mb-3"><div class="card-header bg-secondary text-light">Dr. ' + bookingObj.parent_consultation.doctor.name + '</div><div class="card-body">' + bookingObj.parent_consultation.docNotes + '</div></div>');
+            if(bookingObj.parent_consultation.primary_assessment != '')
+              $('#primary_assessmentPrevDiv').append('<div class="card mb-3"><div class="card-header bg-secondary text-light">Dr. ' + bookingObj.parent_consultation.doctor.name + '</div><div class="card-body">' + bookingObj.parent_consultation.primary_assessment + '</div></div>');
+            if(bookingObj.parent_consultation.assessment != '')
+              $('#assessmentPrevDiv').append('<div class="card mb-3"><div class="card-header bg-secondary text-light">Dr. ' + bookingObj.parent_consultation.doctor.name + '</div><div class="card-body">' + bookingObj.parent_consultation.assessment + '</div></div>');
+            if(bookingObj.parent_consultation.post_op_assessment != '')
+              $('#post_op_assessmentPrevDiv').append('<div class="card mb-3"><div class="card-header bg-secondary text-light">Dr. ' + bookingObj.parent_consultation.doctor.name + '</div><div class="card-body">' + bookingObj.parent_consultation.post_op_assessment + '</div></div>');
+            if(bookingObj.parent_consultation.plan != '')
+              $('#planPrevDiv').append('<div class="card mb-3"><div class="card-header bg-secondary text-light">Dr. ' + bookingObj.parent_consultation.doctor.name + '</div><div class="card-body">' + bookingObj.parent_consultation.plan + '</div></div>');
+            if(bookingObj.parent_consultation.planRem != '')
+              $('#planRemPrevDiv').append('<div class="card mb-3"><div class="card-header bg-secondary text-light">Dr. ' + bookingObj.parent_consultation.doctor.name + '</div><div class="card-body">' + bookingObj.parent_consultation.planRem + '</div></div>');
+            if(bookingObj.parent_consultation.planMed != '')
+              $('#planMedPrevDiv').append('<div class="card mb-3"><div class="card-header bg-secondary text-light">Dr. ' + bookingObj.parent_consultation.doctor.name + '</div><div class="card-body">' + bookingObj.parent_consultation.planMed + '</div></div>');
+            if(bookingObj.parent_consultation.printable_form.diagnosis != '')
+              $('#diagnosisPrevDiv').append('<div class="card mb-3"><div class="card-header bg-secondary text-light">Dr. ' + bookingObj.parent_consultation.doctor.name + '</div><div class="card-body">' + bookingObj.parent_consultation.printable_form.diagnosis + '</div></div>');
+            if(bookingObj.parent_consultation.printable_form.medication_given_recovery != '')
+              $('#medication_given_recoveryPrevDiv').append('<div class="card mb-3"><div class="card-header bg-secondary text-light">Dr. ' + bookingObj.parent_consultation.doctor.name + '</div><div class="card-body">' + bookingObj.parent_consultation.printable_form.medication_given_recovery + '</div></div>');
+            if(bookingObj.parent_consultation.printable_form.discharge_medication != '')
+              $('#discharge_medicationPrevDiv').append('<div class="card mb-3"><div class="card-header bg-secondary text-light">Dr. ' + bookingObj.parent_consultation.doctor.name + '</div><div class="card-body">' + bookingObj.parent_consultation.printable_form.discharge_medication + '</div></div>');
+          }else{
+            if(bookingObj.consultation.docNotesHPI != '')
+              $('#docNotesHPIPrevDiv').append('<div class="card mb-3"><div class="card-header bg-warning">Yours</div><div class="card-body">' + bookingObj.consultation.docNotesHPI + '</div></div>');
+            if(bookingObj.consultation.docNotesSubject != '')
+              $('#docNotesSubjectPrevDiv').append('<div class="card mb-3"><div class="card-header bg-warning">Yours</div><div class="card-body">' + bookingObj.consultation.docNotesSubject + '</div></div>');
+            if(bookingObj.consultation.docNotes != '')
+              $('#docNotesPrevDiv').append('<div class="card mb-3"><div class="card-header bg-warning">Yours</div><div class="card-body">' + bookingObj.consultation.docNotes + '</div></div>');
+            if(bookingObj.consultation.primary_assessment != '')
+              $('#primary_assessmentPrevDiv').append('<div class="card mb-3"><div class="card-header bg-warning">Yours</div><div class="card-body">' + bookingObj.consultation.primary_assessment + '</div></div>');
+            if(bookingObj.consultation.assessment != '')
+              $('#assessmentPrevDiv').append('<div class="card mb-3"><div class="card-header bg-warning">Yours</div><div class="card-body">' + bookingObj.consultation.assessment + '</div></div>');
+            if(bookingObj.consultation.post_op_assessment != '')
+              $('#post_op_assessmentPrevDiv').append('<div class="card mb-3"><div class="card-header bg-warning">Yours</div><div class="card-body">' + bookingObj.consultation.post_op_assessment + '</div></div>');
+            if(bookingObj.consultation.plan != '')
+              $('#planPrevDiv').append('<div class="card mb-3"><div class="card-header bg-warning">Yours</div><div class="card-body">' + bookingObj.consultation.plan + '</div></div>');
+            if(bookingObj.consultation.planRem != '')
+              $('#planRemPrevDiv').append('<div class="card mb-3"><div class="card-header bg-warning">Yours</div><div class="card-body">' + bookingObj.consultation.planRem + '</div></div>');
+            if(bookingObj.consultation.planMed != '')
+              $('#planMedPrevDiv').append('<div class="card mb-3"><div class="card-header bg-warning">Yours</div><div class="card-body">' + bookingObj.consultation.planMed + '</div></div>');
+            if(bookingObj.consultation.printable_form.diagnosis != '')
+              $('#diagnosisPrevDiv').append('<div class="card mb-3"><div class="card-header bg-warning">Yours</div><div class="card-body">' + bookingObj.consultation.printable_form.diagnosis + '</div></div>');
+            if(bookingObj.consultation.printable_form.medication_given_recovery != '')
+              $('#medication_given_recoveryPrevDiv').append('<div class="card mb-3"><div class="card-header bg-warning">Yours</div><div class="card-body">' + bookingObj.consultation.printable_form.medication_given_recovery + '</div></div>');
+            if(bookingObj.consultation.printable_form.discharge_medication != '')
+              $('#discharge_medicationPrevDiv').append('<div class="card mb-3"><div class="card-header bg-warning">Yours</div><div class="card-body">' + bookingObj.consultation.printable_form.discharge_medication + '</div></div>');
+          }
+          if(bookingObj.consultation_referals !== undefined){
+            $.each(bookingObj.consultation_referals, function(index, element){
+              if(bookingObj.consultation.id == element.id){
+                if(element.docNotesHPI != '')
+                  $('#docNotesHPIPrevDiv').append('<div class="card mb-3"><div class="card-header bg-warning">Yours</div><div class="card-body">' + element.docNotesHPI + '</div></div>');
+                if(element.docNotesSubject != '')
+                  $('#docNotesSubjectPrevDiv').append('<div class="card mb-3"><div class="card-header bg-warning">Yours</div><div class="card-body">' + element.docNotesSubject + '</div></div>');
+                if(element.docNotes != '')
+                  $('#docNotesPrevDiv').append('<div class="card mb-3"><div class="card-header bg-warning">Yours</div><div class="card-body">' + element.docNotes + '</div></div>');
+                if(element.primary_assessment != '')
+                  $('#primary_assessmentPrevDiv').append('<div class="card mb-3"><div class="card-header bg-warning">Yours</div><div class="card-body">' + element.primary_assessment + '</div></div>');
+                if(element.assessment != '')
+                  $('#assessmentPrevDiv').append('<div class="card mb-3"><div class="card-header bg-warning">Yours</div><div class="card-body">' + element.assessment + '</div></div>');
+                if(element.post_op_assessment != '')
+                  $('#post_op_assessmentPrevDiv').append('<div class="card mb-3"><div class="card-header bg-warning">Yours</div><div class="card-body">' + element.post_op_assessment + '</div></div>');
+                if(element.plan != '')
+                  $('#planPrevDiv').append('<div class="card mb-3"><div class="card-header bg-warning">Yours</div><div class="card-body">' + element.plan + '</div></div>');
+                if(element.planRem != '')
+                  $('#planRemPrevDiv').append('<div class="card mb-3"><div class="card-header bg-warning">Yours</div><div class="card-body">' + element.planRem + '</div></div>');
+                if(element.planMed != '')
+                  $('#planMedPrevDiv').append('<div class="card mb-3"><div class="card-header bg-warning">Yours</div><div class="card-body">' + element.planMed + '</div></div>'); 
+                if(element.printable_form.diagnosis != '')
+                  $('#diagnosisPrevDiv').append('<div class="card mb-3"><div class="card-header bg-warning">Yours</div><div class="card-body">' + element.printable_form.diagnosis + '</div></div>'); 
+                if(element.printable_form.medication_given_recovery != '')
+                  $('#medication_given_recoveryPrevDiv').append('<div class="card mb-3"><div class="card-header bg-warning">Yours</div><div class="card-body">' + element.printable_form.medication_given_recovery + '</div></div>'); 
+                if(element.printable_form.discharge_medication != '')
+                  $('#discharge_medicationPrevDiv').append('<div class="card mb-3"><div class="card-header bg-warning">Yours</div><div class="card-body">' + element.printable_form.discharge_medication + '</div></div>'); 
+              }else{
+                if(element.docNotesHPI != '')
+                  $('#docNotesHPIPrevDiv').append('<div class="card mb-3"><div class="card-header bg-secondary text-light">Dr. ' + element.doctor.name + '</div><div class="card-body">' + element.docNotesHPI + '</div></div>');
+                if(element.docNotesSubject != '')
+                  $('#docNotesSubjectPrevDiv').append('<div class="card mb-3"><div class="card-header bg-secondary text-light">Dr. ' + element.doctor.name + '</div><div class="card-body">' + element.docNotesSubject + '</div></div>');
+                if(element.docNotes != '')
+                  $('#docNotesPrevDiv').append('<div class="card mb-3"><div class="card-header bg-secondary text-light">Dr. ' + element.doctor.name + '</div><div class="card-body">' + element.docNotes + '</div></div>');
+                if(element.primary_assessment != '')
+                  $('#primary_assessmentPrevDiv').append('<div class="card mb-3"><div class="card-header bg-secondary text-light">Dr. ' + element.doctor.name + '</div><div class="card-body">' + element.primary_assessment + '</div></div>');
+                if(element.assessment != '')
+                  $('#assessmentPrevDiv').append('<div class="card mb-3"><div class="card-header bg-secondary text-light">Dr. ' + element.doctor.name + '</div><div class="card-body">' + element.assessment + '</div></div>');
+                if(element.post_op_assessment != '')
+                  $('#post_op_assessmentPrevDiv').append('<div class="card mb-3"><div class="card-header bg-secondary text-light">Dr. ' + element.doctor.name + '</div><div class="card-body">' + element.post_op_assessment + '</div></div>');
+                if(element.plan != '')
+                  $('#planPrevDiv').append('<div class="card mb-3"><div class="card-header bg-secondary text-light">Dr. ' + element.doctor.name + '</div><div class="card-body">' + element.plan + '</div></div>');
+                if(element.planRem != '')
+                  $('#planRemPrevDiv').append('<div class="card mb-3"><div class="card-header bg-secondary text-light">Dr. ' + element.doctor.name + '</div><div class="card-body">' + element.planRem + '</div></div>');
+                if(element.planMed != '')
+                  $('#planMedPrevDiv').append('<div class="card mb-3"><div class="card-header bg-secondary text-light">Dr. ' + element.doctor.name + '</div><div class="card-body">' + element.planMed + '</div></div>');
+                if(element.printable_form.diagnosis != '')
+                  $('#diagnosisPrevDiv').append('<div class="card mb-3"><div class="card-header bg-secondary text-light">Dr. ' + element.doctor.name + '</div><div class="card-body">' + element.printable_form.diagnosis + '</div></div>');
+                if(element.printable_form.medication_given_recovery != '')
+                  $('#medication_given_recoveryPrevDiv').append('<div class="card mb-3"><div class="card-header bg-secondary text-light">Dr. ' + element.doctor.name + '</div><div class="card-body">' + element.printable_form.medication_given_recovery + '</div></div>');
+                if(element.printable_form.discharge_medication != '')
+                  $('#discharge_medicationPrevDiv').append('<div class="card mb-3"><div class="card-header bg-secondary text-light">Dr. ' + element.doctor.name + '</div><div class="card-body">' + element.printable_form.discharge_medication + '</div></div>');
+              }
+            });
+          }
 
           if(bookingObj.consultation_files !== undefined){
             inner = '';
@@ -15485,6 +15618,15 @@
   }
 
   $(document).ready(function() {
+    if($("#{{ $viewFolder }}_assessment").val() == ''){
+      $("#{{ $viewFolder }}_findings").val($("#{{ $viewFolder }}_docNotes").val());
+    }
+    if($("#{{ $viewFolder }}_assessment").val() == ''){
+      $("#{{ $viewFolder }}_diagnosis").val($("#{{ $viewFolder }}_assessment").val());
+    }
+    if($("#{{ $viewFolder }}_planRem").val() == ''){
+      $("#{{ $viewFolder }}_recommendations").val($("#{{ $viewFolder }}_planRem").val());
+    }
     $("table.medsOn").on("click", ".rowBtnDel", function ( event ) {
       if(!confirm('Are you sure you want to delete this?')){
         return false;

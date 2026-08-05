@@ -594,7 +594,7 @@ class ClinicsHomeController extends Controller
         $allBooking = null;
         if($datum->booking_type == 'Dialysis'){
             $prevBooking = Consultation::where('patient_id', $datum->patient_id)->where('booking_type', 'Dialysis')->whereNotNull('time_ended')->whereNot('id', $datum->id)->orderBy('bookingDate','desc')->first();
-            $allBooking = Consultation::where('patient_id', $datum->patient_id)->where('booking_type', 'Dialysis')->whereNotNull('time_ended')->whereNot('id', $datum->id)->where('bookingDate', '<', $datum->bookingDate)->orderBy('bookingDate','desc')->orderBy('bookingDate','desc')->get();
+            $allBooking = Consultation::where('patient_id', $datum->patient_id)->where('booking_type', 'Dialysis')->where('bookingDate', '<=', $datum->bookingDate)->orderBy('bookingDate','desc')->orderBy('bookingDate','desc')->get();
         }
         if($user->active == 2)
             return redirect()->route('home.myaccount')->with("Incomplete Form", $this->newUserMsg);
@@ -674,7 +674,7 @@ class ClinicsHomeController extends Controller
         $allBooking = null;
         if($datum->booking_type == 'Dialysis'){
             $prevBooking = Consultation::where('patient_id', $datum->patient_id)->where('booking_type', 'Dialysis')->whereNotNull('time_ended')->whereNot('id', $datum->id)->orderBy('bookingDate','desc')->first();
-            $allBooking = Consultation::where('patient_id', $datum->patient_id)->where('booking_type', 'Dialysis')->whereNotNull('time_ended')->whereNot('id', $datum->id)->where('bookingDate', '<=', $datum->bookingDate)->orderBy('bookingDate','desc')->get();
+            $allBooking = Consultation::where('patient_id', $datum->patient_id)->where('booking_type', 'Dialysis')->where('bookingDate', '<=', $datum->bookingDate)->orderBy('bookingDate','desc')->get();
         }
         $affiliatedDoctorObj = AffiliatedDoctor::where('clinic_id', $user->clinic_id)->get();
         // print "<pre>";
@@ -1388,6 +1388,7 @@ class ClinicsHomeController extends Controller
     }
 
     function getMedTable($id){
+        
         $medLogs = ConsultationMed::where('consultation_id', $id)->orderBy('id', 'desc')->get();
         $medLogArr = $medLogs->toArray();
         foreach($medLogs as $ind=>$dat){
@@ -1398,6 +1399,7 @@ class ClinicsHomeController extends Controller
     }
 
     function getMonTable($id){
+        
         $monLogs = ConsultationMonitoring::where('consultation_id', $id)->orderBy('id', 'desc')->get();
         $monLogArr = $monLogs->toArray();
         foreach($monLogs as $ind=>$dat){
@@ -1408,6 +1410,7 @@ class ClinicsHomeController extends Controller
     }
 
     function getNurseNotesTable($id){
+        
         $nurseNotesLogs = ConsultationNurseNote::where('consultation_id', $id)->orderBy('id', 'desc')->get();
         $nurseNotesLogArr = $nurseNotesLogs->toArray();
         foreach($nurseNotesLogs as $ind=>$dat){
@@ -1418,6 +1421,7 @@ class ClinicsHomeController extends Controller
     }
 
     function getDoctorList($patient_name, $conso = null){
+        
         $user = Auth::user();
         unset($doctorsId);
         foreach(Consultation::where('clinic_id', $user->clinic_id)->get('doctor_id') as $booking){
@@ -1429,33 +1433,38 @@ class ClinicsHomeController extends Controller
     }
 
     function pdfHD(Consultation $clinics_home){
+        
         $pdf = Pdf::loadView($this->viewFolder . '.pdfHD', ['datum' => $clinics_home]);
         return $pdf->download('hd_' . $clinics_home->id . '-' . $clinics_home->treatment_number . '.pdf');
         
     }
 
     function pdfOrderSum(Consultation $clinics_home){
-        $allBooking = Consultation::where('patient_id', $clinics_home->patient_id)->where('booking_type', 'Dialysis')->whereNotNull('time_ended')->whereNot('id', $clinics_home->id)->where('bookingDate', '<=', $clinics_home->bookingDate)->orderBy('bookingDate','desc')->get();
+        
+        $allBooking = Consultation::where('patient_id', $clinics_home->patient_id)->where('booking_type', 'Dialysis')->whereNot('id', $clinics_home->id)->where('bookingDate', '<=', $clinics_home->bookingDate)->orderBy('bookingDate','desc')->get();
         $pdf = Pdf::loadView($this->viewFolder . '.pdfOrderSum', ['datum' => $clinics_home, 'allBooking' => $allBooking]);
         return $pdf->download('orderSum_' . $clinics_home->id . '-' . $clinics_home->treatment_number . '.pdf');
         
     }
 
     function pdfHDSum(Consultation $clinics_home){
-        $allBooking = Consultation::where('patient_id', $clinics_home->patient_id)->where('booking_type', 'Dialysis')->whereNotNull('time_ended')->whereNot('id', $clinics_home->id)->where('bookingDate', '<=', $clinics_home->bookingDate)->orderBy('bookingDate','desc')->get();
+        
+        $allBooking = Consultation::where('patient_id', $clinics_home->patient_id)->where('booking_type', 'Dialysis')->whereNot('id', $clinics_home->id)->where('bookingDate', '<=', $clinics_home->bookingDate)->orderBy('bookingDate','desc')->get();
         $pdf = Pdf::loadView($this->viewFolder . '.pdfHDSum', ['datum' => $clinics_home, 'allBooking' => $allBooking]);
         return $pdf->download('hdSum_' . $clinics_home->id . '-' . $clinics_home->treatment_number . '.pdf');
         
     }
 
     function pdfLabSum(Consultation $clinics_home){
-        $allBooking = Consultation::where('patient_id', $clinics_home->patient_id)->where('booking_type', 'Dialysis')->whereNotNull('time_ended')->whereNot('id', $clinics_home->id)->where('bookingDate', '<=', $clinics_home->bookingDate)->orderBy('bookingDate','desc')->get();
+        
+        $allBooking = Consultation::where('patient_id', $clinics_home->patient_id)->where('booking_type', 'Dialysis')->whereNot('id', $clinics_home->id)->where('bookingDate', '<=', $clinics_home->bookingDate)->orderBy('bookingDate','desc')->get();
         $pdf = Pdf::loadView($this->viewFolder . '.pdfLabSum', ['datum' => $clinics_home, 'allBooking' => $allBooking]);
         return $pdf->download('hdSum_' . $clinics_home->id . '-' . $clinics_home->treatment_number . '.pdf');
         
     }
 
     function pdfPrintableForms(Consultation $clinics_home, $template){
+        
         $user = Auth::user();
         $pdf = Pdf::loadView($this->viewFolder . '.' . $template, ['datum' => $clinics_home, 'user' => $user]);
         Storage::disk('spaces')->put('/storage/printable_forms_files/' . $template . '_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf', $pdf->output());
@@ -1467,6 +1476,7 @@ class ClinicsHomeController extends Controller
     }
 
     function pdfOpAdmit(Consultation $clinics_home){
+        
         $pdf = Pdf::loadView($this->viewFolder . '.pdfOpAdmit', ['datum' => $clinics_home]);
         
         Storage::disk('spaces')->put('/storage/printable_forms_files/pdfOpAdmit_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf', $pdf->output());
@@ -1476,6 +1486,7 @@ class ClinicsHomeController extends Controller
     }
 
     function pdfORTech(Consultation $clinics_home){
+        
         $pdf = Pdf::loadView($this->viewFolder . '.pdfORTech', ['datum' => $clinics_home]);
         Storage::disk('spaces')->put('/storage/printable_forms_files/pdfORTech_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf', $pdf->output());
         // $src = asset('storage/printable_forms_files/pdfORTech_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf');
@@ -1484,6 +1495,7 @@ class ClinicsHomeController extends Controller
     }
 
     function pdfNurseNotes(Consultation $clinics_home){
+        
         $user = Auth::user();
         $pdf = Pdf::loadView($this->viewFolder . '.pdfNurseNotes', ['datum' => $clinics_home, 'user' => $user]);
         
@@ -1495,6 +1507,7 @@ class ClinicsHomeController extends Controller
     }
 
     function pdfPostOp(Consultation $clinics_home){
+        
         $pdf = Pdf::loadView($this->viewFolder . '.pdfPostOp', ['datum' => $clinics_home]);
         
         Storage::disk('spaces')->put('/storage/printable_forms_files/pdfPostOp_' . $clinics_home->id . '_' . $clinics_home->patient->l_name . '.pdf', $pdf->output());
@@ -1505,6 +1518,7 @@ class ClinicsHomeController extends Controller
     }
 
     function pdfDischargeSum(Consultation $clinics_home){
+        
         $user = Auth::user();
         // dd($doctors_home);
         $pdf = Pdf::loadView($this->viewFolder . '.pdfDischargeSum', ['datum' => $clinics_home, 'user' => $user]);
@@ -1517,6 +1531,7 @@ class ClinicsHomeController extends Controller
     }
 
     function sendDrainwiz(Consultation $clinics_home){
+        
         // dd($clinics_home);
         unset($params);
         // $params['opid'] = "";
