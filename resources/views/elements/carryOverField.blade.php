@@ -1,7 +1,7 @@
 @php
-    if(isset($fieldNameParent) && $fieldName == 'diagnosis'){
-        $fieldEntry = isset($referal_conso->assessment) ? $referal_conso->assessment : $datum->assessment;
-    }
+    // if(isset($fieldNameParent) && $fieldName == 'diagnosis'){
+    //     $fieldEntry = isset($referal_conso->assessment) ? $referal_conso->assessment : $datum->assessment;
+    // }
 @endphp
 <div class="container table-responsive mb-3" style="max-height: 200px; border: 1px solid; border-radius: 5px; overflow-y: auto;">
     @if(!isset($referal_conso))
