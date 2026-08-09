@@ -13679,7 +13679,7 @@
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
                                     @if($dat->consultation_parent_id == null)
-                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
                                         @continue
                                       @endif  
                                       <th>{{ $dat->bookingDate }}</th>
@@ -13694,7 +13694,7 @@
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
                                     @if($dat->consultation_parent_id == null)
-                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
                                         @continue
                                       @endif
                                       <td>{{ $dat->hemoglobin }}</td>
@@ -13707,7 +13707,7 @@
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
                                     @if($dat->consultation_parent_id == null)
-                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)  
+                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)  
                                         @continue
                                       @endif
                                       <td>{{ $dat->hematocrit }}</td>
@@ -13720,7 +13720,7 @@
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
                                     @if($dat->consultation_parent_id == null)
-                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
                                         @continue
                                       @endif
                                       <td>{{ $dat->rbc }}</td>
@@ -13733,7 +13733,7 @@
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
                                     @if($dat->consultation_parent_id == null)
-                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
                                         @continue
                                       @endif
                                       <td>{{ $dat->wbc }}</td>
@@ -13746,7 +13746,7 @@
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
                                     @if($dat->consultation_parent_id == null)
-                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
                                         @continue
                                       @endif
                                       <td>{{ $dat->platelet }}</td>
@@ -13759,7 +13759,7 @@
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
                                     @if($dat->consultation_parent_id == null)
-                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
                                         @continue
                                       @endif
                                     <td>{{  number_format($dat->urr, 2) }}</td>
@@ -13772,7 +13772,7 @@
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
                                     @if($dat->consultation_parent_id == null)
-                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
                                         @continue
                                       @endif
                                     <td>{{ number_format($dat->ktv2, 2) }}</td>
@@ -13785,7 +13785,7 @@
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
                                     @if($dat->consultation_parent_id == null)
-                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
                                         @continue
                                       @endif
                                     <td>{{ $dat->pre_bun }}</td>
@@ -13798,7 +13798,7 @@
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
                                     @if($dat->consultation_parent_id == null)
-                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
                                         @continue
                                       @endif
                                     <td>{{ $dat->post_bun }}</td>
@@ -13811,7 +13811,7 @@
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
                                     @if($dat->consultation_parent_id == null)
-                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
                                         @continue
                                       @endif
                                       <td>{{ $dat->creatinine }}</td>
@@ -13824,7 +13824,7 @@
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
                                     @if($dat->consultation_parent_id == null)
-                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
                                         @continue
                                       @endif
                                       <td>{{ $dat->serum_albumin }}</td>
@@ -13837,7 +13837,7 @@
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
                                     @if($dat->consultation_parent_id == null)
-                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
                                         @continue
                                       @endif
                                       <td>{{ $dat->sodium }}</td>
@@ -13850,10 +13850,23 @@
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
                                     @if($dat->consultation_parent_id == null)
-                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
                                         @continue
                                       @endif
                                       <td>{{ $dat->potassium }}</td>
+                                    @endif
+                                  @endforeach
+                                @endif
+                              </tr>
+                              <tr>
+                                <td>Phosphorus</td>
+                                @if(isset($allBooking))
+                                  @foreach ($allBooking as $ind=>$dat)
+                                    @if($dat->consultation_parent_id == null)
+                                    @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
+                                        @continue
+                                      @endif
+                                      <td>{{ $dat->phosphorus }}</td>
                                     @endif
                                   @endforeach
                                 @endif
@@ -13863,7 +13876,7 @@
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
                                     @if($dat->consultation_parent_id == null)
-                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
                                         @continue
                                       @endif
                                       <td>{{ $dat->ionized_calcium }}</td>
@@ -13876,7 +13889,7 @@
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
                                     @if($dat->consultation_parent_id == null)
-                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
                                         @continue
                                       @endif
                                       <td>{{ $dat->uric_acid }}</td>
@@ -13889,7 +13902,7 @@
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
                                     @if($dat->consultation_parent_id == null)
-                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
                                         @continue
                                       @endif
                                       <td>{{ $dat->sgpt }}</td>
@@ -13902,7 +13915,7 @@
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
                                     @if($dat->consultation_parent_id == null)
-                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
                                         @continue
                                       @endif
                                       <td>{{ $dat->sgot }}</td>
@@ -13915,7 +13928,7 @@
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
                                     @if($dat->consultation_parent_id == null)
-                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
                                         @continue
                                       @endif
                                       <td>{{ $dat->serum_ferritin }}</td>
@@ -13928,7 +13941,7 @@
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
                                     @if($dat->consultation_parent_id == null)
-                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
                                         @continue
                                       @endif
                                       <td>{{ $dat->serum_ferritin }}</td>
@@ -13941,7 +13954,7 @@
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
                                     @if($dat->consultation_parent_id == null)
-                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
                                         @continue
                                       @endif
                                       <td>{{ $dat->serum_iron }}</td>
@@ -13954,7 +13967,7 @@
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
                                     @if($dat->consultation_parent_id == null)
-                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
                                         @continue
                                       @endif
                                       <td>{{ $dat->tibc }}</td>
@@ -13967,7 +13980,7 @@
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
                                     @if($dat->consultation_parent_id == null)
-                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
                                         @continue
                                       @endif
                                       <td>{{ number_format($dat->tsat, 2) }}</td>
@@ -13980,7 +13993,7 @@
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
                                     @if($dat->consultation_parent_id == null)
-                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
                                         @continue
                                       @endif
                                       <td>{{ $dat->hbsag }}</td>
@@ -13993,7 +14006,7 @@
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
                                     @if($dat->consultation_parent_id == null)
-                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
                                         @continue
                                       @endif
                                       <td>{{ $dat->anti_hbs }}</td>
@@ -14006,7 +14019,7 @@
                                 @if(isset($allBooking))
                                   @foreach ($allBooking as $ind=>$dat)
                                     @if($dat->consultation_parent_id == null)
-                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null)
+                                      @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
                                         @continue
                                       @endif
                                       <td>{{ $dat->anti_hcv }}</td>
