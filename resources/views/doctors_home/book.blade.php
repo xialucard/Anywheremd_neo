@@ -205,8 +205,8 @@
               
           ">Summary</a>
         </li> --}}
-        <li class="nav-item">
-          <a class="nav-link active" id="soapBigLink" href="#" onclick="
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle active" id="soapBigLink" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false" onclick="
             $('#soapBigLink').addClass('active');  
             $('#sumBigLink').removeClass('active');  
             $('#labBigLink').removeClass('active');  
@@ -291,6 +291,38 @@
             }
 
           ">SOAP</a>
+          <ul class="dropdown-menu">
+            <li>
+              <a class="dropdown-item soapLink active" href="#" onclick="
+                $('.soapLink').removeClass('active');
+                $('.soapDiv').hide();
+                $('.soapSubjective').addClass('active');
+                $('.soapDivSubjective').show();
+                $(this).addClass('active');
+              ">Subjective</a>
+              <a class="dropdown-item soapLink" href="#" onclick="
+                $('.soapLink').removeClass('active');
+                $('.soapDiv').hide();
+                $('.soapObjective').addClass('active');
+                $('.soapDivObjective').show();
+                $(this).addClass('active');
+              ">Objective</a>
+              <a class="dropdown-item soapLink" href="#" onclick="
+                $('.soapLink').removeClass('active');
+                $('.soapDiv').hide();
+                $('.soapAssess').addClass('active');
+                $('.soapDivAssess').show();
+                $(this).addClass('active');
+              ">Assessment</a>
+              <a class="dropdown-item soapLink" href="#" onclick="
+                $('.soapLink').removeClass('active');
+                $('.soapDiv').hide();
+                $('.soapPlan').addClass('active');
+                $('.soapDivPlan').show();
+                $(this).addClass('active');
+              ">Plan </a>
+            </li>
+          </ul>
         </li>
         <li class="nav-item">
           <a class="nav-link" id="labBigLink" href="#" onclick="
@@ -2340,8 +2372,8 @@
                   $('#dischargeSumCurDiv').hide();
                 ">Summary</a>
               </li> --}}
-              <li class="nav-item">
-                <a class="nav-link active" id="soapPrevLink" href="#" onclick="
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle active" id="soapPrevLink" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false" onclick="
                   $('#soapBigLink').addClass('active');  
                   $('#sumBigLink').removeClass('active');  
                   $('#labBigLink').removeClass('active');  
@@ -2405,6 +2437,38 @@
                   $('#postOpCurDiv').hide();
                   $('#dischargeSumCurDiv').hide();
                 ">SOAP</a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a class="dropdown-item soapLink active" href="#" onclick="
+                      $('.soapLink').removeClass('active');
+                      $('.soapDiv').hide();
+                      $('.soapSubjective').addClass('active');
+                      $('.soapDivSubjective').show();
+                      $(this).addClass('active');
+                    ">Subjective</a>
+                    <a class="dropdown-item soapLink" href="#" onclick="
+                      $('.soapLink').removeClass('active');
+                      $('.soapDiv').hide();
+                      $('.soapObjective').addClass('active');
+                      $('.soapDivObjective').show();
+                      $(this).addClass('active');
+                    ">Objective</a>
+                    <a class="dropdown-item soapLink" href="#" onclick="
+                      $('.soapLink').removeClass('active');
+                      $('.soapDiv').hide();
+                      $('.soapAssess').addClass('active');
+                      $('.soapDivAssess').show();
+                      $(this).addClass('active');
+                    ">Assessment</a>
+                    <a class="dropdown-item soapLink" href="#" onclick="
+                      $('.soapLink').removeClass('active');
+                      $('.soapDiv').hide();
+                      $('.soapPlan').addClass('active');
+                      $('.soapDivPlan').show();
+                      $(this).addClass('active');
+                    ">Plan </a>
+                  </li>
+                </ul>
               </li>
               {{-- <li class="nav-item">
                 <a class="nav-link" id="labPrevLink" href="#" onclick="
@@ -7470,8 +7534,8 @@
                   $('#dischargeSumCurDiv').hide();
                 ">Summary</a>
               </li> --}}
-              <li class="nav-item">
-                <a class="nav-link active" id="soapCurLink" href="#" onclick="
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle active" id="soapCurLink" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false" onclick="
                   $('#soapBigLink').addClass('active');  
                   $('#sumBigLink').removeClass('active');  
                   $('#labBigLink').removeClass('active');  
@@ -7536,6 +7600,38 @@
                   $('#dischargeSumCurDiv').hide();
 
                 ">SOAP</a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a class="dropdown-item soapLink active" href="#" onclick="
+                      $('.soapLink').removeClass('active');
+                      $('.soapDiv').hide();
+                      $('.soapSubjective').addClass('active');
+                      $('.soapDivSubjective').show();
+                      $(this).addClass('active');
+                    ">Subjective</a>
+                    <a class="dropdown-item soapLink" href="#" onclick="
+                      $('.soapLink').removeClass('active');
+                      $('.soapDiv').hide();
+                      $('.soapObjective').addClass('active');
+                      $('.soapDivObjective').show();
+                      $(this).addClass('active');
+                    ">Objective</a>
+                    <a class="dropdown-item soapLink" href="#" onclick="
+                      $('.soapLink').removeClass('active');
+                      $('.soapDiv').hide();
+                      $('.soapAssess').addClass('active');
+                      $('.soapDivAssess').show();
+                      $(this).addClass('active');
+                    ">Assessment</a>
+                    <a class="dropdown-item soapLink" href="#" onclick="
+                      $('.soapLink').removeClass('active');
+                      $('.soapDiv').hide();
+                      $('.soapPlan').addClass('active');
+                      $('.soapDivPlan').show();
+                      $(this).addClass('active');
+                    ">Plan </a>
+                  </li>
+                </ul>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="labCurLink" href="#" onclick="
@@ -9353,7 +9449,7 @@
                       {{-- <div class="form-floating mb-3"> --}}
                         {{-- <label for="{{ $viewFolder }}_referal" class="form-label">Booking Date</label> --}}
                         <div class="input-group input-group-small mb-3 flex-nowrap">
-                          <input class="form-control soapField" type="date" name="{{ $viewFolder }}[referal]" id="{{ $viewFolder }}_referals" value="{{ isset($datum->advance_booking->id) ? $datum->advance_booking->bookingDate : '' }}" min="{{ date('Y-m-d', strtotime($datum->bookingDate . '+ 7days')) }}" step=7 max="{{ $maxDateSched }}" onkeydown="return false">
+                          <input class="form-control soapField" type="date" name="{{ $viewFolder }}[referal]" id="{{ $viewFolder }}_referals" value="{{ isset($datum->advance_booking->id) ? $datum->advance_booking->bookingDate : '' }}" min="{{ date('Y-m-d', strtotime($datum->bookingDate . '+ 1day')) }}" step=1 max="{{ $maxDateSched }}" onkeydown="return false">
                           <button class="btn btn-outline-secondary soapField" type="button" id="button-addon2" onclick="
                             $('#{{ $viewFolder }}_referals').val('');
                           ">Clear Booking</button>
