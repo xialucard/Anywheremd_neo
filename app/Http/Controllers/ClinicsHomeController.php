@@ -593,7 +593,7 @@ class ClinicsHomeController extends Controller
         $prevBooking = null;
         $allBooking = null;
         if($datum->booking_type == 'Dialysis'){
-            $prevBooking = Consultation::where('patient_id', $datum->patient_id)->where('booking_type', 'Dialysis')->where('bookingDate', '<=', $datum->bookingDate)->whereNotNull('treatment_number')->whereNull('consultation_parent_id')->whereNot('id', $datum->id)->orderBy('bookingDate','desc')->first();
+            $prevBooking = Consultation::where('patient_id', $datum->patient_id)->where('booking_type', 'Dialysis')->where('bookingDate', '<=', $datum->bookingDate)->whereNotNull('time_ended')->whereNull('consultation_parent_id')->whereNot('id', $datum->id)->orderBy('bookingDate','desc')->first();
             $allBooking = Consultation::where('patient_id', $datum->patient_id)->where('booking_type', 'Dialysis')->where('bookingDate', '<=', $datum->bookingDate)->orderBy('bookingDate','desc')->get();
         }
         if($user->active == 2)
@@ -673,7 +673,7 @@ class ClinicsHomeController extends Controller
         $prevBooking = null;
         $allBooking = null;
         if($datum->booking_type == 'Dialysis'){
-            $prevBooking = Consultation::where('patient_id', $datum->patient_id)->where('booking_type', 'Dialysis')->where('bookingDate', '<=', $datum->bookingDate)->whereNotNull('treatment_number')->whereNull('consultation_parent_id')->whereNot('id', $datum->id)->orderBy('bookingDate','desc')->first();
+            $prevBooking = Consultation::where('patient_id', $datum->patient_id)->where('booking_type', 'Dialysis')->where('bookingDate', '<=', $datum->bookingDate)->whereNotNull('time_ended')->whereNull('consultation_parent_id')->whereNot('id', $datum->id)->orderBy('bookingDate','desc')->first();
             $allBooking = Consultation::where('patient_id', $datum->patient_id)->where('booking_type', 'Dialysis')->where('bookingDate', '<=', $datum->bookingDate)->orderBy('bookingDate','desc')->get();
         }
         $affiliatedDoctorObj = AffiliatedDoctor::where('clinic_id', $user->clinic_id)->get();
