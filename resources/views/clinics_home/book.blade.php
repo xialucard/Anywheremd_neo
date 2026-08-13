@@ -25,9 +25,9 @@
 @endif
 
 @php
-  // print "<pre>";
-  //   print_r($datum);
-  // print "</pre>";
+  print "<pre>";
+    print_r($prevBooking);
+  print "</pre>";
 @endphp
 
 <div class="container">
@@ -2218,7 +2218,7 @@
           <div class="col-lg-4">
             <div class="input-group mb-3">
               <div class="form-floating">
-                <input class="form-control" type="number" name="{{ $viewFolder }}[treatment_number]" id="{{ $viewFolder }}_treatment_number" value="{{ isset($datum->treatment_number) ? $datum->treatment_number : (isset($prevBooking->treatment_number) ? $prevBooking->treatment_number+1 : '') }}" placeholder="" >
+                <input class="form-control" type="number" name="{{ $viewFolder }}[treatment_number]" id="{{ $viewFolder }}_treatment_number" value="{{ isset($datum->treatment_number) && $datum->treatment_number != null ? $datum->treatment_number : (isset($prevBooking->treatment_number) ? $prevBooking->treatment_number+1 : '') }}" placeholder="" >
                 <label for="{{ $viewFolder }}_treatment_number" class="form-label">Treatment Number</label>
                 <small id="help_{{ $viewFolder }}_treatment_number" class="text-muted"></small>
               </div>
