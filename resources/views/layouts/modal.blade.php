@@ -98,6 +98,8 @@
                         $('#{{ $viewFolder }}_submit_type').val('');
                         " class="btn btn-danger">End</button>
                     {{-- @endif --}}
+                @elseif(stristr($inputFormHeader, 'Booking'))
+                    <button type="submit" id="submitButton" class="btn btn-{{ $bgColor }}" @if($datum->bookingDate>date('y-m-d')) disabled @endif>Submit</button>
                 @else
                     <button type="submit" id="submitButton" class="btn btn-{{ $bgColor }}">Submit</button>
                 @endif
