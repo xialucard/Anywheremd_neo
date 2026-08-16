@@ -98,8 +98,8 @@
                         $('#{{ $viewFolder }}_submit_type').val('');
                         " class="btn btn-danger">End</button>
                     {{-- @endif --}}
-                @elseif(stristr($inputFormHeader, 'Booking') && isset($datum->booking_type) && $datum->booking_type == 'Dialysis')
-                    <button type="submit" id="submitButton" class="btn btn-{{ $bgColor }}" @if(isset($datum->bookingDate) && $datum->bookingDate > date('Y-m-d')) disabled @endif>Submit</button>
+                {{-- @elseif(stristr($inputFormHeader, 'Booking') && isset($datum->booking_type) && $datum->booking_type == 'Dialysis')
+                    <button type="submit" id="submitButton" class="btn btn-{{ $bgColor }}" @if(isset($datum->bookingDate) && $datum->bookingDate > date('Y-m-d')) disabled @endif>Submit</button> --}}
                 @else
                     <button type="submit" id="submitButton" class="btn btn-{{ $bgColor }}">Submit</button>
                 @endif

@@ -25,9 +25,7 @@
 @endif
 
 @php
-  // print "<pre>";
-  // print_r($prevBooking);
-  // print "</pre>";
+  $hdDisable = '';
 @endphp
 
 <div class="container">
@@ -2213,12 +2211,18 @@
         <div class="row" id="image_preview_nurse"></div>
       </div>
       <div id="consoPatBookChartDiv" style="{{ !isset($datum->id) ? 'display:none' : '' }}" class="container border border-1 border-top-0 mb-3 p-3">
+
         @if(isset($datum->booking_type) && $datum->booking_type == 'Dialysis')
+          @php
+          if(isset($datum->bookingDate) && $datum->bookingDate > date('Y-m-d'))
+            $hdDisable = 'disabled';
+          @endphp
+
         <div class="row">
           <div class="col-lg-4">
             <div class="input-group mb-3">
               <div class="form-floating">
-                <input class="form-control" type="number" name="{{ $viewFolder }}[treatment_number]" id="{{ $viewFolder }}_treatment_number" value="{{ isset($datum->treatment_number) && $datum->treatment_number != null ? $datum->treatment_number : (isset($prevBooking->treatment_number) ? $prevBooking->treatment_number+1 : '') }}" placeholder="" >
+                <input class="form-control" type="number" name="{{ $viewFolder }}[treatment_number]" id="{{ $viewFolder }}_treatment_number" value="{{ isset($datum->treatment_number) && $datum->treatment_number != null ? $datum->treatment_number : (isset($prevBooking->treatment_number) ? $prevBooking->treatment_number+1 : '') }}" placeholder="" {{ $hdDisable }}>
                 <label for="{{ $viewFolder }}_treatment_number" class="form-label">Treatment Number</label>
                 <small id="help_{{ $viewFolder }}_treatment_number" class="text-muted"></small>
               </div>
@@ -2239,7 +2243,7 @@
                       var ktv = -1*Math.log(($('#{{ $viewFolder }}_post_bun').val() / $('#{{ $viewFolder }}_pre_bun').val()) - (0.008*hours)) + ((4 - (3.5*($('#{{ $viewFolder }}_post_bun').val() / $('#{{ $viewFolder }}_pre_bun').val())))*($('#{{ $viewFolder }}_achieved_uf').val()/$('#{{ $viewFolder }}_post_hd_weight').val()));
                       $('#{{ $viewFolder }}_ktv2').val(ktv.toFixed(2));
                     }
-                  ">
+                  " {{ $hdDisable }}>
                 <label for="{{ $viewFolder }}_time_started" class="form-label">Time Started</label>
                 <small id="help_{{ $viewFolder }}_time_started" class="text-muted"></small>
               </div>
@@ -2260,7 +2264,7 @@
                       var ktv = -1*Math.log(($('#{{ $viewFolder }}_post_bun').val() / $('#{{ $viewFolder }}_pre_bun').val()) - (0.008*hours)) + ((4 - (3.5*($('#{{ $viewFolder }}_post_bun').val() / $('#{{ $viewFolder }}_pre_bun').val())))*($('#{{ $viewFolder }}_achieved_uf').val()/$('#{{ $viewFolder }}_post_hd_weight').val()));
                       $('#{{ $viewFolder }}_ktv2').val(ktv.toFixed(2));
                     }
-                  ">
+                  " {{ $hdDisable }}>
                 <label for="{{ $viewFolder }}_time_ended" class="form-label">Time Ended</label>
                 <small id="help_{{ $viewFolder }}_time_ended" class="text-muted"></small>
               </div>
@@ -2274,7 +2278,7 @@
               <div class="col-lg-3">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="text" name="{{ $viewFolder }}[machine_number]" id="{{ $viewFolder }}_machine_number" value="{{ isset($datum->machine_number) ? $datum->machine_number : ''}}" placeholder="">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[machine_number]" id="{{ $viewFolder }}_machine_number" value="{{ isset($datum->machine_number) ? $datum->machine_number : ''}}" placeholder="" {{ $hdDisable }}>
                     <label for="{{ $viewFolder }}_machine_number" class="form-label">Machine Number</label>
                     <small id="help_{{ $viewFolder }}_machine_number" class="text-muted"></small>
                   </div>
@@ -2283,7 +2287,7 @@
               <div class="col-lg-3">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="text" name="{{ $viewFolder }}[dialyzer]" id="{{ $viewFolder }}_dialyzer" value="{{ isset($datum->dialyzer) ? $datum->dialyzer : (isset($prevBooking->dialyzer) ? $prevBooking->dialyzer : '')}}" placeholder="">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[dialyzer]" id="{{ $viewFolder }}_dialyzer" value="{{ isset($datum->dialyzer) ? $datum->dialyzer : (isset($prevBooking->dialyzer) ? $prevBooking->dialyzer : '')}}" placeholder="" {{ $hdDisable }}>
                     <label for="{{ $viewFolder }}_dialyzer" class="form-label">Dialyzer</label>
                     <small id="help_{{ $viewFolder }}_dialyzer" class="text-muted"></small>
                   </div>
@@ -2292,7 +2296,7 @@
               <div class="col-lg-3">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="number" step=1 min=1 max=5 name="{{ $viewFolder }}[mac_use]" id="{{ $viewFolder }}_use" value="{{ isset($datum->mac_use) ? $datum->mac_use : '' }}" placeholder="">
+                    <input class="form-control" type="number" step=1 min=1 max=5 name="{{ $viewFolder }}[mac_use]" id="{{ $viewFolder }}_use" value="{{ isset($datum->mac_use) ? $datum->mac_use : '' }}" placeholder="" {{ $hdDisable }}>
                     <label for="{{ $viewFolder }}_use" class="form-label">Use</label>
                     <small id="help_{{ $viewFolder }}_use" class="text-muted"></small>
                   </div>
@@ -2301,7 +2305,7 @@
               <div class="col-lg-3">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="text" name="{{ $viewFolder }}[acid]" id="{{ $viewFolder }}_acid" value="{{ isset($datum->acid) ? $datum->acid : (isset($prevBooking->acid) ? $prevBooking->acid : '') }}" placeholder="">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[acid]" id="{{ $viewFolder }}_acid" value="{{ isset($datum->acid) ? $datum->acid : (isset($prevBooking->acid) ? $prevBooking->acid : '') }}" placeholder="" {{ $hdDisable }}>
                     <label for="{{ $viewFolder }}_acid" class="form-label">Acid</label>
                     <small id="help_{{ $viewFolder }}_acid" class="text-muted"></small>
                   </div>
@@ -2312,7 +2316,7 @@
               <div class="col-lg-3">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="text" name="{{ $viewFolder }}[mac_add]" id="{{ $viewFolder }}_add" value="{{ isset($datum->mac_add) ? $datum->mac_add : ''}}" placeholder="">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[mac_add]" id="{{ $viewFolder }}_add" value="{{ isset($datum->mac_add) ? $datum->mac_add : ''}}" placeholder="" {{ $hdDisable }}>
                     <label for="{{ $viewFolder }}_add" class="form-label">Add</label>
                     <small id="help_{{ $viewFolder }}_add" class="text-muted"></small>
                   </div>
@@ -2321,7 +2325,7 @@
               <div class="col-lg-3">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="text" name="{{ $viewFolder }}[bfr]" id="{{ $viewFolder }}_bfr" value="{{ isset($datum->bfr) ? $datum->bfr : (isset($prevBooking->bfr) ? $prevBooking->bfr : '') }}" placeholder="">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[bfr]" id="{{ $viewFolder }}_bfr" value="{{ isset($datum->bfr) ? $datum->bfr : (isset($prevBooking->bfr) ? $prevBooking->bfr : '') }}" placeholder="" {{ $hdDisable }}>
                     <label for="{{ $viewFolder }}_bfr" class="form-label">BRF</label>
                     <small id="help_{{ $viewFolder }}_bfr" class="text-muted"></small>
                   </div>
@@ -2330,7 +2334,7 @@
               <div class="col-lg-3">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="text" name="{{ $viewFolder }}[dfr]" id="{{ $viewFolder }}_dfr" value="{{ isset($datum->dfr) ? $datum->dfr : (isset($prevBooking->dfr) ? $prevBooking->dfr : '') }}" placeholder="">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[dfr]" id="{{ $viewFolder }}_dfr" value="{{ isset($datum->dfr) ? $datum->dfr : (isset($prevBooking->dfr) ? $prevBooking->dfr : '') }}" placeholder="" {{ $hdDisable }}>
                     <label for="{{ $viewFolder }}_dfr" class="form-label">DFR</label>
                     <small id="help_{{ $viewFolder }}_dfr" class="text-muted"></small>
                   </div>
@@ -2339,7 +2343,7 @@
               <div class="col-lg-3">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="text" name="{{ $viewFolder }}[setup_prime]" id="{{ $viewFolder }}_setup_prime" value="{{ isset($datum->setup_prime) ? $datum->setup_prime : '' }}" placeholder="">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[setup_prime]" id="{{ $viewFolder }}_setup_prime" value="{{ isset($datum->setup_prime) ? $datum->setup_prime : '' }}" placeholder="" {{ $hdDisable }}>
                     <label for="{{ $viewFolder }}_setup_prime" class="form-label">Setup Prime</label>
                     <small id="help_{{ $viewFolder }}_setup_prime" class="text-muted"></small>
                   </div>
@@ -2350,7 +2354,7 @@
               <div class="col-lg-6">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <textarea class="form-control" name="{{ $viewFolder }}[safety_check]" id="{{ $viewFolder }}_safety_check" rows=3>{{ isset($datum->safety_check) ? $datum->safety_check : ''}}</textarea>
+                    <textarea class="form-control" name="{{ $viewFolder }}[safety_check]" id="{{ $viewFolder }}_safety_check" rows=3 {{ $hdDisable }}>{{ isset($datum->safety_check) ? $datum->safety_check : ''}}</textarea>
                     <label for="{{ $viewFolder }}_safety_check" class="form-label">Safety Check</label>
                     <small id="help_{{ $viewFolder }}_safety_check" class="text-muted"></small>
                   </div>
@@ -2359,7 +2363,7 @@
               <div class="col-lg-6">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <textarea class="form-control" name="{{ $viewFolder }}[residual_test]" id="{{ $viewFolder }}_residual_test" rows=3>{{ isset($datum->residual_test) ? $datum->residual_test : ''}}</textarea>
+                    <textarea class="form-control" name="{{ $viewFolder }}[residual_test]" id="{{ $viewFolder }}_residual_test" rows=3 {{ $hdDisable }}>{{ isset($datum->residual_test) ? $datum->residual_test : ''}}</textarea>
                     <label for="{{ $viewFolder }}_residual_test" class="form-label">Residual Test</label>
                     <small id="help_{{ $viewFolder }}_residual_test" class="text-muted"></small>
                   </div>
@@ -2375,7 +2379,7 @@
               <div class="col-lg-6">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="text" name="{{ $viewFolder }}[dry_weight]" id="{{ $viewFolder }}_dry_weight" value="{{ isset($datum->dry_weight) ? $datum->dry_weight : (isset($prevBooking->dry_weight) ? $prevBooking->dry_weight : '') }}" placeholder="">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[dry_weight]" id="{{ $viewFolder }}_dry_weight" value="{{ isset($datum->dry_weight) ? $datum->dry_weight : (isset($prevBooking->dry_weight) ? $prevBooking->dry_weight : '') }}" placeholder="" {{ $hdDisable }}>
                     <label for="{{ $viewFolder }}_dry_weight" class="form-label">Estimate Dry Weight</label>
                     <small id="help_{{ $viewFolder }}_dry_weight" class="text-muted"></small>
                   </div>
@@ -2385,7 +2389,7 @@
               <div class="col-lg-6">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="number" name="{{ $viewFolder }}[prev_post_hd_weight]" min=1 step=.01 id="{{ $viewFolder }}_prev_post_hd_weight" value="{{ isset($datum->prev_post_hd_weight) ? $datum->prev_post_hd_weight : (isset($prevBooking->post_weight) ? $prevBooking->post_weight : '') }}" placeholder="">
+                    <input class="form-control" type="number" name="{{ $viewFolder }}[prev_post_hd_weight]" min=1 step=.01 id="{{ $viewFolder }}_prev_post_hd_weight" value="{{ isset($datum->prev_post_hd_weight) ? $datum->prev_post_hd_weight : (isset($prevBooking->post_weight) ? $prevBooking->post_weight : '') }}" placeholder="" {{ $hdDisable }}>
                     <label for="{{ $viewFolder }}_prev_post_hd_weight" class="form-label">Prev. Post HD Weight</label>
                     <small id="help_{{ $viewFolder }}_prev_post_hd_weight" class="text-muted"></small>
                   </div>
@@ -2408,7 +2412,7 @@
                           $('#{{ $viewFolder }}_weight_loss').val('');
                         }
                       }
-                    ">
+                    " {{ $hdDisable }}>
                     <label for="{{ $viewFolder }}_pre_hd_weight" class="form-label">Pre HD Weight</label>
                     <small id="help_{{ $viewFolder }}_pre_hd_weight" class="text-muted"></small>
                   </div>
@@ -2441,7 +2445,7 @@
                       var ktv = -1*Math.log(($('#{{ $viewFolder }}_post_bun').val() / $('#{{ $viewFolder }}_pre_bun').val()) - (0.008*hours)) + ((4 - (3.5*($('#{{ $viewFolder }}_post_bun').val() / $('#{{ $viewFolder }}_pre_bun').val())))*($('#{{ $viewFolder }}_achieved_uf').val()/$('#{{ $viewFolder }}_post_hd_weight').val()));
                       $('#{{ $viewFolder }}_ktv2').val(ktv.toFixed(2));
                     }
-                  ">
+                  " {{ $hdDisable }}>
                     <label for="{{ $viewFolder }}_post_hd_weight" class="form-label">Post HD Weight</label>
                     <small id="help_{{ $viewFolder }}_post_hd_weight" class="text-muted"></small>
                   </div>
@@ -2453,7 +2457,7 @@
               <div class="col-lg-6">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="number" name="{{ $viewFolder }}[height]" min=1 step=.1 id="{{ $viewFolder }}_height" value="{{ isset($datum->height) ? $datum->height : (isset($prevBooking->height) ? $prevBooking->height : '') }}" placeholder="" >
+                    <input class="form-control" type="number" name="{{ $viewFolder }}[height]" min=1 step=.1 id="{{ $viewFolder }}_height" value="{{ isset($datum->height) ? $datum->height : (isset($prevBooking->height) ? $prevBooking->height : '') }}" placeholder="" {{ $hdDisable }}>
                     <label for="{{ $viewFolder }}_height" class="form-label">Height</label>
                     <small id="help_{{ $viewFolder }}_height" class="text-muted"></small>
                   </div>
@@ -2465,7 +2469,7 @@
               <div class="col-lg-6">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="text" name="{{ $viewFolder }}[ktv]" id="{{ $viewFolder }}_ktv" value="{{ isset($datum->ktv) ? $datum->ktv : ''}}" placeholder="">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[ktv]" id="{{ $viewFolder }}_ktv" value="{{ isset($datum->ktv) ? $datum->ktv : ''}}" placeholder="" {{ $hdDisable }}>
                     <label for="{{ $viewFolder }}_ktv" class="form-label">Target Kt/V</label>
                     <small id="help_{{ $viewFolder }}_ktv" class="text-muted"></small>
                   </div>
@@ -2474,7 +2478,7 @@
               <div class="col-lg-6">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="text" name="{{ $viewFolder }}[achieved_ktv]" id="{{ $viewFolder }}_achieved_ktv" value="{{ isset($datum->achieved_ktv) ? $datum->achieved_ktv : ''}}" placeholder="">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[achieved_ktv]" id="{{ $viewFolder }}_achieved_ktv" value="{{ isset($datum->achieved_ktv) ? $datum->achieved_ktv : ''}}" placeholder="" {{ $hdDisable }}>
                     <label for="{{ $viewFolder }}achieved_ktv" class="form-label">Achieved Kt/V</label>
                     <small id="help_{{ $viewFolder }}achieved_ktv" class="text-muted"></small>
                   </div>
@@ -2485,7 +2489,7 @@
               <div class="col-lg-6">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="text" name="{{ $viewFolder }}[net_uf]" id="{{ $viewFolder }}_net_uf" value="{{ isset($datum->net_uf) ? $datum->net_uf : ''}}" placeholder="">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[net_uf]" id="{{ $viewFolder }}_net_uf" value="{{ isset($datum->net_uf) ? $datum->net_uf : ''}}" placeholder="" {{ $hdDisable }}>
                     <label for="{{ $viewFolder }}_net_uf" class="form-label">Net UF</label>
                     <small id="help_{{ $viewFolder }}_net_uf" class="text-muted"></small>
                   </div>
@@ -2507,7 +2511,7 @@
                       var ktv = -1*Math.log(($('#{{ $viewFolder }}_post_bun').val() / $('#{{ $viewFolder }}_pre_bun').val()) - (0.008*hours)) + ((4 - (3.5*($('#{{ $viewFolder }}_post_bun').val() / $('#{{ $viewFolder }}_pre_bun').val())))*($('#{{ $viewFolder }}_achieved_uf').val()/$('#{{ $viewFolder }}_post_hd_weight').val()));
                       $('#{{ $viewFolder }}_ktv2').val(ktv.toFixed(2));
                     }
-                  ">
+                  " {{ $hdDisable }}>
                     <label for="{{ $viewFolder }}_achieved_uf" class="form-label">Achieved UF</label>
                     <small id="help_{{ $viewFolder }}_achieved_uf" class="text-muted"></small>
                   </div>
@@ -2519,7 +2523,7 @@
               <div class="col-lg-6">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="number" name="{{ $viewFolder }}[hd_duration]" min=1 step=.1 id="{{ $viewFolder }}_hd_duration" value="{{ isset($datum->hd_duration) ? $datum->hd_duration : (isset($prevBooking->hd_duration) ? $prevBooking->hd_duration : '') }}" placeholder="">
+                    <input class="form-control" type="number" name="{{ $viewFolder }}[hd_duration]" min=1 step=.1 id="{{ $viewFolder }}_hd_duration" value="{{ isset($datum->hd_duration) ? $datum->hd_duration : (isset($prevBooking->hd_duration) ? $prevBooking->hd_duration : '') }}" placeholder="" {{ $hdDisable }}>
                     <label for="{{ $viewFolder }}_hd_duration" class="form-label">Duration</label>
                     <small id="help_{{ $viewFolder }}_hd_duration" class="text-muted"></small>
                   </div>
@@ -2529,7 +2533,7 @@
               <div class="col-lg-6">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="number" name="{{ $viewFolder }}[frequency]" min=1 step=.1 id="{{ $viewFolder }}_frequency" value="{{ isset($datum->frequency) ? $datum->frequency : (isset($prevBooking->frequency) ? $prevBooking->frequency : '') }}" placeholder="">
+                    <input class="form-control" type="number" name="{{ $viewFolder }}[frequency]" min=1 step=.1 id="{{ $viewFolder }}_frequency" value="{{ isset($datum->frequency) ? $datum->frequency : (isset($prevBooking->frequency) ? $prevBooking->frequency : '') }}" placeholder="" {{ $hdDisable }}>
                     <label for="{{ $viewFolder }}_frequency" class="form-label">Frequency</label>
                     <small id="help_{{ $viewFolder }}_frequency" class="text-muted"></small>
                   </div>
@@ -2540,7 +2544,7 @@
               <div class="col-lg-6">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="text" name="{{ $viewFolder }}[prime]" id="{{ $viewFolder }}_prime" value="{{ isset($datum->prime) ? $datum->prime : (isset($prevBooking->prime) ? $prevBooking->prime : '') }}" placeholder="">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[prime]" id="{{ $viewFolder }}_prime" value="{{ isset($datum->prime) ? $datum->prime : (isset($prevBooking->prime) ? $prevBooking->prime : '') }}" placeholder="" {{ $hdDisable }}>
                     <label for="{{ $viewFolder }}_prime" class="form-label">Prime/Rinse</label>
                     <small id="help_{{ $viewFolder }}_prime" class="text-muted"></small>
                   </div>
@@ -2549,7 +2553,7 @@
               <div class="col-lg-6">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="text" name="{{ $viewFolder }}[other_fluids]" id="{{ $viewFolder }}_other_fluids" value="{{ isset($datum->other_fluids) ? $datum->other_fluids : ''}}" placeholder="">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[other_fluids]" id="{{ $viewFolder }}_other_fluids" value="{{ isset($datum->other_fluids) ? $datum->other_fluids : ''}}" placeholder="" {{ $hdDisable }}>
                     <label for="{{ $viewFolder }}_other_fluids" class="form-label">Other Fluids</label>
                     <small id="help_{{ $viewFolder }}_other_fluids" class="text-muted"></small>
                   </div>
@@ -2560,7 +2564,7 @@
               <div class="col-lg-12">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="text" name="{{ $viewFolder }}[total_uf_goal]" id="{{ $viewFolder }}_total_uf_goal" value="{{ isset($datum->total_uf_goal) ? $datum->total_uf_goal : ''}}" placeholder="">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[total_uf_goal]" id="{{ $viewFolder }}_total_uf_goal" value="{{ isset($datum->total_uf_goal) ? $datum->total_uf_goal : ''}}" placeholder="" {{ $hdDisable }}>
                     <label for="{{ $viewFolder }}_total_uf_goal" class="form-label">Total UF Goal</label>
                     <small id="help_{{ $viewFolder }}_total_uf_goal" class="text-muted"></small>
                   </div>
@@ -2570,7 +2574,7 @@
               <div class="col-lg-6">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="number" name="{{ $viewFolder }}[weight_loss]" min=0 step=.01 id="{{ $viewFolder }}_weight_loss" value="{{ isset($datum->weight_loss) ? $datum->weight_loss : ''}}" placeholder="">
+                    <input class="form-control" type="number" name="{{ $viewFolder }}[weight_loss]" min=0 step=.01 id="{{ $viewFolder }}_weight_loss" value="{{ isset($datum->weight_loss) ? $datum->weight_loss : ''}}" placeholder="" {{ $hdDisable }}>
                     <label for="{{ $viewFolder }}_weight_loss" class="form-label">Weight Loss</label>
                     <small id="help_{{ $viewFolder }}_weight_loss" class="text-muted"></small>
                   </div>
@@ -2580,7 +2584,7 @@
               <div class="col-lg-6">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="number" name="{{ $viewFolder }}[weight_gain]" min=0 step=.01 id="{{ $viewFolder }}_weight_gain" value="{{ isset($datum->weight_gain) ? $datum->weight_gain : ''}}" placeholder="">
+                    <input class="form-control" type="number" name="{{ $viewFolder }}[weight_gain]" min=0 step=.01 id="{{ $viewFolder }}_weight_gain" value="{{ isset($datum->weight_gain) ? $datum->weight_gain : ''}}" placeholder="" {{ $hdDisable }}>
                     <label for="{{ $viewFolder }}_weight_gain" class="form-label">Weight Gain</label>
                     <small id="help_{{ $viewFolder }}_weight_gain" class="text-muted"></small>
                   </div>
@@ -2597,7 +2601,7 @@
               <div class="col-lg-4">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="text" name="{{ $viewFolder }}[brand]" id="{{ $viewFolder }}_brand" value="{{ isset($datum->brand) ? $datum->brand : (isset($prevBooking->brand) ? $prevBooking->brand : '') }}" placeholder="">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[brand]" id="{{ $viewFolder }}_brand" value="{{ isset($datum->brand) ? $datum->brand : (isset($prevBooking->brand) ? $prevBooking->brand : '') }}" placeholder="" {{ $hdDisable }}>
                     <label for="{{ $viewFolder }}_brand" class="form-label">Brand Name</label>
                     <small id="help_{{ $viewFolder }}_brand" class="text-muted"></small>
                   </div>
@@ -2606,7 +2610,7 @@
               <div class="col-lg-4">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="text" name="{{ $viewFolder }}[dose]" id="{{ $viewFolder }}_dose" value="{{ isset($datum->dose) ? $datum->dose : (isset($prevBooking->dose) ? $prevBooking->dose : '') }}" placeholder="">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[dose]" id="{{ $viewFolder }}_dose" value="{{ isset($datum->dose) ? $datum->dose : (isset($prevBooking->dose) ? $prevBooking->dose : '') }}" placeholder="" {{ $hdDisable }}>
                     <label for="{{ $viewFolder }}_dose" class="form-label">Dose</label>
                     <small id="help_{{ $viewFolder }}_dose" class="text-muted"></small>
                   </div>
@@ -2615,7 +2619,7 @@
               <div class="col-lg-4">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="text" name="{{ $viewFolder }}[regular_dose]" id="{{ $viewFolder }}_regular_dose" value="{{ isset($datum->regular_dose) ? $datum->regular_dose : (isset($prevBooking->regular_dose) ? $prevBooking->regular_dose : '') }}" placeholder="">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[regular_dose]" id="{{ $viewFolder }}_regular_dose" value="{{ isset($datum->regular_dose) ? $datum->regular_dose : (isset($prevBooking->regular_dose) ? $prevBooking->regular_dose : '') }}" placeholder="" {{ $hdDisable }}>
                     <label for="{{ $viewFolder }}_regular_dose" class="form-label">Regular Dose</label>
                     <small id="help_{{ $viewFolder }}_regular_dose" class="text-muted"></small>
                   </div>
@@ -2626,7 +2630,7 @@
               <div class="col-lg-4">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="text" name="{{ $viewFolder }}[low_dose]" id="{{ $viewFolder }}_low_dose" value="{{ isset($datum->low_dose) ? $datum->low_dose : (isset($prevBooking->low_dose) ? $prevBooking->low_dose : '') }}" placeholder="">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[low_dose]" id="{{ $viewFolder }}_low_dose" value="{{ isset($datum->low_dose) ? $datum->low_dose : (isset($prevBooking->low_dose) ? $prevBooking->low_dose : '') }}" placeholder="" {{ $hdDisable }}>
                     <label for="{{ $viewFolder }}_low_dose" class="form-label">Low Dose</label>
                     <small id="help_{{ $viewFolder }}_low_dose" class="text-muted"></small>
                   </div>
@@ -2635,7 +2639,7 @@
               <div class="col-lg-4">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="text" name="{{ $viewFolder }}[lmwh]" id="{{ $viewFolder }}_lmwh" value="{{ isset($datum->lmwh) ? $datum->lmwh : ''}}" placeholder="">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[lmwh]" id="{{ $viewFolder }}_lmwh" value="{{ isset($datum->lmwh) ? $datum->lmwh : ''}}" placeholder="" {{ $hdDisable }}>
                     <label for="{{ $viewFolder }}_lmwh" class="form-label">LMWH</label>
                     <small id="help_{{ $viewFolder }}_lmwh" class="text-muted"></small>
                   </div>
@@ -2644,7 +2648,7 @@
               <div class="col-lg-4">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="text" name="{{ $viewFolder }}[flushing]" id="{{ $viewFolder }}_flushing" value="{{ isset($datum->flushing) ? $datum->flushing : ''}}" placeholder="">
+                    <input class="form-control" type="text" name="{{ $viewFolder }}[flushing]" id="{{ $viewFolder }}_flushing" value="{{ isset($datum->flushing) ? $datum->flushing : ''}}" placeholder="" {{ $hdDisable }}>
                     <label for="{{ $viewFolder }}_flushing" class="form-label">NSS Flushing</label>
                     <small id="help_{{ $viewFolder }}_flushing" class="text-muted"></small>
                   </div>
@@ -2661,7 +2665,7 @@
               <div class="card-body">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="number" name="{{ $viewFolder }}[temp]" min=30 step=.1 id="{{ $viewFolder }}_temp" value="{{ isset($datum->temp) ? $datum->temp : ''}}" placeholder="" {{ isset($datum->id) ? '' : '' }}>
+                    <input class="form-control" type="number" name="{{ $viewFolder }}[temp]" min=30 step=.1 id="{{ $viewFolder }}_temp" value="{{ isset($datum->temp) ? $datum->temp : ''}}" placeholder="" {{ isset($datum->id) ? '' : '' }} {{ $hdDisable }}>
                     <label for="{{ $viewFolder }}_temp" class="form-label">Temperature</label>
                     <small id="help_{{ $viewFolder }}_temp" class="text-muted"></small>
                   </div>
@@ -2677,7 +2681,7 @@
                         }else{
                           $('#{{ $viewFolder }}_bmi').val('');
                         }
-                      ">
+                      " {{ $hdDisable }}>
                     <label for="{{ $viewFolder }}_height" class="form-label">Height</label>
                     <small id="help_{{ $viewFolder }}_height" class="text-muted"></small>
                   </div>
@@ -2692,7 +2696,7 @@
                       }else{
                         $('#{{ $viewFolder }}_bmi').val('');
                       }
-                    ">
+                    " {{ $hdDisable }}>
                     <label for="{{ $viewFolder }}_weight" class="form-label">Weight</label>
                     <small id="help_{{ $viewFolder }}_weight" class="text-muted"></small>
                   </div>
@@ -2716,13 +2720,13 @@
                 @endif
                 <label for="{{ $viewFolder }}_bpS" class="form-label">BP</label>
                 <div class="input-group mb-3">
-                  <input class="form-control" type="number" name="{{ $viewFolder }}[bpS]" min=50 max=250 step=1 id="{{ $viewFolder }}_bpS" value="{{ isset($datum->bpS) ? $datum->bpS : '' }}" placeholder="Systolic" {{ isset($datum->id) ? '' : '' }}>
+                  <input class="form-control" type="number" name="{{ $viewFolder }}[bpS]" min=50 max=250 step=1 id="{{ $viewFolder }}_bpS" value="{{ isset($datum->bpS) ? $datum->bpS : '' }}" placeholder="Systolic" {{ isset($datum->id) ? '' : '' }} {{ $hdDisable }}>
                   <span class="input-group-text">/</span>
-                  <input class="form-control" type="number" name="{{ $viewFolder }}[bpD]" min=30 max=150 step=1 id="{{ $viewFolder }}_bpD" value="{{ isset($datum->bpD) ? $datum->bpD : '' }}" placeholder="Diastolic" {{ isset($datum->id) ? '' : '' }}>
+                  <input class="form-control" type="number" name="{{ $viewFolder }}[bpD]" min=30 max=150 step=1 id="{{ $viewFolder }}_bpD" value="{{ isset($datum->bpD) ? $datum->bpD : '' }}" placeholder="Diastolic" {{ isset($datum->id) ? '' : '' }} {{ $hdDisable }}>
                 </div>
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="number" name="{{ $viewFolder }}[o2]" min=1 id="{{ $viewFolder }}_o2" value="{{ isset($datum->o2) ? $datum->o2 : '' }}" placeholder="" {{ isset($datum->id) ? '' : '' }}>
+                    <input class="form-control" type="number" name="{{ $viewFolder }}[o2]" min=1 id="{{ $viewFolder }}_o2" value="{{ isset($datum->o2) ? $datum->o2 : '' }}" placeholder="" {{ isset($datum->id) ? '' : '' }} {{ $hdDisable }}>
                     <label for="{{ $viewFolder }}_o2" class="form-label">O2 Sat</label>
                     <small id="help_{{ $viewFolder }}_o2" class="text-muted"></small>
                   </div>
@@ -2730,7 +2734,7 @@
                 </div>
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="number" name="{{ $viewFolder }}[heart]" min=1 id="{{ $viewFolder }}_heart" value="{{ isset($datum->heart) ? $datum->heart : '' }}" placeholder="" {{ isset($datum->id) ? '' : '' }}>
+                    <input class="form-control" type="number" name="{{ $viewFolder }}[heart]" min=1 id="{{ $viewFolder }}_heart" value="{{ isset($datum->heart) ? $datum->heart : '' }}" placeholder="" {{ isset($datum->id) ? '' : '' }} {{ $hdDisable }}>
                     <label for="{{ $viewFolder }}_heart" class="form-label">Heart/Pulse Rate</label>
                     <small id="help_{{ $viewFolder }}_heart" class="text-muted"></small>
                   </div>
@@ -2740,7 +2744,7 @@
                 @if(true)
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="number" name="{{ $viewFolder }}[resp]" min=1 id="{{ $viewFolder }}_resp" value="{{ isset($datum->resp) ? $datum->resp : '' }}" placeholder="" {{ isset($datum->id) ? '' : '' }}>
+                    <input class="form-control" type="number" name="{{ $viewFolder }}[resp]" min=1 id="{{ $viewFolder }}_resp" value="{{ isset($datum->resp) ? $datum->resp : '' }}" placeholder="" {{ isset($datum->id) ? '' : '' }} {{ $hdDisable }}>
                     <label for="{{ $viewFolder }}_resp" class="form-label">Resp</label>
                     <small id="help_{{ $viewFolder }}_resp" class="text-muted"></small>
                   </div>
@@ -2757,7 +2761,7 @@
               <div class="card-body">
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="number" name="{{ $viewFolder }}[post_temp]" min=30 step=.1 id="{{ $viewFolder }}_post_temp" value="{{ isset($datum->post_temp) ? $datum->post_temp : ''}}" placeholder="" {{ isset($datum->id) ? '' : '' }}>
+                    <input class="form-control" type="number" name="{{ $viewFolder }}[post_temp]" min=30 step=.1 id="{{ $viewFolder }}_post_temp" value="{{ isset($datum->post_temp) ? $datum->post_temp : ''}}" placeholder="" {{ isset($datum->id) ? '' : '' }} {{ $hdDisable }}>
                     <label for="{{ $viewFolder }}_post_temp" class="form-label">Temperature</label>
                     <small id="help_{{ $viewFolder }}_post_temp" class="text-muted"></small>
                   </div>
@@ -2766,7 +2770,7 @@
                 @if(isset($datum->booking_type) && $datum->booking_type != 'Dialysis')
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="number" name="{{ $viewFolder }}[post_height]" min=1 step=.1 id="{{ $viewFolder }}_post_height" value="{{ isset($datum->post_height) ? $datum->post_height : '' }}" placeholder="" {{ isset($datum->id) ? '' : '' }} onblur="
+                    <input class="form-control" type="number" name="{{ $viewFolder }}[post_height]" min=1 step=.1 id="{{ $viewFolder }}_post_height" value="{{ isset($datum->post_height) ? $datum->post_height : '' }}" placeholder="" {{ isset($datum->id) ? '' : '' }} {{ $hdDisable }} onblur="
                         if($(this).val() != '' && $('#{{ $viewFolder }}_post_weight').val() != ''){
                           $('#{{ $viewFolder }}_post_bmi').val($('#{{ $viewFolder }}_post_weight').val()/(($(this).val()/100)*($(this).val()/100)));
                         }else{
@@ -2780,7 +2784,7 @@
                 </div>
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="number" name="{{ $viewFolder }}[post_weight]" min=1 step=.1 id="{{ $viewFolder }}_post_weight" value="{{ isset($datum->post_weight) ? $datum->post_weight : '' }}" placeholder="" {{ isset($datum->id) ? '' : '' }} onblur="
+                    <input class="form-control" type="number" name="{{ $viewFolder }}[post_weight]" min=1 step=.1 id="{{ $viewFolder }}_post_weight" value="{{ isset($datum->post_weight) ? $datum->post_weight : '' }}" placeholder="" {{ isset($datum->id) ? '' : '' }} {{ $hdDisable }} onblur="
                       if($(this).val() != '' && $('#{{ $viewFolder }}_post_height').val() != ''){
                         $('#{{ $viewFolder }}_post_bmi').val($(this).val()/(($('#{{ $viewFolder }}_post_height').val()/100)*($('#{{ $viewFolder }}_post_height').val()/100)));
                       }else{
@@ -2810,13 +2814,13 @@
                 @endif
                 <label for="{{ $viewFolder }}_bpS" class="form-label">BP</label>
                 <div class="input-group mb-3">
-                  <input class="form-control" type="number" name="{{ $viewFolder }}[post_bpS]" min=50 max=250 step=1 id="{{ $viewFolder }}_post_bpS" value="{{ isset($datum->post_bpS) ? $datum->post_bpS : '' }}" placeholder="Systolic" {{ isset($datum->id) ? '' : '' }}>
+                  <input class="form-control" type="number" name="{{ $viewFolder }}[post_bpS]" min=50 max=250 step=1 id="{{ $viewFolder }}_post_bpS" value="{{ isset($datum->post_bpS) ? $datum->post_bpS : '' }}" placeholder="Systolic" {{ isset($datum->id) ? '' : '' }} {{ $hdDisable }}>
                   <span class="input-group-text">/</span>
-                  <input class="form-control" type="number" name="{{ $viewFolder }}[post_bpD]" min=30 max=150 step=1 id="{{ $viewFolder }}_post_bpD" value="{{ isset($datum->post_bpD) ? $datum->post_bpD : '' }}" placeholder="Diastolic" {{ isset($datum->id) ? '' : '' }}>
+                  <input class="form-control" type="number" name="{{ $viewFolder }}[post_bpD]" min=30 max=150 step=1 id="{{ $viewFolder }}_post_bpD" value="{{ isset($datum->post_bpD) ? $datum->post_bpD : '' }}" placeholder="Diastolic" {{ isset($datum->id) ? '' : '' }} {{ $hdDisable }}>
                 </div>
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="number" name="{{ $viewFolder }}[post_o2]" min=1 id="{{ $viewFolder }}_post_o2" value="{{ isset($datum->post_o2) ? $datum->post_o2 : '' }}" placeholder="" {{ isset($datum->id) ? '' : '' }}>
+                    <input class="form-control" type="number" name="{{ $viewFolder }}[post_o2]" min=1 id="{{ $viewFolder }}_post_o2" value="{{ isset($datum->post_o2) ? $datum->post_o2 : '' }}" placeholder="" {{ isset($datum->id) ? '' : '' }} {{ $hdDisable }}>
                     <label for="{{ $viewFolder }}_post_o2" class="form-label">O2 Sat</label>
                     <small id="help_{{ $viewFolder }}_post_o2" class="text-muted"></small>
                   </div>
@@ -2824,7 +2828,7 @@
                 </div>
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="number" name="{{ $viewFolder }}[post_heart]" min=1 id="{{ $viewFolder }}_post_heart" value="{{ isset($datum->post_heart) ? $datum->post_heart : '' }}" placeholder="" {{ isset($datum->id) ? '' : '' }}>
+                    <input class="form-control" type="number" name="{{ $viewFolder }}[post_heart]" min=1 id="{{ $viewFolder }}_post_heart" value="{{ isset($datum->post_heart) ? $datum->post_heart : '' }}" placeholder="" {{ isset($datum->id) ? '' : '' }} {{ $hdDisable }}>
                     <label for="{{ $viewFolder }}_post_heart" class="form-label">Heart/Pulse Rate</label>
                     <small id="help_{{ $viewFolder }}_post_heart" class="text-muted"></small>
                   </div>
@@ -2832,7 +2836,7 @@
                 </div>
                 <div class="input-group mb-3">
                   <div class="form-floating">
-                    <input class="form-control" type="number" name="{{ $viewFolder }}[post_resp]" min=1 id="{{ $viewFolder }}_post_resp" value="{{ isset($datum->post_resp) ? $datum->post_resp : '' }}" placeholder="" {{ isset($datum->id) ? '' : '' }}>
+                    <input class="form-control" type="number" name="{{ $viewFolder }}[post_resp]" min=1 id="{{ $viewFolder }}_post_resp" value="{{ isset($datum->post_resp) ? $datum->post_resp : '' }}" placeholder="" {{ isset($datum->id) ? '' : '' }} {{ $hdDisable }}>
                     <label for="{{ $viewFolder }}_post_resp" class="form-label">Resp</label>
                     <small id="help_{{ $viewFolder }}_post_resp" class="text-muted"></small>
                   </div>
@@ -3367,34 +3371,34 @@
                 <label>Mental Status</label>
                 <div class="container ml-5 mb-3">
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[mental_status][]" value="awake" id="{{ $viewFolder }}_mental_status_awake" {{ (isset($datum->mental_status) && is_array(json_decode($datum->mental_status)) && in_array('awake', json_decode($datum->mental_status))) ? 'checked' : '' }}>
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[mental_status][]" value="awake" id="{{ $viewFolder }}_mental_status_awake" {{ (isset($datum->mental_status) && is_array(json_decode($datum->mental_status)) && in_array('awake', json_decode($datum->mental_status))) ? 'checked' : '' }} {{ $hdDisable }}>
                     <label class="form-check-label" for="{{ $viewFolder }}_mental_status_awake">awake</label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[mental_status][]" value="oriented" id="{{ $viewFolder }}_mental_status_oriented" {{ (isset($datum->mental_status) && is_array(json_decode($datum->mental_status)) && in_array('oriented', json_decode($datum->mental_status))) ? 'checked' : '' }}>
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[mental_status][]" value="oriented" id="{{ $viewFolder }}_mental_status_oriented" {{ (isset($datum->mental_status) && is_array(json_decode($datum->mental_status)) && in_array('oriented', json_decode($datum->mental_status))) ? 'checked' : '' }} {{ $hdDisable }}>
                     <label class="form-check-label" for="{{ $viewFolder }}_mental_status_oriented">oriented</label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[mental_status][]" value="drowsy" id="{{ $viewFolder }}_mental_status_drowsy" {{ (isset($datum->mental_status) && is_array(json_decode($datum->mental_status)) && in_array('drowsy', json_decode($datum->mental_status))) ? 'checked' : '' }}>
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[mental_status][]" value="drowsy" id="{{ $viewFolder }}_mental_status_drowsy" {{ (isset($datum->mental_status) && is_array(json_decode($datum->mental_status)) && in_array('drowsy', json_decode($datum->mental_status))) ? 'checked' : '' }} {{ $hdDisable }}>
                     <label class="form-check-label" for="{{ $viewFolder }}_mental_status_drowsy">drowsy</label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[mental_status][]" value="disoriented" id="{{ $viewFolder }}_mental_status_disoriented" {{ (isset($datum->mental_status) && is_array(json_decode($datum->mental_status)) && in_array('disoriented', json_decode($datum->mental_status))) ? 'checked' : '' }}>
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[mental_status][]" value="disoriented" id="{{ $viewFolder }}_mental_status_disoriented" {{ (isset($datum->mental_status) && is_array(json_decode($datum->mental_status)) && in_array('disoriented', json_decode($datum->mental_status))) ? 'checked' : '' }} {{ $hdDisable }}>
                     <label class="form-check-label" for="{{ $viewFolder }}_mental_status_disoriented">disoriented</label>
                   </div>
                 </div>
                 <label>Ambulation Status</label>
                 <div class="container ml-5 mb-3">
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[ambulation_status_j][]" value="ambulatory" id="{{ $viewFolder }}_ambulation_status_ambulatory" {{ (isset($datum->ambulation_status_j) && is_array(json_decode($datum->ambulation_status_j)) && in_array('ambulatory', json_decode($datum->ambulation_status_j))) ? 'checked' : ((isset($datum->ambulation_status) && $datum->ambulation_status == 'ambulatory') ? 'checked' : '') }}>
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[ambulation_status_j][]" value="ambulatory" id="{{ $viewFolder }}_ambulation_status_ambulatory" {{ (isset($datum->ambulation_status_j) && is_array(json_decode($datum->ambulation_status_j)) && in_array('ambulatory', json_decode($datum->ambulation_status_j))) ? 'checked' : ((isset($datum->ambulation_status) && $datum->ambulation_status == 'ambulatory') ? 'checked' : '') }} {{ $hdDisable }}>
                     <label class="form-check-label" for="{{ $viewFolder }}_ambulation_status_ambulatory">ambulatory</label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[ambulation_status_j][]" value="w/ assistance" id="{{ $viewFolder }}_ambulation_status_assistance" {{ (isset($datum->ambulation_status_j) && is_array(json_decode($datum->ambulation_status_j)) && in_array('w/ assistance', json_decode($datum->ambulation_status_j))) ? 'checked' : ((isset($datum->ambulation_status) && $datum->ambulation_status == 'w/ assistance') ? 'checked' : '') }}>
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[ambulation_status_j][]" value="w/ assistance" id="{{ $viewFolder }}_ambulation_status_assistance" {{ (isset($datum->ambulation_status_j) && is_array(json_decode($datum->ambulation_status_j)) && in_array('w/ assistance', json_decode($datum->ambulation_status_j))) ? 'checked' : ((isset($datum->ambulation_status) && $datum->ambulation_status == 'w/ assistance') ? 'checked' : '') }} {{ $hdDisable }}>
                     <label class="form-check-label" for="{{ $viewFolder }}_ambulation_status_assistance">w/ assistance</label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[ambulation_status_j][]" value="wheelchair" id="{{ $viewFolder }}_ambulation_status_wheelchair" {{ (isset($datum->ambulation_status_j) && is_array(json_decode($datum->ambulation_status_j)) && in_array('wheelchair', json_decode($datum->ambulation_status_j))) ? 'checked' : ((isset($datum->ambulation_status) && $datum->ambulation_status == 'wheelchair') ? 'checked' : '') }}>
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[ambulation_status_j][]" value="wheelchair" id="{{ $viewFolder }}_ambulation_status_wheelchair" {{ (isset($datum->ambulation_status_j) && is_array(json_decode($datum->ambulation_status_j)) && in_array('wheelchair', json_decode($datum->ambulation_status_j))) ? 'checked' : ((isset($datum->ambulation_status) && $datum->ambulation_status == 'wheelchair') ? 'checked' : '') }} {{ $hdDisable }}>
                     <label class="form-check-label" for="{{ $viewFolder }}_ambulation_status_wheelchair">wheelchair</label>
                   </div>
                 </div>
@@ -3410,7 +3414,7 @@
                           $('#{{ $viewFolder }}_subjective_complaints_text').prop('required', false);
                           $('#{{ $viewFolder }}_subjective_complaints_text').val('');
                         }
-                      " {{ (isset($datum->subjective_complaints) && $datum->ambulation_status == 'none') ? 'checked' : '' }}>
+                      " {{ (isset($datum->subjective_complaints) && $datum->ambulation_status == 'none') ? 'checked' : '' }} {{ $hdDisable }}>
                     <label class="form-check-label" for="{{ $viewFolder }}_subjective_complaints_none">none</label>
                   </div>
                   <div class="form-check">
@@ -3423,35 +3427,35 @@
                           $('#{{ $viewFolder }}_subjective_complaints_text').prop('required', false);
                           $('#{{ $viewFolder }}_subjective_complaints_text').val('');
                         }
-                      "  {{ (isset($datum->subjective_complaints) && $datum->subjective_complaints == 'yes') ? 'checked' : '' }}>
+                      "  {{ (isset($datum->subjective_complaints) && $datum->subjective_complaints == 'yes') ? 'checked' : '' }} {{ $hdDisable }}>
                     <label class="form-check-label" for="{{ $viewFolder }}_subjective_complaints_yes">yes</label>
                   </div>
-                  <textarea class="form-control" name="{{ $viewFolder }}[subjective_complaints_text]" id="{{ $viewFolder }}_subjective_complaints_text" rows=3 {{ (isset($datum->subjective_complaints) && $datum->subjective_complaints == 'yes') ? '' : 'disabled' }}>{{ isset($datum->subjective_complaints_text) ? $datum->subjective_complaints_text : '' }}</textarea>
+                  <textarea class="form-control" name="{{ $viewFolder }}[subjective_complaints_text]" id="{{ $viewFolder }}_subjective_complaints_text" rows=3 {{ (isset($datum->subjective_complaints) && $datum->subjective_complaints == 'yes') ? '' : 'disabled' }} {{ $hdDisable }}>{{ isset($datum->subjective_complaints_text) ? $datum->subjective_complaints_text : '' }}</textarea>
                 </div>
                 <label>Significant PE Findings</label>
                 <div class="container ml-5 mb-3">
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Pallor" id="{{ $viewFolder }}_pe_findings_pallor" {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Pallor', json_decode($datum->pe_findings))) ? 'checked' : '' }}>
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Pallor" id="{{ $viewFolder }}_pe_findings_pallor" {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Pallor', json_decode($datum->pe_findings))) ? 'checked' : '' }} {{ $hdDisable }}>
                     <label class="form-check-label" for="{{ $viewFolder }}_pe_findings_pallor">Pallor</label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Distended Neck Vein" id="{{ $viewFolder }}_pe_findings_neck_vein" {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Distended Neck Vein', json_decode($datum->pe_findings))) ? 'checked' : '' }}>
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Distended Neck Vein" id="{{ $viewFolder }}_pe_findings_neck_vein" {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Distended Neck Vein', json_decode($datum->pe_findings))) ? 'checked' : '' }} {{ $hdDisable }}>
                     <label class="form-check-label" for="{{ $viewFolder }}_pe_findings_neck_vein">Distended Neck Vein</label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Abnormal Rhythm/Rate" id="{{ $viewFolder }}_pe_findings_rhythm" {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Abnormal Rhythm/Rate', json_decode($datum->pe_findings))) ? 'checked' : '' }}>
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Abnormal Rhythm/Rate" id="{{ $viewFolder }}_pe_findings_rhythm" {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Abnormal Rhythm/Rate', json_decode($datum->pe_findings))) ? 'checked' : '' }} {{ $hdDisable }}>
                     <label class="form-check-label" for="{{ $viewFolder }}_pe_findings_rhythm">Abnormal Rhythm/Rate</label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Rales" id="{{ $viewFolder }}_pe_findings_rales" {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Rales', json_decode($datum->pe_findings))) ? 'checked' : '' }}>
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Rales" id="{{ $viewFolder }}_pe_findings_rales" {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Rales', json_decode($datum->pe_findings))) ? 'checked' : '' }} {{ $hdDisable }}>
                     <label class="form-check-label" for="{{ $viewFolder }}_pe_findings_rales">Rales</label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Wheezing" id="{{ $viewFolder }}_pe_findings_wheezing" {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Wheezing', json_decode($datum->pe_findings))) ? 'checked' : '' }}>
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Wheezing" id="{{ $viewFolder }}_pe_findings_wheezing" {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Wheezing', json_decode($datum->pe_findings))) ? 'checked' : '' }} {{ $hdDisable }}>
                     <label class="form-check-label" for="{{ $viewFolder }}_pe_findings_wheezing">Wheezing</label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Decreased Breath Sounds" id="{{ $viewFolder }}_pe_findings_breath_sounds" {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Decreased Breath Sounds', json_decode($datum->pe_findings))) ? 'checked' : '' }}>
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Decreased Breath Sounds" id="{{ $viewFolder }}_pe_findings_breath_sounds" {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Decreased Breath Sounds', json_decode($datum->pe_findings))) ? 'checked' : '' }} {{ $hdDisable }}>
                     <label class="form-check-label" for="{{ $viewFolder }}_pe_findings_breath_sounds">Decreased Breath Sounds</label>
                   </div>
                   <div class="form-check">
@@ -3464,10 +3468,10 @@
                           $('#{{ $viewFolder }}_pe_findings_ascites_text').prop('required', false);
                           $('#{{ $viewFolder }}_pe_findings_ascites_text').val('');
                         }
-                      " {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Ascites - Abdominal Girth', json_decode($datum->pe_findings))) ? 'checked' : '' }}>
+                      " {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Ascites - Abdominal Girth', json_decode($datum->pe_findings))) ? 'checked' : '' }} {{ $hdDisable }}>
                     <label class="form-check-label" for="{{ $viewFolder }}_pe_findings_ascites">Ascites - Abdominal Girth:</label>
                   </div>
-                  <textarea class="form-control" name="{{ $viewFolder }}[pe_findings_ascites_text]" id="{{ $viewFolder }}_pe_findings_ascites_text" rows=3 {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Ascites - Abdominal Girth', json_decode($datum->pe_findings))) ? '' : 'disabled' }}>{{ isset($datum->pe_findings_ascites_text) ? $datum->pe_findings_ascites_text : '' }}</textarea>
+                  <textarea class="form-control" name="{{ $viewFolder }}[pe_findings_ascites_text]" id="{{ $viewFolder }}_pe_findings_ascites_text" rows=3 {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Ascites - Abdominal Girth', json_decode($datum->pe_findings))) ? '' : 'disabled' }} {{ $hdDisable }}>{{ isset($datum->pe_findings_ascites_text) ? $datum->pe_findings_ascites_text : '' }}</textarea>
                   {{-- <div class="form-check">
                     <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Decreased Breath Sounds" id="{{ $viewFolder }}_pe_findings_breath_sounds">
                     <label class="form-check-label" for="{{ $viewFolder }}_pe_findings_breath_sounds">Decreased Breath Sounds</label>
@@ -3483,12 +3487,12 @@
                           $('#{{ $viewFolder }}_pe_findings_edema_text').prop('required', false);
                           $('#{{ $viewFolder }}_pe_findings_edema_text').val('');
                         }
-                      " {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Edema Grade', json_decode($datum->pe_findings))) ? 'checked' : '' }}>
+                      " {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Edema Grade', json_decode($datum->pe_findings))) ? 'checked' : '' }} {{ $hdDisable }}>
                     <label class="form-check-label" for="{{ $viewFolder }}_pe_findings_edema">Edema Grade:</label>
                   </div>
-                  <textarea class="form-control" name="{{ $viewFolder }}[pe_findings_edema_text]" id="{{ $viewFolder }}_pe_findings_edema_text" rows=3 {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Edema Grade', json_decode($datum->pe_findings))) ? '' : 'disabled' }}>{{ isset($datum->pe_findings_edema_text) ? $datum->pe_findings_edema_text : '' }}</textarea>
+                  <textarea class="form-control" name="{{ $viewFolder }}[pe_findings_edema_text]" id="{{ $viewFolder }}_pe_findings_edema_text" rows=3 {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Edema Grade', json_decode($datum->pe_findings))) ? '' : 'disabled' }} {{ $hdDisable }}>{{ isset($datum->pe_findings_edema_text) ? $datum->pe_findings_edema_text : '' }}</textarea>
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Bleeding" id="{{ $viewFolder }}_pe_findings_bleeding" {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Bleeding', json_decode($datum->pe_findings))) ? 'checked' : '' }}>
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[pe_findings][]" value="Bleeding" id="{{ $viewFolder }}_pe_findings_bleeding" {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Bleeding', json_decode($datum->pe_findings))) ? 'checked' : '' }} {{ $hdDisable }}>
                     <label class="form-check-label" for="{{ $viewFolder }}_pe_findings_bleeding">Bleeding</label>
                   </div>
                   <div class="form-check">
@@ -3501,10 +3505,10 @@
                           $('#{{ $viewFolder }}_pe_findings_others_text').prop('required', false);
                           $('#{{ $viewFolder }}_pe_findings_others_text').val('');
                         }
-                      " {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Others', json_decode($datum->pe_findings))) ? 'checked' : '' }}>
+                      " {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Others', json_decode($datum->pe_findings))) ? 'checked' : '' }} {{ $hdDisable }}>
                     <label class="form-check-label" for="{{ $viewFolder }}_pe_findings_others">Others:</label>
                   </div>
-                  <textarea class="form-control" name="{{ $viewFolder }}[pe_findings_others_text]" id="{{ $viewFolder }}_pe_findings_others_text" rows=3 {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Others', json_decode($datum->pe_findings))) ? '' : 'disabled' }}>{{ isset($datum->pe_findings_others_text) ? $datum->pe_findings_others_text : '' }}</textarea>
+                  <textarea class="form-control" name="{{ $viewFolder }}[pe_findings_others_text]" id="{{ $viewFolder }}_pe_findings_others_text" rows=3 {{ (isset($datum->pe_findings) && is_array(json_decode($datum->pe_findings)) && in_array('Others', json_decode($datum->pe_findings))) ? '' : 'disabled' }} {{ $hdDisable }}>{{ isset($datum->pe_findings_others_text) ? $datum->pe_findings_others_text : '' }}</textarea>
                 </div>
               </div>
             </div>
@@ -3516,34 +3520,34 @@
                 <label>Mental Status</label>
                 <div class="container ml-5 mb-3">
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_mental_status][]" value="awake" id="{{ $viewFolder }}_post_mental_status_awake" {{ (isset($datum->post_mental_status) && is_array(json_decode($datum->post_mental_status)) && in_array('awake', json_decode($datum->post_mental_status))) ? 'checked' : '' }}>
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_mental_status][]" value="awake" id="{{ $viewFolder }}_post_mental_status_awake" {{ (isset($datum->post_mental_status) && is_array(json_decode($datum->post_mental_status)) && in_array('awake', json_decode($datum->post_mental_status))) ? 'checked' : '' }} {{ $hdDisable }}>
                     <label class="form-check-label" for="{{ $viewFolder }}_post_mental_status_awake">awake</label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_mental_status][]" value="oriented" id="{{ $viewFolder }}_post_mental_status_oriented" {{ (isset($datum->post_mental_status) && is_array(json_decode($datum->post_mental_status)) && in_array('oriented', json_decode($datum->post_mental_status))) ? 'checked' : '' }}>
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_mental_status][]" value="oriented" id="{{ $viewFolder }}_post_mental_status_oriented" {{ (isset($datum->post_mental_status) && is_array(json_decode($datum->post_mental_status)) && in_array('oriented', json_decode($datum->post_mental_status))) ? 'checked' : '' }} {{ $hdDisable }}>
                     <label class="form-check-label" for="{{ $viewFolder }}_post_mental_status_oriented">oriented</label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_mental_status][]" value="drowsy" id="{{ $viewFolder }}_post_mental_status_drowsy" {{ (isset($datum->post_mental_status) && is_array(json_decode($datum->post_mental_status)) && in_array('drowsy', json_decode($datum->post_mental_status))) ? 'checked' : '' }}>
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_mental_status][]" value="drowsy" id="{{ $viewFolder }}_post_mental_status_drowsy" {{ (isset($datum->post_mental_status) && is_array(json_decode($datum->post_mental_status)) && in_array('drowsy', json_decode($datum->post_mental_status))) ? 'checked' : '' }} {{ $hdDisable }}>
                     <label class="form-check-label" for="{{ $viewFolder }}_post_mental_status_drowsy">drowsy</label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_mental_status][]" value="disoriented" id="{{ $viewFolder }}_post_mental_status_disoriented" {{ (isset($datum->post_mental_status) && is_array(json_decode($datum->post_mental_status)) && in_array('disoriented', json_decode($datum->post_mental_status))) ? 'checked' : '' }}>
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_mental_status][]" value="disoriented" id="{{ $viewFolder }}_post_mental_status_disoriented" {{ (isset($datum->post_mental_status) && is_array(json_decode($datum->post_mental_status)) && in_array('disoriented', json_decode($datum->post_mental_status))) ? 'checked' : '' }} {{ $hdDisable }}>
                     <label class="form-check-label" for="{{ $viewFolder }}_post_mental_status_disoriented">disoriented</label>
                   </div>
                 </div>
                 <label>Ambulation Status</label>
                 <div class="container ml-5 mb-3">
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_ambulation_status_j][]" value="ambulatory" id="{{ $viewFolder }}_post_ambulation_status_ambulatory" {{ (isset($datum->post_ambulation_status_j) && is_array(json_decode($datum->post_ambulation_status_j)) && in_array('ambulatory', json_decode($datum->post_ambulation_status_j))) ? 'checked' : ((isset($datum->post_ambulation_status) && $datum->post_ambulation_status == 'ambulatory') ? 'checked' : '') }}>
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_ambulation_status_j][]" value="ambulatory" id="{{ $viewFolder }}_post_ambulation_status_ambulatory" {{ (isset($datum->post_ambulation_status_j) && is_array(json_decode($datum->post_ambulation_status_j)) && in_array('ambulatory', json_decode($datum->post_ambulation_status_j))) ? 'checked' : ((isset($datum->post_ambulation_status) && $datum->post_ambulation_status == 'ambulatory') ? 'checked' : '') }} {{ $hdDisable }}>
                     <label class="form-check-label" for="{{ $viewFolder }}_post_ambulation_status_ambulatory">ambulatory</label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_ambulation_status_j][]" value="w/ assistance" id="{{ $viewFolder }}_post_ambulation_status_assistance" {{ (isset($datum->post_ambulation_status_j) && is_array(json_decode($datum->post_ambulation_status_j)) && in_array('w/ assistance', json_decode($datum->post_ambulation_status_j))) ? 'checked' : ((isset($datum->post_ambulation_status) && $datum->post_ambulation_status == 'w/ assistance') ? 'checked' : '') }}>
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_ambulation_status_j][]" value="w/ assistance" id="{{ $viewFolder }}_post_ambulation_status_assistance" {{ (isset($datum->post_ambulation_status_j) && is_array(json_decode($datum->post_ambulation_status_j)) && in_array('w/ assistance', json_decode($datum->post_ambulation_status_j))) ? 'checked' : ((isset($datum->post_ambulation_status) && $datum->post_ambulation_status == 'w/ assistance') ? 'checked' : '') }} {{ $hdDisable }}>
                     <label class="form-check-label" for="{{ $viewFolder }}_post_ambulation_status_assistance">w/ assistance</label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_ambulation_status_j][]" value="wheelchair" id="{{ $viewFolder }}_post_ambulation_status_wheelchair" {{ (isset($datum->post_ambulation_status_j) && is_array(json_decode($datum->post_ambulation_status_j)) && in_array('wheelchair', json_decode($datum->post_ambulation_status_j))) ? 'checked' : ((isset($datum->post_ambulation_status) && $datum->post_ambulation_status == 'wheelchair') ? 'checked' : '') }}>
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_ambulation_status_j][]" value="wheelchair" id="{{ $viewFolder }}_post_ambulation_status_wheelchair" {{ (isset($datum->post_ambulation_status_j) && is_array(json_decode($datum->post_ambulation_status_j)) && in_array('wheelchair', json_decode($datum->post_ambulation_status_j))) ? 'checked' : ((isset($datum->post_ambulation_status) && $datum->post_ambulation_status == 'wheelchair') ? 'checked' : '') }} {{ $hdDisable }}>
                     <label class="form-check-label" for="{{ $viewFolder }}_post_ambulation_status_wheelchair">wheelchair</label>
                   </div>
                 </div>
@@ -3559,7 +3563,7 @@
                           $('#{{ $viewFolder }}_post_subjective_complaints_text').prop('required', false);
                           $('#{{ $viewFolder }}_post_subjective_complaints_text').val('');
                         }
-                      " {{ (isset($datum->post_subjective_complaints) && $datum->post_subjective_complaints == 'none') ? 'checked' : '' }}>
+                      " {{ (isset($datum->post_subjective_complaints) && $datum->post_subjective_complaints == 'none') ? 'checked' : '' }} {{ $hdDisable }}>
                     <label class="form-check-label" for="{{ $viewFolder }}_post_subjective_complaints_none">none</label>
                   </div>
                   <div class="form-check">
@@ -3572,35 +3576,35 @@
                           $('#{{ $viewFolder }}_post_subjective_complaints_text').prop('required', false);
                           $('#{{ $viewFolder }}_post_subjective_complaints_text').val('');
                         }
-                      " {{ (isset($datum->post_subjective_complaints) && $datum->post_subjective_complaints == 'yes') ? 'checked' : '' }}>
+                      " {{ (isset($datum->post_subjective_complaints) && $datum->post_subjective_complaints == 'yes') ? 'checked' : '' }} {{ $hdDisable }}>
                     <label class="form-check-label" for="{{ $viewFolder }}_post_subjective_complaints_yes">yes</label>
                   </div>
-                  <textarea class="form-control" name="{{ $viewFolder }}[post_subjective_complaints_text]" id="{{ $viewFolder }}_post_subjective_complaints_text" rows=3 {{ (isset($datum->post_subjective_complaints) && $datum->post_subjective_complaints == 'yes') ? '' : 'disabled' }}>{{ isset($datum->post_subjective_complaints_text) ? $datum->post_subjective_complaints_text : '' }}</textarea>
+                  <textarea class="form-control" name="{{ $viewFolder }}[post_subjective_complaints_text]" id="{{ $viewFolder }}_post_subjective_complaints_text" rows=3 {{ (isset($datum->post_subjective_complaints) && $datum->post_subjective_complaints == 'yes') ? '' : 'disabled' }} {{ $hdDisable }}>{{ isset($datum->post_subjective_complaints_text) ? $datum->post_subjective_complaints_text : '' }}</textarea>
                 </div>
                 <label>Significant PE Findings</label>
                 <div class="container ml-5 mb-3">
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Pallor" id="{{ $viewFolder }}_post_pe_findings_pallor" {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Pallor', json_decode($datum->post_pe_findings))) ? 'checked' : '' }}>
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Pallor" id="{{ $viewFolder }}_post_pe_findings_pallor" {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Pallor', json_decode($datum->post_pe_findings))) ? 'checked' : '' }} {{ $hdDisable }}>
                     <label class="form-check-label" for="{{ $viewFolder }}_post_pe_findings_pallor">Pallor</label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Distended Neck Vein" id="{{ $viewFolder }}_post_pe_findings_neck_vein" {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Distended Neck Vein', json_decode($datum->post_pe_findings))) ? 'checked' : '' }}>
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Distended Neck Vein" id="{{ $viewFolder }}_post_pe_findings_neck_vein" {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Distended Neck Vein', json_decode($datum->post_pe_findings))) ? 'checked' : '' }} {{ $hdDisable }}>
                     <label class="form-check-label" for="{{ $viewFolder }}_post_pe_findings_neck_vein">Distended Neck Vein</label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Abnormal Rhythm/Rate" id="{{ $viewFolder }}_post_pe_findings_rhythm" {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Abnormal Rhythm/Rate', json_decode($datum->post_pe_findings))) ? 'checked' : '' }}>
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Abnormal Rhythm/Rate" id="{{ $viewFolder }}_post_pe_findings_rhythm" {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Abnormal Rhythm/Rate', json_decode($datum->post_pe_findings))) ? 'checked' : '' }} {{ $hdDisable }}>
                     <label class="form-check-label" for="{{ $viewFolder }}_post_pe_findings_rhythm">Abnormal Rhythm/Rate</label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Rales" id="{{ $viewFolder }}_post_pe_findings_rales" {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Rales', json_decode($datum->post_pe_findings))) ? 'checked' : '' }}>
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Rales" id="{{ $viewFolder }}_post_pe_findings_rales" {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Rales', json_decode($datum->post_pe_findings))) ? 'checked' : '' }} {{ $hdDisable }}>
                     <label class="form-check-label" for="{{ $viewFolder }}_post_pe_findings_rales">Rales</label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Wheezing" id="{{ $viewFolder }}_post_pe_findings_wheezing" {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Wheezing', json_decode($datum->post_pe_findings))) ? 'checked' : '' }}>
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Wheezing" id="{{ $viewFolder }}_post_pe_findings_wheezing" {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Wheezing', json_decode($datum->post_pe_findings))) ? 'checked' : '' }} {{ $hdDisable }}>
                     <label class="form-check-label" for="{{ $viewFolder }}_post_pe_findings_wheezing">Wheezing</label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Decreased Breath Sounds" id="{{ $viewFolder }}_post_pe_findings_breath_sounds {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Decreased Breath Sounds', json_decode($datum->post_pe_findings))) ? 'checked' : '' }}>
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Decreased Breath Sounds" id="{{ $viewFolder }}_post_pe_findings_breath_sounds" {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Decreased Breath Sounds', json_decode($datum->post_pe_findings))) ? 'checked' : '' }} {{ $hdDisable }}>
                     <label class="form-check-label" for="{{ $viewFolder }}_post_pe_findings_breath_sounds">Decreased Breath Sounds</label>
                   </div>
                   <div class="form-check">
@@ -3613,10 +3617,10 @@
                           $('#{{ $viewFolder }}_post_pe_findings_ascites_text').prop('required', false);
                           $('#{{ $viewFolder }}_post_pe_findings_ascites_text').val('');
                         }
-                      " {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Ascites - Abdominal Girth', json_decode($datum->post_pe_findings))) ? 'checked' : '' }}>
+                      " {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Ascites - Abdominal Girth', json_decode($datum->post_pe_findings))) ? 'checked' : '' }} {{ $hdDisable }}>
                     <label class="form-check-label" for="{{ $viewFolder }}_post_pe_findings_ascites">Ascites - Abdominal Girth:</label>
                   </div>
-                  <textarea class="form-control" name="{{ $viewFolder }}[post_pe_findings_ascites_text]" id="{{ $viewFolder }}_post_pe_findings_ascites_text" rows=3 {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Ascites - Abdominal Girth', json_decode($datum->post_pe_findings))) ? '' : 'disabled' }}>{{ isset($datum->post_pe_findings_ascites_text) ? $datum->post_pe_findings_ascites_text : '' }}</textarea>
+                  <textarea class="form-control" name="{{ $viewFolder }}[post_pe_findings_ascites_text]" id="{{ $viewFolder }}_post_pe_findings_ascites_text" rows=3 {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Ascites - Abdominal Girth', json_decode($datum->post_pe_findings))) ? '' : 'disabled' }} {{ $hdDisable }}>{{ isset($datum->post_pe_findings_ascites_text) ? $datum->post_pe_findings_ascites_text : '' }}</textarea>
                   {{-- <div class="form-check">
                     <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Decreased Breath Sounds" id="{{ $viewFolder }}_post_pe_findings_breath_sounds">
                     <label class="form-check-label" for="{{ $viewFolder }}_post_pe_findings_breath_sounds">Decreased Breath Sounds</label>
@@ -3632,12 +3636,12 @@
                           $('#{{ $viewFolder }}_post_pe_findings_edema_text').prop('required', false);
                           $('#{{ $viewFolder }}_post_pe_findings_edema_text').val('');
                         }
-                      " {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Edema Grade', json_decode($datum->post_pe_findings))) ? 'checked' : '' }}>
+                      " {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Edema Grade', json_decode($datum->post_pe_findings))) ? 'checked' : '' }} {{ $hdDisable }}>
                     <label class="form-check-label" for="{{ $viewFolder }}_post_pe_findings_edema">Edema Grade:</label>
                   </div>
-                  <textarea class="form-control" name="{{ $viewFolder }}[post_pe_findings_edema_text]" id="{{ $viewFolder }}_post_pe_findings_edema_text" rows=3 {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Edema Grade', json_decode($datum->post_pe_findings))) ? '' : 'disabled' }}>{{ isset($datum->post_pe_findings_edema_text) ? $datum->post_pe_findings_edema_text : '' }}</textarea>
+                  <textarea class="form-control" name="{{ $viewFolder }}[post_pe_findings_edema_text]" id="{{ $viewFolder }}_post_pe_findings_edema_text" rows=3 {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Edema Grade', json_decode($datum->post_pe_findings))) ? '' : 'disabled' }} {{ $hdDisable }}>{{ isset($datum->post_pe_findings_edema_text) ? $datum->post_pe_findings_edema_text : '' }}</textarea>
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Bleeding" id="{{ $viewFolder }}_post_pe_findings_bleeding" {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Bleeding', json_decode($datum->post_pe_findings))) ? 'checked' : '' }}>
+                    <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[post_pe_findings][]" value="Bleeding" id="{{ $viewFolder }}_post_pe_findings_bleeding" {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Bleeding', json_decode($datum->post_pe_findings))) ? 'checked' : '' }} {{ $hdDisable }}>
                     <label class="form-check-label" for="{{ $viewFolder }}_post_pe_findings_bleeding">Bleeding</label>
                   </div>
                   <div class="form-check">
@@ -3650,10 +3654,10 @@
                           $('#{{ $viewFolder }}_post_pe_findings_others_text').prop('required', false);
                           $('#{{ $viewFolder }}_post_pe_findings_others_text').val('');
                         }
-                      " {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Others', json_decode($datum->post_pe_findings))) ? 'checked' : '' }}>
+                      " {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Others', json_decode($datum->post_pe_findings))) ? 'checked' : '' }} {{ $hdDisable }}>
                     <label class="form-check-label" for="{{ $viewFolder }}_post_pe_findings_others">Others:</label>
                   </div>
-                  <textarea class="form-control" name="{{ $viewFolder }}[post_pe_findings_others_text]" id="{{ $viewFolder }}_post_pe_findings_others_text" rows=3 {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Others', json_decode($datum->post_pe_findings))) ? '' : 'disabled' }}>{{ isset($datum->post_pe_findings_others_text) ? $datum->post_pe_findings_others_text : '' }}</textarea>
+                  <textarea class="form-control" name="{{ $viewFolder }}[post_pe_findings_others_text]" id="{{ $viewFolder }}_post_pe_findings_others_text" rows=3 {{ (isset($datum->post_pe_findings) && is_array(json_decode($datum->post_pe_findings)) && in_array('Others', json_decode($datum->post_pe_findings))) ? '' : 'disabled' }} {{ $hdDisable }}>{{ isset($datum->post_pe_findings_others_text) ? $datum->post_pe_findings_others_text : '' }}</textarea>
                 </div>
               </div>
             </div>
@@ -3669,26 +3673,26 @@
                     <label>Vascular Access</label>
                     <div class="container ml-5 mb-3">
                       <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[vaccess_j][]" value="left" id="{{ $viewFolder }}_vaccess_left" {{ (isset($datum->vaccess_j) && is_array(json_decode($datum->vaccess_j)) && in_array('left', json_decode($datum->vaccess_j))) ? 'checked' : ((isset($datum->vaccess) && $datum->vaccess == 'left') ? 'checked' : '') }}>
+                        <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[vaccess_j][]" value="left" id="{{ $viewFolder }}_vaccess_left" {{ (isset($datum->vaccess_j) && is_array(json_decode($datum->vaccess_j)) && in_array('left', json_decode($datum->vaccess_j))) ? 'checked' : ((isset($datum->vaccess) && $datum->vaccess == 'left') ? 'checked' : '') }} {{ $hdDisable }}>
                         <label class="form-check-label" for="{{ $viewFolder }}_vaccess_left">left</label>
                       </div>
                       <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[vaccess_j][]" value="right" id="{{ $viewFolder }}_vaccess_right" {{ (isset($datum->vaccess_j) && is_array(json_decode($datum->vaccess_j)) && in_array('right', json_decode($datum->vaccess_j))) ? 'checked' : ((isset($datum->vaccess) && $datum->vaccess == 'right') ? 'checked' : '') }}>
+                        <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[vaccess_j][]" value="right" id="{{ $viewFolder }}_vaccess_right" {{ (isset($datum->vaccess_j) && is_array(json_decode($datum->vaccess_j)) && in_array('right', json_decode($datum->vaccess_j))) ? 'checked' : ((isset($datum->vaccess) && $datum->vaccess == 'right') ? 'checked' : '') }} {{ $hdDisable }}>
                         <label class="form-check-label" for="{{ $viewFolder }}_vaccess_right">right</label>
                       </div>
                     </div>
                   </div>
                   <div class="col-lg-8">
                     <div class="form-check">
-                      <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[vaccess_detail][]" value="Fistula" id="{{ $viewFolder }}_fistula" {{ (isset($datum->vaccess_detail) && is_array(json_decode($datum->vaccess_detail)) && in_array('Fistula', json_decode($datum->vaccess_detail))) ? 'checked' : '' }}>
+                      <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[vaccess_detail][]" value="Fistula" id="{{ $viewFolder }}_fistula" {{ (isset($datum->vaccess_detail) && is_array(json_decode($datum->vaccess_detail)) && in_array('Fistula', json_decode($datum->vaccess_detail))) ? 'checked' : '' }} {{ $hdDisable }}>
                       <label class="form-check-label" for="{{ $viewFolder }}_fistula">Fistula</label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[vaccess_detail][]" value="Graft" id="{{ $viewFolder }}_graft" {{ (isset($datum->vaccess_detail) && is_array(json_decode($datum->vaccess_detail)) && in_array('Graft', json_decode($datum->vaccess_detail))) ? 'checked' : '' }}>
+                      <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[vaccess_detail][]" value="Graft" id="{{ $viewFolder }}_graft" {{ (isset($datum->vaccess_detail) && is_array(json_decode($datum->vaccess_detail)) && in_array('Graft', json_decode($datum->vaccess_detail))) ? 'checked' : '' }} {{ $hdDisable }}>
                       <label class="form-check-label" for="{{ $viewFolder }}_graft">Graft</label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[vaccess_detail][]" value="CVC" id="{{ $viewFolder }}_cvc" {{ (isset($datum->vaccess_detail) && is_array(json_decode($datum->vaccess_detail)) && in_array('CVC', json_decode($datum->vaccess_detail))) ? 'checked' : '' }}>
+                      <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[vaccess_detail][]" value="CVC" id="{{ $viewFolder }}_cvc" {{ (isset($datum->vaccess_detail) && is_array(json_decode($datum->vaccess_detail)) && in_array('CVC', json_decode($datum->vaccess_detail))) ? 'checked' : '' }} {{ $hdDisable }}>
                       <label class="form-check-label" for="{{ $viewFolder }}_cvc">CVC / PERM / others</label>
                     </div>
                   </div>
@@ -3705,31 +3709,31 @@
                 <div class="row">
                   <div class="col-lg-12">
                     <div class="form-check">
-                      <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[av_fistula_detail][]" value="Strong Thrill" id="{{ $viewFolder }}_strong_thrill" {{ (isset($datum->av_fistula_detail) && is_array(json_decode($datum->av_fistula_detail)) && in_array('Strong Thrill', json_decode($datum->av_fistula_detail))) ? 'checked' : '' }}>
+                      <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[av_fistula_detail][]" value="Strong Thrill" id="{{ $viewFolder }}_strong_thrill" {{ (isset($datum->av_fistula_detail) && is_array(json_decode($datum->av_fistula_detail)) && in_array('Strong Thrill', json_decode($datum->av_fistula_detail))) ? 'checked' : '' }} {{ $hdDisable }}>
                       <label class="form-check-label" for="{{ $viewFolder }}_strong_thrill">Strong Thrill</label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[av_fistula_detail][]" value="Weak Thrill" id="{{ $viewFolder }}_weak_thrill" {{ (isset($datum->av_fistula_detail) && is_array(json_decode($datum->av_fistula_detail)) && in_array('Weak Thrill', json_decode($datum->av_fistula_detail))) ? 'checked' : '' }}>
+                      <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[av_fistula_detail][]" value="Weak Thrill" id="{{ $viewFolder }}_weak_thrill" {{ (isset($datum->av_fistula_detail) && is_array(json_decode($datum->av_fistula_detail)) && in_array('Weak Thrill', json_decode($datum->av_fistula_detail))) ? 'checked' : '' }} {{ $hdDisable }}>
                       <label class="form-check-label" for="{{ $viewFolder }}_weak_thrill">Weak Thrill</label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[av_fistula_detail][]" value="Absent Thrill w/ Bruit" id="{{ $viewFolder }}_absent_thrill_with" {{ (isset($datum->av_fistula_detail) && is_array(json_decode($datum->av_fistula_detail)) && in_array('Absent Thrill w/ Bruit', json_decode($datum->av_fistula_detail))) ? 'checked' : '' }}>
+                      <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[av_fistula_detail][]" value="Absent Thrill w/ Bruit" id="{{ $viewFolder }}_absent_thrill_with" {{ (isset($datum->av_fistula_detail) && is_array(json_decode($datum->av_fistula_detail)) && in_array('Absent Thrill w/ Bruit', json_decode($datum->av_fistula_detail))) ? 'checked' : '' }} {{ $hdDisable }}>
                       <label class="form-check-label" for="{{ $viewFolder }}_absent_thrill_with">Absent Thrill w/ Bruit</label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[av_fistula_detail][]" value="Absent Thrill no Bruit" id="{{ $viewFolder }}_absent_thrill_no" {{ (isset($datum->av_fistula_detail) && is_array(json_decode($datum->av_fistula_detail)) && in_array('Absent Thrill no Bruit', json_decode($datum->av_fistula_detail))) ? 'checked' : '' }}>
+                      <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[av_fistula_detail][]" value="Absent Thrill no Bruit" id="{{ $viewFolder }}_absent_thrill_no" {{ (isset($datum->av_fistula_detail) && is_array(json_decode($datum->av_fistula_detail)) && in_array('Absent Thrill no Bruit', json_decode($datum->av_fistula_detail))) ? 'checked' : '' }} {{ $hdDisable }}>
                       <label class="form-check-label" for="{{ $viewFolder }}_absent_thrill_no">Absent Thrill no Bruit</label>
                     </div>
                     <div class="input-group mb-3 mt-3">
                       <div class="form-floating">
-                        <input class="form-control" type="text" name="{{ $viewFolder }}[needle_gauge]" id="{{ $viewFolder }}_needle_gauge" placeholder="" value="{{ !empty($datum->needle_gauge) ? $datum->needle_gauge : '' }}">
+                        <input class="form-control" type="text" name="{{ $viewFolder }}[needle_gauge]" id="{{ $viewFolder }}_needle_gauge" placeholder="" value="{{ !empty($datum->needle_gauge) ? $datum->needle_gauge : '' }}" {{ $hdDisable }}>
                         <label for="{{ $viewFolder }}_needle_gauge" class="form-label">Needle Gauge</label>
                         <small id="help_{{ $viewFolder }}_needle_gauge" class="text-muted"></small>
                       </div>
                     </div>
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="number" step="1" name="{{ $viewFolder }}[number_commultation]" id="{{ $viewFolder }}_number_commultation" placeholder="" value="{{ !empty($datum->number_commultation) ? $datum->number_commultation : '' }}">
+                        <input class="form-control" type="number" step="1" name="{{ $viewFolder }}[number_commultation]" id="{{ $viewFolder }}_number_commultation" placeholder="" value="{{ !empty($datum->number_commultation) ? $datum->number_commultation : '' }}" {{ $hdDisable }}>
                         <label for="{{ $viewFolder }}_number_commultation" class="form-label"># of Cannulation</label>
                         <small id="help_{{ $viewFolder }}_number_commultation" class="text-muted"></small>
                       </div>
@@ -3746,27 +3750,27 @@
                 <div class="row">
                   <div class="col-lg-12">
                     <div class="form-check">
-                      <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[hd_catheter_detail][]" value="Both Patent" id="{{ $viewFolder }}_both_patent" {{ (isset($datum->hd_catheter_detail) && is_array(json_decode($datum->hd_catheter_detail)) && in_array('Both Patent', json_decode($datum->hd_catheter_detail))) ? 'checked' : '' }}>
+                      <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[hd_catheter_detail][]" value="Both Patent" id="{{ $viewFolder }}_both_patent" {{ (isset($datum->hd_catheter_detail) && is_array(json_decode($datum->hd_catheter_detail)) && in_array('Both Patent', json_decode($datum->hd_catheter_detail))) ? 'checked' : '' }} {{ $hdDisable }}>
                       <label class="form-check-label" for="{{ $viewFolder }}_both_patent">Both Patent</label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[hd_catheter_detail][]" value="A Clotted" id="{{ $viewFolder }}_a_clotted" {{ (isset($datum->hd_catheter_detail) && is_array(json_decode($datum->hd_catheter_detail)) && in_array('A Clotted', json_decode($datum->hd_catheter_detail))) ? 'checked' : '' }}>
+                      <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[hd_catheter_detail][]" value="A Clotted" id="{{ $viewFolder }}_a_clotted" {{ (isset($datum->hd_catheter_detail) && is_array(json_decode($datum->hd_catheter_detail)) && in_array('A Clotted', json_decode($datum->hd_catheter_detail))) ? 'checked' : '' }} {{ $hdDisable }}>
                       <label class="form-check-label" for="{{ $viewFolder }}_a_clotted">A Clotted</label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[hd_catheter_detail][]" value="V Clotted" id="{{ $viewFolder }}_v_clotted" {{ (isset($datum->hd_catheter_detail) && is_array(json_decode($datum->hd_catheter_detail)) && in_array('V Clotted', json_decode($datum->hd_catheter_detail))) ? 'checked' : '' }}>
+                      <input class="form-check-input" type="checkbox" name="{{ $viewFolder }}[hd_catheter_detail][]" value="V Clotted" id="{{ $viewFolder }}_v_clotted" {{ (isset($datum->hd_catheter_detail) && is_array(json_decode($datum->hd_catheter_detail)) && in_array('V Clotted', json_decode($datum->hd_catheter_detail))) ? 'checked' : '' }} {{ $hdDisable }}>
                       <label class="form-check-label" for="{{ $viewFolder }}_v_clotted">V Clotted</label>
                     </div>
                     <div class="input-group mb-3 mt-3">
                       <div class="form-floating">
-                        <input class="form-control" type="text" name="{{ $viewFolder }}[hd_catheter_remarks]" id="{{ $viewFolder }}_hd_catheter_remarks" placeholder="" value="{{ !empty($datum->hd_catheter_remarks) ? $datum->hd_catheter_remarks : '' }}">
+                        <input class="form-control" type="text" name="{{ $viewFolder }}[hd_catheter_remarks]" id="{{ $viewFolder }}_hd_catheter_remarks" placeholder="" value="{{ !empty($datum->hd_catheter_remarks) ? $datum->hd_catheter_remarks : '' }}" {{ $hdDisable }}>
                         <label for="{{ $viewFolder }}_hd_catheter_remarks" class="form-label">Remarks</label>
                         <small id="help_{{ $viewFolder }}_hd_catheter_remarks" class="text-muted"></small>
                       </div>
                     </div>
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="text" name="{{ $viewFolder }}[hd_catheter_hgb]" id="{{ $viewFolder }}_hd_catheter_hgb" placeholder="" value="{{ !empty($datum->hd_catheter_hgb) ? $datum->hd_catheter_hgb : '' }}">
+                        <input class="form-control" type="text" name="{{ $viewFolder }}[hd_catheter_hgb]" id="{{ $viewFolder }}_hd_catheter_hgb" placeholder="" value="{{ !empty($datum->hd_catheter_hgb) ? $datum->hd_catheter_hgb : '' }}" {{ $hdDisable }}>
                         <label for="{{ $viewFolder }}_hd_catheter_hgb" class="form-label">Latest HGB</label>
                         <small id="help_{{ $viewFolder }}_hd_catheter_hgb" class="text-muted"></small>
                       </div>
@@ -3786,35 +3790,35 @@
                   <div class="col-lg-6">
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[hemoglobin]" id="{{ $viewFolder }}_hemoglobin" placeholder="" value="{{ !empty($datum->hemoglobin) ? $datum->hemoglobin : '' }}">
+                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[hemoglobin]" id="{{ $viewFolder }}_hemoglobin" placeholder="" value="{{ !empty($datum->hemoglobin) ? $datum->hemoglobin : '' }}" {{ $hdDisable }}>
                         <label for="{{ $viewFolder }}_hemoglobin" class="form-label">Hemoglobin</label>
                         <small id="help_{{ $viewFolder }}_hemoglobin" class="text-muted"></small>
                       </div>
                     </div>
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[hematocrit]" id="{{ $viewFolder }}_hematocrit" placeholder="" value="{{ !empty($datum->hematocrit) ? $datum->hematocrit : '' }}">
+                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[hematocrit]" id="{{ $viewFolder }}_hematocrit" placeholder="" value="{{ !empty($datum->hematocrit) ? $datum->hematocrit : '' }}" {{ $hdDisable }}>
                         <label for="{{ $viewFolder }}_hematocrit" class="form-label">Hematocrit</label>
                         <small id="help_{{ $viewFolder }}_hematocrit" class="text-muted"></small>
                       </div>
                     </div>
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[rbc]" id="{{ $viewFolder }}_rbc" placeholder="" value="{{ !empty($datum->rbc) ? $datum->rbc : '' }}">
+                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[rbc]" id="{{ $viewFolder }}_rbc" placeholder="" value="{{ !empty($datum->rbc) ? $datum->rbc : '' }}" {{ $hdDisable }}>
                         <label for="{{ $viewFolder }}_rbc" class="form-label">RBC</label>
                         <small id="help_{{ $viewFolder }}_rbc" class="text-muted"></small>
                       </div>
                     </div>
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[wbc]" id="{{ $viewFolder }}_wbc" placeholder="" value="{{ !empty($datum->wbc) ? $datum->wbc : '' }}">
+                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[wbc]" id="{{ $viewFolder }}_wbc" placeholder="" value="{{ !empty($datum->wbc) ? $datum->wbc : '' }}" {{ $hdDisable }}>
                         <label for="{{ $viewFolder }}_wbc" class="form-label">WBC</label>
                       </div>
                       <small id="help_{{ $viewFolder }}_wbc" class="text-muted"></small>
                     </div>
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[platelet]" id="{{ $viewFolder }}_platelet" placeholder="" value="{{ !empty($datum->platelet) ? $datum->platelet : '' }}">
+                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[platelet]" id="{{ $viewFolder }}_platelet" placeholder="" value="{{ !empty($datum->platelet) ? $datum->platelet : '' }}" {{ $hdDisable }}>
                         <label for="{{ $viewFolder }}_platelet" class="form-label">Platelet</label>
                       </div>
                       <small id="help_{{ $viewFolder }}_platelet" class="text-muted"></small>
@@ -3822,7 +3826,7 @@
                     <p>Dialysis Adequacy</p>
                     <div class="input-group">
                       <div class="form-floating">
-                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[urr]" id="{{ $viewFolder }}_urr" placeholder="" value="{{ !empty($datum->urr) ? $datum->urr : '' }}" readonly>
+                        <input class="form-control" type="number" step=".1" name="{{ $viewFolder }}[urr]" id="{{ $viewFolder }}_urr" placeholder="" value="{{ !empty($datum->urr) ? $datum->urr : '' }}" readonly {{ $hdDisable }}>
                         <label for="{{ $viewFolder }}_urr" class="form-label">URR</label>
                       </div>
                       <span class="input-group-text">%</span>
@@ -3830,7 +3834,7 @@
                     <small id="help_{{ $viewFolder }}_urr" class="text-muted mb-3">URR = ((Pre BUN - Post BUN)/Pre BUN) x 100</small>
                     <div class="input-group">
                       <div class="form-floating">
-                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[ktv2]" id="{{ $viewFolder }}_ktv2" placeholder="" value="{{ !empty($datum->ktv2) ? $datum->ktv2 : '' }}" readonly>
+                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[ktv2]" id="{{ $viewFolder }}_ktv2" placeholder="" value="{{ !empty($datum->ktv2) ? $datum->ktv2 : '' }}" readonly {{ $hdDisable }}>
                         <label for="{{ $viewFolder }}_ktv2" class="form-label">Kt/V</label>
                       </div>
                     </div>
@@ -3856,7 +3860,7 @@
                             var ktv = -1*Math.log(($('#{{ $viewFolder }}_post_bun').val() / $('#{{ $viewFolder }}_pre_bun').val()) - (0.008*hours)) + ((4 - (3.5*($('#{{ $viewFolder }}_post_bun').val() / $('#{{ $viewFolder }}_pre_bun').val())))*($('#{{ $viewFolder }}_achieved_uf').val()/$('#{{ $viewFolder }}_post_hd_weight').val()));
                             $('#{{ $viewFolder }}_ktv2').val(ktv.toFixed(2));
                           }
-                        ">
+                        " {{ $hdDisable }}>
                         <label for="{{ $viewFolder }}_pre_bun" class="form-label">Pre BUN</label>
                         <small id="help_{{ $viewFolder }}_pre_bun" class="text-muted"></small>
                       </div>
@@ -3882,7 +3886,7 @@
                             var ktv = -1*Math.log(($('#{{ $viewFolder }}_post_bun').val() / $('#{{ $viewFolder }}_pre_bun').val()) - (0.008*hours)) + ((4 - (3.5*($('#{{ $viewFolder }}_post_bun').val() / $('#{{ $viewFolder }}_pre_bun').val())))*($('#{{ $viewFolder }}_achieved_uf').val()/$('#{{ $viewFolder }}_post_hd_weight').val()));
                             $('#{{ $viewFolder }}_ktv2').val(ktv.toFixed(2));
                           }
-                        ">
+                        " {{ $hdDisable }}>
                         <label for="{{ $viewFolder }}_post_bun" class="form-label">Post BUN</label>
                         <small id="help_{{ $viewFolder }}_post_bun" class="text-muted"></small>
                       </div>
@@ -3893,63 +3897,63 @@
                   <div class="col-lg-6">
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[creatinine]" id="{{ $viewFolder }}_creatinine" placeholder="" value="{{ !empty($datum->creatinine) ? $datum->creatinine : '' }}">
+                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[creatinine]" id="{{ $viewFolder }}_creatinine" placeholder="" value="{{ !empty($datum->creatinine) ? $datum->creatinine : '' }}" {{ $hdDisable }}>
                         <label for="{{ $viewFolder }}_creatinine" class="form-label">Creatinine</label>
                         <small id="help_{{ $viewFolder }}_creatinine" class="text-muted"></small>
                       </div>
                     </div>
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[serum_albumin]" id="{{ $viewFolder }}_serum_albumin" placeholder="" value="{{ !empty($datum->serum_albumin) ? $datum->serum_albumin : '' }}">
+                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[serum_albumin]" id="{{ $viewFolder }}_serum_albumin" placeholder="" value="{{ !empty($datum->serum_albumin) ? $datum->serum_albumin : '' }}" {{ $hdDisable }}>
                         <label for="{{ $viewFolder }}_serum_albumin" class="form-label">Serum Albumin</label>
                         <small id="help_{{ $viewFolder }}_serum_albumin" class="text-muted"></small>
                       </div>
                     </div>
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[sodium]" id="{{ $viewFolder }}_sodium" placeholder="" value="{{ !empty($datum->sodium) ? $datum->sodium : '' }}">
+                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[sodium]" id="{{ $viewFolder }}_sodium" placeholder="" value="{{ !empty($datum->sodium) ? $datum->sodium : '' }}" {{ $hdDisable }}>
                         <label for="{{ $viewFolder }}_sodium" class="form-label">Sodium</label>
                         <small id="help_{{ $viewFolder }}_sodium" class="text-muted"></small>
                       </div>
                     </div>
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[potassium]" id="{{ $viewFolder }}_potassium" placeholder="" value="{{ !empty($datum->potassium) ? $datum->potassium : '' }}">
+                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[potassium]" id="{{ $viewFolder }}_potassium" placeholder="" value="{{ !empty($datum->potassium) ? $datum->potassium : '' }}" {{ $hdDisable }}>
                         <label for="{{ $viewFolder }}_potassium" class="form-label">Potassium</label>
                         <small id="help_{{ $viewFolder }}_potassium" class="text-muted"></small>
                       </div>
                     </div>
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[phosphorus]" id="{{ $viewFolder }}_phosphorus" placeholder="" value="{{ !empty($datum->phosphorus) ? $datum->phosphorus : '' }}">
+                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[phosphorus]" id="{{ $viewFolder }}_phosphorus" placeholder="" value="{{ !empty($datum->phosphorus) ? $datum->phosphorus : '' }}" {{ $hdDisable }}>
                         <label for="{{ $viewFolder }}_phosphorus" class="form-label">Phosphorus</label>
                         <small id="help_{{ $viewFolder }}_phosphorus" class="text-muted"></small>
                       </div>
                     </div>
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[ionized_calcium]" id="{{ $viewFolder }}_ionized_calcium" placeholder="" value="{{ !empty($datum->ionized_calcium) ? $datum->ionized_calcium : '' }}">
+                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[ionized_calcium]" id="{{ $viewFolder }}_ionized_calcium" placeholder="" value="{{ !empty($datum->ionized_calcium) ? $datum->ionized_calcium : '' }}" {{ $hdDisable }}>
                         <label for="{{ $viewFolder }}_ionized_calcium" class="form-label">Ionized Calcium</label>
                         <small id="help_{{ $viewFolder }}_ionized_calcium" class="text-muted"></small>
                       </div>
                     </div>
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[uric_acid]" id="{{ $viewFolder }}_uric_acid" placeholder="" value="{{ !empty($datum->uric_acid) ? $datum->uric_acid : '' }}">
+                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[uric_acid]" id="{{ $viewFolder }}_uric_acid" placeholder="" value="{{ !empty($datum->uric_acid) ? $datum->uric_acid : '' }}" {{ $hdDisable }}>
                         <label for="{{ $viewFolder }}_uric_acid" class="form-label">Uric Acid</label>
                         <small id="help_{{ $viewFolder }}_uric_acid" class="text-muted"></small>
                       </div>
                     </div>
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[sgpt]" id="{{ $viewFolder }}_sgpt" placeholder="" value="{{ !empty($datum->sgpt) ? $datum->sgpt : '' }}">
+                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[sgpt]" id="{{ $viewFolder }}_sgpt" placeholder="" value="{{ !empty($datum->sgpt) ? $datum->sgpt : '' }}" {{ $hdDisable }}>
                         <label for="{{ $viewFolder }}_sgpt" class="form-label">SGPT</label>
                         <small id="help_{{ $viewFolder }}_sgpt" class="text-muted"></small>
                       </div>
                     </div>
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[sgot]" id="{{ $viewFolder }}_sgot" placeholder="" value="{{ !empty($datum->sgot) ? $datum->sgot : '' }}">
+                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[sgot]" id="{{ $viewFolder }}_sgot" placeholder="" value="{{ !empty($datum->sgot) ? $datum->sgot : '' }}" {{ $hdDisable }}>
                         <label for="{{ $viewFolder }}_sgot" class="form-label">SGOT</label>
                         <small id="help_{{ $viewFolder }}_sgot" class="text-muted"></small>
                       </div>
@@ -3961,7 +3965,7 @@
                     <p>Iron Studies</p>
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[serum_ferritin]" id="{{ $viewFolder }}_serum_ferritin" placeholder="" value="{{ !empty($datum->serum_ferritin) ? $datum->serum_ferritin : '' }}">
+                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[serum_ferritin]" id="{{ $viewFolder }}_serum_ferritin" placeholder="" value="{{ !empty($datum->serum_ferritin) ? $datum->serum_ferritin : '' }}" {{ $hdDisable }}>
                         <label for="{{ $viewFolder }}_serum_ferritin" class="form-label">Serum Ferritin</label>
                         <small id="help_{{ $viewFolder }}_serum_ferritin" class="text-muted"></small>
                       </div>
@@ -3971,7 +3975,7 @@
                         <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[serum_iron]" id="{{ $viewFolder }}_serum_iron" placeholder="" value="{{ !empty($datum->serum_iron) ? $datum->serum_iron : '' }}" onchange="
                             var tsat = ($('#{{ $viewFolder }}_serum_iron').val()/$('#{{ $viewFolder }}_tibc').val())*100;
                             $('#{{ $viewFolder }}_tsat').val(tsat.toFixed(2));
-                        ">
+                        " {{ $hdDisable }}>
                         <label for="{{ $viewFolder }}_serum_iron" class="form-label">Serum Iron</label>
                         <small id="help_{{ $viewFolder }}_serum_iron" class="text-muted"></small>
                       </div>
@@ -3981,14 +3985,14 @@
                         <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[tibc]" id="{{ $viewFolder }}_tibc" placeholder="" value="{{ !empty($datum->tibc) ? $datum->tibc : '' }}" onchange="
                             var tsat = ($('#{{ $viewFolder }}_serum_iron').val()/$('#{{ $viewFolder }}_tibc').val())*100;
                             $('#{{ $viewFolder }}_tsat').val(tsat.toFixed(2));
-                        ">
+                        " {{ $hdDisable }}>
                         <label for="{{ $viewFolder }}_tibc" class="form-label">TIBC</label>
                         <small id="help_{{ $viewFolder }}_tibc" class="text-muted"></small>
                       </div>
                     </div>
                     <div class="input-group">
                       <div class="form-floating">
-                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[tsat]" id="{{ $viewFolder }}_tsat" placeholder="" value="{{ !empty($datum->tsat) ? $datum->tsat : '' }}" readonly>
+                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[tsat]" id="{{ $viewFolder }}_tsat" placeholder="" value="{{ !empty($datum->tsat) ? $datum->tsat : '' }}" readonly {{ $hdDisable }}>
                         <label for="{{ $viewFolder }}_tsat" class="form-label">TSAT</label>
                         <small id="help_{{ $viewFolder }}_tsat" class="text-muted mb-3"></small>
                       </div>
@@ -4000,21 +4004,21 @@
                     <p>Hepatitis Profile</p>
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[hbsag]" id="{{ $viewFolder }}_hbsag" placeholder="" value="{{ !empty($datum->hbsag) ? $datum->hbsag : '' }}">
+                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[hbsag]" id="{{ $viewFolder }}_hbsag" placeholder="" value="{{ !empty($datum->hbsag) ? $datum->hbsag : '' }}" {{ $hdDisable }}>
                         <label for="{{ $viewFolder }}_hbsag" class="form-label">HBsAg</label>
                         <small id="help_{{ $viewFolder }}_hbsag" class="text-muted"></small>
                       </div>
                     </div>
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[anti_hbs]" id="{{ $viewFolder }}_anti_hbs" placeholder="" value="{{ !empty($datum->anti_hbs) ? $datum->anti_hbs : '' }}">
+                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[anti_hbs]" id="{{ $viewFolder }}_anti_hbs" placeholder="" value="{{ !empty($datum->anti_hbs) ? $datum->anti_hbs : '' }}" {{ $hdDisable }}>
                         <label for="{{ $viewFolder }}_anti_hbs" class="form-label">Anti-HBS</label>
                         <small id="help_{{ $viewFolder }}_anti_hbs" class="text-muted"></small>
                       </div>
                     </div>
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[anti_hcv]" id="{{ $viewFolder }}_anti_hcv" placeholder="" value="{{ !empty($datum->anti_hcv) ? $datum->anti_hcv : '' }}">
+                        <input class="form-control" type="number" step=".01" name="{{ $viewFolder }}[anti_hcv]" id="{{ $viewFolder }}_anti_hcv" placeholder="" value="{{ !empty($datum->anti_hcv) ? $datum->anti_hcv : '' }}" {{ $hdDisable }}>
                         <label for="{{ $viewFolder }}_anti_hcv" class="form-label">Anti-HCV</label>
                         <small id="help_{{ $viewFolder }}_anti_hcv" class="text-muted"></small>
                       </div>
@@ -4047,7 +4051,7 @@
                             $('#addMedLog{{ $datum->id }}').prop('disabled', false);
                           else
                             $('#addMedLog{{ $datum->id }}').prop('disabled', true);
-                        ">
+                        " {{ $hdDisable }}>
                         <label for="{{ $viewFolder }}_time_given" class="form-label">Time Given</label>
                         <small id="help_{{ $viewFolder }}_time_given" class="text-muted"></small>
                       </div>
@@ -4066,7 +4070,7 @@
                             $('#addMedLog{{ $datum->id }}').prop('disabled', false);
                           else
                             $('#addMedLog{{ $datum->id }}').prop('disabled', true);
-                        ">
+                        " {{ $hdDisable }}>
                         <label for="{{ $viewFolder }}_medication" class="form-label">Medication</label>
                         <small id="help_{{ $viewFolder }}_medication" class="text-muted"></small>
                       </div>
@@ -4085,7 +4089,7 @@
                             $('#addMedLog{{ $datum->id }}').prop('disabled', false);
                           else
                             $('#addMedLog{{ $datum->id }}').prop('disabled', true);
-                        ">
+                        " {{ $hdDisable }}>
                         <label for="{{ $viewFolder }}_dosage" class="form-label">Dosage</label>
                         <small id="help_{{ $viewFolder }}_dosage" class="text-muted"></small>
                       </div>
@@ -4123,7 +4127,7 @@
                         }
                       });
 
-                    ">Add/Edit Medication Log</button>
+                    " {{ $hdDisable }}>Add/Edit Medication Log</button>
                   </div>
                 </div>
                 <div class="card-body table-responsive" style="max-height: 300px">
@@ -4168,21 +4172,21 @@
                   <div class="col-lg-6">
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="text" name="{{ $viewFolder }}[rml]" id="{{ $viewFolder }}_rml" placeholder="" value="{{ !empty($datum->rml) ? $datum->rml : (isset($prevBooking->rml) ? $prevBooking->rml : '') }}">
+                        <input class="form-control" type="text" name="{{ $viewFolder }}[rml]" id="{{ $viewFolder }}_rml" placeholder="" value="{{ !empty($datum->rml) ? $datum->rml : (isset($prevBooking->rml) ? $prevBooking->rml : '') }}" {{ $hdDisable }}>
                         <label for="{{ $viewFolder }}_rml" class="form-label">RML</label>
                         <small id="help_{{ $viewFolder }}_rml" class="text-muted"></small>
                       </div>
                     </div>
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="text" name="{{ $viewFolder }}[hepa]" id="{{ $viewFolder }}_hepa" placeholder="" value="{{ !empty($datum->hepa) ? $datum->hepa : (isset($prevBooking->hepa) ? $prevBooking->hepa : '') }}">
+                        <input class="form-control" type="text" name="{{ $viewFolder }}[hepa]" id="{{ $viewFolder }}_hepa" placeholder="" value="{{ !empty($datum->hepa) ? $datum->hepa : (isset($prevBooking->hepa) ? $prevBooking->hepa : '') }}" {{ $hdDisable }}>
                         <label for="{{ $viewFolder }}_hepa" class="form-label">HEPA Profile</label>
                         <small id="help_{{ $viewFolder }}_hepa" class="text-muted"></small>
                       </div>
                     </div>
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="text" name="{{ $viewFolder }}[iv_iron]" id="{{ $viewFolder }}_iv_iron" placeholder="" value="{{ !empty($datum->iv_iron) ? $datum->iv_iron : (isset($prevBooking->iv_iron) ? $prevBooking->iv_iron : '') }}">
+                        <input class="form-control" type="text" name="{{ $viewFolder }}[iv_iron]" id="{{ $viewFolder }}_iv_iron" placeholder="" value="{{ !empty($datum->iv_iron) ? $datum->iv_iron : (isset($prevBooking->iv_iron) ? $prevBooking->iv_iron : '') }}" {{ $hdDisable }}>
                         <label for="{{ $viewFolder }}_iv_iron" class="form-label">IV Iron</label>
                         <small id="help_{{ $viewFolder }}_iv_iron" class="text-muted"></small>
                       </div>
@@ -4191,14 +4195,14 @@
                   <div class="col-lg-6">
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="text" name="{{ $viewFolder }}[epo]" id="{{ $viewFolder }}_epo" placeholder="" value="{{ !empty($datum->epo) ? $datum->epo : (isset($prevBooking->epo) ? $prevBooking->epo : '') }}">
+                        <input class="form-control" type="text" name="{{ $viewFolder }}[epo]" id="{{ $viewFolder }}_epo" placeholder="" value="{{ !empty($datum->epo) ? $datum->epo : (isset($prevBooking->epo) ? $prevBooking->epo : '') }}" {{ $hdDisable }}>
                         <label for="{{ $viewFolder }}_epo" class="form-label">EPO</label>
                         <small id="help_{{ $viewFolder }}_epo" class="text-muted"></small>
                       </div>
                     </div>
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="text" name="{{ $viewFolder }}[hd_vac]" id="{{ $viewFolder }}_hd_vac" placeholder="" value="{{ !empty($datum->hd_vac) ? $datum->hd_vac : (isset($prevBooking->hd_vac) ? $prevBooking->hd_vac : '') }}">
+                        <input class="form-control" type="text" name="{{ $viewFolder }}[hd_vac]" id="{{ $viewFolder }}_hd_vac" placeholder="" value="{{ !empty($datum->hd_vac) ? $datum->hd_vac : (isset($prevBooking->hd_vac) ? $prevBooking->hd_vac : '') }}" {{ $hdDisable }}>
                         <label for="{{ $viewFolder }}_hd_vac" class="form-label">Vaccines</label>
                         <small id="help_{{ $viewFolder }}_hd_vac" class="text-muted"></small>
                       </div>
@@ -4208,7 +4212,7 @@
                 </div>
                 <label for="{{ $viewFolder }}_hd_endorsement" class="form-label">Endorsement Details</label>
                 {{-- <div class="form-floating mb-3"> --}}
-                <textarea class="form-control" name="{{ $viewFolder }}[hd_endorsement]" cols="5" id="{{ $viewFolder }}_hd_endorsement">{{ !empty($datum->hd_endorsement) ? $datum->hd_endorsement : (isset($prevBooking->hd_endorsement) ? $prevBooking->hd_endorsement : '') }}</textarea>
+                <textarea class="form-control" name="{{ $viewFolder }}[hd_endorsement]" cols="5" id="{{ $viewFolder }}_hd_endorsement" {{ $hdDisable }}>{{ !empty($datum->hd_endorsement) ? $datum->hd_endorsement : (isset($prevBooking->hd_endorsement) ? $prevBooking->hd_endorsement : '') }}</textarea>
                 <small id="help_{{ $viewFolder }}_hd_endorsement" class="text-muted"></small>
                 {{-- </div> --}}
               </div>
@@ -4273,7 +4277,7 @@
                             $('#addMonLog{{ $datum->id }}').prop('disabled', false);
                           }else
                             $('#addMonLog{{ $datum->id }}').prop('disabled', true);
-                        ">
+                        " {{ $hdDisable }}>
                             <label for="{{ $viewFolder }}_mon_time" class="form-label">Time</label>
                             <small id="help_{{ $viewFolder }}_mon_time" class="text-muted"></small>
                           </div>
@@ -4326,7 +4330,7 @@
                             $('#addMonLog{{ $datum->id }}').prop('disabled', false);
                           }else
                             $('#addMonLog{{ $datum->id }}').prop('disabled', true);
-                        ">
+                        " {{ $hdDisable }}>
                           <span class="input-group-text">/</span>
                           <input class="form-control" type="number" name="{{ $viewFolder }}[Monitoring][bpD]" min=30 max=150 step=1 id="{{ $viewFolder }}_mon_bpD" placeholder="Diastolic" {{ isset($datum->id) ? '' : '' }} onchange="
                           if($('#{{ $viewFolder }}_mon_time').val() != ''){
@@ -4374,7 +4378,7 @@
                             $('#addMonLog{{ $datum->id }}').prop('disabled', false);
                           }else
                             $('#addMonLog{{ $datum->id }}').prop('disabled', true);
-                        ">
+                        " {{ $hdDisable }}>
                         </div>
                         <div class="input-group mb-3">
                           <div class="form-floating">
@@ -4424,7 +4428,7 @@
                             $('#addMonLog{{ $datum->id }}').prop('disabled', false);
                           }else
                             $('#addMonLog{{ $datum->id }}').prop('disabled', true);
-                        ">
+                        " {{ $hdDisable }}>
                             <label for="{{ $viewFolder }}_mon_heart" class="form-label">Heart/Pulse Rate</label>
                             <small id="help_{{ $viewFolder }}_mon_heart" class="text-muted"></small>
                           </div>
@@ -4478,7 +4482,7 @@
                             $('#addMonLog{{ $datum->id }}').prop('disabled', false);
                           }else
                             $('#addMonLog{{ $datum->id }}').prop('disabled', true);
-                        ">
+                        " {{ $hdDisable }}>
                             <label for="{{ $viewFolder }}_mon_o2" class="form-label">O2 Sat</label>
                             <small id="help_{{ $viewFolder }}_mon_o2" class="text-muted"></small>
                           </div>
@@ -4532,7 +4536,7 @@
                             $('#addMonLog{{ $datum->id }}').prop('disabled', false);
                           }else
                             $('#addMonLog{{ $datum->id }}').prop('disabled', true);
-                        ">
+                        " {{ $hdDisable }}>
                             <label for="{{ $viewFolder }}_mon_ap" class="form-label">AP</label>
                             <small id="help_{{ $viewFolder }}_mon_ap" class="text-muted"></small>
                           </div>
@@ -4585,7 +4589,7 @@
                             $('#addMonLog{{ $datum->id }}').prop('disabled', false);
                           }else
                             $('#addMonLog{{ $datum->id }}').prop('disabled', true);
-                        ">
+                        " {{ $hdDisable }}>
                             <label for="{{ $viewFolder }}_mon_vp" class="form-label">VP</label>
                             <small id="help_{{ $viewFolder }}_mon_vp" class="text-muted"></small>
                           </div>
@@ -4640,7 +4644,7 @@
                             $('#addMonLog{{ $datum->id }}').prop('disabled', false);
                           }else
                             $('#addMonLog{{ $datum->id }}').prop('disabled', true);
-                        ">
+                        " {{ $hdDisable }}>
                             <label for="{{ $viewFolder }}_mon_tmp" class="form-label">TMP</label>
                             <small id="help_{{ $viewFolder }}_mon_tmp" class="text-muted"></small>
                           </div>
@@ -4693,7 +4697,7 @@
                             $('#addMonLog{{ $datum->id }}').prop('disabled', false);
                           }else
                             $('#addMonLog{{ $datum->id }}').prop('disabled', true);
-                        ">
+                        " {{ $hdDisable }}>
                             <label for="{{ $viewFolder }}_mon_bfr" class="form-label">BRF</label>
                             <small id="help_{{ $viewFolder }}_mon_bfr" class="text-muted"></small>
                           </div>
@@ -4746,7 +4750,7 @@
                             $('#addMonLog{{ $datum->id }}').prop('disabled', false);
                           }else
                             $('#addMonLog{{ $datum->id }}').prop('disabled', true);
-                        ">
+                        " {{ $hdDisable }}>
                             <label for="{{ $viewFolder }}_mon_nss" class="form-label">NSS</label>
                             <small id="help_{{ $viewFolder }}_mon_nss" class="text-muted"></small>
                           </div>
@@ -4799,7 +4803,7 @@
                             $('#addMonLog{{ $datum->id }}').prop('disabled', false);
                           }else
                             $('#addMonLog{{ $datum->id }}').prop('disabled', true);
-                        ">
+                        " {{ $hdDisable }}>
                             <label for="{{ $viewFolder }}_mon_ufr" class="form-label">UFR</label>
                             <small id="help_{{ $viewFolder }}_mon_ufr" class="text-muted"></small>
                           </div>
@@ -4852,7 +4856,7 @@
                             $('#addMonLog{{ $datum->id }}').prop('disabled', false);
                           }else
                             $('#addMonLog{{ $datum->id }}').prop('disabled', true);
-                        ">
+                        " {{ $hdDisable }}>
                             <label for="{{ $viewFolder }}_mon_ufv" class="form-label">UFV</label>
                             <small id="help_{{ $viewFolder }}_mon_ufv" class="text-muted"></small>
                           </div>
@@ -4905,7 +4909,7 @@
                             $('#addMonLog{{ $datum->id }}').prop('disabled', false);
                           }else
                             $('#addMonLog{{ $datum->id }}').prop('disabled', true);
-                        ">
+                        " {{ $hdDisable }}>
                         
                             <label for="{{ $viewFolder }}_mon_remarks" class="form-label">Remarks</label>
                             <small id="help_{{ $viewFolder }}_mon_remarks" class="text-muted"></small>
@@ -4966,7 +4970,7 @@
                         }
                       });
 
-                    ">Add/Edit Monitoring Log</button>
+                    " {{ $hdDisable }}>Add/Edit Monitoring Log</button>
                   </div>
                 </div>
                 <div class="card-body table-responsive" style="max-height: 300px">
@@ -5042,7 +5046,7 @@
                             $('#addNurseNotesLog{{ $datum->id }}').prop('disabled', false);
                           else
                             $('#addNurseNotesLog{{ $datum->id }}').prop('disabled', true);
-                        ">
+                        " {{ $hdDisable }}>
                         <label for="{{ $viewFolder }}_notes_time" class="form-label">Time Given</label>
                         <small id="help_{{ $viewFolder }}_notes_time" class="text-muted"></small>
                       </div>
@@ -5059,8 +5063,7 @@
                             $('#addNurseNotesLog{{ $datum->id }}').prop('disabled', false);
                           else
                             $('#addNurseNotesLog{{ $datum->id }}').prop('disabled', true);
-                        ">
-                        
+                        " {{ $hdDisable }}>
                         <label for="{{ $viewFolder }}_nurse_notes" class="form-label">Notes</label>
                         <small id="help_{{ $viewFolder }}_nurse_notes" class="text-muted"></small>
                       </div>
@@ -5096,7 +5099,7 @@
                         }
                       });
 
-                    ">Add/Edit Nurse Notes</button>
+                    " {{ $hdDisable }}>Add/Edit Nurse Notes</button>
                   </div>
                 </div>
                 <div class="card-body table-responsive" style="max-height: 300px">
@@ -5139,7 +5142,7 @@
                   <div class="col-lg-12">
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="text" name="{{ $viewFolder }}[dialysis_complication]" id="{{ $viewFolder }}_dialysis_complication" placeholder="" value="{{ !empty($datum->dialysis_complication) ? $datum->dialysis_complication : '' }}">
+                        <input class="form-control" type="text" name="{{ $viewFolder }}[dialysis_complication]" id="{{ $viewFolder }}_dialysis_complication" placeholder="" value="{{ !empty($datum->dialysis_complication) ? $datum->dialysis_complication : '' }}" {{ $hdDisable }}>
                         <label for="{{ $viewFolder }}_dialysis_complication" class="form-label">Details</label>
                         <small id="help_{{ $viewFolder }}_dialysis_complication" class="text-muted"></small>
                       </div>
@@ -5159,7 +5162,7 @@
                   <div class="col-lg-12">
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="number" name="{{ $viewFolder }}[shorten_min]" id="{{ $viewFolder }}_shorten_min" placeholder="" value="{{ !empty($datum->shorten_min) ? $datum->shorten_min : '' }}">
+                        <input class="form-control" type="number" name="{{ $viewFolder }}[shorten_min]" id="{{ $viewFolder }}_shorten_min" placeholder="" value="{{ !empty($datum->shorten_min) ? $datum->shorten_min : '' }}" {{ $hdDisable }}>
                         <label for="{{ $viewFolder }}_shorten_min" class="form-label">Shorten Treatment to</label>
                         <small id="help_{{ $viewFolder }}_shorten_min" class="text-muted"></small>
                       </div>
@@ -5167,7 +5170,7 @@
                     </div>
                     <div class="input-group mb-3">
                       <div class="form-floating">
-                        <input class="form-control" type="text" name="{{ $viewFolder }}[shorten_reason]" id="{{ $viewFolder }}_shorten_reason" placeholder="" value="{{ !empty($datum->shorten_reason) ? $datum->shorten_reason : '' }}">
+                        <input class="form-control" type="text" name="{{ $viewFolder }}[shorten_reason]" id="{{ $viewFolder }}_shorten_reason" placeholder="" value="{{ !empty($datum->shorten_reason) ? $datum->shorten_reason : '' }}" {{ $hdDisable }}>
                         <label for="{{ $viewFolder }}_shorten_reason" class="form-label">Reason</label>
                         <small id="help_{{ $viewFolder }}_shorten_reason" class="text-muted"></small>
                       </div>
