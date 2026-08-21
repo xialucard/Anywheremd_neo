@@ -26,6 +26,9 @@
 
 @php
   $hdDisable = '';
+  // print "<pre>";
+  // print_r($datum);
+  // print "</pre>";
 @endphp
 
 <div class="container">
@@ -3414,7 +3417,7 @@
                           $('#{{ $viewFolder }}_subjective_complaints_text').prop('required', false);
                           $('#{{ $viewFolder }}_subjective_complaints_text').val('');
                         }
-                      " {{ (isset($datum->subjective_complaints) && $datum->ambulation_status == 'none') ? 'checked' : '' }} {{ $hdDisable }}>
+                      " {{ (isset($datum->subjective_complaints) && $datum->subjective_complaints == 'none') ? 'checked' : '' }} {{ $hdDisable }}>
                     <label class="form-check-label" for="{{ $viewFolder }}_subjective_complaints_none">none</label>
                   </div>
                   <div class="form-check">

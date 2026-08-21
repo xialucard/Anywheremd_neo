@@ -4920,7 +4920,7 @@
                                   $('#{{ $viewFolder }}_prev_subjective_complaints_text').prop('required', false);
                                   $('#{{ $viewFolder }}_prev_subjective_complaints_text').val('');
                                 }
-                              " {{ (isset($bookings[0]->subjective_complaints) && $bookings[0]->ambulation_status == 'none') ? 'checked' : '' }} disabled>
+                              " {{ (isset($bookings[0]->subjective_complaints) && $bookings[0]->subjective_complaints == 'none') ? 'checked' : '' }} disabled>
                             <label class="form-check-label" for="{{ $viewFolder }}_prev_subjective_complaints_none">none</label>
                           </div>
                           <div class="form-check">
@@ -12186,7 +12186,7 @@
                                   $('#{{ $viewFolder }}_subjective_complaints_text').prop('required', false);
                                   $('#{{ $viewFolder }}_subjective_complaints_text').val('');
                                 }
-                              " {{ (isset($datum->subjective_complaints) && $datum->ambulation_status == 'none') ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
+                              " {{ (isset($datum->subjective_complaints) && $datum->subjective_complaints == 'none') ? 'checked' : '' }} {{ !isset($referal_conso)  ? '' : '' }}>
                             <label class="form-check-label" for="{{ $viewFolder }}_subjective_complaints_none">none</label>
                           </div>
                           <div class="form-check">
