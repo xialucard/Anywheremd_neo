@@ -474,9 +474,9 @@ class DoctorsHomeController extends Controller
             $params['anesthesiologist_ao'] = $params['anesthesiologist_ot'];
             unset($params['anesthesiologist_ot']);
         }
-        if($params['subjective_complaints'] == 'none')
+        if(isset($params['subjective_complaints']) && $params['subjective_complaints'] == 'none')
             $params['subjective_complaints_text'] = '';
-        if($params['post_subjective_complaints'] == 'none')
+        if(isset($params['post_subjective_complaints']) && $params['post_subjective_complaints'] == 'none')
             $params['post_subjective_complaints_text'] = '';
 
         
