@@ -13227,7 +13227,7 @@
                                   }else
                                     $('#addMonLog{{ $datum->id }}').prop('disabled', true);
                                 ">
-                                    <label for="{{ $viewFolder }}_mon_bfr" class="form-label">BRF</label>
+                                    <label for="{{ $viewFolder }}_mon_bfr" class="form-label">BFR</label>
                                     <small id="help_{{ $viewFolder }}_mon_bfr" class="text-muted"></small>
                                   </div>
                                 </div>

@@ -2329,7 +2329,7 @@
                 <div class="input-group mb-3">
                   <div class="form-floating">
                     <input class="form-control" type="text" name="{{ $viewFolder }}[bfr]" id="{{ $viewFolder }}_bfr" value="{{ isset($datum->bfr) ? $datum->bfr : (isset($prevBooking->bfr) ? $prevBooking->bfr : '') }}" placeholder="" {{ $hdDisable }}>
-                    <label for="{{ $viewFolder }}_bfr" class="form-label">BRF</label>
+                    <label for="{{ $viewFolder }}_bfr" class="form-label">BFR</label>
                     <small id="help_{{ $viewFolder }}_bfr" class="text-muted"></small>
                   </div>
                 </div>
