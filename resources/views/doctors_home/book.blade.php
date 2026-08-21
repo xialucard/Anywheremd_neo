@@ -4405,7 +4405,7 @@
                         <div class="input-group mb-3">
                           <div class="form-floating">
                             <input class="form-control" type="text" name="{{ $viewFolder }}[bfr]" id="{{ $viewFolder }}_prev_bfr" value="{{ isset($bookings[0]->bfr) ? $bookings[0]->bfr : ''}}" placeholder="" disabled>
-                            <label for="{{ $viewFolder }}_prev_bfr" class="form-label">BRF</label>
+                            <label for="{{ $viewFolder }}_prev_bfr" class="form-label">BFR</label>
                             <small id="help_{{ $viewFolder }}_prev_bfr" class="text-muted"></small>
                           </div>
                         </div>
@@ -5969,7 +5969,7 @@
                                   }else
                                     $('#addMonLog{{ $datum->id }}').prop('disabled', true);
                                 ">
-                                    <label for="{{ $viewFolder }}_mon_bfr" class="form-label">BRF</label>
+                                    <label for="{{ $viewFolder }}_mon_bfr" class="form-label">BFR</label>
                                     <small id="help_{{ $viewFolder }}_mon_bfr" class="text-muted"></small>
                                   </div>
                                 </div>
@@ -6242,7 +6242,7 @@
                                 <th>AP</th>
                                 <th>VP</th>
                                 <th>TMP</th>
-                                <th>BRF</th>
+                                <th>BFR</th>
                                 <th>NSS</th>
                                 <th>UFR</th>
                                 <th>UFV</th>
@@ -11684,7 +11684,7 @@
                         <div class="input-group mb-3">
                           <div class="form-floating">
                             <input class="form-control" type="text" name="{{ $viewFolder }}[bfr]" id="{{ $viewFolder }}_bfr" value="{{ isset($datum->bfr) ? $datum->bfr : ''}}" placeholder="" {{ !isset($referal_conso)  ? '' : '' }} disabled>
-                            <label for="{{ $viewFolder }}_bfr" class="form-label">BRF</label>
+                            <label for="{{ $viewFolder }}_bfr" class="form-label">BFR</label>
                             <small id="help_{{ $viewFolder }}_bfr" class="text-muted"></small>
                           </div>
                         </div>
@@ -13500,7 +13500,7 @@
                                 <th>AP</th>
                                 <th>VP</th>
                                 <th>TMP</th>
-                                <th>BRF</th>
+                                <th>BFR</th>
                                 <th>NSS</th>
                                 <th>UFR</th>
                                 <th>UFV</th>
