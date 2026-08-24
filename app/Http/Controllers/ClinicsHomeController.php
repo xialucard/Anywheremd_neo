@@ -864,7 +864,7 @@ class ClinicsHomeController extends Controller
         if(isset($params['Med'])){
             $medication = $params['Med'];
             unset($params['Med']);
-            if($medication['time_given'] != ''){
+            if(isset($medication['time_given']) && $medication['time_given'] != ''){
                 $medication['consultation_id'] = $clinics_home->id;
                 $medication['created_by'] = $user->id;
                 $medication['updated_by'] = $user->id;
@@ -880,7 +880,7 @@ class ClinicsHomeController extends Controller
         if(isset($params['Monitoring'])){
             $monitoring = $params['Monitoring'];
             unset($params['Monitoring']);
-            if($monitoring['time_given'] != ''){
+            if(isset($monitoring['time_given']) && $monitoring['time_given'] != ''){
                 $monitoring['consultation_id'] = $clinics_home->id;
                 $monitoring['created_by'] = $user->id;
                 $monitoring['updated_by'] = $user->id;
@@ -896,7 +896,7 @@ class ClinicsHomeController extends Controller
         if(isset($params['Nurse'])){
             $nurse_notes = $params['Nurse'];
             unset($params['Nurse']);
-            if($nurse_notes['time_given'] != ''){
+            if(isset($nurse_notes['time_given']) && $nurse_notes['time_given'] != ''){
                 $nurse_notes['consultation_id'] = $clinics_home->id;
                 $nurse_notes['created_by'] = $user->id;
                 $nurse_notes['updated_by'] = $user->id;
