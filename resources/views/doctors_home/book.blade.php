@@ -206,7 +206,7 @@
           ">Summary</a>
         </li> --}}
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle active" id="soapBigLink" data-bs-toggle="dropdown" href="#soapCurDiv" role="button" aria-expanded="false" onclick="
+          <a class="nav-link dropdown-toggle active" id="soapBigLink" data-bs-toggle="dropdown" href="#soapDivCur" role="button" aria-expanded="false" onclick="
             $('#soapBigLink').addClass('active');  
             $('#sumBigLink').removeClass('active');  
             $('#labBigLink').removeClass('active');  
@@ -293,28 +293,28 @@
           ">SOAP</a>
           <ul class="dropdown-menu">
             <li>
-              <a class="dropdown-item soapLink active" href="#soapCurDiv" onclick="
+              <a class="dropdown-item soapLink active" href="#soapDivCur" onclick="
                 $('.soapLink').removeClass('active');
                 $('.soapDiv').hide();
                 $('.soapSubjective').addClass('active');
                 $('.soapDivSubjective').show();
                 $(this).addClass('active');
               ">Subjective</a>
-              <a class="dropdown-item soapLink" href="#soapCurDiv" onclick="
+              <a class="dropdown-item soapLink" href="#soapDivCur" onclick="
                 $('.soapLink').removeClass('active');
                 $('.soapDiv').hide();
                 $('.soapObjective').addClass('active');
                 $('.soapDivObjective').show();
                 $(this).addClass('active');
               ">Objective</a>
-              <a class="dropdown-item soapLink" href="#soapCurDiv" onclick="
+              <a class="dropdown-item soapLink" href="#soapDivCur" onclick="
                 $('.soapLink').removeClass('active');
                 $('.soapDiv').hide();
                 $('.soapAssess').addClass('active');
                 $('.soapDivAssess').show();
                 $(this).addClass('active');
               ">Assessment</a>
-              <a class="dropdown-item soapLink" href="#soapCurDiv" onclick="
+              <a class="dropdown-item soapLink" href="#soapDivCur" onclick="
                 $('.soapLink').removeClass('active');
                 $('.soapDiv').hide();
                 $('.soapPlan').addClass('active');
@@ -1283,7 +1283,7 @@
             <div class="card mb-3">
               <div class="card-header">Basic Information</div>
               <div class="card-body table-responsive" style="height:390px;max-height: 390px">
-                <img src="{{ !empty($datum->patient->profile_pic) ? (stristr($datum->patient->profile_pic, 'uploads') ? asset('storage/' . $datum->patient->profile_pic) : asset('storage/px_files/' . $datum->patient->profile_pic)) : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" class="img-thumbnail float-start w-25 h-25 m-2" alt="">
+                <img src="{{ !empty($datum->patient->profile_pic) ? (stristr($datum->patient->profile_pic, 'uploads') ? asset('storage/' . $datum->patient->profile_pic) : asset('storage/px_files/' . $datum->patient->profile_pic)) : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" class="float-start m-2" alt="" style="width: 250px;">
                 <p>
                   <strong>Name:</strong> {{ $datum->patient->name }} | 
                   <strong>Age:</strong> {{ floor((strtotime($datum->bookingDate) - strtotime($datum->patient->birthdate))/(60*60*24*365.25)) }} | 
@@ -1499,23 +1499,23 @@
           <div class="col-lg-6">
             <ul class="nav nav-tabs">
               <li class="nav-item">
-                <a class="nav-link medVital active" aria-current="page" href="#" onclick="
-                  $('.medVital').removeClass('active');
-                  $(this).addClass('active');
-                  $('#{{ $viewFolder }}_medical_history').show();
-                  $('#{{ $viewFolder }}_booking_details').hide(); 
-                ">Patient's Medical History</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link medVital" href="#" onclick="
+                <a class="nav-link medVital active" href="#" onclick="
                   $('.medVital').removeClass('active');
                   $(this).addClass('active');
                   $('#{{ $viewFolder }}_medical_history').hide();
                   $('#{{ $viewFolder }}_booking_details').show(); 
                 ">Booking Details & Vitals</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link medVital" aria-current="page" href="#" onclick="
+                  $('.medVital').removeClass('active');
+                  $(this).addClass('active');
+                  $('#{{ $viewFolder }}_medical_history').show();
+                  $('#{{ $viewFolder }}_booking_details').hide(); 
+                ">Patient's Medical History</a>
+              </li>
             </ul>
-            <div id="{{ $viewFolder }}_medical_history" class="containar border border-1 border-top-0 p-3 mb-3 table-responsive" style="height:385px;max-height: 385px">
+            <div id="{{ $viewFolder }}_medical_history" class="containar border border-1 border-top-0 p-3 mb-3 table-responsive" style="height:385px;max-height: 385px; display:none">
               <label>Patient History</label>
               <div class="container ml-5 mb-3">
                 <div class="form-check">
@@ -1697,7 +1697,7 @@
                 <small id="help_{{ $viewFolder }}_medHistoryOthers" class="text-muted"></small>
               </div>
             </div>
-            <div id="{{ $viewFolder }}_booking_details" class="container border border-1 border-top-0 p-3 mb-3 table-responsive" style="height:390px;max-height: 385px; display:none">
+            <div id="{{ $viewFolder }}_booking_details" class="container border border-1 border-top-0 p-3 mb-3 table-responsive" style="height:390px;max-height: 385px;">
               <div class="card mb-3">
                 <div class="card-header">Clinic Booking Details</div>
                 <div class="card-body">
@@ -3548,7 +3548,7 @@
                 {{-- <div id="soapDivPrev" class="container border border-1 border-top-0 p-3 mb-3 table-responsive" style="max-height: 300px"> --}}
                 <div id="soapDivPrev" class="container p-0 mb-3">
                   <div class="card soapDiv soapDivSubjective mb-3" id="{{ $viewFolder }}_SOAPPREV_{{ $datum->id }}_SUBJ">
-                    <div class="card-header">Previous Subjective Findings</div>
+                    <div class="card-header fw-bolder text-primary">Previous Subjective Findings</div>
                     <div class="card-body">
                       {{-- @if(sizeof($bookings) == 1) --}}
                       <div class="card mb-3">
@@ -3609,7 +3609,7 @@
                     </div>
                   </div>
                   <div class="card soapDiv soapDivObjective mb-3" style="display: none" id="{{ $viewFolder }}_SOAPPREV_{{ $datum->id }}_OBJ">
-                    <div class="card-header">Previous Objective Findings</div>
+                    <div class="card-header fw-bolder text-primary">Previous Objective Findings</div>
                     <div class="card-body">
                       @if(stristr($datum->doctor->specialty, 'Ophtha') && $datum->booking_type != "Dialysis")
                       <div class="card mb-3" id="eeInfoPrev1">
@@ -3771,7 +3771,7 @@
                     </div>
                   </div>
                   <div class="card soapDiv soapDivAssess mb-3" style="display: none;" id="{{ $viewFolder }}_SOAPPREV_{{ $datum->id }}_ASSESS">
-                    <div class="card-header">Previous Assessment</div>
+                    <div class="card-header fw-bolder text-primary">Previous Assessment</div>
                     <div class="card-body">
                       {{-- <div class="form-floating mb-3"> --}}
                         {{-- <select class="form-select" name="{{ $viewFolder }}[icd_code]" id="{{ $viewFolder }}_icd_code" placeholder="" disabled>
@@ -3865,7 +3865,7 @@
                     </div>
                   </div>
                   <div class="card soapDiv soapDivPlan mb-3" style="display: none;" id="{{ $viewFolder }}_SOAPPREV_{{ $datum->id }}_PLAN">
-                    <div class="card-header">Previous Plan</div>
+                    <div class="card-header fw-bolder text-primary">Previous Plan</div>
                     <div class="card-body">
                       @if($bookings[0]->booking_type == 'Dialysis')
                       <div class="card mb-3">
@@ -6840,7 +6840,7 @@
       @endphp --}}
       <div id="curChart" class="col-lg-12">
         <div class="card mb-3 d-lg-block">
-          <div class="card-header">Current Patient's Chart ({{ $datum->bookingDate }})&nbsp;
+          <div id="soapDivCur" class="card-header">Current Patient's Chart ({{ $datum->bookingDate }})&nbsp;
             {{-- <a id="showPast" class="d-none d-lg-block" href="#" onclick="
               $('#curChart').removeClass('col-lg-12');
               $('#curChart').addClass('col-lg-6');
@@ -8882,7 +8882,7 @@
                   {{-- <div id="soapDivCur" class="container border border-1 border-top-0 p-3 mb-3 table-responsive" style="max-height: 300px"> --}}
                   <div id="soapDivCur" class="container p-0 mb-3">
                     <div class="card soapDiv soapDivSubjective mb-3" id="{{ $viewFolder }}_SOAPCURR_{{ $datum->id }}_SUBJ">
-                      <div class="card-header">Subjective Findings</div>
+                      <div class="card-header fw-bolder text-primary">Subjective Findings</div>
                       <div class="card-body">
                         {{-- @if(!isset($bookings[0])) --}}
                         <div class="card mb-3">
@@ -8942,7 +8942,7 @@
                       </div>
                     </div>
                     <div class="card soapDiv soapDivObjective mb-3" style="display: none;" id="{{ $viewFolder }}_SOAPCURR_{{ $datum->id }}_OBJ">
-                      <div class="card-header">Objective Findings</div>
+                      <div class="card-header fw-bolder text-primary">Objective Findings</div>
                       <div class="card-body">
                         @if(stristr($datum->doctor->specialty, 'Ophtha') && $datum->booking_type != "Dialysis")
                         <div class="card mb-3">
@@ -9164,7 +9164,7 @@
                       </div>
                     </div>
                     <div class="card soapDiv soapDivAssess mb-3" style="display:none" id="{{ $viewFolder }}_SOAPCURR_{{ $datum->id }}_ASSESS">
-                      <div class="card-header">Assessment</div>
+                      <div class="card-header fw-bolder text-primary">Assessment</div>
                       <div class="card-body">
                         {{-- <div class="form-floating mb-3"> --}}
                           {{-- <select class="form-select" name="{{ $viewFolder }}[icd_code]" id="{{ $viewFolder }}_icd_code" placeholder="" {{ $user->id == $datum->doctor->id ? '' : 'disabled' }}>
@@ -9281,7 +9281,7 @@
                       </div>
                     </div>
                     <div class="card soapDiv soapDivPlan mb-3" style="display:none" id="{{ $viewFolder }}_SOAPCURR_{{ $datum->id }}_PLAN">
-                      <div class="card-header">Plan</div>
+                      <div class="card-header fw-bolder text-primary">Plan</div>
                       <div class="card-body">
                         @if($datum->booking_type != 'Dialysis')
                         <div class="card mb-3">

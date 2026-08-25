@@ -5200,7 +5200,7 @@
               @endphp --}}
               <input type="hidden" class="form-control" name="{{ $viewFolder }}[doctor_id]" value="{{ !empty($doctor->id) ? $doctor->id : '' }}">
               <input type="hidden" class="form-control" name="{{ $viewFolder }}[clinic_id]" value="{{ !empty($datum->clinic_id) ? $datum->clinic_id : $user->clinic->id }}">
-              <img src="{{ !empty($doctor->profile_pic) ? (stristr($doctor->profile_pic, 'uploads') ? asset('storage/' . $doctor->profile_pic) : asset('storage/doctor_files/' . $doctor->profile_pic)) : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" class="img-thumbnail float-start w-25 h-25 m-2" alt="">
+              <img src="{{ !empty($doctor->profile_pic) ? (stristr($doctor->profile_pic, 'uploads') ? asset('storage/' . $doctor->profile_pic) : asset('storage/doctor_files/' . $doctor->profile_pic)) : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" alt="example placeholder" style="width: 300px;">
               <p>
                 <strong>Name:</strong> Dr. {{ $doctor->name }}<br>
                 <strong>Age:</strong> {{ floor((strtotime(date('Y-m-d')) - strtotime($doctor->dob))/(60*60*24*365.25)) }}<br>
