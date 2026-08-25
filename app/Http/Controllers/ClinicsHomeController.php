@@ -688,9 +688,11 @@ class ClinicsHomeController extends Controller
         $cnt = 0;
         foreach($docObj as $doc){
             if(isset($doc->affiliated_clinics)){
+                $affClinicArr = array();
                 foreach($doc->affiliated_clinics->sortBy('name') as $clin){
-                    for($i = $datum->bookingDate; $i <= date('Y-m-d', strtotime($datum->bookingDate . ' + 30 days')); $i = date('Y-m-d', strtotime($i . ' + 1 day'))){
-                        if(isset($clin->clinic->id )){
+                    for($i = $datum->bookingDate; $i <= date('Y-m-d', strtotime($datum->bookingDate)); $i = date('Y-m-d', strtotime($i . ' + 1 day'))){
+                        if(isset($clin->clinic->id) && !in_array($clin->clinic->id, $affClinicArr)){
+                            $affClinicArr[$clin->clinic->id] = $clin->clinic->id;
                         // if($booking_type != 'Consultation'){
                             // $datalist[$cnt]['id'] = 'Consultation - ' . $i . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->id . ' - Dr. ' . $doc->name;
                             $datalist[$cnt]['name'] = 'Consultation - ' . $i . ' | ' . $clin->clinic->id . ' - ' . $clin->clinic->name . ' | ' . $doc->id . ' - Dr. ' . $doc->name;
@@ -765,6 +767,9 @@ class ClinicsHomeController extends Controller
                 }
             }
         }
+        // print "<pre>";
+        // print_r($datalist);
+        // print "</pre>";
         $cityZip = file(storage_path('app/public/cityZip.csv', FILE_IGNORE_NEW_LINES));
         $cityZip = array_map('trim', $cityZip);
         $provinceZip = file(storage_path('app/public/provinceZip.csv', FILE_IGNORE_NEW_LINES));
