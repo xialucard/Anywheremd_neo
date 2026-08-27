@@ -21,6 +21,7 @@ return new class extends Migration
             $table->unsignedBigInteger('doctor_id');
             $table->float('fee', 8, 2);
             $table->date('bookingDate');
+            $table->time('time_slot')->nullable();
             $table->enum('booking_type', ['', 'Surgery', 'Laser', 'Diagnostics', 'Dialysis', 'Laboratory'])->nullable();
             $table->text('procedure_details')->nullable();
             $table->text('complain')->nullable();

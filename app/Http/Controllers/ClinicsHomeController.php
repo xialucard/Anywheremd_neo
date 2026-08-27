@@ -186,7 +186,7 @@ class ClinicsHomeController extends Controller
         //     $bookings = Consultation::where('clinic_id', $user->clinic_id)->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->get(['booking_type', 'consultation_parent_id']);
         // }
 
-        $booking_type_arr = array('Diagnostics' => 0, 'Dialysis' => 0, 'Surgery' => 0, 'Laser' => 0, 'Laboratory' => 0, 'Referral' => 0, 'Consultation' => 0);
+        $booking_type_arr = array('All' => 0,'Diagnostics' => 0, 'Dialysis' => 0, 'Surgery' => 0, 'Laser' => 0, 'Laboratory' => 0, 'Referral' => 0, 'Consultation' => 0);
         foreach($bookings as $booking){
             // print "<pre>";
             // print_r($booking);
@@ -198,6 +198,7 @@ class ClinicsHomeController extends Controller
             }else{
                 $booking_type_arr[$booking->booking_type] += 1;
             }
+            $booking_type_arr['All'] += 1;
         }
         foreach($booking_type_arr as $booking_type_temp => $count){
             if($count == 0)
@@ -214,7 +215,7 @@ class ClinicsHomeController extends Controller
             
         }elseif((!isset($booking_type) || $booking_type == 'NULL' || $booking_type == '') && !isset($booking_type_arr)){
             
-            $booking_type = 'Consultation';
+            $booking_type = 'All';
         }
             
         

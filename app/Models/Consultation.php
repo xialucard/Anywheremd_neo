@@ -18,6 +18,7 @@ class Consultation extends Model
         'doctor_id',
         'fee',
         'bookingDate',
+        'time_slot',
         'booking_type',
         'procedure_details',
         'complain',

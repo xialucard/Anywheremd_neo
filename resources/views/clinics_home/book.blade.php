@@ -43,6 +43,22 @@
             <small id="help_{{ $viewFolder }}_bookingDate" class="text-muted"></small>
           </div>
           <div class="form-floating mb-3">
+            <select class="form-select" name="{{ $viewFolder }}[time_slot]" id="{{ $viewFolder }}_time_slot" placeholder="" required>
+              <option value="">Select a time slot</option>
+              @for($i = 6; $i < 21; $i++)
+                @php
+                $hour12 = ($i % 12 == 0) ? 12 : $i % 12;
+                $ampm = ($i >= 12) ? 'PM' : 'AM';
+                $result = sprintf('%02d:00 %s', $hour12, $ampm);
+                $selected = (isset($datum->time_slot) && $datum->time_slot == sprintf('%02d:00:00', $i)) ? 'selected' : '';
+                @endphp
+                <option value="{{ sprintf('%02d:00', $i) }}" {{ $selected }}>{{ $result }}</option>
+              @endfor
+            </select>
+            <label for="{{ $viewFolder }}_time_slot" class="form-label">Time Slot</label>
+            <small id="help_{{ $viewFolder }}_time_slot" class="text-muted"></small>
+          </div>
+          <div class="form-floating mb-3">
             <input class="form-control" list="patientNameList" id="{{ $viewFolder }}_name" value="{{ isset($datum->patient->name) ? $datum->patient->name : '' }}" placeholder="" autocomplete="off" {{ isset($datum->id) ? 'disabled' : '' }}>
             <input type="hidden" class="form-control" id="{{ $viewFolder }}_patient_id" name="{{ $viewFolder }}[patient_id]" value="{{ !empty($datum->patient_id) ? $datum->patient_id : '' }}">
             <label for="{{ $viewFolder }}_name" class="form-label">Patient's Name</label>

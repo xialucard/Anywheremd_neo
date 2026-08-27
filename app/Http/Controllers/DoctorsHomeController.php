@@ -58,7 +58,7 @@ class DoctorsHomeController extends Controller
         // print "<br>";
         // print(public_path('storage/uploads/sig_pics'));
         
-        $booking_type_arr = array('Diagnostics' => 0, 'Dialysis' => 0, 'Surgery' => 0, 'Laser' => 0, 'Laboratory' => 0, 'Referral' => 0, 'Consultation' => 0);
+        $booking_type_arr = array('All' => 0, 'Diagnostics' => 0, 'Dialysis' => 0, 'Surgery' => 0, 'Laser' => 0, 'Laboratory' => 0, 'Referral' => 0, 'Consultation' => 0);
         foreach($user->bookings()->distinct('booking_type')->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->get() as $in=>$booking){
             if($booking->consultation_parent_id != ""){
                 $booking_type_arr['Referral'] += 1;
@@ -67,6 +67,7 @@ class DoctorsHomeController extends Controller
             }else{
                 $booking_type_arr[$booking->booking_type] += 1;
             }
+            $booking_type_arr['All'] += 1;
         }
         if(isset($booking_type_arr))
             ksort($booking_type_arr);
@@ -77,7 +78,7 @@ class DoctorsHomeController extends Controller
             }
         }
         elseif((!isset($booking_type) || $booking_type == 'NULL') && !isset($booking_type_arr))
-            $booking_type = 'Consultation';
+            $booking_type = 'All';
 
         if(!isset($booking_type_arr))
             $booking_type_arr = null;

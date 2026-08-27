@@ -318,9 +318,12 @@
                                             @endif
                                                 
                                                 <th>Booking #</th>
+                                                <th>Time Slot</th>
                                                 <th class="">Doctor</th>
                                             @if(!empty($booking_type) && $booking_type == 'Referral')
                                                 <th>Clinic</th>
+                                            @endif
+                                            @if(!empty($booking_type) && ($booking_type == 'Referral' || $booking_type == 'All'))
                                                 <th>Booking Type</th>
                                             @endif
                                                 <th class="">Patient</th>
@@ -337,7 +340,24 @@
                                         @if(isset($booking_type_arr))    
                                             @if(!empty($yr))
                                                 @php
-                                                    if(!empty($booking_type) && $booking_type == 'Referral'){
+                                                    if(!empty($booking_type) && $booking_type == 'All'){
+                                                        $bookingArr = $user->clinic->bookings()->
+                                                                        where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->
+                                                                        where(function($query) use ($patientArr, $doctorArr, $bookingNum){
+                                                                            if(!is_null($patientArr)){
+                                                                                $query->whereIn('patient_id', $patientArr);
+                                                                            }
+                                                                            if(!is_null($doctorArr)){
+                                                                                $query->whereIn('doctor_id', $doctorArr);
+                                                                            }
+                                                                            if(!is_null($bookingNum)){
+                                                                                $query->where('id', $bookingNum);
+                                                                            }
+                                                                        })->
+                                                                        orderby('time_slot', 'asc')->
+                                                                        orderby('id', 'asc')->
+                                                                        get();
+                                                    }elseif(!empty($booking_type) && $booking_type == 'Referral'){
                                                         $bookingArr = $user->clinic->bookings()->
                                                                         whereNotNull('consultation_parent_id', )->
                                                                         where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->
@@ -352,6 +372,8 @@
                                                                                 $query->where('id', $bookingNum);
                                                                             }
                                                                         })->
+                                                                        orderby('time_slot', 'asc')->
+                                                                        orderby('id', 'asc')->
                                                                         get();
                                                         // if(!is_null($patientArr) && !is_null($doctorArr))
                                                         //     $bookingArr = $user->clinic->bookings()->whereNotNull('consultation_parent_id', )->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->whereIn('patient_id', $patientArr)->whereIn('doctor_id', $doctorArr)->get();
@@ -377,6 +399,8 @@
                                                                                 $query->where('id', $bookingNum);
                                                                             }
                                                                         })->
+                                                                        orderby('time_slot', 'asc')->
+                                                                        orderby('id', 'asc')->
                                                                         get();
                                                         // if(!is_null($patientArr) && !is_null($doctorArr))
                                                         //     $bookingArr = $user->clinic->bookings()->where('booking_type', $booking_type == 'Consultation' ? '' : $booking_type)->whereNull('consultation_parent_id')->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->whereIn('patient_id', $patientArr)->whereIn('doctor_id', $doctorArr)->get();
@@ -398,9 +422,12 @@
                                                 <td>{{ $dat->consultation_parent_id }}</td>
                                             @endif
                                                 <td>{{ $dat->id }}</td>
+                                                <td>{{ $dat->time_slot != '' ? date('g:i A', strtotime($dat->time_slot)) : '' }}</td>
                                                 <td class="">Dr. {{ $dat->doctor->name }}</td>
                                             @if($booking_type == 'Referral')
                                                 <td>{{ $dat->clinic->name }}</td>
+                                            @endif
+                                            @if($booking_type == 'Referral' || $booking_type == 'All')
                                                 <td>{{ $dat->booking_type == '' ? 'Consultations' : $dat->booking_type }}</td>
                                             @endif
                                                 <td class="">{{ $dat->patient->name }}</td>

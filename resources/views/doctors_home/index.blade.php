@@ -226,6 +226,7 @@
                                                 <th>Parent Booking #</th>
                                                 @endif
                                                 <th class="">Booking #</th>
+                                                <th class="">Time Slot</th>
                                                 <th class="">Patient Name</th>
                                                 <th class="">Complaint</th>
                                                 <th class="">Status</th>
@@ -239,7 +240,11 @@
                                         @if(isset($booking_type_arr))
                                             @php
                                                 if($booking_type == 'Referral'){
-                                                    $bookingArr = $user->bookings()->whereNotNull('consultation_parent_id', )->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->get();
+                                                    $bookingArr = $user->bookings()->whereNotNull('consultation_parent_id', )->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->orderby('time_slot', 'asc')->
+                                                                        orderby('id', 'asc')->get();
+                                                }elseif($booking_type == 'All'){
+                                                    $bookingArr = $user->bookings()->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->orderby('time_slot', 'asc')->
+                                                                        orderby('id', 'asc')->get();
                                                 }else{
                                                     if($booking_type == 'Consultation')
                                                         $bookingArr = $user->bookings()->where(function($query) {
@@ -259,6 +264,7 @@
                                                 <td>{{ $dat->consultation_parent_id }}</td>
                                                 @endif
                                                 <td>{{ $dat->id }}</td>
+                                                <td>{{ $dat->time_slot != '' ? date('g:i A', strtotime($dat->time_slot)) : '' }}</td>
                                                 <td class="">{{ $dat->patient->name }}</td>
                                                 <td class="">{{ $dat->complain }}</td>
                                                 <td class="">{{ $dat->status }}</td>
