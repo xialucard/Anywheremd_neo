@@ -308,7 +308,7 @@
                                     <div class="d-flex justify-content-end">
                                         {{-- {{ $data->withQueryString()->links() }} --}}
                                     </div>
-                                    <table class="table table-bordered table-hover table-sm">
+                                    <table class="table table-bordered table-striped table-hover table-sm">
                                         <thead class="table-{{ $bgColor }}">
                                             <tr>
                                                 <th class=""><i class="bi bi-gear"></i></th>
@@ -344,6 +344,7 @@
                                                     if(!empty($booking_type) && $booking_type == ' Summary'){
                                                         $bookingArr = $user->clinic->bookings()->
                                                                         where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->
+                                                                        whereNull('consultation_parent_id', )->
                                                                         whereNotIn('booking_type', ['Dialysis'])->
                                                                         where(function($query) use ($patientArr, $doctorArr, $bookingNum){
                                                                             if(!is_null($patientArr)){
@@ -417,16 +418,20 @@
                                                 @endphp
                                                 @foreach($bookingArr as $dat)
                                                     @php
-                                                        if($dat->booking_type == 'Diagnostics')
-                                                            $tableRowClass = 'table-warning';
-                                                        elseif($dat->booking_type == 'Surgery')
-                                                            $tableRowClass = 'table-danger';
-                                                        elseif($dat->booking_type == 'Laser')
-                                                            $tableRowClass = 'table-success';
-                                                        elseif($dat->booking_type == 'Laboratory')
-                                                            $tableRowClass = 'table-info';
-                                                        else
-                                                            $tableRowClass = 'table-secondary';
+                                                        $tableRowClass = '';
+                                                        if( $booking_type == ' Summary' || $dat->booking_type == 'Referral'){
+                                                                
+                                                            if($dat->booking_type == 'Diagnostics')
+                                                                $tableRowClass = 'table-warning';
+                                                            elseif($dat->booking_type == 'Surgery')
+                                                                $tableRowClass = 'table-danger';
+                                                            elseif($dat->booking_type == 'Laser')
+                                                                $tableRowClass = 'table-success';
+                                                            elseif($dat->booking_type == 'Laboratory')
+                                                                $tableRowClass = 'table-info';
+                                                            else
+                                                                $tableRowClass = 'table-secondary';
+                                                        }
                                                     @endphp
                                                 
                                             <tr class="{{ $tableRowClass }}">
