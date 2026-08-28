@@ -308,7 +308,7 @@
                                     <div class="d-flex justify-content-end">
                                         {{-- {{ $data->withQueryString()->links() }} --}}
                                     </div>
-                                    <table class="table table-bordered table-striped table-hover table-sm">
+                                    <table class="table table-bordered table-hover table-sm">
                                         <thead class="table-{{ $bgColor }}">
                                             <tr>
                                                 <th class=""><i class="bi bi-gear"></i></th>
@@ -416,8 +416,20 @@
                                                     // $bookingArr = array();
                                                 @endphp
                                                 @foreach($bookingArr as $dat)
+                                                    @php
+                                                        if($dat->booking_type == 'Diagnostics')
+                                                            $tableRowClass = 'table-warning';
+                                                        elseif($dat->booking_type == 'Surgery')
+                                                            $tableRowClass = 'table-danger';
+                                                        elseif($dat->booking_type == 'Laser')
+                                                            $tableRowClass = 'table-success';
+                                                        elseif($dat->booking_type == 'Laboratory')
+                                                            $tableRowClass = 'table-info';
+                                                        else
+                                                            $tableRowClass = 'table-secondary';
+                                                    @endphp
                                                 
-                                            <tr>
+                                            <tr class="{{ $tableRowClass }}">
                                                 <td>@include($viewFolder . '.tableOptions')</td>
                                                 <td>{{ $dat->time_slot != '' ? date('g:i A', strtotime($dat->time_slot)) : '' }}</td>
                                             @if($booking_type != ' Summary')
