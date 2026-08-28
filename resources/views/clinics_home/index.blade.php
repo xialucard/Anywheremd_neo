@@ -312,18 +312,19 @@
                                         <thead class="table-{{ $bgColor }}">
                                             <tr>
                                                 <th class=""><i class="bi bi-gear"></i></th>
+                                                <th>Time Slot</th>
+                                            @if($booking_type != ' Summary')
                                                 <th>Profile Pic</th>
+                                            @endif
                                             @if(!empty($booking_type) && $booking_type == 'Referral')
                                                 <th>Parent Booking #</th>
                                             @endif
-                                                
                                                 <th>Booking #</th>
-                                                <th>Time Slot</th>
                                                 <th class="">Doctor</th>
                                             @if(!empty($booking_type) && $booking_type == 'Referral')
                                                 <th>Clinic</th>
                                             @endif
-                                            @if(!empty($booking_type) && ($booking_type == 'Referral' || $booking_type == 'All'))
+                                            @if(!empty($booking_type) && ($booking_type == 'Referral' || $booking_type == ' Summary'))
                                                 <th>Booking Type</th>
                                             @endif
                                                 <th class="">Patient</th>
@@ -340,9 +341,10 @@
                                         @if(isset($booking_type_arr))    
                                             @if(!empty($yr))
                                                 @php
-                                                    if(!empty($booking_type) && $booking_type == 'All'){
+                                                    if(!empty($booking_type) && $booking_type == ' Summary'){
                                                         $bookingArr = $user->clinic->bookings()->
                                                                         where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->
+                                                                        whereNotIn('booking_type', ['Dialysis'])->
                                                                         where(function($query) use ($patientArr, $doctorArr, $bookingNum){
                                                                             if(!is_null($patientArr)){
                                                                                 $query->whereIn('patient_id', $patientArr);
@@ -417,17 +419,19 @@
                                                 
                                             <tr>
                                                 <td>@include($viewFolder . '.tableOptions')</td>
+                                                <td>{{ $dat->time_slot != '' ? date('g:i A', strtotime($dat->time_slot)) : '' }}</td>
+                                            @if($booking_type != ' Summary')
                                                 <td class="text-center"><img src="{{ !empty($dat->patient->profile_pic) ? (stristr($dat->patient->profile_pic, 'uploads') ? asset('storage/' . $dat->patient->profile_pic) : asset('storage/px_files/' . $dat->patient->profile_pic)) : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg' }}" width="70px"></td>
+                                            @endif
                                             @if($booking_type == 'Referral')
                                                 <td>{{ $dat->consultation_parent_id }}</td>
                                             @endif
                                                 <td>{{ $dat->id }}</td>
-                                                <td>{{ $dat->time_slot != '' ? date('g:i A', strtotime($dat->time_slot)) : '' }}</td>
                                                 <td class="">Dr. {{ $dat->doctor->name }}</td>
                                             @if($booking_type == 'Referral')
                                                 <td>{{ $dat->clinic->name }}</td>
                                             @endif
-                                            @if($booking_type == 'Referral' || $booking_type == 'All')
+                                            @if($booking_type == 'Referral' || $booking_type == ' Summary')
                                                 <td>{{ $dat->booking_type == '' ? 'Consultations' : $dat->booking_type }}</td>
                                             @endif
                                                 <td class="">{{ $dat->patient->name }}</td>
