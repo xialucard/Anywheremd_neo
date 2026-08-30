@@ -18,12 +18,12 @@
     @foreach($datum->consultation_referals()->get() as $ref)
         @if(isset($ref[$fieldName]))
     <div class="card mb-3">
-        <div class="card-header @if(!isset($referal_conso) || (isset($referal_conso) && $referal_conso->id != $ref->id)) bg-secondary text-light @else bg-warning @endif">@if(!isset($referal_conso) || (isset($referal_conso) && $referal_conso->id != $ref->id)) Dr. {{ $ref->doctor->name }} @else Yours @endif</div>
+        <div class="card-header @if(!isset($referal_conso) || (isset($referal_conso) && $referal_conso->id != $ref->id)) bg-secondary text-light @else bg-warning @endif">@if(!isset($referal_conso) || (isset($referal_conso) && $referal_conso->id != $ref->id)) Dr. {{ $ref->doctor->name }} @else Dr. {{ $ref->doctor->name }} @endif</div>
         <div class="card-body">{{ $ref[$fieldName] }}</div>
     </div>
         @else
     <div class="card mb-3">
-        <div class="card-header @if(!isset($referal_conso) || (isset($referal_conso) && $referal_conso->id != $ref->id)) bg-secondary text-light @else bg-warning @endif">@if(!isset($referal_conso) || (isset($referal_conso) && $referal_conso->id != $ref->id)) Dr. {{ $ref->doctor->name }} @else Yours @endif</div>
+        <div class="card-header @if(!isset($referal_conso) || (isset($referal_conso) && $referal_conso->id != $ref->id)) bg-secondary text-light @else bg-warning @endif">@if(!isset($referal_conso) || (isset($referal_conso) && $referal_conso->id != $ref->id)) Dr. {{ $ref->doctor->name }} @else Dr. {{ $ref->doctor->name }} @endif</div>
         <div class="card-body">{{ isset($ref->printable_form[$fieldName]) && $ref->printable_form[$fieldName] != "" ? $ref->printable_form[$fieldName] : '' }}</div>
     </div>    
         @endif

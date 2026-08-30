@@ -11256,7 +11256,7 @@
                         " {{ (isset($datum->printable_form['diet']) && $datum->printable_form['diet'] == 'Others') ? '' : 'disabled' }}>{{ isset($datum->printable_form['diet_remarks']) ? $datum->printable_form['diet_remarks'] : '' }}</textarea>
                     @if($datum->doctor->sig_pic != '')
                     <div class="form-check">
-                      <input class="form-check-input mt-0" type="checkbox" name="{{ $viewFolder }}[PrintableForm][dischargeSumSigKey]" id="{{ $viewFolder }}_dischargeSumSigKey_check" value='yes' {{ isset($datum->printable_form['dischargeSumSigKey']) ? 'checked' : ''}}  {{ !isset($referal_conso) ? '' : 'disabled' }}>
+                      <input class="form-check-input mt-0" type="checkbox" name="{{ $viewFolder }}[PrintableForm][dischargeSumSigKey]" id="{{ $viewFolder }}_dischargeSumSigKey_check" value='yes' {{ isset($datum->printable_form['dischargeSumSigKey']) && $datum->printable_form['dischargeSumSigKey'] === 'yes' ? 'checked' : ''}}  {{ !isset($referal_conso) ? '' : 'disabled' }}>
                       <label class="form-check-label" for="{{ $viewFolder }}_dischargeSumSigKey_check"><strong>Click this box to e-sign this document</strong></label>
                     </div>
                     @else
@@ -11468,7 +11468,7 @@
                         " {{ !isset($referal_conso) ? '' : 'disabled' }}>{{ isset($datum->printable_form['additional_orders']) ? $datum->printable_form['additional_orders'] : '' }}</textarea>
                     @if($datum->doctor->sig_pic != '')
                     <div class="form-check mt-3">
-                      <input class="form-check-input mt-0" type="checkbox" name="{{ $viewFolder }}[PrintableForm][opAdmitSigKey]" id="{{ $viewFolder }}_opAdmitSigKey_check" value='yes' {{ isset($datum->printable_form['opAdmitSigKey']) ? 'checked' : ''}}  {{ !isset($referal_conso) ? '' : 'disabled' }}>
+                      <input class="form-check-input mt-0" type="checkbox" name="{{ $viewFolder }}[PrintableForm][opAdmitSigKey]" id="{{ $viewFolder }}_opAdmitSigKey_check" value='yes' {{ isset($datum->printable_form['opAdmitSigKey']) && $datum->printable_form['opAdmitSigKey'] === 'yes' ? 'checked' : ''}}  {{ !isset($referal_conso) ? '' : 'disabled' }}>
                       <label class="form-check-label" for="{{ $viewFolder }}_opAdmitSigKey_check"><strong>Click this box to e-sign this document</strong></label>
                     </div>
                     @else
@@ -11610,7 +11610,7 @@
                     <small id="help_{{ $viewFolder }}_operative_technique" class="text-muted"></small>
                     @if($datum->doctor->sig_pic != '')
                     <div class="form-check mt-3">
-                      <input class="form-check-input mt-0" type="checkbox" name="{{ $viewFolder }}[PrintableForm][orTechSigKey]" id="{{ $viewFolder }}_orTechSigKey_check" value='yes' {{ isset($datum->printable_form['orTechSigKey']) ? 'checked' : ''}}  {{ !isset($referal_conso) ? '' : 'disabled' }}>
+                      <input class="form-check-input mt-0" type="checkbox" name="{{ $viewFolder }}[PrintableForm][orTechSigKey]" id="{{ $viewFolder }}_orTechSigKey_check" value='yes' {{ isset($datum->printable_form['orTechSigKey']) && $datum->printable_form['orTechSigKey'] === 'yes' ? 'checked' : ''}}  {{ !isset($referal_conso) ? '' : 'disabled' }}>
                       <label class="form-check-label" for="{{ $viewFolder }}_orTechSigKey_check"><strong>Click this box to e-sign this document</strong></label>
                     </div>
                     @else
@@ -11772,7 +11772,7 @@
                     <small id="help_{{ $viewFolder }}_medication_post" class="text-muted"></small>
                     @if($datum->doctor->sig_pic != '')
                     <div class="form-check mt-3">
-                      <input class="form-check-input mt-0" type="checkbox" name="{{ $viewFolder }}[PrintableForm][postOpSigKey]" id="{{ $viewFolder }}_postOpSigKey_check" value='yes' {{ isset($datum->printable_form['postOpSigKey']) ? 'checked' : ''}}  {{ !isset($referal_conso) ? '' : 'disabled' }}>
+                      <input class="form-check-input mt-0" type="checkbox" name="{{ $viewFolder }}[PrintableForm][postOpSigKey]" id="{{ $viewFolder }}_postOpSigKey_check" value='yes' {{ isset($datum->printable_form['postOpSigKey']) && $datum->printable_form['postOpSigKey'] === 'yes' ? 'checked' : ''}}  {{ !isset($referal_conso) ? '' : 'disabled' }}>
                       <label class="form-check-label" for="{{ $viewFolder }}_postOpSigKey_check"><strong>Click this box to e-sign this document</strong></label>
                     </div>
                     @else
