@@ -227,6 +227,9 @@
                                                 @endif
                                                 <th class="">Booking #</th>
                                                 <th class="">Time Slot</th>
+                                                @if(isset($booking_type) && $booking_type == 'All')
+                                                <th>Booking Type</th>
+                                                @endif
                                                 <th class="">Patient Name</th>
                                                 <th class="">Complaint</th>
                                                 <th class="">Status</th>
@@ -265,6 +268,9 @@
                                                 @endif
                                                 <td>{{ $dat->id }}</td>
                                                 <td>{{ $dat->time_slot != '' ? date('g:i A', strtotime($dat->time_slot)) : '' }}</td>
+                                                @if(isset($booking_type) && $booking_type == 'All')
+                                                <td>{{ $dat->booking_type == '' ? 'Consultations' : $dat->booking_type }}</td>
+                                                @endif
                                                 <td class="">{{ $dat->patient->name }}</td>
                                                 <td class="">{{ $dat->complain }}</td>
                                                 <td class="">{{ $dat->status }}</td>

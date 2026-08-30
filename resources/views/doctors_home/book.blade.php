@@ -654,99 +654,9 @@
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" id="printableFormsBigLink" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Printable Forms</a>
           <ul class="dropdown-menu">
-            @if($datum->booking_type != 'Surgery')
-            <li>
-              <a class="dropdown-item" id="admitBigLink" href="#" onclick="
-                $('#sumBigLink').removeClass('active');
-                $('#soapBigLink').removeClass('active');
-                $('#labBigLink').removeClass('active');  
-                $('#presBigLink').removeClass('active');  
-                $('#medBigLink').removeClass('active');
-                $('#admitBigLink').addClass('active'); 
-                $('#printableFormsBigLink').addClass('active'); 
-                $('#dialysisBigLink').removeClass('active');
-                // $('#hdSummaryBigLink').removeClass('active');
-                $('#admitPeriBigLink').removeClass('active');
-                $('#orTechBigLink').removeClass('active');
-                $('#postOpBigLink').removeClass('active');
-                $('#dischargeSumBigLink').removeClass('active');
-                
-                $('#sumPrevLink').removeClass('active');
-                $('#soapPrevLink').removeClass('active');
-                $('#labPrevLink').removeClass('active');  
-                $('#presPrevLink').removeClass('active');  
-                $('#medPrevLink').removeClass('active');
-                $('#admitPrevLink').addClass('active'); 
-                $('#printableFormsPrevLink').addClass('active'); 
-                $('#dialysisPrevLink').removeClass('active');
-                // $('#hdSummaryPrevLink').removeClass('active');
-                $('#admitPeriPrevLink').removeClass('active');
-                $('#orTechPrevLink').removeClass('active');
-                $('#postOpPrevLink').removeClass('active');
-                $('#dischargeSumPrevLink').removeClass('active');
-
-                $('#sumPrevDiv').hide();  
-                $('#soapPrevDiv').hide();  
-                $('#labPrevDiv').hide();  
-                $('#presPrevDiv').hide();  
-                $('#medPrevDiv').hide(); 
-                $('#admitPrevDiv').show();
-                $('#dialysisPrevDiv').hide();
-                $('#admitPeriPrevDiv').hide();  
-                $('#orTechPrevDiv').hide();  
-                $('#postOpPrevDiv').hide();
-                $('#dischargeSumPrevDiv').hide();
-
-
-                $('#sumCurLink').removeClass('active');
-                $('#soapCurLink').removeClass('active');
-                $('#labCurLink').removeClass('active');  
-                $('#presCurLink').removeClass('active');  
-                $('#medCurLink').removeClass('active');
-                $('#admitCurLink').addClass('active');
-                $('#printableFormsCurLink').addClass('active'); 
-                $('#dialysisCurLink').removeClass('active');
-                $('#admitPeriCurLink').removeClass('active');
-                $('#orTechCurLink').removeClass('active');
-                $('#postOpCurLink').removeClass('active');
-                $('#dischargeSumCurLink').removeClass('active');
-
-                $('#sumCurDiv').hide();  
-                $('#soapCurDiv').hide();  
-                $('#labCurDiv').hide();  
-                $('#presCurDiv').hide();  
-                $('#medCurDiv').hide(); 
-                $('#admitCurDiv').show();  
-                $('#dialysisCurDiv').hide();
-                $('#admitPeriCurDiv').hide();  
-                $('#orTechCurDiv').hide();  
-                $('#postOpCurDiv').hide();
-                $('#dischargeSumCurDiv').hide();
-
-                // $('#{{ $viewFolder }}_anesthesia_type_ot').prop('disabled', true);
-                // $('#{{ $viewFolder }}_anesthesiologist_ot').prop('disabled', true);
-                // $('#{{ $viewFolder }}_anesthesia_type_ao').prop('disabled', true);
-                // $('#{{ $viewFolder }}_anesthesiologist_ao').prop('disabled', true);
-                if(!$('#pastChartFile').is(':visible')){
-                  $('#pastChartFile').hide();
-                  $('#pastChart').show();
-                }else{
-                  $('#pastChartFile').hide();
-                  $('#pastChart').show();
-                  $('#pastChart').removeClass('d-none');
-                  $('#pastChart').removeClass('d-lg-none');
-                }
-                if(!$('#pastChartFile').is(':visible') && !$('#pastChart').is(':visible')){
-                  $('#showPrevLinkHide').hide();
-                  $('#showPrevLink').show();
-                }else{
-                  $('#showPrevLinkHide').show();
-                  $('#showPrevLink').hide();
-                }
-
-              ">Admitting Orders</a>
-            </li>
-            @endif
+            {{-- @if($datum->booking_type != 'Surgery') --}}
+            
+            {{-- @endif --}}
             <li>
               <a class="dropdown-item" id="presBigLink" href="#" onclick="
                 $('#sumBigLink').removeClass('active');
@@ -923,6 +833,97 @@
             </li>
             @if($datum->booking_type == 'Surgery' || $datum->booking_type == 'Laser' || $datum->booking_type == 'Diagnostics')
             <li><hr class="dropdown-divider"></li>
+            <li>
+              <a class="dropdown-item" id="admitBigLink" href="#" onclick="
+                $('#sumBigLink').removeClass('active');
+                $('#soapBigLink').removeClass('active');
+                $('#labBigLink').removeClass('active');  
+                $('#presBigLink').removeClass('active');  
+                $('#medBigLink').removeClass('active');
+                $('#admitBigLink').addClass('active'); 
+                $('#printableFormsBigLink').addClass('active'); 
+                $('#dialysisBigLink').removeClass('active');
+                // $('#hdSummaryBigLink').removeClass('active');
+                $('#admitPeriBigLink').removeClass('active');
+                $('#orTechBigLink').removeClass('active');
+                $('#postOpBigLink').removeClass('active');
+                $('#dischargeSumBigLink').removeClass('active');
+                
+                $('#sumPrevLink').removeClass('active');
+                $('#soapPrevLink').removeClass('active');
+                $('#labPrevLink').removeClass('active');  
+                $('#presPrevLink').removeClass('active');  
+                $('#medPrevLink').removeClass('active');
+                $('#admitPrevLink').addClass('active'); 
+                $('#printableFormsPrevLink').addClass('active'); 
+                $('#dialysisPrevLink').removeClass('active');
+                // $('#hdSummaryPrevLink').removeClass('active');
+                $('#admitPeriPrevLink').removeClass('active');
+                $('#orTechPrevLink').removeClass('active');
+                $('#postOpPrevLink').removeClass('active');
+                $('#dischargeSumPrevLink').removeClass('active');
+
+                $('#sumPrevDiv').hide();  
+                $('#soapPrevDiv').hide();  
+                $('#labPrevDiv').hide();  
+                $('#presPrevDiv').hide();  
+                $('#medPrevDiv').hide(); 
+                $('#admitPrevDiv').show();
+                $('#dialysisPrevDiv').hide();
+                $('#admitPeriPrevDiv').hide();  
+                $('#orTechPrevDiv').hide();  
+                $('#postOpPrevDiv').hide();
+                $('#dischargeSumPrevDiv').hide();
+
+
+                $('#sumCurLink').removeClass('active');
+                $('#soapCurLink').removeClass('active');
+                $('#labCurLink').removeClass('active');  
+                $('#presCurLink').removeClass('active');  
+                $('#medCurLink').removeClass('active');
+                $('#admitCurLink').addClass('active');
+                $('#printableFormsCurLink').addClass('active'); 
+                $('#dialysisCurLink').removeClass('active');
+                $('#admitPeriCurLink').removeClass('active');
+                $('#orTechCurLink').removeClass('active');
+                $('#postOpCurLink').removeClass('active');
+                $('#dischargeSumCurLink').removeClass('active');
+
+                $('#sumCurDiv').hide();  
+                $('#soapCurDiv').hide();  
+                $('#labCurDiv').hide();  
+                $('#presCurDiv').hide();  
+                $('#medCurDiv').hide(); 
+                $('#admitCurDiv').show();  
+                $('#dialysisCurDiv').hide();
+                $('#admitPeriCurDiv').hide();  
+                $('#orTechCurDiv').hide();  
+                $('#postOpCurDiv').hide();
+                $('#dischargeSumCurDiv').hide();
+
+                // $('#{{ $viewFolder }}_anesthesia_type_ot').prop('disabled', true);
+                // $('#{{ $viewFolder }}_anesthesiologist_ot').prop('disabled', true);
+                // $('#{{ $viewFolder }}_anesthesia_type_ao').prop('disabled', true);
+                // $('#{{ $viewFolder }}_anesthesiologist_ao').prop('disabled', true);
+                if(!$('#pastChartFile').is(':visible')){
+                  $('#pastChartFile').hide();
+                  $('#pastChart').show();
+                }else{
+                  $('#pastChartFile').hide();
+                  $('#pastChart').show();
+                  $('#pastChart').removeClass('d-none');
+                  $('#pastChart').removeClass('d-lg-none');
+                }
+                if(!$('#pastChartFile').is(':visible') && !$('#pastChart').is(':visible')){
+                  $('#showPrevLinkHide').hide();
+                  $('#showPrevLink').show();
+                }else{
+                  $('#showPrevLinkHide').show();
+                  $('#showPrevLink').hide();
+                }
+
+              ">Admitting Orders</a>
+            </li>
             <li>
               <a class="dropdown-item" id="admitPeriBigLink" href="#" onclick="
                 $('#sumBigLink').removeClass('active');
@@ -2836,79 +2837,9 @@
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="printableFormsPrevLink" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Printable Forms</a>
                 <ul class="dropdown-menu">
-                  @if($datum->booking_type != 'Surgery')
-                  <li>
-                    <a class="dropdown-item" id="admitPrevLink" href="#" onclick="
-                      $('#sumBigLink').removeClass('active');
-                      $('#soapBigLink').removeClass('active');
-                      $('#labBigLink').removeClass('active');  
-                      $('#presBigLink').removeClass('active');  
-                      $('#medBigLink').removeClass('active');
-                      $('#admitBigLink').addClass('active'); 
-                      $('#printableFormsBigLink').addClass('active');
-                      $('#dialysisBigLink').removeClass('active');
-                      $('#admitPeriBigLink').removeClass('active');
-                      $('#orTechBigLink').removeClass('active');
-                      $('#postOpBigLink').removeClass('active');
-                      $('#dischargeSumBigLink').removeClass('active');
-                      
-                      $('#sumPrevLink').removeClass('active');
-                      $('#soapPrevLink').removeClass('active');
-                      $('#labPrevLink').removeClass('active');  
-                      $('#presPrevLink').removeClass('active');  
-                      $('#medPrevLink').removeClass('active');
-                      $('#admitPrevLink').addClass('active'); 
-                      $('#printableFormsPrevLink').addClass('active');
-                      $('#dialysisPrevLink').removeClass('active');
-                      $('#admitPeriPrevLink').removeClass('active');
-                      $('#orTechPrevLink').removeClass('active');
-                      $('#postOpPrevLink').removeClass('active');
-                      $('#dischargeSumPrevLink').removeClass('active');
-
-                      $('#sumPrevDiv').hide();  
-                      $('#soapPrevDiv').hide();  
-                      $('#labPrevDiv').hide();  
-                      $('#presPrevDiv').hide();  
-                      $('#medPrevDiv').hide(); 
-                      $('#admitPrevDiv').show();
-                      $('#dialysisPrevDiv').hide();
-                      $('#admitPeriPrevDiv').hide();  
-                      $('#orTechPrevDiv').hide();  
-                      $('#postOpPrevDiv').hide(); 
-                      $('#dischargeSumPrevDiv').hide(); 
-                      
-                      $('#sumCurLink').removeClass('active');
-                      $('#soapCurLink').removeClass('active');
-                      $('#labCurLink').removeClass('active');  
-                      $('#presCurLink').removeClass('active');  
-                      $('#medCurLink').removeClass('active');
-                      $('#admitCurLink').addClass('active');
-                      $('#printableFormsCurLink').addClass('active');
-                      $('#dialysisCurLink').removeClass('active');
-                      $('#admitPeriCurLink').removeClass('active');
-                      $('#orTechCurLink').removeClass('active');
-                      $('#postOpCurLink').removeClass('active');
-                      $('#dischargeSumCurLink').removeClass('active');
-                      
-                      $('#sumCurDiv').hide();  
-                      $('#soapCurDiv').hide();  
-                      $('#labCurDiv').hide();  
-                      $('#presCurDiv').hide();  
-                      $('#medCurDiv').hide(); 
-                      $('#admitCurDiv').show();  
-                      $('#dialysisCurDiv').hide(); 
-                      $('#admitPeriCurDiv').hide();  
-                      $('#orTechCurDiv').hide();  
-                      $('#postOpCurDiv').hide(); 
-                      $('#dischargeSumCurDiv').hide(); 
-
-                      // $('#{{ $viewFolder }}_anesthesia_type_ot').prop('disabled', true);
-                      // $('#{{ $viewFolder }}_anesthesiologist_ot').prop('disabled', true);
-                      // $('#{{ $viewFolder }}_anesthesia_type_ao').prop('disabled', true);
-                      // $('#{{ $viewFolder }}_anesthesiologist_ao').prop('disabled', true);
-                    ">Admitting Orders</a>
-                  </li>
-                  @endif
+                  {{-- @if($datum->booking_type != 'Surgery') --}}
+                  
+                  {{-- @endif --}}
                   <li>
                     <a class="dropdown-item" id="presPrevLink" href="#" onclick="
                       $('#sumBigLink').removeClass('active');
@@ -3043,6 +2974,77 @@
                   </li>
                   @if($datum->booking_type == 'Surgery' || $datum->booking_type == 'Laser' || $datum->booking_type == 'Diagnostics')
                   <li><hr class="dropdown-divider"></li>
+                  <li>
+                    <a class="dropdown-item" id="admitPrevLink" href="#" onclick="
+                      $('#sumBigLink').removeClass('active');
+                      $('#soapBigLink').removeClass('active');
+                      $('#labBigLink').removeClass('active');  
+                      $('#presBigLink').removeClass('active');  
+                      $('#medBigLink').removeClass('active');
+                      $('#admitBigLink').addClass('active'); 
+                      $('#printableFormsBigLink').addClass('active');
+                      $('#dialysisBigLink').removeClass('active');
+                      $('#admitPeriBigLink').removeClass('active');
+                      $('#orTechBigLink').removeClass('active');
+                      $('#postOpBigLink').removeClass('active');
+                      $('#dischargeSumBigLink').removeClass('active');
+                      
+                      $('#sumPrevLink').removeClass('active');
+                      $('#soapPrevLink').removeClass('active');
+                      $('#labPrevLink').removeClass('active');  
+                      $('#presPrevLink').removeClass('active');  
+                      $('#medPrevLink').removeClass('active');
+                      $('#admitPrevLink').addClass('active'); 
+                      $('#printableFormsPrevLink').addClass('active');
+                      $('#dialysisPrevLink').removeClass('active');
+                      $('#admitPeriPrevLink').removeClass('active');
+                      $('#orTechPrevLink').removeClass('active');
+                      $('#postOpPrevLink').removeClass('active');
+                      $('#dischargeSumPrevLink').removeClass('active');
+
+                      $('#sumPrevDiv').hide();  
+                      $('#soapPrevDiv').hide();  
+                      $('#labPrevDiv').hide();  
+                      $('#presPrevDiv').hide();  
+                      $('#medPrevDiv').hide(); 
+                      $('#admitPrevDiv').show();
+                      $('#dialysisPrevDiv').hide();
+                      $('#admitPeriPrevDiv').hide();  
+                      $('#orTechPrevDiv').hide();  
+                      $('#postOpPrevDiv').hide(); 
+                      $('#dischargeSumPrevDiv').hide(); 
+                      
+                      $('#sumCurLink').removeClass('active');
+                      $('#soapCurLink').removeClass('active');
+                      $('#labCurLink').removeClass('active');  
+                      $('#presCurLink').removeClass('active');  
+                      $('#medCurLink').removeClass('active');
+                      $('#admitCurLink').addClass('active');
+                      $('#printableFormsCurLink').addClass('active');
+                      $('#dialysisCurLink').removeClass('active');
+                      $('#admitPeriCurLink').removeClass('active');
+                      $('#orTechCurLink').removeClass('active');
+                      $('#postOpCurLink').removeClass('active');
+                      $('#dischargeSumCurLink').removeClass('active');
+                      
+                      $('#sumCurDiv').hide();  
+                      $('#soapCurDiv').hide();  
+                      $('#labCurDiv').hide();  
+                      $('#presCurDiv').hide();  
+                      $('#medCurDiv').hide(); 
+                      $('#admitCurDiv').show();  
+                      $('#dialysisCurDiv').hide(); 
+                      $('#admitPeriCurDiv').hide();  
+                      $('#orTechCurDiv').hide();  
+                      $('#postOpCurDiv').hide(); 
+                      $('#dischargeSumCurDiv').hide(); 
+
+                      // $('#{{ $viewFolder }}_anesthesia_type_ot').prop('disabled', true);
+                      // $('#{{ $viewFolder }}_anesthesiologist_ot').prop('disabled', true);
+                      // $('#{{ $viewFolder }}_anesthesia_type_ao').prop('disabled', true);
+                      // $('#{{ $viewFolder }}_anesthesiologist_ao').prop('disabled', true);
+                    ">Admitting Orders</a>
+                  </li>
                   <li>
                     <a class="dropdown-item" id="admitPeriPrevLink" href="#" onclick="
                       $('#sumBigLink').removeClass('active');
@@ -4133,7 +4135,7 @@
                           <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planEdit]" id="{{ $viewFolder }}_planEdit" rows=3 disabled></textarea> --}}
                         </div>
                       </div>
-                      <div class="card text-bg-warning mb-3">
+                      {{-- <div class="card text-bg-warning mb-3">
                         <div class="card-header">Previous Admitting Orders</div>
                         <div class="card-body">
                           <label for="{{ $viewFolder }}_prev_additional_orders" class="form-label">Additional Peri-Operative Orders</label>
@@ -4141,7 +4143,7 @@
                           <label for="{{ $viewFolder }}_prev_operative_technique" class="form-label">Operative Technique</label>
                           <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][operative_tech]" id="{{ $viewFolder }}_prev_operative_technique" disabled rows=3>{{ isset($bookings[0]->printable_form['operative_tech']) ? $bookings[0]->printable_form['operative_tech'] : '' }}</textarea>
                         </div>
-                      </div>
+                      </div> --}}
                       
                         @if($datum->booking_type == "Surgery")
                       
@@ -9364,7 +9366,7 @@
                             <textarea class="form-control mb-2" name="{{ $viewFolder }}[_planEdit]" id="{{ $viewFolder }}_planEdit" rows=3 disabled></textarea> --}}
                           </div>
                         </div>
-                        <div class="card text-bg-warning mb-3">
+                        {{-- <div class="card text-bg-warning mb-3">
                           <div class="card-header">Admitting Orders</div>
                           <div class="card-body">
                             <label for="{{ $viewFolder }}_additional_orders" class="form-label">Additional Peri-Operative Orders</label>
@@ -9372,7 +9374,7 @@
                             <label for="{{ $viewFolder }}_operative_technique" class="form-label">Operative Technique</label>
                             <textarea class="form-control soapField" name="{{ $viewFolder }}[PrintableForm][operative_tech]" id="{{ $viewFolder }}_operative_technique" rows=3>{{ isset($referal_conso->printable_form['operative_tech']) ? $referal_conso->printable_form['operative_tech'] : (!isset($referal_conso) && isset($datum->printable_form['operative_tech']) ? $datum->printable_form['operative_tech'] : '') }}</textarea>
                           </div>
-                        </div>
+                        </div> --}}
                           @if($datum->booking_type == "Surgery")
                         <div class="card mb-3">
                           <div class="card-header">Post-Operative Care/Home Care Instructions</div>
@@ -11338,7 +11340,7 @@
                 </div>
                   @endforeach
                 @endif
-                {{-- <div class="card mb-3">
+                <div class="card mb-3">
                   <div class="card-header">Form Inputs</div>
                   <div class="card-body">
                     <div class="form-floating mb-3">
@@ -11475,7 +11477,7 @@
                     </div>
                     @endif
                   </div>
-                </div> --}}
+                </div>
               </div>
               <div id="orTechCurDiv" style="display:none" class="container border border-1 mb-3 p-3">
                 <div class="docNotesDiv card mb-3" id="{{ $viewFolder }}_OpTech_{{ $datum->id }}">
@@ -11566,7 +11568,7 @@
                   <label for="{{ $viewFolder }}_anesthesiologist_ot" class="form-label">Anesthesiologist</label>
                   <small id="help_{{ $viewFolder }}_anesthesiologist_ot" class="text-muted"></small>
                 </div> --}}
-                {{-- <div class="card mb-3">
+                <div class="card mb-3">
                   <div class="card-header">Form Inputs</div>
                   <div class="card-body">
                     <div class="form-floating mb-3">
@@ -11618,7 +11620,7 @@
                     @endif
                   </div>
                   
-                </div> --}}
+                </div>
                 {{-- </div> --}}
                 <input type="hidden" id="{{ $viewFolder }}_printable_form_consultation_id" class="form-control" name="{{ $viewFolder }}[PrintableForm][consultation_id]" value="{{ $origConsoID }}">
               </div>

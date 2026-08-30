@@ -6,12 +6,12 @@
 <div class="container table-responsive mb-3" style="height: 200px; max-height: 200px; border: 1px solid; border-radius: 5px; overflow-y: auto;">
     @if(!isset($referal_conso))
     <div class="card mb-3">
-        <div class="card-header @if(!isset($referal_conso)) bg-warning @else bg-secondary text-light @endif">@if(!isset($referal_conso)) Yours @else Dr. {{ $datum->doctor->name }} @endif</div>
+        <div class="card-header @if(!isset($referal_conso)) bg-warning @else bg-secondary text-light @endif">@if(!isset($referal_conso)) Dr. {{ $datum->doctor->name }} @else Dr. {{ $datum->doctor->name }} @endif</div>
         <div class="card-body">{{ isset($fieldEntry) && $fieldEntry != '' ? $fieldEntry : '' }}</div>
     </div>
     @else
     <div class="card mb-3">
-        <div class="card-header @if(!isset($referal_conso)) bg-warning @else bg-secondary text-light @endif">@if(!isset($referal_conso)) Yours @else Dr. {{ $datum->doctor->name }} @endif</div>
+        <div class="card-header @if(!isset($referal_conso)) bg-warning @else bg-secondary text-light @endif">@if(!isset($referal_conso)) Dr. {{ $datum->doctor->name }} @else Dr. {{ $datum->doctor->name }} @endif</div>
         <div class="card-body">{{ isset($fieldEntryOrig) && $fieldEntryOrig != '' ? $fieldEntryOrig : '' }}</div>
     </div>
     @endif

@@ -2067,7 +2067,7 @@
             <div class="card-header">Objective Findings</div>
             <div class="card-body table-responsive" style="height:300px; max-height: 300px">
               <p>
-                <div class="m-3">{!! isset($datum->docNotes) ? nl2br($datum->docNotes) : '' !!}</div><br>
+                <strong>PE Findings:</strong><div class="m-3">{!! isset($datum->docNotes) ? nl2br($datum->docNotes) : '' !!}</div><br>
               </p>
             </div>
           </div>
@@ -2075,8 +2075,9 @@
             <div class="card-header">Assessment</div>
             <div class="card-body table-responsive" style="height:300px; max-height: 300px">
               <p>
-                <strong>Primary Diagnosis:</strong> {!! isset($datum->icd_code_obj) ? $datum->icd_code_obj->icd_code . ' - ' . $datum->icd_code_obj->details : '' !!}<br>
+                <strong>Primary Diagnosis:</strong> {!! isset($datum->primary_assessment) ? $datum->primary_assessment : '' !!}<br>
                 <strong>Secondary Diagnosis:</strong><br><div class="m-3">{!! isset($datum->assessment) ? nl2br($datum->assessment) : '' !!}</div><br>
+                <strong>Discharge Diagnosis (Post-Operative Diagnosis):</strong><br><div class="m-3">{!! isset($datum->post_op_assessment) ? nl2br($datum->post_op_assessment) : '' !!}</div><br>
               </p>
             </div>
           </div>
@@ -2112,9 +2113,12 @@
               </p>
               @else
               <p>
+                <strong>Diagnostics:</strong><br><div class="m-3">{!! isset($datum->diagnosis) ? nl2br($datum->diagnosis) : '' !!}</div><br>
                 <strong>Medical Therapeutics:</strong><br><div class="m-3">{!! isset($datum->planMed) ? nl2br($datum->planMed) : '' !!}</div><br>
-                <strong>Diagnostics and Surgery:</strong><br><div class="m-3">{!! isset($datum->plan) ? nl2br($datum->plan) : '' !!}</div><br>
-                <strong>Remarks:</strong><br><div class="m-3">{!! isset($datum->planRem) ? nl2br($datum->planRem) : '' !!}</div><br>
+                <strong>Medication Given in Recovery:</strong><br><div class="m-3">{!! isset($datum->printable_form['medication_given_recovery']) ? nl2br($datum->printable_form['medication_given_recovery']) : '' !!}</div><br>
+                <strong>Discharge Medications (dose, frequency, duration):</strong><br><div class="m-3">{!! isset($datum->printable_form['discharge_medication']) ? nl2br($datum->printable_form['discharge_medication']) : '' !!}</div><br>
+                <strong>Surgery (Planned/Performed)</strong><br><div class="m-3">{!! isset($datum->plan) ? nl2br($datum->plan) : '' !!}</div><br>
+                <strong>Remarks/Recommendation:</strong><br><div class="m-3">{!! isset($datum->planRem) ? nl2br($datum->planRem) : '' !!}</div><br>
               </p>
               @endif
             </div>
@@ -2126,12 +2130,19 @@
           
         <div id="{{ $viewFolder }}_SUMM_{{ $cr->id }}" class="docNotesDiv" style="display: {{ $origConsoID != $cr->id ? 'none' : 'block' }}">
           <div class="card mb-3">
-            <div class="card-header">Doctor's Notes</div>
+            <div class="card-header">Subjective Findings</div>
             <div class="card-body table-responsive" style="height:300px; max-height: 300px">
               <p>
                 <strong>History of Present Illness:</strong><div class="m-3">{!! isset($cr->docNotesHPI) ? nl2br($cr->docNotesHPI) : '' !!}</div><br>
                 <strong>Subjective Complaints:</strong><br><div class="m-3">{!! isset($cr->docNotesSubject) ? nl2br($cr->docNotesSubject) : '' !!}</div><br>
-                <strong>Objective Findings:</strong><br><div class="m-3">{!! isset($cr->docNotes) ? nl2br($cr->docNotes) : '' !!}</div><br>
+              </p>
+            </div>
+          </div>
+          <div class="card mb-3">
+            <div class="card-header">Objective Findings</div>
+            <div class="card-body table-responsive" style="height:300px; max-height: 300px">
+              <p>
+                <strong>PE Findings:</strong><div class="m-3">{!! isset($cr->docNotes) ? nl2br($cr->docNotes) : '' !!}</div><br>
               </p>
             </div>
           </div>
@@ -2139,8 +2150,9 @@
             <div class="card-header">Assessment</div>
             <div class="card-body table-responsive" style="height:300px; max-height: 300px">
               <p>
-                <strong>Primary Diagnosis:</strong> {!! isset($cr->icd_code_obj) ? $cr->icd_code_obj->icd_code . ' - ' . $cr->icd_code_obj->details : '' !!}<br>
+                <strong>Primary Diagnosis:</strong> {!! isset($cr->primary_assessment) ? $cr->primary_assessment : '' !!}<br>
                 <strong>Secondary Diagnosis:</strong><br><div class="m-3">{!! isset($cr->assessment) ? nl2br($cr->assessment) : '' !!}</div><br>
+                <strong>Discharge Diagnosis (Post-Operative Diagnosis):</strong><br><div class="m-3">{!! isset($cr->post_op_assessment) ? nl2br($cr->post_op_assessment) : '' !!}</div><br>
               </p>
             </div>
           </div>
@@ -2176,7 +2188,10 @@
               </p>
               @else
               <p>
+                <strong>Diagnostics:</strong><br><div class="m-3">{!! isset($cr->diagnosis) ? nl2br($cr->diagnosis) : '' !!}</div><br>
                 <strong>Medical Therapeutics:</strong><br><div class="m-3">{!! isset($cr->planMed) ? nl2br($cr->planMed) : '' !!}</div><br>
+                <strong>Medication Given in Recovery:</strong><br><div class="m-3">{!! isset($cr->printable_form['medication_given_recovery']) ? nl2br($cr->printable_form['medication_given_recovery']) : '' !!}</div><br>
+                <strong>Discharge Medications (dose, frequency, duration):</strong><br><div class="m-3">{!! isset($cr->printable_form['discharge_medication']) ? nl2br($cr->printable_form['discharge_medication']) : '' !!}</div><br>
                 <strong>Diagnostics and Surgery:</strong><br><div class="m-3">{!! isset($cr->plan) ? nl2br($cr->plan) : '' !!}</div><br>
                 <strong>Remarks:</strong><br><div class="m-3">{!! isset($cr->planRem) ? nl2br($cr->planRem) : '' !!}</div><br>
               </p>
