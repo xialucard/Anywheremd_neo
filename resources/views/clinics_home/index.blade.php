@@ -325,7 +325,7 @@
                                                 <th>Clinic</th>
                                             @endif
                                             @if(!empty($booking_type) && ($booking_type == 'Referral' || $booking_type == ' Summary'))
-                                                <th>Booking Type</th>
+                                                <th>@sortablelink('booking_type', 'Booking Type', [], ['class' => 'link-dark'])</th>
                                             @endif
                                                 <th>@sortablelink('patient_id', 'Patient', [], ['class' => 'link-dark'])</th>
                                             @if(isset($booking_type) && ($booking_type == 'Diagnostics' || $booking_type == 'Laser' || $booking_type == 'Surgery'))
