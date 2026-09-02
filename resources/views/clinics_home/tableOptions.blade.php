@@ -79,16 +79,16 @@
     {{-- @if (Route::has($viewFolder . '.edit') && (($dat->status != 'Done' && is_null($dat->consultation_parent_id) && !isset($dat->consultation_referals)) || is_null($dat->temp) || is_null($dat->vitals_updated_by) || $dat->booking_type == 'Dialysis' || (!is_null($dat->temp) && ($dat->vitals_updated_by == $user->id)))) --}}
     @if (Route::has($viewFolder . '.edit') && (($dat->status != 'Done' && is_null(isset($referal_conso) ? $referal_conso->consultation_parent_id : $dat->consultation_parent_id))))
         @can($viewFolder . '.edit')
-    <div class="m-1"><a class="btn btn-{{ $bgColor }} btn-sm w-100" href="{{ route($viewFolder . '.edit', [isset($referal_conso) ? $referal_conso->id : $dat->id, !empty(parse_url(Request::fullUrl())['query']) ? parse_url(Request::fullUrl())['query'] : '']) }}" title="Edit" role="button"><i class="bi bi-pencil"></i><span class="ps-1 d-sm-none">Edit</span></a></div>
+    <div class="m-1"><a class="btn btn-{{ $bgColor }} btn-sm w-100" href="{{ route($viewFolder . '.edit', [isset($referal_conso) ? $referal_conso->id : $dat->id, !empty(parse_url(Request::fullUrl())['query']) ? parse_url(Request::fullUrl())['query'] : '']) }}" @if($dat->status == 'Canceled') title="Edit/Activate" @else title="Edit" @endif role="button"><i class="bi bi-pencil"></i><span class="ps-1 d-sm-none">Edit</span></a></div>
         @endcan
     @endif
     
-    @if (Route::has($viewFolder . '.destroy') && $dat->status != 'Done')
+    @if (Route::has($viewFolder . '.destroy') && $dat->status != 'Done' && $dat->status != 'Canceled')
         @can($viewFolder . '.destroy')
     <form action="{{ route($viewFolder . '.destroy', isset($referal_conso) ? $referal_conso->id : $dat->id) }}" method="POST">
         @csrf
         @method('DELETE')
-        <div class="m-1"><button type="submit" class="btn btn-{{ $bgColor }} btn-sm w-100" onclick="if(!confirm('Are you sure you want to delete this?')) return false;"><i class="bi bi-trash"></i><span class="ps-1 d-sm-none">Delete</span></button></div>
+        <div class="m-1"><button type="submit" class="btn btn-{{ $bgColor }} btn-sm w-100" onclick="if(!confirm('Are you sure you want to cancel this?')) return false;" title="Cancel"><i class="bi bi-x-circle"></i><span class="ps-1 d-sm-none">Cancel</span></button></div>
     </form>
         @endcan
     @endif

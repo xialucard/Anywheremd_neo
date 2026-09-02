@@ -84,6 +84,7 @@
         Findings:
         <ul style="list-style-type:none;">
             <li>{!!html_entity_decode(isset($referal_conso->findings) ? $referal_conso->findings : (!isset($referal_conso) ? $datum->findings : ''))!!}</li>
+            @if(strstr($datum->doctor->specialty, 'Ophthalmology'))
             <li>Refraction:
                 <ul>
                     <li>OD: {{ $datum->arod_sphere == 'No Target' ? 'No Refraction Possible' : ($datum->arod_sphere>0 ? '+' . $datum->arod_sphere : $datum->arod_sphere) . ' = ' . ($datum->arod_cylinder>0 ? '+' . $datum->arod_cylinder : $datum->arod_cylinder) . ' x ' . $datum->arod_axis }}</li>
@@ -105,6 +106,7 @@
             <li>Jaeger OU: {{ $datum->jae_ou }}</li>
             <li>Jaeger OD: {{ $datum->jae_od }}</li>
             <li>Jaeger OS: {{ $datum->jae_os }}</li>
+            @endif
         </ul>
         Diagnosis:
         <ul style="list-style-type:none;">

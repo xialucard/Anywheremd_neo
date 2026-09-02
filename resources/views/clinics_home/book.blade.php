@@ -38,7 +38,7 @@
         <div class="card-header">Booking Info</div>
         <div class="card-body">
           <div class="form-floating mb-3">
-            <input class="form-control" type="date" name="{{ $viewFolder }}[bookingDate]" id="{{ $viewFolder }}_bookingDate" value="{{ $dateBooking }}" placeholder="" required readonly>
+            <input class="form-control" type="date" name="{{ $viewFolder }}[bookingDate]" id="{{ $viewFolder }}_bookingDate" value="{{ $dateBooking }}" placeholder="" min="{{ date('Y-m-d') }}" required>
             <label for="{{ $viewFolder }}_bookingDate" class="form-label">Booking Date</label>
             <small id="help_{{ $viewFolder }}_bookingDate" class="text-muted"></small>
           </div>

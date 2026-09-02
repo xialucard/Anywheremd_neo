@@ -1079,6 +1079,7 @@ class ClinicsHomeController extends Controller
         $params['updated_by'] = $user->id;
         if(is_null($clinics_home->vitals_updated_by) && is_null($clinics_home->temp) && isset($params['temp']) && $params['temp'] != '')
             $params['vitals_updated_by'] = $user->id;
+        $params['status'] = 'Confirmed';
         // print "<pre>";
         // print_r($params);
         // print "</pre>";
@@ -1175,9 +1176,10 @@ class ClinicsHomeController extends Controller
 
     public function destroy($id)
     {
-        Consultation::destroy($id);
+        // Consultation::destroy($id);
+        Consultation::where('id', $id)->update(['status' => 'Canceled']);
         // return redirect()->route($this->viewFolder . '.index')->with('message', 'Entry has been deleted.');
-        return redirect()->back()->with('message', 'Entry has been deleted.');
+        return redirect()->back()->with('message', 'Entry has been cancelled.');
     }
 
     function getPatientInfo(?int $patient_id){

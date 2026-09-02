@@ -96,7 +96,7 @@
                         // $('#{{ $viewFolder }}_recommendations').attr('required', true)
                         // $('#{{ $formId }}').submit();
                         $('#{{ $viewFolder }}_submit_type').val('');
-                        " class="btn btn-danger">End</button>
+                        " class="btn btn-danger" @if(date('Y-m-d') < $datum->bookingDate) disabled @endif>End</button>
                     {{-- @endif --}}
                 {{-- @elseif(stristr($inputFormHeader, 'Booking') && isset($datum->booking_type) && $datum->booking_type == 'Dialysis')
                     <button type="submit" id="submitButton" class="btn btn-{{ $bgColor }}" @if(isset($datum->bookingDate) && $datum->bookingDate > date('Y-m-d')) disabled @endif>Submit</button> --}}

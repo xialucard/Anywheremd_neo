@@ -312,7 +312,7 @@
                                         <thead class="table-{{ $bgColor }}">
                                             <tr>
                                                 <th class=""><i class="bi bi-gear"></i></th>
-                                                <th>Time Slot</th>
+                                                <th>@sortablelink('time_slot', 'Time Slot', [], ['class' => 'link-dark'])</th>
                                             @if($booking_type != ' Summary')
                                                 <th>Profile Pic</th>
                                             @endif
@@ -320,19 +320,19 @@
                                                 <th>Parent Booking #</th>
                                             @endif
                                                 <th>Booking #</th>
-                                                <th class="">Doctor</th>
+                                                <th>@sortablelink('doctor_id', 'Doctor', [], ['class' => 'link-dark'])</th>
                                             @if(!empty($booking_type) && $booking_type == 'Referral')
                                                 <th>Clinic</th>
                                             @endif
                                             @if(!empty($booking_type) && ($booking_type == 'Referral' || $booking_type == ' Summary'))
                                                 <th>Booking Type</th>
                                             @endif
-                                                <th class="">Patient</th>
+                                                <th>@sortablelink('patient_id', 'Patient', [], ['class' => 'link-dark'])</th>
                                             @if(isset($booking_type) && ($booking_type == 'Diagnostics' || $booking_type == 'Laser' || $booking_type == 'Surgery'))
                                                 <th class="">Procedure</th>
                                             @else
                                                 <th class="">Complaint</th>
-                                                <th class="">Status</th>
+                                                <th>@sortablelink('status', 'Status', [], ['class' => 'link-dark'])</th>
                                                 <th class="">Booked By</th>
                                             @endif
                                             </tr>
@@ -357,8 +357,7 @@
                                                                                 $query->where('id', $bookingNum);
                                                                             }
                                                                         })->
-                                                                        orderby('time_slot', 'asc')->
-                                                                        orderby('id', 'asc')->
+                                                                        sortable(['time_slot' => 'asc', 'id' => 'asc'])->
                                                                         get();
                                                     }elseif(!empty($booking_type) && $booking_type == 'Referral'){
                                                         $bookingArr = $user->clinic->bookings()->
@@ -375,8 +374,7 @@
                                                                                 $query->where('id', $bookingNum);
                                                                             }
                                                                         })->
-                                                                        orderby('time_slot', 'asc')->
-                                                                        orderby('id', 'asc')->
+                                                                        sortable(['time_slot' => 'asc', 'id' => 'asc'])->
                                                                         get();
                                                         // if(!is_null($patientArr) && !is_null($doctorArr))
                                                         //     $bookingArr = $user->clinic->bookings()->whereNotNull('consultation_parent_id', )->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->whereIn('patient_id', $patientArr)->whereIn('doctor_id', $doctorArr)->get();
@@ -402,8 +400,7 @@
                                                                                 $query->where('id', $bookingNum);
                                                                             }
                                                                         })->
-                                                                        orderby('time_slot', 'asc')->
-                                                                        orderby('id', 'asc')->
+                                                                        sortable(['time_slot' => 'asc', 'id' => 'asc'])->
                                                                         get();
                                                         // if(!is_null($patientArr) && !is_null($doctorArr))
                                                         //     $bookingArr = $user->clinic->bookings()->where('booking_type', $booking_type == 'Consultation' ? '' : $booking_type)->whereNull('consultation_parent_id')->where('bookingDate', $yr . '-' . $mon . '-' . $dayNum)->whereIn('patient_id', $patientArr)->whereIn('doctor_id', $doctorArr)->get();
