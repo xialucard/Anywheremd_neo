@@ -3607,7 +3607,11 @@
                         </div>
                       </div>
                       {{-- @endif --}}
-                      
+                      <div class="form-floating mb-3">
+                        <textarea class="form-control" name="{{ $viewFolder }}[complain]" id="{{ $viewFolder }}" rows=3 id="{{ $viewFolder }}_prev_complain" disabled>{{ !empty($bookings[0]->complain) ? $bookings[0]->complain : '' }}</textarea>
+                        <label for="{{ $viewFolder }}_complain" class="form-label">Reason for Visit/Cheif Complaint</label>
+                        <small id="help_{{ $viewFolder }}_complain" class="text-muted"></small>
+                      </div>
                     </div>
                   </div>
                   <div class="card soapDiv soapDivObjective mb-3" style="display: none" id="{{ $viewFolder }}_SOAPPREV_{{ $datum->id }}_OBJ">
@@ -8940,6 +8944,11 @@
                           </div>
                         </div>
                         {{-- @endif --}}
+                        <div class="form-floating mb-3">
+                          <textarea class="form-control" name="{{ $viewFolder }}[complain]" id="{{ $viewFolder }}" rows=3 id="{{ $viewFolder }}_complain" required>{{ !empty($datum->complain) ? $datum->complain : '' }}</textarea>
+                          <label for="{{ $viewFolder }}_complain" class="form-label">Reason for Visit/Chief Complaint</label>
+                          <small id="help_{{ $viewFolder }}_complain" class="text-muted"></small>
+                        </div>
                         
                       </div>
                     </div>
