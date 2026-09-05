@@ -59,6 +59,7 @@ Route::group(['middleware' => ['auth', 'permission']], function() {
     Route::get('clinics_home/{clinics_home}/pdfPostOp', [ClinicsHomeController::class, 'pdfPostOp'])->name('clinics_home.pdfPostOp');
     Route::get('clinics_home/{clinics_home}/pdfDischargeSum', [ClinicsHomeController::class, 'pdfDischargeSum'])->name('clinics_home.pdfDischargeSum');
     Route::get('clinics_home/{clinics_home}/sendDrainwiz', [ClinicsHomeController::class, 'sendDrainwiz'])->name('clinics_home.sendDrainwiz');
+    Route::get('clinics_home/{clinics_home}/cancel', [ClinicsHomeController::class, 'cancel'])->name('clinics_home.cancel');
     Route::post('/clinics_home/book', [ClinicsHomeController::class, 'book'])->name('clinics_home.book');
     Route::patch('/clinics_home/{clinics_home}/updateMyAccount', [ClinicsHomeController::class, 'updateMyAccount'])->name('clinics_home.updateMyAccount');
     Route::post('/clinics_home/storeBook', [ClinicsHomeController::class, 'storeBook'])->name('clinics_home.storeBook');

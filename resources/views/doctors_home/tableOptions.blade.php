@@ -18,6 +18,11 @@
     <div class="m-1"><a class="btn btn-{{ $bgColor }} btn-sm w-100" href="{{ route($viewFolder . '.edit', [$dat->id, !empty(parse_url(Request::fullUrl())['query']) ? parse_url(Request::fullUrl())['query'] : '']) }}" title="Edit" role="button"><i class="bi bi-pencil"></i><span class="ps-1 d-sm-none">Edit</span></a></div>
         @endcan
     @endif
+    @if (Route::has($viewFolder . '.cancel') && $dat->status != 'Done')
+        @can($viewFolder . '.cancel')
+    <div class="m-1"><a class="btn btn-{{ $bgColor }} btn-sm w-100" href="{{ route($viewFolder . '.cancel', [$dat->id, !empty(parse_url(Request::fullUrl())['query']) ? parse_url(Request::fullUrl())['query'] : '']) }}" title="Cancel" role="button"><i class="bi bi-x-circle"></i><span class="ps-1 d-sm-none">Cancel</span></a></div>
+        @endcan
+    @endif
     {{-- @if (Route::has($viewFolder . '.pdfPrescription'))
         @can($viewFolder . '.pdfPrescription')
     <div class="m-1"><a class="btn btn-{{ $bgColor }} btn-sm w-100" href="{{ route($viewFolder . '.pdfPrescription', [$dat->id, !empty(parse_url(Request::fullUrl())['query']) ? parse_url(Request::fullUrl())['query'] : '']) }}" title="Download PDF" role="button"><i class="bi bi-file-pdf"></i><span class="ps-1 d-sm-none">Download PDF</span></a></div>

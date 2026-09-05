@@ -82,13 +82,17 @@
     <div class="m-1"><a class="btn btn-{{ $bgColor }} btn-sm w-100" href="{{ route($viewFolder . '.edit', [isset($referal_conso) ? $referal_conso->id : $dat->id, !empty(parse_url(Request::fullUrl())['query']) ? parse_url(Request::fullUrl())['query'] : '']) }}" @if($dat->status == 'Canceled') title="Edit/Activate" @else title="Edit" @endif role="button"><i class="bi bi-pencil"></i><span class="ps-1 d-sm-none">Edit</span></a></div>
         @endcan
     @endif
-    
-    @if (Route::has($viewFolder . '.destroy') && $dat->status != 'Done' && $dat->status != 'Canceled')
+    @if (Route::has($viewFolder . '.cancel') && $dat->status != 'Done' && $dat->status != 'Canceled')
+        @can($viewFolder . '.cancel')
+    <div class="m-1"><a class="btn btn-{{ $bgColor }} btn-sm w-100" href="{{ route($viewFolder . '.cancel', [$dat->id, !empty(parse_url(Request::fullUrl())['query']) ? parse_url(Request::fullUrl())['query'] : '']) }}" onclick="if(!confirm('Are you sure you want to cancel this?')) return false;" title="Cancel" role="button"><i class="bi bi-x-circle"></i><span class="ps-1 d-sm-none">Cancel</span></a></div>
+        @endcan
+    @endif
+    @if (Route::has($viewFolder . '.destroy') && $dat->status != 'Done' )
         @can($viewFolder . '.destroy')
     <form action="{{ route($viewFolder . '.destroy', isset($referal_conso) ? $referal_conso->id : $dat->id) }}" method="POST">
         @csrf
         @method('DELETE')
-        <div class="m-1"><button type="submit" class="btn btn-{{ $bgColor }} btn-sm w-100" onclick="if(!confirm('Are you sure you want to cancel this?')) return false;" title="Cancel"><i class="bi bi-x-circle"></i><span class="ps-1 d-sm-none">Cancel</span></button></div>
+        <div class="m-1"><button type="submit" class="btn btn-{{ $bgColor }} btn-sm w-100" onclick="if(!confirm('Are you sure you want to delete this?')) return false;" title="Delete"><i class="bi bi-trash"></i><span class="ps-1 d-sm-none">Delete</span></button></div>
     </form>
         @endcan
     @endif

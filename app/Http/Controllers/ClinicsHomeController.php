@@ -1176,6 +1176,14 @@ class ClinicsHomeController extends Controller
 
     public function destroy($id)
     {
+        Consultation::destroy($id);
+        // Consultation::where('id', $id)->update(['status' => 'Canceled']);
+        // return redirect()->route($this->viewFolder . '.index')->with('message', 'Entry has been deleted.');
+        return redirect()->back()->with('message', 'Entry has been deleted.');
+    }
+    
+    public function cancel($id)
+    {
         // Consultation::destroy($id);
         Consultation::where('id', $id)->update(['status' => 'Canceled']);
         // return redirect()->route($this->viewFolder . '.index')->with('message', 'Entry has been deleted.');
