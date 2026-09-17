@@ -69,6 +69,7 @@
         .img-div:hover .middle {
             opacity: 1;
         }
+        th.
     </style>
 </head>
 <body>

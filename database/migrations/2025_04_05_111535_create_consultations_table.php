@@ -75,6 +75,10 @@ return new class extends Migration
             $table->string('jae_os', 255)->nullable();
             $table->string('iopod', 255)->nullable();
             $table->string('iopos', 255)->nullable();
+            $table->string('vaodold_num', 5)->nullable();
+            $table->string('vaodold_den', 5)->nullable();
+            $table->string('vaosold_num', 5)->nullable();
+            $table->string('vaosold_den', 5)->nullable();
 
             $table->time('time_started')->nullable();
             $table->time('time_ended')->nullable();

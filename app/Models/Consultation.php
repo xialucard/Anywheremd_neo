@@ -189,7 +189,13 @@ class Consultation extends Model
         'hbsag',
         'anti_hbs',
         'anti_hcv',
-        'platelet'
+        'platelet',
+        'admittingSigKey',
+        'ePrescSigKey',
+        'vaodold_num',
+        'vaodold_den',
+        'vaosold_num',
+        'vaosold_den'
     ];
 
     public $sortable = ['id', 'doctor_id', 'patient_id', 'status', 'time_slot', 'bookingDate', 'created_at', 'updated_at'];

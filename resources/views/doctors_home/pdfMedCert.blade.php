@@ -119,7 +119,8 @@
         I certify that this information is generated from the Electronic Medical Records system in my clinic and by generating this form, my signature is hereby affixed.
     </p>
     <div class="position-absolute top-100 start-100 text-end mt-5">
-        @if((isset($referal_conso->doctor->sig_pic) ? $referal_conso->doctor->sig_pic : (!isset($referal_conso) ? $datum->doctor->sig_pic : '')) != "")
+        {{-- @if((isset($referal_conso->doctor->sig_pic) ? $referal_conso->doctor->sig_pic : (!isset($referal_conso) ? $datum->doctor->sig_pic : '')) != "") --}}
+        @if(((isset($referal_conso) && isset($referal_conso->medCertSigKey) && $referal_conso->medCertSigKey == 'yes') ? true : ((!isset($referal_conso) && $datum->medCertSigKey == 'yes') ? true : false)) && ($datum->doctor->sig_pic != '' || $referal_conso->doctor->sig_pic))
         <img src="{{ public_path('storage/' . (isset($referal_conso->doctor->sig_pic) ? $referal_conso->doctor->sig_pic : (!isset($referal_conso) ? $datum->doctor->sig_pic : ''))) }}" style="width:1in"><br>
         @endif
         {{ str_pad("", strlen(isset($referal_conso->doctor->name) ? $referal_conso->doctor->name : (!isset($referal_conso) ? $datum->doctor->name : '')), "_", STR_PAD_LEFT) }}<br>

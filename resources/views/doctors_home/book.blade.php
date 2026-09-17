@@ -1007,7 +1007,7 @@
                   $('#showPrevLinkHide').show();
                   $('#showPrevLink').hide();
                 }
-              ">Admitting and Peri-Op</a>
+              ">Peri-Operative Orders</a>
             </li>
             <li>
               <a class="dropdown-item" id="orTechBigLink" href="#" onclick="
@@ -1741,7 +1741,7 @@
                     <tbody>
                         <tr>
                             <td>Temp</td>
-                            <td><span id="temp">{{ $datum->temp }}</span>C</td>
+                            <td><span id="temp">{{ $datum->temp != '' ? $datum->temp : '' }}</span>C</td>
                             @if($datum->booking_type == 'Surgery')
                             <td><span id="i_temp">{{ isset($datum->printable_form['i_temp']) ? $datum->printable_form['i_temp'] : '' }}</span>C</td>
                             <td><span id="o_temp">{{ isset($datum->printable_form['o_temp']) ? $datum->printable_form['o_temp'] : '' }}</span>C</td>
@@ -1817,8 +1817,8 @@
                     <tbody>
                         <tr>
                             <td>Temp</td>
-                            <td><span id="temp">{{ $datum->temp }}</span>C</td>
-                            <td><span id="post_temp">{{ $datum->post_temp }}</span>C</td>
+                            <td><span id="temp">{{ isset($datum->temp) && $datum->temp != '' ? $datum->temp : '' }}</span>C</td>
+                            <td><span id="post_temp">{{ isset($datum->post_temp) && $datum->post_temp !== '' ? $datum->post_temp : '' }}</span>C</td>
                             
                         </tr>
                         <tr>
@@ -3111,7 +3111,7 @@
                       $('#orTechCurDiv').hide();  
                       $('#postOpCurDiv').hide();
                       $('#dischargeSumCurDiv').hide();
-                    ">Admitting and Peri-Op</a>
+                    ">Peri-Operative Orders</a>
                   </li>
                   <li>
                     <a class="dropdown-item" id="orTechPrevLink" href="#" onclick="
@@ -3385,31 +3385,37 @@
                             <td>&nbsp;</td>
                         </tr>
                         <tr>
-                            <td>UCVA</td>
+                            <td>UCVA (distance)</td>
                             <td>{{ $bookings[0]->vaod_den != '' ? $bookings[0]->vaod_num . ' / ' . $bookings[0]->vaod_den : $bookings[0]->vaod_num }}</td>
                             <td>{{ $bookings[0]->vaos_den != '' ? $bookings[0]->vaos_num . ' / ' . $bookings[0]->vaos_den : $bookings[0]->vaos_num }}</td>
                             <td>&nbsp;</td>
                         </tr>
                         <tr>
-                            <td>UCVA Present Correction</td>
+                            <td>UCVA with pinhole (distance)</td>
                             <td>{{ $bookings[0]->vaodcor_den != '' ? $bookings[0]->vaodcor_num . ' / ' . $bookings[0]->vaodcor_den : $bookings[0]->vaodcor_num }}</td>
                             <td>{{ $bookings[0]->vaoscor_den != '' ? $bookings[0]->vaoscor_num . ' / ' . $bookings[0]->vaoscor_den : $bookings[0]->vaoscor_num }}</td>
                             <td>&nbsp;</td>
                         </tr>
                         <tr>
-                            <td>VA Pinhole</td>
+                            <td>VA with old correction (distance)</td>
+                            <td>{{ $bookings[0]->vaodold_den != '' ? $bookings[0]->vaodold_num . ' / ' . $bookings[0]->vaodold_den : $bookings[0]->vaodold_num }}</td>
+                            <td>{{ $bookings[0]->vaosold_den != '' ? $bookings[0]->vaosold_num . ' / ' . $bookings[0]->vaosold_den : $bookings[0]->vaosold_num }}</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>VA with old correction with pinhole (distance)</td>
                             <td>{{ $bookings[0]->pinod_den != '' ? $bookings[0]->pinod_num . ' / ' . $bookings[0]->pinod_den : $bookings[0]->pinod_num }}</td>
                             <td>{{ $bookings[0]->pinos_den != '' ? $bookings[0]->pinos_num . ' / ' . $bookings[0]->pinos_den : $bookings[0]->pinos_num }}</td>
                             <td>&nbsp;</td>
                         </tr>
                         <tr>
-                            <td>BCVA</td>
+                            <td>BCVA (new correction)</td>
                             <td>{{ $bookings[0]->pinodcor_den != '' ? $bookings[0]->pinodcor_num . ' / ' . $bookings[0]->pinodcor_den : $bookings[0]->pinodcor_num }}</td>
                             <td>{{ $bookings[0]->pinoscor_den != '' ? $bookings[0]->pinoscor_num . ' / ' . $bookings[0]->pinoscor_den : $bookings[0]->pinoscor_num }}</td>
                             <td>&nbsp;</td>
                         </tr>
                         <tr>
-                            <td>Jaeger</td>
+                            <td>Jaeger (near vision)</td>
                             <td>{{ $bookings[0]->jae_od }}</td>
                             <td>{{ $bookings[0]->jae_os }}</td>
                             <td>{{ $bookings[0]->jae_ou }}</td>
@@ -3552,6 +3558,11 @@
                   <div class="card soapDiv soapDivSubjective mb-3" id="{{ $viewFolder }}_SOAPPREV_{{ $datum->id }}_SUBJ">
                     <div class="card-header fw-bolder text-primary">Previous Subjective Findings</div>
                     <div class="card-body">
+                      <div class="form-floating mb-3">
+                        <textarea class="form-control" name="{{ $viewFolder }}[complain]" id="{{ $viewFolder }}" rows=3 id="{{ $viewFolder }}_prev_complain" disabled>{{ !empty($bookings[0]->complain) ? $bookings[0]->complain : '' }}</textarea>
+                        <label for="{{ $viewFolder }}_complain" class="form-label">Reason for Visit/Chief Complaint</label>
+                        <small id="help_{{ $viewFolder }}_complain" class="text-muted"></small>
+                      </div>
                       {{-- @if(sizeof($bookings) == 1) --}}
                       <div class="card mb-3">
                         <div class="card-header">Previous History of Present Illness</div>
@@ -3607,11 +3618,7 @@
                         </div>
                       </div>
                       {{-- @endif --}}
-                      <div class="form-floating mb-3">
-                        <textarea class="form-control" name="{{ $viewFolder }}[complain]" id="{{ $viewFolder }}" rows=3 id="{{ $viewFolder }}_prev_complain" disabled>{{ !empty($bookings[0]->complain) ? $bookings[0]->complain : '' }}</textarea>
-                        <label for="{{ $viewFolder }}_complain" class="form-label">Reason for Visit/Cheif Complaint</label>
-                        <small id="help_{{ $viewFolder }}_complain" class="text-muted"></small>
-                      </div>
+                      
                     </div>
                   </div>
                   <div class="card soapDiv soapDivObjective mb-3" style="display: none" id="{{ $viewFolder }}_SOAPPREV_{{ $datum->id }}_OBJ">
@@ -3655,31 +3662,37 @@
                                   <td>&nbsp;</td>
                               </tr>
                               <tr>
-                                  <td>UCVA</td>
+                                  <td>UCVA (distance)</td>
                                   <td>{{ $bookings[0]->vaod_den != '' ? $bookings[0]->vaod_num . ' / ' . $bookings[0]->vaod_den : $bookings[0]->vaod_num }}</td>
                                   <td>{{ $bookings[0]->vaos_den != '' ? $bookings[0]->vaos_num . ' / ' . $bookings[0]->vaos_den : $bookings[0]->vaos_num }}</td>
                                   <td>&nbsp;</td>
                               </tr>
                               <tr>
-                                  <td>UCVA Present Correction</td>
+                                  <td>UCVA with pinhole (distance)</td>
                                   <td>{{ $bookings[0]->vaodcor_den != '' ? $bookings[0]->vaodcor_num . ' / ' . $bookings[0]->vaodcor_den : $bookings[0]->vaodcor_num }}</td>
                                   <td>{{ $bookings[0]->vaoscor_den != '' ? $bookings[0]->vaoscor_num . ' / ' . $bookings[0]->vaoscor_den : $bookings[0]->vaoscor_num }}</td>
                                   <td>&nbsp;</td>
                               </tr>
                               <tr>
-                                  <td>VA Pinhole</td>
+                                  <td>VA with old correction (distance)</td>
+                                  <td>{{ $bookings[0]->vaodold_den != '' ? $bookings[0]->vaodold_num . ' / ' . $bookings[0]->vaodold_den : $bookings[0]->vaodold_num }}</td>
+                                  <td>{{ $bookings[0]->vaosold_den != '' ? $bookings[0]->vaosold_num . ' / ' . $bookings[0]->vaosold_den : $bookings[0]->vaosold_num }}</td>
+                                  <td>&nbsp;</td>
+                              </tr>
+                              <tr>
+                                  <td>VA with old correction with pinhole (distance)</td>
                                   <td>{{ $bookings[0]->pinod_den != '' ? $bookings[0]->pinod_num . ' / ' . $bookings[0]->pinod_den : $bookings[0]->pinod_num }}</td>
                                   <td>{{ $bookings[0]->pinos_den != '' ? $bookings[0]->pinos_num . ' / ' . $bookings[0]->pinos_den : $bookings[0]->pinos_num }}</td>
                                   <td>&nbsp;</td>
                               </tr>
                               <tr>
-                                  <td>BCVA</td>
+                                  <td>BCVA (new correction)</td>
                                   <td>{{ $bookings[0]->pinodcor_den != '' ? $bookings[0]->pinodcor_num . ' / ' . $bookings[0]->pinodcor_den : $bookings[0]->pinodcor_num }}</td>
                                   <td>{{ $bookings[0]->pinoscor_den != '' ? $bookings[0]->pinoscor_num . ' / ' . $bookings[0]->pinoscor_den : $bookings[0]->pinoscor_num }}</td>
                                   <td>&nbsp;</td>
                               </tr>
                               <tr>
-                                  <td>Jaeger</td>
+                                  <td>Jaeger (near vision)</td>
                                   <td>{{ $bookings[0]->jae_od }}</td>
                                   <td>{{ $bookings[0]->jae_os }}</td>
                                   <td>{{ $bookings[0]->jae_ou }}</td>
@@ -4482,7 +4495,7 @@
               </div>
               <div id="admitPeriPrevDiv" style="display:none" class="container border border-1 mb-3 p-3">
                 <div class="card mb-3">
-                  <div class="card-header">Previous Admitting and Peri-Op Preview</div>
+                  <div class="card-header">Previous Peri-Operative Orders Preview</div>
                   <div class="card-body">
                     <iframe id="iframePrevOpAdmit" src="{{ Storage::disk('spaces')->exists('/storage/printable_forms_files/pdfOpAdmit_' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf') ? Storage::disk('spaces')->temporaryUrl('/storage/printable_forms_files/pdfOpAdmit_' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf', now()->addMinutes(10)) : (file_exists(public_path('storage/printable_forms_files/pdfOpAdmit_' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf')) ? asset('storage/printable_forms_files/pdfOpAdmit_' . $bookings[0]->id . '_' . $bookings[0]->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg') }}" width="100%" height="300" style="border:1"></iframe>
                     <small class="form-text text-muted">To print or download go to Tools</small>
@@ -8338,7 +8351,7 @@
                       $('#orTechCurDiv').hide();  
                       $('#postOpCurDiv').hide();
                       $('#dischargeSumCurDiv').hide();
-                    ">Admitting and Peri-Op</a>
+                    ">Peri-Operative Orders</a>
                   </li>
                   <li>
                     <a class="dropdown-item" id="orTechCurLink" href="#" onclick="
@@ -8622,31 +8635,37 @@
                             <td>&nbsp;</td>
                         </tr>
                         <tr>
-                            <td>UCVA</td>
+                            <td>UCVA (distance)</td>
                             <td>{{ $datum->vaod_den != '' ? $datum->vaod_num . ' / ' . $datum->vaod_den : $datum->vaod_num }}</td>
                             <td>{{ $datum->vaos_den != '' ? $datum->vaos_num . ' / ' . $datum->vaos_den : $datum->vaos_num }}</td>
                             <td>&nbsp;</td>
                         </tr>
                         <tr>
-                            <td>UCVA Present Correction</td>
+                            <td>UCVA with pinhole (distance)</td>
                             <td>{{ $datum->vaodcor_den != '' ? $datum->vaodcor_num . ' / ' . $datum->vaodcor_den : $datum->vaodcor_num }}</td>
                             <td>{{ $datum->vaoscor_den != '' ? $datum->vaoscor_num . ' / ' . $datum->vaoscor_den : $datum->vaoscor_num }}</td>
                             <td>&nbsp;</td>
                         </tr>
                         <tr>
-                            <td>VA Pinhole</td>
+                            <td>VA with old correction (distance)</td>
+                            <td>{{ $datum->vaodold_den != '' ? $datum->vaodold_num . ' / ' . $datum->vaodold_den : $datum->vaodold_num }}</td>
+                            <td>{{ $datum->vaosold_den != '' ? $datum->vaosold_num . ' / ' . $datum->vaosold_den : $datum->vaosold_num }}</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>VA with old correction with pinhole (distance)</td>
                             <td>{{ $datum->pinod_den != '' ? $datum->pinod_num . ' / ' . $datum->pinod_den : $datum->pinod_num }}</td>
                             <td>{{ $datum->pinos_den != '' ? $datum->pinos_num . ' / ' . $datum->pinos_den : $datum->pinos_num }}</td>
                             <td>&nbsp;</td>
                         </tr>
                         <tr>
-                            <td>BCVA</td>
+                            <td>BCVA (new correction)</td>
                             <td>{{ $datum->pinodcor_den != '' ? $datum->pinodcor_num . ' / ' . $datum->pinodcor_den : $datum->pinodcor_num }}</td>
                             <td>{{ $datum->pinoscor_den != '' ? $datum->pinoscor_num . ' / ' . $datum->pinoscor_den : $datum->pinoscor_num }}</td>
                             <td>&nbsp;</td>
                         </tr>
                         <tr>
-                            <td>Jaeger</td>
+                            <td>Jaeger (near vision)</td>
                             <td>{{ $datum->jae_od }}</td>
                             <td>{{ $datum->jae_os }}</td>
                             <td>{{ $datum->jae_ou }}</td>
@@ -8890,6 +8909,11 @@
                     <div class="card soapDiv soapDivSubjective mb-3" id="{{ $viewFolder }}_SOAPCURR_{{ $datum->id }}_SUBJ">
                       <div class="card-header fw-bolder text-primary">Subjective Findings</div>
                       <div class="card-body">
+                        <div class="form-floating mb-3">
+                          <textarea class="form-control" name="{{ $viewFolder }}[complain]" id="{{ $viewFolder }}" rows=3 id="{{ $viewFolder }}_complain" required>{{ !empty($datum->complain) ? $datum->complain : '' }}</textarea>
+                          <label for="{{ $viewFolder }}_complain" class="form-label">Reason for Visit/Chief Complaint</label>
+                          <small id="help_{{ $viewFolder }}_complain" class="text-muted"></small>
+                        </div>
                         {{-- @if(!isset($bookings[0])) --}}
                         <div class="card mb-3">
                           <div class="card-header">History of Present Illness</div>
@@ -8944,11 +8968,7 @@
                           </div>
                         </div>
                         {{-- @endif --}}
-                        <div class="form-floating mb-3">
-                          <textarea class="form-control" name="{{ $viewFolder }}[complain]" id="{{ $viewFolder }}" rows=3 id="{{ $viewFolder }}_complain" required>{{ !empty($datum->complain) ? $datum->complain : '' }}</textarea>
-                          <label for="{{ $viewFolder }}_complain" class="form-label">Reason for Visit/Chief Complaint</label>
-                          <small id="help_{{ $viewFolder }}_complain" class="text-muted"></small>
-                        </div>
+                        
                         
                       </div>
                     </div>
@@ -8993,31 +9013,37 @@
                                     <td>&nbsp;</td>
                                 </tr>
                                 <tr>
-                                    <td>UCVA</td>
+                                    <td>UCVA (distance)</td>
                                     <td>{{ $datum->vaod_den != '' ? $datum->vaod_num . ' / ' . $datum->vaod_den : $datum->vaod_num }}</td>
                                     <td>{{ $datum->vaos_den != '' ? $datum->vaos_num . ' / ' . $datum->vaos_den : $datum->vaos_num }}</td>
                                     <td>&nbsp;</td>
                                 </tr>
                                 <tr>
-                                    <td>UCVA Present Correction</td>
+                                    <td>UCVA with pinhole (distance)</td>
                                     <td>{{ $datum->vaodcor_den != '' ? $datum->vaodcor_num . ' / ' . $datum->vaodcor_den : $datum->vaodcor_num }}</td>
                                     <td>{{ $datum->vaoscor_den != '' ? $datum->vaoscor_num . ' / ' . $datum->vaoscor_den : $datum->vaoscor_num }}</td>
                                     <td>&nbsp;</td>
                                 </tr>
                                 <tr>
-                                    <td>VA Pinhole</td>
+                                    <td>VA with old correction (distance)</td>
+                                    <td>{{ $datum->vaodold_den != '' ? $datum->vaodold_num . ' / ' . $datum->vaodold_den : $datum->vaodold_num }}</td>
+                                    <td>{{ $datum->vaosold_den != '' ? $datum->vaosold_num . ' / ' . $datum->vaosold_den : $datum->vaosold_num }}</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>VA with old correction with pinhole (distance)</td>
                                     <td>{{ $datum->pinod_den != '' ? $datum->pinod_num . ' / ' . $datum->pinod_den : $datum->pinod_num }}</td>
                                     <td>{{ $datum->pinos_den != '' ? $datum->pinos_num . ' / ' . $datum->pinos_den : $datum->pinos_num }}</td>
                                     <td>&nbsp;</td>
                                 </tr>
                                 <tr>
-                                    <td>BCVA</td>
+                                    <td>BCVA (new correction)</td>
                                     <td>{{ $datum->pinodcor_den != '' ? $datum->pinodcor_num . ' / ' . $datum->pinodcor_den : $datum->pinodcor_num }}</td>
                                     <td>{{ $datum->pinoscor_den != '' ? $datum->pinoscor_num . ' / ' . $datum->pinoscor_den : $datum->pinoscor_num }}</td>
                                     <td>&nbsp;</td>
                                 </tr>
                                 <tr>
-                                    <td>Jaeger</td>
+                                    <td>Jaeger (near vision)</td>
                                     <td>{{ $datum->jae_od }}</td>
                                     <td>{{ $datum->jae_os }}</td>
                                     <td>{{ $datum->jae_ou }}</td>
@@ -9775,7 +9801,13 @@
                                   <td>&nbsp;</td>
                               </tr>
                               <tr>
-                                  <td>VA Pinhole</td>
+                                  <td>VA with old correction (distance)</td>
+                                  <td>{{ $datum->vaodold_den != '' ? $datum->vaodold_num . ' / ' . $datum->vaodold_den : $datum->vaodold_num }}</td>
+                                  <td>{{ $datum->vaosold_den != '' ? $datum->vaosold_num . ' / ' . $datum->vaosold_den : $datum->vaosold_num }}</td>
+                                  <td>&nbsp;</td>
+                              </tr>
+                              <tr>
+                                  <td>VA with old correction with pinhole (distance)</td>
                                   <td>{{ $datum->pinod_den != '' ? $datum->pinod_num . ' / ' . $datum->pinod_den : $datum->pinod_num }}</td>
                                   <td>{{ $datum->pinos_den != '' ? $datum->pinos_num . ' / ' . $datum->pinos_den : $datum->pinos_num }}</td>
                                   <td>&nbsp;</td>
@@ -10678,6 +10710,16 @@
                         <textarea class="form-control mb-2" name="{{ $viewFolder }}[prescriptionEdit]" id="{{ $viewFolder }}_prescriptionEdit" rows=3 disabled></textarea> --}}
                       </div>
                     </div>
+                    @if($datum->doctor->sig_pic != '')
+                    <div class="form-check mt-3">
+                      <input class="form-check-input mt-0" type="checkbox" name="{{ $viewFolder }}[ePrescSigKey]" id="{{ $viewFolder }}_ePrescSigKey_check" value='yes' {{ isset($datum->ePrescSigKey) && $datum->ePrescSigKey === 'yes' ? 'checked' : ''}}  {{ !isset($referal_conso) ? '' : 'disabled' }}>
+                      <label class="form-check-label" for="{{ $viewFolder }}_ePrescSigKey_check"><strong>Click this box to e-sign this document</strong></label>
+                    </div>
+                    @else
+                    <div class="form-check">
+                      <label class="form-check-label" for="{{ $viewFolder }}_ePrescSigKey_check"><strong>You can e-sign this form by uploading the picture of your signature in My Account</strong></label>
+                    </div>
+                    @endif
                   </div>
                 </div>
               </div>
@@ -10802,6 +10844,16 @@
                       <label for="{{ $viewFolder }}_recommendations" class="form-label">Recommendations</label>
                       <small id="help_{{ $viewFolder }}_recommendations" class="text-muted">By default the information is from SOAP Remarks/Recommendations unless edited here.</small>
                     </div>
+                    @if($datum->doctor->sig_pic != '')
+                    <div class="form-check mt-3">
+                      <input class="form-check-input mt-0" type="checkbox" name="{{ $viewFolder }}[medCertSigKey]" id="{{ $viewFolder }}_medCertSigKey_check" value='yes' {{ isset($datum->medCertSigKey) && $datum->medCertSigKey === 'yes' ? 'checked' : ''}}  {{ !isset($referal_conso) ? '' : 'disabled' }}>
+                      <label class="form-check-label" for="{{ $viewFolder }}_medCertSigKey_check"><strong>Click this box to e-sign this document</strong></label>
+                    </div>
+                    @else
+                    <div class="form-check">
+                      <label class="form-check-label" for="{{ $viewFolder }}_medCertSigKey_check"><strong>You can e-sign this form by uploading the picture of your signature in My Account</strong></label>
+                    </div>
+                    @endif
                   </div>
                 </div>
               </div>
@@ -10885,101 +10937,113 @@
                 <div class="card mb-3">
                   <div class="card-header">Form Inputs</div>
                   <div class="card-body">
-                <div class="form-floating mb-3">
-                  <input class="form-control" type="date" name="{{ $viewFolder }}[con_date_ao]" id="{{ $viewFolder }}_con_date_ao" value="{{ isset($datum->con_date_ao) ? $datum->con_date_ao : '' }}" placeholder="" {{ !isset($referal_conso) ? '' : 'disabled' }}>
-                  <label for="{{ $viewFolder }}_con_date_ao" class="form-label">Contemplated Date of Procedure</label>
-                  <small id="help_{{ $viewFolder }}_con_date_ao" class="text-muted"></small>
-                </div>
-                <div class="card mb-3">
-                  <div class="card-header">Procedure</div>
-                  <div class="card-body">
-                    {{-- <small class="text-muted">Helper</small>
-                    <div class="input-group input-group-small flex-nowrap">
-                      <select class="form-select" id="{{ $viewFolder }}_procedure_aoSelect" placeholder="" {{ !isset($referal_conso) ? '' : 'disabled' }}>
-                        <option value=""></option>
-                      </select>
-                      <button class="btn btn-outline-secondary" type="button" id="{{ $viewFolder }}_procedure_aoHelperDelete" {{ !isset($referal_conso) ? '' : 'disabled' }}>Delete Helper</button>
-                    </div> --}}
-                    <small class="text-muted">Content</small>
-                    <textarea class="form-control" name="{{ $viewFolder }}[procedure_ao]" id="{{ $viewFolder }}_procedure_ao" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
-                        if(($('#{{ $viewFolder }}_procedure_ao').val() || $('#{{ $viewFolder }}_admittingOrder').val()) == ''){
-                            $('.createPDFButAddmitting').each(function(){
-                            $(this).prop('disabled', true);
-                          });
-                        }else{
-                          $('.createPDFButAddmitting').each(function(){
-                            $(this).prop('disabled', false);
-                          });
-                        }
-                      ">{{ isset($datum->procedure_ao) ? $datum->procedure_ao : '' }}</textarea>
-                    {{-- <small class="text-muted">Helper Save/Edit</small>
-                    <div class="input-group input-group-small mb-3 flex-nowrap">
-                      <div class="input-group-text">
-                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
-                      </div>
-                      <input type="text" class="form-control" name="{{ $viewFolder }}[_procedure_aoTitle]" disabled>
-                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                    <div class="form-floating mb-3">
+                      <input class="form-control" type="date" name="{{ $viewFolder }}[con_date_ao]" id="{{ $viewFolder }}_con_date_ao" value="{{ isset($datum->con_date_ao) ? $datum->con_date_ao : '' }}" placeholder="" {{ !isset($referal_conso) ? '' : 'disabled' }}>
+                      <label for="{{ $viewFolder }}_con_date_ao" class="form-label">Contemplated Date of Procedure</label>
+                      <small id="help_{{ $viewFolder }}_con_date_ao" class="text-muted"></small>
                     </div>
-                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[procedure_aoEdit]" id="{{ $viewFolder }}_procedure_aoEdit" rows=3 disabled></textarea> --}}
-                  </div>
-                </div>
-                <div class="form-floating mb-3">
-                  <select class="form-select" name="{{ $viewFolder }}[anesthesia_type_ao]" id="{{ $viewFolder }}_anesthesia_type_ao" placeholder="" {{ !isset($referal_conso) ? '' : 'disabled' }}
-                    onchange="
-                      $('#{{ $viewFolder }}anesthesia_type_ot').val($(this).val());
-                    "
-                  >
-                    <option value="None" {{ (isset($datum->anesthesia_type_ao) && $datum->anesthesia_type_ao == 'None') ? 'selected' : ''}}>None</option>
-                    <option value="Local" {{ (isset($datum->anesthesia_type_ao) && $datum->anesthesia_type_ao == 'Local') ? 'selected' : ''}}>Local</option>
-                    <option value="Regional Block" {{ (isset($datum->anesthesia_type_ao) && $datum->anesthesia_type_ao == 'Regional Block') ? 'selected' : ''}}>Regional Block</option>
-                    <option value="IV Sedation" {{ (isset($datum->anesthesia_type_ao) && $datum->anesthesia_type_ao == 'IV Sedation') ? 'selected' : ''}}>IV Sedation</option>
-                    <option value="General Anesthesia" {{ (isset($datum->anesthesia_type_ao) && $datum->anesthesia_type_ao == 'General Anesthesia') ? 'selected' : ''}}>General Anesthesia</option>
-                  </select>
-                  <label for="{{ $viewFolder }}_anesthesia_type_ao">Anesthesia Type</label>
-                  <small id="help_{{ $viewFolder }}_anesthesia_type_ao" class="text-muted"></small>
-                </div>
-                <div class="form-floating mb-3">
-                  <input class="form-control" type="text" name="{{ $viewFolder }}[anesthesiologist_ao]" id="{{ $viewFolder }}_anesthesiologist_ao" placeholder="" value="{{ isset($datum->anesthesiologist_ao) ? $datum->anesthesiologist_ao : '' }}" {{ !isset($referal_conso) ? '' : 'disabled' }} 
-                    onblur="
-                      $('#{{ $viewFolder }}anesthesiologist_ot').val($(this).val());
-                    "
-                  >
-                  <label for="{{ $viewFolder }}_anesthesiologist_ao" class="form-label">Anesthesiologist</label>
-                  <small id="help_{{ $viewFolder }}_anesthesiologist_ao" class="text-muted"></small>
-                </div>
-                <div class="card mb-3">
-                  <div class="card-header">Admitting Details</div>
-                  <div class="card-body">
-                    {{-- <small class="text-muted">Helper</small>
-                    <div class="input-group input-group-small flex-nowrap">
-                      <select class="form-select" id="{{ $viewFolder }}_admittingOrderSelect" placeholder="" {{ !isset($referal_conso) ? '' : 'disabled' }}>
-                        <option value=""></option>
-                      </select>
-                      <button class="btn btn-outline-secondary" type="button" id="{{ $viewFolder }}_admittingOrderHelperDelete" {{ !isset($referal_conso) ? '' : 'disabled' }}>Delete Helper</button>
-                    </div> --}}
-                    <small class="text-muted">Content</small>
-                    <textarea class="form-control" name="{{ $viewFolder }}[admittingOrder]" id="{{ $viewFolder }}_admittingOrder" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
-                        if(($('#{{ $viewFolder }}_procedure_ao').val() || $('#{{ $viewFolder }}_admittingOrder').val()) == ''){
-                          $('.createPDFButAddmitting').each(function(){
-                            $(this).prop('disabled', true);
-                          });
-                        }else{
-                          $('.createPDFButAddmitting').each(function(){
-                            $(this).prop('disabled', false);
-                          });
-                        }
-                      ">{{ isset($datum->admittingOrder) ? $datum->admittingOrder : '' }}</textarea>
+                    <div class="card mb-3">
+                      <div class="card-header">Procedure</div>
+                      <div class="card-body">
+                        {{-- <small class="text-muted">Helper</small>
+                        <div class="input-group input-group-small flex-nowrap">
+                          <select class="form-select" id="{{ $viewFolder }}_procedure_aoSelect" placeholder="" {{ !isset($referal_conso) ? '' : 'disabled' }}>
+                            <option value=""></option>
+                          </select>
+                          <button class="btn btn-outline-secondary" type="button" id="{{ $viewFolder }}_procedure_aoHelperDelete" {{ !isset($referal_conso) ? '' : 'disabled' }}>Delete Helper</button>
+                        </div> --}}
+                        <small class="text-muted">Content</small>
+                        <textarea class="form-control" name="{{ $viewFolder }}[procedure_ao]" id="{{ $viewFolder }}_procedure_ao" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
+                            if(($('#{{ $viewFolder }}_procedure_ao').val() || $('#{{ $viewFolder }}_admittingOrder').val()) == ''){
+                                $('.createPDFButAddmitting').each(function(){
+                                $(this).prop('disabled', true);
+                              });
+                            }else{
+                              $('.createPDFButAddmitting').each(function(){
+                                $(this).prop('disabled', false);
+                              });
+                            }
+                          ">{{ isset($datum->procedure_ao) ? $datum->procedure_ao : '' }}</textarea>
                         {{-- <small class="text-muted">Helper Save/Edit</small>
                         <div class="input-group input-group-small mb-3 flex-nowrap">
                           <div class="input-group-text">
                             <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
                           </div>
-                          <input type="text" class="form-control" name="{{ $viewFolder }}[admittingOrderTitle]" disabled>
+                          <input type="text" class="form-control" name="{{ $viewFolder }}[_procedure_aoTitle]" disabled>
                           <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                         </div>
-                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[admittingOrderEdit]" id="{{ $viewFolder }}_admittingOrderEdit" rows=3 disabled></textarea> --}}
+                        <textarea class="form-control mb-2" name="{{ $viewFolder }}[procedure_aoEdit]" id="{{ $viewFolder }}_procedure_aoEdit" rows=3 disabled></textarea> --}}
                       </div>
                     </div>
+                    <div class="form-floating mb-3">
+                      <select class="form-select" name="{{ $viewFolder }}[anesthesia_type_ao]" id="{{ $viewFolder }}_anesthesia_type_ao" placeholder="" {{ !isset($referal_conso) ? '' : 'disabled' }}
+                        onchange="
+                          $('#{{ $viewFolder }}anesthesia_type_ot').val($(this).val());
+                        "
+                      >
+                        <option value="None" {{ (isset($datum->anesthesia_type_ao) && $datum->anesthesia_type_ao == 'None') ? 'selected' : ''}}>None</option>
+                        <option value="Local" {{ (isset($datum->anesthesia_type_ao) && $datum->anesthesia_type_ao == 'Local') ? 'selected' : ''}}>Local</option>
+                        <option value="Regional Block" {{ (isset($datum->anesthesia_type_ao) && $datum->anesthesia_type_ao == 'Regional Block') ? 'selected' : ''}}>Regional Block</option>
+                        <option value="IV Sedation" {{ (isset($datum->anesthesia_type_ao) && $datum->anesthesia_type_ao == 'IV Sedation') ? 'selected' : ''}}>IV Sedation</option>
+                        <option value="General Anesthesia" {{ (isset($datum->anesthesia_type_ao) && $datum->anesthesia_type_ao == 'General Anesthesia') ? 'selected' : ''}}>General Anesthesia</option>
+                      </select>
+                      <label for="{{ $viewFolder }}_anesthesia_type_ao">Anesthesia Type</label>
+                      <small id="help_{{ $viewFolder }}_anesthesia_type_ao" class="text-muted"></small>
+                    </div>
+                    <div class="form-floating mb-3">
+                      <input class="form-control" type="text" name="{{ $viewFolder }}[anesthesiologist_ao]" id="{{ $viewFolder }}_anesthesiologist_ao" placeholder="" value="{{ isset($datum->anesthesiologist_ao) ? $datum->anesthesiologist_ao : '' }}" {{ !isset($referal_conso) ? '' : 'disabled' }} 
+                        onblur="
+                          $('#{{ $viewFolder }}anesthesiologist_ot').val($(this).val());
+                        "
+                      >
+                      <label for="{{ $viewFolder }}_anesthesiologist_ao" class="form-label">Anesthesiologist</label>
+                      <small id="help_{{ $viewFolder }}_anesthesiologist_ao" class="text-muted"></small>
+                    </div>
+                    <div class="card mb-3">
+                      <div class="card-header">Admitting Details</div>
+                      <div class="card-body">
+                        {{-- <small class="text-muted">Helper</small>
+                        <div class="input-group input-group-small flex-nowrap">
+                          <select class="form-select" id="{{ $viewFolder }}_admittingOrderSelect" placeholder="" {{ !isset($referal_conso) ? '' : 'disabled' }}>
+                            <option value=""></option>
+                          </select>
+                          <button class="btn btn-outline-secondary" type="button" id="{{ $viewFolder }}_admittingOrderHelperDelete" {{ !isset($referal_conso) ? '' : 'disabled' }}>Delete Helper</button>
+                        </div> --}}
+                        <small class="text-muted">Content</small>
+                        <textarea class="form-control" name="{{ $viewFolder }}[admittingOrder]" id="{{ $viewFolder }}_admittingOrder" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
+                            if(($('#{{ $viewFolder }}_procedure_ao').val() || $('#{{ $viewFolder }}_admittingOrder').val()) == ''){
+                              $('.createPDFButAddmitting').each(function(){
+                                $(this).prop('disabled', true);
+                              });
+                            }else{
+                              $('.createPDFButAddmitting').each(function(){
+                                $(this).prop('disabled', false);
+                              });
+                            }
+                          ">{{ isset($datum->admittingOrder) ? $datum->admittingOrder : '' }}</textarea>
+                            {{-- <small class="text-muted">Helper Save/Edit</small>
+                            <div class="input-group input-group-small mb-3 flex-nowrap">
+                              <div class="input-group-text">
+                                <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                              </div>
+                              <input type="text" class="form-control" name="{{ $viewFolder }}[admittingOrderTitle]" disabled>
+                              <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                            </div>
+                            <textarea class="form-control mb-2" name="{{ $viewFolder }}[admittingOrderEdit]" id="{{ $viewFolder }}_admittingOrderEdit" rows=3 disabled></textarea>
+                          </div>
+                        </div> --}}
+                      </div>
+                    </div>
+                    @if($datum->doctor->sig_pic != '')
+                    <div class="form-check mt-3">
+                      <input class="form-check-input mt-0" type="checkbox" name="{{ $viewFolder }}[admittingSigKey]" id="{{ $viewFolder }}_admittingSigKey_check" value='yes' {{ isset($datum->admittingSigKey) && $datum->admittingSigKey === 'yes' ? 'checked' : ''}}  {{ !isset($referal_conso) ? '' : 'disabled' }}>
+                      <label class="form-check-label" for="{{ $viewFolder }}_admittingSigKey_check"><strong>Click this box to e-sign this document</strong></label>
+                    </div>
+                    @else
+                    <div class="form-check">
+                      <label class="form-check-label" for="{{ $viewFolder }}_admittingSigKey_check"><strong>You can e-sign this form by uploading the picture of your signature in My Account</strong></label>
+                    </div>
+                    @endif
                   </div>
                 </div>
               </div>
@@ -11279,7 +11343,7 @@
               </div>
               <div id="admitPeriCurDiv" style="display:none" class="container border border-1 mb-3 p-3">
                 <div class="docNotesDiv card mb-3" id="{{ $viewFolder }}_OpAdmit_{{ $datum->id }}">
-                  <div class="card-header">Admitting and Peri-Op View</div>
+                  <div class="card-header">Peri-Operative Orders View</div>
                   <div class="card-body">
                     <iframe id="iframeOpAdmit{{ $datum->id }}" src="{{ Storage::disk('spaces')->exists('/storage/printable_forms_files/pdfOpAdmit_' . $datum->id . '_' . $datum->patient->l_name . '.pdf') ? Storage::disk('spaces')->temporaryUrl('/storage/printable_forms_files/pdfOpAdmit_' . $datum->id . '_' . $datum->patient->l_name . '.pdf', now()->addMinutes(10)) : (file_exists(public_path('storage/printable_forms_files/pdfOpAdmit_' . $datum->id . '_' . $datum->patient->l_name . '.pdf')) ? asset('storage/printable_forms_files/pdfOpAdmit_' . $datum->id . '_' . $datum->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg') }}" width="100%" height="300" style="border:1"></iframe>
                     <small class="form-text text-muted">To print or download check the upper right part</small>
@@ -11315,7 +11379,7 @@
                 @if(isset($datum->consultation_referals[0]->id))
                   @foreach($datum->consultation_referals as $cr)
                 <div class="docNotesDiv card mb-3" id="{{ $viewFolder }}_OpAdmit_{{ $cr->id }}" style="display:none">
-                  <div class="card-header">Admitting and Peri-Op View</div>
+                  <div class="card-header">Peri-Operative Orders View</div>
                   <div class="card-body">
                     <iframe id="iframeOpAdmit{{ $cr->id }}" src="{{ Storage::disk('spaces')->exists('/storage/printable_forms_files/pdfOpAdmit_' . $cr->id . '_' . $cr->patient->l_name . '.pdf') ? Storage::disk('spaces')->temporaryUrl('/storage/printable_forms_files/pdfOpAdmit_' . $cr->id . '_' . $cr->patient->l_name . '.pdf', now()->addMinutes(10)) : (file_exists(public_path('storage/printable_forms_files/pdfOpAdmit_' . $cr->id . '_' . $cr->patient->l_name . '.pdf')) ? asset('storage/printable_forms_files/pdfOpAdmit_' . $cr->id . '_' . $cr->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg') }}" width="100%" height="300" style="border:1"></iframe>
                     <small class="form-text text-muted">To print or download check the upper right part</small>
@@ -11353,7 +11417,7 @@
                 <div class="card mb-3">
                   <div class="card-header">Form Inputs</div>
                   <div class="card-body">
-                    <div class="form-floating mb-3">
+                    {{-- <div class="form-floating mb-3">
                       <input class="form-control" type="number" name="{{ $viewFolder }}[PrintableForm][room]" id="{{ $viewFolder }}_room" placeholder="" value="{{ isset($datum->printable_form['room']) ? $datum->printable_form['room'] : '' }}" {{ !isset($referal_conso) ? '' : 'disabled' }} onblur="
                           if($('#{{ $viewFolder }}_room').val() == '' && $('#{{ $viewFolder }}_dilate').val() == '' && $('#{{ $viewFolder }}_constrict').val() == '' && $('#{{ $viewFolder }}_intake_blood_thinner').val() == '' && $('#{{ $viewFolder }}_intake_maintenance_meds').val() == '' && $('#{{ $viewFolder }}_additional_orders').val() == ''){
                             $('.createPDFButOpAdmit').each(function(){
@@ -11463,8 +11527,8 @@
                             });
                           }
                         ">
-                    </div>
-                    <label for="{{ $viewFolder }}_additional_orders" class="form-label">Additional Peri-Operative Orders</label>
+                    </div> --}}
+                    <label for="{{ $viewFolder }}_additional_orders" class="form-label">Peri-Operative Orders</label>
                     <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][additional_orders]" id="{{ $viewFolder }}_additional_orders" {{ !isset($referal_conso) ? '' : 'disabled' }} rows=3 onblur="
                           if($('#{{ $viewFolder }}_room').val() == '' && $('#{{ $viewFolder }}_dilate').val() == '' && $('#{{ $viewFolder }}_constrict').val() == '' && $('#{{ $viewFolder }}_intake_blood_thinner').val() == '' && $('#{{ $viewFolder }}_intake_maintenance_meds').val() == '' && $('#{{ $viewFolder }}_additional_orders').val() == ''){
                             $('.createPDFButOpAdmit').each(function(){
@@ -14398,7 +14462,6 @@
                           </tbody>
                         </table>
                       </div> --}}
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -14812,7 +14875,7 @@
             eyeStr += bookingObj.consultation.aros_sphere + ' - ' + bookingObj.consultation.aros_cylinder + ' x ' + bookingObj.consultation.aros_axis;
           }
           eyeStr += '</td><td></td>';
-          eyeStr += '<tr><td>UCVA</td><td>';
+          eyeStr += '<tr><td>UCVA (distance)</td><td>';
           if((bookingObj.consultation.vaod_den == '' || bookingObj.consultation.vaod_den == null) && bookingObj.consultation.vaod_num != null)
             eyeStr += bookingObj.consultation.vaod_num;
           else{
@@ -14837,7 +14900,7 @@
               eyeStr += bookingObj.consultation.vaos_num + ' / ' + bookingObj.consultation.vaos_den;
           }
           eyeStr += '</td><td></td>';
-          eyeStr += '<tr><td>UCVA Present Correction</td><td>';
+          eyeStr += '<tr><td>UCVA with pinhole (distance)</td><td>';
           if((bookingObj.consultation.vaodcor_den == '' || bookingObj.consultation.vaodcor_den == null) && bookingObj.consultation.vaodcor_num != null)
             eyeStr += bookingObj.consultation.vaodcor_num;
           else{
@@ -14862,7 +14925,20 @@
               eyeStr += bookingObj.consultation.vaoscor_num + ' / ' + bookingObj.consultation.vaoscor_den;
           }
           eyeStr += '</td><td></td>';
-          eyeStr += '<tr><td>VA Pinhole</td><td>';
+          eyeStr += '<tr><td>VA with old correction (distance)</td><td>';
+          if((bookingObj.consultation.vaodold_den == '' || bookingObj.consultation.vaodold_den == null) && bookingObj.consultation.vaodold_num != null)
+            eyeStr += bookingObj.consultation.vaodold_num;
+          else{
+            key = false;
+            if(bookingObj.consultation.vaodold_num != null)
+              key = true;
+            if(bookingObj.consultation.vaodold_den != null)
+              key = true;
+            if(key)
+              eyeStr += bookingObj.consultation.vaodold_num + ' / ' + bookingObj.consultation.vaodold_den;
+          }
+          eyeStr += '</td><td>';
+          eyeStr += '<tr><td>VA with old correction with pinhole (distance)</td><td>';
           if((bookingObj.consultation.pinod_den == '' || bookingObj.consultation.pinod_den == null) && bookingObj.consultation.pinod_num != null)
             eyeStr += bookingObj.consultation.pinod_num;
           else{
@@ -14887,7 +14963,7 @@
               eyeStr += bookingObj.consultation.pinos_num + ' / ' + bookingObj.consultation.pinos_den;
           }
           eyeStr += '</td><td></td>';
-          eyeStr += '<tr><td>BCVA</td><td>';
+          eyeStr += '<tr><td>BCVA (new correction)</td><td>';
           if((bookingObj.consultation.pinodcor_den == '' || bookingObj.consultation.pinodcor_den == null) && bookingObj.consultation.pinodcor_num != null)
             eyeStr += bookingObj.consultation.pinodcor_num;
           else{
@@ -14912,7 +14988,7 @@
               eyeStr += bookingObj.consultation.pinoscor_num + ' / ' + bookingObj.consultation.pinoscor_den;
           }
           eyeStr += '</td><td></td>';
-          eyeStr += '<tr><td>Jaeger</td><td>';
+          eyeStr += '<tr><td>Jaeger (near vision)</td><td>';
           if(bookingObj.consultation.jae_os != null)
             eyeStr += bookingObj.consultation.jae_os;
           eyeStr += '</td><td>';

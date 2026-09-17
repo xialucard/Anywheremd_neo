@@ -2949,7 +2949,7 @@
                     @endfor
                   </select>
                 </div>
-                <label for="{{ $viewFolder }}_vaod_num">UCVA OD</label>
+                <label for="{{ $viewFolder }}_vaod_num">UCVA (distance) OD</label>
                 <div class="input-group mb-3 flex-nowrap">
                   <select class="form-select" name="{{ $viewFolder }}[vaod_num]" id="{{ $viewFolder }}_vaod_num" placeholder="" onchange="
                     if($(this).val() == 'CF' || $(this).val() == 'HM' || $(this).val() == 'GLP' || $(this).val() == 'PLP' || $(this).val() == 'NLP' || $(this).val() == 'NA'){
@@ -2996,54 +2996,7 @@
                     @endfor
                   </select>
                 </div>
-                <label for="{{ $viewFolder }}_vaodcor_num">UCVA OD Present Correction</label>
-                <div class="input-group mb-3 flex-nowrap">
-                  <select class="form-select" name="{{ $viewFolder }}[vaodcor_num]" id="{{ $viewFolder }}_vaodcor_num" placeholder="" onchange="
-                    if($(this).val() == 'CF' || $(this).val() == 'HM' || $(this).val() == 'GLP' || $(this).val() == 'PLP' || $(this).val() == 'NLP' || $(this).val() == 'NA'){
-                      $('#{{ $viewFolder }}_vaodcor_den').prop('disabled', true);
-                    }else{
-                      $('#{{ $viewFolder }}_vaodcor_den').prop('disabled', false);
-                    }
-                  ">
-                    <option value="" {{ isset($datum->id) && $datum->vaodcor_num == '' ? 'selected' : '' }}>-</option>
-                    @for($i = 5; $i<=20; $i++)
-                    <option value="{{ $i }}" {{ isset($datum->id) && $datum->vaodcor_num == $i ? 'selected' : '' }}>{{ number_format($i, 0) }}</option>
-                    @endfor
-                    <option value="CF" {{ isset($datum->id) && $datum->vaodcor_num == 'CF' ? 'selected' : '' }}>CF</option>
-                    <option value="HM" {{ isset($datum->id) && $datum->vaodcor_num == 'HM' ? 'selected' : '' }}>HM</option>
-                    <option value="GLP" {{ isset($datum->id) && $datum->vaodcor_num == 'GLP' ? 'selected' : '' }}>GLP</option>
-                    <option value="PLP" {{ isset($datum->id) && $datum->vaodcor_num == 'PLP' ? 'selected' : '' }}>PLP</option>
-                    <option value="NLP" {{ isset($datum->id) && $datum->vaodcor_num == 'NLP' ? 'selected' : '' }}>NLP</option>
-                    <option value="NA" {{ isset($datum->id) && $datum->vaodcor_num == 'NA' ? 'selected' : '' }}>NA</option>
-                  </select>
-                  <span class="input-group-text">/</span>
-                  <select class="form-select" name="{{ $viewFolder }}[vaodcor_den]" id="{{ $viewFolder }}_vaodcor_den" placeholder="" {{ isset($datum->id) && ($datum->vaodcor_num == 'CF' || $datum->vaodcor_num == 'HM' || $datum->vaodcor_num == 'GLP' || $datum->vaodcor_num == 'PLP' || $datum->vaodcor_num == 'NLP' || $datum->vaodcor_num == 'NA') ? 'disabled' : '' }}>
-                    <option value="" {{ isset($datum->id) && $datum->vaodcor_den == '' ? 'selected' : '' }}>-</option>
-                    @php
-                      $limit = 30;
-                      $incr = 5;
-                    @endphp
-                    @for($i = 15; $i<=$limit; $i+=$incr)
-                    @php
-                      if($i == 30){
-                        $limit = 80;
-                        $incr = 10;
-                      }elseif($i == 80){
-                        $limit = 100;
-                        $incr = 20;
-                      }elseif($i == 100){
-                        $limit = 200;
-                        $incr = 50;
-                      }elseif($i == 200){
-                        $limit = 400;
-                        $incr = 200;
-                      }
-                    @endphp
-                    <option value="{{ $i }}" {{ isset($datum->id) && $datum->vaodcor_den == $i ? 'selected' : '' }}>{{ $i }}</option>
-                    @endfor
-                  </select>
-                </div>
-                <label for="{{ $viewFolder }}_vaos_num">UCVA OS</label>
+                <label for="{{ $viewFolder }}_vaos_num">UCVA (distance) OS</label>
                 <div class="input-group mb-3 flex-nowrap">
                   <select class="form-select" name="{{ $viewFolder }}[vaos_num]" id="{{ $viewFolder }}_vaos_num" placeholder="" onchange="
                     if($(this).val() == 'CF' || $(this).val() == 'HM' || $(this).val() == 'GLP' || $(this).val() == 'PLP' || $(this).val() == 'NLP' || $(this).val() == 'NA'){
@@ -3090,7 +3043,55 @@
                     @endfor
                   </select>
                 </div>
-                <label for="{{ $viewFolder }}_vaoscor_num">UCVA OS Present Correction</label>
+                <label for="{{ $viewFolder }}_vaodcor_num">UCVA with pinhole (distance) OD</label>
+                <div class="input-group mb-3 flex-nowrap">
+                  <select class="form-select" name="{{ $viewFolder }}[vaodcor_num]" id="{{ $viewFolder }}_vaodcor_num" placeholder="" onchange="
+                    if($(this).val() == 'CF' || $(this).val() == 'HM' || $(this).val() == 'GLP' || $(this).val() == 'PLP' || $(this).val() == 'NLP' || $(this).val() == 'NA'){
+                      $('#{{ $viewFolder }}_vaodcor_den').prop('disabled', true);
+                    }else{
+                      $('#{{ $viewFolder }}_vaodcor_den').prop('disabled', false);
+                    }
+                  ">
+                    <option value="" {{ isset($datum->id) && $datum->vaodcor_num == '' ? 'selected' : '' }}>-</option>
+                    @for($i = 5; $i<=20; $i++)
+                    <option value="{{ $i }}" {{ isset($datum->id) && $datum->vaodcor_num == $i ? 'selected' : '' }}>{{ number_format($i, 0) }}</option>
+                    @endfor
+                    <option value="CF" {{ isset($datum->id) && $datum->vaodcor_num == 'CF' ? 'selected' : '' }}>CF</option>
+                    <option value="HM" {{ isset($datum->id) && $datum->vaodcor_num == 'HM' ? 'selected' : '' }}>HM</option>
+                    <option value="GLP" {{ isset($datum->id) && $datum->vaodcor_num == 'GLP' ? 'selected' : '' }}>GLP</option>
+                    <option value="PLP" {{ isset($datum->id) && $datum->vaodcor_num == 'PLP' ? 'selected' : '' }}>PLP</option>
+                    <option value="NLP" {{ isset($datum->id) && $datum->vaodcor_num == 'NLP' ? 'selected' : '' }}>NLP</option>
+                    <option value="NA" {{ isset($datum->id) && $datum->vaodcor_num == 'NA' ? 'selected' : '' }}>NA</option>
+                  </select>
+                  <span class="input-group-text">/</span>
+                  <select class="form-select" name="{{ $viewFolder }}[vaodcor_den]" id="{{ $viewFolder }}_vaodcor_den" placeholder="" {{ isset($datum->id) && ($datum->vaodcor_num == 'CF' || $datum->vaodcor_num == 'HM' || $datum->vaodcor_num == 'GLP' || $datum->vaodcor_num == 'PLP' || $datum->vaodcor_num == 'NLP' || $datum->vaodcor_num == 'NA') ? 'disabled' : '' }}>
+                    <option value="" {{ isset($datum->id) && $datum->vaodcor_den == '' ? 'selected' : '' }}>-</option>
+                    @php
+                      $limit = 30;
+                      $incr = 5;
+                    @endphp
+                    @for($i = 15; $i<=$limit; $i+=$incr)
+                    @php
+                      if($i == 30){
+                        $limit = 80;
+                        $incr = 10;
+                      }elseif($i == 80){
+                        $limit = 100;
+                        $incr = 20;
+                      }elseif($i == 100){
+                        $limit = 200;
+                        $incr = 50;
+                      }elseif($i == 200){
+                        $limit = 400;
+                        $incr = 200;
+                      }
+                    @endphp
+                    <option value="{{ $i }}" {{ isset($datum->id) && $datum->vaodcor_den == $i ? 'selected' : '' }}>{{ $i }}</option>
+                    @endfor
+                  </select>
+                </div>
+                
+                <label for="{{ $viewFolder }}_vaoscor_num">UCVA with pinhole (distance) OS</label>
                 <div class="input-group mb-3 flex-nowrap">
                   <select class="form-select" name="{{ $viewFolder }}[vaoscor_num]" id="{{ $viewFolder }}_vaoscor_num" placeholder="" onchange="
                     if($(this).val() == 'CF' || $(this).val() == 'HM' || $(this).val() == 'GLP' || $(this).val() == 'PLP' || $(this).val() == 'NLP' || $(this).val() == 'NA'){
@@ -3137,7 +3138,105 @@
                     @endfor
                   </select>
                 </div>
-                <label for="{{ $viewFolder }}_pinod_num">VA OD Pinhole</label>
+                <label for="{{ $viewFolder }}_vaodold_num">VA with old correction (distance) OD</label>
+                <div class="input-group mb-3 flex-nowrap">
+                  <select class="form-select" name="{{ $viewFolder }}[vaodold_num]" id="{{ $viewFolder }}_vaodold_num" placeholder="" onchange="
+                    if($(this).val() == 'CF' || $(this).val() == 'HM' || $(this).val() == 'GLP' || $(this).val() == 'PLP' || $(this).val() == 'NLP' || $(this).val() == 'NA'){
+                      $('#{{ $viewFolder }}_vaodold_den').prop('disabled', true);
+                    }else{
+                      $('#{{ $viewFolder }}_vaodold_den').prop('disabled', false);
+                    }
+                  ">
+                    <option value="" {{ isset($datum->id) && $datum->vaodold_num == '' ? 'selected' : '' }}>-</option>
+                    @for($i = 5; $i<=20; $i++)
+                    <option value="{{ $i }}" {{ isset($datum->id) && $datum->vaodold_num == $i ? 'selected' : '' }}>{{ number_format($i, 0) }}</option>
+                    @endfor
+                    <option value="CF" {{ isset($datum->id) && $datum->vaodold_num == 'CF' ? 'selected' : '' }}>CF</option>
+                    <option value="HM" {{ isset($datum->id) && $datum->vaodold_num == 'HM' ? 'selected' : '' }}>HM</option>
+                    <option value="GLP" {{ isset($datum->id) && $datum->vaodold_num == 'GLP' ? 'selected' : '' }}>GLP</option>
+                    <option value="PLP" {{ isset($datum->id) && $datum->vaodold_num == 'PLP' ? 'selected' : '' }}>PLP</option>
+                    <option value="NLP" {{ isset($datum->id) && $datum->vaodold_num == 'NLP' ? 'selected' : '' }}>NLP</option>
+                    <option value="NA" {{ isset($datum->id) && $datum->vaodold_num == 'NA' ? 'selected' : '' }}>NA</option>
+                    {{-- <option value="NIWPH">NIWPH</option>
+                    <option value="NA">NA</option> --}}
+                  </select>
+                  <span class="input-group-text">/</span>
+                  <select class="form-select" name="{{ $viewFolder }}[vaodold_den]" id="{{ $viewFolder }}_vaodold_den" placeholder="" {{ isset($datum->id) && ($datum->vaodold_num == 'CF' || $datum->vaodold_num == 'HM' || $datum->vaodold_num == 'GLP' || $datum->vaodold_num == 'PLP' || $datum->vaodold_num == 'NLP' || $datum->vaodold_num == 'NA') ? 'disabled' : '' }}>
+                    <option value="" {{ isset($datum->id) && $datum->vaodold_den == '' ? 'selected' : '' }}>-</option>
+                    @php
+                      $limit = 30;
+                      $incr = 5;
+                    @endphp
+                    @for($i = 15; $i<=$limit; $i+=$incr)
+                    @php
+                      if($i == 30){
+                        $limit = 80;
+                        $incr = 10;
+                      }elseif($i == 80){
+                        $limit = 100;
+                        $incr = 20;
+                      }elseif($i == 100){
+                        $limit = 200;
+                        $incr = 50;
+                      }elseif($i == 200){
+                        $limit = 400;
+                        $incr = 200;
+                      }
+                    @endphp
+                    <option value="{{ $i }}" {{ isset($datum->id) && $datum->vaodold_den == $i ? 'selected' : '' }}>{{ $i }}</option>
+                    @endfor
+                  </select>
+                </div>
+                <label for="{{ $viewFolder }}_vaosold_num">VA with old correction (distance) OS</label>
+                <div class="input-group mb-3 flex-nowrap">
+                  <select class="form-select" name="{{ $viewFolder }}[vaosold_num]" id="{{ $viewFolder }}_vaosold_num" placeholder="" onchange="
+                    if($(this).val() == 'CF' || $(this).val() == 'HM' || $(this).val() == 'GLP' || $(this).val() == 'PLP' || $(this).val() == 'NLP' || $(this).val() == 'NA'){
+                      $('#{{ $viewFolder }}_vaosold_den').prop('disabled', true);
+                    }else{
+                      $('#{{ $viewFolder }}_vaosold_den').prop('disabled', false);
+                    }
+                  ">
+                    <option value="" {{ isset($datum->id) && $datum->vaosold_num == '' ? 'selected' : '' }}>-</option>
+                    @for($i = 5; $i<=20; $i++)
+                    <option value="{{ $i }}" {{ isset($datum->id) && $datum->vaosold_num == $i ? 'selected' : '' }}>{{ number_format($i, 0) }}</option>
+                    @endfor
+                    <option value="CF" {{ isset($datum->id) && $datum->vaosold_num == 'CF' ? 'selected' : '' }}>CF</option>
+                    <option value="HM" {{ isset($datum->id) && $datum->vaosold_num == 'HM' ? 'selected' : '' }}>HM</option>
+                    <option value="GLP" {{ isset($datum->id) && $datum->vaosold_num == 'GLP' ? 'selected' : '' }}>GLP</option>
+                    <option value="PLP" {{ isset($datum->id) && $datum->vaosold_num == 'PLP' ? 'selected' : '' }}>PLP</option>
+                    <option value="NLP" {{ isset($datum->id) && $datum->vaosold_num == 'NLP' ? 'selected' : '' }}>NLP</option>
+                    <option value="NA" {{ isset($datum->id) && $datum->vaosold_num == 'NA' ? 'selected' : '' }}>NA</option>
+                    {{-- <option value="NIWPH">NIWPH</option>
+                    <option value="NA">NA</option> --}}
+                  </select>
+                  <span class="input-group-text">/</span>
+                  <select class="form-select" name="{{ $viewFolder }}[vaosold_den]" id="{{ $viewFolder }}_vaosold_den" placeholder="" {{ isset($datum->id) && ($datum->vaosold_num == 'CF' || $datum->vaosold_num == 'HM' || $datum->vaosold_num == 'GLP' || $datum->vaosold_num == 'PLP' || $datum->vaosold_num == 'NLP' || $datum->vaosold_num == 'NA') ? 'disabled' : '' }}>
+                    <option value="" {{ isset($datum->id) && $datum->vaosold_den == '' ? 'selected' : '' }}>-</option>
+                    @php
+                      $limit = 30;
+                      $incr = 5;
+                    @endphp
+                    @for($i = 15; $i<=$limit; $i+=$incr)
+                    @php
+                      if($i == 30){
+                        $limit = 80;
+                        $incr = 10;
+                      }elseif($i == 80){
+                        $limit = 100;
+                        $incr = 20;
+                      }elseif($i == 100){
+                        $limit = 200;
+                        $incr = 50;
+                      }elseif($i == 200){
+                        $limit = 400;
+                        $incr = 200;
+                      }
+                    @endphp
+                    <option value="{{ $i }}" {{ isset($datum->id) && $datum->vaosold_den == $i ? 'selected' : '' }}>{{ $i }}</option>
+                    @endfor
+                  </select>
+                </div>
+                <label for="{{ $viewFolder }}_pinod_num">VA with old correction with pinhole (distance) OD</label>
                 <div class="input-group mb-3 flex-nowrap">
                   <select class="form-select" name="{{ $viewFolder }}[pinod_num]" id="{{ $viewFolder }}_pinod_num" placeholder="" onchange="
                     if($(this).val() == 'CF' || $(this).val() == 'HM' || $(this).val() == 'GLP' || $(this).val() == 'PLP' || $(this).val() == 'NLP' || $(this).val() == 'NA'){
@@ -3186,56 +3285,7 @@
                     @endfor
                   </select>
                 </div>
-                <label for="{{ $viewFolder }}_pinodcor_num">BCVA OD</label>
-                <div class="input-group mb-3 flex-nowrap">
-                  <select class="form-select" name="{{ $viewFolder }}[pinodcor_num]" id="{{ $viewFolder }}_pinodcor_num" placeholder="" onchange="
-                    if($(this).val() == 'CF' || $(this).val() == 'HM' || $(this).val() == 'GLP' || $(this).val() == 'PLP' || $(this).val() == 'NLP' || $(this).val() == 'NA'){
-                      $('#{{ $viewFolder }}_pinodcor_den').prop('disabled', true);
-                    }else{
-                      $('#{{ $viewFolder }}_pinodcor_den').prop('disabled', false);
-                    }
-                  ">
-                    <option value="" {{ isset($datum->id) && $datum->pinodcor_num == '' ? 'selected' : '' }}>-</option>
-                    @for($i = 5; $i<=20; $i++)
-                    <option value="{{ $i }}" {{ isset($datum->id) && $datum->pinodcor_num == $i ? 'selected' : '' }}>{{ number_format($i, 0) }}</option>
-                    @endfor
-                    <option value="CF" {{ isset($datum->id) && $datum->pinodcor_num == 'CF' ? 'selected' : '' }}>CF</option>
-                    <option value="HM" {{ isset($datum->id) && $datum->pinodcor_num == 'HM' ? 'selected' : '' }}>HM</option>
-                    <option value="GLP" {{ isset($datum->id) && $datum->pinodcor_num == 'GLP' ? 'selected' : '' }}>GLP</option>
-                    <option value="PLP" {{ isset($datum->id) && $datum->pinodcor_num == 'PLP' ? 'selected' : '' }}>PLP</option>
-                    <option value="NLP" {{ isset($datum->id) && $datum->pinodcor_num == 'NLP' ? 'selected' : '' }}>NLP</option>
-                    <option value="NA" {{ isset($datum->id) && $datum->pinodcor_num == 'NA' ? 'selected' : '' }}>NA</option>
-                    {{-- <option value="NIWPH">NIWPH</option>
-                    <option value="NA">NA</option> --}}
-                  </select>
-                  <span class="input-group-text">/</span>
-                  <select class="form-select" name="{{ $viewFolder }}[pinodcor_den]" id="{{ $viewFolder }}_pinodcor_den" placeholder="" {{ isset($datum->id) && ($datum->pinodcor_num == 'CF' || $datum->pinodcor_num == 'HM' || $datum->pinodcor_num == 'GLP' || $datum->pinodcor_num == 'PLP' || $datum->pinodcor_num == 'NLP' || $datum->pinodcor_num == 'NA') ? 'disabled' : '' }}>
-                    <option value="" {{ isset($datum->id) && $datum->pinodcor_den == '' ? 'selected' : '' }}>-</option>
-                    @php
-                      $limit = 30;
-                      $incr = 5;
-                    @endphp
-                    @for($i = 15; $i<=$limit; $i+=$incr)
-                    @php
-                      if($i == 30){
-                        $limit = 80;
-                        $incr = 10;
-                      }elseif($i == 80){
-                        $limit = 100;
-                        $incr = 20;
-                      }elseif($i == 100){
-                        $limit = 200;
-                        $incr = 50;
-                      }elseif($i == 200){
-                        $limit = 400;
-                        $incr = 200;
-                      }
-                    @endphp
-                    <option value="{{ $i }}" {{ isset($datum->id) && $datum->pinodcor_den == $i ? 'selected' : '' }}>{{ $i }}</option>
-                    @endfor
-                  </select>
-                </div>
-                <label for="{{ $viewFolder }}_pinos_num">VA OS Pinhole</label>
+                <label for="{{ $viewFolder }}_pinos_num">VA with old correction with pinhole (distance) OS</label>
                 <div class="input-group mb-3 flex-nowrap">
                   <select class="form-select" name="{{ $viewFolder }}[pinos_num]" id="{{ $viewFolder }}_pinos_num" placeholder="" onchange="
                     if($(this).val() == 'CF' || $(this).val() == 'HM' || $(this).val() == 'GLP' || $(this).val() == 'PLP' || $(this).val() == 'NLP' || $(this).val() == 'NA'){
@@ -3284,7 +3334,57 @@
                     @endfor
                   </select>
                 </div>
-                <label for="{{ $viewFolder }}_pinoscor_num">BCVA OS</label>
+                <label for="{{ $viewFolder }}_pinodcor_num">BCVA (new correction) OD</label>
+                <div class="input-group mb-3 flex-nowrap">
+                  <select class="form-select" name="{{ $viewFolder }}[pinodcor_num]" id="{{ $viewFolder }}_pinodcor_num" placeholder="" onchange="
+                    if($(this).val() == 'CF' || $(this).val() == 'HM' || $(this).val() == 'GLP' || $(this).val() == 'PLP' || $(this).val() == 'NLP' || $(this).val() == 'NA'){
+                      $('#{{ $viewFolder }}_pinodcor_den').prop('disabled', true);
+                    }else{
+                      $('#{{ $viewFolder }}_pinodcor_den').prop('disabled', false);
+                    }
+                  ">
+                    <option value="" {{ isset($datum->id) && $datum->pinodcor_num == '' ? 'selected' : '' }}>-</option>
+                    @for($i = 5; $i<=20; $i++)
+                    <option value="{{ $i }}" {{ isset($datum->id) && $datum->pinodcor_num == $i ? 'selected' : '' }}>{{ number_format($i, 0) }}</option>
+                    @endfor
+                    <option value="CF" {{ isset($datum->id) && $datum->pinodcor_num == 'CF' ? 'selected' : '' }}>CF</option>
+                    <option value="HM" {{ isset($datum->id) && $datum->pinodcor_num == 'HM' ? 'selected' : '' }}>HM</option>
+                    <option value="GLP" {{ isset($datum->id) && $datum->pinodcor_num == 'GLP' ? 'selected' : '' }}>GLP</option>
+                    <option value="PLP" {{ isset($datum->id) && $datum->pinodcor_num == 'PLP' ? 'selected' : '' }}>PLP</option>
+                    <option value="NLP" {{ isset($datum->id) && $datum->pinodcor_num == 'NLP' ? 'selected' : '' }}>NLP</option>
+                    <option value="NA" {{ isset($datum->id) && $datum->pinodcor_num == 'NA' ? 'selected' : '' }}>NA</option>
+                    {{-- <option value="NIWPH">NIWPH</option>
+                    <option value="NA">NA</option> --}}
+                  </select>
+                  <span class="input-group-text">/</span>
+                  <select class="form-select" name="{{ $viewFolder }}[pinodcor_den]" id="{{ $viewFolder }}_pinodcor_den" placeholder="" {{ isset($datum->id) && ($datum->pinodcor_num == 'CF' || $datum->pinodcor_num == 'HM' || $datum->pinodcor_num == 'GLP' || $datum->pinodcor_num == 'PLP' || $datum->pinodcor_num == 'NLP' || $datum->pinodcor_num == 'NA') ? 'disabled' : '' }}>
+                    <option value="" {{ isset($datum->id) && $datum->pinodcor_den == '' ? 'selected' : '' }}>-</option>
+                    @php
+                      $limit = 30;
+                      $incr = 5;
+                    @endphp
+                    @for($i = 15; $i<=$limit; $i+=$incr)
+                    @php
+                      if($i == 30){
+                        $limit = 80;
+                        $incr = 10;
+                      }elseif($i == 80){
+                        $limit = 100;
+                        $incr = 20;
+                      }elseif($i == 100){
+                        $limit = 200;
+                        $incr = 50;
+                      }elseif($i == 200){
+                        $limit = 400;
+                        $incr = 200;
+                      }
+                    @endphp
+                    <option value="{{ $i }}" {{ isset($datum->id) && $datum->pinodcor_den == $i ? 'selected' : '' }}>{{ $i }}</option>
+                    @endfor
+                  </select>
+                </div>
+                
+                <label for="{{ $viewFolder }}_pinoscor_num">BCVA (new correction) OS</label>
                 <div class="input-group mb-3 flex-nowrap">
                   <select class="form-select" name="{{ $viewFolder }}[pinoscor_num]" id="{{ $viewFolder }}_pinoscor_num" placeholder="" onchange="
                     if($(this).val() == 'CF' || $(this).val() == 'HM' || $(this).val() == 'GLP' || $(this).val() == 'PLP' || $(this).val() == 'NLP' || $(this).val() == 'NA'){
@@ -3333,7 +3433,7 @@
                     @endfor
                   </select>
                 </div>
-                <label for="{{ $viewFolder }}_jae_ou">Jaeger OU</label>
+                <label for="{{ $viewFolder }}_jae_ou">Jaeger (near vision) OU</label>
                 <div class="input-group mb-3 flex-nowrap">
                   <select class="form-select" name="{{ $viewFolder }}[jae_ou]" id="{{ $viewFolder }}_jae_ou" placeholder="">
                     <option value="" {{ isset($datum->id) && $datum->jae_ou == '' ? 'selected' : '' }}>-</option>
@@ -3344,7 +3444,7 @@
                     <option value="NA" {{ isset($datum->id) && $datum->jae_ou == 'NA' ? 'selected' : '' }}>NA</option>
                   </select>
                 </div>
-                <label for="{{ $viewFolder }}_jae_od">Jaeger OD</label>
+                <label for="{{ $viewFolder }}_jae_od">Jaeger (near vision) OD</label>
                 <div class="input-group mb-3 flex-nowrap">
                   <select class="form-select" name="{{ $viewFolder }}[jae_od]" id="{{ $viewFolder }}_jae_od" placeholder="">
                     <option value="">-</option>
@@ -3355,7 +3455,7 @@
                     <option value="NA" {{ isset($datum->id) && $datum->jae_od == 'NA' ? 'selected' : '' }}>NA</option>
                   </select>
                 </div>
-                <label for="{{ $viewFolder }}_jae_os">Jaeger OS</label>
+                <label for="{{ $viewFolder }}_jae_os">Jaeger (near vision) OS</label>
                 <div class="input-group mb-3 flex-nowrap">
                   <select class="form-select" name="{{ $viewFolder }}[jae_os]" id="{{ $viewFolder }}_jae_os" placeholder="">
                     <option value="" {{ isset($datum->id) && $datum->jae_os == '' ? 'selected' : '' }}>-</option>

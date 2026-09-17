@@ -78,7 +78,7 @@
         </div>
         @endif
     </div>
-    <center><h3>ADMITTING AND PERI-OP FORM</h3></center>
+    <center><h3>PERI-OPERATIVE ORDERS FORM</h3></center>
     <table cellspacing="0" width="100%">
         <tr>
             <td><strong>Name of Patient:</strong> {{ $datum->patient->name }}</td>
@@ -103,7 +103,7 @@
     <table border="1" cellspacing="0" cellpadding="5" width="100%">
         <tr rowspan="2">
             <td width="40%" valign="top">
-                <strong>DOCTOR’S ADMITTING ORDERS</strong><br>
+                {{-- <strong>DOCTOR’S ADMITTING ORDERS</strong><br>
                 <p>PLEASE ADMIT MY PATIENT TO THE OPERATING ROOM: {{ isset($referal_conso->printable_form['room']) ? $referal_conso->printable_form['room'] : (!isset($referal_conso) ? $datum->printable_form['room'] : '') }}</p><br>
                 <p>Take Vital signs every 15 mins, one hour prior to surgery.</p><br><br>
                 <p style="height:1in">PLEASE DILATE <input type="checkbox" {{ isset($referal_conso->printable_form['dilate']) && $referal_conso->printable_form['dilate'] != '' ? 'checked' : (!isset($referal_conso) && $datum->printable_form['dilate'] != '' ? 'checked' : '') }}> with : <br>{{ isset($referal_conso->printable_form['dilate']) ? $referal_conso->printable_form['dilate'] : (!isset($referal_conso) ? $datum->printable_form['dilate'] : '') }}</p>
@@ -112,7 +112,7 @@
                 <img src="{{ public_path('storage/doctor_files/' . (isset($referal_conso->doctor->sig_pic) ? $referal_conso->doctor->sig_pic : (!isset($referal_conso) ? $datum->doctor->sig_pic : ''))) }}" style="width:1in"><br>
                 @endif
                 <span>Dr. {{ isset($referal_conso->doctor->name) ? $referal_conso->doctor->name : (!isset($referal_conso) ? $datum->doctor->name : '') }}</span><br>
-                <span style="border-top:1px solid">MD signature above printed name</span>
+                <span style="border-top:1px solid">MD signature above printed name</span> --}}
             </td>
             <td width="25%" valign="top">
                 <strong>Height:</strong> {{ $datum->height }} cm<br>
@@ -156,7 +156,7 @@
     <table border="1" cellspacing="0" cellpadding="5" width="100%">
         <tr>
             <td width="65%" rowspan="2">
-                <p style="height:4in">ADDITIONAL PERI-OPERATIVE ORDERS <br> {!! nl2br(isset($referal_conso->printable_form['additional_orders']) ? $referal_conso->printable_form['additional_orders'] : (!isset($referal_conso) ? $datum->printable_form['additional_orders'] : '')) !!}</p>
+                <p style="height:4in">PERI-OPERATIVE ORDERS <br> {!! nl2br(isset($referal_conso->printable_form['additional_orders']) ? $referal_conso->printable_form['additional_orders'] : (!isset($referal_conso) ? $datum->printable_form['additional_orders'] : '')) !!}</p>
                 @if(((isset($referal_conso) && isset($referal_conso->printable_form['opAdmitSigKey']) && $referal_conso->printable_form['opAdmitSigKey'] == 'yes') ? true : ((!isset($referal_conso) && $datum->printable_form['opAdmitSigKey'] == 'yes') ? true : false)) && ($datum->doctor->sig_pic != '' || $referal_conso->doctor->sig_pic))
                 <img src="{{ public_path('storage/doctor_files/' . (isset($referal_conso->doctor->sig_pic) ? $referal_conso->doctor->sig_pic : (!isset($referal_conso) ? $datum->doctor->sig_pic : ''))) }}" style="width:1in"><br>
                 @endif
