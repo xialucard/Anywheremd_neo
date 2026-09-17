@@ -192,6 +192,7 @@ class Consultation extends Model
         'platelet',
         'admittingSigKey',
         'ePrescSigKey',
+        'medCertSigKey',
         'vaodold_num',
         'vaodold_den',
         'vaosold_num',
