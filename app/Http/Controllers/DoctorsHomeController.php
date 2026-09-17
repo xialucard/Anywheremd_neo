@@ -506,6 +506,13 @@ class DoctorsHomeController extends Controller
             if(!isset($printableForm['postOpSigKey']))
                 $printableForm['postOpSigKey'] = "";
 
+            if(!isset($params['admitingSigKey']))
+                $params['admitingSigKey'] = "";
+            if(!isset($params['ePrescSigKey']))
+                $params['ePrescSigKey'] = "";
+            if(!isset($params['medCertSigKey']))
+                $params['medCertSigKey'] = "";
+
             $tempPF = PrintableForm::where('consultation_id', $printableForm['consultation_id'])->get();
             if(!isset($tempPF[0]->id)){
                 $printableForm['created_by'] = $user->id;
