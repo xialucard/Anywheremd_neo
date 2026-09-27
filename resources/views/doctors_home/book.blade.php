@@ -11081,7 +11081,7 @@
                     <div class="form-floating mb-3">
                       <select class="form-select" name="{{ $viewFolder }}[anesthesia_type_ao]" id="{{ $viewFolder }}_anesthesia_type_ao" placeholder="" {{ !isset($referal_conso) ? '' : 'disabled' }}
                         onchange="
-                          $('#{{ $viewFolder }}anesthesia_type_ot').val($(this).val());
+                          $('#{{ $viewFolder }}_anesthesia_type_ot').val($(this).val());
                         "
                       >
                         <option value="None" {{ (isset($datum->anesthesia_type_ao) && $datum->anesthesia_type_ao == 'None') ? 'selected' : ''}}>None</option>
