@@ -13,6 +13,7 @@ use App\Models\ConsultationMed;
 use App\Models\ConsultationMedsOnboard;
 use App\Models\ConsultationMonitoring;
 use App\Models\ConsultationNurseNote;
+use App\Models\DoctorTemplate;
 use App\Models\HealthOrganization;
 use App\Models\IcdCode;
 use App\Models\PrintableForm;
@@ -247,6 +248,42 @@ class DoctorsHomeController extends Controller
             }
     }
 
+    public function manageTemplate(Request $request)
+    {
+        $user = Auth::user();
+        $yr = null;
+        $mon = null;
+        $dayNum = null;
+        if($user->templates == null){
+            $datum =  (object)['id' => null, 'created_at' => null, 'updated_at' => null];
+        }else{  
+            $datum = $user->templates;
+        }
+        // if($user->active == 2)
+        //     return redirect()->route('home.myaccount')->with("Incomplete Form", $this->newUserMsg);
+        // elseif($user->approved == 0)
+        //     return redirect()->route('home.myaccount')->with("Incomplete Form", $this->notApproveMsg);
+        // else{
+            return view($this->viewFolder . '.index', [
+                    'moduleList' => $this->moduleList(), 
+                    'moduleActive' => $this->module, 
+                    'datum' => $datum, 
+                    'inputFormHeader' => 'Manage Pritable Forms Template', 
+                    'formAction' => 'storeTemplate', 
+                    'viewFolder' => $this->viewFolder, 
+                    'action'=> 'manageTemplate', 
+                    'selectItems' => $this->selectItems(),
+                    'user' => $user,
+                    'yr' => $yr, 
+                    'mon' => $mon, 
+                    'dayNum' => $dayNum, 
+                    'modalSize' => $this->modalSize, 
+                    'modal' => true,
+                    'referer' => urldecode($request->headers->get('referer'))
+                ]);
+            // }
+    }
+
     public function storeClinic(Request $request)
     {
         $user = Auth::user();
@@ -266,6 +303,27 @@ class DoctorsHomeController extends Controller
         // return redirect()->to($referer)->with('message', "Affiliated clinic updated.");
 
         return redirect()->route($this->viewFolder . '.index')->with('message', 'Affiliated clinic updated.');
+    }
+
+    public function storeTemplate(Request $request)
+    {
+        $user = Auth::user();
+        unset($params);
+        $params = $request->input($this->viewFolder);
+        unset($params['referer']);
+        $params['doctor_id'] = $user->id;
+        $params['active'] = 1;
+        $params['created_by'] = $user->id;
+        $params['updated_by'] = $user->id;
+        if(!empty($user->templates))
+            $user->templates()->update($params);
+        else
+            DoctorTemplate::create($params);
+            
+        $referer = $request->input($this->viewFolder)['referer'];
+        // return redirect()->to($referer)->with('message', "Affiliated clinic updated.");
+
+        return redirect()->route($this->viewFolder . '.index')->with('message', 'Template updated.');
     }
 
     public function updateMyAccount(User $doctors_home, Request $request)

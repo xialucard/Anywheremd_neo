@@ -68,6 +68,9 @@
                                         @can($viewFolder . '.manageClinic')
                                         <span class="input-group-text"><a class="btn btn-sm" href="{{ route($viewFolder . '.manageClinic') }}" title="Manage Clinic" role="button"><i class="bi bi-hospital"></i></a></span>
                                         @endcan
+                                        @can($viewFolder . '.manageTemplate')
+                                        <span class="input-group-text"><a class="btn btn-sm" href="{{ route($viewFolder . '.manageTemplate') }}" title="Manage Template" role="button"><i class="bi bi-file-earmark-medical"></i></a></span>
+                                        @endcan
                                     </div>
                                     <table class="table table-bordered table-striped-columns table-sm">
                                         <thead class="table-{{ $bgColor }}">

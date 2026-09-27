@@ -21,6 +21,7 @@
   // print "<pre>";
   // print_r($datum->printable_form);
   // print "</pre>";
+  
 @endphp
 @php
   unset($bookings);
@@ -3558,11 +3559,12 @@
                   <div class="card soapDiv soapDivSubjective mb-3" id="{{ $viewFolder }}_SOAPPREV_{{ $datum->id }}_SUBJ">
                     <div class="card-header fw-bolder text-primary">Previous Subjective Findings</div>
                     <div class="card-body">
-                      <div class="form-floating mb-3">
-                        <textarea class="form-control" name="{{ $viewFolder }}[complain]" id="{{ $viewFolder }}" rows=3 id="{{ $viewFolder }}_prev_complain" disabled>{{ !empty($bookings[0]->complain) ? $bookings[0]->complain : '' }}</textarea>
-                        <label for="{{ $viewFolder }}_complain" class="form-label">Reason for Visit/Chief Complaint</label>
+                      <small class="text-muted">Reason for Visit/Chief Complaint</small>
+                      {{-- <div class="form-floating mb-3"> --}}
+                        <textarea class="form-control mb-3" name="{{ $viewFolder }}[complain]" id="{{ $viewFolder }}" rows=3 id="{{ $viewFolder }}_prev_complain" disabled>{{ !empty($bookings[0]->complain) ? $bookings[0]->complain : '' }}</textarea>
+                        {{-- <label for="{{ $viewFolder }}_complain" class="form-label">Reason for Visit/Chief Complaint</label> --}}
                         <small id="help_{{ $viewFolder }}_complain" class="text-muted"></small>
-                      </div>
+                      {{-- </div> --}}
                       {{-- @if(sizeof($bookings) == 1) --}}
                       <div class="card mb-3">
                         <div class="card-header">Previous History of Present Illness</div>
@@ -3686,7 +3688,7 @@
                                   <td>&nbsp;</td>
                               </tr>
                               <tr>
-                                  <td>BCVA (new correction)</td>
+                                  <td>BCVA (new correction)<br><small class="text-muted">(UCVA with pinhole (distance) will be reflected in the med cert if this is leaved blank.)</small></td>
                                   <td>{{ $bookings[0]->pinodcor_den != '' ? $bookings[0]->pinodcor_num . ' / ' . $bookings[0]->pinodcor_den : $bookings[0]->pinodcor_num }}</td>
                                   <td>{{ $bookings[0]->pinoscor_den != '' ? $bookings[0]->pinoscor_num . ' / ' . $bookings[0]->pinoscor_den : $bookings[0]->pinoscor_num }}</td>
                                   <td>&nbsp;</td>
@@ -8909,11 +8911,12 @@
                     <div class="card soapDiv soapDivSubjective mb-3" id="{{ $viewFolder }}_SOAPCURR_{{ $datum->id }}_SUBJ">
                       <div class="card-header fw-bolder text-primary">Subjective Findings</div>
                       <div class="card-body">
-                        <div class="form-floating mb-3">
-                          <textarea class="form-control" name="{{ $viewFolder }}[complain]" id="{{ $viewFolder }}" rows=3 id="{{ $viewFolder }}_complain" required>{{ !empty($datum->complain) ? $datum->complain : '' }}</textarea>
-                          <label for="{{ $viewFolder }}_complain" class="form-label">Reason for Visit/Chief Complaint</label>
+                        {{-- <div class="form-floating mb-3"> --}}
+                          <small class="text-muted">Reason for Visit/Chief Complaint</small>
+                          <textarea class="form-control mb-3" name="{{ $viewFolder }}[complain]" id="{{ $viewFolder }}" rows=3 id="{{ $viewFolder }}_complain" required>{{ !empty($datum->complain) ? $datum->complain : '' }}</textarea>
+                          {{-- <label for="{{ $viewFolder }}_complain" class="form-label">Reason for Visit/Chief Complaint</label> --}}
                           <small id="help_{{ $viewFolder }}_complain" class="text-muted"></small>
-                        </div>
+                        {{-- </div> --}}
                         {{-- @if(!isset($bookings[0])) --}}
                         <div class="card mb-3">
                           <div class="card-header">History of Present Illness</div>
@@ -9037,9 +9040,109 @@
                                     <td>&nbsp;</td>
                                 </tr>
                                 <tr>
-                                    <td>BCVA (new correction)</td>
-                                    <td>{{ $datum->pinodcor_den != '' ? $datum->pinodcor_num . ' / ' . $datum->pinodcor_den : $datum->pinodcor_num }}</td>
-                                    <td>{{ $datum->pinoscor_den != '' ? $datum->pinoscor_num . ' / ' . $datum->pinoscor_den : $datum->pinoscor_num }}</td>
+                                    <td>BCVA (new correction)<br><small class="text-muted">(UCVA with pinhole (distance) will be reflected in the med cert if this is leaved blank.)</small></td>
+                                    {{-- <td>{{ $datum->pinodcor_den != '' ? $datum->pinodcor_num . ' / ' . $datum->pinodcor_den : $datum->pinodcor_num }}</td>
+                                    <td>{{ $datum->pinoscor_den != '' ? $datum->pinoscor_num . ' / ' . $datum->pinoscor_den : $datum->pinoscor_num }}</td> --}}
+                                    <td>
+                                      <div class="input-group mb-3 flex-nowrap">
+                                        <select class="form-select" name="{{ $viewFolder }}[pinodcor_num]" id="{{ $viewFolder }}_pinodcor_num" placeholder="" onchange="
+                                          if($(this).val() == 'CF' || $(this).val() == 'HM' || $(this).val() == 'GLP' || $(this).val() == 'PLP' || $(this).val() == 'NLP' || $(this).val() == 'NA'){
+                                            $('#{{ $viewFolder }}_pinodcor_den').prop('disabled', true);
+                                          }else{
+                                            $('#{{ $viewFolder }}_pinodcor_den').prop('disabled', false);
+                                          }
+                                        ">
+                                          <option value="" {{ isset($datum->id) && $datum->pinodcor_num == '' ? 'selected' : '' }}>-</option>
+                                          @for($i = 5; $i<=20; $i++)
+                                          <option value="{{ $i }}" {{ isset($datum->id) && $datum->pinodcor_num == $i ? 'selected' : '' }}>{{ number_format($i, 0) }}</option>
+                                          @endfor
+                                          <option value="CF" {{ isset($datum->id) && $datum->pinodcor_num == 'CF' ? 'selected' : '' }}>CF</option>
+                                          <option value="HM" {{ isset($datum->id) && $datum->pinodcor_num == 'HM' ? 'selected' : '' }}>HM</option>
+                                          <option value="GLP" {{ isset($datum->id) && $datum->pinodcor_num == 'GLP' ? 'selected' : '' }}>GLP</option>
+                                          <option value="PLP" {{ isset($datum->id) && $datum->pinodcor_num == 'PLP' ? 'selected' : '' }}>PLP</option>
+                                          <option value="NLP" {{ isset($datum->id) && $datum->pinodcor_num == 'NLP' ? 'selected' : '' }}>NLP</option>
+                                          <option value="NA" {{ isset($datum->id) && $datum->pinodcor_num == 'NA' ? 'selected' : '' }}>NA</option>
+                                          {{-- <option value="NIWPH">NIWPH</option>
+                                          <option value="NA">NA</option> --}}
+                                        </select>
+                                        <span class="input-group-text">/</span>
+                                        <select class="form-select" name="{{ $viewFolder }}[pinodcor_den]" id="{{ $viewFolder }}_pinodcor_den" placeholder="" {{ isset($datum->id) && ($datum->pinodcor_num == 'CF' || $datum->pinodcor_num == 'HM' || $datum->pinodcor_num == 'GLP' || $datum->pinodcor_num == 'PLP' || $datum->pinodcor_num == 'NLP' || $datum->pinodcor_num == 'NA') ? 'disabled' : '' }}>
+                                          <option value="" {{ isset($datum->id) && $datum->pinodcor_den == '' ? 'selected' : '' }}>-</option>
+                                          @php
+                                            $limit = 30;
+                                            $incr = 5;
+                                          @endphp
+                                          @for($i = 15; $i<=$limit; $i+=$incr)
+                                          @php
+                                            if($i == 30){
+                                              $limit = 80;
+                                              $incr = 10;
+                                            }elseif($i == 80){
+                                              $limit = 100;
+                                              $incr = 20;
+                                            }elseif($i == 100){
+                                              $limit = 200;
+                                              $incr = 50;
+                                            }elseif($i == 200){
+                                              $limit = 400;
+                                              $incr = 200;
+                                            }
+                                          @endphp
+                                          <option value="{{ $i }}" {{ isset($datum->id) && $datum->pinodcor_den == $i ? 'selected' : '' }}>{{ $i }}</option>
+                                          @endfor
+                                        </select>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="input-group mb-3 flex-nowrap">
+                                        <select class="form-select" name="{{ $viewFolder }}[pinoscor_num]" id="{{ $viewFolder }}_pinoscor_num" placeholder="" onchange="
+                                          if($(this).val() == 'CF' || $(this).val() == 'HM' || $(this).val() == 'GLP' || $(this).val() == 'PLP' || $(this).val() == 'NLP' || $(this).val() == 'NA'){
+                                            $('#{{ $viewFolder }}_pinoscor_den').prop('disabled', true);
+                                          }else{
+                                            $('#{{ $viewFolder }}_pinoscor_den').prop('disabled', false);
+                                          }
+                                        ">
+                                          <option value="" {{ isset($datum->id) && $datum->pinoscor_num == '' ? 'selected' : '' }}>-</option>
+                                          @for($i = 5; $i<=20; $i++)
+                                          <option value="{{ $i }}" {{ isset($datum->id) && $datum->pinoscor_num == $i ? 'selected' : '' }}>{{ number_format($i, 0) }}</option>
+                                          @endfor
+                                          <option value="CF" {{ isset($datum->id) && $datum->pinoscor_num == 'CF' ? 'selected' : '' }}>CF</option>
+                                          <option value="HM" {{ isset($datum->id) && $datum->pinoscor_num == 'HM' ? 'selected' : '' }}>HM</option>
+                                          <option value="GLP" {{ isset($datum->id) && $datum->pinoscor_num == 'GLP' ? 'selected' : '' }}>GLP</option>
+                                          <option value="PLP" {{ isset($datum->id) && $datum->pinoscor_num == 'PLP' ? 'selected' : '' }}>PLP</option>
+                                          <option value="NLP" {{ isset($datum->id) && $datum->pinoscor_num == 'NLP' ? 'selected' : '' }}>NLP</option>
+                                          <option value="NA" {{ isset($datum->id) && $datum->pinoscor_num == 'NA' ? 'selected' : '' }}>NA</option>
+                                          {{-- <option value="NIWPH">NIWPH</option>
+                                          <option value="NA">NA</option> --}}
+                                        </select>
+                                        <span class="input-group-text">/</span>
+                                        <select class="form-select" name="{{ $viewFolder }}[pinoscor_den]" id="{{ $viewFolder }}_pinoscor_den" placeholder="" {{ isset($datum->id) &&  ($datum->pinoscor_num == 'CF' || $datum->pinoscor_num == 'HM' || $datum->pinoscor_num == 'GLP' || $datum->pinoscor_num == 'PLP' || $datum->pinoscor_num == 'NLP' || $datum->pinoscor_num == 'NA') ? 'disabled' : '' }}>
+                                          <option value="" {{ isset($datum->id) && $datum->pinoscor_den == '' ? 'selected' : '' }}>-</option>
+                                          @php
+                                            $limit = 30;
+                                            $incr = 5;
+                                          @endphp
+                                          @for($i = 15; $i<=$limit; $i+=$incr)
+                                          @php
+                                            if($i == 30){
+                                              $limit = 80;
+                                              $incr = 10;
+                                            }elseif($i == 80){
+                                              $limit = 100;
+                                              $incr = 20;
+                                            }elseif($i == 100){
+                                              $limit = 200;
+                                              $incr = 50;
+                                            }elseif($i == 200){
+                                              $limit = 400;
+                                              $incr = 200;
+                                            }
+                                          @endphp
+                                          <option value="{{ $i }}" {{ isset($datum->id) && $datum->pinoscor_den == $i ? 'selected' : '' }}>{{ $i }}</option>
+                                          @endfor
+                                        </select>
+                                      </div>
+                                    </td>
                                     <td>&nbsp;</td>
                                 </tr>
                                 <tr>
@@ -9415,17 +9518,17 @@
                           <div class="card-header">Post-Operative Care/Home Care Instructions</div>
                           <div class="card-body">
                             <label for="{{ $viewFolder }}_after_proc" class="form-label">Things to expect after the procedure:</label>
-                            <textarea class="form-control soapField" name="{{ $viewFolder }}[PrintableForm][after_proc]" id="{{ $viewFolder }}_after_proc" rows=3>{{ isset($referal_conso->printable_form['after_proc']) ? $referal_conso->printable_form['after_proc'] : (!isset($referal_conso) && isset($datum->printable_form['after_proc']) ? $datum->printable_form['after_proc'] : '') }}</textarea>
+                            <textarea class="form-control soapField" name="{{ $viewFolder }}[PrintableForm][after_proc]" id="{{ $viewFolder }}_after_proc" rows=3>{{ isset($referal_conso->printable_form['after_proc']) ? $referal_conso->printable_form['after_proc'] : (!isset($referal_conso) && isset($datum->printable_form['after_proc']) ? $datum->printable_form['after_proc'] : (isset($user->templates->after_proc) ? $user->templates->after_proc : '')) }}</textarea>
                             <label for="{{ $viewFolder }}_things_watch_out" class="form-label mt-3">Things to watch out for:</label>
-                            <textarea class="form-control soapField" name="{{ $viewFolder }}[PrintableForm][things_watch_out]" id="{{ $viewFolder }}_things_watch_out" rows=3>{{ isset($referal_conso->printable_form['things_watch_out']) ? $referal_conso->printable_form['things_watch_out'] : (!isset($referal_conso) && isset($datum->printable_form['things_watch_out']) ? $datum->printable_form['things_watch_out'] : '') }}</textarea>
+                            <textarea class="form-control soapField" name="{{ $viewFolder }}[PrintableForm][things_watch_out]" id="{{ $viewFolder }}_things_watch_out" rows=3>{{ isset($referal_conso->printable_form['things_watch_out']) ? $referal_conso->printable_form['things_watch_out'] : (!isset($referal_conso) && isset($datum->printable_form['things_watch_out']) ? $datum->printable_form['things_watch_out'] : (isset($user->templates->things_watch_out) ? $user->templates->things_watch_out : '')) }}</textarea>
                             <small id="help_{{ $viewFolder }}_things_watch_out" class="text-muted"></small>
 
                             <label for="{{ $viewFolder }}_things_avoid" class="form-label mt-3">Things to avoid:</label>
-                            <textarea class="form-control soapField" name="{{ $viewFolder }}[PrintableForm][things_avoid]" id="{{ $viewFolder }}_things_avoid" rows=3>{{ isset($referal_conso->printable_form['things_avoid']) ? $referal_conso->printable_form['things_avoid'] : (!isset($referal_conso) && isset($datum->printable_form['things_avoid']) ? $datum->printable_form['things_avoid'] : '') }}</textarea>
+                            <textarea class="form-control soapField" name="{{ $viewFolder }}[PrintableForm][things_avoid]" id="{{ $viewFolder }}_things_avoid" rows=3>{{ isset($referal_conso->printable_form['things_avoid']) ? $referal_conso->printable_form['things_avoid'] : (!isset($referal_conso) && isset($datum->printable_form['things_avoid']) ? $datum->printable_form['things_avoid'] : (isset($user->templates->things_avoid) ? $user->templates->things_avoid : '')) }}</textarea>
                             <small id="help_{{ $viewFolder }}_things_avoid" class="text-muted"></small>
 
                             <label for="{{ $viewFolder }}_wound_care" class="form-label mt-3">Wound care:</label>
-                            <textarea class="form-control soapField" name="{{ $viewFolder }}[PrintableForm][wound_care]" id="{{ $viewFolder }}_wound_care" rows=3>{{ isset($referal_conso->printable_form['wound_care']) ? $referal_conso->printable_form['wound_care'] : (!isset($referal_conso) && isset($datum->printable_form['wound_care']) ? $datum->printable_form['wound_care'] : '') }}</textarea>
+                            <textarea class="form-control soapField" name="{{ $viewFolder }}[PrintableForm][wound_care]" id="{{ $viewFolder }}_wound_care" rows=3>{{ isset($referal_conso->printable_form['wound_care']) ? $referal_conso->printable_form['wound_care'] : (!isset($referal_conso) && isset($datum->printable_form['wound_care']) ? $datum->printable_form['wound_care'] : (isset($user->templates->wound_care) ? $user->templates->wound_care : '')) }}</textarea>
                             <small id="help_{{ $viewFolder }}_wound_care" class="text-muted"></small>
 
                           </div>
@@ -11000,7 +11103,7 @@
                       <small id="help_{{ $viewFolder }}_anesthesiologist_ao" class="text-muted"></small>
                     </div>
                     <div class="card mb-3">
-                      <div class="card-header">Admitting Details</div>
+                      <div class="card-header">Admitting Orders</div>
                       <div class="card-body">
                         {{-- <small class="text-muted">Helper</small>
                         <div class="input-group input-group-small flex-nowrap">
@@ -11020,7 +11123,7 @@
                                 $(this).prop('disabled', false);
                               });
                             }
-                          ">{{ isset($datum->admittingOrder) ? $datum->admittingOrder : '' }}</textarea>
+                          ">{{ isset($datum->admittingOrder) ? $datum->admittingOrder : (isset($user->templates->admittingOrder) ? $user->templates->admittingOrder : '') }}</textarea>
                             {{-- <small class="text-muted">Helper Save/Edit</small>
                             <div class="input-group input-group-small mb-3 flex-nowrap">
                               <div class="input-group-text">
@@ -11539,7 +11642,7 @@
                               $(this).prop('disabled', false);
                             });
                           }
-                        " {{ !isset($referal_conso) ? '' : 'disabled' }}>{{ isset($datum->printable_form['additional_orders']) ? $datum->printable_form['additional_orders'] : '' }}</textarea>
+                        " {{ !isset($referal_conso) ? '' : 'disabled' }}>{{ isset($datum->printable_form['additional_orders']) ? $datum->printable_form['additional_orders'] : (isset($user->templates->additional_orders) ? $user->templates->additional_orders : '') }}</textarea>
                     @if($datum->doctor->sig_pic != '')
                     <div class="form-check mt-3">
                       <input class="form-check-input mt-0" type="checkbox" name="{{ $viewFolder }}[PrintableForm][opAdmitSigKey]" id="{{ $viewFolder }}_opAdmitSigKey_check" value='yes' {{ isset($datum->printable_form['opAdmitSigKey']) && $datum->printable_form['opAdmitSigKey'] === 'yes' ? 'checked' : ''}}  {{ !isset($referal_conso) ? '' : 'disabled' }}>
@@ -11680,7 +11783,7 @@
                               $(this).prop('disabled', false);
                             });
                           }
-                        ">{{ isset($datum->printable_form['operative_tech']) ? $datum->printable_form['operative_tech'] : '' }}</textarea>
+                        ">{{ isset($datum->printable_form['operative_tech']) ? $datum->printable_form['operative_tech'] : (isset($user->templates->operative_tech) ? $user->templates->operative_tech : '') }}</textarea>
                     <input type="hidden" id="{{ $viewFolder }}_printable_form_consultation_id" class="form-control" name="{{ $viewFolder }}[PrintableForm][consultation_id]" value="{{ $datum->id }}">
                     <small id="help_{{ $viewFolder }}_operative_technique" class="text-muted"></small>
                     @if($datum->doctor->sig_pic != '')

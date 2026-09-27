@@ -72,9 +72,11 @@ Route::group(['middleware' => ['auth', 'permission']], function() {
     Route::get('/doctors_home/getDoctorBookingList/{bookingDate}/{booking_type}', [DoctorsHomeController::class, 'getDoctorBookingList'])->name('doctors_home.getDoctorBookingList');
     Route::patch('/doctors_home/{doctors_home}/updateMyAccount', [DoctorsHomeController::class, 'updateMyAccount'])->name('doctors_home.updateMyAccount');
     Route::post('/doctors_home/storeClinic', [DoctorsHomeController::class, 'storeClinic'])->name('doctors_home.storeClinic');
+    Route::post('/doctors_home/storeTemplate', [DoctorsHomeController::class, 'storeTemplate'])->name('doctors_home.storeTemplate');
     Route::post('/doctors_home/storeSchedule', [DoctorsHomeController::class, 'storeSchedule'])->name('doctors_home.storeSchedule');
     Route::get('/doctors_home/manageSchedule', [DoctorsHomeController::class, 'manageSchedule'])->name('doctors_home.manageSchedule');
     Route::get('/doctors_home/manageClinic', [DoctorsHomeController::class, 'manageClinic'])->name('doctors_home.manageClinic');
+    Route::get('/doctors_home/manageTemplate', [DoctorsHomeController::class, 'manageTemplate'])->name('doctors_home.manageTemplate');
     Route::get('/doctors_home/getIcdCode/{icd_code?}', [DoctorsHomeController::class, 'getIcdCode'])->name('doctors_home.getIcdCode');
     Route::get('/doctors_home/deleteMedsOnboards/{id?}', [DoctorsHomeController::class, 'deleteMedsOnboards'])->name('doctors_home.deleteMedsOnboards');
     Route::get('/doctors_home/getMedsOnboards/{id?}', [DoctorsHomeController::class, 'getMedsOnboards'])->name('doctors_home.getMedsOnboards');

@@ -2459,7 +2459,7 @@
                     <input class="form-control" type="number" name="{{ $viewFolder }}[post_weight]" min=1 step=.01 id="{{ $viewFolder }}_post_hd_weight" value="{{ isset($datum->post_weight) ? $datum->post_weight : ''}}" placeholder="" onchange="
                     if($('#{{ $viewFolder }}_pre_hd_weight').val() != '' &&  $('#{{ $viewFolder }}_post_hd_weight').val() != ''){
                       var weightLoss = $('#{{ $viewFolder }}_pre_hd_weight').val() - $('#{{ $viewFolder }}_post_hd_weight').val();
-                      alert(weightLoss);
+                      // alert(weightLoss);
                       if(weightLoss > 0) {
                         $('#{{ $viewFolder }}_weight_loss').val(weightLoss.toFixed(2));
                         $('#{{ $viewFolder }}_weight_gain').val('');
@@ -3342,7 +3342,7 @@
                     }else{
                       $('#{{ $viewFolder }}_pinodcor_den').prop('disabled', false);
                     }
-                  ">
+                  " disabled>
                     <option value="" {{ isset($datum->id) && $datum->pinodcor_num == '' ? 'selected' : '' }}>-</option>
                     @for($i = 5; $i<=20; $i++)
                     <option value="{{ $i }}" {{ isset($datum->id) && $datum->pinodcor_num == $i ? 'selected' : '' }}>{{ number_format($i, 0) }}</option>
@@ -3357,7 +3357,7 @@
                     <option value="NA">NA</option> --}}
                   </select>
                   <span class="input-group-text">/</span>
-                  <select class="form-select" name="{{ $viewFolder }}[pinodcor_den]" id="{{ $viewFolder }}_pinodcor_den" placeholder="" {{ isset($datum->id) && ($datum->pinodcor_num == 'CF' || $datum->pinodcor_num == 'HM' || $datum->pinodcor_num == 'GLP' || $datum->pinodcor_num == 'PLP' || $datum->pinodcor_num == 'NLP' || $datum->pinodcor_num == 'NA') ? 'disabled' : '' }}>
+                  <select class="form-select" name="{{ $viewFolder }}[pinodcor_den]" id="{{ $viewFolder }}_pinodcor_den" placeholder="" {{ isset($datum->id) && ($datum->pinodcor_num == 'CF' || $datum->pinodcor_num == 'HM' || $datum->pinodcor_num == 'GLP' || $datum->pinodcor_num == 'PLP' || $datum->pinodcor_num == 'NLP' || $datum->pinodcor_num == 'NA') ? 'disabled' : '' }} disabled>
                     <option value="" {{ isset($datum->id) && $datum->pinodcor_den == '' ? 'selected' : '' }}>-</option>
                     @php
                       $limit = 30;
@@ -3392,7 +3392,7 @@
                     }else{
                       $('#{{ $viewFolder }}_pinoscor_den').prop('disabled', false);
                     }
-                  ">
+                  " disabled>
                     <option value="" {{ isset($datum->id) && $datum->pinoscor_num == '' ? 'selected' : '' }}>-</option>
                     @for($i = 5; $i<=20; $i++)
                     <option value="{{ $i }}" {{ isset($datum->id) && $datum->pinoscor_num == $i ? 'selected' : '' }}>{{ number_format($i, 0) }}</option>
@@ -3407,7 +3407,7 @@
                     <option value="NA">NA</option> --}}
                   </select>
                   <span class="input-group-text">/</span>
-                  <select class="form-select" name="{{ $viewFolder }}[pinoscor_den]" id="{{ $viewFolder }}_pinoscor_den" placeholder="" {{ isset($datum->id) &&  ($datum->pinoscor_num == 'CF' || $datum->pinoscor_num == 'HM' || $datum->pinoscor_num == 'GLP' || $datum->pinoscor_num == 'PLP' || $datum->pinoscor_num == 'NLP' || $datum->pinoscor_num == 'NA') ? 'disabled' : '' }}>
+                  <select class="form-select" name="{{ $viewFolder }}[pinoscor_den]" id="{{ $viewFolder }}_pinoscor_den" placeholder="" {{ isset($datum->id) &&  ($datum->pinoscor_num == 'CF' || $datum->pinoscor_num == 'HM' || $datum->pinoscor_num == 'GLP' || $datum->pinoscor_num == 'PLP' || $datum->pinoscor_num == 'NLP' || $datum->pinoscor_num == 'NA') ? 'disabled' : '' }} disabled>
                     <option value="" {{ isset($datum->id) && $datum->pinoscor_den == '' ? 'selected' : '' }}>-</option>
                     @php
                       $limit = 30;
