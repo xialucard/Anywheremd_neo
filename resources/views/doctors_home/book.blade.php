@@ -119,7 +119,7 @@
   <div class="row sticky-top bg-white">
     <div class="col-lg-12 d-none d-md-block">
       <ul class="nav nav-tabs mt-3 doctor-conso-nav">
-        {{-- <li class="nav-item">
+        <li class="nav-item">
           <a class="nav-link active" id="sumBigLink" href="#" onclick="
             $('#sumBigLink').addClass('active');  
             $('#soapBigLink').removeClass('active');  
@@ -205,9 +205,9 @@
             
               
           ">Summary</a>
-        </li> --}}
+        </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle active" id="soapBigLink" data-bs-toggle="dropdown" href="#soapDivCur" role="button" aria-expanded="false" onclick="
+          <a class="nav-link dropdown-toggle" id="soapBigLink" data-bs-toggle="dropdown" href="#soapDivCur" role="button" aria-expanded="false" onclick="
             $('#soapBigLink').addClass('active');  
             $('#sumBigLink').removeClass('active');  
             $('#labBigLink').removeClass('active');  
@@ -294,7 +294,7 @@
           ">SOAP</a>
           <ul class="dropdown-menu">
             <li>
-              <a class="dropdown-item soapLink active" href="#soapDivCur" onclick="
+              <a class="dropdown-item soapLink" href="#soapDivCur" onclick="
                 $('.soapLink').removeClass('active');
                 $('.soapDiv').hide();
                 $('.soapSubjective').addClass('active');
@@ -2489,7 +2489,7 @@
               </ul>
             </div> --}}
             <ul class="nav nav-tabs d-xs-block d-lg-none">
-              {{-- <li class="nav-item">
+              <li class="nav-item">
                 <a class="nav-link active" id="sumPrevLink" href="#" onclick="
                   $('#sumBigLink').addClass('active');  
                   $('#soapBigLink').removeClass('active');  
@@ -2555,9 +2555,9 @@
                   $('#postOpCurDiv').hide();
                   $('#dischargeSumCurDiv').hide();
                 ">Summary</a>
-              </li> --}}
+              </li>
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle active" id="soapPrevLink" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false" onclick="
+                <a class="nav-link dropdown-toggle" id="soapPrevLink" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false" onclick="
                   $('#soapBigLink').addClass('active');  
                   $('#sumBigLink').removeClass('active');  
                   $('#labBigLink').removeClass('active');  
@@ -2623,7 +2623,7 @@
                 ">SOAP</a>
                 <ul class="dropdown-menu">
                   <li>
-                    <a class="dropdown-item soapLink active" href="#" onclick="
+                    <a class="dropdown-item soapLink" href="#" onclick="
                       $('.soapLink').removeClass('active');
                       $('.soapDiv').hide();
                       $('.soapSubjective').addClass('active');
@@ -3328,8 +3328,8 @@
               </li>
             </ul>
             <div id="prevDiv">
-              <div id="sumPrevDiv" style="display:none" class="container border border-1 mb-3 p-3">
-                <div class="card mb-3">
+              <div id="sumPrevDiv" class="container border border-1 mb-3 p-3">
+                {{-- <div class="card mb-3">
                   <div class="card-header">Scheduled Procedure</div>
                   <div class="card-body" style="height: 1in; max-height: 1in">
                     <p id="prevSumProcDet">{{ $bookings[0]->procedure_details }}</p>
@@ -3368,7 +3368,7 @@
                       <strong>Jaeger OS:</strong> <span class="text-primary">{{ $bookings[0]->jae_os }}</span><br>
                       <strong>IOP OD:</strong> <span class="text-primary">{{ $bookings[0]->iopod }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
                       <strong>IOP OS:</strong> <span class="text-primary">{{ $bookings[0]->iopos }}</span>
-                    </p> --}}
+                    </p> --}
                     <table class="table table-bordered table-striped table-hover table-sm">
                       <thead class="table-{{ $bgColor }}">
                           <tr>
@@ -3431,11 +3431,12 @@
                     </table>
                   </div>
                 </div>
-                @endif
+                @endif --}}
                 <div class="card mb-3">
                   <div class="card-header">Subjective Findings</div>
                   <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                     <p>
+                      <strong>Reason for Visit/Chief Complaint:</strong><div class="m-3" id="{{ $viewFolder }}_prev_sum_complain">{!! isset($bookings[0]->complain) ? nl2br($bookings[0]->complain) : '' !!}</div><br>
                       <strong>History of Present Illness:</strong><div class="m-3" id="{{ $viewFolder }}_prev_sum_docNotesHPI">{!! isset($bookings[0]->docNotesHPI) ? nl2br($bookings[0]->docNotesHPI) : '' !!}</div><br>
                       <strong>Subjective Complaints:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_docNotesSubject">{!! isset($bookings[0]->docNotesSubject) ? nl2br($bookings[0]->docNotesSubject) : '' !!}</div><br>
                     </p>
@@ -3444,8 +3445,92 @@
                 <div class="card mb-3">
                   <div class="card-header">Objective Findings</div>
                   <div class="card-body table-responsive" style="height:300px; max-height: 300px">
+                    @if(stristr($datum->doctor->specialty, 'Ophtha') && $datum->booking_type != "Dialysis")
+                    <div class="card mb-3" id="eeInfoPrev">
+                      <div class="card-header">Eye Examination Information</div>
+                      <div class="card-body table-responsive">
+                        {{-- <p id="prevEyerSumBack">
+                          <strong>AR OD:</strong> <span class="text-primary">{{ $bookings[0]->arod_sphere != 'No Target' ? ($bookings[0]->arod_sphere) . ' - ' . ($bookings[0]->arod_cylinder) . ' x ' . $bookings[0]->arod_axis : 'No Refraction Possible' }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                          <strong>AR OS:</strong> <span class="text-primary">{{ $bookings[0]->aros_sphere != 'No Target' ? ($bookings[0]->aros_sphere) . ' - ' . ($bookings[0]->aros_cylinder) . ' x ' . $bookings[0]->aros_axis : 'No Refraction Possible' }}</span><br>
+                          <strong>UCVA OD:</strong> <span class="text-primary">{{ $bookings[0]->vaod_den != '' ? $bookings[0]->vaod_num . ' / ' . $bookings[0]->vaod_den : $bookings[0]->vaod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                          <strong>UCVA OD Present Correction:</strong> <span class="text-primary">{{ $bookings[0]->vaodcor_den != '' ? $bookings[0]->vaodcor_num . ' / ' . $bookings[0]->vaodcor_den : $bookings[0]->vaodcor_num }}</span><br>
+                          <strong>UCVA OS:</strong> <span class="text-primary">{{ $bookings[0]->vaos_den != '' ? $bookings[0]->vaos_num . ' / ' . $bookings[0]->vaos_den : $bookings[0]->vaos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                          <strong>UCVA OS Present Correction:</strong> <span class="text-primary">{{ $bookings[0]->vaoscor_den != '' ? $bookings[0]->vaoscor_num . ' / ' . $bookings[0]->vaoscor_den : $bookings[0]->vaoscor_num }}</span><br>
+                          <strong>VA OD Pinhole:</strong> <span class="text-primary">{{ $bookings[0]->pinod_den != '' ? $bookings[0]->pinod_num . ' / ' . $bookings[0]->pinod_den : $bookings[0]->pinod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                          <strong>BCVA OD:</strong> <span class="text-primary">{{ $bookings[0]->pinodcor_den != '' ? $bookings[0]->pinodcor_num . ' / ' . $bookings[0]->pinodcor_den : $bookings[0]->pinodcor_num }}</span><br>
+                          <strong>VA OS Pinhole:</strong> <span class="text-primary">{{ $bookings[0]->pinos_den != '' ? $bookings[0]->pinos_num . ' / ' . $bookings[0]->pinos_den : $bookings[0]->pinos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                          <strong>BCVA OS:</strong> <span class="text-primary">{{ $bookings[0]->pinoscor_den != '' ? $bookings[0]->pinoscor_num . ' / ' . $bookings[0]->pinoscor_den : $bookings[0]->pinoscor_num }}</span><br>
+                          <strong>Jaeger OU:</strong> <span class="text-primary">{{ $bookings[0]->jae_ou }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                          <strong>Jaeger OD:</strong> <span class="text-primary">{{ $bookings[0]->jae_od }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                          <strong>Jaeger OS:</strong> <span class="text-primary">{{ $bookings[0]->jae_os }}</span><br>
+                          <strong>IOP OD:</strong> <span class="text-primary">{{ $bookings[0]->iopod }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                          <strong>IOP OS:</strong> <span class="text-primary">{{ $bookings[0]->iopos }}</span>
+                        </p> --}}
+                        <table class="table table-bordered table-striped table-hover table-sm">
+                          <thead class="table-{{ $bgColor }}">
+                              <tr>
+                                  <th>&nbsp;</th>
+                                  <th>OD</th>
+                                  <th>OS</th>
+                                  <th>OU</th>
+                              </tr>
+                          </thead>
+                          <tbody id="prevEyerSum">
+                            <tr>
+                                <td>AR</td>
+                                <td>{{ $bookings[0]->arod_sphere != 'No Target' ? ( $bookings[0]->arod_sphere > 0 ? '+' . $bookings[0]->arod_sphere : $bookings[0]->arod_sphere ) . ' - ' . ($bookings[0]->arod_cylinder > 0 ? '+' . $bookings[0]->arod_cylinder : $bookings[0]->arod_cylinder) . ' x ' . $bookings[0]->arod_axis : 'No Refraction Possible' }}</td>
+                                <td>{{ $bookings[0]->aros_sphere != 'No Target' ? ( $bookings[0]->aros_sphere > 0 ? '+' . $bookings[0]->aros_sphere : $bookings[0]->aros_sphere ) . ' - ' . ($bookings[0]->aros_cylinder > 0 ? '+' . $bookings[0]->aros_cylinder : $bookings[0]->aros_cylinder) . ' x ' . $bookings[0]->aros_axis : 'No Refraction Possible' }}</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>UCVA (distance)</td>
+                                <td>{{ $bookings[0]->vaod_den != '' ? $bookings[0]->vaod_num . ' / ' . $bookings[0]->vaod_den : $bookings[0]->vaod_num }}</td>
+                                <td>{{ $bookings[0]->vaos_den != '' ? $bookings[0]->vaos_num . ' / ' . $bookings[0]->vaos_den : $bookings[0]->vaos_num }}</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>UCVA with pinhole (distance)</td>
+                                <td>{{ $bookings[0]->vaodcor_den != '' ? $bookings[0]->vaodcor_num . ' / ' . $bookings[0]->vaodcor_den : $bookings[0]->vaodcor_num }}</td>
+                                <td>{{ $bookings[0]->vaoscor_den != '' ? $bookings[0]->vaoscor_num . ' / ' . $bookings[0]->vaoscor_den : $bookings[0]->vaoscor_num }}</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>VA with old correction (distance)</td>
+                                <td>{{ $bookings[0]->vaodold_den != '' ? $bookings[0]->vaodold_num . ' / ' . $bookings[0]->vaodold_den : $bookings[0]->vaodold_num }}</td>
+                                <td>{{ $bookings[0]->vaosold_den != '' ? $bookings[0]->vaosold_num . ' / ' . $bookings[0]->vaosold_den : $bookings[0]->vaosold_num }}</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>VA with old correction with pinhole (distance)</td>
+                                <td>{{ $bookings[0]->pinod_den != '' ? $bookings[0]->pinod_num . ' / ' . $bookings[0]->pinod_den : $bookings[0]->pinod_num }}</td>
+                                <td>{{ $bookings[0]->pinos_den != '' ? $bookings[0]->pinos_num . ' / ' . $bookings[0]->pinos_den : $bookings[0]->pinos_num }}</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>BCVA (new correction)</td>
+                                <td>{{ $bookings[0]->pinodcor_den != '' ? $bookings[0]->pinodcor_num . ' / ' . $bookings[0]->pinodcor_den : $bookings[0]->pinodcor_num }}</td>
+                                <td>{{ $bookings[0]->pinoscor_den != '' ? $bookings[0]->pinoscor_num . ' / ' . $bookings[0]->pinoscor_den : $bookings[0]->pinoscor_num }}</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>Jaeger (near vision)</td>
+                                <td>{{ $bookings[0]->jae_od }}</td>
+                                <td>{{ $bookings[0]->jae_os }}</td>
+                                <td>{{ $bookings[0]->jae_ou }}</td>
+                            </tr>
+                            <tr>
+                                <td>IOP</td>
+                                <td>{{ $bookings[0]->iopod }}</td>
+                                <td>{{ $bookings[0]->iopos }}</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    @endif
                     <p>
-                      <div class="m-3" id="{{ $viewFolder }}_prev_sum_docNotes">{!! isset($bookings[0]->docNotes) ? nl2br($bookings[0]->docNotes) : '' !!}</div><br>
+                      <strong>PE Findings:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_docNotes">{!! isset($bookings[0]->docNotes) ? nl2br($bookings[0]->docNotes) : '' !!}</div><br>
                     </p>
                   </div>
                 </div>
@@ -3453,9 +3538,9 @@
                   <div class="card-header">Assessment</div>
                   <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                     <p>
-                      <strong>Primary Diagnosis:</strong> <span id="{{ $viewFolder }}_prev_sum_icd_code">{!! isset($bookings[0]->icd_code_obj) ? $bookings[0]->icd_code_obj->icd_code . ' - ' . $bookings[0]->icd_code_obj->details : '' !!}</span><br>
-                      <strong>Secondary Diagnosis:</strong><br><span class="m-3" id="{{ $viewFolder }}_prev_sum_assessment">{!! isset($bookings[0]->assessment) ? nl2br($bookings[0]->assessment) : '' !!}</span><br>
-                      <strong>Discharge Diagnosis (Post-op Diagnosis):</strong><br><span class="m-3" id="{{ $viewFolder }}_prev_sum_post_op_assessment">{!! isset($bookings[0]->post_op_assessment) ? nl2br($bookings[0]->post_op_assessment) : '' !!}</span><br>
+                      <strong>Primary Diagnosis:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_primary_assessment">{!! isset($bookings[0]->primary_assessment) ? $bookings[0]->primary_assessment : '' !!}</div><br>
+                      <strong>Secondary Diagnosis:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_assessment">{!! isset($bookings[0]->assessment) ? nl2br($bookings[0]->assessment) : '' !!}</div><br>
+                      <strong>Discharge Diagnosis (Post-op Diagnosis):</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_post_op_assessment">{!! isset($bookings[0]->post_op_assessment) ? nl2br($bookings[0]->post_op_assessment) : '' !!}</div><br>
                     </p>
                   </div>
                 </div>
@@ -3491,15 +3576,18 @@
                     </p>
                     @else
                     <p>
+                      <strong>Diagnostics:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_diagnosis">{!! isset($bookings[0]->printable_form['diagnosis']) ? nl2br($bookings[0]->printable_form['diagnosis']) : '' !!}</div><br>
                       <strong>Medical Therapeutics:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_planMed">{!! isset($bookings[0]->planMed) ? nl2br($bookings[0]->planMed) : '' !!}</div><br>
-                      <strong>Diagnostics and Surgery:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_plan">{!! isset($bookings[0]->plan) ? nl2br($bookings[0]->plan) : '' !!}</div><br>
+                      <strong>Medication Given in Recovery:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_medication_given_recovery">{!! isset($bookings[0]->printable_form['medication_given_recovery']) ? nl2br($bookings[0]->printable_form['medication_given_recovery']) : '' !!}</div><br>
+                      <strong>Discharge Medications (dose, frequency, duration):</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_discharge_medication">{!! isset($bookings[0]->printable_form['discharge_medication']) ? nl2br($bookings[0]->printable_form['discharge_medication']) : '' !!}</div><br>
+                      <strong>Surgery (Planned/Performed):</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_plan">{!! isset($bookings[0]->plan) ? nl2br($bookings[0]->plan) : '' !!}</div><br>
                       <strong>Remarks:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_planRem">{!! isset($bookings[0]->planRem) ? nl2br($bookings[0]->planRem) : '' !!}</div><br>
                     </p>
                     @endif
                   </div>
                 </div>
               </div>
-              <div id="soapPrevDiv" class="container mb-3 p-0">
+              <div id="soapPrevDiv" style="display:none" class="container mb-3 p-0">
                 {{-- <div class="card mb-3">
                   <div class="card-header">Previous Scheduled Procedure</div>
                   <div class="card-body" style="height: 1in; max-height: 1in">
@@ -7671,7 +7759,7 @@
           </div> --}}
 
             <ul class="nav nav-tabs d-xs-block d-lg-none">
-              {{-- <li class="nav-item">
+              <li class="nav-item">
                 <a class="nav-link active" id="sumCurLink" href="#" onclick="
                   $('#sumBigLink').addClass('active');  
                   $('#soapBigLink').removeClass('active');  
@@ -7736,9 +7824,9 @@
                   $('#postOpCurDiv').hide();
                   $('#dischargeSumCurDiv').hide();
                 ">Summary</a>
-              </li> --}}
+              </li>
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle active" id="soapCurLink" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false" onclick="
+                <a class="nav-link dropdown-toggle" id="soapCurLink" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false" onclick="
                   $('#soapBigLink').addClass('active');  
                   $('#sumBigLink').removeClass('active');  
                   $('#labBigLink').removeClass('active');  
@@ -7805,7 +7893,7 @@
                 ">SOAP</a>
                 <ul class="dropdown-menu">
                   <li>
-                    <a class="dropdown-item soapLink active" href="#" onclick="
+                    <a class="dropdown-item soapLink" href="#" onclick="
                       $('.soapLink').removeClass('active');
                       $('.soapDiv').hide();
                       $('.soapSubjective').addClass('active');
@@ -8579,8 +8667,8 @@
               </li> --}}
             </ul>
             <div id="curDiv">
-              <div id="sumCurDiv" style="display:none" class="container border border-1 mb-3 p-3">
-                <div class="card mb-3">
+              <div id="sumCurDiv" class="container border border-1 mb-3 p-3">
+                {{-- <div class="card mb-3">
                   <div class="card-header">Scheduled Procedure</div>
                   <div class="card-body" style="height: 1in; max-height: 1in">
                     <p>{{ $datum->procedure_details }}</p>
@@ -8619,7 +8707,7 @@
                       <strong>Jaeger OS:</strong> <span class="text-primary">{{ $datum->jae_os }}</span><br>
                       <strong>IOP OD:</strong> <span class="text-primary">{{ $datum->iopod }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
                       <strong>IOP OS:</strong> <span class="text-primary">{{ $datum->iopos }}</span>
-                    </p> --}}
+                    </p> --}
                     <table class="table table-bordered table-striped table-hover table-sm">
                       <thead class="table-{{ $bgColor }}">
                           <tr>
@@ -8682,27 +8770,122 @@
                     </table>
                   </div>
                 </div>
-                @endif
+                @endif --}}
                 <div id="{{ $viewFolder }}_SUMM_{{ $datum->id }}" class="docNotesDiv">
                   <div class="card mb-3">
                     <div class="card-header">Subjective Findings</div>
                     <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                       <p>
                         {{-- @if(($datum->docNotesHPI == "" && isset($carryOverBookingsHPI[0]->docNotesHPI)) || (isset($carryOverBookingsHPI[0]->docNotesHPI) && $datum->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $datum->docNotesHPI))<br>[carry over from {{ $carryOverBookingsHPI[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsHPI[0]->booking_type }} booking last {{ $carryOverBookingsHPI[0]->bookingDate }}]@endif --}}
-                        <strong>History of Present Illness:</strong><div class="m-3 {{ $datum->docNotesHPI == "" ? 'text-danger' : ((isset($carryOverBookingsHPI[0]->docNotesHPI) && $datum->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $datum->docNotesHPI) ? 'text-warning' : '') }}">{!! isset($datum->docNotesHPI) ? nl2br($datum->docNotesHPI) : nl2br((isset($carryOverBookingsHPI[0]->docNotesHPI) && $datum->doctor_id == $carryOverBookingsHPI[0]->doctor_id ? $carryOverBookingsHPI[0]->docNotesHPI : '')) !!}@if(($datum->docNotesHPI == "" && isset($carryOverBookingsHPI[0]->docNotesHPI)) || (isset($carryOverBookingsHPI[0]->docNotesHPI) && $datum->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $datum->docNotesHPI))<br>[carry over from {{ $carryOverBookingsHPI[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsHPI[0]->booking_type }} booking last {{ $carryOverBookingsHPI[0]->bookingDate }}]@endif</div><br>
+                        <strong>Reason for Visit/Chief Complaint:</strong><div class="m-3">{!! isset($datum->complain) ? nl2br($datum->complain) : '' !!}</div><br>
+                        <strong>History of Present Illness:</strong><div class="m-3">{!! isset($datum->docNotesHPI) ? nl2br($datum->docNotesHPI) : '' !!}</div><br>
                         <strong>Subjective Complaints:</strong><br><div class="m-3">{!! isset($datum->docNotesSubject) ? nl2br($datum->docNotesSubject) : '' !!}</div><br>
                       </p>
-                      <small class="text-muted">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small>
+                      {{-- <small class="text-muted">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small> --}}
                     </div>
                   </div>
                   <div class="card mb-3">
                     <div class="card-header">Objective Findings</div>
                     <div class="card-body table-responsive" style="height:300px; max-height: 300px">
+                      @if(stristr($datum->doctor->specialty, 'Ophtha') && $datum->booking_type != "Dialysis")
+                      <div class="card mb-3">
+                        <div class="card-header">Eye Examination Information</div>
+                        <div class="card-body">
+                          {{-- <p>
+                            <strong>AR OD:</strong> <span class="text-primary">{{ $datum->arod_sphere != 'No Target' ? ($datum->arod_sphere > 0 ? '+' . $datum->arod_sphere : $datum->arod_sphere) . ' - ' . ($datum->arod_cylinder > 0 ? '+' . $datum->arod_cylinder : $datum->arod_cylinder) . ' x ' . $datum->arod_axis : 'No Refraction Possible' }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                            <strong>AR OS:</strong> <span class="text-primary">{{ $datum->aros_sphere != 'No Target' ? ($datum->aros_sphere > 0 ? '+' . $datum->aros_sphere : $datum->aros_sphere) . ' - ' . ($datum->aros_cylinder > 0 ? '+' . $datum->aros_cylinder : $datum->aros_cylinder) . ' x ' . $datum->aros_axis : 'No Refraction Possible' }}</span><br>
+                            <strong>UCVA OD:</strong> <span class="text-primary">{{ $datum->vaod_den != '' ? $datum->vaod_num . ' / ' . $datum->vaod_den : $datum->vaod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                            <strong>UCVA OD Present Correction:</strong> <span class="text-primary">{{ $datum->vaodcor_den != '' ? $datum->vaodcor_num . ' / ' . $datum->vaodcor_den : $datum->vaodcor_num }}</span><br>
+                            <strong>UCVA OS:</strong> <span class="text-primary">{{ $datum->vaos_den != '' ? $datum->vaos_num . ' / ' . $datum->vaos_den : $datum->vaos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                            <strong>UCVA OS Present Correction:</strong> <span class="text-primary">{{ $datum->vaoscor_den != '' ? $datum->vaoscor_num . ' / ' . $datum->vaoscor_den : $datum->vaoscor_num }}</span><br>
+                            <strong>VA OD Pinhole:</strong> <span class="text-primary">{{ $datum->pinod_den != '' ? $datum->pinod_num . ' / ' . $datum->pinod_den : $datum->pinod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                            <strong>BCVA OD:</strong> <span class="text-primary">{{ $datum->pinodcor_den != '' ? $datum->pinodcor_num . ' / ' . $datum->pinodcor_den : $datum->pinodcor_num }}</span><br>
+                            <strong>VA OS Pinhole:</strong> <span class="text-primary">{{ $datum->pinos_den != '' ? $datum->pinos_num . ' / ' . $datum->pinos_den : $datum->pinos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                            <strong>BCVA OS:</strong> <span class="text-primary">{{ $datum->pinoscor_den != '' ? $datum->pinoscor_num . ' / ' . $datum->pinoscor_den : $datum->pinoscor_num }}</span><br>
+                            <strong>Jaeger OU:</strong> <span class="text-primary">{{ $datum->jae_ou }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                            <strong>Jaeger OD:</strong> <span class="text-primary">{{ $datum->jae_od }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                            <strong>Jaeger OS:</strong> <span class="text-primary">{{ $datum->jae_os }}</span><br>
+                            <strong>IOP OD:</strong> <span class="text-primary">{{ $datum->iopod }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                            <strong>IOP OS:</strong> <span class="text-primary">{{ $datum->iopos }}</span>
+                          </p> --}}
+                          <table class="table table-bordered table-striped table-hover table-sm">
+                            <thead class="table-{{ $bgColor }}">
+                                <tr>
+                                    <th>&nbsp;</th>
+                                    <th>OD</th>
+                                    <th>OS</th>
+                                    <th>OU</th>
+                                </tr>
+                            </thead>
+                            <tbody id="prevEyerSum">
+                              <tr>
+                                  <td>AR</td>
+                                  <td>{{ $datum->arod_sphere != 'No Target' ? ( $datum->arod_sphere > 0 ? '+' . $datum->arod_sphere : $datum->arod_sphere ) . ' - ' . ( $datum->arod_cylinder > 0 ? '+' . $datum->arod_cylinder : $datum->arod_cylinder ) . ' x ' . $datum->arod_axis : 'No Refraction Possible' }}</td>
+                                  <td>{{ $datum->aros_sphere != 'No Target' ? ( $datum->aros_sphere > 0 ? '+' . $datum->aros_sphere : $datum->aros_sphere ) . ' - ' . ( $datum->aros_cylinder > 0 ? '+' . $datum->aros_cylinder : $datum->aros_cylinder ) . ' x ' . $datum->aros_axis : 'No Refraction Possible' }}</td>
+                                  <td>&nbsp;</td>
+                              </tr>
+                              <tr>
+                                  <td>UCVA (distance)</td>
+                                  <td>{{ $datum->vaod_den != '' ? $datum->vaod_num . ' / ' . $datum->vaod_den : $datum->vaod_num }}</td>
+                                  <td>{{ $datum->vaos_den != '' ? $datum->vaos_num . ' / ' . $datum->vaos_den : $datum->vaos_num }}</td>
+                                  <td>&nbsp;</td>
+                              </tr>
+                              <tr>
+                                  <td>UCVA with pinhole (distance)</td>
+                                  <td>{{ $datum->vaodcor_den != '' ? $datum->vaodcor_num . ' / ' . $datum->vaodcor_den : $datum->vaodcor_num }}</td>
+                                  <td>{{ $datum->vaoscor_den != '' ? $datum->vaoscor_num . ' / ' . $datum->vaoscor_den : $datum->vaoscor_num }}</td>
+                                  <td>&nbsp;</td>
+                              </tr>
+                              <tr>
+                                  <td>VA with old correction (distance)</td>
+                                  <td>{{ $datum->vaodold_den != '' ? $datum->vaodold_num . ' / ' . $datum->vaodold_den : $datum->vaodold_num }}</td>
+                                  <td>{{ $datum->vaosold_den != '' ? $datum->vaosold_num . ' / ' . $datum->vaosold_den : $datum->vaosold_num }}</td>
+                                  <td>&nbsp;</td>
+                              </tr>
+                              <tr>
+                                  <td>VA with old correction with pinhole (distance)</td>
+                                  <td>{{ $datum->pinod_den != '' ? $datum->pinod_num . ' / ' . $datum->pinod_den : $datum->pinod_num }}</td>
+                                  <td>{{ $datum->pinos_den != '' ? $datum->pinos_num . ' / ' . $datum->pinos_den : $datum->pinos_num }}</td>
+                                  <td>&nbsp;</td>
+                              </tr>
+                              <tr>
+                                  <td>BCVA (new correction)</td>
+                                  <td>{{ $datum->pinodcor_den != '' ? $datum->pinodcor_num . ' / ' . $datum->pinodcor_den : $datum->pinodcor_num }}</td>
+                                  <td>{{ $datum->pinoscor_den != '' ? $datum->pinoscor_num . ' / ' . $datum->pinoscor_den : $datum->pinoscor_num }}</td>
+                                  <td>&nbsp;</td>
+                              </tr>
+                              <tr>
+                                  <td>Jaeger (near vision)</td>
+                                  <td>{{ $datum->jae_od }}</td>
+                                  <td>{{ $datum->jae_os }}</td>
+                                  <td>{{ $datum->jae_ou }}</td>
+                              </tr>
+                              <tr>
+                                  <td>IOP</td>
+                                  <td>{{ $datum->iopod }}</td>
+                                  <td>{{ $datum->iopos }}</td>
+                                  <td>&nbsp;</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                      @endif
                       <p>
                         {{-- @if(($datum->docNotesHPI == "" && isset($carryOverBookingsHPI[0]->docNotesHPI)) || (isset($carryOverBookingsHPI[0]->docNotesHPI) && $datum->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $datum->docNotesHPI))<br>[carry over from {{ $carryOverBookingsHPI[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsHPI[0]->booking_type }} booking last {{ $carryOverBookingsHPI[0]->bookingDate }}]@endif --}}
-                        <div class="m-3">{!! isset($datum->docNotes) ? nl2br($datum->docNotes) : '' !!}</div><br>
+                        <strong>PE Findings:</strong><br><div class="m-3">{!! isset($datum->docNotes) ? nl2br($datum->docNotes) : '' !!}</div><br>
                       </p>
-                      <small class="text-muted">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small>
+                      {{-- <div class="card mb-3">
+                        <div class="card-header">Intraoperative Findings</div>
+                        <div class="card-body">
+                        </div>
+                      </div>
+                      <div class="card mb-3">
+                        <div class="card-header">Post-Operative Condition</div>
+                        <div class="card-body">
+                        </div>
+                      </div> --}}
+                      {{-- <small class="text-muted">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small> --}}
                     </div>
                   </div>
                   <div class="card mb-3">
@@ -8710,13 +8893,13 @@
                     <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                       <p>
                         {{-- @if(!isset($datum->icd_code_obj->icd_code) || (isset($datum->icd_code_obj->icd_code) && $datum->icd_code_obj->icd_code == "" && isset($carryOverBookingsICD[0]->icd_code_obj->icd_code)) || (isset($carryOverBookingsICD[0]->icd_code_obj->icd_code) && $datum->doctor_id == $carryOverBookingsICD[0]->doctor_id && $carryOverBookingsICD[0]->icd_code_obj->icd_code == $datum->icd_code_obj->icd_code))<br>[carry over from {{ $carryOverBookingsICD[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsICD[0]->booking_type }} booking last {{ $carryOverBookingsICD[0]->bookingDate }}]@endif --}}
-                        <strong>Primary Diagnosis:</strong> <div class="m-3 {{ (!isset($datum->icd_code_obj->icd_code) || (isset($datum->icd_code_obj->icd_code) && $datum->icd_code_obj->icd_code == "")) ? 'text-danger' : ((isset($carryOverBookingsICD[0]->icd_code_obj->icd_code) && $datum->doctor_id == $carryOverBookingsICD[0]->doctor_id && $carryOverBookingsICD[0]->icd_code_obj->icd_code == $datum->icd_code_obj->icd_code) ? 'text-warning' : '') }}">{!! isset($datum->icd_code_obj->icd_code) ? $datum->icd_code_obj->icd_code . ' - ' . $datum->icd_code_obj->details : (isset($carryOverBookingsICD[0]->icd_code_obj->icd_code) && $datum->doctor_id == $carryOverBookingsICD[0]->doctor_id ? $carryOverBookingsICD[0]->icd_code_obj->icd_code . ' - ' . $carryOverBookingsICD[0]->icd_code_obj->details : '') !!}</div><br>
+                        <strong>Primary Diagnosis:</strong> <div class="m-3">{!! isset($datum->primary_assessment) ? nl2br($datum->primary_assessment) : '' !!}</div><br>
                         {{-- @if(($datum->assessment == "" && isset($carryOverBookings[0]->assessment)) || (isset($carryOverBookings[0]->assessment) && $datum->doctor_id == $carryOverBookings[0]->doctor_id && $carryOverBookings[0]->assessment == $datum->assessment))<br>[carry over from {{ $carryOverBookings[0]->booking_type == '' ? 'Consultation' : $carryOverBookings[0]->booking_type }} booking last {{ $carryOverBookings[0]->bookingDate }}]@endif --}}
-                        <strong>Secondary Diagnosis:</strong><br><div class="m-3 {{ $datum->assessment == "" ? 'text-danger' : ((isset($carryOverBookings[0]->assessment) && $datum->doctor_id == $carryOverBookings[0]->doctor_id && $carryOverBookings[0]->assessment == $datum->assessment) ? 'text-warning' : '') }}">{!! isset($datum->assessment) ? nl2br($datum->assessment) : nl2br(isset($carryOverBookings[0]->assessment) && $datum->doctor_id == $carryOverBookings[0]->doctor_id ? $carryOverBookings[0]->assessment : '') !!}@if(($datum->assessment == "" && isset($carryOverBookings[0]->assessment)) || (isset($carryOverBookings[0]->assessment) && $datum->doctor_id == $carryOverBookings[0]->doctor_id && $carryOverBookings[0]->assessment == $datum->assessment))<br>[carry over from {{ $carryOverBookings[0]->booking_type == '' ? 'Consultation' : $carryOverBookings[0]->booking_type }} booking last {{ $carryOverBookings[0]->bookingDate }}]@endif</div><br>
+                        <strong>Secondary Diagnosis:</strong><br><div class="m-3">{!! isset($datum->assessment) ? nl2br($datum->assessment) : '' !!}</div><br>
                         {{-- @if(($datum->post_op_assessment == "" && isset($carryOverBookingsPostOp[0]->post_op_assessment)) || (isset($carryOverBookingsPostOp[0]->post_op_assessment) && $datum->doctor_id == $carryOverBookingsPostOp[0]->doctor_id && $carryOverBookingsPostOp[0]->post_op_assessment == $datum->post_op_assessment))<br>[carry over from {{ $carryOverBookingsPostOp[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPostOp[0]->booking_type }} booking last {{ $carryOverBookingsPostOp[0]->bookingDate }}]@endif --}}
-                        <strong>Discharge Diagnosis (Post-op Diagnosis):</strong><br><div class="m-3 {{ $datum->post_op_assessment == "" ? 'text-danger' : ((isset($carryOverBookingsPostOp[0]->post_op_assessment) && $datum->doctor_id == $carryOverBookingsPostOp[0]->doctor_id && $carryOverBookingsPostOp[0]->post_op_assessment == $datum->post_op_assessment) ? 'text-warning' : '') }}">{!! isset($datum->post_op_assessment) ? nl2br($datum->post_op_assessment) : nl2br(isset($carryOverBookingsPostOp[0]->post_op_assessment) && $datum->doctor_id == $carryOverBookingsPostOp[0]->doctor_id ? $carryOverBookingsPostOp[0]->post_op_assessment : '') !!}@if(($datum->post_op_assessment == "" && isset($carryOverBookingsPostOp[0]->post_op_assessment)) || (isset($carryOverBookingsPostOp[0]->post_op_assessment) && $datum->doctor_id == $carryOverBookingsPostOp[0]->doctor_id && $carryOverBookingsPostOp[0]->post_op_assessment == $datum->post_op_assessment))<br>[carry over from {{ $carryOverBookingsPostOp[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPostOp[0]->booking_type }} booking last {{ $carryOverBookingsPostOp[0]->bookingDate }}]@endif</div><br>
+                        <strong>Discharge Diagnosis (Post-op Diagnosis):</strong><br><div class="m-3">{!! isset($datum->post_op_assessment) ? nl2br($datum->post_op_assessment) : '' !!}</div><br>
                       </p>
-                      <small class="text-muted">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small>
+                      {{-- <small class="text-muted">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small> --}}
                     </div>
                   </div>
                   <div class="card mb-3">
@@ -8753,14 +8936,17 @@
                       </p>
                       @else
                       <p>
+                        <strong>Diagnostics:</strong><br><div class="m-3">{!! isset($datum->printable_form['diagnosis']) ? nl2br($datum->printable_form['diagnosis']) : '' !!}</div><br>
                         {{-- @if(($datum->planMed == "" && isset($carryOverBookingsPlanMed[0]->planMed)) || (isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed))<br>[carry over from {{ $carryOverBookingsPlanMed[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlanMed[0]->booking_type }} booking last {{ $carryOverBookingsPlanMed[0]->bookingDate }}]@endif --}}
-                        <strong>Medical Therapeutics:</strong><br><div class="m-3 {{ $datum->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed) ? 'text-warning' : '') }}">{!! isset($datum->planMed) ? nl2br($datum->planMed) : nl2br(isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id ? $carryOverBookingsPlanMed[0]->planMed : '') !!}@if(($datum->planMed == "" && isset($carryOverBookingsPlanMed[0]->planMed)) || (isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed))<br>[carry over from {{ $carryOverBookingsPlanMed[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlanMed[0]->booking_type }} booking last {{ $carryOverBookingsPlanMed[0]->bookingDate }}]@endif</div><br>
+                        <strong>Medical Therapeutics:</strong><br><div class="m-3">{!! isset($datum->planMed) ? nl2br($datum->planMed) : '' !!}</div><br>
+                        <strong>Medication Given in Recovery:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_givenMed">{!! isset($datum->printable_form['medication_given_recovery']) ? nl2br($datum->printable_form['medication_given_recovery']) : '' !!}</div><br>
+                        <strong>Discharge Medications (dose, frequency, duration):</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_dischargeMed">{!! isset($datum->printable_form['discharge_medication']) ? nl2br($datum->printable_form['discharge_medication']) : '' !!}</div><br>
                         {{-- @if(($datum->plan == "" && isset($carryOverBookingsPlan[0]->plan)) || (isset($carryOverBookingsPlan[0]->plan) && $datum->doctor_id == $carryOverBookingsPlan[0]->doctor_id && $carryOverBookingsPlan[0]->plan == $datum->plan))<br>[carry over from {{ $carryOverBookingsPlan[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlan[0]->booking_type }} booking last {{ $carryOverBookingsPlan[0]->bookingDate }}]@endif --}}
-                        <strong>Diagnostics and Surgery:</strong><br><div class="m-3 {{ $datum->plan == "" ? 'text-danger' : ((isset($carryOverBookingsPlan[0]->plan) && $datum->doctor_id == $carryOverBookingsPlan[0]->doctor_id && $carryOverBookingsPlan[0]->plan == $datum->plan) ? 'text-warning' : '') }}">{!! isset($datum->plan) ? nl2br($datum->plan) : nl2br(isset($carryOverBookingsPlan[0]->plan) && $datum->doctor_id == $carryOverBookingsPlan[0]->doctor_id ? $carryOverBookingsPlan[0]->plan : '') !!}@if(($datum->plan == "" && isset($carryOverBookingsPlan[0]->plan)) || (isset($carryOverBookingsPlan[0]->plan) && $datum->doctor_id == $carryOverBookingsPlan[0]->doctor_id && $carryOverBookingsPlan[0]->plan == $datum->plan))<br>[carry over from {{ $carryOverBookingsPlan[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlan[0]->booking_type }} booking last {{ $carryOverBookingsPlan[0]->bookingDate }}]@endif</div><br>
+                        <strong>Surgery (Planned/Performed):</strong><br><div class="m-3">{!! isset($datum->plan) ? nl2br($datum->plan) : '' !!}</div><br>
                         {{-- @if(($datum->planRem == "" && isset($carryOverBookingsPlanRem[0]->planRem)) || (isset($carryOverBookingsPlanRem[0]->planRem) && $datum->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id && $carryOverBookingsPlanRem[0]->planRem == $datum->planRem))<br>[carry over from {{ $carryOverBookingsPlanRem[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlanRem[0]->booking_type }} booking last {{ $carryOverBookingsPlanRem[0]->bookingDate }}]@endif --}}
-                        <strong>Remarks:</strong><br><div class="m-3 {{ $datum->planRem == "" ? 'text-danger' : ((isset($carryOverBookingsPlanRem[0]->planRem) && $datum->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id && $carryOverBookingsPlanRem[0]->planRem == $datum->planRem) ? 'text-warning' : '') }}">{!! isset($datum->planRem) ? nl2br($datum->planRem) : nl2br(isset($carryOverBookingsPlanRem[0]->planRem) && $datum->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id ? $carryOverBookingsPlanRem[0]->planRem : '') !!}@if(($datum->planRem == "" && isset($carryOverBookingsPlanRem[0]->planRem)) || (isset($carryOverBookingsPlanRem[0]->planRem) && $datum->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id && $carryOverBookingsPlanRem[0]->planRem == $datum->planRem))<br>[carry over from {{ $carryOverBookingsPlanRem[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlanRem[0]->booking_type }} booking last {{ $carryOverBookingsPlanRem[0]->bookingDate }}]@endif</div><br>
+                        <strong>Remarks:</strong><br><div class="m-3">{!! isset($datum->planRem) ? nl2br($datum->planRem) : '' !!}</div><br>
                       </p>
-                      <small class="text-muted">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small>
+                      {{-- <small class="text-muted">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small> --}}
                       @endif
                     </div>
                   </div>
@@ -8851,7 +9037,7 @@
                   @endforeach
                 @endif --}}
               </div>
-              <div id="soapCurDiv" class="container mb-3 p-0">
+              <div id="soapCurDiv" style="display:none" class="container mb-3 p-0">
                 {{-- <div class="card mb-3">
                   <div class="card-header">Scheduled Procedure</div>
                   <div class="card-body" style="height: 1in; max-height: 1in">
@@ -15041,6 +15227,18 @@
               eyeStr += bookingObj.consultation.vaodold_num + ' / ' + bookingObj.consultation.vaodold_den;
           }
           eyeStr += '</td><td>';
+          if((bookingObj.consultation.vaosold_den == '' || bookingObj.consultation.vaosold_den == null) && bookingObj.consultation.vaosold_num != null)
+            eyeStr += bookingObj.consultation.vaosold_num;
+          else{
+            key = false;
+            if(bookingObj.consultation.vaosold_num != null)
+              key = true;
+            if(bookingObj.consultation.vaosold_den != null)
+              key = true;
+            if(key)
+              eyeStr += bookingObj.consultation.vaosold_num + ' / ' + bookingObj.consultation.vaosold_den;
+          }
+          eyeStr += '</td><td>';
           eyeStr += '<tr><td>VA with old correction with pinhole (distance)</td><td>';
           if((bookingObj.consultation.pinod_den == '' || bookingObj.consultation.pinod_den == null) && bookingObj.consultation.pinod_num != null)
             eyeStr += bookingObj.consultation.pinod_num;
@@ -15114,6 +15312,13 @@
           if(bookingObj.parent_consultation.id != ''){
             bookingObj.consultation = orig_booking;
           }
+          if(bookingObj.consultation.complain != null){
+            $('#{{ $viewFolder }}_prev_complain').val(bookingObj.consultation.complain);
+            $('#{{ $viewFolder }}_prev_sum_complain').html(nl2br(bookingObj.consultation.complain));
+          }else{
+            $('#{{ $viewFolder }}_prev_complain').val('');
+            $('#{{ $viewFolder }}_prev_sum_complain').html('');
+          }
           if(bookingObj.consultation.docNotesHPI != null){
             $('#{{ $viewFolder }}_prev_docNotesHPI').val(bookingObj.consultation.docNotesHPI);
             $('#{{ $viewFolder }}_prev_sum_docNotesHPI').html(nl2br(bookingObj.consultation.docNotesHPI));
@@ -15151,8 +15356,10 @@
           }
           if(bookingObj.consultation.primary_assessment != null){
             $('#{{ $viewFolder }}_prev_primary_assessment').val(bookingObj.consultation.primary_assessment);
+            $('#{{ $viewFolder }}_prev_sum_primary_assessment').html(nl2br(bookingObj.consultation.primary_assessment));
           }else{
-            $('#{{ $viewFolder }}_primary_assessment').val('');
+            $('#{{ $viewFolder }}_prev_primary_assessment').val('');
+            $('#{{ $viewFolder }}_prev_sum_primary_assessment').html('');
           }
           if(bookingObj.consultation.assessment != null){
             $('#{{ $viewFolder }}_prev_assessment').val(bookingObj.consultation.assessment);
@@ -15168,12 +15375,33 @@
             $('#{{ $viewFolder }}_prev_plan').val('');
             $('#{{ $viewFolder }}_prev_sum_plan').html('');
           }
+          if(bookingObj.consultation.printable_form.diagnosis != null){
+            $('#{{ $viewFolder }}_prev_diagnosis').val(bookingObj.consultation.printable_form.diagnosis);
+            $('#{{ $viewFolder }}_prev_sum_diagnosis').html(nl2br(bookingObj.consultation.printable_form.diagnosis));
+          }else{
+            $('#{{ $viewFolder }}_prev_diagnosis').val('');
+            $('#{{ $viewFolder }}_prev_sum_diagnosis').html('');
+          }
           if(bookingObj.consultation.planMed != null){
             $('#{{ $viewFolder }}_prev_planMed').val(bookingObj.consultation.planMed);
             $('#{{ $viewFolder }}_prev_sum_planMed').html(nl2br(bookingObj.consultation.planMed));
           }else{
             $('#{{ $viewFolder }}_prev_planMed').val('');
             $('#{{ $viewFolder }}_prev_sum_planMed').html('');
+          }
+          if(bookingObj.consultation.printable_form.medication_given_recovery != null){
+            $('#{{ $viewFolder }}_prev_medication_given_recovery').val(bookingObj.consultation.printable_form.medication_given_recovery);
+            $('#{{ $viewFolder }}_prev_sum_medication_given_recovery').html(nl2br(bookingObj.consultation.printable_form.medication_given_recovery));
+          }else{
+            $('#{{ $viewFolder }}_prev_medication_given_recovery').val('');
+            $('#{{ $viewFolder }}_prev_sum_medication_given_recovery').html('');
+          }
+          if(bookingObj.consultation.printable_form.discharge_medication != null){
+            $('#{{ $viewFolder }}_prev_discharge_medication').val(bookingObj.consultation.printable_form.discharge_medication);
+            $('#{{ $viewFolder }}_prev_sum_discharge_medication').html(nl2br(bookingObj.consultation.printable_form.discharge_medication));
+          }else{
+            $('#{{ $viewFolder }}_prev_discharge_medication').val('');
+            $('#{{ $viewFolder }}_prev_sum_discharge_medication').html('');
           }
           if(bookingObj.consultation.planRem != null){
             $('#{{ $viewFolder }}_prev_planRem').val(bookingObj.consultation.planRem);
