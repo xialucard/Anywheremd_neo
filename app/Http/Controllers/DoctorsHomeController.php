@@ -931,7 +931,10 @@ class DoctorsHomeController extends Controller
         $prevBookingArr['consultation']['iframePrevOpAdmitSrc'] = Storage::disk('spaces')->exists('/storage/printable_forms_files/pdfOpAdmit_' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf') ? Storage::disk('spaces')->temporaryUrl('/storage/printable_forms_files/pdfOpAdmit_' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf', now()->addMinutes(10)) : (file_exists(public_path('storage/printable_forms_files/pdfOpAdmit_' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf')) ? asset('storage/printable_forms_files/pdfOpAdmit_' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf') : (file_exists(public_path('storage/uploads/printable_forms_files/pdfOpAdmit_' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf')) ? asset('storage//uploads/printable_forms_files/pdfDischargeSum_' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg'));
         $prevBookingArr['consultation']['iframePrevDischargeSumSrc'] = Storage::disk('spaces')->exists('/storage/printable_forms_files/pdfDischargeSum_' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf') ? Storage::disk('spaces')->temporaryUrl('/storage/printable_forms_files/pdfDischargeSum_' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf', now()->addMinutes(10)) : (file_exists(public_path('storage/printable_forms_files/pdfDischargeSum_' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf')) ? asset('storage/printable_forms_files/pdfDischargeSum_' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf') : (file_exists(public_path('storage/uploads/printable_forms_files/pdfDischargeSum_' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf')) ? asset('storage//uploads/printable_forms_files/pdfDischargeSum_' . $doctors_home->id . '_' . $doctors_home->patient->l_name . '.pdf') : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg'));
         $prevBookingArr['patient'] = $doctors_home->patient;
-
+        if($doctors_home->booking_type == 'Dialysis'){
+            $prevBookingArr['allBooking'] = Consultation::where('patient_id', $doctors_home->patient_id)->where('booking_type', 'Dialysis')->whereNotNull('time_ended')->whereNot('id', $doctors_home->id)->where('bookingDate', '<', $doctors_home->bookingDate)->orderBy('bookingDate','desc')->get();
+        }
+        // dd($prevBookingArr['allBooking']);
         if(isset($doctors_home->parent_consultation)){
             $prevBookingArr['parent_doctor'] = $doctors_home->parent_consultation;
             $prevBookingArr['parent_doctor']['doctor'] = $doctors_home->parent_consultation->doctor;
@@ -1087,9 +1090,7 @@ class DoctorsHomeController extends Controller
         }else{
             $prevBookingArr['parent_consultation']['id'] = '';
         }
-        // print"<pre>";
-        // print_r($prevBookingArr);
-        // print"</pre>";
+       
         return json_encode($prevBookingArr);
     }
 

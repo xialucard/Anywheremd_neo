@@ -69,7 +69,19 @@
         .img-div:hover .middle {
             opacity: 1;
         }
-        th.
+        
+        #spinner-div {
+            position: fixed;
+            display: none;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            text-align: center;
+            
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1060;
+        }
     </style>
 </head>
 <body>
@@ -81,8 +93,17 @@
             if(Auth::user()->user_type == 'Clinic')
                 $bgColorMain = 'navbar-dark bg-primary';
         }
-            
+        $bgColor = 'dark';
+        if(!empty(Auth::user()->user_type)){
+            if(Auth::user()->user_type == 'Doctor')
+                $bgColor = 'warning';
+            if(Auth::user()->user_type == 'Clinic')
+                $bgColor = 'primary';
+        }
     @endphp
+    <div id="spinner-div" class="pt-5">
+        <div class="spinner-border text-{{ $bgColor }}" style = "position: absolute;top: 50%;left: 50%;" role="status"></div>
+    </div>
     <div id="app">
         <nav class="navbar fixed-top z-index-1 navbar-expand-lg {{ $bgColorMain }}">
             @if (session()->has('message'))
@@ -92,6 +113,8 @@
             <script type=text/javascript>
                 $("#divFlashMessage").fadeOut(7000);
             </script>
+            
+            
             @endif
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -195,3 +218,22 @@
     {{-- @livewireScripts --}}
 </body>
 </html>
+<script>
+    // document.addEventListener('click', function(event) {
+    //     $('#spinner-div').show();
+    // });
+    // document.ready(function(event) {
+    //     $('#spinner-div').hide();
+    // });
+    // const myLink = document.querySelector('a');
+
+    // myLink.addEventListener('click', function(event) {
+    //     alert('test');
+    //     event.preventDefault();
+    //     const hrefValue = event.currentTarget.href; 
+    //     if(hrefValue != '#' && hrefValue != '' && hrefValue != undefined && !hrefValue.includes('javascript:void(0)') && !hrefValue.includes('javascript:;')){
+    //         $('#spinner-div').show();
+    //     }
+        
+    // });
+</script>

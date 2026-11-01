@@ -14951,9 +14951,14 @@
     });
   }
   function loadPrevBooking(consultation_id, index){
+    $('#spinner-div').show();
     $.ajax({
       type: 'GET',
       url: '{{ Route::has($viewFolder . '.getPrevBookingInfo') ? route($viewFolder . '.getPrevBookingInfo') : ''}}/' + consultation_id + '/withhistory/' + index,
+      complete: 
+        function () {
+          $('#spinner-div').hide();//Request is complete so hide spinner
+        },
       success:
         function(data, status){
           bookingObj = jQuery.parseJSON(data);
@@ -16253,29 +16258,29 @@
                 if(element.printable_form.discharge_medication != '')
                   $('#discharge_medicationPrevDiv').append('<div class="card mb-3"><div class="card-header bg-warning">Yours</div><div class="card-body">' + element.printable_form.discharge_medication + '</div></div>'); 
               }else{
-                if(element.docNotesHPI != '')
+                if(element.docNotesHPI != '' && !$.isEmptyObject(element.doctor))
                   $('#docNotesHPIPrevDiv').append('<div class="card mb-3"><div class="card-header bg-secondary text-light">Dr. ' + element.doctor.name + '</div><div class="card-body">' + element.docNotesHPI + '</div></div>');
-                if(element.docNotesSubject != '')
+                if(element.docNotesSubject != '' && !$.isEmptyObject(element.doctor))
                   $('#docNotesSubjectPrevDiv').append('<div class="card mb-3"><div class="card-header bg-secondary text-light">Dr. ' + element.doctor.name + '</div><div class="card-body">' + element.docNotesSubject + '</div></div>');
-                if(element.docNotes != '')
+                if(element.docNotes != '' && !$.isEmptyObject(element.doctor))
                   $('#docNotesPrevDiv').append('<div class="card mb-3"><div class="card-header bg-secondary text-light">Dr. ' + element.doctor.name + '</div><div class="card-body">' + element.docNotes + '</div></div>');
-                if(element.primary_assessment != '')
+                if(element.primary_assessment != '' && !$.isEmptyObject(element.doctor))
                   $('#primary_assessmentPrevDiv').append('<div class="card mb-3"><div class="card-header bg-secondary text-light">Dr. ' + element.doctor.name + '</div><div class="card-body">' + element.primary_assessment + '</div></div>');
-                if(element.assessment != '')
+                if(element.assessment != '' && !$.isEmptyObject(element.doctor))
                   $('#assessmentPrevDiv').append('<div class="card mb-3"><div class="card-header bg-secondary text-light">Dr. ' + element.doctor.name + '</div><div class="card-body">' + element.assessment + '</div></div>');
-                if(element.post_op_assessment != '')
+                if(element.post_op_assessment != '' && !$.isEmptyObject(element.doctor))
                   $('#post_op_assessmentPrevDiv').append('<div class="card mb-3"><div class="card-header bg-secondary text-light">Dr. ' + element.doctor.name + '</div><div class="card-body">' + element.post_op_assessment + '</div></div>');
-                if(element.plan != '')
+                if(element.plan != '' && !$.isEmptyObject(element.doctor))
                   $('#planPrevDiv').append('<div class="card mb-3"><div class="card-header bg-secondary text-light">Dr. ' + element.doctor.name + '</div><div class="card-body">' + element.plan + '</div></div>');
-                if(element.planRem != '')
+                if(element.planRem != '' && !$.isEmptyObject(element.doctor))
                   $('#planRemPrevDiv').append('<div class="card mb-3"><div class="card-header bg-secondary text-light">Dr. ' + element.doctor.name + '</div><div class="card-body">' + element.planRem + '</div></div>');
-                if(element.planMed != '')
+                if(element.planMed != '' && !$.isEmptyObject(element.doctor))
                   $('#planMedPrevDiv').append('<div class="card mb-3"><div class="card-header bg-secondary text-light">Dr. ' + element.doctor.name + '</div><div class="card-body">' + element.planMed + '</div></div>');
-                if(element.printable_form.diagnosis != '')
+                if(!$.isEmptyObject(element.printable_form) && element.printable_form.diagnosis != '' && !$.isEmptyObject(element.doctor))
                   $('#diagnosisPrevDiv').append('<div class="card mb-3"><div class="card-header bg-secondary text-light">Dr. ' + element.doctor.name + '</div><div class="card-body">' + element.printable_form.diagnosis + '</div></div>');
-                if(element.printable_form.medication_given_recovery != '')
+                if(!$.isEmptyObject(element.printable_form) && element.printable_form.medication_given_recovery != '' && !$.isEmptyObject(element.doctor))
                   $('#medication_given_recoveryPrevDiv').append('<div class="card mb-3"><div class="card-header bg-secondary text-light">Dr. ' + element.doctor.name + '</div><div class="card-body">' + element.printable_form.medication_given_recovery + '</div></div>');
-                if(element.printable_form.discharge_medication != '')
+                if(!$.isEmptyObject(element.printable_form) && element.printable_form.discharge_medication != '' && !$.isEmptyObject(element.doctor))
                   $('#discharge_medicationPrevDiv').append('<div class="card mb-3"><div class="card-header bg-secondary text-light">Dr. ' + element.doctor.name + '</div><div class="card-body">' + element.printable_form.discharge_medication + '</div></div>');
               }
             });

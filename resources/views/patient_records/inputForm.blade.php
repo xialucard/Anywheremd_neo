@@ -186,7 +186,7 @@
               </p>
             </div>
           </div>
-          <div class="card mb-3" id="eyeExam" {{ stristr($bookings[0]->doctor->specialty, 'Ophtha') ? '' : 'style=display:none' }}>
+          {{-- <div class="card mb-3" id="eyeExam" {{ stristr($bookings[0]->doctor->specialty, 'Ophtha') ? '' : 'style=display:none' }}>
             <div class="card-header">Eye Examination Information</div>
             <div class="card-body">
               {{-- <p id="prevEyerBack">
@@ -205,7 +205,7 @@
                 <strong>Jaeger OS:</strong> <span class="text-primary">{{ $bookings[0]->jae_os }}</span><br>
                 <strong>IOP OD:</strong> <span class="text-primary">{{ $bookings[0]->iopod }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
                 <strong>IOP OS:</strong> <span class="text-primary">{{ $bookings[0]->iopos }}</span>
-              </p> --}}
+              </p> --}
               <table class="table table-bordered table-striped table-hover table-sm">
                 <thead class="table-{{ $bgColor }}">
                     <tr>
@@ -261,7 +261,7 @@
                 </tbody>
               </table>
             </div>
-          </div>
+          </div> --}}
           
           <ul class="nav nav-tabs">
             <li class="nav-item">
@@ -273,6 +273,8 @@
                 $('#medPrevLink').removeClass('active');  
                 $('#admitPrevLink').removeClass('active');
                 $('#dialysisPrevLink').removeClass('active');
+                $('#hdSumPrevLink').removeClass('active');
+                $('#labSumPrevLink').removeClass('active');
                 $('#sumPrevDiv').show();  
                 $('#soapPrevDiv').hide();  
                 $('#labPrevDiv').hide();  
@@ -280,20 +282,22 @@
                 $('#medPrevDiv').hide();  
                 $('#admitPrevDiv').hide();
                 $('#dialysisPrevDiv').hide();
-                $('#sumCurLink').addClass('active');  
-                $('#soapCurLink').removeClass('active');  
-                $('#labCurLink').removeClass('active');  
-                $('#presCurLink').removeClass('active');  
-                $('#medCurLink').removeClass('active');  
-                $('#admitCurLink').removeClass('active');
-                $('#dialysisCurLink').removeClass('active');
-                $('#sumCurDiv').show();  
-                $('#soapCurDiv').hide();  
-                $('#labCurDiv').hide();  
-                $('#presCurDiv').hide();  
-                $('#medCurDiv').hide();  
-                $('#admitCurDiv').hide();
-                $('#dialysisCurDiv').hide();
+                $('#hdSumPrevDiv').hide();  
+                $('#labSumPrevDiv').hide();  
+                // $('#sumCurLink').addClass('active');  
+                // $('#soapCurLink').removeClass('active');  
+                // $('#labCurLink').removeClass('active');  
+                // $('#presCurLink').removeClass('active');  
+                // $('#medCurLink').removeClass('active');  
+                // $('#admitCurLink').removeClass('active');
+                // $('#dialysisCurLink').removeClass('active');
+                // $('#sumCurDiv').show();  
+                // $('#soapCurDiv').hide();  
+                // $('#labCurDiv').hide();  
+                // $('#presCurDiv').hide();  
+                // $('#medCurDiv').hide();  
+                // $('#admitCurDiv').hide();
+                // $('#dialysisCurDiv').hide();
               ">Summary</a>
             </li>
             <li class="nav-item">
@@ -305,6 +309,8 @@
                 $('#medPrevLink').removeClass('active');  
                 $('#admitPrevLink').removeClass('active');
                 $('#dialysisPrevLink').removeClass('active');
+                $('#hdSumPrevLink').removeClass('active');
+                $('#labSumPrevLink').removeClass('active');
                 $('#soapPrevDiv').show();  
                 $('#sumPrevDiv').hide();  
                 $('#labPrevDiv').hide();  
@@ -312,20 +318,22 @@
                 $('#medPrevDiv').hide();  
                 $('#admitPrevDiv').hide();
                 $('#dialysisPrevDiv').hide();
-                $('#soapCurLink').addClass('active');  
-                $('#sumCurLink').removeClass('active');  
-                $('#labCurLink').removeClass('active');  
-                $('#presCurLink').removeClass('active');  
-                $('#medCurLink').removeClass('active');  
-                $('#admitCurLink').removeClass('active');
-                $('#dialysisCurLink').removeClass('active');
-                $('#soapCurDiv').show();  
-                $('#sumCurDiv').hide();  
-                $('#labCurDiv').hide();  
-                $('#presCurDiv').hide();  
-                $('#medCurDiv').hide();  
-                $('#admitCurDiv').hide();
-                $('#dialysisCurDiv').hide();
+                $('#hdSumPrevDiv').hide();  
+                $('#labSumPrevDiv').hide();  
+                // $('#soapCurLink').addClass('active');  
+                // $('#sumCurLink').removeClass('active');  
+                // $('#labCurLink').removeClass('active');  
+                // $('#presCurLink').removeClass('active');  
+                // $('#medCurLink').removeClass('active');  
+                // $('#admitCurLink').removeClass('active');
+                // $('#dialysisCurLink').removeClass('active');
+                // $('#soapCurDiv').show();  
+                // $('#sumCurDiv').hide();  
+                // $('#labCurDiv').hide();  
+                // $('#presCurDiv').hide();  
+                // $('#medCurDiv').hide();  
+                // $('#admitCurDiv').hide();
+                // $('#dialysisCurDiv').hide();
               ">SOAP</a>
             </li>
             <li class="nav-item">
@@ -337,6 +345,8 @@
                 $('#medPrevLink').removeClass('active');  
                 $('#admitPrevLink').removeClass('active');
                 $('#dialysisPrevLink').removeClass('active');
+                $('#hdSumPrevLink').removeClass('active');
+                $('#labSumPrevLink').removeClass('active');
                 $('#sumPrevDiv').hide();  
                 $('#soapPrevDiv').hide();  
                 $('#labPrevDiv').show();  
@@ -344,20 +354,22 @@
                 $('#medPrevDiv').hide();  
                 $('#admitPrevDiv').hide();
                 $('#dialysisPrevDiv').hide();
-                $('#sumCurLink').removeClass('active');
-                $('#soapCurLink').removeClass('active');
-                $('#labCurLink').addClass('active');  
-                $('#presCurLink').removeClass('active');  
-                $('#medPCurLink').removeClass('active');  
-                $('#admitCurLink').removeClass('active');
-                $('#dialysisCurLink').removeClass('active');
-                $('#sumCurDiv').hide();  
-                $('#soapCurDiv').hide();  
-                $('#labCurDiv').show();  
-                $('#presCurDiv').hide();  
-                $('#medCurDiv').hide();  
-                $('#admitCurDiv').hide();
-                $('#dialysisCurDiv').hide();
+                $('#hdSumPrevDiv').hide();  
+                $('#labSumPrevDiv').hide();  
+                // $('#sumCurLink').removeClass('active');
+                // $('#soapCurLink').removeClass('active');
+                // $('#labCurLink').addClass('active');  
+                // $('#presCurLink').removeClass('active');  
+                // $('#medPCurLink').removeClass('active');  
+                // $('#admitCurLink').removeClass('active');
+                // $('#dialysisCurLink').removeClass('active');
+                // $('#sumCurDiv').hide();  
+                // $('#soapCurDiv').hide();  
+                // $('#labCurDiv').show();  
+                // $('#presCurDiv').hide();  
+                // $('#medCurDiv').hide();  
+                // $('#admitCurDiv').hide();
+                // $('#dialysisCurDiv').hide();
               ">File Uploads</a>
             </li>
             <li class="nav-item">
@@ -369,6 +381,8 @@
                 $('#medPrevLink').removeClass('active');  
                 $('#admitPrevLink').removeClass('active');
                 $('#dialysisPrevLink').removeClass('active');
+                $('#hdSumPrevLink').removeClass('active');
+                $('#labSumPrevLink').removeClass('active');
                 $('#sumPrevDiv').hide();  
                 $('#soapPrevDiv').hide();  
                 $('#labPrevDiv').hide();  
@@ -376,20 +390,22 @@
                 $('#medPrevDiv').hide();  
                 $('#admitPrevDiv').hide();
                 $('#dialysisPrevDiv').hide();
-                $('#sumCurLink').removeClass('active');
-                $('#soapCurLink').removeClass('active');
-                $('#labCurLink').removeClass('active');  
-                $('#presCurLink').addClass('active');  
-                $('#medCurLink').removeClass('active');  
-                $('#admitCurLink').removeClass('active');
-                $('#dialysisCurLink').removeClass('active');
-                $('#sumCurDiv').hide();  
-                $('#soapCurDiv').hide();  
-                $('#labCurDiv').hide();  
-                $('#presCurDiv').show();  
-                $('#medCurDiv').hide();  
-                $('#admitCurDiv').hide();
-                $('#dialysisCurDiv').hide();
+                $('#hdSumPrevDiv').hide();  
+                $('#labSumPrevDiv').hide();  
+                // $('#sumCurLink').removeClass('active');
+                // $('#soapCurLink').removeClass('active');
+                // $('#labCurLink').removeClass('active');  
+                // $('#presCurLink').addClass('active');  
+                // $('#medCurLink').removeClass('active');  
+                // $('#admitCurLink').removeClass('active');
+                // $('#dialysisCurLink').removeClass('active');
+                // $('#sumCurDiv').hide();  
+                // $('#soapCurDiv').hide();  
+                // $('#labCurDiv').hide();  
+                // $('#presCurDiv').show();  
+                // $('#medCurDiv').hide();  
+                // $('#admitCurDiv').hide();
+                // $('#dialysisCurDiv').hide();
               ">E-Prescription</a>
             </li>
             <li class="nav-item">
@@ -401,6 +417,8 @@
                 $('#medPrevLink').addClass('active');  
                 $('#admitPrevLink').removeClass('active');
                 $('#dialysisPrevLink').removeClass('active');
+                $('#hdSumPrevLink').removeClass('active');
+                $('#labSumPrevLink').removeClass('active');
                 $('#sumPrevDiv').hide();  
                 $('#soapPrevDiv').hide();  
                 $('#labPrevDiv').hide();  
@@ -408,20 +426,22 @@
                 $('#medPrevDiv').show();  
                 $('#admitPrevDiv').hide();
                 $('#dialysisPrevDiv').hide();
-                $('#sumCurLink').removeClass('active');
-                $('#soapCurLink').removeClass('active');
-                $('#labCurLink').removeClass('active');  
-                $('#presCurLink').removeClass('active');  
-                $('#medCurLink').addClass('active');  
-                $('#admitCurLink').removeClass('active');
-                $('#dialysisCurLink').removeClass('active');
-                $('#sumCurDiv').hide();  
-                $('#soapCurDiv').hide();  
-                $('#labCurDiv').hide();  
-                $('#presCurDiv').hide();  
-                $('#medCurDiv').show();  
-                $('#admitCurDiv').hide();
-                $('#dialysisCurDiv').hide();
+                $('#hdSumPrevDiv').hide();  
+                $('#labSumPrevDiv').hide();  
+                // $('#sumCurLink').removeClass('active');
+                // $('#soapCurLink').removeClass('active');
+                // $('#labCurLink').removeClass('active');  
+                // $('#presCurLink').removeClass('active');  
+                // $('#medCurLink').addClass('active');  
+                // $('#admitCurLink').removeClass('active');
+                // $('#dialysisCurLink').removeClass('active');
+                // $('#sumCurDiv').hide();  
+                // $('#soapCurDiv').hide();  
+                // $('#labCurDiv').hide();  
+                // $('#presCurDiv').hide();  
+                // $('#medCurDiv').show();  
+                // $('#admitCurDiv').hide();
+                // $('#dialysisCurDiv').hide();
               ">Med Cert</a>
             </li>
             <li class="nav-item">
@@ -433,6 +453,8 @@
                 $('#medPrevLink').removeClass('active');
                 $('#admitPrevLink').addClass('active'); 
                 $('#dialysisPrevLink').removeClass('active');
+                $('#hdSumPrevLink').removeClass('active');
+                $('#labSumPrevLink').removeClass('active');
                 $('#sumPrevDiv').hide();  
                 $('#soapPrevDiv').hide();  
                 $('#labPrevDiv').hide();  
@@ -440,20 +462,22 @@
                 $('#medPrevDiv').hide(); 
                 $('#admitPrevDiv').show();
                 $('#dialysisPrevDiv').hide();  
-                $('#sumCurLink').removeClass('active');
-                $('#soapCurLink').removeClass('active');
-                $('#labCurLink').removeClass('active');  
-                $('#presCurLink').removeClass('active');  
-                $('#medCurLink').removeClass('active');
-                $('#admitCurLink').addClass('active'); 
-                $('#dialysisCurLink').removeClass('active');
-                $('#sumCurDiv').hide();  
-                $('#soapCurDiv').hide();  
-                $('#labCurDiv').hide();  
-                $('#presCurDiv').hide();  
-                $('#medCurDiv').hide(); 
-                $('#admitCurDiv').show();  
-                $('#dialysisCurDiv').hide();  
+                $('#hdSumPrevDiv').hide();  
+                $('#labSumPrevDiv').hide();  
+                // $('#sumCurLink').removeClass('active');
+                // $('#soapCurLink').removeClass('active');
+                // $('#labCurLink').removeClass('active');  
+                // $('#presCurLink').removeClass('active');  
+                // $('#medCurLink').removeClass('active');
+                // $('#admitCurLink').addClass('active'); 
+                // $('#dialysisCurLink').removeClass('active');
+                // $('#sumCurDiv').hide();  
+                // $('#soapCurDiv').hide();  
+                // $('#labCurDiv').hide();  
+                // $('#presCurDiv').hide();  
+                // $('#medCurDiv').hide(); 
+                // $('#admitCurDiv').show();  
+                // $('#dialysisCurDiv').hide();  
               ">Admitting Orders</a>
             </li>
             <li class="nav-item" id="dChart" @if($bookings[0]->booking_type == 'Dialysis') style="display:block" @else style="display:none" @endif>
@@ -465,6 +489,8 @@
                 $('#medPrevLink').removeClass('active');
                 $('#admitPrevLink').removeClass('active');
                 $('#dialysisPrevLink').addClass('active');
+                $('#hdSumPrevLink').removeClass('active');
+                $('#labSumPrevLink').removeClass('active');
                 $('#sumPrevDiv').hide();  
                 $('#soapPrevDiv').hide();  
                 $('#labPrevDiv').hide();  
@@ -472,60 +498,104 @@
                 $('#medPrevDiv').hide(); 
                 $('#admitPrevDiv').hide();  
                 $('#dialysisPrevDiv').show();  
-                $('#sumCurLink').removeClass('active');
-                $('#soapCurLink').removeClass('active');
-                $('#labCurLink').removeClass('active');  
-                $('#presCurLink').removeClass('active');  
-                $('#medCurLink').removeClass('active');
-                $('#admitCurLink').removeClass('active');
-                $('#dialysisCurLink').addClass('active'); 
-                $('#sumCurDiv').hide();  
-                $('#soapCurDiv').hide();  
-                $('#labCurDiv').hide();  
-                $('#presCurDiv').hide();  
-                $('#medCurDiv').hide(); 
-                $('#admitCurDiv').hide();  
-                $('#dialysisCurDiv').show();  
+                $('#hdSumPrevDiv').hide();  
+                $('#labSumPrevDiv').hide();  
+                // $('#sumCurLink').removeClass('active');
+                // $('#soapCurLink').removeClass('active');
+                // $('#labCurLink').removeClass('active');  
+                // $('#presCurLink').removeClass('active');  
+                // $('#medCurLink').removeClass('active');
+                // $('#admitCurLink').removeClass('active');
+                // $('#dialysisCurLink').addClass('active'); 
+                // $('#sumCurDiv').hide();  
+                // $('#soapCurDiv').hide();  
+                // $('#labCurDiv').hide();  
+                // $('#presCurDiv').hide();  
+                // $('#medCurDiv').hide(); 
+                // $('#admitCurDiv').hide();  
+                // $('#dialysisCurDiv').show();  
               ">Dialysis Chart</a>
             </li>
-            {{-- <li class="nav-item">
-              <a class="nav-link" id="dialysisPrevLink" href="#" onclick="
+            <li class="nav-item" id="hdSum" @if($bookings[0]->booking_type == 'Dialysis') style="display:block" @else style="display:none" @endif>
+              <a class="nav-link" id="hdSumPrevLink" href="#" onclick="
                 $('#sumPrevLink').removeClass('active');
                 $('#soapPrevLink').removeClass('active');
                 $('#labPrevLink').removeClass('active');  
                 $('#presPrevLink').removeClass('active');  
                 $('#medPrevLink').removeClass('active');
                 $('#admitPrevLink').removeClass('active');
-                $('#dialysisPrevLink').addClass('active');
+                $('#dialysisPrevLink').removeClass('active');
+                $('#hdSumPrevLink').addClass('active');
+                $('#labSumPrevLink').removeClass('active');
                 $('#sumPrevDiv').hide();  
                 $('#soapPrevDiv').hide();  
                 $('#labPrevDiv').hide();  
                 $('#presPrevDiv').hide();  
                 $('#medPrevDiv').hide(); 
                 $('#admitPrevDiv').hide();  
-                $('#dialysisPrevDiv').show();  
-                $('#sumCurLink').removeClass('active');
-                $('#soapCurLink').removeClass('active');
-                $('#labCurLink').removeClass('active');  
-                $('#presCurLink').removeClass('active');  
-                $('#medCurLink').removeClass('active');
-                $('#admitCurLink').removeClass('active');
-                $('#dialysisCurLink').addClass('active'); 
-                $('#sumCurDiv').hide();  
-                $('#soapCurDiv').hide();  
-                $('#labCurDiv').hide();  
-                $('#presCurDiv').hide();  
-                $('#medCurDiv').hide(); 
-                $('#admitCurDiv').hide();  
-                $('#dialysisCurDiv').show();  
+                $('#dialysisPrevDiv').hide();  
+                $('#hdSumPrevDiv').show();  
+                $('#labSumPrevDiv').hide();  
+                // $('#sumCurLink').removeClass('active');
+                // $('#soapCurLink').removeClass('active');
+                // $('#labCurLink').removeClass('active');  
+                // $('#presCurLink').removeClass('active');  
+                // $('#medCurLink').removeClass('active');
+                // $('#admitCurLink').removeClass('active');
+                // $('#dialysisCurLink').addClass('active'); 
+                // $('#sumCurDiv').hide();  
+                // $('#soapCurDiv').hide();  
+                // $('#labCurDiv').hide();  
+                // $('#presCurDiv').hide();  
+                // $('#medCurDiv').hide(); 
+                // $('#admitCurDiv').hide();  
+                // $('#dialysisCurDiv').show();  
               ">HD Summary Sheet</a>
-            </li> --}}
+            </li>
+            <li class="nav-item" id="labSum" @if($bookings[0]->booking_type == 'Dialysis') style="display:block" @else style="display:none" @endif>
+              <a class="nav-link" id="labSumPrevLink" href="#" onclick="
+                $('#sumPrevLink').removeClass('active');
+                $('#soapPrevLink').removeClass('active');
+                $('#labPrevLink').removeClass('active');  
+                $('#presPrevLink').removeClass('active');  
+                $('#medPrevLink').removeClass('active');
+                $('#admitPrevLink').removeClass('active');
+                $('#dialysisPrevLink').removeClass('active');
+                $('#hdSumPrevLink').removeClass('active');
+                $('#labSumPrevLink').addClass('active');
+                $('#sumPrevDiv').hide();  
+                $('#soapPrevDiv').hide();  
+                $('#labPrevDiv').hide();  
+                $('#presPrevDiv').hide();  
+                $('#medPrevDiv').hide(); 
+                $('#admitPrevDiv').hide();  
+                $('#dialysisPrevDiv').hide();  
+                $('#hdSumPrevDiv').hide();  
+                $('#labSumPrevDiv').show();  
+                // $('#sumCurLink').removeClass('active');
+                // $('#soapCurLink').removeClass('active');
+                // $('#labCurLink').removeClass('active');  
+                // $('#presCurLink').removeClass('active');  
+                // $('#medCurLink').removeClass('active');
+                // $('#admitCurLink').removeClass('active');
+                // $('#dialysisCurLink').addClass('active'); 
+                // $('#sumCurDiv').hide();  
+                // $('#soapCurDiv').hide();  
+                // $('#labCurDiv').hide();  
+                // $('#presCurDiv').hide();  
+                // $('#medCurDiv').hide(); 
+                // $('#admitCurDiv').hide();  
+                // $('#dialysisCurDiv').show();  
+              ">Laboratory Summary Sheet</a>
+            </li>
             
           </ul>
-          {{-- <div id="hdSum" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
-            @can('clinics_home.pdfHDSum')
-              <div class="m-1"><a id="printLinkID" class="btn btn-{{ $bgColor }} btn-sm w-100 printLink" href="{{ route('clinics_home.pdfHDSum', [isset($referal_conso) ? $referal_conso->id : $bookings[0]->id, !empty(parse_url(Request::fullUrl())['query']) ? parse_url(Request::fullUrl())['query'] : '']) }}" title="Print HD Summary Sheet" role="button" download><i class="bi bi-file-pdf-fill"></i><span class="ps-1 d-sm-none">Print HD Summary Sheet</span></a></div>
-            @endcan
+          <div id="hdSumPrevDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
+            @if(isset($datum->id))
+              @can('clinics_home.pdfHDSum')
+            <div class="m-1"><a id="printLinkID" class="btn btn-{{ $bgColor }} btn-sm w-100 printLink" href="{{ route('clinics_home.pdfHDSum', [isset($referal_conso) ? $referal_conso->id : $datum->id, !empty(parse_url(Request::fullUrl())['query']) ? parse_url(Request::fullUrl())['query'] : '']) }}" title="Print HD Summary Sheet" role="button" download><i class="bi bi-file-pdf-fill"></i><span class="ps-1 d-sm-none">Print HD Summary Sheet</span></a></div>
+              @endcan
+            @endif
             <div class="table-responsive" style="max-height: 300px">
               <table class="table table-bordered table-striped table-hover table-sm medsOn">
                 <thead class="table-{{ $bgColor }}">
@@ -539,56 +609,368 @@
                     <th>Pre HD BP</th>
                     <th>Post HD BP</th>
                     <th>UF Goal</th>
+                    <th>UF Achieved</th>
+                    <th>Kt/V Achieved</th>
                     <th>WT. Loss</th>
                     <th>EPO Inj.</th>
                     <th>Iron</th>
                     <th>Dialysis Complication</th>
-                    <th>Remarks/NOD</th>
+                    {{-- <th>Remarks/NOD</th> --}}
                   </tr>
                 </thead>
-                <tbody id="medsOnboardTable{{ $datum->id }}">
+                <tbody id="hdSumPrevTbody">
                 @if(isset($allBooking))
                   @foreach ($allBooking as $ind=>$dat)
-                  <tr id="hdBooking_{{ $dat->id }}">
+                    @if($dat->consultation_parent_id == null)
+                  <tr>
                       <td>{{ $dat->treatment_number }}</td>
                       <td>{{ $dat->bookingDate }}</td>
-                      <td>{{ $dat->dialyzer . '/' . $dat->use }}</td>
+                      <td>{{ $dat->mac_use }}</td>
                       <td>{{ $dat->dry_weight }}<</td>
                       <td>{{ $dat->weight }}</td>
                       <td>{{ $dat->post_weight }}</td>
                       <td>{{ $dat->bpS . '/' . $dat->bpD }}</td>
                       <td>{{ $dat->post_bpS . '/' . $dat->post_bpD }}</td>
                       <td>{{ $dat->total_uf_goal }}</td>
+                      <td>{{ $dat->achieved_uf }}</td>
+                      <td>{{ $dat->achieved_ktv }}</td>
                       <td>{{ $dat->weight_loss }}</td>
-                      <td>{{ $dat->epo }}</td>
-                      <td>{{ $dat->iv_iron }}</td>
+                      <td>{{ isset($dat->consultation_meds()->where('medication', 'like', '%epo%')->get()[0]->dosage) ? $dat->consultation_meds()->where('medication', 'like', '%epo%')->get()[0]->dosage : '' }}</td>
+                      <td>{{ isset($dat->consultation_meds()->where('medication', 'like', '%iron%')->get()[0]->dosage) ? $dat->consultation_meds()->where('medication', 'like', '%iron%')->get()[0]->dosage : '' }}</td>
                       <td>{{ nl2br($dat->dialysis_complication) }}</td>
+                      {{-- <td>{{ isset($dat->creator->name) ? $dat->creator->name : '' }}</td> --}}
                   </tr>
+                    @endif
                   @endforeach
                 @endif
                 </tbody>
               </table>
             </div>
-          </div> --}}
-          <div id="sumCurDiv" class="container border border-1 border-top-0 mb-3 p-3">
+          </div>
+          <div id="labSumPrevDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
+            @if(isset($datum->id))
+              @can('clinics_home.pdfLabSum')
+            <div class="m-1"><a id="printLinkID" class="btn btn-{{ $bgColor }} btn-sm w-100 printLink" href="{{ route('clinics_home.pdfLabSum', [isset($referal_conso) ? $referal_conso->id : $datum->id, !empty(parse_url(Request::fullUrl())['query']) ? parse_url(Request::fullUrl())['query'] : '']) }}" title="Print Laboratory Summary Sheet" role="button" download><i class="bi bi-file-pdf-fill"></i><span class="ps-1 d-sm-none">Print Laboratory Summary Sheet</span></a></div>
+              @endcan
+            @endif
+            <div class="table-responsive" style="max-height: 300px">
+              <table id="labSumPrevTable" class="table table-bordered table-striped table-hover table-sm medsOn">
+                <thead class="table-{{ $bgColor }}">
+                  <tr>
+                    <th rowspan="2">&nbsp;</th>
+                    <th colspan="{{ isset($allBooking) ? sizeof($allBooking) : 0 }}">Date</th>
+                  </tr>
+                  <tr>
+                    @if(isset($allBooking))
+                      @foreach ($allBooking as $ind=>$dat)
+                        @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
+                          @continue
+                        @endif  
+                        <th>{{ $dat->bookingDate }}</th>
+                      @endforeach
+                    @endif
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Hemoglobin</td>
+                    @if(isset($allBooking))
+                      @foreach ($allBooking as $ind=>$dat)
+                        @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
+                          @continue
+                        @endif
+                        <td>{{ $dat->hemoglobin }}</td>
+                      @endforeach
+                    @endif
+                  </tr>
+                  <tr>
+                    <td>Hematocrit</td>
+                    @if(isset($allBooking))
+                      @foreach ($allBooking as $ind=>$dat)
+                        @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)  
+                          @continue
+                        @endif
+                        <td>{{ $dat->hematocrit }}</td>
+                      @endforeach
+                    @endif
+                  </tr>
+                  <tr>
+                    <td>RBC</td>
+                    @if(isset($allBooking))
+                      @foreach ($allBooking as $ind=>$dat)
+                        @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
+                          @continue
+                        @endif
+                        <td>{{ $dat->rbc }}</td>
+                      @endforeach
+                    @endif
+                  </tr>
+                  <tr>
+                    <td>WBC</td>
+                    @if(isset($allBooking))
+                      @foreach ($allBooking as $ind=>$dat)
+                        @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
+                          @continue
+                        @endif
+                        <td>{{ $dat->wbc }}</td>
+                      @endforeach
+                    @endif
+                  </tr>
+                  <tr>
+                    <td>Platelet</td>
+                    @if(isset($allBooking))
+                      @foreach ($allBooking as $ind=>$dat)
+                        @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
+                          @continue
+                        @endif
+                        <td>{{ $dat->platelet }}</td>
+                      @endforeach
+                    @endif
+                  </tr>
+                  <tr>
+                    <td>URR</td>
+                    @if(isset($allBooking))
+                      @foreach ($allBooking as $ind=>$dat)
+                        @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
+                          @continue
+                        @endif
+                        <td>{{  number_format($dat->urr, 2) }}</td>
+                      @endforeach
+                    @endif
+                  </tr>
+                  <tr>
+                    <td>Kt/V</td>
+                    @if(isset($allBooking))
+                      @foreach ($allBooking as $ind=>$dat)
+                        @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
+                          @continue
+                        @endif
+                        <td>{{ number_format($dat->ktv2, 2) }}</td>
+                      @endforeach
+                    @endif
+                  </tr>
+                  <tr>
+                    <td>Pre BUN</td>
+                    @if(isset($allBooking))
+                      @foreach ($allBooking as $ind=>$dat)
+                        @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
+                          @continue
+                        @endif
+                        <td>{{ $dat->pre_bun }}</td>
+                      @endforeach
+                    @endif
+                  </tr>
+                  <tr>
+                    <td>Post BUN</td>
+                    @if(isset($allBooking))
+                      @foreach ($allBooking as $ind=>$dat)
+                        @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
+                          @continue
+                        @endif
+                        <td>{{ $dat->post_bun }}</td>
+                      @endforeach
+                    @endif
+                  </tr>
+                  <tr>
+                    <td>Creatinine</td>
+                    @if(isset($allBooking))
+                      @foreach ($allBooking as $ind=>$dat)
+                        @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
+                          @continue
+                        @endif
+                        <td>{{ $dat->creatinine }}</td>
+                      @endforeach
+                    @endif
+                  </tr>
+                  <tr>
+                    <td>Serum Albumin</td>
+                    @if(isset($allBooking))
+                      @foreach ($allBooking as $ind=>$dat)
+                        @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
+                          @continue
+                        @endif
+                        <td>{{ $dat->serum_albumin }}</td>
+                      @endforeach
+                    @endif
+                  </tr>
+                  <tr>
+                    <td>Sodium</td>
+                    @if(isset($allBooking))
+                      @foreach ($allBooking as $ind=>$dat)
+                        @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
+                          @continue
+                        @endif
+                        <td>{{ $dat->sodium }}</td>
+                      @endforeach
+                    @endif
+                  </tr>
+                  <tr>
+                    <td>Potassium</td>
+                    @if(isset($allBooking))
+                      @foreach ($allBooking as $ind=>$dat)
+                        @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
+                          @continue
+                        @endif
+                        <td>{{ $dat->potassium }}</td>
+                      @endforeach
+                    @endif
+                  </tr>
+                  <tr>
+                    <td>Phosphorus</td>
+                    @if(isset($allBooking))
+                      @foreach ($allBooking as $ind=>$dat)
+                        @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
+                          @continue
+                        @endif
+                        <td>{{ $dat->phosphorus }}</td>
+                      @endforeach
+                    @endif
+                  </tr>
+                  <tr>
+                    <td>Ionized Calcium</td>
+                    @if(isset($allBooking))
+                      @foreach ($allBooking as $ind=>$dat)
+                        @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
+                          @continue
+                        @endif
+                        <td>{{ $dat->ionized_calcium }}</td>
+                      @endforeach
+                    @endif
+                  </tr>
+                  <tr>
+                    <td>Uric Acid</td>
+                    @if(isset($allBooking))
+                      @foreach ($allBooking as $ind=>$dat)
+                        @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
+                          @continue
+                        @endif
+                        <td>{{ $dat->uric_acid }}</td>
+                      @endforeach
+                    @endif
+                  </tr>
+                  <tr>
+                    <td>SGPT</td>
+                    @if(isset($allBooking))
+                      @foreach ($allBooking as $ind=>$dat)
+                        @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
+                          @continue
+                        @endif
+                        <td>{{ $dat->sgpt }}</td>
+                      @endforeach
+                    @endif
+                  </tr>
+                  <tr>
+                    <td>SGOT</td>
+                    @if(isset($allBooking))
+                      @foreach ($allBooking as $ind=>$dat)
+                        @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
+                          @continue
+                        @endif
+                        <td>{{ $dat->sgot }}</td>
+                      @endforeach
+                    @endif
+                  </tr>
+                  <tr>  
+                    <td>Serum Ferritin</td>
+                    @if(isset($allBooking))
+                      @foreach ($allBooking as $ind=>$dat)
+                        @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
+                          @continue
+                        @endif
+                        <td>{{ $dat->serum_ferritin }}</td>
+                      @endforeach
+                    @endif
+                  </tr>
+                  <tr>
+                    <td>Serum Iron</td>
+                    @if(isset($allBooking))
+                      @foreach ($allBooking as $ind=>$dat)
+                        @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
+                          @continue
+                        @endif
+                        <td>{{ $dat->serum_iron }}</td>
+                      @endforeach
+                    @endif
+                  </tr>
+                  <tr>
+                    <td>TIBC</td>
+                    @if(isset($allBooking))
+                      @foreach ($allBooking as $ind=>$dat)
+                        @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
+                          @continue
+                        @endif
+                        <td>{{ $dat->tibc }}</td>
+                      @endforeach
+                    @endif
+                  </tr>
+                  <tr>
+                    <td>TSAT</td>
+                    @if(isset($allBooking))
+                      @foreach ($allBooking as $ind=>$dat)
+                        @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
+                          @continue
+                        @endif
+                        <td>{{ number_format($dat->tsat, 2) }}</td>
+                      @endforeach
+                    @endif
+                  </tr>
+                  <tr>
+                    <td>HBsAg</td>
+                    @if(isset($allBooking))
+                      @foreach ($allBooking as $ind=>$dat)
+                        @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
+                          @continue
+                        @endif
+                        <td>{{ $dat->hbsag }}</td>
+                      @endforeach
+                    @endif
+                  </tr>
+                  <tr>
+                    <td>Anti-HBS</td>
+                    @if(isset($allBooking))
+                      @foreach ($allBooking as $ind=>$dat)
+                        @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
+                          @continue
+                        @endif
+                        <td>{{ $dat->anti_hbs }}</td>
+                      @endforeach
+                    @endif
+                  </tr>
+                  <tr>
+                    <td>Anti-HCV</td>
+                    @if(isset($allBooking))
+                      @foreach ($allBooking as $ind=>$dat)
+                        @if($dat->hemoglobin == null && $dat->hematocrit == null && $dat->rbc == null && $dat->wbc == null && $dat->platelet == null && $dat->urr == null && $dat->ktv2 == null && $dat->pre_bun == null && $dat->post_bun == null && $dat->creatinine == null && $dat->serum_albumin == null && $dat->sodium == null && $dat->potassium == null && $dat->ionized_calcium == null && $dat->uric_acid == null && $dat->sgpt == null && $dat->sgot == null && $dat->serum_ferritin == null && $dat->serum_iron == null && $dat->tibc == null && $dat->tsat == null && $dat->hbsag == null && $dat->anti_hbs == null && $dat->anti_hcv == null && $dat->phosphorus == null)
+                          @continue
+                        @endif
+                        <td>{{ $dat->anti_hcv }}</td>
+                      @endforeach
+                    @endif
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div id="sumPrevDiv" class="container border border-1 border-top-0 mb-3 p-3">
             <div class="card mb-3">
               <div class="card-header">Scheduled Procedure</div>
               <div class="card-body" style="height: 1in; max-height: 1in">
                 <p id="prevSumProcDet">{{ $bookings[0]->procedure_details }}</p>
               </div>
             </div>
-            <div class="card mb-3">
+            {{-- <div class="card mb-3">
               <div class="card-header">Patient's Complaint</div>
               <div class="card-body" style="height: 1in; max-height: 1in">
                 <p id="prevSumPatComp">{{ $bookings[0]->complain }}</p>
                 <small id="prevSumPatCompDur" class="text-muted">{{ $bookings[0]->duration }}</small>
               </div>
-            </div>
+            </div> --}}
             
             <div class="card mb-3">
               <div class="card-header">Subjective Findings</div>
               <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                 <p>
+                  <strong>Reason for Visit/Chief Complaint:</strong><div class="m-3" id="prevSumPatComp">{!! nl2br(isset($bookings[0]->complain) ? $bookings[0]->complain : '') !!}</div><br>
                   <strong>History of Present Illness:</strong><div class="m-3" id="{{ $viewFolder }}_prev_sum_docNotesHPI">{!! nl2br(isset($bookings[0]->docNotesHPI) ? $bookings[0]->docNotesHPI : '') !!}</div><br>
                   <strong>Subjective Complaints:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_docNotesSubject">{!! nl2br(isset($bookings[0]->docNotesSubject) ? $bookings[0]->docNotesSubject : '') !!}</div><br>
                 </p>
@@ -597,6 +979,82 @@
             <div class="card mb-3">
               <div class="card-header">Objective Findings</div>
               <div class="card-body table-responsive" style="height:300px; max-height: 300px">
+                <div class="card mb-3" id="eyeExam" {{ stristr($bookings[0]->doctor->specialty, 'Ophtha') ? '' : 'style=display:none' }}>
+                  <div class="card-header">Eye Examination Information</div>
+                  <div class="card-body">
+                    {{-- <p id="prevEyerBack">
+                      <strong>AR OD:</strong> <span class="text-primary">{{ $bookings[0]->arod_sphere != 'No Target' ? $bookings[0]->arod_sphere . ' - ' . $bookings[0]->arod_cylinder . ' x ' . $bookings[0]->arod_axis : $bookings[0]->arod_sphere }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                      <strong>AR OS:</strong> <span class="text-primary">{{ $bookings[0]->aros_sphere != 'No Target' ? $bookings[0]->aros_sphere . ' - ' . $bookings[0]->aros_cylinder . ' x ' . $bookings[0]->aros_axis : $bookings[0]->aros_sphere }}</span><br>
+                      <strong>UCVA OD:</strong> <span class="text-primary">{{ $bookings[0]->vaod_den != '' ? $bookings[0]->vaod_num . ' / ' . $bookings[0]->vaod_den : $bookings[0]->vaod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                      <strong>UCVA OD w/ Correction:</strong> <span class="text-primary">{{ $bookings[0]->vaodcor_den != '' ? $bookings[0]->vaodcor_num . ' / ' . $bookings[0]->vaodcor_den : $bookings[0]->vaodcor_num }}</span><br>
+                      <strong>UCVA OS:</strong> <span class="text-primary">{{ $bookings[0]->vaos_den != '' ? $bookings[0]->vaos_num . ' / ' . $bookings[0]->vaos_den : $bookings[0]->vaos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                      <strong>UCVA OS w/ Correction:</strong> <span class="text-primary">{{ $bookings[0]->vaoscor_den != '' ? $bookings[0]->vaoscor_num . ' / ' . $bookings[0]->vaoscor_den : $bookings[0]->vaoscor_num }}</span><br>
+                      <strong>BCVA OD:</strong> <span class="text-primary">{{ $bookings[0]->pinod_den != '' ? $bookings[0]->pinod_num . ' / ' . $bookings[0]->pinod_den : $bookings[0]->pinod_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                      <strong>BCVA OD w/ Correction:</strong> <span class="text-primary">{{ $bookings[0]->pinodcor_den != '' ? $bookings[0]->pinodcor_num . ' / ' . $bookings[0]->pinodcor_den : $bookings[0]->pinodcor_num }}</span><br>
+                      <strong>BCVA OS:</strong> <span class="text-primary">{{ $bookings[0]->pinos_den != '' ? $bookings[0]->pinos_num . ' / ' . $bookings[0]->pinos_den : $bookings[0]->pinos_num }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                      <strong>BCVA OS w/ Correction:</strong> <span class="text-primary">{{ $bookings[0]->pinoscor_den != '' ? $bookings[0]->pinoscor_num . ' / ' . $bookings[0]->pinoscor_den : $bookings[0]->pinoscor_num }}</span><br>
+                      <strong>Jaeger OU:</strong> <span class="text-primary">{{ $bookings[0]->jae_ou }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                      <strong>Jaeger OD:</strong> <span class="text-primary">{{ $bookings[0]->jae_od }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                      <strong>Jaeger OS:</strong> <span class="text-primary">{{ $bookings[0]->jae_os }}</span><br>
+                      <strong>IOP OD:</strong> <span class="text-primary">{{ $bookings[0]->iopod }}</span>&nbsp;&nbsp;<span class="text-muted">|</span>&nbsp;&nbsp;
+                      <strong>IOP OS:</strong> <span class="text-primary">{{ $bookings[0]->iopos }}</span>
+                    </p> --}}
+                    <table class="table table-bordered table-striped table-hover table-sm">
+                      <thead class="table-{{ $bgColor }}">
+                          <tr>
+                              <th>&nbsp;</th>
+                              <th>OD</th>
+                              <th>OS</th>
+                              <th>OU</th>
+                          </tr>
+                      </thead>
+                      <tbody id="prevEyer">
+                        <tr>
+                            <td>AR</td>
+                            <td>{{ $bookings[0]->arod_sphere != 'No Target' ? ($bookings[0]->arod_sphere) . ' - ' . ($bookings[0]->arod_cylinder) . ' x ' . $bookings[0]->arod_axis : 'No Refraction Possible' }}</td>
+                            <td>{{ $bookings[0]->aros_sphere != 'No Target' ? ($bookings[0]->aros_sphere) . ' - ' . ($bookings[0]->aros_cylinder) . ' x ' . $bookings[0]->aros_axis : 'No Refraction Possible' }}</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>UCVA</td>
+                            <td>{{ $bookings[0]->vaod_den != '' ? $bookings[0]->vaod_num . ' / ' . $bookings[0]->vaod_den : $bookings[0]->vaod_num }}</td>
+                            <td>{{ $bookings[0]->vaos_den != '' ? $bookings[0]->vaos_num . ' / ' . $bookings[0]->vaos_den : $bookings[0]->vaos_num }}</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>UCVA Present Correction</td>
+                            <td>{{ $bookings[0]->vaodcor_den != '' ? $bookings[0]->vaodcor_num . ' / ' . $bookings[0]->vaodcor_den : $bookings[0]->vaodcor_num }}</td>
+                            <td>{{ $bookings[0]->vaoscor_den != '' ? $bookings[0]->vaoscor_num . ' / ' . $bookings[0]->vaoscor_den : $bookings[0]->vaoscor_num }}</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>VA Pinhole</td>
+                            <td>{{ $bookings[0]->pinod_den != '' ? $bookings[0]->pinod_num . ' / ' . $bookings[0]->pinod_den : $bookings[0]->pinod_num }}</td>
+                            <td>{{ $bookings[0]->pinos_den != '' ? $bookings[0]->pinos_num . ' / ' . $bookings[0]->pinos_den : $bookings[0]->pinos_num }}</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>BCVA</td>
+                            <td>{{ $bookings[0]->pinodcor_den != '' ? $bookings[0]->pinodcor_num . ' / ' . $bookings[0]->pinodcor_den : $bookings[0]->pinodcor_num }}</td>
+                            <td>{{ $bookings[0]->pinoscor_den != '' ? $bookings[0]->pinoscor_num . ' / ' . $bookings[0]->pinoscor_den : $bookings[0]->pinoscor_num }}</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>Jaeger</td>
+                            <td>{{ $bookings[0]->jae_od }}</td>
+                            <td>{{ $bookings[0]->jae_os }}</td>
+                            <td>{{ $bookings[0]->jae_ou }}</td>
+                        </tr>
+                        <tr>
+                            <td>IOP</td>
+                            <td>{{ $bookings[0]->iopod }}</td>
+                            <td>{{ $bookings[0]->iopos }}</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
                 <p>
                   <div class="m-3" id="{{ $viewFolder }}_prev_sum_docNotes">{!! nl2br(isset($bookings[0]->docNotes) ? $bookings[0]->docNotes : '') !!}</div><br>
                 </p>
@@ -606,8 +1064,10 @@
               <div class="card-header">Assessment</div>
               <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                 <p>
-                  <strong>Primary Diagnosis:</strong> <span id="{{ $viewFolder }}_prev_sum_icd_code">{!! nl2br(isset($bookings[0]->icd_code_obj) ? $bookings[0]->icd_code_obj->icd_code . ' - ' . $bookings[0]->icd_code_obj->details : '') !!}</span><br>
+                  {{-- <strong>Primary Diagnosis:</strong> <span id="{{ $viewFolder }}_prev_sum_icd_code">{!! nl2br(isset($bookings[0]->icd_code_obj) ? $bookings[0]->icd_code_obj->icd_code . ' - ' . $bookings[0]->icd_code_obj->details : '') !!}</span><br> --}}
+                  <strong>Primary Diagnosis:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_primary_assessment">{!! nl2br(isset($bookings[0]->primary_assessment) ? $bookings[0]->primary_assessment : '') !!}</div><br>
                   <strong>Secondary Diagnosis:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_assessment">{!! nl2br(isset($bookings[0]->assessment) ? $bookings[0]->assessment : '') !!}</div><br>
+                  <strong>Discharge Diagnosis (Post-op Diagnosis)::</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_post_op_assessment">{!! nl2br(isset($bookings[0]->post_op_assessment) ? $bookings[0]->post_op_assessment : '') !!}</div><br>
                 </p>
               </div>
             </div>
@@ -643,9 +1103,15 @@
                 </p>
                 @else
                 <p>
-                  <strong>Medical Therapeutics:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_planMed">{!! nl2br(isset($bookings[0]->planMed) ? $bookings[0]->planMed : '') !!}</div><br>
+                  <strong>Diagnostics:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_diagnosis">{!! isset($bookings[0]->printable_form['diagnosis']) ? nl2br($bookings[0]->printable_form['diagnosis']) : '' !!}</div><br>
+                  <strong>Medical Therapeutics:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_planMed">{!! isset($bookings[0]->planMed) ? nl2br($bookings[0]->planMed) : '' !!}</div><br>
+                  <strong>Medication Given in Recovery:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_medication_given_recovery">{!! isset($bookings[0]->printable_form['medication_given_recovery']) ? nl2br($bookings[0]->printable_form['medication_given_recovery']) : '' !!}</div><br>
+                  <strong>Discharge Medications (dose, frequency, duration):</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_discharge_medication">{!! isset($bookings[0]->printable_form['discharge_medication']) ? nl2br($bookings[0]->printable_form['discharge_medication']) : '' !!}</div><br>
+                  <strong>Surgery (Planned/Performed):</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_plan">{!! isset($bookings[0]->plan) ? nl2br($bookings[0]->plan) : '' !!}</div><br>
+                  <strong>Remarks:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_planRem">{!! isset($bookings[0]->planRem) ? nl2br($bookings[0]->planRem) : '' !!}</div><br>
+                  {{-- <strong>Medical Therapeutics:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_planMed">{!! nl2br(isset($bookings[0]->planMed) ? $bookings[0]->planMed : '') !!}</div><br>
                   <strong>Diagnostics and Surgery:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_plan">{!! nl2br(isset($bookings[0]->plan) ? $bookings[0]->plan : '') !!}</div><br>
-                  <strong>Remarks:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_planRem">{!! nl2br(isset($bookings[0]->planRem) ? $bookings[0]->planRem : '') !!}</div><br>
+                  <strong>Remarks:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_planRem">{!! nl2br(isset($bookings[0]->planRem) ? $bookings[0]->planRem : '') !!}</div><br> --}}
                 </p>
                 @endif
               </div>
@@ -673,6 +1139,13 @@
             <div class="card mb-3">
               <div class="card-header">Subjective Findings</div>
               <div class="card-body">
+                <small class="text-muted">Reason for Visit/Chief Complaint</small>
+                {{-- <div class="form-floating mb-3"> --}}
+                  <textarea class="form-control mb-3" name="{{ $viewFolder }}[complain]" id="{{ $viewFolder }}" rows=3 id="{{ $viewFolder }}_prev_complain" disabled>{{ !empty($bookings[0]->complain) ? $bookings[0]->complain : '' }}</textarea>
+                  {{-- <label for="{{ $viewFolder }}_complain" class="form-label">Reason for Visit/Chief Complaint</label> --}}
+                  <small id="help_{{ $viewFolder }}_complain" class="text-muted"></small>
+                {{-- </div> --}}
+                {{-- @if(sizeof($bookings) == 1) --}}
                 {{-- @if(sizeof($bookings) == 1) --}}
                 <div class="card mb-3">
                   <div class="card-header">History of Present Illness</div>
@@ -735,26 +1208,54 @@
                   </select>
                   <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
                 </div> --}}
-                <small class="text-muted">Content</small>
-                <textarea class="form-control" name="{{ $viewFolder }}[docNotes]" id="{{ $viewFolder }}_prev_docNotes" rows=3 disabled>{{ $bookings[0]->docNotes }}</textarea>
-                {{-- <small class="text-muted">Helper Save/Edit</small>
-                <div class="input-group input-group-small mb-3 flex-nowrap">
-                  <div class="input-group-text">
-                    <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                <div class="card mb-3">
+                  <div class="card-header">PE Findings</div>
+                    <div class="card-body">
+                    <small class="text-muted">Content</small>
+                    <textarea class="form-control" name="{{ $viewFolder }}[docNotes]" id="{{ $viewFolder }}_prev_docNotes" rows=3 disabled>{{ $bookings[0]->docNotes }}</textarea>
+                    {{-- <small class="text-muted">Helper Save/Edit</small>
+                    <div class="input-group input-group-small mb-3 flex-nowrap">
+                      <div class="input-group-text">
+                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                      </div>
+                      <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesTitle" name="{{ $viewFolder }}[docNotesTitle]" disabled>
+                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                    </div>
+                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[_docNotesEdit]" id="{{ $viewFolder }}_docNotesEdit" rows=3 disabled></textarea> --}}
                   </div>
-                  <input type="text" class="form-control" id="{{ $viewFolder }}_docNotesTitle" name="{{ $viewFolder }}[docNotesTitle]" disabled>
-                  <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                 </div>
-                <textarea class="form-control mb-2" name="{{ $viewFolder }}[_docNotesEdit]" id="{{ $viewFolder }}_docNotesEdit" rows=3 disabled></textarea> --}}
               </div>
             </div>
             <div class="card mb-3">
               <div class="card-header">Assessment</div>
               <div class="card-body">
-                <div class="form-floating mb-3">
+                {{-- <div class="form-floating mb-3">
                   <input class="form-control" list="icdCodeList" id="{{ $viewFolder }}_prev_icd_code" name="{{ $viewFolder }}[icd_code]" value="{{ isset($bookings[0]->icd_code_obj) ? $bookings[0]->icd_code_obj->icd_code . ' - ' . $bookings[0]->icd_code_obj->details : '' }}" autocomplete="off" disabled>
                   <label for="{{ $viewFolder }}_icd_code">Primary Diagnosis</label>
                   <small id="help_{{ $viewFolder }}_icd_code" class="text-muted"></small>
+                </div> --}}
+                <div class="card mb-3">
+                  <div class="card-header">Primary Diagnosis</div>
+                  <div class="card-body">
+                    {{-- <small class="text-muted">Helper</small>
+                    <div class="input-group input-group-small flex-nowrap">
+                      <select class="form-select" placeholder="" disabled>
+                        <option value=""></option>
+                      </select>
+                      <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
+                    </div> --}}
+                    <small class="text-muted">Content</small>
+                    <textarea class="form-control" name="{{ $viewFolder }}[primary_assessment]" id="{{ $viewFolder }}_prev_primary_assessment" rows=3 disabled>{{ $bookings[0]->primary_assessment }}</textarea>
+                    {{-- <small class="text-muted">Helper Save/Edit</small>
+                    <div class="input-group input-group-small mb-3 flex-nowrap">
+                      <div class="input-group-text">
+                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                      </div>
+                      <input type="text" class="form-control" id="{{ $viewFolder }}_primary_assessmentTitle" name="{{ $viewFolder }}[primary_assessmentTitle]" disabled>
+                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                    </div>
+                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[_primary_assessmentEdit]" id="{{ $viewFolder }}_primary_assessmentEdit" rows=3 disabled></textarea> --}}
+                  </div>
                 </div>
                 <div class="card mb-3">
                   <div class="card-header">Secondary Diagnosis</div>
@@ -777,6 +1278,29 @@
                       <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
                     </div>
                     <textarea class="form-control mb-2" name="{{ $viewFolder }}[_assessmentEdit]" id="{{ $viewFolder }}_assessmentEdit" rows=3 disabled></textarea> --}}
+                  </div>
+                </div>
+                <div class="card mb-3">
+                  <div class="card-header">Discharge Diagnosis (Post-Operative Diagnosis)</div>
+                  <div class="card-body">
+                    {{-- <small class="text-muted">Helper</small>
+                    <div class="input-group input-group-small flex-nowrap">
+                      <select class="form-select" placeholder="" disabled>
+                        <option value=""></option>
+                      </select>
+                      <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Delete Helper</button>
+                    </div> --}}
+                    <small class="text-muted">Content</small>
+                    <textarea class="form-control" name="{{ $viewFolder }}[post_op_assessment]" id="{{ $viewFolder }}_prev_post_op_assessment" rows=3 disabled>{{ $bookings[0]->post_op_assessment }}</textarea>
+                    {{-- <small class="text-muted">Helper Save/Edit</small>
+                    <div class="input-group input-group-small mb-3 flex-nowrap">
+                      <div class="input-group-text">
+                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                      </div>
+                      <input type="text" class="form-control" id="{{ $viewFolder }}_post_op_assessmentTitle" name="{{ $viewFolder }}[post_op_assessmentTitle]" disabled>
+                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+                    </div>
+                    <textarea class="form-control mb-2" name="{{ $viewFolder }}[_post_op_assessmentEdit]" id="{{ $viewFolder }}_post_op_assessmentEdit" rows=3 disabled></textarea> --}}
                   </div>
                 </div>
               </div>
@@ -837,6 +1361,15 @@
                 </div>
                 @else
                 <div class="card mb-3">
+                  <div class="card-header">Diagnostics</div>
+                  <div class="card-body">
+                    <small class="text-muted">Content</small>
+                    <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][diagnosis]" id="{{ $viewFolder }}_prev_diagnosisN" disabled rows=3>{{ isset($bookings[0]->printable_form['diagnosis']) ? $bookings[0]->printable_form['diagnosis'] : '' }}</textarea>
+                    {{-- <small class="mb-3"></small><br>
+                    <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br> --}}
+                  </div>
+                </div>
+                <div class="card mb-3">
                   <div class="card-header">Medical Therapeutics</div>
                   <div class="card-body">
                     {{-- <small class="text-muted">Helper</small>
@@ -860,7 +1393,25 @@
                   </div>
                 </div>
                 <div class="card mb-3">
-                  <div class="card-header">Diagnostics and Surgery</div>
+                  <div class="card-header">Medication Given in Recovery</div>
+                  <div class="card-body">
+                    <small class="text-muted">Content</small>
+                    <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][medication_given_recovery]" id="{{ $viewFolder }}_prev_medication_given_recovery" disabled rows=3>{{ isset($bookings[0]->printable_form['medication_given_recovery']) ? $bookings[0]->printable_form['medication_given_recovery'] : '' }}</textarea>
+                    {{-- <small class="mb-3"></small><br>
+                    <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br> --}}
+                  </div>
+                </div>
+                <div class="card mb-3">
+                  <div class="card-header">Discharge Medications (dose, frequency, duration)</div>
+                  <div class="card-body">
+                    <small class="text-muted">Content</small>
+                    <textarea class="form-control" name="{{ $viewFolder }}[PrintableForm][discharge_medications]" id="{{ $viewFolder }}_prev_discharge_medications" disabled rows=3>{{ isset($bookings[0]->printable_form['discharge_medications']) ? $bookings[0]->printable_form['discharge_medications'] : '' }}</textarea>
+                    {{-- <small class="mb-3"></small><br>
+                    <small class="text-muted mb-3">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br> --}}
+                  </div>
+                </div>
+                <div class="card mb-3">
+                  <div class="card-header">Surgery (Planned/Performed)</div>
                   <div class="card-body">
                     {{-- <small class="text-muted">Helper</small>
                     <div class="input-group input-group-small flex-nowrap">
@@ -883,7 +1434,7 @@
                   </div>
                 </div>
                 <div class="card mb-3">
-                  <div class="card-header">Remarks</div>
+                  <div class="card-header">Remarks/Recommendation</div>
                   <div class="card-body">
                     {{-- <small class="text-muted">Helper</small>
                     <div class="input-group input-group-small flex-nowrap">
@@ -3230,9 +3781,14 @@
     return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
   }
   function loadPrevBooking(consultation_id, index){
+    $('#spinner-div').show();
     $.ajax({
       type: 'GET',
       url: '{{ Route::has('doctors_home.getPrevBookingInfo') ? route('doctors_home.getPrevBookingInfo') : ''}}/' + consultation_id + '/' + index,
+      complete: 
+        function () {
+          $('#spinner-div').hide();//Request is complete so hide spinner
+        },
       success:
         function(data, status){
           bookingObj = jQuery.parseJSON(data);
@@ -3497,6 +4053,13 @@
             $('#{{ $viewFolder }}_prev_icd_code').val('');
             $('#{{ $viewFolder }}_prev_sum_icd_code').html('');
           }
+          if(bookingObj.consultation.primary_assessment != null){
+            $('#{{ $viewFolder }}_prev_primary_assessment').val(bookingObj.consultation.primary_assessment);
+            $('#{{ $viewFolder }}_prev_sum_primary_assessment').html(nl2br(bookingObj.consultation.primary_assessment));
+          }else{
+            $('#{{ $viewFolder }}_prev_primary_assessment').val('');
+            $('#{{ $viewFolder }}_prev_sum_primary_assessment').html('');
+          }
           if(bookingObj.consultation.assessment != null){
             $('#{{ $viewFolder }}_prev_assessment').val(bookingObj.consultation.assessment);
             $('#{{ $viewFolder }}_prev_sum_assessment').html(nl2br(bookingObj.consultation.assessment));
@@ -3511,12 +4074,33 @@
             $('#{{ $viewFolder }}_prev_plan').val('');
             $('#{{ $viewFolder }}_prev_sum_plan').html('');
           }
+          if(bookingObj.consultation.printable_form.diagnosis != null){
+            $('#{{ $viewFolder }}_prev_diagnosis').val(bookingObj.consultation.printable_form.diagnosis);
+            $('#{{ $viewFolder }}_prev_sum_diagnosis').html(nl2br(bookingObj.consultation.printable_form.diagnosis));
+          }else{
+            $('#{{ $viewFolder }}_prev_diagnosis').val('');
+            $('#{{ $viewFolder }}_prev_sum_diagnosis').html('');
+          }
           if(bookingObj.consultation.planMed != null){
             $('#{{ $viewFolder }}_prev_planMed').val(bookingObj.consultation.planMed);
             $('#{{ $viewFolder }}_prev_sum_planMed').html(nl2br(bookingObj.consultation.planMed));
           }else{
             $('#{{ $viewFolder }}_prev_planMed').val('');
             $('#{{ $viewFolder }}_prev_sum_planMed').html('');
+          }
+          if(bookingObj.consultation.printable_form.medication_given_recovery != null){
+            $('#{{ $viewFolder }}_prev_medication_given_recovery').val(bookingObj.consultation.printable_form.medication_given_recovery);
+            $('#{{ $viewFolder }}_prev_sum_medication_given_recovery').html(nl2br(bookingObj.consultation.printable_form.medication_given_recovery));
+          }else{
+            $('#{{ $viewFolder }}_prev_medication_given_recovery').val('');
+            $('#{{ $viewFolder }}_prev_sum_medication_given_recovery').html('');
+          }
+          if(bookingObj.consultation.printable_form.discharge_medication != null){
+            $('#{{ $viewFolder }}_prev_discharge_medication').val(bookingObj.consultation.printable_form.discharge_medication);
+            $('#{{ $viewFolder }}_prev_sum_discharge_medication').html(nl2br(bookingObj.consultation.printable_form.discharge_medication));
+          }else{
+            $('#{{ $viewFolder }}_prev_discharge_medication').val('');
+            $('#{{ $viewFolder }}_prev_sum_discharge_medication').html('');
           }
           if(bookingObj.consultation.planRem != null){
             $('#{{ $viewFolder }}_prev_planRem').val(bookingObj.consultation.planRem);
@@ -3528,8 +4112,8 @@
 
           if(bookingObj.consultation.booking_type == 'Dialysis'){
             $('#dChart').show();
-            $('#dialysisPrevDiv').hide();
-            $('#dialysisPrevLink').removeClass('active');
+            $('#hdSum').show();
+            $('#labSum').show();
             $('#sumPrevLink').addClass('active');
             $('#soapPrevLink').removeClass('active');  
             $('#labPrevLink').removeClass('active');  
@@ -3537,16 +4121,878 @@
             $('#medPrevLink').removeClass('active');  
             $('#admitPrevLink').removeClass('active');
             $('#dialysisPrevLink').removeClass('active');
+            $('#hdSumPrevLink').removeClass('active');
+            $('#labSumPrevLink').removeClass('active');
             $('#soapPrevDiv').hide();  
             $('#labPrevDiv').hide();  
             $('#presPrevDiv').hide();  
             $('#medPrevDiv').hide();  
             $('#admitPrevDiv').hide();
             $('#dialysisPrevDiv').hide();
-            $('#sumCurDiv').show();
+            $('#hdSumPrevDiv').hide();
+            $('#labSumPrevDiv').hide();
+            $('#sumPrevDiv').show();
+            $('#hdSumPrevTbody').empty();
+            $.each(bookingObj.allBooking, function(index, element){
+              if(element.consultation_parent_id === null && element.time_ended !== null){
+                if(index == 0){
+                  $('#hdSumPrevTbody').empty().append('<tr><td>' + (element.treatment_number !== null ? element.treatment_number : '') + '</td><td>' + element.bookingDate + '</td><td>' + (element.mac_use !== null ? element.mac_use : '') + '</td><td>' + (element.dry_weight !== null ? element.dry_weight : '') + '<</td><td>' + (element.weight !== null ? element.weight : '') + '</td><td>' + (element.post_weight !== null ? element.post_weight : '') + '</td><td>' + (element.bpS !== null ? element.bpS : '') + '/' + (element.bpD !== null ? element.bpD : '') + '</td><td>' + (element.post_bpS !== null ? element.post_bpS : '') + '/' + (element.post_bpD !== null ? element.post_bpD : '') + '</td><td>' + (element.total_uf_goal !== null ? element.total_uf_goal : '') + '</td><td>' + (element.achieved_uf !== null ? element.achieved_uf : '') + '</td><td>' + (element.achieved_ktv !== null ? element.achieved_ktv : '') + '</td><td>' + (element.weight_loss !== null ? element.weight_loss : '') + '</td><td>' + (element.mac_use !== null ? element.mac_use : '') + '</td><td>' + (element.mac_use !== null ? element.mac_use : '') + '</td><td>' + (element.dialysis_complication !== null ? element.dialysis_complication : '') + '</td></tr>');
+                }else{
+                  $('#hdSumPrevTbody').append('<tr ><td>' + (element.treatment_number !== null ? element.treatment_number : '') + '</td><td>' + element.bookingDate + '</td><td>' + (element.mac_use !== null ? element.mac_use : '') + '</td><td>' + (element.dry_weight !== null ? element.dry_weight : '') + '<</td><td>' + (element.weight !== null ? element.weight : '') + '</td><td>' + (element.post_weight !== null ? element.post_weight : '') + '</td><td>' + (element.bpS !== null ? element.bpS : '') + '/' + (element.bpD !== null ? element.bpD : '') + '</td><td>' + (element.post_bpS !== null ? element.post_bpS : '') + '/' + (element.post_bpD !== null ? element.post_bpD : '') + '</td><td>' + (element.total_uf_goal !== null ? element.total_uf_goal : '') + '</td><td>' + (element.achieved_uf !== null ? element.achieved_uf : '') + '</td><td>' + (element.achieved_ktv !== null ? element.achieved_ktv : '') + '</td><td>' + (element.weight_loss !== null ? element.weight_loss : '') + '</td><td>' + (element.mac_use !== null ? element.mac_use : '') + '</td><td>' + (element.mac_use !== null ? element.mac_use : '') + '</td><td>' + (element.dialysis_complication !== null ? element.dialysis_complication : '') + '</td></tr>');
+                }
+              }
+            });
+            $('#labSumPrevTable').empty();
+            var countLab = 0;
+            $.each(bookingObj.allBooking, function(index, element){
+              if(
+                element.hemoglobin !== null || 
+                element.hematocrit !== null || 
+                element.rbc !== null || 
+                element.wbc !== null || 
+                element.platelet !== null || 
+                element.urr !== null || 
+                element.ktv2 !== null || 
+                element.pre_bun !== null || 
+                element.post_bun !== null || 
+                element.creatinine !== null || 
+                element.serum_albumin !== null || 
+                element.sodium !== null || 
+                element.potassium !== null || 
+                element.phosphorus !== null || 
+                element.ionized_calcium !== null || 
+                element.uric_acid !== null || 
+                element.sgpt !== null || 
+                element.sgot !== null || 
+                element.serum_ferritin !== null ||
+                element.serum_iron !== null ||
+                element.tibc !== null ||
+                element.tsat !== null ||
+                element.hbsag !== null ||
+                element.anti_hbs !== null ||
+                element.anti_hcv !== null
+              )
+              countLab++;
+            });
+            labSumPrevTable = '<thead class="table-{{ $bgColor }}"><tr><th rowspan="2">&nbsp;</th><th colspan="' + countLab + '">Date</th></tr><tr>';
+            $.each(bookingObj.allBooking, function(index, element){
+              if(
+                element.hemoglobin !== null || 
+                element.hematocrit !== null || 
+                element.rbc !== null || 
+                element.wbc !== null || 
+                element.platelet !== null || 
+                element.urr !== null || 
+                element.ktv2 !== null || 
+                element.pre_bun !== null || 
+                element.post_bun !== null || 
+                element.creatinine !== null || 
+                element.serum_albumin !== null || 
+                element.sodium !== null || 
+                element.potassium !== null || 
+                element.phosphorus !== null || 
+                element.ionized_calcium !== null || 
+                element.uric_acid !== null || 
+                element.sgpt !== null || 
+                element.sgot !== null || 
+                element.serum_ferritin !== null ||
+                element.serum_iron !== null ||
+                element.tibc !== null ||
+                element.tsat !== null ||
+                element.hbsag !== null ||
+                element.anti_hbs !== null ||
+                element.anti_hcv !== null
+              )
+              labSumPrevTable += '<th>' + element.bookingDate + '</th>'; 
+            });
+            labSumPrevTable += '</tr></thead><tbody>'; 
+            labSumPrevTable += '<tbody><tr><td>Hemoglobin</td>'; 
+            $.each(bookingObj.allBooking, function(index, element){
+              if(
+                element.hemoglobin !== null || 
+                element.hematocrit !== null || 
+                element.rbc !== null || 
+                element.wbc !== null || 
+                element.platelet !== null || 
+                element.urr !== null || 
+                element.ktv2 !== null || 
+                element.pre_bun !== null || 
+                element.post_bun !== null || 
+                element.creatinine !== null || 
+                element.serum_albumin !== null || 
+                element.sodium !== null || 
+                element.potassium !== null || 
+                element.phosphorus !== null || 
+                element.ionized_calcium !== null || 
+                element.uric_acid !== null || 
+                element.sgpt !== null || 
+                element.sgot !== null || 
+                element.serum_ferritin !== null ||
+                element.serum_iron !== null ||
+                element.tibc !== null ||
+                element.tsat !== null ||
+                element.hbsag !== null ||
+                element.anti_hbs !== null ||
+                element.anti_hcv !== null
+              )
+              labSumPrevTable += '<td>' + (element.hemoglobin !== null ? element.hemoglobin : '') + '</td>'; 
+            });
+            labSumPrevTable += '</tr><td>Hematocrit</td>'; 
+            $.each(bookingObj.allBooking, function(index, element){
+              if(
+                element.hemoglobin !== null || 
+                element.hematocrit !== null || 
+                element.rbc !== null || 
+                element.wbc !== null || 
+                element.platelet !== null || 
+                element.urr !== null || 
+                element.ktv2 !== null || 
+                element.pre_bun !== null || 
+                element.post_bun !== null || 
+                element.creatinine !== null || 
+                element.serum_albumin !== null || 
+                element.sodium !== null || 
+                element.potassium !== null || 
+                element.phosphorus !== null || 
+                element.ionized_calcium !== null || 
+                element.uric_acid !== null || 
+                element.sgpt !== null || 
+                element.sgot !== null || 
+                element.serum_ferritin !== null ||
+                element.serum_iron !== null ||
+                element.tibc !== null ||
+                element.tsat !== null ||
+                element.hbsag !== null ||
+                element.anti_hbs !== null ||
+                element.anti_hcv !== null
+              )
+              labSumPrevTable += '<td>' + (element.hematocrit !== null ? element.hematocrit : '') + '</td>'; 
+            });
+            labSumPrevTable += '</tr><td>RBC</td>'; 
+            $.each(bookingObj.allBooking, function(index, element){
+              if(
+                element.hemoglobin !== null || 
+                element.hematocrit !== null || 
+                element.rbc !== null || 
+                element.wbc !== null || 
+                element.platelet !== null || 
+                element.urr !== null || 
+                element.ktv2 !== null || 
+                element.pre_bun !== null || 
+                element.post_bun !== null || 
+                element.creatinine !== null || 
+                element.serum_albumin !== null || 
+                element.sodium !== null || 
+                element.potassium !== null || 
+                element.phosphorus !== null || 
+                element.ionized_calcium !== null || 
+                element.uric_acid !== null || 
+                element.sgpt !== null || 
+                element.sgot !== null || 
+                element.serum_ferritin !== null ||
+                element.serum_iron !== null ||
+                element.tibc !== null ||
+                element.tsat !== null ||
+                element.hbsag !== null ||
+                element.anti_hbs !== null ||
+                element.anti_hcv !== null
+              )
+              labSumPrevTable += '<td>' + (element.rbc !== null ? element.rbc : '') + '</td>'; 
+            });
+            labSumPrevTable += '</tr><td>WBC</td>'; 
+            $.each(bookingObj.allBooking, function(index, element){
+              if(
+                element.hemoglobin !== null || 
+                element.hematocrit !== null || 
+                element.rbc !== null || 
+                element.wbc !== null || 
+                element.platelet !== null || 
+                element.urr !== null || 
+                element.ktv2 !== null || 
+                element.pre_bun !== null || 
+                element.post_bun !== null || 
+                element.creatinine !== null || 
+                element.serum_albumin !== null || 
+                element.sodium !== null || 
+                element.potassium !== null || 
+                element.phosphorus !== null || 
+                element.ionized_calcium !== null || 
+                element.uric_acid !== null || 
+                element.sgpt !== null || 
+                element.sgot !== null || 
+                element.serum_ferritin !== null ||
+                element.serum_iron !== null ||
+                element.tibc !== null ||
+                element.tsat !== null ||
+                element.hbsag !== null ||
+                element.anti_hbs !== null ||
+                element.anti_hcv !== null
+              )
+              labSumPrevTable += '<td>' + (element.wbc !== null ? element.wbc : '') + '</td>'; 
+            });
+            labSumPrevTable += '</tr><td>Platelet</td>'; 
+            $.each(bookingObj.allBooking, function(index, element){
+              if(
+                element.hemoglobin !== null || 
+                element.hematocrit !== null || 
+                element.rbc !== null || 
+                element.wbc !== null || 
+                element.platelet !== null || 
+                element.urr !== null || 
+                element.ktv2 !== null || 
+                element.pre_bun !== null || 
+                element.post_bun !== null || 
+                element.creatinine !== null || 
+                element.serum_albumin !== null || 
+                element.sodium !== null || 
+                element.potassium !== null || 
+                element.phosphorus !== null || 
+                element.ionized_calcium !== null || 
+                element.uric_acid !== null || 
+                element.sgpt !== null || 
+                element.sgot !== null || 
+                element.serum_ferritin !== null ||
+                element.serum_iron !== null ||
+                element.tibc !== null ||
+                element.tsat !== null ||
+                element.hbsag !== null ||
+                element.anti_hbs !== null ||
+                element.anti_hcv !== null
+              )
+              labSumPrevTable += '<td>' + (element.platelet !== null ? element.platelet : '') + '</td>'; 
+            });
+            labSumPrevTable += '</tr><td>URR</td>'; 
+            $.each(bookingObj.allBooking, function(index, element){
+              if(
+                element.hemoglobin !== null || 
+                element.hematocrit !== null || 
+                element.rbc !== null || 
+                element.wbc !== null || 
+                element.platelet !== null || 
+                element.urr !== null || 
+                element.ktv2 !== null || 
+                element.pre_bun !== null || 
+                element.post_bun !== null || 
+                element.creatinine !== null || 
+                element.serum_albumin !== null || 
+                element.sodium !== null || 
+                element.potassium !== null || 
+                element.phosphorus !== null || 
+                element.ionized_calcium !== null || 
+                element.uric_acid !== null || 
+                element.sgpt !== null || 
+                element.sgot !== null || 
+                element.serum_ferritin !== null ||
+                element.serum_iron !== null ||
+                element.tibc !== null ||
+                element.tsat !== null ||
+                element.hbsag !== null ||
+                element.anti_hbs !== null ||
+                element.anti_hcv !== null
+              ){
+                var urrValue = parseFloat(element.urr);
+                labSumPrevTable += '<td>' + (element.urr !== null ? urrValue.toFixed(2) : '') + '</td>'; 
+              }
+            });
+            labSumPrevTable += '</tr><td>Kt/V</td>'; 
+            $.each(bookingObj.allBooking, function(index, element){
+              if(
+                element.hemoglobin !== null || 
+                element.hematocrit !== null || 
+                element.rbc !== null || 
+                element.wbc !== null || 
+                element.platelet !== null || 
+                element.urr !== null || 
+                element.ktv2 !== null || 
+                element.pre_bun !== null || 
+                element.post_bun !== null || 
+                element.creatinine !== null || 
+                element.serum_albumin !== null || 
+                element.sodium !== null || 
+                element.potassium !== null || 
+                element.phosphorus !== null || 
+                element.ionized_calcium !== null || 
+                element.uric_acid !== null || 
+                element.sgpt !== null || 
+                element.sgot !== null || 
+                element.serum_ferritin !== null ||
+                element.serum_iron !== null ||
+                element.tibc !== null ||
+                element.tsat !== null ||
+                element.hbsag !== null ||
+                element.anti_hbs !== null ||
+                element.anti_hcv !== null
+              ){
+                var ktvValue = parseFloat(element.ktv2);
+                labSumPrevTable += '<td>' + (element.ktv2 !== null ? ktvValue.toFixed(2) : '') + '</td>'; 
+              }
+            });
+            labSumPrevTable += '</tr><td>Pre BUN</td>'; 
+            $.each(bookingObj.allBooking, function(index, element){
+              if(
+                element.hemoglobin !== null || 
+                element.hematocrit !== null || 
+                element.rbc !== null || 
+                element.wbc !== null || 
+                element.platelet !== null || 
+                element.urr !== null || 
+                element.ktv2 !== null || 
+                element.pre_bun !== null || 
+                element.post_bun !== null || 
+                element.creatinine !== null || 
+                element.serum_albumin !== null || 
+                element.sodium !== null || 
+                element.potassium !== null || 
+                element.phosphorus !== null || 
+                element.ionized_calcium !== null || 
+                element.uric_acid !== null || 
+                element.sgpt !== null || 
+                element.sgot !== null || 
+                element.serum_ferritin !== null ||
+                element.serum_iron !== null ||
+                element.tibc !== null ||
+                element.tsat !== null ||
+                element.hbsag !== null ||
+                element.anti_hbs !== null ||
+                element.anti_hcv !== null
+              )
+              labSumPrevTable += '<td>' + (element.pre_bun !== null ? element.pre_bun : '') + '</td>'; 
+            });
+            labSumPrevTable += '</tr><td>Post BUN</td>'; 
+            $.each(bookingObj.allBooking, function(index, element){
+              if(
+                element.hemoglobin !== null || 
+                element.hematocrit !== null || 
+                element.rbc !== null || 
+                element.wbc !== null || 
+                element.platelet !== null || 
+                element.urr !== null || 
+                element.ktv2 !== null || 
+                element.pre_bun !== null || 
+                element.post_bun !== null || 
+                element.creatinine !== null || 
+                element.serum_albumin !== null || 
+                element.sodium !== null || 
+                element.potassium !== null || 
+                element.phosphorus !== null || 
+                element.ionized_calcium !== null || 
+                element.uric_acid !== null || 
+                element.sgpt !== null || 
+                element.sgot !== null || 
+                element.serum_ferritin !== null ||
+                element.serum_iron !== null ||
+                element.tibc !== null ||
+                element.tsat !== null ||
+                element.hbsag !== null ||
+                element.anti_hbs !== null ||
+                element.anti_hcv !== null
+              )
+              labSumPrevTable += '<td>' + (element.post_bun !== null ? element.post_bun : '') + '</td>'; 
+            });
+            labSumPrevTable += '</tr><td>Creatinine</td>'; 
+            $.each(bookingObj.allBooking, function(index, element){
+              if(
+                element.hemoglobin !== null || 
+                element.hematocrit !== null || 
+                element.rbc !== null || 
+                element.wbc !== null || 
+                element.platelet !== null || 
+                element.urr !== null || 
+                element.ktv2 !== null || 
+                element.pre_bun !== null || 
+                element.post_bun !== null || 
+                element.creatinine !== null || 
+                element.serum_albumin !== null || 
+                element.sodium !== null || 
+                element.potassium !== null || 
+                element.phosphorus !== null || 
+                element.ionized_calcium !== null || 
+                element.uric_acid !== null || 
+                element.sgpt !== null || 
+                element.sgot !== null || 
+                element.serum_ferritin !== null ||
+                element.serum_iron !== null ||
+                element.tibc !== null ||
+                element.tsat !== null ||
+                element.hbsag !== null ||
+                element.anti_hbs !== null ||
+                element.anti_hcv !== null
+              )
+              labSumPrevTable += '<td>' + (element.creatinine !== null ? element.creatinine : '') + '</td>'; 
+            });
+            labSumPrevTable += '</tr><td>Serum Albumin</td>'; 
+            $.each(bookingObj.allBooking, function(index, element){
+              if(
+                element.hemoglobin !== null || 
+                element.hematocrit !== null || 
+                element.rbc !== null || 
+                element.wbc !== null || 
+                element.platelet !== null || 
+                element.urr !== null || 
+                element.ktv2 !== null || 
+                element.pre_bun !== null || 
+                element.post_bun !== null || 
+                element.creatinine !== null || 
+                element.serum_albumin !== null || 
+                element.sodium !== null || 
+                element.potassium !== null || 
+                element.phosphorus !== null || 
+                element.ionized_calcium !== null || 
+                element.uric_acid !== null || 
+                element.sgpt !== null || 
+                element.sgot !== null || 
+                element.serum_ferritin !== null ||
+                element.serum_iron !== null ||
+                element.tibc !== null ||
+                element.tsat !== null ||
+                element.hbsag !== null ||
+                element.anti_hbs !== null ||
+                element.anti_hcv !== null
+              )
+              labSumPrevTable += '<td>' + (element.serum_albumin !== null ? element.serum_albumin : '') + '</td>'; 
+            });
+            labSumPrevTable += '</tr><td>Sodium</td>'; 
+            $.each(bookingObj.allBooking, function(index, element){
+              if(
+                element.hemoglobin !== null || 
+                element.hematocrit !== null || 
+                element.rbc !== null || 
+                element.wbc !== null || 
+                element.platelet !== null || 
+                element.urr !== null || 
+                element.ktv2 !== null || 
+                element.pre_bun !== null || 
+                element.post_bun !== null || 
+                element.creatinine !== null || 
+                element.serum_albumin !== null || 
+                element.sodium !== null || 
+                element.potassium !== null || 
+                element.phosphorus !== null || 
+                element.ionized_calcium !== null || 
+                element.uric_acid !== null || 
+                element.sgpt !== null || 
+                element.sgot !== null || 
+                element.serum_ferritin !== null ||
+                element.serum_iron !== null ||
+                element.tibc !== null ||
+                element.tsat !== null ||
+                element.hbsag !== null ||
+                element.anti_hbs !== null ||
+                element.anti_hcv !== null
+              )
+              labSumPrevTable += '<td>' + (element.sodium !== null ? element.sodium : '') + '</td>'; 
+            });
+            labSumPrevTable += '</tr><td>Potassium</td>'; 
+            $.each(bookingObj.allBooking, function(index, element){
+              if(
+                element.hemoglobin !== null || 
+                element.hematocrit !== null || 
+                element.rbc !== null || 
+                element.wbc !== null || 
+                element.platelet !== null || 
+                element.urr !== null || 
+                element.ktv2 !== null || 
+                element.pre_bun !== null || 
+                element.post_bun !== null || 
+                element.creatinine !== null || 
+                element.serum_albumin !== null || 
+                element.sodium !== null || 
+                element.potassium !== null || 
+                element.phosphorus !== null || 
+                element.ionized_calcium !== null || 
+                element.uric_acid !== null || 
+                element.sgpt !== null || 
+                element.sgot !== null || 
+                element.serum_ferritin !== null ||
+                element.serum_iron !== null ||
+                element.tibc !== null ||
+                element.tsat !== null ||
+                element.hbsag !== null ||
+                element.anti_hbs !== null ||
+                element.anti_hcv !== null
+              )
+              labSumPrevTable += '<td>' + (element.potassium !== null ? element.potassium : '') + '</td>'; 
+            });
+            labSumPrevTable += '</tr><td>Phosphorus</td>'; 
+            $.each(bookingObj.allBooking, function(index, element){
+              if(
+                element.hemoglobin !== null || 
+                element.hematocrit !== null || 
+                element.rbc !== null || 
+                element.wbc !== null || 
+                element.platelet !== null || 
+                element.urr !== null || 
+                element.ktv2 !== null || 
+                element.pre_bun !== null || 
+                element.post_bun !== null || 
+                element.creatinine !== null || 
+                element.serum_albumin !== null || 
+                element.sodium !== null || 
+                element.potassium !== null || 
+                element.phosphorus !== null || 
+                element.ionized_calcium !== null || 
+                element.uric_acid !== null || 
+                element.sgpt !== null || 
+                element.sgot !== null || 
+                element.serum_ferritin !== null ||
+                element.serum_iron !== null ||
+                element.tibc !== null ||
+                element.tsat !== null ||
+                element.hbsag !== null ||
+                element.anti_hbs !== null ||
+                element.anti_hcv !== null
+              )
+              labSumPrevTable += '<td>' + (element.phosphorus !== null ? element.phosphorus : '') + '</td>'; 
+            });
+            labSumPrevTable += '</tr><td>Ionized Calcium</td>'; 
+            $.each(bookingObj.allBooking, function(index, element){
+              if(
+                element.hemoglobin !== null || 
+                element.hematocrit !== null || 
+                element.rbc !== null || 
+                element.wbc !== null || 
+                element.platelet !== null || 
+                element.urr !== null || 
+                element.ktv2 !== null || 
+                element.pre_bun !== null || 
+                element.post_bun !== null || 
+                element.creatinine !== null || 
+                element.serum_albumin !== null || 
+                element.sodium !== null || 
+                element.potassium !== null || 
+                element.phosphorus !== null || 
+                element.ionized_calcium !== null || 
+                element.uric_acid !== null || 
+                element.sgpt !== null || 
+                element.sgot !== null || 
+                element.serum_ferritin !== null ||
+                element.serum_iron !== null ||
+                element.tibc !== null ||
+                element.tsat !== null ||
+                element.hbsag !== null ||
+                element.anti_hbs !== null ||
+                element.anti_hcv !== null
+              )
+              labSumPrevTable += '<td>' + (element.ionized_calcium !== null ? element.ionized_calcium : '') + '</td>'; 
+            });
+            labSumPrevTable += '</tr><td>Uric Acid</td>'; 
+            $.each(bookingObj.allBooking, function(index, element){
+              if(
+                element.hemoglobin !== null || 
+                element.hematocrit !== null || 
+                element.rbc !== null || 
+                element.wbc !== null || 
+                element.platelet !== null || 
+                element.urr !== null || 
+                element.ktv2 !== null || 
+                element.pre_bun !== null || 
+                element.post_bun !== null || 
+                element.creatinine !== null || 
+                element.serum_albumin !== null || 
+                element.sodium !== null || 
+                element.potassium !== null || 
+                element.phosphorus !== null || 
+                element.ionized_calcium !== null || 
+                element.uric_acid !== null || 
+                element.sgpt !== null || 
+                element.sgot !== null || 
+                element.serum_ferritin !== null ||
+                element.serum_iron !== null ||
+                element.tibc !== null ||
+                element.tsat !== null ||
+                element.hbsag !== null ||
+                element.anti_hbs !== null ||
+                element.anti_hcv !== null
+              )
+              labSumPrevTable += '<td>' + (element.uric_acid !== null ? element.uric_acid : '') + '</td>'; 
+            });
+            labSumPrevTable += '</tr><td>SGPT</td>'; 
+            $.each(bookingObj.allBooking, function(index, element){
+              if(
+                element.hemoglobin !== null || 
+                element.hematocrit !== null || 
+                element.rbc !== null || 
+                element.wbc !== null || 
+                element.platelet !== null || 
+                element.urr !== null || 
+                element.ktv2 !== null || 
+                element.pre_bun !== null || 
+                element.post_bun !== null || 
+                element.creatinine !== null || 
+                element.serum_albumin !== null || 
+                element.sodium !== null || 
+                element.potassium !== null || 
+                element.phosphorus !== null || 
+                element.ionized_calcium !== null || 
+                element.uric_acid !== null || 
+                element.sgpt !== null || 
+                element.sgot !== null || 
+                element.serum_ferritin !== null ||
+                element.serum_iron !== null ||
+                element.tibc !== null ||
+                element.tsat !== null ||
+                element.hbsag !== null ||
+                element.anti_hbs !== null ||
+                element.anti_hcv !== null
+              )
+              labSumPrevTable += '<td>' + (element.sgpt !== null ? element.sgpt : '') + '</td>'; 
+            });
+            labSumPrevTable += '</tr><td>SGOT</td>'; 
+            $.each(bookingObj.allBooking, function(index, element){
+              if(
+                element.hemoglobin !== null || 
+                element.hematocrit !== null || 
+                element.rbc !== null || 
+                element.wbc !== null || 
+                element.platelet !== null || 
+                element.urr !== null || 
+                element.ktv2 !== null || 
+                element.pre_bun !== null || 
+                element.post_bun !== null || 
+                element.creatinine !== null || 
+                element.serum_albumin !== null || 
+                element.sodium !== null || 
+                element.potassium !== null || 
+                element.phosphorus !== null || 
+                element.ionized_calcium !== null || 
+                element.uric_acid !== null || 
+                element.sgpt !== null || 
+                element.sgot !== null || 
+                element.serum_ferritin !== null ||
+                element.serum_iron !== null ||
+                element.tibc !== null ||
+                element.tsat !== null ||
+                element.hbsag !== null ||
+                element.anti_hbs !== null ||
+                element.anti_hcv !== null
+              )
+              labSumPrevTable += '<td>' + (element.sgot !== null ? element.sgot : '') + '</td>'; 
+            });
+            labSumPrevTable += '</tr><td>Serum Ferritin</td>'; 
+            $.each(bookingObj.allBooking, function(index, element){
+              if(
+                element.hemoglobin !== null || 
+                element.hematocrit !== null || 
+                element.rbc !== null || 
+                element.wbc !== null || 
+                element.platelet !== null || 
+                element.urr !== null || 
+                element.ktv2 !== null || 
+                element.pre_bun !== null || 
+                element.post_bun !== null || 
+                element.creatinine !== null || 
+                element.serum_albumin !== null || 
+                element.sodium !== null || 
+                element.potassium !== null || 
+                element.phosphorus !== null || 
+                element.ionized_calcium !== null || 
+                element.uric_acid !== null || 
+                element.sgpt !== null || 
+                element.sgot !== null || 
+                element.serum_ferritin !== null ||
+                element.serum_iron !== null ||
+                element.tibc !== null ||
+                element.tsat !== null ||
+                element.hbsag !== null ||
+                element.anti_hbs !== null ||
+                element.anti_hcv !== null
+              )
+              labSumPrevTable += '<td>' + (element.serum_ferritin !== null ? element.serum_ferritin : '') + '</td>'; 
+            });
+            labSumPrevTable += '</tr><td>Serum Iron</td>'; 
+            $.each(bookingObj.allBooking, function(index, element){
+              if(
+                element.hemoglobin !== null || 
+                element.hematocrit !== null || 
+                element.rbc !== null || 
+                element.wbc !== null || 
+                element.platelet !== null || 
+                element.urr !== null || 
+                element.ktv2 !== null || 
+                element.pre_bun !== null || 
+                element.post_bun !== null || 
+                element.creatinine !== null || 
+                element.serum_albumin !== null || 
+                element.sodium !== null || 
+                element.potassium !== null || 
+                element.phosphorus !== null || 
+                element.ionized_calcium !== null || 
+                element.uric_acid !== null || 
+                element.sgpt !== null || 
+                element.sgot !== null || 
+                element.serum_ferritin !== null ||
+                element.serum_iron !== null ||
+                element.tibc !== null ||
+                element.tsat !== null ||
+                element.hbsag !== null ||
+                element.anti_hbs !== null ||
+                element.anti_hcv !== null
+              )
+              labSumPrevTable += '<td>' + (element.serum_iron !== null ? element.serum_iron : '') + '</td>'; 
+            });
+            labSumPrevTable += '</tr><td>TIBC</td>'; 
+            $.each(bookingObj.allBooking, function(index, element){
+              if(
+                element.hemoglobin !== null || 
+                element.hematocrit !== null || 
+                element.rbc !== null || 
+                element.wbc !== null || 
+                element.platelet !== null || 
+                element.urr !== null || 
+                element.ktv2 !== null || 
+                element.pre_bun !== null || 
+                element.post_bun !== null || 
+                element.creatinine !== null || 
+                element.serum_albumin !== null || 
+                element.sodium !== null || 
+                element.potassium !== null || 
+                element.phosphorus !== null || 
+                element.ionized_calcium !== null || 
+                element.uric_acid !== null || 
+                element.sgpt !== null || 
+                element.sgot !== null || 
+                element.serum_ferritin !== null ||
+                element.serum_iron !== null ||
+                element.tibc !== null ||
+                element.tsat !== null ||
+                element.hbsag !== null ||
+                element.anti_hbs !== null ||
+                element.anti_hcv !== null
+              )
+              labSumPrevTable += '<td>' + (element.tibc !== null ? element.tibc : '') + '</td>'; 
+            });
+            labSumPrevTable += '</tr><td>TSAT</td>'; 
+            $.each(bookingObj.allBooking, function(index, element){
+              if(
+                element.hemoglobin !== null || 
+                element.hematocrit !== null || 
+                element.rbc !== null || 
+                element.wbc !== null || 
+                element.platelet !== null || 
+                element.urr !== null || 
+                element.ktv2 !== null || 
+                element.pre_bun !== null || 
+                element.post_bun !== null || 
+                element.creatinine !== null || 
+                element.serum_albumin !== null || 
+                element.sodium !== null || 
+                element.potassium !== null || 
+                element.phosphorus !== null || 
+                element.ionized_calcium !== null || 
+                element.uric_acid !== null || 
+                element.sgpt !== null || 
+                element.sgot !== null || 
+                element.serum_ferritin !== null ||
+                element.serum_iron !== null ||
+                element.tibc !== null ||
+                element.tsat !== null ||
+                element.hbsag !== null ||
+                element.anti_hbs !== null ||
+                element.anti_hcv !== null
+              )
+              labSumPrevTable += '<td>' + (element.tsat !== null ? element.tsat : '') + '</td>'; 
+            });
+            labSumPrevTable += '</tr><td>HBsAg</td>'; 
+            $.each(bookingObj.allBooking, function(index, element){
+              if(
+                element.hemoglobin !== null || 
+                element.hematocrit !== null || 
+                element.rbc !== null || 
+                element.wbc !== null || 
+                element.platelet !== null || 
+                element.urr !== null || 
+                element.ktv2 !== null || 
+                element.pre_bun !== null || 
+                element.post_bun !== null || 
+                element.creatinine !== null || 
+                element.serum_albumin !== null || 
+                element.sodium !== null || 
+                element.potassium !== null || 
+                element.phosphorus !== null || 
+                element.ionized_calcium !== null || 
+                element.uric_acid !== null || 
+                element.sgpt !== null || 
+                element.sgot !== null || 
+                element.serum_ferritin !== null ||
+                element.serum_iron !== null ||
+                element.tibc !== null ||
+                element.tsat !== null ||
+                element.hbsag !== null ||
+                element.anti_hbs !== null ||
+                element.anti_hcv !== null
+              )
+              labSumPrevTable += '<td>' + (element.hbsag !== null ? element.hbsag : '') + '</td>'; 
+            });
+            labSumPrevTable += '</tr><td>Anti-HBS</td>'; 
+            $.each(bookingObj.allBooking, function(index, element){
+              if(
+                element.hemoglobin !== null || 
+                element.hematocrit !== null || 
+                element.rbc !== null || 
+                element.wbc !== null || 
+                element.platelet !== null || 
+                element.urr !== null || 
+                element.ktv2 !== null || 
+                element.pre_bun !== null || 
+                element.post_bun !== null || 
+                element.creatinine !== null || 
+                element.serum_albumin !== null || 
+                element.sodium !== null || 
+                element.potassium !== null || 
+                element.phosphorus !== null || 
+                element.ionized_calcium !== null || 
+                element.uric_acid !== null || 
+                element.sgpt !== null || 
+                element.sgot !== null || 
+                element.serum_ferritin !== null ||
+                element.serum_iron !== null ||
+                element.tibc !== null ||
+                element.tsat !== null ||
+                element.hbsag !== null ||
+                element.anti_hbs !== null ||
+                element.anti_hcv !== null
+              )
+              labSumPrevTable += '<td>' + (element.anti_hbs !== null ? element.anti_hbs : '') + '</td>'; 
+            });
+            labSumPrevTable += '</tr><td>Anti-HCV</td>'; 
+            $.each(bookingObj.allBooking, function(index, element){
+              if(
+                element.hemoglobin !== null || 
+                element.hematocrit !== null || 
+                element.rbc !== null || 
+                element.wbc !== null || 
+                element.platelet !== null || 
+                element.urr !== null || 
+                element.ktv2 !== null || 
+                element.pre_bun !== null || 
+                element.post_bun !== null || 
+                element.creatinine !== null || 
+                element.serum_albumin !== null || 
+                element.sodium !== null || 
+                element.potassium !== null || 
+                element.phosphorus !== null || 
+                element.ionized_calcium !== null || 
+                element.uric_acid !== null || 
+                element.sgpt !== null || 
+                element.sgot !== null || 
+                element.serum_ferritin !== null ||
+                element.serum_iron !== null ||
+                element.tibc !== null ||
+                element.tsat !== null ||
+                element.hbsag !== null ||
+                element.anti_hbs !== null ||
+                element.anti_hcv !== null
+              )
+              labSumPrevTable += '<td>' + (element.anti_hcv !== null ? element.anti_hcv : '') + '</td>'; 
+            });
+
+            labSumPrevTable += '</tr></tbody>';
+            labSumPrevTable += '</table>';
+            $('#labSumPrevTable').append(labSumPrevTable);
           }else{
             $('#dChart').hide();
-            $('#dialysisPrevLink').removeClass('active');
+            $('#hdSum').hide();
+            $('#labSum').hide();
             $('#dialysisPrevDiv').hide();
             $('#sumPrevLink').addClass('active');
             $('#soapPrevLink').removeClass('active');  
@@ -3555,13 +5001,17 @@
             $('#medPrevLink').removeClass('active');  
             $('#admitPrevLink').removeClass('active');
             $('#dialysisPrevLink').removeClass('active');
+            $('#hdSumPrevLink').removeClass('active');
+            $('#labSumPrevLink').removeClass('active');
             $('#soapPrevDiv').hide();  
             $('#labPrevDiv').hide();  
             $('#presPrevDiv').hide();  
             $('#medPrevDiv').hide();  
             $('#admitPrevDiv').hide();
             $('#dialysisPrevDiv').hide();
-            $('#sumCurDiv').show();
+            $('#hdSumPrevDiv').hide();
+            $('#labSumPrevDiv').hide();
+            $('#sumPrevDiv').show();
           }
           if(index != 'ref'){
             if(bookingObj.consultation.id != null){

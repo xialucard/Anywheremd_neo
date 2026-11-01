@@ -22,6 +22,7 @@
     }
     // print_r($origDatum);
 @endphp
+
 <form {{ isset($formId) ? 'id=' . $formId : '' }} action="{{ Route::has($viewFolder . '.' . $formAction) ? route($viewFolder . '.' . $formAction, $datum->id) : ''}}" method="POST" enctype="multipart/form-data">
     @csrf
     @if ($datum->id != null)
