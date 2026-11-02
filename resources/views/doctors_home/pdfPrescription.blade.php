@@ -91,7 +91,7 @@
         {{ str_pad("", strlen($datum->doctor->name), "_", STR_PAD_LEFT) }}<br>
         Dr. {{ isset($referal_conso->doctor->name) ? $referal_conso->doctor->name : (!isset($referal_conso) ? $datum->doctor->name : '') }}<br>
         PRC#: {{ isset($referal_conso->doctor->prc_number) ? $referal_conso->doctor->prc_number : (!isset($referal_conso) ? $datum->doctor->prc_number : '') }}<br>
-        PTR#: {{ isset($referal_conso->doctor->prc_number) ? $referal_conso->doctor->prc_number : (!isset($referal_conso) ? $datum->doctor->prc_number : '') }}
+        {{-- PTR#: {{ isset($referal_conso->doctor->prc_number) ? $referal_conso->doctor->prc_number : (!isset($referal_conso) ? $datum->doctor->prc_number : '') }} --}}
     </div>
     
 

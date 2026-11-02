@@ -132,7 +132,7 @@
                 @if(((isset($referal_conso) && isset($referal_conso->printable_form['postOpSigKey']) && $referal_conso->printable_form['postOpSigKey'] == 'yes') ? true : ((!isset($referal_conso) && $datum->printable_form['postOpSigKey'] == 'yes') ? true : false)) && ($datum->doctor->sig_pic != '' || $referal_conso->doctor->sig_pic))
                 <img src="{{ public_path('storage/doctor_files/' . (isset($referal_conso->doctor->sig_pic) ? $referal_conso->doctor->sig_pic : (!isset($referal_conso) ? $datum->doctor->sig_pic : ''))) }}" style="width:1in"><br>
                 @endif
-                Dr. {{ isset($referal_conso->doctor->name) ? $referal_conso->doctor->name : (!isset($referal_conso) ? $datum->doctor->name : '') }} {{ isset($referal_conso->bookingDate) ? date('F d, Y', strtotime($referal_conso->bookingDate)) : (!isset($referal_conso) ? date('F d, Y', strtotime($datum->bookingDate)) : '') }}
+                Dr. {{ isset($referal_conso->doctor->name) ? $referal_conso->doctor->name : (!isset($referal_conso) ? $datum->doctor->name : '') }} {{ isset($referal_conso->doctor->prc_number) ? 'PRC#: ' . $referal_conso->doctor->prc_number : (!isset($referal_conso) ? 'PRC#: ' . $datum->doctor->prc_number : '') }} {{ isset($referal_conso->bookingDate) ? date('F d, Y', strtotime($referal_conso->bookingDate)) : (!isset($referal_conso) ? date('F d, Y', strtotime($datum->bookingDate)) : '') }}
                 <p><strong>Attending Physician/ Surgeon</strong></p>
                 <p>Printed Name and Signature / Date</p>
             </td>

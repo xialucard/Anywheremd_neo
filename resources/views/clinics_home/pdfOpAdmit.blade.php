@@ -160,7 +160,7 @@
                 @if(((isset($referal_conso) && isset($referal_conso->printable_form['opAdmitSigKey']) && $referal_conso->printable_form['opAdmitSigKey'] == 'yes') ? true : ((!isset($referal_conso) && $datum->printable_form['opAdmitSigKey'] == 'yes') ? true : false)) && ($datum->doctor->sig_pic != '' || $referal_conso->doctor->sig_pic))
                 <img src="{{ public_path('storage/doctor_files/' . (isset($referal_conso->doctor->sig_pic) ? $referal_conso->doctor->sig_pic : (!isset($referal_conso) ? $datum->doctor->sig_pic : ''))) }}" style="width:1in"><br>
                 @endif
-                <span>Dr. {{ isset($referal_conso->doctor->name) ? $referal_conso->doctor->name : (!isset($referal_conso) ? $datum->doctor->name : '') }}</span><br>
+                <span>Dr. {{ isset($referal_conso->doctor->name) ? $referal_conso->doctor->name : (!isset($referal_conso) ? $datum->doctor->name : '') }} {{ isset($referal_conso->doctor->prc_number) ? 'PRC#: ' . $referal_conso->doctor->prc_number : (!isset($referal_conso) ? 'PRC#: ' . $datum->doctor->prc_number : '') }}</span><br>
                 <span style="border-top:1px solid">MD signature above printed name</span>
             </td>
             <td valign="top">
