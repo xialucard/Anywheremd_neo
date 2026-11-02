@@ -170,9 +170,9 @@
     @else
     <div style="min-height:.5in"></div>
     @endif
-    <span>Surgeon: {{ isset($referal_conso->doctor->name) ? $referal_conso->doctor->name : (!isset($referal_conso) ? $datum->doctor->name : '') }} 
-        {{ isset($referal_conso->doctor->prc_number) ? '<br>PRC#: ' . $referal_conso->doctor->prc_number : (!isset($referal_conso) ? '<br>PRC#: ' . $datum->doctor->prc_number : '') }}
-    </span>
+    <span>Surgeon: {{ isset($referal_conso->doctor->name) ? $referal_conso->doctor->name : (!isset($referal_conso) ? $datum->doctor->name : '') }} </span>
+    <br
+    <span>{{ isset($referal_conso->doctor->prc_number) ? 'PRC#: ' . $referal_conso->doctor->prc_number : (!isset($referal_conso) ? 'PRC#: ' . $datum->doctor->prc_number : '') }}</span>
     <br>
     <span>Date: {{ isset($referal_conso->bookingDate) ? date('F d, Y', strtotime($referal_conso->bookingDate)) : (!isset($referal_conso) ? date('F d, Y', strtotime($datum->bookingDate)) : '') }}</span>
 </body>
