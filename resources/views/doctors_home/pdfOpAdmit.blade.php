@@ -64,11 +64,11 @@
 </head>
 <body>
      <div>
-        @if(isset($referal_conso->clinic->letterhead_pic) && $referal_conso->clinic->letterhead_pic != '')
+        {{-- @if(isset($referal_conso->clinic->letterhead_pic) && $referal_conso->clinic->letterhead_pic != '')
             <img src="{{ public_path('storage/printable_forms_files/' . $referal_conso->clinic->letterhead_pic) }}" alt="" style="width:7.4in; margin-bottom:5px">
         @elseif(!isset($referal_conso) && $datum->clinic->letterhead_pic)
             <img src="{{ public_path('storage/printable_forms_files/' . $datum->clinic->letterhead_pic) }}" alt="" style="width:7.4in; margin-bottom:5px">
-        @else
+        @else --}}
         <div class="item" style="width: 3in; height:90px">
             <h1 style="margin-bottom: 5px">{{ isset($referal_conso->clinic->name) ? $referal_conso->clinic->name : (!isset($referal_conso) ? $datum->clinic->name : '') }}</h1>
         </div>
@@ -76,7 +76,7 @@
             <p>{{ isset($referal_conso->clinic->address) ? $referal_conso->clinic->address : (!isset($referal_conso) ? $datum->clinic->address : '') }}</p>
             <p>Contact Numbers:{{ isset($referal_conso->clinic->tel) ? $referal_conso->clinic->tel : (!isset($referal_conso) ? $datum->clinic->tel : '') }}/{{ isset($referal_conso->clinic->mobile_no) ? $referal_conso->clinic->mobile_no : (!isset($referal_conso) ? $datum->clinic->mobile_no : '') }}</p>
         </div>
-        @endif
+        {{-- @endif --}}
     </div>
     <center><h3>PERI-OPERATIVE ORDERS FORM</h3></center>
     <table cellspacing="0" width="100%">
@@ -157,7 +157,7 @@
         <tr>
             <td width="65%" rowspan="2">
                 <p style="height:4in">PERI-OPERATIVE ORDERS <br> {!! nl2br(isset($referal_conso->printable_form['additional_orders']) ? $referal_conso->printable_form['additional_orders'] : (!isset($referal_conso) ? $datum->printable_form['additional_orders'] : '')) !!}</p>
-                @if(((isset($referal_conso) && isset($referal_conso->printable_form['opAdmitSigKey']) && $referal_conso->printable_form['opAdmitSigKey'] == 'yes') ? true : ((!isset($referal_conso) && $datum->printable_form['opAdmitSigKey'] == 'yes') ? true : false)) && ($datum->doctor->sig_pic != '' || $referal_conso->doctor->sig_pic))
+                @if(((isset($referal_conso) && isset($referal_conso->printable_form) && $referal_conso->printable_form['opAdmitSigKey'] == 'yes') ? true : ((!isset($referal_conso) && isset($referal_conso->printable_form) && $datum->printable_form['opAdmitSigKey'] == 'yes') ? true : false)) && ($datum->doctor->sig_pic != '' || $referal_conso->doctor->sig_pic))
                 <img src="{{ public_path('storage/doctor_files/' . (isset($referal_conso->doctor->sig_pic) ? $referal_conso->doctor->sig_pic : (!isset($referal_conso) ? $datum->doctor->sig_pic : ''))) }}" style="width:1in"><br>
                 @endif
                 <span>Dr. {{ isset($referal_conso->doctor->name) ? $referal_conso->doctor->name : (!isset($referal_conso) ? $datum->doctor->name : '') }} {{ isset($referal_conso->doctor->prc_number) ? 'PRC#: ' . $referal_conso->doctor->prc_number : (!isset($referal_conso) ? 'PRC#: ' . $datum->doctor->prc_number : '') }}</span><br>
