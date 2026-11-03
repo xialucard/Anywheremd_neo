@@ -164,9 +164,8 @@
     </p> --}}
     
     
-    
-    @if(((isset($referal_conso) && isset($referal_conso->printable_form['orTechSigKey']) && $referal_conso->printable_form['orTechSigKey'] == 'yes') ? true : ((!isset($referal_conso) && $datum->printable_form['orTechSigKey'] == 'yes') ? true : false)) && ($datum->doctor->sig_pic != '' || $referal_conso->doctor->sig_pic))
-    <img src="{{ public_path('storage/doctor_files/' . (isset($referal_conso->doctor->sig_pic) ? $referal_conso->doctor->sig_pic : (!isset($referal_conso) ? $datum->doctor->sig_pic : ''))) }}" style="width:1in"><br>
+    @if(((isset($referal_conso) && isset($referal_conso->printable_form) && $referal_conso->printable_form['orTechSigKey'] == 'yes') ? true : ((!isset($referal_conso) && isset($datum->printable_form) && $datum->printable_form['orTechSigKey'] == 'yes') ? true : false)) && ($datum->doctor->sig_pic != '' || $referal_conso->doctor->sig_pic))
+    <img src="{{ public_path('storage/' . (isset($referal_conso->doctor->sig_pic) ? $referal_conso->doctor->sig_pic : (!isset($referal_conso) ? $datum->doctor->sig_pic : ''))) }}" style="width:1in"><br>
     @else
     <div style="min-height:.5in"></div>
     @endif
