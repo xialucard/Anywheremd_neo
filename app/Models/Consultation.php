@@ -190,7 +190,7 @@ class Consultation extends Model
         'anti_hbs',
         'anti_hcv',
         'platelet',
-        'admittingSigKey',
+        'admitingSigKey',
         'ePrescSigKey',
         'medCertSigKey',
         'vaodold_num',
