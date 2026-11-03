@@ -88,7 +88,7 @@
         <img src="{{ public_path('storage/' . (isset($referal_conso->doctor->sig_pic) ? $referal_conso->doctor->sig_pic : (!isset($referal_conso) ? $datum->doctor->sig_pic : ''))) }}" style="width:1in"><br>
         @endif
         {{ str_pad("", strlen(isset($referal_conso->doctor->name) ? $referal_conso->doctor->name : (!isset($referal_conso) ? $datum->doctor->name : '')), "_", STR_PAD_LEFT) }}<br>
-        {{ str_pad("", strlen($datum->doctor->name), "_", STR_PAD_LEFT) }}<br>
+        {{-- {{ str_pad("", strlen($datum->doctor->name), "_", STR_PAD_LEFT) }}<br> --}}
         Dr. {{ isset($referal_conso->doctor->name) ? $referal_conso->doctor->name : (!isset($referal_conso) ? $datum->doctor->name : '') }}<br>
         PRC#: {{ isset($referal_conso->doctor->prc_number) ? $referal_conso->doctor->prc_number : (!isset($referal_conso) ? $datum->doctor->prc_number : '') }}<br>
         {{-- PTR#: {{ isset($referal_conso->doctor->prc_number) ? $referal_conso->doctor->prc_number : (!isset($referal_conso) ? $datum->doctor->prc_number : '') }} --}}
