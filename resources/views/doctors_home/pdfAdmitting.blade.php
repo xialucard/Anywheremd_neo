@@ -89,7 +89,7 @@
     <div class="position-absolute top-100 start-100 text-end mt-5">
         {{-- @if((isset($referal_conso->doctor->sig_pic) ? $referal_conso->doctor->sig_pic : (!isset($referal_conso) ? $datum->doctor->sig_pic : '')) != "") --}}
         @if(((isset($referal_conso) && $referal_conso->admitingSigKey == 'yes') ? true : ((!isset($referal_conso) && $datum->admitingSigKey == 'yes') ? true : false)) && ($datum->doctor->sig_pic != '' || $referal_conso->doctor->sig_pic))
-        <img src="{{ public_path('storage/' . (isset($referal_conso) ? $referal_conso->doctor->sig_pic : (!isset($referal_conso) ? $datum->doctor->sig_pic : ''))) }}" style="width:1in"><br>
+        <img src="{{ public_path('storage/' . (isset($referal_conso->doctor->sig_pic) ? $referal_conso->doctor->sig_pic : (!isset($referal_conso) ? $datum->doctor->sig_pic : ''))) }}" style="width:1in"><br>
         @endif
         {{ str_pad("", strlen(isset($referal_conso->doctor->sig_pic) ? $referal_conso->doctor->name : (!isset($referal_conso) ? $datum->doctor->name : '')), "_", STR_PAD_LEFT) }}<br>
         Dr. {{ isset($referal_conso->doctor->name) ? $referal_conso->doctor->name : (!isset($referal_conso) ? $datum->doctor->name : '') }}<br>
