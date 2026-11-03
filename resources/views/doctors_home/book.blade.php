@@ -11325,7 +11325,7 @@
                     </div>
                     @if($datum->doctor->sig_pic != '')
                     <div class="form-check mt-3">
-                      <input class="form-check-input mt-0" type="checkbox" name="{{ $viewFolder }}[PrintableForm][admittingSigKey]" id="{{ $viewFolder }}_admittingSigKey_check" value='yes' {{ isset($datum->admittingSigKey) && $datum->admittingSigKey === 'yes' ? 'checked' : ''}}  {{ !isset($referal_conso) ? '' : 'disabled' }}>
+                      <input class="form-check-input mt-0" type="checkbox" name="{{ $viewFolder }}[admittingSigKey]" id="{{ $viewFolder }}_admittingSigKey_check" value='yes' {{ isset($datum->admittingSigKey) && $datum->admittingSigKey === 'yes' ? 'checked' : ''}}  {{ !isset($referal_conso) ? '' : 'disabled' }}>
                       <label class="form-check-label" for="{{ $viewFolder }}_admittingSigKey_check"><strong>Click this box to e-sign this document</strong></label>
                     </div>
                     @else
