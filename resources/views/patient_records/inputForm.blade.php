@@ -593,7 +593,7 @@
           <div id="hdSumPrevDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
             @if(isset($datum->id))
               @can('clinics_home.pdfHDSum')
-            <div class="m-1"><a id="printLinkID" class="btn btn-{{ $bgColor }} btn-sm w-100 printLink" href="{{ route('clinics_home.pdfHDSum', [isset($referal_conso) ? $referal_conso->id : $datum->id, !empty(parse_url(Request::fullUrl())['query']) ? parse_url(Request::fullUrl())['query'] : '']) }}" title="Print HD Summary Sheet" role="button" download><i class="bi bi-file-pdf-fill"></i><span class="ps-1 d-sm-none">Print HD Summary Sheet</span></a></div>
+            <div class="m-1"><a id="printLinkHDSumID" class="btn btn-{{ $bgColor }} btn-sm w-100 printLink" href="{{ route('clinics_home.pdfHDSum', [isset($referal_conso) ? $referal_conso->id : $bookings[0]->id, !empty(parse_url(Request::fullUrl())['query']) ? parse_url(Request::fullUrl())['query'] : '']) }}" title="Print HD Summary Sheet" role="button" download><i class="bi bi-file-pdf-fill"></i><span class="ps-1 d-sm-none">Print HD Summary Sheet</span></a></div>
               @endcan
             @endif
             <div class="table-responsive" style="max-height: 300px">
@@ -650,7 +650,7 @@
           <div id="labSumPrevDiv" style="display:none" class="container border border-1 border-top-0 mb-3 p-3">
             @if(isset($datum->id))
               @can('clinics_home.pdfLabSum')
-            <div class="m-1"><a id="printLinkID" class="btn btn-{{ $bgColor }} btn-sm w-100 printLink" href="{{ route('clinics_home.pdfLabSum', [isset($referal_conso) ? $referal_conso->id : $datum->id, !empty(parse_url(Request::fullUrl())['query']) ? parse_url(Request::fullUrl())['query'] : '']) }}" title="Print Laboratory Summary Sheet" role="button" download><i class="bi bi-file-pdf-fill"></i><span class="ps-1 d-sm-none">Print Laboratory Summary Sheet</span></a></div>
+            <div class="m-1"><a id="printLinkLabSumID" class="btn btn-{{ $bgColor }} btn-sm w-100 printLink" href="{{ route('clinics_home.pdfLabSum', [isset($referal_conso) ? $referal_conso->id : $bookings[0]->id, !empty(parse_url(Request::fullUrl())['query']) ? parse_url(Request::fullUrl())['query'] : '']) }}" title="Print Laboratory Summary Sheet" role="button" download><i class="bi bi-file-pdf-fill"></i><span class="ps-1 d-sm-none">Print Laboratory Summary Sheet</span></a></div>
               @endcan
             @endif
             <div class="table-responsive" style="max-height: 300px">
@@ -956,6 +956,7 @@
               <div class="card-header">Scheduled Procedure</div>
               <div class="card-body" style="height: 1in; max-height: 1in">
                 <p id="prevSumProcDet">{{ $bookings[0]->procedure_details }}</p>
+                <input type="hidden" class="form-control" id="{{ $viewFolder }}_id" value="{{ $bookings[0]->id }}" >
               </div>
             </div>
             {{-- <div class="card mb-3">
@@ -3793,11 +3794,15 @@
         function(data, status){
           bookingObj = jQuery.parseJSON(data);
           // if(bookingObj.consultation.booking_type == 'Dialysis'){
-            // alert($('#patient_records_prev_treatment_id').val());
+            alert($('#patient_records_id').val());
             pdf_conso_id = consultation_id;
+            alert(pdf_conso_id);
             if(bookingObj.parent_consultation.id != '')
               pdf_conso_id = bookingObj.parent_consultation.id;
-            $('#printLinkID').attr('href', $('#printLinkID').attr('href').replace($('#patient_records_prev_treatment_id').val(), pdf_conso_id));
+            $('#printLinkID').attr('href', $('#printLinkID').attr('href').replace($('#patient_records_id').val(), pdf_conso_id));
+            $('#printLinkHDSumID').attr('href', $('#printLinkHDSumID').attr('href').replace($('#patient_records_id').val(), pdf_conso_id));
+            $('#printLinkLabSumID').attr('href', $('#printLinkLabSumID').attr('href').replace($('#patient_records_id').val(), pdf_conso_id));
+            $('#patient_records_id').val(pdf_conso_id);
           // }
             if(bookingObj.consultation.doctor.specialty.includes('Ophtha')){
             $('#eyeExam').show();
