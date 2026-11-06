@@ -4079,7 +4079,7 @@
             $('#{{ $viewFolder }}_prev_plan').val('');
             $('#{{ $viewFolder }}_prev_sum_plan').html('');
           }
-          if(bookingObj.consultation.printable_form !== null){
+          if(bookingObj.consultation.printable_form !== null && bookingObj.consultation.printable_form.diagnosis !== null){
             $('#{{ $viewFolder }}_prev_diagnosis').val(bookingObj.consultation.printable_form.diagnosis);
             $('#{{ $viewFolder }}_prev_sum_diagnosis').html(nl2br(bookingObj.consultation.printable_form.diagnosis));
           }else{
@@ -4093,14 +4093,14 @@
             $('#{{ $viewFolder }}_prev_planMed').val('');
             $('#{{ $viewFolder }}_prev_sum_planMed').html('');
           }
-          if(bookingObj.consultation.printable_form.medication_given_recovery != null){
+          if(bookingObj.consultation.printable_form !== null && bookingObj.consultation.printable_form.medication_given_recovery !== null){
             $('#{{ $viewFolder }}_prev_medication_given_recovery').val(bookingObj.consultation.printable_form.medication_given_recovery);
             $('#{{ $viewFolder }}_prev_sum_medication_given_recovery').html(nl2br(bookingObj.consultation.printable_form.medication_given_recovery));
           }else{
             $('#{{ $viewFolder }}_prev_medication_given_recovery').val('');
             $('#{{ $viewFolder }}_prev_sum_medication_given_recovery').html('');
           }
-          if(bookingObj.consultation.printable_form.discharge_medication != null){
+          if(bookingObj.consultation.printable_form !== null && bookingObj.consultation.printable_form.discharge_medication !== null){
             $('#{{ $viewFolder }}_prev_discharge_medication').val(bookingObj.consultation.printable_form.discharge_medication);
             $('#{{ $viewFolder }}_prev_sum_discharge_medication').html(nl2br(bookingObj.consultation.printable_form.discharge_medication));
           }else{
