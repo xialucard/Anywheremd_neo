@@ -4079,7 +4079,7 @@
             $('#{{ $viewFolder }}_prev_plan').val('');
             $('#{{ $viewFolder }}_prev_sum_plan').html('');
           }
-          if(bookingObj.consultation.printable_form.diagnosis != null){
+          if(isset(bookingObj.consultation.printable_form)){
             $('#{{ $viewFolder }}_prev_diagnosis').val(bookingObj.consultation.printable_form.diagnosis);
             $('#{{ $viewFolder }}_prev_sum_diagnosis').html(nl2br(bookingObj.consultation.printable_form.diagnosis));
           }else{
