@@ -3794,9 +3794,9 @@
         function(data, status){
           bookingObj = jQuery.parseJSON(data);
           // if(bookingObj.consultation.booking_type == 'Dialysis'){
-            alert($('#patient_records_id').val());
+            // alert($('#patient_records_id').val());
             pdf_conso_id = consultation_id;
-            alert(pdf_conso_id);
+            // alert(pdf_conso_id);
             if(bookingObj.parent_consultation.id != '')
               pdf_conso_id = bookingObj.parent_consultation.id;
             $('#printLinkID').attr('href', $('#printLinkID').attr('href').replace($('#patient_records_id').val(), pdf_conso_id));
