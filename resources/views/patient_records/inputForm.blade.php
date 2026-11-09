@@ -955,7 +955,7 @@
             <div class="card mb-3">
               <div class="card-header">Scheduled Procedure</div>
               <div class="card-body" style="height: 1in; max-height: 1in">
-                <p id="prevSumProcDet">{{ $bookings[0]->procedure_details }}</p>
+                <p id="prevSumProcDet">{{ htmlspecialchars($bookings[0]->procedure_details) }}</p>
                 <input type="hidden" class="form-control" id="{{ $viewFolder }}_id" value="{{ $bookings[0]->id }}" >
               </div>
             </div>
@@ -971,9 +971,9 @@
               <div class="card-header">Subjective Findings</div>
               <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                 <p>
-                  <strong>Reason for Visit/Chief Complaint:</strong><div class="m-3" id="prevSumPatComp">{!! nl2br(isset($bookings[0]->complain) ? $bookings[0]->complain : '') !!}</div><br>
-                  <strong>History of Present Illness:</strong><div class="m-3" id="{{ $viewFolder }}_prev_sum_docNotesHPI">{!! nl2br(isset($bookings[0]->docNotesHPI) ? $bookings[0]->docNotesHPI : '') !!}</div><br>
-                  <strong>Subjective Complaints:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_docNotesSubject">{!! nl2br(isset($bookings[0]->docNotesSubject) ? $bookings[0]->docNotesSubject : '') !!}</div><br>
+                  <strong>Reason for Visit/Chief Complaint:</strong><div class="m-3" id="prevSumPatComp">{!! htmlspecialchars(nl2br(isset($bookings[0]->complain) ? $bookings[0]->complain : '')) !!}</div><br>
+                  <strong>History of Present Illness:</strong><div class="m-3" id="{{ $viewFolder }}_prev_sum_docNotesHPI">{!! htmlspecialchars(nl2br(isset($bookings[0]->docNotesHPI) ? $bookings[0]->docNotesHPI : '')) !!}</div><br>
+                  <strong>Subjective Complaints:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_docNotesSubject">{!! htmlspecialchars(nl2br(isset($bookings[0]->docNotesSubject) ? $bookings[0]->docNotesSubject : '')) !!}</div><br>
                 </p>
               </div>
             </div>
@@ -1057,7 +1057,7 @@
                   </div>
                 </div>
                 <p>
-                  <div class="m-3" id="{{ $viewFolder }}_prev_sum_docNotes">{!! nl2br(isset($bookings[0]->docNotes) ? $bookings[0]->docNotes : '') !!}</div><br>
+                  <div class="m-3" id="{{ $viewFolder }}_prev_sum_docNotes">{!! htmlspecialchars(nl2br(isset($bookings[0]->docNotes) ? $bookings[0]->docNotes : '')) !!}</div><br>
                 </p>
               </div>
             </div>
@@ -1077,7 +1077,7 @@
               <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                 @if($bookings[0]->booking_type == 'Dialysis')
                 <p>
-                  <strong>Plan:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_planMed">{!! isset($bookings[0]->planMed) ? nl2br($bookings[0]->planMed) : '' !!}</div><br>
+                  <strong>Plan:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_planMed">{!! htmlspecialchars(nl2br(isset($bookings[0]->planMed) ? $bookings[0]->planMed : '')) !!}</div><br>
                   <strong>Current Meds Onboard:</strong>
                   <div class="table-responsive" style="max-height: 300px">
                     <table class="table table-bordered table-striped table-hover table-sm medsOn">
@@ -1104,15 +1104,15 @@
                 </p>
                 @else
                 <p>
-                  <strong>Diagnostics:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_diagnosis">{!! isset($bookings[0]->printable_form['diagnosis']) ? nl2br($bookings[0]->printable_form['diagnosis']) : '' !!}</div><br>
-                  <strong>Medical Therapeutics:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_planMed">{!! isset($bookings[0]->planMed) ? nl2br($bookings[0]->planMed) : '' !!}</div><br>
-                  <strong>Medication Given in Recovery:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_medication_given_recovery">{!! isset($bookings[0]->printable_form['medication_given_recovery']) ? nl2br($bookings[0]->printable_form['medication_given_recovery']) : '' !!}</div><br>
-                  <strong>Discharge Medications (dose, frequency, duration):</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_discharge_medication">{!! isset($bookings[0]->printable_form['discharge_medication']) ? nl2br($bookings[0]->printable_form['discharge_medication']) : '' !!}</div><br>
-                  <strong>Surgery (Planned/Performed):</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_plan">{!! isset($bookings[0]->plan) ? nl2br($bookings[0]->plan) : '' !!}</div><br>
-                  <strong>Remarks:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_planRem">{!! isset($bookings[0]->planRem) ? nl2br($bookings[0]->planRem) : '' !!}</div><br>
-                  {{-- <strong>Medical Therapeutics:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_planMed">{!! nl2br(isset($bookings[0]->planMed) ? $bookings[0]->planMed : '') !!}</div><br>
-                  <strong>Diagnostics and Surgery:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_plan">{!! nl2br(isset($bookings[0]->plan) ? $bookings[0]->plan : '') !!}</div><br>
-                  <strong>Remarks:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_planRem">{!! nl2br(isset($bookings[0]->planRem) ? $bookings[0]->planRem : '') !!}</div><br> --}}
+                  <strong>Diagnostics:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_diagnosis">{!! htmlspecialchars(nl2br(isset($bookings[0]->printable_form['diagnosis']) ? $bookings[0]->printable_form['diagnosis'] : '')) !!}</div><br>
+                  <strong>Medical Therapeutics:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_planMed">{!! htmlspecialchars(nl2br(isset($bookings[0]->planMed) ? $bookings[0]->planMed : '')) !!}</div><br>
+                  <strong>Medication Given in Recovery:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_medication_given_recovery">{!! htmlspecialchars(nl2br(isset($bookings[0]->printable_form['medication_given_recovery']) ? $bookings[0]->printable_form['medication_given_recovery'] : '')) !!}</div><br>
+                  <strong>Discharge Medications (dose, frequency, duration):</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_discharge_medication">{!! htmlspecialchars(nl2br(isset($bookings[0]->printable_form['discharge_medication']) ? $bookings[0]->printable_form['discharge_medication'] : '')) !!}</div><br>
+                  <strong>Surgery (Planned/Performed):</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_plan">{!! htmlspecialchars(nl2br(isset($bookings[0]->plan) ? $bookings[0]->plan : '')) !!}</div><br>
+                  <strong>Remarks:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_planRem">{!! htmlspecialchars(nl2br(isset($bookings[0]->planRem) ? $bookings[0]->planRem : '')) !!}</div><br>
+                  {{-- <strong>Medical Therapeutics:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_planMed">{!! htmlspecialchars(nl2br(isset($bookings[0]->planMed) ? $bookings[0]->planMed : '')) !!}</div><br>
+                  <strong>Diagnostics and Surgery:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_plan">{!! htmlspecialchars(nl2br(isset($bookings[0]->plan) ? $bookings[0]->plan : '')) !!}</div><br>
+                  <strong>Remarks:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_planRem">{!! htmlspecialchars(nl2br(isset($bookings[0]->planRem) ? $bookings[0]->planRem : '')) !!}</div><br> --}}
                 </p>
                 @endif
               </div>
@@ -1122,7 +1122,7 @@
             <div class="card mb-3">
               <div class="card-header">Procedure</div>
               <div class="card-body" style="height: 1in; max-height: 1in">
-                <p id="prevProcDet">{{ $bookings[0]->procedure_details }}</p>
+                <p id="prevProcDet">{{ htmlspecialchars(nl2br($bookings[0]->procedure_details)) }}</p>
               </div>
             </div>
             <div class="card mb-3">
