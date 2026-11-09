@@ -1706,20 +1706,20 @@
                   <div class="card mb-3">
                     <div class="card-header">Scheduled Procedure</div>
                     <div class="card-body">
-                      <p>{{ $datum->procedure_details }}</p>
+                      <p>{{ htmlspecialchars(nl2br($datum->procedure_details)) }}</p>
                     </div>
                   </div>
                   <div class="card mb-3">
                     <div class="card-header">Patient's Reason for Visit</div>
                     <div class="card-body">
-                      <p>{{ $datum->complain }}</p>
+                      <p>{{ htmlspecialchars(nl2br($datum->complain)) }}</p>
                       <small class="text-muted">{{ $datum->duration }}</small>
                     </div>
                   </div>
                   <div class="card mb-3">
                     <div class="card-header">Remarks</div>
                     <div class="card-body">
-                      <p>{{ $datum->others }}</p>
+                      <p>{{ htmlspecialchars(nl2br($datum->others)) }}</p>
                     </div>
                   </div> 
                 </div>
@@ -3436,9 +3436,9 @@
                   <div class="card-header">Subjective Findings</div>
                   <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                     <p>
-                      <strong>Reason for Visit/Chief Complaint:</strong><div class="m-3" id="{{ $viewFolder }}_prev_sum_complain">{!! isset($bookings[0]->complain) ? nl2br($bookings[0]->complain) : '' !!}</div><br>
-                      <strong>History of Present Illness:</strong><div class="m-3" id="{{ $viewFolder }}_prev_sum_docNotesHPI">{!! isset($bookings[0]->docNotesHPI) ? nl2br($bookings[0]->docNotesHPI) : '' !!}</div><br>
-                      <strong>Subjective Complaints:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_docNotesSubject">{!! isset($bookings[0]->docNotesSubject) ? nl2br($bookings[0]->docNotesSubject) : '' !!}</div><br>
+                      <strong>Reason for Visit/Chief Complaint:</strong><div class="m-3" id="{{ $viewFolder }}_prev_sum_complain">{!! htmlspecialchars(isset($bookings[0]->complain) ? nl2br($bookings[0]->complain) : '') !!}</div><br>
+                      <strong>History of Present Illness:</strong><div class="m-3" id="{{ $viewFolder }}_prev_sum_docNotesHPI">{!! htmlspecialchars(isset($bookings[0]->docNotesHPI) ? nl2br($bookings[0]->docNotesHPI) : '') !!}</div><br>
+                      <strong>Subjective Complaints:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_docNotesSubject">{!! htmlspecialchars(isset($bookings[0]->docNotesSubject) ? nl2br($bookings[0]->docNotesSubject) : '') !!}</div><br>
                     </p>
                   </div>
                 </div>
@@ -3530,7 +3530,7 @@
                     </div>
                     @endif
                     <p>
-                      <strong>PE Findings:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_docNotes">{!! isset($bookings[0]->docNotes) ? nl2br($bookings[0]->docNotes) : '' !!}</div><br>
+                      <strong>PE Findings:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_docNotes">{!! htmlspecialchars(isset($bookings[0]->docNotes) ? nl2br($bookings[0]->docNotes) : '') !!}</div><br>
                     </p>
                   </div>
                 </div>
@@ -3538,9 +3538,9 @@
                   <div class="card-header">Assessment</div>
                   <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                     <p>
-                      <strong>Primary Diagnosis:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_primary_assessment">{!! isset($bookings[0]->primary_assessment) ? $bookings[0]->primary_assessment : '' !!}</div><br>
-                      <strong>Secondary Diagnosis:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_assessment">{!! isset($bookings[0]->assessment) ? nl2br($bookings[0]->assessment) : '' !!}</div><br>
-                      <strong>Discharge Diagnosis (Post-op Diagnosis):</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_post_op_assessment">{!! isset($bookings[0]->post_op_assessment) ? nl2br($bookings[0]->post_op_assessment) : '' !!}</div><br>
+                      <strong>Primary Diagnosis:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_primary_assessment">{!! htmlspecialchars(isset($bookings[0]->primary_assessment) ? $bookings[0]->primary_assessment : '') !!}</div><br>
+                      <strong>Secondary Diagnosis:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_assessment">{!! htmlspecialchars(isset($bookings[0]->assessment) ? nl2br($bookings[0]->assessment) : '') !!}</div><br>
+                      <strong>Discharge Diagnosis (Post-op Diagnosis):</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_post_op_assessment">{!! htmlspecialchars(isset($bookings[0]->post_op_assessment) ? nl2br($bookings[0]->post_op_assessment) : '') !!}</div><br>
                     </p>
                   </div>
                 </div>
@@ -3549,7 +3549,7 @@
                   <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                     @if($bookings[0]->booking_type == 'Dialysis')
                     <p>
-                      <strong>Plan:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_planMed">{!! isset($bookings[0]->planMed) ? nl2br($bookings[0]->planMed) : '' !!}</div><br>
+                      <strong>Plan:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_planMed">{!! htmlspecialchars(isset($bookings[0]->planMed) ? nl2br($bookings[0]->planMed) : '') !!}</div><br>
                       <strong>Current Meds Onboard:</strong>
                       <div class="table-responsive" style="max-height: 300px">
                         <table class="table table-bordered table-striped table-hover table-sm medsOn">
@@ -3576,12 +3576,12 @@
                     </p>
                     @else
                     <p>
-                      <strong>Diagnostics:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_diagnosis">{!! isset($bookings[0]->printable_form['diagnosis']) ? nl2br($bookings[0]->printable_form['diagnosis']) : '' !!}</div><br>
-                      <strong>Medical Therapeutics:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_planMed">{!! isset($bookings[0]->planMed) ? nl2br($bookings[0]->planMed) : '' !!}</div><br>
-                      <strong>Medication Given in Recovery:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_medication_given_recovery">{!! isset($bookings[0]->printable_form['medication_given_recovery']) ? nl2br($bookings[0]->printable_form['medication_given_recovery']) : '' !!}</div><br>
-                      <strong>Discharge Medications (dose, frequency, duration):</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_discharge_medication">{!! isset($bookings[0]->printable_form['discharge_medication']) ? nl2br($bookings[0]->printable_form['discharge_medication']) : '' !!}</div><br>
-                      <strong>Surgery (Planned/Performed):</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_plan">{!! isset($bookings[0]->plan) ? nl2br($bookings[0]->plan) : '' !!}</div><br>
-                      <strong>Remarks:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_planRem">{!! isset($bookings[0]->planRem) ? nl2br($bookings[0]->planRem) : '' !!}</div><br>
+                      <strong>Diagnostics:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_diagnosis">{!! htmlspecialchars(isset($bookings[0]->printable_form['diagnosis']) ? nl2br($bookings[0]->printable_form['diagnosis']) : '') !!}</div><br>
+                      <strong>Medical Therapeutics:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_planMed">{!! htmlspecialchars(isset($bookings[0]->planMed) ? nl2br($bookings[0]->planMed) : '') !!}</div><br>
+                      <strong>Medication Given in Recovery:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_medication_given_recovery">{!! htmlspecialchars(isset($bookings[0]->printable_form['medication_given_recovery']) ? nl2br($bookings[0]->printable_form['medication_given_recovery']) : '') !!}</div><br>
+                      <strong>Discharge Medications (dose, frequency, duration):</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_discharge_medication">{!! htmlspecialchars(isset($bookings[0]->printable_form['discharge_medication']) ? nl2br($bookings[0]->printable_form['discharge_medication']) : '') !!}</div><br>
+                      <strong>Surgery (Planned/Performed):</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_plan">{!! htmlspecialchars(isset($bookings[0]->plan) ? nl2br($bookings[0]->plan) : '') !!}</div><br>
+                      <strong>Remarks:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_planRem">{!! htmlspecialchars(isset($bookings[0]->planRem) ? nl2br($bookings[0]->planRem) : '') !!}</div><br>
                     </p>
                     @endif
                   </div>
@@ -8777,9 +8777,9 @@
                     <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                       <p>
                         {{-- @if(($datum->docNotesHPI == "" && isset($carryOverBookingsHPI[0]->docNotesHPI)) || (isset($carryOverBookingsHPI[0]->docNotesHPI) && $datum->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $datum->docNotesHPI))<br>[carry over from {{ $carryOverBookingsHPI[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsHPI[0]->booking_type }} booking last {{ $carryOverBookingsHPI[0]->bookingDate }}]@endif --}}
-                        <strong>Reason for Visit/Chief Complaint:</strong><div class="m-3">{!! isset($datum->complain) ? nl2br($datum->complain) : '' !!}</div><br>
-                        <strong>History of Present Illness:</strong><div class="m-3">{!! isset($datum->docNotesHPI) ? nl2br($datum->docNotesHPI) : '' !!}</div><br>
-                        <strong>Subjective Complaints:</strong><br><div class="m-3">{!! isset($datum->docNotesSubject) ? nl2br($datum->docNotesSubject) : '' !!}</div><br>
+                        <strong>Reason for Visit/Chief Complaint:</strong><div class="m-3">{!! htmlspecialchars(isset($datum->complain) ? nl2br($datum->complain) : '') !!}</div><br>
+                        <strong>History of Present Illness:</strong><div class="m-3">{!! htmlspecialchars(isset($datum->docNotesHPI) ? nl2br($datum->docNotesHPI) : '') !!}</div><br>
+                        <strong>Subjective Complaints:</strong><br><div class="m-3">{!! htmlspecialchars(isset($datum->docNotesSubject) ? nl2br($datum->docNotesSubject) : '') !!}</div><br>
                       </p>
                       {{-- <small class="text-muted">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small> --}}
                     </div>
@@ -8873,7 +8873,7 @@
                       @endif
                       <p>
                         {{-- @if(($datum->docNotesHPI == "" && isset($carryOverBookingsHPI[0]->docNotesHPI)) || (isset($carryOverBookingsHPI[0]->docNotesHPI) && $datum->doctor_id == $carryOverBookingsHPI[0]->doctor_id && $carryOverBookingsHPI[0]->docNotesHPI == $datum->docNotesHPI))<br>[carry over from {{ $carryOverBookingsHPI[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsHPI[0]->booking_type }} booking last {{ $carryOverBookingsHPI[0]->bookingDate }}]@endif --}}
-                        <strong>PE Findings:</strong><br><div class="m-3">{!! isset($datum->docNotes) ? nl2br($datum->docNotes) : '' !!}</div><br>
+                        <strong>PE Findings:</strong><br><div class="m-3">{!! htmlspecialchars(isset($datum->docNotes) ? nl2br($datum->docNotes) : '') !!}</div><br>
                       </p>
                       {{-- <div class="card mb-3">
                         <div class="card-header">Intraoperative Findings</div>
@@ -8893,11 +8893,11 @@
                     <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                       <p>
                         {{-- @if(!isset($datum->icd_code_obj->icd_code) || (isset($datum->icd_code_obj->icd_code) && $datum->icd_code_obj->icd_code == "" && isset($carryOverBookingsICD[0]->icd_code_obj->icd_code)) || (isset($carryOverBookingsICD[0]->icd_code_obj->icd_code) && $datum->doctor_id == $carryOverBookingsICD[0]->doctor_id && $carryOverBookingsICD[0]->icd_code_obj->icd_code == $datum->icd_code_obj->icd_code))<br>[carry over from {{ $carryOverBookingsICD[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsICD[0]->booking_type }} booking last {{ $carryOverBookingsICD[0]->bookingDate }}]@endif --}}
-                        <strong>Primary Diagnosis:</strong> <div class="m-3">{!! isset($datum->primary_assessment) ? nl2br($datum->primary_assessment) : '' !!}</div><br>
+                        <strong>Primary Diagnosis:</strong> <div class="m-3">{!! htmlspecialchars(isset($datum->primary_assessment) ? nl2br($datum->primary_assessment) : '') !!}</div><br>
                         {{-- @if(($datum->assessment == "" && isset($carryOverBookings[0]->assessment)) || (isset($carryOverBookings[0]->assessment) && $datum->doctor_id == $carryOverBookings[0]->doctor_id && $carryOverBookings[0]->assessment == $datum->assessment))<br>[carry over from {{ $carryOverBookings[0]->booking_type == '' ? 'Consultation' : $carryOverBookings[0]->booking_type }} booking last {{ $carryOverBookings[0]->bookingDate }}]@endif --}}
-                        <strong>Secondary Diagnosis:</strong><br><div class="m-3">{!! isset($datum->assessment) ? nl2br($datum->assessment) : '' !!}</div><br>
+                        <strong>Secondary Diagnosis:</strong><br><div class="m-3">{!! htmlspecialchars(isset($datum->assessment) ? nl2br($datum->assessment) : '') !!}</div><br>
                         {{-- @if(($datum->post_op_assessment == "" && isset($carryOverBookingsPostOp[0]->post_op_assessment)) || (isset($carryOverBookingsPostOp[0]->post_op_assessment) && $datum->doctor_id == $carryOverBookingsPostOp[0]->doctor_id && $carryOverBookingsPostOp[0]->post_op_assessment == $datum->post_op_assessment))<br>[carry over from {{ $carryOverBookingsPostOp[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPostOp[0]->booking_type }} booking last {{ $carryOverBookingsPostOp[0]->bookingDate }}]@endif --}}
-                        <strong>Discharge Diagnosis (Post-op Diagnosis):</strong><br><div class="m-3">{!! isset($datum->post_op_assessment) ? nl2br($datum->post_op_assessment) : '' !!}</div><br>
+                        <strong>Discharge Diagnosis (Post-op Diagnosis):</strong><br><div class="m-3">{!! htmlspecialchars(isset($datum->post_op_assessment) ? nl2br($datum->post_op_assessment) : '') !!}</div><br>
                       </p>
                       {{-- <small class="text-muted">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small> --}}
                     </div>
@@ -8908,7 +8908,7 @@
                       @if($datum->booking_type == 'Dialysis')
                       <p>
                         {{-- @if(($datum->planMed == "" && isset($carryOverBookingsPlanMed[0]->planMed)) || (isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed))<br>[carry over from {{ $carryOverBookingsPlanMed[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlanMed[0]->booking_type }} booking last {{ $carryOverBookingsPlanMed[0]->bookingDate }}]@endif --}}
-                        <strong>Plan:</strong><br><div class="m-3 {{ $datum->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed) ? 'text-warning' : '') }}">{!! isset($datum->planMed) ? nl2br($datum->planMed) : nl2br(isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id ? $carryOverBookingsPlanMed[0]->planMed : '') !!}@if(($datum->planMed == "" && isset($carryOverBookingsPlanMed[0]->planMed)) || (isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed))<br>[carry over from {{ $carryOverBookingsPlanMed[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlanMed[0]->booking_type }} booking last {{ $carryOverBookingsPlanMed[0]->bookingDate }}]@endif</div><br>
+                        <strong>Plan:</strong><br><div class="m-3 {{ $datum->planMed == "" ? 'text-danger' : ((isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed) ? 'text-warning' : '') }}">{!! htmlspecialchars(isset($datum->planMed) ? nl2br($datum->planMed) : '') !!}@if(($datum->planMed == "" && isset($carryOverBookingsPlanMed[0]->planMed)) || (isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed))<br>[carry over from {{ $carryOverBookingsPlanMed[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlanMed[0]->booking_type }} booking last {{ $carryOverBookingsPlanMed[0]->bookingDate }}]@endif</div><br>
                         <small class="text-muted">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small><br><br>
                         <strong>Current Meds Onboard:</strong>
                         <div class="table-responsive" style="max-height: 300px">
@@ -8936,15 +8936,15 @@
                       </p>
                       @else
                       <p>
-                        <strong>Diagnostics:</strong><br><div class="m-3">{!! isset($datum->printable_form['diagnosis']) ? nl2br($datum->printable_form['diagnosis']) : '' !!}</div><br>
+                        <strong>Diagnostics:</strong><br><div class="m-3">{!! htmlspecialchars(isset($datum->printable_form['diagnosis']) ? nl2br($datum->printable_form['diagnosis']) : '') !!}</div><br>
                         {{-- @if(($datum->planMed == "" && isset($carryOverBookingsPlanMed[0]->planMed)) || (isset($carryOverBookingsPlanMed[0]->planMed) && $datum->doctor_id == $carryOverBookingsPlanMed[0]->doctor_id && $carryOverBookingsPlanMed[0]->planMed == $datum->planMed))<br>[carry over from {{ $carryOverBookingsPlanMed[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlanMed[0]->booking_type }} booking last {{ $carryOverBookingsPlanMed[0]->bookingDate }}]@endif --}}
-                        <strong>Medical Therapeutics:</strong><br><div class="m-3">{!! isset($datum->planMed) ? nl2br($datum->planMed) : '' !!}</div><br>
-                        <strong>Medication Given in Recovery:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_givenMed">{!! isset($datum->printable_form['medication_given_recovery']) ? nl2br($datum->printable_form['medication_given_recovery']) : '' !!}</div><br>
-                        <strong>Discharge Medications (dose, frequency, duration):</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_dischargeMed">{!! isset($datum->printable_form['discharge_medication']) ? nl2br($datum->printable_form['discharge_medication']) : '' !!}</div><br>
+                        <strong>Medical Therapeutics:</strong><br><div class="m-3">{!! htmlspecialchars(isset($datum->planMed) ? nl2br($datum->planMed) : '') !!}</div><br>
+                        <strong>Medication Given in Recovery:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_givenMed">{!! htmlspecialchars(isset($datum->printable_form['medication_given_recovery']) ? nl2br($datum->printable_form['medication_given_recovery']) : '') !!}</div><br>
+                        <strong>Discharge Medications (dose, frequency, duration):</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_dischargeMed">{!! htmlspecialchars(isset($datum->printable_form['discharge_medication']) ? nl2br($datum->printable_form['discharge_medication']) : '') !!}</div><br>
                         {{-- @if(($datum->plan == "" && isset($carryOverBookingsPlan[0]->plan)) || (isset($carryOverBookingsPlan[0]->plan) && $datum->doctor_id == $carryOverBookingsPlan[0]->doctor_id && $carryOverBookingsPlan[0]->plan == $datum->plan))<br>[carry over from {{ $carryOverBookingsPlan[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlan[0]->booking_type }} booking last {{ $carryOverBookingsPlan[0]->bookingDate }}]@endif --}}
-                        <strong>Surgery (Planned/Performed):</strong><br><div class="m-3">{!! isset($datum->plan) ? nl2br($datum->plan) : '' !!}</div><br>
+                        <strong>Surgery (Planned/Performed):</strong><br><div class="m-3">{!! htmlspecialchars(isset($datum->plan) ? nl2br($datum->plan) : '') !!}</div><br>
                         {{-- @if(($datum->planRem == "" && isset($carryOverBookingsPlanRem[0]->planRem)) || (isset($carryOverBookingsPlanRem[0]->planRem) && $datum->doctor_id == $carryOverBookingsPlanRem[0]->doctor_id && $carryOverBookingsPlanRem[0]->planRem == $datum->planRem))<br>[carry over from {{ $carryOverBookingsPlanRem[0]->booking_type == '' ? 'Consultation' : $carryOverBookingsPlanRem[0]->booking_type }} booking last {{ $carryOverBookingsPlanRem[0]->bookingDate }}]@endif --}}
-                        <strong>Remarks:</strong><br><div class="m-3">{!! isset($datum->planRem) ? nl2br($datum->planRem) : '' !!}</div><br>
+                        <strong>Remarks:</strong><br><div class="m-3">{!! htmlspecialchars(isset($datum->planRem) ? nl2br($datum->planRem) : '') !!}</div><br>
                       </p>
                       {{-- <small class="text-muted">Note: Red = no new input (carried over). Orange = input present and unchanged from the previous booking.</small> --}}
                       @endif
