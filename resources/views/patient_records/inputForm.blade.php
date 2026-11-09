@@ -1066,9 +1066,9 @@
               <div class="card-body table-responsive" style="height:300px; max-height: 300px">
                 <p>
                   {{-- <strong>Primary Diagnosis:</strong> <span id="{{ $viewFolder }}_prev_sum_icd_code">{!! nl2br(isset($bookings[0]->icd_code_obj) ? $bookings[0]->icd_code_obj->icd_code . ' - ' . $bookings[0]->icd_code_obj->details : '') !!}</span><br> --}}
-                  <strong>Primary Diagnosis:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_primary_assessment">{!! nl2br(isset($bookings[0]->primary_assessment) ? $bookings[0]->primary_assessment : '') !!}</div><br>
-                  <strong>Secondary Diagnosis:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_assessment">{!! nl2br(isset($bookings[0]->assessment) ? $bookings[0]->assessment : '') !!}</div><br>
-                  <strong>Discharge Diagnosis (Post-op Diagnosis)::</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_post_op_assessment">{!! nl2br(isset($bookings[0]->post_op_assessment) ? $bookings[0]->post_op_assessment : '') !!}</div><br>
+                  <strong>Primary Diagnosis:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_primary_assessment">{!! htmlspecialchars(nl2br(isset($bookings[0]->primary_assessment) ? $bookings[0]->primary_assessment : ''))) !!}</div><br>
+                  <strong>Secondary Diagnosis:</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_assessment">{!! htmlspecialchars(nl2br(isset($bookings[0]->assessment) ? $bookings[0]->assessment : ''))) !!}</div><br>
+                  <strong>Discharge Diagnosis (Post-op Diagnosis)::</strong><br><div class="m-3" id="{{ $viewFolder }}_prev_sum_post_op_assessment">{!! htmlspecialchars(nl2br(isset($bookings[0]->post_op_assessment) ? $bookings[0]->post_op_assessment : ''))) !!}</div><br>
                 </p>
               </div>
             </div>
