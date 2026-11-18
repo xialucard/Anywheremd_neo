@@ -4011,11 +4011,11 @@
           }
           eyeStr += '</td><td></td>';
           eyeStr += '<tr><td>Jaeger</td><td>';
-          if(bookingObj.consultation.jae_os != null)
-            eyeStr += bookingObj.consultation.jae_os;
-          eyeStr += '</td><td>';
           if(bookingObj.consultation.jae_od != null)
             eyeStr += bookingObj.consultation.jae_od;
+          eyeStr += '</td><td>';
+          if(bookingObj.consultation.jae_os != null)
+            eyeStr += bookingObj.consultation.jae_os;
           eyeStr += '</td><td>';
           if(bookingObj.consultation.jae_ou != null)
             eyeStr += bookingObj.consultation.jae_ou;
