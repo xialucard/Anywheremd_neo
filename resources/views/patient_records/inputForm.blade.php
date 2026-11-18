@@ -3800,8 +3800,15 @@
             if(bookingObj.parent_consultation.id != '')
               pdf_conso_id = bookingObj.parent_consultation.id;
             $('#printLinkID').attr('href', $('#printLinkID').attr('href').replace($('#patient_records_id').val(), pdf_conso_id));
-            $('#printLinkHDSumID').attr('href', $('#printLinkHDSumID').attr('href').replace($('#patient_records_id').val(), pdf_conso_id));
-            $('#printLinkLabSumID').attr('href', $('#printLinkLabSumID').attr('href').replace($('#patient_records_id').val(), pdf_conso_id));
+            if($('#printLinkHDSumID') !=== undefined){
+              $('#printLinkHDSumID').attr('href', $('#printLinkHDSumID').attr('href').replace($('#patient_records_id').val(), pdf_conso_id));
+            }
+            // if($('#printLinkDialysisSumID') !=== undefined){
+            //   $('#printLinkDialysisSumID').attr('href', $('#printLinkDialysisSumID').attr('href').replace($('#patient_records_id').val(), pdf_conso_id));
+            // }
+            if($('#printLinkLabSumID') !=== undefined){
+              $('#printLinkLabSumID').attr('href', $('#printLinkLabSumID').attr('href').replace($('#patient_records_id').val(), pdf_conso_id));
+            }
             $('#patient_records_id').val(pdf_conso_id);
           // }
             if(bookingObj.consultation.doctor.specialty.includes('Ophtha')){
