@@ -3801,9 +3801,9 @@
               pdf_conso_id = bookingObj.parent_consultation.id;
             $('#patient_records_id').val(pdf_conso_id);
             $('#printLinkID').attr('href', $('#printLinkID').attr('href').replace($('#patient_records_id').val(), pdf_conso_id));
-            if($('#printLinkHDSumID')attr('href') !=== undefined)
+            // if($('#printLinkHDSumID')attr('href') !=== undefined)
               $('#printLinkHDSumID').attr('href', $('#printLinkHDSumID').attr('href').replace($('#patient_records_id').val(), pdf_conso_id));
-            if($('#printLinkLabSumID')attr('href') !=== undefined)
+            // if($('#printLinkLabSumID')attr('href') !=== undefined)
               $('#printLinkLabSumID').attr('href', $('#printLinkLabSumID').attr('href').replace($('#patient_records_id').val(), pdf_conso_id));
             
           // }
